@@ -1,6 +1,6 @@
 # App Installer public-source continuation
 
-Updated: October 29, 2026, 12:40 PM US Central. Active repository: `mcantua/dokkan-offline-public`; work branch: `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin explicitly authorized cloud builds with **“make the builds.”** No base/main merge is authorized. The private backup is frozen and has not been accessed. This chat handles App Installer only.
+Updated: October 29, 2026, 12:58 PM US Central. Active repository: `mcantua/dokkan-offline-public`; work branch: `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin explicitly authorized cloud builds with **“make the builds.”** No base/main merge is authorized. The private backup is frozen and has not been accessed. This chat handles App Installer only.
 
 ## Current implementation
 
@@ -20,9 +20,12 @@ The current source batch additionally repairs cancellation ownership of the user
 
 Exact downloaded log/artifact hashes and source provenance accompany each run under `downloads/completion-verification/public-pairing/`. Historical private-repo builds/tests are not proof for this public revision.
 
+- Hosted run [40924206527](https://github.com/mcantua/dokkan-offline-public/actions/runs/40924206527), source `2f13bda789f1c8bf1b90edbe02a0ad1bb7f6d7ba`: fresh transport2 and recovery2 passed, zero failures (0.27s/0.05s), before the additional self-update guard. Vendor8/helper2 reused. It reached simulator Rust compilation; root superseded/cancelled it to include the newly discovered self-team/exact-Keychain protection, before native compilation/tests. The display enumeration completed; cancellation is not a test or OS failure. Exact public receipts/logs/artifact hashes are retained.
+- The minimal updater's two filesystem methods passed again only after two independent review findings were fixed: case-insensitive frozen-folder exclusion and durable data/directory synchronization before manifest-last publication. Evidence honestly labels later tool-output transcripts and post-run source hashes; no invented raw/pre-run receipt. The publisher's two source/payload negative groups also passed once. Actual kit signature/overlay and seven-file delivery still require genuine built outputs.
+
 ## Active next steps
 
-1. Freeze the combined source fixes. Run fresh transport2 and recovery2 methods and native3 selected methods, reusing unchanged vendor8/helper2. Native checks use Xcode-managed test-host launch instead of repeating the failed shell heuristic. Regular27.0 component/labelled geometry fixtures are explicitly not Duo runtime or physical folding proof.
+1. Freeze the self-update identity guard and bounded harness. Run fresh transport2 and recovery2 methods and native3 selected methods, reusing unchanged vendor8/helper2. Native checks use Xcode-managed test-host launch instead of repeating the failed shell heuristic. Regular27.0 component/labelled geometry fixtures are explicitly not Duo runtime or physical folding proof.
 2. Fix actual failures without repeating unaffected groups. If Xcode-managed launch also fails at the OS layer, investigate the separately prepared official macOS-hosted inventory route rather than repeat the same failed preflight.
 3. Once required matching proofs pass, compile genuine-SDK unsigned iPhone/Duo review candidates, universal ad-hoc Mac helper, complete corresponding source/relink archive and minimal native kit. Verify exact graphs, notices, signatures, archive closure and seven real asset hashes before staging the public draft. No publication or release-ready claim is implied.
 4. Only after actual kit bytes/source/SHA are known, offer the exact small transfer/update and pairing-only export/import step. Explain Mac/network purpose, known/unknown Wi-Fi/hotspot and expected bytes before any personal operation. Never request private pairing records, credentials, keys or raw device output in chat.

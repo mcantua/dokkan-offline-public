@@ -1,0 +1,73 @@
+{
+  "source_commit": "2f13bda789f1c8bf1b90edbe02a0ad1bb7f6d7ba",
+  "architecture": "arm64",
+  "rust_target": "aarch64-apple-ios-sim",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "simulator_sdk": "27.1",
+  "scope": "Genuine SDK27.1+ compilation; hosted iOS27.0 iPhone 18 Pro Max simulator. Default display configuration unchanged. Generic component checks only; Duo runtime/display unverified. Physical folds unverified.",
+  "pairing_public_new_test_counts": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "recovery": 2,
+    "native": 3
+  },
+  "native_checks_requested": true,
+  "native_test_scope": "pairing-public",
+  "rust_test_scope": "pairing-public",
+  "physical_hardware_verified": false,
+  "pose_automation": "No undocumented fold CLI invoked; installed simctl help is captured for supported-control discovery.",
+  "simulator_frontend_mode": "headless-supported-simctl",
+  "simulator_frontend_bundle_available": false,
+  "native_component_runtime_fallback": {
+    "prior_run_id": 40916969403,
+    "prior_runtime_build": "24A94425",
+    "reason": "Duo27.1 terminal data migration failure and unavailable shell before any app. Its supported-device list excludes regular iPhones.",
+    "checks": [
+      "coordinated Files reads",
+      "pinned record/discovery metadata guards",
+      "responsive UIKit geometry fixtures (not physical Duo geometry)"
+    ],
+    "runtime_version": "27.0",
+    "duo_runtime_verified": false,
+    "os27_1_runtime_verified": false,
+    "sdk_minimum_unchanged": "27.1",
+    "scope": "Generic component checks only; no Duo display/fold/physical-device claim."
+  },
+  "simulator_id": "C4013791-5A21-4E97-B946-A7C34C10E2C0",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+  "simulator_device_type": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+  "simulator_name": "iPhone 18 Pro Max",
+  "simulator_preapp_attempts": [
+    {
+      "selection": "regular-iphone-component-fallback",
+      "device_type": {
+        "productFamily": "iPhone",
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/iPhone 18 Pro Max.simdevicetype",
+        "maxRuntimeVersion": 4294967295,
+        "maxRuntimeVersionString": "65535.255.255",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+        "modelIdentifier": "iPhone19,3",
+        "minRuntimeVersionString": "27.0.0",
+        "minRuntimeVersion": 1769472,
+        "name": "iPhone 18 Pro Max"
+      },
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+      "preapp_only": true,
+      "physical_hardware_verified": false,
+      "simulator_id": "C4013791-5A21-4E97-B946-A7C34C10E2C0",
+      "status": "booted-shell-unconfirmed",
+      "shell_appearance_verified": false,
+      "xcode_managed_test_host_required": true
+    }
+  ],
+  "simulator_regular_fallback_used": true,
+  "native_component_runtime": "27.0",
+  "production_launch_preflight": false,
+  "os27_1_runtime_verified": false,
+  "duo_os_verified": false,
+  "duo_native_tests_verified": false,
+  "actual_panel_transition_probe_executed": false,
+  "panel_transition_scope": "No panel power/configuration mutations. Duo native tests remain unverified until their actual results; regular fallback never counts as Duo proof.",
+  "simulator_storage": "New owned OS-managed ephemeral hosted CoreSimulator device; caller must shut down and delete this UUID on exit."
+}

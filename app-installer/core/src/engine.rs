@@ -104,6 +104,8 @@ struct Engine {
     records: Vec<Record>,
     device_host: String,
     self_bundle_id: Option<String>,
+    // Runtime metadata from this actual running bundle, never an imported IPA.
+    self_signing_identity: Option<plist::Dictionary>,
 }
 
 fn runtime() -> &'static Runtime {
@@ -134,6 +136,7 @@ fn engine() -> &'static AsyncMutex<Engine> {
             records: vec![],
             device_host: configured_device_host(),
             self_bundle_id: None,
+            self_signing_identity: None,
         })
     })
 }
@@ -851,6 +854,41 @@ fn membership_paid(team: &DeveloperTeam) -> Option<bool> {
     });
     active_ios.then_some(true)
 }
+fn installed_self_identity(entitlements:&plist::Dictionary,bundle_id:&str,team:&str)->Result<plist::Dictionary,Report>{
+    let invalid=||failure("App Installer's existing Keychain identity could not be verified. Keep its original developer team and signed installation.");
+    let app=entitlements.get("application-identifier").and_then(plist::Value::as_string).ok_or_else(invalid)?;
+    if !app.ends_with(&format!(".{bundle_id}")) || team.is_empty()
+        || entitlements.get("com.apple.developer.team-identifier").and_then(plist::Value::as_string).is_some_and(|value|value!=team) {return Err(invalid());}
+    let groups=entitlements.get("keychain-access-groups").and_then(plist::Value::as_array).filter(|groups|!groups.is_empty()).ok_or_else(invalid)?;
+    if groups.iter().any(|value|value.as_string().is_none_or(|value|value.is_empty()||value.len()>1024||value.chars().any(char::is_control))){return Err(invalid());}
+    let mut identity=plist::Dictionary::new();
+    identity.insert("application-identifier".into(),plist::Value::String(app.into()));
+    identity.insert("com.apple.developer.team-identifier".into(),plist::Value::String(team.into()));
+    identity.insert("keychain-access-groups".into(),plist::Value::Array(groups.clone()));
+    Ok(identity)
+}
+fn self_refresh_requirements(e:&Engine,input:&str,team:&str,requested:&mut plist::Dictionary)->Result<Option<plist::Dictionary>,Report>{
+    let own_source=e.self_bundle_id.as_deref().is_some_and(|own|own.eq_ignore_ascii_case(input)||input.eq_ignore_ascii_case(crate::identity::INSTALLER_ORIGINAL_ID))
+        || e.records.iter().any(|record|record.is_self&&(record.bundle_id.eq_ignore_ascii_case(input)||record.original_bundle_id.eq_ignore_ascii_case(input)));
+    if !own_source{return Ok(None);}
+    let own=e.self_bundle_id.as_deref().ok_or_else(||failure("The running installer identity is unavailable. Reopen App Installer before updating it."))?;
+    let record=e.records.iter().find(|record|record.is_self&&record.bundle_id.eq_ignore_ascii_case(own)).ok_or_else(||failure("The running installer's developer team is unavailable. Its saved data was kept."))?;
+    if record.team_id.is_empty()||record.team_id!=team{return Err(failure("Self-refresh requires the developer team that signed this installed App Installer. Select its original team; its Keychain identity was not changed."));}
+    let identity=e.self_signing_identity.as_ref().ok_or_else(||failure("The running installer's Keychain identity is unavailable. Reopen App Installer before updating it."))?;
+    if identity.get("com.apple.developer.team-identifier").and_then(plist::Value::as_string)!=Some(team){return Err(failure("Self-refresh requires the developer team of the actual running installer. Its Keychain identity was not changed."));}
+    let groups=identity.get("keychain-access-groups").ok_or_else(||failure("The running installer's Keychain access groups are unavailable."))?;
+    if requested.get("keychain-access-groups").is_some_and(|candidate|candidate!=groups){return Err(failure("This installer update requests different Keychain access groups. Its existing account and pairing data must keep the original groups."));}
+    // An unsigned new installer has no signing identity yet. Carry forward the
+    // actual installed groups instead of inventing them from a selected team.
+    requested.insert("keychain-access-groups".into(),groups.clone());
+    Ok(Some(identity.clone()))
+}
+fn verify_self_entitlements(expected:&plist::Dictionary,signed:&plist::Dictionary)->Result<(),Report>{
+    if expected.iter().any(|(key,value)|signed.get(key)!=Some(value)){
+        return Err(failure("Apple's profile would change this installer's existing signing or Keychain identity. Use its original team and a profile authorizing its existing access groups; saved data was kept."));
+    }
+    Ok(())
+}
 async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Result<(), Report> {
     if !SIGNED_IN.load(Ordering::Acquire) {
         return Err(failure("Sign in required"));
@@ -872,7 +910,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     let input_bundle_id = application.main_bundle_id().map_err(|_|independent_app_failure("This app's IPA identity is invalid."))?;
     let (bundle_version, short_version) = version_evidence(&application.bundle.app_info).map_err(|_|independent_app_failure("This app's IPA version metadata is invalid."))?;
     let name = application.main_app_name().map_err(|_|independent_app_failure("This app's IPA name metadata is invalid."))?;
-    let main_requested =
+    let mut main_requested =
         crate::capabilities::read_entitlements(&application.bundle.bundle_dir, &input_bundle_id)
             .map_err(|_| {
                 independent_app_failure(
@@ -895,6 +933,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     }
 
     let team = e.team.clone().ok_or_else(|| failure("Sign in required"))?;
+    let self_identity=self_refresh_requirements(e,&input_bundle_id,&team.team_id,&mut main_requested)?;
     let loaded_extension_ids = application
         .bundle
         .app_extensions()
@@ -1117,6 +1156,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         )
         .map_err(|error| failure(error.user_message()))?;
         if id == &bundle_id {
+            if let Some(expected)=&self_identity{verify_self_entitlements(expected,&entitlements)?;}
             main_profile = Some(profile);
             main_entitlements = Some(entitlements);
         } else {
@@ -1464,6 +1504,8 @@ pub fn register_self_bundle(ptr: *const c_char) -> Status {
                     json!({"selfRefreshReady":false}),
                 )),
             };
+        let own_entitlements=crate::capabilities::read_entitlements(&bundle,id).map_err(|_|failure("The running installer's signed Keychain identity could not be read safely."))?;
+        e.self_signing_identity=Some(installed_self_identity(&own_entitlements,id,profile.team_id())?);
         let expiry = profile
             .plist()
             .get("ExpirationDate")
@@ -2037,6 +2079,7 @@ mod tests {
                     records: vec![],
                     device_host: configured_device_host(),
                     self_bundle_id: None,
+                    self_signing_identity: None,
                 },
             }
         }
@@ -2105,6 +2148,44 @@ mod tests {
         reconcile_confirmed_apps(&mut fixture.engine,Ok(HashMap::new())).unwrap();
         assert!(fixture.engine.records.is_empty());assert!(!Path::new(&managed.source).exists());
         assert!(pending_install(&work).unwrap().is_none());
+        // Self-update uses the actual running signing identity, including a
+        // legacy AppIdentifierPrefix distinct from the team's public identifier.
+        let mut own=fixture.record("org.tin.appinstaller.fixture",b"running signed installer");
+        own.is_self=true;own.original_bundle_id=crate::identity::INSTALLER_ORIGINAL_ID.into();
+        fixture.engine.self_bundle_id=Some(own.bundle_id.clone());fixture.engine.records.push(own.clone());
+        let old_group=format!("OLD.{}",own.bundle_id);
+        let mut actual=plist::Dictionary::new();
+        actual.insert("application-identifier".into(),plist::Value::String(old_group.clone()));
+        actual.insert("com.apple.developer.team-identifier".into(),plist::Value::String("TEAM".into()));
+        actual.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String(old_group.clone())]));
+        let identity=installed_self_identity(&actual,&own.bundle_id,"TEAM").unwrap();
+        fixture.engine.self_signing_identity=Some(identity.clone());
+        let mut unsigned=plist::Dictionary::new();
+        assert!(self_refresh_requirements(&fixture.engine,&own.bundle_id,"OTHER",&mut unsigned).is_err());
+        assert!(unsigned.is_empty()); // Wrong team is refused before identity/profile mutations.
+        let expected=self_refresh_requirements(&fixture.engine,crate::identity::INSTALLER_ORIGINAL_ID,"TEAM",&mut unsigned).unwrap().unwrap();
+        assert_eq!(unsigned.get("keychain-access-groups"),actual.get("keychain-access-groups"));
+        let mut profile=actual.clone();
+        profile.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("OLD.*".into())]));
+        let signed=crate::entitlement_policy::reconcile(&unsigned,crate::identity::INSTALLER_ORIGINAL_ID,&own.bundle_id,"TEAM",&profile).unwrap();
+        verify_self_entitlements(&expected,&signed).unwrap();
+        let mut changed_profile=profile.clone();
+        changed_profile.insert("application-identifier".into(),plist::Value::String(format!("NEW.{}",own.bundle_id)));
+        changed_profile.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("NEW.*".into()),plist::Value::String(old_group.clone())]));
+        let remapped=crate::entitlement_policy::reconcile(&actual,&own.bundle_id,&own.bundle_id,"TEAM",&changed_profile).unwrap();
+        assert_ne!(remapped.get("keychain-access-groups"),actual.get("keychain-access-groups"));
+        assert!(verify_self_entitlements(&expected,&remapped).is_err());
+        let mut conflicting=actual.clone();conflicting.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("OTHER.shared".into())]));
+        assert!(self_refresh_requirements(&fixture.engine,&own.bundle_id,"TEAM",&mut conflicting).is_err());
+        // The same self-specific guard must not prevent legitimate default-group
+        // remapping when a third-party source is installed under an owned ID.
+        let mut third_party=actual.clone();
+        third_party.insert("application-identifier".into(),plist::Value::String("OLD.org.example.source".into()));
+        third_party.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("OLD.org.example.source".into())]));
+        assert!(self_refresh_requirements(&fixture.engine,"org.example.source","OTHER",&mut third_party).unwrap().is_none());
+        changed_profile.insert("application-identifier".into(),plist::Value::String("NEW.org.example.signed".into()));
+        let signed=crate::entitlement_policy::reconcile(&third_party,"org.example.source","org.example.signed","TEAM",&changed_profile).unwrap();
+        assert_eq!(signed.get("keychain-access-groups"),Some(&plist::Value::Array(vec![plist::Value::String("NEW.org.example.signed".into())])));
     }
     #[tokio::test]
     async fn recovery_refresh_continues_local_failures_but_stops_auth_cancel_or_uncertain_install() {

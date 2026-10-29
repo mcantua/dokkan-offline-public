@@ -1,5 +1,8 @@
 # Executed verification and remaining evidence
 
+**Current public revision (October29,12:58 PM Central):** Tin authorized builds. Public pairing/vendor8/helper2, then-current transport2 and baseline19 have actual passing proof; run40924206527 additionally passed teardown transport2 and recovery2 before being deliberately superseded for a new self-update identity guard. No native app test or screenshot has executed in this public revision. New guard/native checks, actual candidate/helper/source/kit packaging and physical release acceptance remain pending. See [current source/evidence](device/PUBLIC-CONTINUATION.md); historical results below do not verify this revision.
+
+
 These are measured checks, not an overall readiness percentage. Cloud compilation is not proof of Apple-account or iPhone behavior. Tin now reports manual Mac signing/export/install and physical launch of the old app; its sign-in crash and pending corrected-build retest are recorded separately below.
 
 ## Latest first-account startup fix — 2026-10-28, 5:10 PM US Central

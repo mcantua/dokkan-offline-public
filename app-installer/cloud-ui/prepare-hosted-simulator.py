@@ -40,7 +40,7 @@ def version(text):
     return tuple(map(int, re.findall(r'\d+', text)))
 
 
-inventory = subprocess.check_output(['xcrun', 'simctl', 'list', '-j'], text=True)
+inventory = subprocess.check_output(['xcrun', 'simctl', 'list', '-j'], text=True, timeout=60)
 (evidence / 'simulator-inventory.json').write_text(inventory)
 items = json.loads(inventory)
 runtimes = [r for r in items['runtimes'] if r.get('isAvailable')

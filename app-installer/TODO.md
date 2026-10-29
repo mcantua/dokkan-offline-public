@@ -1,5 +1,8 @@
 # Pending work
 
+**Current public revision (October29,12:58 PM Central):** Tin authorized builds. Public pairing/vendor8/helper2, then-current transport2 and baseline19 have actual passing proof; run40924206527 additionally passed teardown transport2 and recovery2 before being deliberately superseded for a new self-update identity guard. No native app test or screenshot has executed in this public revision. New guard/native checks, actual candidate/helper/source/kit packaging and physical release acceptance remain pending. See [current source/evidence](device/PUBLIC-CONTINUATION.md); historical results below do not verify this revision.
+
+
 ## Needs Tin/Claude decision
 - Accept foreground unlock/refresh plus best-effort background scheduling; Face ID/iOS cannot guarantee daily unattended refresh or computer-free recovery after expiry.
 - Physical Duo verification remains necessary. Genuine hosted Xcode/SDK27.1 and the actual Duo simulator are now available; a synthetic metadata mark is no longer the release approach.

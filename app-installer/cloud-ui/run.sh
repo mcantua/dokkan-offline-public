@@ -40,6 +40,7 @@ report={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=
  'pairing_public_new_test_counts':{'vendor':8,'helper':2,'transport':2,'recovery':2,'native':3 if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 1},
  'native_checks_requested':__import__('os').environ.get('AI_RUN_NATIVE_CHECKS','1')=='1',
  'native_test_scope':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE','all'),
+ 'display_inventory_preflight_executed':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE')!='pairing-public',
  'rust_test_scope':__import__('os').environ.get('AI_RUST_TEST_SCOPE','all'),
  'physical_hardware_verified':False, 'pose_automation':'No undocumented fold CLI invoked; installed simctl help is captured for supported-control discovery.'}
 (out/'source-report.json').write_text(json.dumps(report,indent=2)+'\n')
@@ -47,6 +48,12 @@ PY
 # Create and own exactly one disposable simulator; never boot/delete a pre-existing device.
 owned_simulator=""
 display_driver_pid=""
+bounded_command() {
+  python3 - "$@" <<'PYBOUNDED'
+import subprocess,sys
+subprocess.run(sys.argv[2:],check=True,timeout=int(sys.argv[1]))
+PYBOUNDED
+}
 stop_display_driver() {
   if [[ -n "$display_driver_pid" ]]; then
     kill -TERM "$display_driver_pid" >/dev/null 2>&1 || true
@@ -59,14 +66,14 @@ cleanup_simulator() {
   stop_display_driver
   local app="$work/DerivedData/Build/Products/Debug-iphonesimulator/AppInstaller.app"
   if [[ -d "$app" ]]; then
-    codesign --display --entitlements :- "$app" > "$work/evidence/simulator-host-entitlements.plist" 2> "$work/evidence/simulator-signature-summary.txt" || true
+    bounded_command 30 codesign --display --entitlements :- "$app" > "$work/evidence/simulator-host-entitlements.plist" 2> "$work/evidence/simulator-signature-summary.txt" || true
   fi
   if [[ -n "$owned_simulator" ]]; then
     if [[ "$result" != 0 ]]; then
       python3 "$cloud/capture-simulator-failure.py" --simulator "$owned_simulator" --evidence "$work/evidence" || true
     fi
-    xcrun simctl shutdown "$owned_simulator" >/dev/null 2>&1 || true
-    xcrun simctl delete "$owned_simulator" >/dev/null 2>&1 || true
+    bounded_command 30 xcrun simctl shutdown "$owned_simulator" > "$work/evidence/owned-simulator-shutdown.log" 2>&1 || true
+    bounded_command 30 xcrun simctl delete "$owned_simulator" > "$work/evidence/owned-simulator-delete.log" 2>&1 || true
   fi
 }
 trap cleanup_simulator EXIT
@@ -153,9 +160,13 @@ fi
 # Any simulator fallback happens before our application is built or installed.
 owned_simulator="$(python3 "$cloud/prepare-hosted-simulator.py" --evidence "$work/evidence")"
 [[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]] || { echo 'No owned healthy simulator UUID' >&2; exit 1; }
-xcrun simctl help > "$work/evidence/simctl-help.txt" 2>&1
-xcrun simctl io help > "$work/evidence/simctl-io-help.txt" 2>&1 || true
-xcrun simctl io "$owned_simulator" enumerate > "$work/evidence/default-display-enumeration.txt"
+bounded_command 30 xcrun simctl help > "$work/evidence/simctl-help.txt" 2>&1
+bounded_command 30 xcrun simctl io help > "$work/evidence/simctl-io-help.txt" 2>&1 || true
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+  printf '%s\n' 'Not queried: display enumeration is not required by the selected component/labelled geometry-fixture checks. No default display or Duo physical claim.' > "$work/evidence/default-display-enumeration.txt"
+else
+  bounded_command 30 xcrun simctl io "$owned_simulator" enumerate > "$work/evidence/default-display-enumeration.txt" 2>&1
+fi
 curl --fail --location --silent --show-error 'https://github.com/yonaskolb/XcodeGen/releases/download/2.46.0/xcodegen.zip' -o "$tools/xcodegen.zip"
 echo "4d9e34b62172d645eed6457cac13fc222569974098ef4ee9c3368bedf0196806  $tools/xcodegen.zip" | shasum -a 256 -c -
 mkdir -p "$tools/xcodegen"
