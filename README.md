@@ -1,12 +1,21 @@
 # Claude ↔ ChatGPT shared folder
 
-**October 29: ChatGPT development is paused at Tin's request for a Grok Bot takeover. Read [GROK-TAKEOVER.md](GROK-TAKEOVER.md) for the saved source, tools/data links, exact failed native check and uncompiled WIP. Do not auto-resume ChatGPT development from older continuous-work instructions.**
+## Current repository instructions (Tin, October 29, 2026)
+
+- Work only in **mcantua/dokkan-offline-public** for Offline Dokkan + Unit Creator. **mcantua/claude-chatg is an untouched private backup**; do not read, write, push, retry its Actions, or copy private content from it for this continuation.
+- Base: `chatgpt/ios-eclipse-database-reuse`. Use a separate work branch and draft PR; **never merge into or push changes directly to the base without Tin's explicit OK**. Draft PRs #1–#4 remain independent and unmerged.
+- **No builds until Tin says "make the builds".** This supersedes older package/build permission notes, automatic test-page rebuild recipes, and diagnostic workflow suggestions. No build or CI compilation is requested by this repository move.
+- No personal details or secrets in source, public logs, attachments, commits, or PRs. Real email, device identifiers and network addresses come only from ignored local configuration/environment. **Never open, scan, modify or upload `save/` folders or the signing key.** Do not retrieve private configuration for this migration.
+- Keep cloud-first development organized in one project folder; at most one backup; at most 1–2 necessary targeted test runs per task. Documentation-only work needs no app test/build. Preserve existing private Drive sharing and file IDs.
+- Log work in `STATUS.md` and the existing shared Drive project folder. Keep the handoff current; distinguish source changes, historical diagnostics and actual runtime acceptance. No automatic sync or background execution is implied.
+
+Historical takeover/source notes: [GROK-TAKEOVER.md](GROK-TAKEOVER.md). This session performs the requested repository transition and documentation only; it does not automatically resume earlier development or build directives.
 
 This folder is how Claude (Anthropic) and ChatGPT (OpenAI) work together on Tin's projects. Tin is the owner. Both AIs read and write here. Tin can read everything.
 
 ## Tin's rules (both AIs must follow, always)
 1. **Cloud first; ask before local use:** do everything possible in the cloud. Before using Tin's MacBook or his personal internet connection (home Wi-Fi, cellular data or hotspot) for project work, **both Claude and ChatGPT must explain the exact step and why it needs those resources, ask Tin, and wait for his explicit approval before proceeding**. A connected or online MacBook is not permission. Use his PC only when truly needed too. Record the reason and any local-use approval in STATUS.md.
-2. **One folder:** all work, messages, downloads and builds live in this folder (private GitHub repo `claude-chatg`), well organized.
+2. **One folder:** all project work, messages and permitted resources live in this project folder (`mcantua/dokkan-offline-public`), well organized. The former private repository is an untouched backup.
 3. **One backup max**, for emergencies only. Never several backups or rollbacks.
 4. **Delete old and unneeded files** right away. Keep only the newest working build.
 5. **Tests: only what's needed**, usually 1–2 runs per task. Never 10. **App Installer:** use essential targeted checks, combine related fixes before testing/building, and repeat passing checks only when later changes could affect them. After development, run one focused final verification of IPA validation, signing, installation, updates, errors, stability and release requirements. Keep critical security/compatibility checks; keep developing until genuinely complete.
@@ -40,7 +49,7 @@ This folder is how Claude (Anthropic) and ChatGPT (OpenAI) work together on Tin'
 - Clean up: delete scratch files and old builds you made. Keep messages, they are the record.
 
 ## One folder for everything
-This folder (the private GitHub repo **`claude-chatg`**) holds **all** work by both AIs: messages, plans, code, downloads and builds. Nothing goes anywhere else: no second repo, no loose files in other places.
+This active project folder (**`mcantua/dokkan-offline-public`**) holds shared source, messages, plans and logs. Private original inputs stay only in the existing private Drive workspace or ignored local configuration. Do not copy private backup contents into this public repository.
 
 ```
 claude-chatg/

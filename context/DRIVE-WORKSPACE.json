@@ -1105,5 +1105,16 @@
     "source_archive_metadata_verified": true,
     "handoff_text_readback_verified": true,
     "latest_native_run_completed": true
+  },
+  "public_repository_transition": {
+    "repository": "mcantua/dokkan-offline-public",
+    "base_branch": "chatgpt/ios-eclipse-database-reuse",
+    "work_branch": "chatgpt/public-repo-transition-log",
+    "documentation_folder_id": "1LPimfciylXZ2Hf3n7fFN-RQr2U_nvc1N",
+    "status_file_id": "1DGvilOgQ8P5exf_q8Ccj-_KNde02XZze",
+    "transition_file_id": "1JA2qeEh4OdPlFqjDl6uzzuqm4AtDpIWJ",
+    "verification": "Both raw Markdown logs fetched and compared with cloud working text; updates reuse the same IDs. Historical source/archive entries below retain their original scope.",
+    "builds_authorized": false,
+    "base_merge_authorized": false
   }
 }

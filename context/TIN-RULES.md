@@ -1,5 +1,15 @@
 # Tin's standing rules (his own words in quotes)
 
+## Current repository instructions (Tin, October 29, 2026)
+
+- Work only in **mcantua/dokkan-offline-public** for Offline Dokkan + Unit Creator. **mcantua/claude-chatg is an untouched private backup**; do not read, write, push, retry its Actions, or copy private content from it for this continuation.
+- Base: `chatgpt/ios-eclipse-database-reuse`. Use a separate work branch and draft PR; **never merge into or push changes directly to the base without Tin's explicit OK**. Draft PRs #1–#4 remain independent and unmerged.
+- **No builds until Tin says "make the builds".** This supersedes older package/build permission notes, automatic test-page rebuild recipes, and diagnostic workflow suggestions. No build or CI compilation is requested by this repository move.
+- No personal details or secrets in source, public logs, attachments, commits, or PRs. Real email, device identifiers and network addresses come only from ignored local configuration/environment. **Never open, scan, modify or upload `save/` folders or the signing key.** Do not retrieve private configuration for this migration.
+- Keep cloud-first development organized in one project folder; at most one backup; at most 1–2 necessary targeted test runs per task. Documentation-only work needs no app test/build. Preserve existing private Drive sharing and file IDs.
+- Log work in `STATUS.md` and the existing shared Drive project folder. Keep the handoff current; distinguish source changes, historical diagnostics and actual runtime acceptance. No automatic sync or background execution is implied.
+
+
 ## Latest stop / takeover instruction (October 29)
 - Tin asked ChatGPT to stop development to conserve usage and save/upload everything Grok Bot needs. All development agents stopped; perform only preservation/documentation/uploads for the handoff. Do not automatically resume ChatGPT development based on older sustained-work directions. Grok takeover state and exact WIP/blockers: [../GROK-TAKEOVER.md](../GROK-TAKEOVER.md). Duo-only and all privacy/storage/testing/platform gates remain in force.
 
@@ -12,7 +22,7 @@
 
 ## All app projects (Unit Creator, App Installer, Offline Dokkan)
 - **Cloud first**: do everything possible in the cloud, without his MacBook, PC, Wi-Fi or hotspot data. Use those only when truly needed (and ask first; ChatGPT made that stricter in README).
-- **One shared folder** for all Claude↔ChatGPT work: GitHub mcantua/claude-chatg. Claude↔Claude chats use a **separate** repo, mcantua/claude-sessions. Never mix them.
+- **One active shared project folder:** GitHub `mcantua/dokkan-offline-public` for this Offline Dokkan + Unit Creator continuation. The former private repo is a backup and stays untouched. Other project/chat repositories remain separate.
 - At most **ONE backup/rollback**, for emergencies only ("One is okay … but do not have multiple").
 - Delete old and unnecessary files as soon as they're not needed. Clean up after yourself (and never delete tools needed to build).
 - **No unnecessary tests**: "10 tests per task is way too much"; "I don't need 20 test runs of everything!"
