@@ -106,13 +106,15 @@
     "native_or_gameplay_tests": 0
   },
   "native_storage_implementation": {
-    "core_schema": 13,
-    "new_profile_only_start_policy": "authored source-compatible 0/false; not claimed Sparking server defaults",
+    "core_schema": 14,
+    "new_profile_only_start_policy": "Tin explicitly authorized new-only no-intro: progress0/is_finishedtrue/offline-new-player-skip-v1; existing unfinished rows preserved",
     "legacy_profiles_reset": false,
     "positive_checkpoint_native_api": true,
-    "tutorial_finished_grant": false,
+    "tutorial_finished_grant": "new-only explicit skip flag; no reward/unit/completion marker inferred",
     "contents_lv_default_supplied": false,
     "sql_js_evidence": "offline-dokkan/core/original-player-state-evidence.json",
-    "native_c_objc_execution_verified": false
+    "native_c_objc_execution_verified": false,
+    "skip_profiles_checkpoint_mutations_rejected": true,
+    "schema14_sql_js_evidence": "offline-dokkan/core/new-player-skip-evidence.json"
   }
 }
