@@ -15,15 +15,11 @@ jobs:
     timeout-minutes: 15
     outputs:
       artifact_id: ${{ steps.browser.outputs.artifact-id }}
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - name: Reuse passed browser evidence only when frontend and data inputs match
         id: reuse
         env:
@@ -37,7 +33,7 @@ jobs:
           run-id: ${{ steps.reuse.outputs.run_id }}
           github-token: ${{ github.token }}
           merge-multiple: true
-          path: AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/browser-reuse/artifact
+          path: unit-creator/cloud-ui/work/browser-reuse/artifact
       - name: Confirm exact source and page identity before accepting old checks
         if: steps.reuse.outputs.found == 'true'
         id: verified-reuse
@@ -56,10 +52,10 @@ jobs:
         with:
           name: unit-creator-browser-latest
           path: |
-            AI-Workspace/claude-chatg/test-page/UnitCreator-test.html
-            AI-Workspace/claude-chatg/test-page/build-source.json
-            AI-Workspace/claude-chatg/test-page/verification.json
-            AI-Workspace/claude-chatg/test-page/preview.png
+            test-page/UnitCreator-test.html
+            test-page/build-source.json
+            test-page/verification.json
+            test-page/preview.png
           retention-days: 7
           if-no-files-found: error
   publish-browser:
@@ -68,19 +64,15 @@ jobs:
     permissions:
       contents: write
       actions: write
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: unit-creator-browser-latest
-          path: AI-Workspace/claude-chatg/test-page
+          path: test-page
       - name: Overwrite only the verified browser page while preserving concurrent source
         env:
           GH_TOKEN: ${{ github.token }}
@@ -92,19 +84,15 @@ jobs:
     needs: web
     runs-on: xcode-27
     timeout-minutes: 20
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: unit-creator-browser-latest
-          path: AI-Workspace/claude-chatg/test-page
+          path: test-page
       - name: Find genuine Duo evidence for unchanged native inputs
         id: native-reuse
         env:
@@ -118,7 +106,7 @@ jobs:
           run-id: ${{ steps.native-reuse.outputs.run_id }}
           github-token: ${{ github.token }}
           merge-multiple: true
-          path: AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/native-reuse/artifact
+          path: unit-creator/cloud-ui/work/native-reuse/artifact
       - name: Validate genuine SDK, source, data, device artifacts and existing checks
         if: steps.native-reuse.outputs.found == 'true'
         id: verified-native-reuse
@@ -142,12 +130,12 @@ jobs:
         with:
           name: unit-creator-native-latest
           path: |
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/*.json
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/*.txt
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/*.png
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/xcodebuild.log
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/device-build.log
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/offline-device-build.log
+            unit-creator/cloud-ui/work/evidence/*.json
+            unit-creator/cloud-ui/work/evidence/*.txt
+            unit-creator/cloud-ui/work/evidence/*.png
+            unit-creator/cloud-ui/work/evidence/xcodebuild.log
+            unit-creator/cloud-ui/work/evidence/device-build.log
+            unit-creator/cloud-ui/work/evidence/offline-device-build.log
           retention-days: 7
           if-no-files-found: error
       - name: Overwrite prior Unit Creator evidence only after current upload succeeds
@@ -163,19 +151,15 @@ jobs:
     needs: duo
     runs-on: ubuntu-24.04
     timeout-minutes: 30
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: unit-creator-browser-latest
-          path: AI-Workspace/claude-chatg/test-page
+          path: test-page
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22.15.0'
@@ -211,9 +195,9 @@ jobs:
         with:
           name: unit-creator-android-native-latest
           path: |
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/android-work/evidence/
-            AI-Workspace/claude-chatg/unit-creator/out/Dokkan-Unit-Creator-Development-2.36.3.apk
-            AI-Workspace/claude-chatg/offline-dokkan/mobile/android/build/Offline-Dokkan-Save-Manager-development.apk
+            unit-creator/cloud-ui/android-work/evidence/
+            unit-creator/out/Dokkan-Unit-Creator-Development-2.36.3.apk
+            offline-dokkan/mobile/android/build/Offline-Dokkan-Save-Manager-development.apk
           retention-days: 7
           if-no-files-found: error
       - name: Preserve working Android baseline until new native checks pass

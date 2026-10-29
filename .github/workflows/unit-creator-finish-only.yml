@@ -14,15 +14,11 @@ jobs:
   finish:
     runs-on: xcode-27
     timeout-minutes: 18
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - name: Read the explicit scope for this necessary check
         id: intent
         run: |
@@ -44,32 +40,39 @@ jobs:
           mkdir -p offline-dokkan/private/component-build-log
           set -o pipefail
           bash offline-dokkan/original-client/build-components.sh 2>&1 | tee offline-dokkan/private/component-build-log/compile.log
-      - name: Run the one unresolved actual WK Finish boundary on Duo
+      - name: Build the unified Duo app and capture launcher screenshots
         id: finish
         continue-on-error: true
         env:
           DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
         run: bash unit-creator/cloud-ui/finish-only-run.sh
+      - name: Keep the simulator screenshot directory present
+        if: always()
+        run: mkdir -p unit-creator/cloud-ui/finish-work/evidence
       - name: Retain diagnostic evidence only, never reconstructed DBs or apps
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: duo-creator-finish-latest
           path: |
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.json
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.png
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/**/*.png
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.log
+            unit-creator/cloud-ui/finish-work/evidence/*.json
+            unit-creator/cloud-ui/finish-work/evidence/*.png
+            unit-creator/cloud-ui/finish-work/evidence/**/*.png
+            unit-creator/cloud-ui/finish-work/evidence/*.log
           retention-days: 7
           if-no-files-found: warn
-      - name: Upload every simulator screenshot the diagnostic reached
+      - name: Upload launcher, Offline Dokkan, and Unit Creator simulator PNGs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: duo-creator-simulator-screenshots
           path: |
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.png
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/**/*.png
+            unit-creator/cloud-ui/finish-work/evidence/duo-launcher.png
+            unit-creator/cloud-ui/finish-work/evidence/duo-offline-dokkan-account.png
+            unit-creator/cloud-ui/finish-work/evidence/duo-unit-creator.png
+            unit-creator/cloud-ui/finish-work/evidence/duo-import-confirmation.png
+            unit-creator/cloud-ui/finish-work/evidence/*.png
+            unit-creator/cloud-ui/finish-work/evidence/**/*.png
           retention-days: 7
           if-no-files-found: warn
       - name: Retain only the authored library and compiler evidence
@@ -78,9 +81,9 @@ jobs:
         with:
           name: duo-authored-components-latest
           path: |
-            AI-Workspace/claude-chatg/offline-dokkan/private/component-build/OfflineDokkanHost.dylib
-            AI-Workspace/claude-chatg/offline-dokkan/private/component-build/evidence/*.json
-            AI-Workspace/claude-chatg/offline-dokkan/private/component-build-log/compile.log
+            offline-dokkan/private/component-build/OfflineDokkanHost.dylib
+            offline-dokkan/private/component-build/evidence/*.json
+            offline-dokkan/private/component-build-log/compile.log
           retention-days: 7
           if-no-files-found: warn
       - name: Keep compiler and native outcomes explicit

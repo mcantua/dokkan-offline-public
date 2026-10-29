@@ -11,14 +11,10 @@ jobs:
   transfer:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - name: Transfer only the pinned verified candidate, matching source and native kit
         env:
           GH_TOKEN: ${{ github.token }}

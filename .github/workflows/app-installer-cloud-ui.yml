@@ -39,15 +39,11 @@ concurrency:
 jobs:
   simulator:
     runs-on: xcode-27
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
       - name: Build and run hosted UIKit and secure-storage checks
         id: verification
         env:
@@ -63,9 +59,9 @@ jobs:
         with:
           name: app-installer-cloud-ui-latest
           path: |
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/
-            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
-            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
+            app-installer/cloud-ui/work/evidence/
+            !app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
+            !app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
           retention-days: 7
           if-no-files-found: error
       - name: Keep the minimal native setup kit
@@ -75,8 +71,8 @@ jobs:
         with:
           name: app-installer-native-kit-latest
           path: |
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
+            app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
+            app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
           retention-days: 7
           if-no-files-found: error
       - name: Keep failed or standalone test diagnostics
@@ -86,8 +82,8 @@ jobs:
         with:
           name: app-installer-cloud-tests-latest
           path: |
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/
-            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/**
+            app-installer/cloud-ui/work/evidence/
+            !app-installer/cloud-ui/work/evidence/candidates/**
           retention-days: 7
           if-no-files-found: error
       - name: Retain a complete kit and source pair

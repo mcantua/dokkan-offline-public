@@ -13,8 +13,8 @@ jobs:
           DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
         run: |
           set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/AI-Workspace/claude-chatg/downloads/sdk-discovery"
-          cd "$GITHUB_WORKSPACE/AI-Workspace/claude-chatg/downloads/sdk-discovery"
+          mkdir -p "$GITHUB_WORKSPACE/downloads/sdk-discovery"
+          cd "$GITHUB_WORKSPACE/downloads/sdk-discovery"
           xcodebuild -version | tee xcode-version.txt
           xcrun --sdk iphoneos --show-sdk-version | tee device-sdk.txt
           xcrun --sdk iphonesimulator --show-sdk-version | tee simulator-sdk.txt
@@ -39,6 +39,6 @@ jobs:
         if: always()
         with:
           name: app-installer-sdk-inventory
-          path: AI-Workspace/claude-chatg/downloads/sdk-discovery/
+          path: downloads/sdk-discovery/
           retention-days: 7
           if-no-files-found: error
