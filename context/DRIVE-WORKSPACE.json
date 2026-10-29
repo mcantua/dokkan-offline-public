@@ -640,17 +640,17 @@
       "url": "https://drive.google.com/file/d/1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0/view?usp=drivesdk",
       "name": "current-source.tar.gz",
       "folder": "Source",
-      "size": 44879994,
-      "sha256": "5811968c38614b0f742448103d53b00b034f4061d5cce75674cdc2d2b89225ed",
-      "source_files": 2153,
-      "source_commit": "96534599c34a3b8fc9bae05dde43004d5e3b8ee5",
+      "size": 45012547,
+      "sha256": "4ae06dc50822da9a360e741cc768b223be4d10e2837ccc56d2baa6680824c27e",
+      "source_files": 2171,
+      "source_commit": "1f57f569465fdc5f01f513886d546b714b78dfc6",
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false,
-      "code_snapshot": "96534599c34a3b8fc9bae05dde43004d5e3b8ee5",
-      "tracked_files": 2154,
+      "code_snapshot": "1f57f569465fdc5f01f513886d546b714b78dfc6",
+      "tracked_files": 2172,
       "concurrent_uncommitted_edits_excluded": true,
-      "remote_commit": "96534599c34a3b8fc9bae05dde43004d5e3b8ee5",
+      "remote_commit": "1f57f569465fdc5f01f513886d546b714b78dfc6",
       "operational_registry_external": true,
       "other_project_packages_included": false,
       "uncompiled_wip_explicit": true,
@@ -1226,7 +1226,7 @@
     "automatic_cross_chat_sync": false
   },
   "development_state": {
-    "status": "Active ChatGPT Duo-only original-client first-playable-path work; six cloud workers; no app builds authorized",
+    "status": "Active Duo-only original-client integration; diagnostic builds authorized; gameplay unverified",
     "stop_time": "October 29, 2026, about 8:30 AM US Central",
     "all_six_agents_stopped": false,
     "no_background_development_claim": true,
@@ -1239,7 +1239,7 @@
     "resume_chatgpt_automatically": false,
     "paused_checkpoint_local": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
     "paused_checkpoint_remote": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
-    "source_archive_sha256": "5811968c38614b0f742448103d53b00b034f4061d5cce75674cdc2d2b89225ed",
+    "source_archive_sha256": "c449460167c7f33eabdb4b7505a3520e148596740133373091a685adc87122b2",
     "source_archive_metadata_verified": true,
     "handoff_text_readback_verified": true,
     "latest_native_run_completed": true,
@@ -1249,29 +1249,29 @@
     "draft_pr_url": "https://github.com/mcantua/dokkan-offline-public/pull/8",
     "source_archive_byte_readback_verified": false,
     "current_status_drive_id": "1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--",
-    "current_source_commit": "96534599c34a3b8fc9bae05dde43004d5e3b8ee5",
+    "current_source_commit": "8be14517dd4bd00e3da747b07a87a26f4493d136",
     "historical_pause_fields": "stop_time, paused_checkpoint_* and the original handoff ID describe the earlier Grok pause only; latest resumption/source fields supersede them.",
-    "user_latest_directive": "Maximum useful parallel cloud agents; 10-minute accurate reports with visual evidence; continue original-client work; playable link when actually available; no builds authorized.",
+    "user_latest_directive": "No-build rule permanently revoked. Meaningful Duo diagnostic/development/playable builds authorized; share newest available download with truthful label. Prioritize original client startup, offline login, Home, team, battle, save, then Creator battle. Minimal targeted checks; no checklist-based game percentages.",
     "current_parallel_workers": 6,
-    "current_phase": "Original iPhone resource retrieval/staging; scoped persistent team/tutorial state; original native preauth and plain JSON response contracts.",
+    "current_phase": "Original request codec, POST team editing and retained same-Core Creator packaging; integrated diagnostic built",
     "private_analysis_drive_id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
     "historical_stop_time": "October 29, 2026, about 8:30 AM US Central",
     "active_workers_at_checkpoint": 6,
-    "source_archive_commit": "96534599c34a3b8fc9bae05dde43004d5e3b8ee5",
-    "latest_pushed_code_commit": "96534599c34a3b8fc9bae05dde43004d5e3b8ee5",
-    "last_sync_scope": "9653459 committed native composition/source startup cohort and754 derived analysis files uploaded to existing IDs; sizes/parents verified. Later first-tutorial/origin/workflow work remains active WIP."
+    "source_archive_commit": "e625d787fad552597f3502692fe94e4149e82ed0",
+    "latest_pushed_code_commit": "8be14517dd4bd00e3da747b07a87a26f4493d136",
+    "last_sync_scope": "Source archive currently e625d787; latest8be and active changes still need source refresh. Startup IPA and two newer integrated delta parts verified by Drive size/parent. No current integrated single-file Drive ID yet."
   },
   "public_repository_integration": {
     "repository": "mcantua/dokkan-offline-public",
     "base_pin": "220d7bbc7ebd535692b3dfc7f980c928cf04f267",
-    "source_pin": "6068503b4901e84d2fc0c97257317d96379b5492",
+    "source_pin": "8be14517dd4bd00e3da747b07a87a26f4493d136",
     "draft_pr": 8,
     "base_merged": false,
     "native_runtime_verified": false,
     "gameplay_verified": false,
     "both_displays_verified": false,
-    "source_check": "Source-specific synthetic checks retained; staged privacy/whitespace checks passed. Native source uncompiled/unrun; no app builds.",
-    "drive_archive_pin": "e9d57f962a7d006d932e12e719e6cc1988847f23"
+    "source_check": "71 native units compiled and linked with genuine SDK27.1 at8be; original client runtime/gameplay/display acceptance unverified.",
+    "drive_archive_pin": "e625d787fad552597f3502692fe94e4149e82ed0"
   },
   "startup_input_recovery": {
     "notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
@@ -1313,5 +1313,35 @@
     },
     "approved_original_iphone_resource_set_restored": true,
     "complete_startup_assets_limit": "Approved1067original iPhone resource candidates plus framework metadata restored; complete original startup/battle asset requirements still need native observation."
+  },
+  "current_duo_diagnostic_delivery": {
+    "classification": "Diagnostic; unsigned; runtime and gameplay unverified",
+    "source_commit": "8be14517dd4bd00e3da747b07a87a26f4493d136",
+    "native_build_run": 40958701574,
+    "version": "2.36.3",
+    "build_number": 128,
+    "target_bytes": 929647581,
+    "target_sha256": "9c2dec628ad80a8e0c0f075d92c1ec4f3b64a91dbc108ed446a7d794bd12bbc2",
+    "baseline_drive_id": "1TjyV9-OJYT1aaiQQAKzxRLFfVnW5HHj-",
+    "baseline_metadata_bytes_verified": 795503162,
+    "integrated_ipa_drive_id": null,
+    "delta_parts": [
+      {
+        "id": "1nFJ74XHrWW7gs_RdmefeImNJpdAXeUpk",
+        "bytes": 100663296
+      },
+      {
+        "id": "1qVmxolPZ8kYrQRaMN4uoNeJD2NM9z-Kw",
+        "bytes": 35007816
+      }
+    ],
+    "delta_bytes": 135671112,
+    "delta_sha256": "377fe110b71fe2195b5648418489cd4c141ff488fde12f40df630d4363c8ed04",
+    "parts_size_parent_verified": true,
+    "exact_delta_roundtrip_passed": true,
+    "updated_notebook_id": "1yS8bl2XMSK5bo0BFKpgsqi7ZHkh-LWFr",
+    "updated_notebook_bytes": 17161,
+    "single_ipa_restore_pending": true,
+    "creator_site_included": false
   }
 }

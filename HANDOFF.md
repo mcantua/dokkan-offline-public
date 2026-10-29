@@ -422,3 +422,9 @@ verify the skipped sequence in the original Duo client after an authorized
 build. Keep existing unfinished-profile support; do not reset old progress.
 Tutorial-first combat research remains reference only. No new in-app screenshot
 or playable build is available.
+
+### October 29, 5:00 PM CT — integrated diagnostic, latest delivery and pending runtime
+
+Compiled source `8be14517` through genuine SDK27.1 cloud run40958701574 (71 units) and assembled `OfflineDokkan-Duo-Integrated-Diagnostic-2.36.3.ipa`,929,647,581bytes/SHA256`9c2dec628ad80a8e0c0f075d92c1ec4f3b64a91dbc108ed446a7d794bd12bbc2`. Includes original-engine manual practice capability, safe own-profile relaunch and isolated opaque native-master candidate. Unsigned Diagnostic; no original-client launch or gameplay verified. The first startup-only IPA is confirmed in Drive. The newer integrated IPA is being delivered through two verified delta parts and the existing updated Colab notebook; see STATUS and the Drive registry. One exact delivery roundtrip passed; no repeated application suite.
+
+**Pending:** finish and compile the next cohesive original request codec/POST teams/native Creator-site source batch; complete the newer single-IPA Drive account step; obtain real signed-device launch evidence, resolve actual original native master acceptance, enter original Home/practice battle, persist gameplay and use a Creator unit in battle. Existing `site/` is not present in the8be diagnostic; the next packaging change adds the retained same-Core frontend. Diagnostic compilation and source review are not gameplay completion. No current in-game screenshot exists. Android and ordinary iPhone remain paused.
