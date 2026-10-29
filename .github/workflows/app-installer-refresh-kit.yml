@@ -11,15 +11,11 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: AI-Workspace/claude-chatg
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
           fetch-depth: 0
-          path: AI-Workspace/claude-chatg
       - name: Refresh only the pinned committed setup wizard and replace the private draft kit pair
         env:
           GH_TOKEN: ${{ github.token }}
@@ -30,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: app-installer-native-kit-latest
-          path: AI-Workspace/claude-chatg/app-installer/cloud-ui/work/native-kit-refresh/
+          path: app-installer/cloud-ui/work/native-kit-refresh/
           retention-days: 7
           if-no-files-found: error
       - name: Retire only the superseded original kit artifact after durable replacement verifies
