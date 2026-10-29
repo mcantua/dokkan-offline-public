@@ -1,6 +1,6 @@
 # App Installer public-source continuation
 
-Updated: October 29, 2026, 2:03 PM US Central. Active repository: `mcantua/dokkan-offline-public`; branch: `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin authorized cloud builds with **“make the builds.”** No base/main merge is authorized. The private backup is frozen and untouched. This chat handles App Installer only.
+Updated: October 29, 2026, 2:10 PM US Central. Active repository: `mcantua/dokkan-offline-public`; branch: `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin authorized cloud builds with **“make the builds.”** No base/main merge is authorized. The private backup is frozen and untouched. This chat handles App Installer only.
 
 ## Implemented current path
 
@@ -31,7 +31,7 @@ Package job123646286192 in40930198240 completed both genuine Mac helper release 
 
 The fix preserves missing case aliases as bounded tar members using exact checksum-matched immutable bytes, includes them in the full manifest and writes the canonical Cargo entry last. Strict publication and Cargo checksum verification is unchanged. Two focused source-delivery methods passed; an independent review found no blocker. Both real upstream README files are2398 bytes with the same SHA; synthetic regression aliases deliberately have different bytes and exercise tamper rejection.
 
-**Package-only run40934237282 succeeded**, source `4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8`. It reused all14 Rust and3 native checks without any repeated app tests. Both genuine SDK27.1 unsigned IPAs, the universal Mac helper, strict corresponding source and minimal native kit were produced. Actual downloaded outer artifacts match GitHub SHA-256/byte pins. Independent source/IPA and kit checks are completing before the final hosted Mac signature/draft delivery gate. The actual seven-file contract is `app-installer/cloud-ui/public-delivery-contract.json`; source154,020,324bytes, kit44,120,569bytes (SHA-256 `4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7`). No public draft delivery, signed release or phone success is claimed yet.
+**Package-only run40934237282 succeeded**, source `4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8`. It reused all14 Rust and3 native checks without any repeated app tests. Both genuine SDK27.1 unsigned IPAs, the universal Mac helper, strict corresponding source and minimal native kit were produced. Actual downloaded outer artifacts match GitHub SHA-256/byte pins. Independent source/IPA and kit checks passed. Hosted Mac signature/draft delivery40936908790 then succeeded, with all seven final server hashes/sizes independently read back. The actual seven-file contract is `app-installer/cloud-ui/public-delivery-contract.json`; source154,020,324bytes, kit44,120,569bytes (SHA-256 `4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7`). The draft is unpublished; no signed release or phone success is claimed. Exact download pins and the minimal local overlay are in [PUBLIC-DELIVERY.md](PUBLIC-DELIVERY.md).
 
 ## Environment findings
 
@@ -41,8 +41,8 @@ Read-only official `macos-latest` inventory40925957648 found Xcode26.x, SDKs thr
 
 ## Next actions without stopping at a milestone
 
-1. Finish independent artifact review, then the hosted Mac signature/draft delivery gate. Packaging itself succeeded. Keep only one latest verified distribution; preserve necessary source/build inputs.
-2. Use the filled seven-file public draft contract, pinned to actual artifact IDs, byte counts and SHA values. Strong local checks and actual successful source-run provenance must pass before draft mutation. Stage every replacement and verify server digests before replacing old assets. Never publish/merge without Tin's approval.
+1. Cloud artifact review/delivery is complete for this revision. Sole current distribution is `app-installer/build/work/latest-reviewed/`; outer ZIP duplicates removed. Preserve necessary source/build inputs.
+2. Actual seven-file contract, successful source/delivery runs and final server readback are saved. No publish/base merge is authorized. Use the source-bound download/update guide; do not rebuild/retest unchanged inputs.
 3. Once a real compatible kit is available, explain the exact Mac/network/USB step, connection known/unknown and verified download bytes before personal use. Earlier routine setup approval persists; no repeated approval request. Larger Xcode or Apple-credential/certificate changes retain separate approval.
 4. Guide the minimal same-identity update and private trusted-USB export/import. Never request pairing records, keys, credentials, real device IDs, private addresses or raw device output in chat. No uninstall/reset/data-clearing shortcut.
 5. Continue actual Apple sign-in/signing/install/update/refresh/recovery and both physical Duo displays/touch/fold acceptance. These remain unverified for this revision and require authorized device/account access; neither cloud tests nor a build establishes them.

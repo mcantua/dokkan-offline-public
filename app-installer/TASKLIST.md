@@ -1,6 +1,6 @@
 # App Installer completion task list
 
-Current public revision: October29,2026,2:03 PM US Central. Tin authorized builds. Draft PR #7 remains unmerged. Historical private-repository artifacts are not proof for this revision. Exact evidence and delivery state are in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md).
+Current public revision: October29,2026,2:10 PM US Central. Tin authorized builds. Draft PR #7 remains unmerged. Historical private-repository artifacts are not proof for this revision. Exact evidence and delivery state are in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md).
 
 | Requirement | Current verified state | Remaining acceptance |
 |---|---|---|
@@ -9,9 +9,9 @@ Current public revision: October29,2026,2:03 PM US Central. Tin authorized build
 | First-account/TLS startup | Fresh-process constructor1 and strict TLS2 passed without requests | Actual Apple sign-in/2FA/team/session recovery |
 | Native import/UI | Files/schema/responsive3 passed, SDK27.1 compilation and regular iOS27.0 component execution | Actual provider, biometrics, touch, keyboard and Duo device behavior |
 | Original eight offline requirements | Included in earlier19/19 baseline; exact older source scope retained | Do not claim a new complete-suite pass; use necessary focused final checks for affected requirements |
-| Notices/source obligations |408 union packages, zero notice gaps; exact siphasher terms/source retained | Independent delivery closure and final hosted Mac signature verification |
-| Clean candidate/helper/kit | Package40934237282 succeeded: both unsigned IPAs, universal helper, complete source and44.1MB kit; exact artifact hashes match | Independent source/IPA/kit review, then final hosted delivery gate |
-| Public distribution | Strong seven-asset source/run/hash/signature contract implemented, negative2 passed | Actual pins filled; hosted Mac signature gate, delivery and final server digest/size readback remain |
+| Notices/source obligations |408 union packages, zero notice gaps; exact siphasher terms/source retained | Passed: full corresponding-source/relink/helper/library/archive bindings and zero notice gaps |
+| Clean candidate/helper/kit | Package40934237282 succeeded: both unsigned IPAs, universal helper, complete source and44.1MB kit; exact artifact hashes match | Passed: independent source/IPA/kit review and hosted helper signature gate |
+| Public distribution | Strong seven-asset source/run/hash/signature contract implemented, negative2 passed | Passed: actual7asset draft delivery40936908790 and independent final server digest/size readback |
 | Personal-resource boundary | All current work cloud-only; no private backup, save or signing-key access | Give advance exact-step/connection/byte notice before approved Mac/network use; separate reserved approval for large Xcode/credential changes |
 | Apple signing/install/update/refresh |0% verified for this revision | Authorized local identity/account/device operations and actual results |
 | Physical Duo displays/folding |0% verified | Outer/inner resolution, safe areas, touchscreen, folding and retained state |
