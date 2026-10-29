@@ -4,6 +4,8 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
+**LATEST — 2026-10-29 1:49 PM US Central:** Tin ran the selective cloud extraction; exact original framework binary and opaque database seed are restored readonly. Plain-JSON login root proof and candidate encoders are committed at `e9d57f9`; complete sign-in and native transport remain gated. Native User numeric bounds are implemented from actual reader conversions. Startup assets/framework metadata, original home/team/battle/result integration and native execution remain pending. No playable build or new in-app image. Continue [the first playable path](context/DUO-FIRST-PLAYABLE.md); Creator expansion stays paused.
+
 **LATEST — 2026-10-29 1:38 PM US Central:** First priority is the original-client startup → offline login → home/team → real battle → completion/save path. Further Creator expansion is paused; completed schema-12 packet retention, native read/materialization/resource work is preserved as source only. Six workers now directly support that path. No native launch, playable download, new in-app screenshot, build or base merge. [Exact source milestones, owners, missing IPA inputs and continuation](context/DUO-FIRST-PLAYABLE.md).
 
 **LATEST — 2026-10-29 12:44 PM US Central:** Draft #8 now includes original resource-root/physical-publication source, gated native startup entry, Creator failed-opening recovery and strict captured-resource/form validation. Native runtime still unverified. Core full-packet bytes were found to be discarded; durable retention and full-form runtime materialization are active WIP, not completed gameplay. No builds/base merge. See STATUS and the Hayate cohort notes.

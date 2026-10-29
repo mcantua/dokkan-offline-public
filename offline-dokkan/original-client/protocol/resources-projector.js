@@ -14,6 +14,37 @@
   const clone=x=>JSON.parse(JSON.stringify(x));
   const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
   function issue(list,path,code){list.push({path,code});}
+  // Actual iPhone User decoder: the 492-byte getter converts through unsigned
+  // W0, the 404-byte getter through unsigned X0, and act_at through signed X0.
+  // JSON numbers outside JS's exact integer range need a native integer bridge;
+  // never round, clamp or emit an integer the original reader cannot represent.
+  const userUint32Fields=Object.freeze([
+    'rank','act','act_max','card_capacity','total_card_capacity','zeni','stone',
+    'exchange_point','friends_capacity','support_item_capacity','gasha_point',
+    'wallpaper_item_id','achievement_id','mainpage_card_id','act_cure_shortened_sec'
+  ]);
+  const userUint64Fields=Object.freeze(['id','exp','total_score','mainpage_user_card_id']);
+  function checkNativeUserIntegers(user,issues){
+    // The native member-with-prior-value helper preserves the prior value for
+    // absent/null fields. This check does not invent a replacement/default.
+    for(const name of userUint32Fields){
+      if(own(user,name)&&user[name]!==null&&(!integer(user[name])||user[name]<0||user[name]>4294967295))
+        issue(issues,'$.user.'+name,'NATIVE_UINT32_REQUIRED');
+    }
+    for(const name of userUint64Fields){
+      if(own(user,name)&&user[name]!==null&&(!integer(user[name])||user[name]<0))
+        issue(issues,'$.user.'+name,'NATIVE_UINT64_EXACT_INTEGER_REQUIRED');
+    }
+    if(own(user,'act_at')&&user.act_at!==null&&!integer(user.act_at))
+      issue(issues,'$.user.act_at','NATIVE_INT64_EXACT_INTEGER_REQUIRED');
+    if(object(user.tutorial)){
+      for(const name of ['contents_lv','progress']){
+        if(own(user.tutorial,name)&&user.tutorial[name]!==null&&
+           (!integer(user.tutorial[name])||user.tutorial[name]<0||user.tutorial[name]>4294967295))
+          issue(issues,'$.user.tutorial.'+name,'NATIVE_UINT32_REQUIRED');
+      }
+    }
+  }
   function check(schema,value,path,issues,depth){
     if(depth>24||!object(schema)){issue(issues,path,'UNSUPPORTED_SCHEMA');return;}
     const type=schema.type;
@@ -126,6 +157,7 @@
     bind(user,'zeni',balance(snapshot.inventory,'zeni'),'$.user',issues,x=>integer(x)&&x>=0);
     bind(user,'id',object(identity)?identity.id:undefined,'$.user',issues,x=>integer(x)&&x>0);
     bind(user,'name',object(identity)?identity.name:undefined,'$.user',issues,x=>typeof x==='string'&&x.length>0&&x.length<=64);
+    checkNativeUserIntegers(user,issues);
     response.user=user;
     const projectedCards=cards(snapshot,response.cards,issues);
     if(projectedCards!==undefined)response.cards=projectedCards;

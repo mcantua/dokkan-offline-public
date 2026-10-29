@@ -14,7 +14,7 @@
   "raw_source_player_values_used": false,
   "original_iphone_runtime_verified": false,
   "tested_module_sha256": "8956c46a32b7fbd3eb979253611c2972d027e3d0751ad11f3241dd2aa0fb6414",
-  "current_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
+  "current_module_sha256": "730f43dc22598e78e0200e3e5c7a6cde99b320d85db1845c92318f54badbab54",
   "evidence_reuse": "Prior actual fresh-player identity/ACT/rank/EXP/ledger/empty-owned-card/scope paths remain unchanged and reuse their passing scenario. One additional actual Core11 fixture check covers new source-rank facts and the custom engine-ID/pending projection guards; actual engine bindings and iPhone runtime remain unverified.",
   "additional_changed_boundary_check": {
     "tested_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
@@ -26,5 +26,11 @@
     "custom_engine_identity_required": true,
     "dirty_native_projection_rejected": true,
     "complete_response_or_route_admitted": false
+  },
+  "native_integer_boundary_check": {
+    "evidence": "player-home-team/native-integer-projection-evidence.json",
+    "scope": "One focused synthetic projection scenario for source-proven unsigned32 User fields and exact JS integer representation of native64 fields. Prior unrelated evidence not rerun.",
+    "http_route_admitted": false,
+    "native_runtime_execution_verified": false
   }
 }

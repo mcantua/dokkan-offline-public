@@ -12,6 +12,14 @@ Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says
 
 ## Current first-playable priority — October 29, 1:38 PM CT
 
+Update at 1:49 PM: the two pinned original binary inputs were restored after
+Tin ran the reviewed cloud notebook. The source-proven plain-JSON root now has
+native/JS candidate encoders, while complete sign-in/transport remain gated.
+User projection now enforces the original unsigned32/unsigned64/signed64
+reader bounds without rounding. Startup assets and framework metadata remain
+separate; no original native launch or battle is verified. Read current STATUS
+before relying on older missing-input and Creator-WIP statements below.
+
 Read [context/DUO-FIRST-PLAYABLE.md](context/DUO-FIRST-PLAYABLE.md). Preserve the
 completed second Creator/resource source cohort; pause expansion until one
 real original-client battle completes and persists. All six workers now serve

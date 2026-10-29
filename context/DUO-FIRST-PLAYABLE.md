@@ -34,6 +34,15 @@ These are source milestones. None establishes native launch or real combat.
 Existing focused synthetic SQL/JavaScript evidence is retained without reruns.
 C/Objective-C changes have not been compiled or executed in this cohort.
 
+For progress reports, the startup diagnostic source checklist is four steps:
+pinned binary inputs, reviewed entry source, compatible startup asset staging,
+and actual native launch. The first two are done (2/4); the last two remain.
+The login source checklist is parsed-root proof, candidate encoders, complete
+sign-in contract, and native handler integration. Its first two are done
+(2/4). These equal-count source checklists are not weighted readiness estimates
+or a percentage of the whole game. Original-client battle/save and Creator-in-
+battle runtime acceptance have not been reached.
+
 ## Pending path and current owners
 
 | Pending step | Owner | What must be established next |

@@ -1,0 +1,39 @@
+{
+  "name": "ghidra_12.1.4_PUBLIC_20260921.zip",
+  "bytes": 569649598,
+  "sha256": "ddac49f903da9d5bac833e5cc79395098b9c33cfd3279be5f31bd00387d2d4db",
+  "chunk_bytes": 100663296,
+  "parts": [
+    {
+      "file": "ghidra-12.1.4.zip.part-0001",
+      "bytes": 100663296,
+      "sha256": "0f49a702b780c45a6684eb307241ef41f48e09fc8d515c75f944fb4b6861515a"
+    },
+    {
+      "file": "ghidra-12.1.4.zip.part-0002",
+      "bytes": 100663296,
+      "sha256": "61207b356da93ddfb00ede43cacc532bdad64e86a391d12d4f07a5743867ebc9"
+    },
+    {
+      "file": "ghidra-12.1.4.zip.part-0003",
+      "bytes": 100663296,
+      "sha256": "1dd1bf4b3b5fbfaa58558635685b0fc39d20fb94e1a6835a066e8a3d5b984f3f"
+    },
+    {
+      "file": "ghidra-12.1.4.zip.part-0004",
+      "bytes": 100663296,
+      "sha256": "58834ee04a1109f98d94ade1bd54b1696e1f832bf1ad6613f7103697ee39596f"
+    },
+    {
+      "file": "ghidra-12.1.4.zip.part-0005",
+      "bytes": 100663296,
+      "sha256": "a29660b87a0f10b483aa1c3d70aacf8cabadd8e014920eadb91dc111ccfd16ca"
+    },
+    {
+      "file": "ghidra-12.1.4.zip.part-0006",
+      "bytes": 66333118,
+      "sha256": "a2e2fc616c17e68f7e0b1dde8413d06f346f2b5e90849d0897740c889e6bb431"
+    }
+  ],
+  "reconstruct": "Concatenate parts in numeric order; verify complete SHA-256 before extracting."
+}

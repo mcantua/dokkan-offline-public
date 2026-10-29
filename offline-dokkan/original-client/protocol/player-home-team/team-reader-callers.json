@@ -1,0 +1,43 @@
+{
+  "kind": "original-team-reader-one-hop-caller-frontier",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "readers": [
+    {
+      "reader_role": "team_reader_candidate_8",
+      "reader_sha256": "2805881ac44c974073256832eb09e68af8d297d7a82bb032844707e6c81cb960",
+      "direct_callers": [
+        {
+          "role": "team_reader_candidate_8_caller_1",
+          "bytes": 164,
+          "sha256": "2676fc2e1317a15bd8ad6843c309e52cbee2690d316fa55e4f255f1c6133d44c",
+          "target_role": "team_reader_candidate_8"
+        },
+        {
+          "role": "team_reader_candidate_8_caller_2",
+          "bytes": 188,
+          "sha256": "09db0cb2bc1f0d15797ad06784f52f731f73d6750b865e0d2110c917c8dc2e3a",
+          "target_role": "team_reader_candidate_8"
+        },
+        {
+          "role": "team_reader_candidate_8_caller_3",
+          "bytes": 124,
+          "sha256": "ee0c8c380cef13644778d98b0c711c5413b5b854942ad2f89da9f5ad8dc5c96c",
+          "target_role": "team_reader_candidate_8"
+        },
+        {
+          "role": "team_reader_candidate_8_caller_4",
+          "bytes": 60,
+          "sha256": "15b6ae493dcbc05188df5d88fc5ac9eb83c967c6a62ade15dcc1f153e4cb142d",
+          "target_role": "team_reader_candidate_8"
+        }
+      ],
+      "rebased_pointer_reference_count": 0
+    }
+  ],
+  "http_route_binding_verified": false,
+  "runtime_execution_verified": false,
+  "limits": [
+    "Direct call instruction relationships only; no inferred callback, request type or response root.",
+    "Private caller addresses retained only under ignored research output."
+  ]
+}

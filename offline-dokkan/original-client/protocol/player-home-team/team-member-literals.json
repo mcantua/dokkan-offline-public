@@ -1,0 +1,43 @@
+{
+  "kind": "pinned-player-reader-literal-annotations",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "readers": [
+    {
+      "role": "team_reader_candidate_1",
+      "bytes": 436,
+      "sha256": "0af4175b23a597e3bff4afc266d4e88d6ef835c83010177c96494db7916d78db",
+      "allowlisted_fields": [
+        "name",
+        "num",
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_2",
+      "bytes": 796,
+      "sha256": "f35fb4e057ed8f244585dc99f32f80712c29c9f776bad4c106c94cbdf22064d8",
+      "allowlisted_fields": [
+        "name",
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_4",
+      "bytes": 320,
+      "sha256": "7e0bbfcbab41daf96ad9c5aaada632a41665a50b7284bd489110a1458b85ded7",
+      "allowlisted_fields": [
+        "num",
+        "team_bgm_filename",
+        "user_card_teams"
+      ]
+    }
+  ],
+  "reader_field_ownership_verified": false,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "limits": [
+    "Exact previously retained reader spans only; no new whole-image xref scan.",
+    "Literal references alone do not prove field ownership, type, requiredness, HTTP route or response root.",
+    "No scalar player data, source keys or unknown strings emitted."
+  ]
+}

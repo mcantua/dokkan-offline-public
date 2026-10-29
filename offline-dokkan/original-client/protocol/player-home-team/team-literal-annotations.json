@@ -1,0 +1,56 @@
+{
+  "kind": "pinned-player-reader-literal-annotations",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "readers": [
+    {
+      "role": "team_reader_candidate_5",
+      "bytes": 2112,
+      "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+      "allowlisted_fields": [
+        "name",
+        "num",
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "sugoroku_map_id",
+        "teams",
+        "user_card_ids",
+        "user_card_teams",
+        "z_battle_stage_id"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_8",
+      "bytes": 488,
+      "sha256": "2805881ac44c974073256832eb09e68af8d297d7a82bb032844707e6c81cb960",
+      "allowlisted_fields": [
+        "num",
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_16",
+      "bytes": 1436,
+      "sha256": "8f7609bee29198248f9bcea772988a9ca98a58ef50d46022d818226408b7c2d4",
+      "allowlisted_fields": [
+        "name",
+        "num",
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "sugoroku_map_id",
+        "user_card_ids",
+        "user_card_teams",
+        "z_battle_stage_id"
+      ]
+    }
+  ],
+  "reader_field_ownership_verified": false,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "limits": [
+    "Exact previously retained reader spans only; no new whole-image xref scan.",
+    "Literal references alone do not prove field ownership, type, requiredness, HTTP route or response root.",
+    "No scalar player data, source keys or unknown strings emitted."
+  ]
+}

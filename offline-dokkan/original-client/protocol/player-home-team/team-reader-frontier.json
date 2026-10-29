@@ -1,0 +1,166 @@
+{
+  "kind": "original-current-team-reader-frontier",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "literal_counts": {
+    "selected_team_num": 1,
+    "selected_kobetu_team_num": 1,
+    "team_bgm_filename": 1,
+    "user_card_ids": 1,
+    "user_card_teams": 1
+  },
+  "candidate_bodies": [
+    {
+      "role": "team_reader_candidate_1",
+      "bytes": 436,
+      "sha256": "0af4175b23a597e3bff4afc266d4e88d6ef835c83010177c96494db7916d78db",
+      "allowlisted_fields": [
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_2",
+      "bytes": 796,
+      "sha256": "f35fb4e057ed8f244585dc99f32f80712c29c9f776bad4c106c94cbdf22064d8",
+      "allowlisted_fields": [
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_3",
+      "bytes": 496,
+      "sha256": "c269fd727280a59993e42820606a65742cdf5c46235188b1a294fb7378978cb7",
+      "allowlisted_fields": [
+        "selected_kobetu_team_num"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_4",
+      "bytes": 320,
+      "sha256": "7e0bbfcbab41daf96ad9c5aaada632a41665a50b7284bd489110a1458b85ded7",
+      "allowlisted_fields": [
+        "team_bgm_filename",
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_5",
+      "bytes": 2112,
+      "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+      "allowlisted_fields": [
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "user_card_ids",
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_6",
+      "bytes": 2296,
+      "sha256": "fa293377632e7b89053a4245a073adfea66d6712bac15bba3902db2455960589",
+      "allowlisted_fields": [
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_7",
+      "bytes": 784,
+      "sha256": "db9c7d759b243142dd256896e8c3f0e39ec77e056a62e60d0c5141805fef5819",
+      "allowlisted_fields": [
+        "selected_team_num"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_8",
+      "bytes": 488,
+      "sha256": "2805881ac44c974073256832eb09e68af8d297d7a82bb032844707e6c81cb960",
+      "allowlisted_fields": [
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_9",
+      "bytes": 284,
+      "sha256": "e24647c3a0715306fac652c1aa7183560efa82471ceca075a5981fec9bac6cb1",
+      "allowlisted_fields": [
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_10",
+      "bytes": 336,
+      "sha256": "3727ddffd2d479270b38e8c57bd418d6787fe9cd87ca119e9ddf3b731f051fe9",
+      "allowlisted_fields": [
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_11",
+      "bytes": 680,
+      "sha256": "5e72d03b96befc821487c141028ac7833994ae5a4b288ceeb7547641c3c48f2d",
+      "allowlisted_fields": [
+        "selected_team_num"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_12",
+      "bytes": 476,
+      "sha256": "f477e43391c7546d3c3042d1cd813bf7dcd249b793aec83c5c44f021cf3a3d12",
+      "allowlisted_fields": [
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_13",
+      "bytes": 3408,
+      "sha256": "8a90451deea4b7058275da28b72d26d40ee05b943d69e6c9e84a406b481c1ff9",
+      "allowlisted_fields": [
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_14",
+      "bytes": 264,
+      "sha256": "e9c4141d67b95100188eef101f758737fbbbd08ba82b63bd3c507787f11ace7c",
+      "allowlisted_fields": [
+        "user_card_ids"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_15",
+      "bytes": 1596,
+      "sha256": "07e8bed5be4eda28c95689d36c1971a70e7ea58f07026243e55dbafef6696a42",
+      "allowlisted_fields": [
+        "selected_team_num"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_16",
+      "bytes": 1436,
+      "sha256": "8f7609bee29198248f9bcea772988a9ca98a58ef50d46022d818226408b7c2d4",
+      "allowlisted_fields": [
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "user_card_ids",
+        "user_card_teams"
+      ]
+    },
+    {
+      "role": "team_reader_candidate_17",
+      "bytes": 1264,
+      "sha256": "fb5678cfb699b157cdcb97f3d36f65a4adf58af7c1ffdb6dbc8c772dad0471fd",
+      "allowlisted_fields": [
+        "selected_team_num"
+      ]
+    }
+  ],
+  "dto_ownership_verified": false,
+  "home_team_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "limits": [
+    "Exact five reviewed team-field names only.",
+    "ADRP/immediateADD lookahead is partial static discovery; references do not prove model ownership, response root, requiredness or request route.",
+    "Detailed instruction sites and body addresses remain private."
+  ]
+}
