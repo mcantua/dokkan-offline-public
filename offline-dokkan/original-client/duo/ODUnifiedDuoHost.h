@@ -2,7 +2,7 @@
 #include <stdint.h>
 #import "ODDuoOriginalScene.h"
 #import "../ios/ODLocalURLProtocol.h"
-@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage;
+@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage, ODDeferredOriginalPlayerAdmission;
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, ODUnifiedDuoPurpose) {
     ODUnifiedDuoStartupDiagnostic,
@@ -55,6 +55,21 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
  * then pass the services built from it to bindCreatorServicesWhenReady:. */
 - (BOOL)expectDeferredCreatorServicesForContentID:(NSString *)contentID
     saveScopeSHA256:(NSString *)scope error:(NSError * _Nullable * _Nullable)error;
+/** Capture the exact canonical Core capability before its actual scope is
+ * known. No scope is guessed and no main-thread preparation wait occurs. */
+- (BOOL)expectDeferredCreatorServicesForPlayerAdmission:(ODDeferredOriginalPlayerAdmission *)player
+    error:(NSError * _Nullable * _Nullable)error;
+/** Schedule once on main, including before UIApplicationMain. Native IO
+ * returns its real receipt later on main. The caller can then construct
+ * same-Core services on IO and bind them through the existing service method.
+ * This neither replaces original UI nor opens master/runtime acceptance. */
+- (void)prepareDeferredPlayerAdmissionOnQueue:(dispatch_queue_t)queue
+    completion:(void (^)(NSError * _Nullable error))completion;
+/** Configure internal auth while the captured Core waits for its actual scope.
+ * Pending requests issue no token until admission and same-Core services bind.
+ * Main only, before install; expiresIn remains explicit offline policy. */
+- (BOOL)configureOfflineAuthForDeferredPlayerWithExpiresIn:(int32_t)expiresIn
+    error:(NSError * _Nullable * _Nullable)error;
 /** Integrated target only, on main before install. Builds the proved local
  * ping/nonce/sign-in routes internally; caller-supplied auth routes remain
  * refused. Identity must match already bound services or their exact deferred

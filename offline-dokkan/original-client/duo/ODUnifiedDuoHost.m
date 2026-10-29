@@ -1,5 +1,6 @@
 #import "ODUnifiedDuoHost.h"
 #import "ODDuoCreatorQuickAction.h"
+#import "ODDeferredOriginalPlayerAdmission.h"
 #import "../ios/ODFreshStatePolicy.h"
 #import "../ios/ODOfflineBootstrapAuth.h"
 #import "../ios/ODOriginalNativeOrigin.h"
@@ -78,6 +79,11 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     return YES;
 }
 
+@interface ODUnifiedDuoHost ()
+- (BOOL)configureOfflineAuthForContentID:(NSString *)contentID saveScopeSHA256:(nullable NSString *)scope
+    deferredPlayer:(nullable ODDeferredOriginalPlayerAdmission *)player expiresIn:(int32_t)expiresIn error:(NSError **)error;
+@end
+
 @implementation ODUnifiedDuoHost {
     ODUnifiedDuoPurpose _purpose;
     NSURL *_baseline,*_engine;
@@ -85,6 +91,8 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     NSArray<NSURL *> *_origins;
     NSArray<ODLocalTransportRoute *> *_routes;
     ODBoundOriginalCreatorServices *_services;
+    ODDeferredOriginalPlayerAdmission *_deferredPlayer;
+    BOOL _deferredPlayerPreparationRequested;
     ODUnifiedDuoImageAttachment _attach;
     BOOL (^_current)(void);
     ODUnifiedDuoReportHandler _report;
@@ -140,6 +148,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"unsupportedFoundationRequests":[_unsupportedRequests copy],
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
         @"creatorServicesPending":@(_servicesPending&&_services==nil),
+        @"deferredCanonicalPlayerPrepared":@(_deferredPlayer.preparedAdmission!=nil&&_admittedScope!=nil),
         @"creatorServicesBound":@(_services!=nil),
         // Staging a file is not observation of the original engine opening it.
         @"derivedMasterStaged":@(_masterAttached),
@@ -384,11 +393,22 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 - (BOOL)configureOfflineAuthForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope
         expiresIn:(int32_t)expiresIn error:(NSError **)error {
+    return [self configureOfflineAuthForContentID:contentID saveScopeSHA256:scope deferredPlayer:nil expiresIn:expiresIn error:error];
+}
+- (BOOL)configureOfflineAuthForDeferredPlayerWithExpiresIn:(int32_t)expiresIn error:(NSError **)error {
+    if(!NSThread.isMainThread||!_deferredPlayer){if(error)*error=ODHostFailure(11);return NO;}
+    return [self configureOfflineAuthForContentID:_admittedContent saveScopeSHA256:_admittedScope
+        deferredPlayer:_deferredPlayer expiresIn:expiresIn error:error];
+}
+- (BOOL)configureOfflineAuthForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope
+        deferredPlayer:(ODDeferredOriginalPlayerAdmission *)player expiresIn:(int32_t)expiresIn error:(NSError **)error {
     if(!NSThread.isMainThread){if(error)*error=ODHostFailure(11);return NO;}
+    BOOL awaitingScope=player&&player==_deferredPlayer&&!scope&&!player.preparedAdmission&&_servicesPending&&!_services&&
+        [player.contentID isEqual:contentID]&&[_admittedContent isEqual:contentID];
     BOOL admitted=(_services&&[_services matchesAdmittedContentID:contentID saveScopeSHA256:scope])||
-        (!_services&&_servicesPending&&[_admittedContent isEqual:contentID]&&[_admittedScope isEqual:scope]);
+        (!_services&&_servicesPending&&[_admittedContent isEqual:contentID]&&[_admittedScope isEqual:scope])||awaitingScope;
     if(!NSThread.isMainThread||_purpose!=ODUnifiedDuoIntegratedTarget||_attempted||_authConfigured||
-       !ODHostContentID(contentID)||!ODHostHex(scope)||expiresIn<=0||!_current()||!admitted||
+       !ODHostContentID(contentID)||(!awaitingScope&&!ODHostHex(scope))||expiresIn<=0||!_current()||!admitted||
        (_services&&![_services originalClientCoreForContentID:contentID saveScopeSHA256:scope])){
         if(error)*error=ODHostFailure(11);return NO;
     }
@@ -466,6 +486,45 @@ static BOOL ODHostSourcePatcherAbsent(void) {
        !ODHostContentID(contentID)||!ODHostHex(scope)){if(error)*error=ODHostFailure(10);return NO;}
     _admittedContent=[contentID copy];_admittedScope=[scope copy];_servicesPending=YES;_stage=@"creator-services-pending";[self emit];return YES;
 }
+- (BOOL)expectDeferredCreatorServicesForPlayerAdmission:(ODDeferredOriginalPlayerAdmission *)player error:(NSError **)error {
+    if(!NSThread.isMainThread||_purpose!=ODUnifiedDuoIntegratedTarget||_attempted||_services||_servicesPending||
+       ![player isMemberOfClass:ODDeferredOriginalPlayerAdmission.class]||!ODHostContentID(player.contentID)||!_current()){
+        if(error)*error=ODHostFailure(10);return NO;
+    }
+    NSDictionary *prepared=player.preparedAdmission;
+    if(prepared&&(!ODHostHex(prepared[@"save_scope_sha256"])||![prepared[@"content_id"] isEqual:player.contentID])){
+        if(error)*error=ODHostFailure(10);return NO;
+    }
+    _deferredPlayer=player;_admittedContent=[player.contentID copy];
+    _admittedScope=[prepared[@"save_scope_sha256"] copy];_servicesPending=YES;
+    _stage=prepared?@"canonical-player-admission-prepared":@"canonical-player-admission-pending";[self emit];return YES;
+}
+- (void)prepareDeferredPlayerAdmissionOnQueue:(dispatch_queue_t)queue completion:(void (^)(NSError *))completion {
+    if(!completion)return;
+    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{completion(ODHostFailure(10));});return;}
+    if(!queue||queue==dispatch_get_main_queue()||!_deferredPlayer||_deferredPlayerPreparationRequested||_deferredPlayer.preparedAdmission||!_servicesPending||
+       _services||_purpose!=ODUnifiedDuoIntegratedTarget||!_current()){
+        completion(ODHostFailure(10));return;
+    }
+    _deferredPlayerPreparationRequested=YES;ODDeferredOriginalPlayerAdmission *player=_deferredPlayer;
+    __weak ODUnifiedDuoHost *weakSelf=self;
+    [player prepareOnQueue:queue completion:^(NSError *failure){
+        ODUnifiedDuoHost *host=weakSelf;
+        if(!host){completion(ODHostFailure(10));return;}
+        NSDictionary *prepared=player.preparedAdmission;NSString *scope=prepared[@"save_scope_sha256"];
+        BOOL valid=!failure&&host->_current()&&host->_deferredPlayer==player&&host->_servicesPending&&!host->_services&&
+            [prepared[@"profile_id"] isEqual:@"local-player"]&&[prepared[@"content_id"] isEqual:host->_admittedContent]&&
+            ODHostHex(scope)&&(!host->_admittedScope||[host->_admittedScope isEqual:scope])&&
+            (!host->_authScope||[host->_authScope isEqual:scope]);
+        if(!valid){
+            host->_authInvalidated=YES;++host->_authGeneration;host->_stage=@"canonical-player-admission-failed";
+            NSArray<dispatch_block_t> *pending=[host->_pendingAuthRequests copy];[host->_pendingAuthRequests removeAllObjects];
+            for(dispatch_block_t request in pending)request();[host emit];completion(ODHostFailure(10));return;
+        }
+        host->_admittedScope=[scope copy];if(host->_authConfigured)host->_authScope=[scope copy];
+        host->_stage=@"canonical-player-admission-prepared";[host emit];completion(nil);
+    }];
+}
 - (void)bindCreatorServicesWhenReady:(ODBoundOriginalCreatorServices *)services completion:(void (^)(NSError *))completion {
     if(!completion)return;
     od_creator_late_bind_input input={0};input.on_main=NSThread.isMainThread;
@@ -477,7 +536,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     }
     input.installed=_installed;input.services_pending=_servicesPending;input.services_already_bound=_services!=nil;
     input.services_supplied=services!=nil;input.context_current=_current();
-    input.content_matches=services&&[services matchesAdmittedContentID:_admittedContent saveScopeSHA256:_admittedScope];
+    ODNativeCore *serviceCore=services&&_admittedScope?[services originalClientCoreForContentID:_admittedContent saveScopeSHA256:_admittedScope]:nil;
+    BOOL sameDeferredCore=!_deferredPlayer||[_deferredPlayer matchesCore:serviceCore contentID:_admittedContent];
+    input.content_matches=services&&[services matchesAdmittedContentID:_admittedContent saveScopeSHA256:_admittedScope]&&sameDeferredCore;
     input.scope_current=services&&[services creatorScopeIsCurrent];
     input.scene_observed=_sceneObserved;input.controller_present=_originalController!=nil;input.renderer_present=_renderer!=nil;
     if(od_creator_late_bind_decide(&input,&decision)!=OD_LATE_BIND_ACCEPT_WAITING&&decision.action!=OD_LATE_BIND_ACCEPT_ATTACH){

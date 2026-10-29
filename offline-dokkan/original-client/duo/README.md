@@ -65,3 +65,14 @@ Before original-image loading, the host registers the transport's unsupported-re
 The actual scene delegate forwards cold `connectionOptions.shortcutItem` and warm `windowScene:performActionForShortcutItem:completionHandler:` delivery. A single native user intent is coalesced until the real source foreground/active callbacks, renderer and same-save services are admitted. Scene reconnection retains only that intent; revoked native scope clears it. Dispatch waits until after the scene/layout callback, preserving source startup ordering. Known warm requests return whether the intent was accepted; this does not report that an editor appeared. The later report distinguishes waiting, rejected, already-open and presentation-request-accepted outcomes. Unknown shortcut types are rejected; no `userInfo`, URL or page value is interpreted as authority.
 
 The action invokes the existing bound host presenter, which acquires the verified native pause/save binding and presents `ODCreatorController`. In original-client mode that controller's return control is labeled Menu. The scoped animation player adds the same Menu control on its bar once that bar exists, and sends it to the controller, so the preview does not cover the original renderer with its own window. Shortcut registration, the Menu title, and the decision to keep a queued shortcut while services are still attaching come from `creator_menu_policy`. A full four-item icon menu is reported unavailable. Shortcut userInfo does not grant access. Failure leaves the source game and editable data preserved; duplicate actions never discard or reopen a held editor. This is not an original Cocos menu callback. `cocosMenuHookInstalled` stays false. Physical shortcut delivery, original-engine pause/presentation and both Duo displays remain runtime acceptance work.
+
+When canonical save scope is not yet known before shell main,
+`ODDeferredOriginalPlayerAdmission` captures the exact native Core object.
+`expectDeferredCreatorServicesForPlayerAdmission:` and
+`configureOfflineAuthForDeferredPlayerWithExpiresIn:` can configure the Host
+without guessing a scope. `prepareDeferredPlayerAdmissionOnQueue:completion:`
+schedules the existing owner preparation on native IO; its normal main reply
+adopts the actual scope. Construct services with that same Core and real scope,
+then bind them. Pending auth cannot issue tokens before this completes. The
+original client keeps its own loading UI. See
+`deferred-player-admission-source.json` for source/runtime limits.
