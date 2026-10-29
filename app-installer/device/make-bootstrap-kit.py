@@ -36,7 +36,7 @@ def build_kit(library,manifest_path,review_ipa,source_bundle,output,variant):
     output=workflow.contained(output)
     work=ROOT/'app-installer/build/work';work.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='bootstrap-kit-',dir=work) as temporary:
-        stage=pathlib.Path(temporary)/'claude-chatg';stage.mkdir()
+        stage=pathlib.Path(temporary)/'dokkan-offline-public';stage.mkdir()
         files=['README.md','app-installer/LICENSE','app-installer/licensing-signing.md',
                'app-installer/core/app_installer.h','app-installer/core/secure_storage.h',
                'app-installer/device/.gitignore','app-installer/device/device-workflow.py',
@@ -58,7 +58,7 @@ def build_kit(library,manifest_path,review_ipa,source_bundle,output,variant):
         payload=[]
         for path in sorted(stage.rglob('*')):
             if path.is_file():payload.append({'path':str(path.relative_to(stage)),'bytes':path.stat().st_size,'sha256':workflow.sha256(path)})
-        kit={'schema_version':1,'test_fixture':False,'project':'claude-chatg','source_commit':manifest['source_commit'],'bootstrap_tool_commit':head,'source_tree_sha256':fingerprint,
+        kit={'schema_version':1,'test_fixture':False,'project':'dokkan-offline-public','source_commit':manifest['source_commit'],'bootstrap_tool_commit':head,'source_tree_sha256':fingerprint,
              'variant':variant,'files':payload,'rust_library':str(library_target.relative_to(stage)),
              'library_manifest':str(manifest_target.relative_to(stage)),'review_resources':str(resources.relative_to(stage)),
              'native_sources':[p['path'] for p in payload if p['path'].startswith('app-installer/ios/') and p['path'].endswith(('.m','.h'))],
@@ -71,7 +71,7 @@ def build_kit(library,manifest_path,review_ipa,source_bundle,output,variant):
             for path in sorted(stage.rglob('*')):
                 if not path.is_file():continue
                 relative=path.relative_to(stage)
-                info=zipfile.ZipInfo('AI-Workspace/claude-chatg/'+str(relative),date_time=(2026,1,1,0,0,0))
+                info=zipfile.ZipInfo('AI-Workspace/dokkan-offline-public/'+str(relative),date_time=(2026,1,1,0,0,0))
                 info.compress_type=zipfile.ZIP_DEFLATED
                 info.external_attr=((stat.S_IFREG | (0o755 if path.suffix=='.command' else 0o600))<<16)
                 archive.writestr(info,path.read_bytes())

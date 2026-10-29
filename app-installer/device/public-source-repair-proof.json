@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Public-repository guard behavior only, not app/device/build proof",
+  "python_run": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 app-installer/device/test-public-repository-boundary.py",
+    "passed": 2,
+    "failed": 0,
+    "elapsed_seconds": 0.027,
+    "invocations": 1
+  },
+  "source_sha256": {
+    "app-installer/device/device-workflow.py": "35e497e2725da4e972fc9f35d7cd5b81f90ad614b0d2f88ce58e26a1c8978286",
+    "app-installer/device/make-bootstrap-kit.py": "cdbe19d7cb69676c0e44ec2a18aaaa0cb0370aab3308130d4803d6bddab36836",
+    "app-installer/device/setup-wizard.py": "b049e30c6126cd486d981f0d87d542f7731cdaaa43cf857acd3e8a8d5339acb6",
+    "app-installer/cloud-ui/upload-draft-assets.py": "79145d45fac2edd718eec958a8651a873d970714252761431fd29e219f7d18bf",
+    "app-installer/device/test-public-repository-boundary.py": "fab64a6a8c35671a65999bbdac08ddd82ee1953b4b376570d643e0ab532ec68c"
+  },
+  "rust_regression_methods_added_not_run": 8,
+  "native_regression_methods_added_not_run": 1,
+  "build_or_compilation_performed": false,
+  "private_backup_accessed": false,
+  "personal_device_or_save_or_key_accessed": false,
+  "release_ready": false
+}

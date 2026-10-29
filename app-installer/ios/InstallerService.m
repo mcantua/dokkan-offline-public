@@ -6,6 +6,11 @@
 #import <UIKit/UIKit.h>
 #import <math.h>
 #import <sys/stat.h>
+#import <fcntl.h>
+#import <unistd.h>
+#import <errno.h>
+
+static const NSUInteger AIPairingReadLimit = 1024 * 1024;
 
 // Implemented by the Rust engine; declarations also live in app_installer.h.
 extern AIStatus ai_initialize(const char *work_dir);
@@ -47,6 +52,11 @@ extern void ai_free_string(char *value);
 @property (nonatomic) BOOL pairingVerified;
 @property (nonatomic) BOOL pairingCheckRequested;
 @property (nonatomic) BOOL pairingFileKnownPresent;
+@property (nonatomic, strong) NSFileCoordinator *pairingImportCoordinator;
+@property (nonatomic, strong) NSProgress *pairingImportCancellation;
+@property (nonatomic, strong) NSTimer *pairingImportTimeout;
+- (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation;
+- (void)cancelPairingDocumentRead;
 @end
 
 @implementation AIInstallerService
@@ -358,23 +368,103 @@ extern void ai_free_string(char *value);
 - (void)importPairingFile:(NSURL *)url {
     [self authorize:@"Unlock secure pairing storage" action:^{
         self.pairingVerified = NO; self.pairingCheckRequested = NO;
-        BOOL scoped = [url startAccessingSecurityScopedResource];
-        NSNumber *size = nil; [url getResourceValue:&size forKey:NSURLFileSizeKey error:nil];
-        NSData *data = (size && size.unsignedLongLongValue <= 1024*1024) ? [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:nil] : nil;
-        if (scoped) [url stopAccessingSecurityScopedResource];
-        if (!data.length || ai_import_pairing(data.bytes, data.length) != AI_OK) {
-            [self emit:@"error" message:@"That pairing file could not be validated or saved. Please check it and try again."]; return;
-        }
-        NSError *error = nil;
-        self.pairingBackupReady = [self.pairingStore importValidatedPairingData:data error:&error];
-        if (!self.pairingBackupReady) {
-            [self emit:@"error" message:@"Pairing was validated, but its protected backup could not be saved. Import it again before continuing."]; return;
-        }
-        self.pairingFileKnownPresent = YES; self.pairingCheckRequested = YES;
-        [self readEngineState];
-        [self emit:@"state" message:@"Pairing file saved securely. Checking this iPhone through LocalDevVPN…"];
-        [self maybeCheckPairing];
+        if (!url.isFileURL) { [self emit:@"error" message:@"Choose a pairing file from Files."]; return; }
+        NSUInteger generation = self.operationGeneration;
+        NSProgress *cancellation = [NSProgress discreteProgressWithTotalUnitCount:1];
+        NSFileCoordinator *coordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+        self.pairingImportCancellation = cancellation;
+        self.pairingImportCoordinator = coordinator;
+        self.staging = YES;
+        [self emit:@"preparing" message:@"Opening the selected pairing file…"];
+        __weak typeof(self) weakSelf = self;
+        self.pairingImportTimeout = [NSTimer timerWithTimeInterval:30 repeats:NO block:^(NSTimer *timer) {
+            AIInstallerService *self = weakSelf;
+            if (!self || self.operationGeneration != generation || self.pairingImportCoordinator != coordinator) return;
+            [self cancel];
+            [self emit:@"error" message:@"The pairing file could not be opened in time. Download it in Files, then choose it again."];
+        }];
+        [NSRunLoop.mainRunLoop addTimer:self.pairingImportTimeout forMode:NSRunLoopCommonModes];
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            @autoreleasepool {
+                NSMutableData *bytes = [self coordinatedPairingBytesFromURL:url coordinator:coordinator cancellation:cancellation];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.operationGeneration != generation || self.pairingImportCoordinator != coordinator) {
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)]; return;
+                    }
+                    [self cancelPairingDocumentRead]; self.staging = NO;
+                    if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive ||
+                        !UIApplication.sharedApplication.protectedDataAvailable || ![AISecureStore sessionAuthorized]) {
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                        [self emit:@"error" message:@"Open and unlock App Installer, then choose the pairing file again."];
+                    } else if (!bytes.length) {
+                        [self emit:@"error" message:@"The pairing file could not be read safely. Choose a nonempty file up to 1 MB from Files."];
+                    } else if (ai_import_pairing(bytes.bytes, bytes.length) != AI_OK) {
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                        [self emit:@"error" message:@"That pairing file could not be validated or saved. Please check it and try again."];
+                    } else {
+                        self.pairingBackupReady = [self.pairingStore importValidatedPairingData:bytes error:nil];
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                        if (!self.pairingBackupReady) {
+                            [self emit:@"error" message:@"Pairing was validated, but its protected backup could not be saved. Import it again before continuing."];
+                        } else {
+                            self.pairingFileKnownPresent = YES; self.pairingCheckRequested = YES;
+                            [self readEngineState];
+                            [self emit:@"state" message:@"Pairing file saved securely. Checking this iPhone through LocalDevVPN…"];
+                            [self maybeCheckPairing];
+                        }
+                    }
+                    [self readEngineState]; [self endBackgroundExecutionIfIdle];
+                });
+            }
+        });
     }];
+}
+- (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation {
+    if (!url.isFileURL || cancellation.cancelled) return nil;
+    BOOL scoped = [url startAccessingSecurityScopedResource];
+    __block NSMutableData *result = nil;
+    NSError *coordinationError = nil;
+    @try {
+        [coordinator coordinateReadingItemAtURL:url options:NSFileCoordinatorReadingWithoutChanges error:&coordinationError byAccessor:^(NSURL *readURL) {
+            if (!readURL.isFileURL || cancellation.cancelled) return;
+            // Providers can supply the real readable URL only inside this
+            // accessor. Do not require pre-hydration NSURLFileSizeKey metadata.
+            const char *path = readURL.fileSystemRepresentation;
+            struct stat before, opened;
+            if (!path || lstat(path, &before) != 0 || !S_ISREG(before.st_mode)) return;
+            int descriptor = open(path, O_RDONLY | O_CLOEXEC | O_NOFOLLOW | O_NONBLOCK);
+            if (descriptor < 0) return;
+            if (fstat(descriptor, &opened) != 0 || !S_ISREG(opened.st_mode) ||
+                before.st_dev != opened.st_dev || before.st_ino != opened.st_ino ||
+                opened.st_size <= 0 || opened.st_size > AIPairingReadLimit) { close(descriptor); return; }
+            // Hardlinks are regular read-only inputs; no source attributes are
+            // changed. The size limit is also enforced against actual reads.
+            NSMutableData *data = [NSMutableData dataWithCapacity:(NSUInteger)opened.st_size];
+            uint8_t buffer[8192]; BOOL reachedEOF = NO;
+            while (!cancellation.cancelled) {
+                size_t wanted = MIN(sizeof(buffer), AIPairingReadLimit - data.length + 1);
+                ssize_t count = read(descriptor, buffer, wanted);
+                if (count < 0 && errno == EINTR) continue;
+                if (count <= 0) { reachedEOF = count == 0; break; }
+                if ((NSUInteger)count > AIPairingReadLimit - data.length) break;
+                [data appendBytes:buffer length:(NSUInteger)count];
+            }
+            close(descriptor);
+            if (reachedEOF && data.length && !cancellation.cancelled) result = data;
+            else [data resetBytesInRange:NSMakeRange(0, data.length)];
+        }];
+    } @finally {
+        if (scoped) [url stopAccessingSecurityScopedResource];
+    }
+    if (coordinationError || cancellation.cancelled) {
+        [result resetBytesInRange:NSMakeRange(0, result.length)]; return nil;
+    }
+    return result;
+}
+- (void)cancelPairingDocumentRead {
+    [self.pairingImportTimeout invalidate]; self.pairingImportTimeout = nil;
+    [self.pairingImportCancellation cancel]; self.pairingImportCancellation = nil;
+    [self.pairingImportCoordinator cancel]; self.pairingImportCoordinator = nil;
 }
 - (void)installIPA:(NSURL *)url {
     [self authorize:@"Approve signing and installing this app" action:^{
@@ -443,6 +533,7 @@ extern void ai_free_string(char *value);
     }];
 }
 - (void)cancel {
+    [self cancelPairingDocumentRead];
     // Invalidate the storage generation before clearing the pending-auth flags.
     // A late genuine LocalAuthentication reply must not unlock a cancelled task.
     BOOL authenticationPending = self.authorizing || self.biometricMigrationPending;

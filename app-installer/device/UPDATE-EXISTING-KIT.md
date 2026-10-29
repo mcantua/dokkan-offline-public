@@ -1,5 +1,7 @@
 # Update Tin’s existing reviewed setup kit
 
+**Retired for this continuation:** the hashes/commands below describe a historical private-repository kit. The private backup is frozen. No corrected public-repository kit exists yet; do not run these commands or change a manifest to bypass its source checks. See [PUBLIC-CONTINUATION.md](PUBLIC-CONTINUATION.md).
+
 For the current7059c85 kit only. This preserves the existing project folder and unlisted private build/signing outputs. It does not sign, install, access Keychain or send an Apple request. Existing local-use approval covers this update; new Apple-account changes/large Xcode remain separate decisions.
 
 After downloading the corrected native kit ZIP from the existing private draft, paste only this block into a new Terminal window. The file chooser avoids assumptions about the browser’s download filename. Its exact size/SHA is verified before extraction; macOS ditto merges the known archive into the existing folder. The known nested path is the path Tin actually used. Do not substitute a different root without reviewing it.

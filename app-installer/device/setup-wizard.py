@@ -142,7 +142,7 @@ def main(argv=None):
         if workflow.main(['fetch-pairing-tool','--execute'])!=0:return 1
         dmg=workflow.ROOT/'downloads/idevice-pair-macos/idevice_pair--macos-universal.dmg'
         workflow.command(['open',str(dmg)],step='Opening the verified pairing-tool distribution')
-        note('Open idevice_pair from the verified disk image; follow normal macOS verification. Select this iPhone, choose Lockdown, then Load/Create and Validate. Save one temporary pairing export in AI-Workspace/claude-chatg/app-installer/device/private/pairing.mobiledevicepairing. It contains private keys—never upload it to chat or GitHub. Follow USER-ACTIONS.md to import it securely on the phone, then delete the export after validation. The helper has not marked those checks as passed.')
+        note('Open idevice_pair from the verified disk image; follow normal macOS verification. Select this iPhone, choose Lockdown, then Load/Create and Validate. Save one temporary pairing export in AI-Workspace/dokkan-offline-public/app-installer/device/private/pairing.mobiledevicepairing. It contains private keys—never upload it to chat or GitHub. Follow USER-ACTIONS.md to import it securely on the phone, then delete the export after validation. The helper has not marked those checks as passed.')
         return 0
     except (workflow.WorkflowError,OSError,ValueError,KeyError,TypeError):
         error=sys.exc_info()[1]

@@ -1,5 +1,7 @@
 # Completion task list
 
+**Current source-only state:** public-copy remote pairing/helper/phone transport is incomplete. Source authentication/fragmentation and asynchronous Files import repairs are uncompiled. Two Python migration-boundary checks passed; no app verification. No build until "make the builds". Historical rows below retain their original source scope; see device/PUBLIC-CONTINUATION.md.
+
 This list tracks the actual completion goal. No overall100% claim while any required item is blocked or unverified. Builds and documents are evidence/milestones, not completion.
 
 | Requirement | Current state | Required proof |

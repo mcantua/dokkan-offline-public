@@ -4,22 +4,23 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; claude-chatg is the frozen private backup)_
+_Last updated: 2026-10-29 11:35 AM US Central (ChatGPT; App Installer public source repairs, no builds)_
 
 ## Right now
 | Project | Who | State |
 |---|---|---|
-| App Installer | **ChatGPT + cloud agents** | Old8eaf app reportedly installed and opened manually, then crashed at sign-in after authorization/Touch ID. Concrete missing Rust crypto-provider startup defect fixed in7059c85; actual fresh-process constructor1 and relevantTLS2 passed40777027792 (0failures,0.01seconds per group), plus one genuine-SDK package. No19core/response/native repeats; earlier22-check proof is8eaf-only. New local kit35,149,949bytes and matching source78,336,612bytes identify7059c85. Private draft transfer40778539399 passed; physical corrected-build update/retest pending; crash resolution unconfirmed. Native biometric/Keychain review found no separate cause; security unchanged. Broader capability limits persist, release_ready=false. Approved manual setup scope persists; no direct Mac-control tool is attached. |
+| App Installer | **ChatGPT, public source branch** | Resumed on `chatgpt/app-installer-pairing-repair`. The clean copy is older/Lockdown-only and lacks later helper/phone RP integration. Pairing authentication/wire and coordinated Files source repairs are uncompiled. Two Python migration-boundary checks passed; no compiler/native/device run. Private backup/base untouched. No builds until "make the builds". See app-installer/device/PUBLIC-CONTINUATION.md; not release ready. |
 | Dokkan Unit Creator | **Grok, on draft PR #1** | Source branch `chatgpt/ios-eclipse-database-reuse`. Hosted Finish saved exact growth thousandths on run 40891656259. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
-- Confirm with Claude: iOS and Face ID cannot guarantee unattended self-refresh. Proposed behavior keeps Face ID protection and requires opening/unlocking the app when needed. Expired installer recovery may need a computer.
-- **Resource approval already granted; do not ask again:** Tin approved MacBook/USB Duo/network/current kit/pairing/trusted dependencies and resumed manual setup. He reports native signing/export/install on the physical phone, followed by manual app launch and a sign-in crash after authorization. Corrected7059c85 delivery is verified. Guide the pinned kit merge and same-identity update before another sign-in attempt. Significantly larger Xcode installations and Apple-credential changes retain their separate approval boundary. Keep passwords/codes, private signing keys/profiles and device identifiers out of GitHub/chat.
+- **App Installer build gate:** Tin explicitly requires "make the builds" before compilation/builds. Source repairs are saved but Rust/native checks are unrun. Do not request an old kit reinstall or another private pairing record. Continue the current helper/phone-RP/public-delivery integration after the focused verified source batch; real connection and device acceptance remain unverified. No personal identifiers or secrets are needed in chat.
 - Link for the Eclipse website (for Offline Dokkan data).
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
+
 ## Log (newest first)
+- 2026-10-29 11:35 AM US Central — ChatGPT: explicitly resumed App Installer in the public repository only. Source repairs from root +2 scoped agents; actual older baseline/remaining modernRP gaps documented. Two Python boundary checks passed in one run; Rust8/native1 methods added but uncompiled/unrun. No builds, old-backup access, personal machine, config/save/key reads or base merge. Historical private kit update instructions retired and private release transport disabled before network; current source and Drive continuation log recorded.
 - 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.
 
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.

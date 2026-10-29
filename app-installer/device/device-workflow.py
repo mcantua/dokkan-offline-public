@@ -47,8 +47,8 @@ def command(argv: list[str], *, step: str) -> bytes:
 
 def mac_only() -> None:
     if sys.platform != "darwin": raise WorkflowError("Execution requires the approved Mac with Xcode. Dry-run works in the cloud.")
-    if ROOT.name!="claude-chatg" or ROOT.parent.name!="AI-Workspace":
-        raise WorkflowError("Keep this single project inside AI-Workspace/claude-chatg before approved execution.")
+    if ROOT.name!="dokkan-offline-public" or ROOT.parent.name!="AI-Workspace":
+        raise WorkflowError("Keep this single project inside AI-Workspace/dokkan-offline-public before approved execution. The old private backup is frozen.")
     if not shutil.which("xcrun") or not shutil.which("xcodebuild"):
         raise WorkflowError("Open the existing full Xcode app, then Xcode → Settings → Locations → Command Line Tools and select that Xcode. Command Line Tools alone cannot build this app. If full Xcode is missing, stop for separate approval before a large download.")
 
@@ -93,7 +93,7 @@ def bootstrap_kit() -> dict | None:
     if not manifest_path.exists(): return None
     try: manifest=json.loads(checked_file(manifest_path).read_text())
     except (ValueError,OSError): raise WorkflowError("Bootstrap kit manifest is unreadable.") from None
-    if (not isinstance(manifest,dict) or type(manifest.get("schema_version")) is not int or manifest["schema_version"]!=1 or manifest.get("test_fixture") is not False or manifest.get("project")!="claude-chatg"
+    if (not isinstance(manifest,dict) or type(manifest.get("schema_version")) is not int or manifest["schema_version"]!=1 or manifest.get("test_fixture") is not False or manifest.get("project")!="dokkan-offline-public"
         or not re.fullmatch(r"[0-9a-f]{40}",str(manifest.get("source_commit","")))
         or not re.fullmatch(r"[0-9a-f]{40}",str(manifest.get("bootstrap_tool_commit","")))
         or not re.fullmatch(r"[0-9a-f]{64}",str(manifest.get("source_tree_sha256","")))

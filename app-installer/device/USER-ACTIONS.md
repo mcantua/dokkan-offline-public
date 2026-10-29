@@ -1,5 +1,7 @@
 # What Tin needs to do for the first real installation
 
+**Historical setup guide:** no current public-repo kit has been built. Do not use the old private download/update paths below, retry old Pair-only instructions, or reinstall the older public copy. Read [PUBLIC-CONTINUATION.md](PUBLIC-CONTINUATION.md) for the actual source gaps and build gate.
+
 Everything that can run without your Mac or phone is prepared in the cloud first. These steps have **not** been performed. The app is not called fully working until the real device checks pass.
 
 1. **Approve the exact local setup step when asked.** It uses your MacBook, a USB cable, your iPhone and the internet connection you approve. The assistant will state the Rust transfer's exact size/hash first. Xcode may contact Apple to register this phone and create/reuse its development certificate/profile. The optional official pairing-tool download is 57,690,695 bytes. No Mac or personal connection use begins merely because it is connected.

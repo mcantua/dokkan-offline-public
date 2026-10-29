@@ -1,5 +1,9 @@
 # Work log
 
+## 2026-10-29 11:35 AM US Central — public-copy source repairs, no build
+
+Resumed App Installer at Tin's explicit request on its own draft branch, preserving base and private backup. Public-only audit found the much older Lockdown-only baseline and absent later USB helper/RP phone path. Independently repaired TLV fragmentation/truncation, authenticated SRP/M6/pinnedverify/strictv2 source, protected asynchronous Files imports and current folder/retired-publication boundaries. No private files or old backup accessed. Two narrowly assigned cloud agents delivered vendor/native source; root integrated. One Python run:2passed/0failures/0.027seconds. Rust8/native1 new methods remain uncompiled/unrun. No build, dependency download, simulator, personal action, save/key access or acceptance claim. Existing old crypto/core/native proofs were not relabeled. Full current gaps and exact follow-up are in device/PUBLIC-CONTINUATION.md; source/Drive logs updated using existing file organization.
+
 ## 2026-10-28 5:10 PM US Central — first-account startup fix; physical retest pending
 
 - Tin reports the old8eaf app installed through the4ad Mac helper and opened manually, then crashed at sign-in after authorization/Touch ID. Found and fixed a concrete first-account Rust crypto-provider startup bug in7059c85; targeted cloud checks/package passed. New draft transfer40778539399 passed; physical crash retest remains pending.
