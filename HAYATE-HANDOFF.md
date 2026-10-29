@@ -16,7 +16,7 @@ Tin resumed ChatGPT and reconfirmed that production is his supplied
 Sparking/original Dokkan client made offline, with agreed edits and the embedded
 Creator. The older stop is historical. Duo only; no builds or base merge.
 
-Current source integration: `chatgpt/duo-source-integration`, based on
+Current source integration: draft [PR #8](https://github.com/mcantua/dokkan-offline-public/pull/8), code commit `44ab0bb`, topic `chatgpt/duo-source-integration`, based on
 `220d7bbc7ebd535692b3dfc7f980c928cf04f267`. Relevant source from draft PRs #1–#4 is
 combined; their branches remain untouched. Full-unit false/null awakening and
 late-bind failure/retry fixes are source-only. Closed auth routes are retained.

@@ -640,20 +640,28 @@
       "url": "https://drive.google.com/file/d/1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0/view?usp=drivesdk",
       "name": "current-source.tar.gz",
       "folder": "Source",
-      "size": 64899587,
-      "sha256": "b64f5a7b2e7d3595ee1d3a7bcc7f75f1ed77c5d3c6f9334b2205a94ee64bd7ad",
-      "source_files": 1434,
-      "source_commit": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
+      "size": 44679370,
+      "sha256": "674c2611aa96c04790d7f19837f86ee1483e61ea889a4763dfe9fe98d7cc0030",
+      "source_files": 1990,
+      "source_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false,
-      "code_snapshot": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
-      "tracked_files": 1434,
+      "code_snapshot": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+      "tracked_files": 1991,
       "concurrent_uncommitted_edits_excluded": true,
-      "remote_commit": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
+      "remote_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
       "operational_registry_external": true,
       "other_project_packages_included": false,
-      "uncompiled_wip_explicit": true
+      "uncompiled_wip_explicit": true,
+      "repository": "mcantua/dokkan-offline-public",
+      "branch": "chatgpt/duo-source-integration",
+      "pull_request": 8,
+      "archive_exclusions": [
+        "context/DRIVE-WORKSPACE.json",
+        "Git metadata",
+        "ignored and untracked files"
+      ]
     },
     {
       "id": "1sAqwSnzCRYPMgRlnSWBpEfV4i0ydG7u-",
@@ -1088,7 +1096,7 @@
     "automatic_cross_chat_sync": false
   },
   "development_state": {
-    "status": "paused at Tin request for Grok Bot takeover",
+    "status": "ChatGPT resumed by Tin; public repository source integration draft #8; original Sparking/Dokkan foundation; no builds authorized",
     "stop_time": "October 29, 2026, about 8:30 AM US Central",
     "all_six_agents_stopped": true,
     "no_background_development_claim": true,
@@ -1101,9 +1109,28 @@
     "resume_chatgpt_automatically": false,
     "paused_checkpoint_local": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
     "paused_checkpoint_remote": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
-    "source_archive_sha256": "b64f5a7b2e7d3595ee1d3a7bcc7f75f1ed77c5d3c6f9334b2205a94ee64bd7ad",
+    "source_archive_sha256": "674c2611aa96c04790d7f19837f86ee1483e61ea889a4763dfe9fe98d7cc0030",
     "source_archive_metadata_verified": true,
     "handoff_text_readback_verified": true,
-    "latest_native_run_completed": true
+    "latest_native_run_completed": true,
+    "resumed_by": "take over",
+    "active_repository": "mcantua/dokkan-offline-public",
+    "active_topic": "chatgpt/duo-source-integration",
+    "draft_pr_url": "https://github.com/mcantua/dokkan-offline-public/pull/8",
+    "source_archive_byte_readback_verified": false,
+    "current_status_drive_id": "1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--",
+    "current_source_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+    "historical_pause_fields": "stop_time, paused_checkpoint_* and the original handoff ID describe the earlier Grok pause only; latest resumption/source fields supersede them."
+  },
+  "public_repository_integration": {
+    "repository": "mcantua/dokkan-offline-public",
+    "base_pin": "220d7bbc7ebd535692b3dfc7f980c928cf04f267",
+    "source_pin": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+    "draft_pr": 8,
+    "base_merged": false,
+    "native_runtime_verified": false,
+    "gameplay_verified": false,
+    "both_displays_verified": false,
+    "source_check": "Changed JS syntax, whitespace and conflict markers passed; staged privacy gate passed; no compiler or app/runtime tests/builds."
   }
 }
