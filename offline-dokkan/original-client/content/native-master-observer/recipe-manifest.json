@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "kind": "optional-passive-native-master-probe-recipe",
+  "original_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "derived_sha256": "92fee997a655cfc40f09f342ddf51e26c3da3082ce67c2d4bd3062365aa132b3",
+  "derived_bytes": 55779656,
+  "code_rva": 52281344,
+  "data_rva": 52297728,
+  "code_bytes": 16384,
+  "data_bytes": 65536,
+  "code_sha256": "afa63cb0ebfd775d315af4b74b9ded7859287711d12e91cfaaa5912d19aac885",
+  "initial_data_sha256": "48be2bc50a0fc1a7997c42e351211cd517dddc2b323d9615673ff8b0614e8ee1",
+  "patched_sites": [
+    {
+      "role": "entry",
+      "source_rva": 4520552,
+      "probe_rva": 52281344,
+      "displaced_word": 2852127734,
+      "patched_word": 347484518
+    },
+    {
+      "role": "preferred",
+      "source_rva": 4520636,
+      "probe_rva": 52281616,
+      "displaced_word": 2852127732,
+      "patched_word": 347484565
+    },
+    {
+      "role": "fallback",
+      "source_rva": 4520704,
+      "probe_rva": 52281776,
+      "displaced_word": 2852127732,
+      "patched_word": 347484588
+    },
+    {
+      "role": "finish",
+      "source_rva": 4520788,
+      "probe_rva": 52281936,
+      "displaced_word": 2853438432,
+      "patched_word": 347484607
+    },
+    {
+      "role": "filename",
+      "source_rva": 4397364,
+      "probe_rva": 52282288,
+      "displaced_word": 2853438433,
+      "patched_word": 347515551
+    }
+  ],
+  "retained_witness_record_offset": 36864,
+  "retained_witness_ticket_offset": 40960,
+  "original_function_start_and_unwind_payloads_unchanged": true,
+  "direct_branch_islands_preserve_live_lr": true,
+  "native_runtime_executed": false,
+  "master_accepted": false,
+  "original_bytes": 55697728,
+  "unsigned_command_bytes": 11368,
+  "unsigned_command_count": 86,
+  "first_file_backed_section_offset": 16384
+}

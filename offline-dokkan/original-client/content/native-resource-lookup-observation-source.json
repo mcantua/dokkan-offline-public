@@ -1,0 +1,36 @@
+{
+  "kind": "optional-original-native-resource-lookup-observation-source",
+  "header": "ODOriginalResourceLookupProbe.h",
+  "implementation": "ODOriginalResourceLookupProbe.mm",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "source_only": true,
+  "native_compiled": false,
+  "actual_resolver_calls_observed": false,
+  "gameplay_verified": false,
+  "factory": "Loader receives the same admitted file snapshot and loaded image. Exact unique body hashes are found only at actual LC_FUNCTION_STARTS boundaries. Factory performs no original function call.",
+  "body_pins": [
+    {"role":"existing_singleton_source_only","bytes":148,"sha256":"cec8c606d28e7ff8d72bec792c1c4900f8ca09e7890f8ac22d5dcf8ed83e8b28"},
+    {"role":"platform_constructor_source_only","bytes":132,"sha256":"46a229b83d625d34eeaff7f36430dc4e0003ac29f54788ad17c1b76e27ddf969"},
+    {"role":"actual_full_path_resolver","bytes":660,"sha256":"1a43222687527b80c5ed4e36bac248868cfca9e40aa29346b30d45d07421339b"}
+  ],
+  "observation_context": "Main only, actual pinned initialized original application/director with a running scene and no pending transition, actual existing FileUtils instance and exact source vtable/full-path slot; current mapped bodies rechecked.",
+  "singleton_initialization": "Never calls getInstance, constructor, init, or a lazy getter; reads only the existing storage derived from the pinned source ADRP/ADD.",
+  "native_string_contract": "Apple std::__1 24-byte/8-aligned string, receiver X0, const string reference X1, nontrivial indirect string result X8. Compile-time ABI guards and bounded host short/long representation check precede calls.",
+  "candidates": [
+    {"role":"fixedPlayerCard","original_member":"tutorial0/character/card/1022910.cpk","sha256":"2e154a060e555249943f60d5202d70ffe011963d84f89e7eda51f4966e00ba54"},
+    {"role":"fixedPlayerCharacter","original_member":"tutorial0/ingame/battle/character/01196.cpk","sha256":"52fd798c2ed268ee06b480c4a5387e437a611d04236f8520549d7b0753f738aa"},
+    {"role":"backgroundCandidate","original_member":"tutorial0/ingame/battle/bg/battle_bg_00019.cpk","sha256":"8a5d0c599ffbf4285f49610a7df0b1e9fe6d7ce9ed3b804f4c03f641483f1970"},
+    {"role":"musicWaveCandidate","original_member":"tutorial0/bgm/bgm_149.awb","sha256":"2b5f2d9f1755370170afe0d2b62412dfa41923b321d8279b81235c8965468be3"}
+  ],
+  "query_variants": ["fixed canonical relative name","same name with assets/ prefix","exact original tutorial0/ bundle name"],
+  "maximum_resolver_calls_per_explicit_observation": 12,
+  "stat_policy": "Only exact expected original bundle/root/tutorial paths and actual own Documents/assets paths, including its tutorial0 child, are checked through NOFOLLOW directory descriptors. Only actual Foundation anchor URLs are canonicalized; appended assets/tutorial0/resource children are never resolved through symlinks. Unknown returned paths are neither followed nor statted. Native and canonical spellings of trusted own anchors are compared without publishing them.",
+  "report_policy": "Fixed role keys and boolean leaves only. No resolved filename, address, device/container path, native object, file content, or account field is returned.",
+  "native_filename_cache_may_populate": true,
+  "search_paths_or_setters_modified": false,
+  "cpk_contents_read_or_rehashed_by_host": false,
+  "http_or_page_inputs_accepted": false,
+  "key_or_save_contents_read": false,
+  "startup_gameplay_or_master_readiness_gate_added": false,
+  "integration": "Optional provider for a subsequent reviewed cohort; current frozen component cohort unchanged. Unavailable observation must not stop the original client."
+}

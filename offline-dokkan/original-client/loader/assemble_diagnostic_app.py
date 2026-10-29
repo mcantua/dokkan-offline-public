@@ -77,6 +77,7 @@ def admit_current_component_sources(component, integrated=False):
         "offline-dokkan/original-client/loader/ODUnifiedDuoStartup.m",
         "offline-dokkan/original-client/loader/ODUnifiedDuoNativeFactory.m",
         "offline-dokkan/original-client/duo/ODDuoPracticeBattle.mm",
+        "offline-dokkan/original-client/duo/ODOriginalPracticeSession.m",
         "offline-dokkan/original-client/ios/ODOriginalPracticePhaseProvider.m",
     ) if integrated else ())
     for fixed in critical:

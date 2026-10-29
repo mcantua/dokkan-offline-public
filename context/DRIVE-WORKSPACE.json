@@ -1226,40 +1226,11 @@
     "automatic_cross_chat_sync": false
   },
   "development_state": {
-    "status": "Duo integrated diagnostic compiled and packaged; signed-device startup/runtime acceptance pending",
-    "stop_time": "October 29, 2026, about 8:30 AM US Central",
-    "all_six_agents_stopped": true,
-    "no_background_development_claim": true,
-    "active_builds_or_tests": false,
-    "handoff_drive_id": "1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag",
-    "toolchain_drive_id": "1BoivQMyXU6qRY3qBeHzjQ_kZAVSE5YhU",
-    "existing_tools_metadata_verified": 37,
-    "tools_missing_or_changed": 0,
-    "uncompiled_wip_preserved": true,
-    "resume_chatgpt_automatically": false,
-    "paused_checkpoint_local": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
-    "paused_checkpoint_remote": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
-    "source_archive_sha256": "105b7acde7ee1e9e5353e44ef2f5c4b5092169d65e0d8dedee07a3dd168f5695",
-    "source_archive_metadata_verified": true,
-    "handoff_text_readback_verified": true,
-    "latest_native_run_completed": true,
-    "resumed_by": "take over",
-    "active_repository": "mcantua/dokkan-offline-public",
-    "active_topic": "chatgpt/duo-source-integration",
-    "draft_pr_url": "https://github.com/mcantua/dokkan-offline-public/pull/8",
-    "source_archive_byte_readback_verified": false,
-    "current_status_drive_id": "1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--",
-    "current_source_commit": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6",
-    "historical_pause_fields": "stop_time, paused_checkpoint_* and the original handoff ID describe the earlier Grok pause only; latest resumption/source fields supersede them.",
-    "user_latest_directive": "No-build rule permanently revoked. Meaningful Duo diagnostic/development/playable builds authorized; share newest available download with truthful label. Prioritize original client startup, offline login, Home, team, battle, save, then Creator battle. Minimal targeted checks; no checklist-based game percentages.",
-    "current_parallel_workers": 0,
-    "current_phase": "Original-client signed-device startup and safe native master acceptance evidence pending",
-    "private_analysis_drive_id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
-    "historical_stop_time": "October 29, 2026, about 8:30 AM US Central",
-    "active_workers_at_checkpoint": 0,
-    "source_archive_commit": "89b3b7de729bc14fff2c26dcc7fc63fce25431e8",
-    "latest_pushed_code_commit": "89b3b7de729bc14fff2c26dcc7fc63fce25431e8",
-    "last_sync_scope": "Implementation20fd and handoff/delivery89b3 preserved in latest source archive; separate operational registry excluded from archive to avoid self-reference. Native72unit success and actual runtime gaps recorded. Private analysis1006files updated; latest945MB diagnostic preserved as existing integrated baseline plus16.6MB delta; newer singleIPA restore not yet run."
+    "owner": "Claude takeover requested by Tin",
+    "chatgpt_active": false,
+    "background_development": false,
+    "runtime_gameplay_verified": false,
+    "next": "Finish strict native-master admission/witness integration, compile coherent source, then actual original-client Home/battle/save/custom-unit verification."
   },
   "public_repository_integration": {
     "repository": "mcantua/dokkan-offline-public",
@@ -1373,5 +1344,37 @@
     "integrated_size_verified": 929647581,
     "integrated_source_visibility": "not_shared",
     "drive_full_byte_readback_performed": false
+  },
+  "claude_handoff": {
+    "requested": "2026-10-29",
+    "state": "ChatGPT development frozen for Claude takeover; no agents active",
+    "entry_document": "CLAUDE-HANDOFF.md",
+    "private_kit": {
+      "size": 40475733,
+      "sha256": "eefb06b4d58e305f8ee5bba4b18c509e0aec3e357ad122b146c759f19a397fb1",
+      "files": 17,
+      "id": "1NrRRCJ4wmZCq1anulVtOqCSJUrx60FRJ",
+      "url": "https://drive.google.com/file/d/1NrRRCJ4wmZCq1anulVtOqCSJUrx60FRJ/view",
+      "metadata_verified": true
+    },
+    "private_analysis": {
+      "size": 2896197,
+      "sha256": "b95a96c58b527f5a20270762bda049465d0f9819a2c88b1943883364ce9e1568",
+      "files": 1055,
+      "scope": "Retained private source analysis plus final scoped findings; no game binaries, credentials, signing or user saves",
+      "id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
+      "metadata_verified": true
+    },
+    "latest_compiled_source": "457588ce135bc2704237d8b14a3936e60fa1819d",
+    "component_build_run": 40968955778,
+    "component_artifact": 12938734918,
+    "native_units": 77,
+    "newest_compiled_source_assembled_as_ipa": false,
+    "later_optional_sources_compiled": false,
+    "verified_playable": false,
+    "source_archive_excludes": [
+      "context/DRIVE-WORKSPACE.json"
+    ],
+    "protected_base_merged": false
   }
 }

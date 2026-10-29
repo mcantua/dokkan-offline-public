@@ -41,6 +41,25 @@ original Home factory with its non-login mode, following volatile puzzle/ability
 cleanup. It deliberately omits the tutorial `FINISHED_BATTLE` event and original
 checkpoint-unlink helper. It does not call the ordinary Core run/finish APIs.
 
+The native session now prepares a separate same-Core practice ledger before
+entry, pinning phase3 and its exact readonly-master parameter hash. A prepared
+record does not claim the Scene rendered or combat occurred. Only the actual
+bound original finish callback can invoke its finish saver. That callback also
+carries its Scene pointer and generation, so a late older layer cannot settle a
+new session. Durable `native-finish-observed` records no victory, reward, ACT,
+ordinary quest clear or tutorial progress. Cleanup and Home wait for commit.
+Save failure preserves the battle/session and offers an explicit retry of the
+same intent; a saved finish can retry return without saving another completion.
+This is encounter/completion metadata, not mid-combat HP/RNG/checkpoint resume.
+
+Core schema15 migrates older saves without altering their progress. The same
+native player snapshot exposes `offline_practice` for restart inspection;
+resource/User/team responses do not forward it as a game-server field. One
+focused actual-C scenario verified migration, source/scope/native authority,
+unknown-reply replay, explicit stale-revision retry, unchanged gameplay state
+and durable reopen. The original game/finish callback was not executed by that
+check; runtime combat-to-save acceptance remains pending.
+
 Static completion is not runtime acceptance. The bridge, phase provider,
 loader capability and manual action must be compiled together, then the actual
 client must prove entry, playable Ki controls/attacks, victory/defeat callback,

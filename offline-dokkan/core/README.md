@@ -386,3 +386,15 @@ original-engine attachment or runtime-readiness flag is added.
 Source changed without a C/Objective-C compile or actual save access. The one
 focused in-memory SQLite migration/atomicity check is recorded separately;
 it does not establish compiled native behavior or original-engine gameplay.
+
+
+Schema15 adds a native-only own practice ledger (`practice.c`). The same canonical
+Core records a phase/hash-bound prepared session and its actual original finish
+callback. These records grant no rewards, consume no ACT, change no teams/cards,
+and never clear an ordinary quest or the intro tutorial. The original finish
+saver must commit before cleanup/Home; retry preserves command identity unless
+Core specifically proved a precommit revision rejection. Native player snapshots
+include a separate `offline_practice` summary. This does not implement mid-battle
+checkpoint resume or establish that the original game ran. Focused evidence:
+`practice-ledger-evidence.json`; check: `check_practice_store.py <readonly-master>
+--content <already-verified-content-id>`.

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "kind": "optional-observer-inverse-and-synthetic-controlflow-check",
+  "result": "passed",
+  "targeted_runs": 1,
+  "exact_inverse_and_regeneration": true,
+  "tampered_derived_bytes_rejected": true,
+  "rx_probe_rw_data_no_wx_segment": true,
+  "registers_including_live_lr_vectors_nzcv_sp_and_native_frame_preserved": true,
+  "key_pointer_provider_and_cached_sqlite_handle_unmapped_in_emulator": true,
+  "aslr_slides_checked": 2,
+  "scenarios": [
+    "preferred source path + native success tuple captured; slide=0",
+    "fallback success cannot claim chosen candidate",
+    "schema failure16 retained",
+    "cached reuse1 supplies no fresh acceptance",
+    "oversized path never read and cannot supply identity",
+    "actual inline-string representation handled",
+    "collision drops observation without changing native return",
+    "overlapping native invocations marked unsuitable for admission",
+    "preferred source path + native success tuple captured; slide=1073741824",
+    "fallback success cannot claim chosen candidate",
+    "schema failure16 retained",
+    "cached reuse1 supplies no fresh acceptance",
+    "oversized path never read and cannot supply identity",
+    "actual inline-string representation handled",
+    "collision drops observation without changing native return",
+    "overlapping native invocations marked unsuitable for admission"
+  ],
+  "derived_sha256": "6e794743286bba5ba35b0cde1869a492d6ab44cb3e31dbdb3d7b03417334b911",
+  "original_source_unchanged": true,
+  "original_game_executed": false,
+  "ios_dyld_signing_device_verified": false,
+  "native_master_accepted": false,
+  "verification_history": [
+    "Initial assembler setup failure: high-address ADR; corrected before any emitted artifact acceptance",
+    "BL variant inverse/control-flow passed",
+    "Changed direct-B/LR-preservation variant inverse/control-flow passed; final artifact only"
+  ],
+  "semantic_verification_runs": 2
+}

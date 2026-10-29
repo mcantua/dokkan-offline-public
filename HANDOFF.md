@@ -1,5 +1,8 @@
 # FULL HANDOFF: everything Claude (cloud chat) was doing
 
+**Claude takeover — October 29, 2026, 6:21 PM CT:** Tin asked ChatGPT to stop development, upload the current work and hand off to Claude. Read [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) first for the exact source/build/input inventory and next steps. All six workers are completed. Latest compiled source is 457588c (77 units); later optional observer/probe integration remains uncompiled. No verified playable native client or in-app images exist. Older active-worker/resumption statements below are historical.
+
+
 **Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
 
 
@@ -440,3 +443,11 @@ Source20fd1d0 compiled72units on genuine SDK27.1 in run40963117227, first attemp
 The Wi-Fi/status question did not authorize a pause; development resumed. Current source adds compact actual-scene Creator/tools access, optional privacy-filtered diagnostic sharing, initial player-readiness waits, first native formation creation and same-Core15 practice completion/retry. One JS formation scenario and one C ledger scenario passed, with prior evidence reused. No actual game execution is inferred. Native compilation is the next combined check.
 
 **Pending:** compile/integrate this cohort; finish strict optional original-master observer derivation/reader and actual file/schema admission; establish original resource search resolution; deliver one original-client battle and save plus Creator-unit gameplay on Duo. Continue independent cloud work while device evidence is unavailable; do not stop simply because a batch, upload or informational answer is finished. Android and ordinary iPhone remain paused.
+
+## Pending — Claude takeover
+
+- Implement strict optional master observer admission/reader and prove original database readiness.
+- Compile/integrate later resource probe only as needed; assemble matching source/component/site.
+- Verify original startup, Home, actual battle, durable completion, embedded custom-unit gameplay and Duo displays.
+- Signing/installation/runtime evidence remain unavailable in this cloud. Current packages are unsigned diagnostics.
+- Continue with CLAUDE-HANDOFF.md; Android/ordinary iPhone and protected-base merge remain paused.

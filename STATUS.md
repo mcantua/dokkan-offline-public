@@ -1,8 +1,11 @@
 # Status
 
+**Claude takeover — October 29, 2026, 6:21 PM CT:** Tin asked ChatGPT to stop development, upload the current work and hand off to Claude. Read [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) first for the exact source/build/input inventory and next steps. All six workers are completed. Latest compiled source is 457588c (77 units); later optional observer/probe integration remains uncompiled. No verified playable native client or in-app images exist. Older active-worker/resumption statements below are historical.
+
+
 **Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
 
-**Current execution:** Development resumed after Tin clarified that answering a status/Wi-Fi question must not pause the project. Six useful workstreams resumed. The next cohesive source batch implements compact in-app Creator/tools access, privacy-filtered report sharing, initial login/home readiness waiting, first native team creation and same-Core practice-session persistence/retry. One first-formation scenario and one actual C Core ledger scenario passed; genuine native compilation is next. Separate optional original-master instrumentation and native resource visibility work remain active. No original-client runtime/gameplay/physical display verification exists.
+**Current execution:** Frozen for Claude takeover at Tin’s request. Preservation/documentation/uploads only; no active development agents. Latest native component build 40968955778 passed from 457588c; no IPA from that source has been assembled. Master admission and actual native gameplay remain unverified.
 
 
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
@@ -164,3 +167,8 @@ Current private draft: https://github.com/mcantua/claude-chatg/releases . It cur
 ## Unit Creator / Offline Dokkan continuation
 
 Tin assigned both projects to the separate Unit Creator ChatGPT chat after the original dashboard rows above. Current owners, development/build authorization, Pending work and genuine native evidence are in [HANDOFF.md §11](HANDOFF.md#11-continued-implementation-checkpoint-oct-28-2026-work-continues) and [GROK-TAKEOVER.md](GROK-TAKEOVER.md). The 8:59 AM log above is the current native result. App Installer remains owned by its other chat.
+
+## Claude takeover log — October 29, 2026, 6:21 PM CT
+
+- Preserved remaining authored source, optional observer/probe work and exact evidence; moved unused uncompiled tutorial checkpoint reference outside automatic native compilation. No gameplay changes, new app builds or tests were run for handoff.
+- Retained compiled 457588c library/receipt independently of expiring CI artifact; prepared private tools/derived-engine kit and refreshed source-analysis archive. Public source and private Drive boundaries remain enforced. See CLAUDE-HANDOFF.md and context/DRIVE-WORKSPACE.json for upload receipts and continuation.

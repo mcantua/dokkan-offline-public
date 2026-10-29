@@ -1,5 +1,8 @@
 # Tin's standing rules (his own words in quotes)
 
+## Latest ownership change — October 29, 2026, 6:21 PM CT
+Tin asked ChatGPT to upload everything and prepare a full Claude handoff. Stop ChatGPT development; preserve source, private inputs, tools and exact continuation. Claude takes over the existing approved Duo-only scope. This supersedes older instructions for ChatGPT to keep running. See [CLAUDE-HANDOFF.md](../CLAUDE-HANDOFF.md). Do not publish private game files, databases, secrets or signing material.
+
 **Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
 
 
