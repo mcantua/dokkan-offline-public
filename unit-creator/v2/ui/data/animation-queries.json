@@ -1,0 +1,136 @@
+[
+  {
+    "tables": [
+      "special_views",
+      "card_specials",
+      "special_sets",
+      "cards"
+    ],
+    "sql": "SELECT 'view:'||v.id||':'||COALESCE(c.id,0) AS key, CASE WHEN v.script_name LIKE 'tf%' THEN 'transform' WHEN v.script_name LIKE 'ut%' THEN 'ultimate' WHEN cs.style='Hyper' THEN 'ultra' WHEN cs.style='Extra' THEN 'ex' WHEN cs.style='FullPower' THEN 'fullpower' ELSE 'super' END AS kind, v.id AS viewId, v.script_name AS script, CAST(COALESCE(c.id,0) AS INTEGER) AS unitId, COALESCE(c.name,'Shared or enemy sequence') AS unitName, COALESCE(s.name,'Shared battle animation') AS moveName, COALESCE(s.description,'') AS description, COALESCE(c.resource_id,c.id,0) AS resourceId, COALESCE(c.rarity,0) AS rarity, COALESCE(cs.id,0) AS relationId, 'special_views' AS sourceTable FROM special_views v LEFT JOIN card_specials cs ON cs.view_id=v.id LEFT JOIN cards c ON c.id=cs.card_id LEFT JOIN special_sets s ON s.id=cs.special_set_id WHERE v.script_name IS NOT NULL AND v.script_name NOT IN ('','0','none')"
+  },
+  {
+    "tables": [
+      "active_skill_sets",
+      "card_active_skills",
+      "cards",
+      "special_views"
+    ],
+    "sql": "SELECT 'active:'||s.id||':'||c.id AS key, 'active' AS kind, v.id AS viewId, v.script_name AS script, CAST(c.id AS INTEGER) AS unitId, c.name AS unitName, s.name AS moveName, COALESCE(s.effect_description,'') AS description, COALESCE(c.resource_id,c.id) AS resourceId, c.rarity AS rarity, r.id AS relationId, 'special_views' AS sourceTable FROM active_skill_sets s JOIN card_active_skills r ON r.active_skill_set_id=s.id JOIN cards c ON c.id=r.card_id JOIN special_views v ON v.id=s.special_view_id WHERE v.script_name IS NOT NULL AND v.script_name NOT IN ('','0','none')"
+  },
+  {
+    "tables": [
+      "standby_skill_sets",
+      "card_standby_skill_set_relations",
+      "cards",
+      "special_views"
+    ],
+    "sql": "SELECT 'standby:'||s.id||':'||c.id AS key, 'standby' AS kind, v.id AS viewId, v.script_name AS script, CAST(c.id AS INTEGER) AS unitId, c.name AS unitName, s.name AS moveName, COALESCE(s.effect_description,'') AS description, COALESCE(c.resource_id,c.id) AS resourceId, c.rarity AS rarity, r.id AS relationId, 'special_views' AS sourceTable FROM standby_skill_sets s JOIN card_standby_skill_set_relations r ON r.standby_skill_set_id=s.id JOIN cards c ON c.id=r.card_id JOIN special_views v ON v.id=s.special_view_id WHERE v.script_name IS NOT NULL AND v.script_name NOT IN ('','0','none')"
+  },
+  {
+    "tables": [
+      "finish_skill_sets",
+      "card_finish_skill_set_relations",
+      "cards",
+      "special_views"
+    ],
+    "sql": "SELECT 'finish:'||s.id||':'||c.id AS key, 'finish' AS kind, v.id AS viewId, v.script_name AS script, CAST(c.id AS INTEGER) AS unitId, c.name AS unitName, s.name AS moveName, COALESCE(s.effect_description,'') AS description, COALESCE(c.resource_id,c.id) AS resourceId, c.rarity AS rarity, r.id AS relationId, 'special_views' AS sourceTable FROM finish_skill_sets s JOIN card_finish_skill_set_relations r ON r.finish_skill_set_id=s.id JOIN cards c ON c.id=r.card_id JOIN special_views v ON v.id=s.special_view_id WHERE v.script_name IS NOT NULL AND v.script_name NOT IN ('','0','none')"
+  },
+  {
+    "tables": [
+      "passive_skill_effects",
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards"
+    ],
+    "sql": "SELECT 'intro:'||e.id||':'||COALESCE(c.id,0) AS key, 'intro' AS kind, e.id AS viewId, e.script_name AS script, CAST(COALESCE(c.id,0) AS INTEGER) AS unitId, COALESCE(c.name,'Shared appearance sequence') AS unitName, COALESCE(MAX(p.name),'Appearance animation') AS moveName, '' AS description, COALESCE(c.resource_id,c.id,0) AS resourceId, COALESCE(c.rarity,0) AS rarity, COALESCE(MIN(p.id),0) AS relationId, 'passive_skill_effects' AS sourceTable FROM passive_skill_effects e LEFT JOIN passive_skills p ON p.passive_skill_effect_id=e.id LEFT JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id LEFT JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id WHERE e.script_name IS NOT NULL GROUP BY e.id,c.id"
+  },
+  {
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards"
+    ],
+    "sql": "SELECT 'counter:'||p.id||':'||c.id AS key, 'counter' AS kind, 0 AS viewId, 'c'||printf('%04d',p.eff_value3) AS script, CAST(c.id AS INTEGER) AS unitId, c.name AS unitName, p.name AS moveName, 'Counterattack profile from this character. Its original chance, trigger, damage, and animation are kept when copied.' AS description, COALESCE(c.resource_id,c.id) AS resourceId, c.rarity AS rarity, p.id AS relationId, 'passive_skills' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id WHERE p.efficacy_type IN (120,128) AND p.eff_value3>0 GROUP BY p.id,c.id"
+  },
+  {
+    "tables": [
+      "card_motions",
+      "cards"
+    ],
+    "sql": "SELECT 'normal:'||m.id AS key, 'normal' AS kind, 0 AS viewId, m.filename AS script, CAST(c.id AS INTEGER) AS unitId, c.name AS unitName, CASE WHEN m.category=10002 THEN 'Ground Ki-blast motion' ELSE 'Air Ki-blast motion' END AS moveName, 'Character-specific normal-attack motion. A matching source motion slot is required for assignment.' AS description, COALESCE(c.resource_id,c.id) AS resourceId, c.rarity AS rarity, m.id AS relationId, 'card_motions' AS sourceTable FROM card_motions m JOIN cards c ON c.id=m.card_id WHERE m.filename IS NOT NULL AND m.filename<>'' AND m.category IN (10002,10004)"
+  },
+  {
+    "forgeKind": "nullify",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards"
+    ],
+    "sql": "SELECT 'nullify:'||p.id||':'||c.id AS key,'nullify' AS kind,0 AS viewId,'as'||printf('%04d',p.eff_value3) AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Uses the inherited nullification or absorption trigger; its conditions, chance and recovery amount remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'passive_skills' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id WHERE p.efficacy_type IN (97,119) AND p.eff_value3>0 GROUP BY p.id,c.id"
+  },
+  {
+    "forgeKind": "revival",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards",
+      "revival_views"
+    ],
+    "sql": "SELECT 'revival:'||p.id||':'||c.id AS key,'revival' AS kind,v.id AS viewId,v.script_name AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Lua animation for an existing revival ability. The source revival trigger and healing remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'revival_views' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id JOIN revival_views v ON v.id=p.eff_value2 WHERE p.efficacy_type=109 AND v.script_name IS NOT NULL AND v.script_name<>'' GROUP BY p.id,c.id"
+  },
+  {
+    "forgeKind": "transform-native",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards",
+      "battle_params",
+      "transformation_views"
+    ],
+    "sql": "SELECT 'transformation-begin:'||p.id||':'||c.id AS key,'transform' AS kind,v.id AS viewId,v.begin_script_name AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Native begin animation for an inherited transformation. The gameplay form-change rules remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'transformation_views' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id JOIN battle_params b ON b.param_no=p.eff_value3 AND b.idx=11 JOIN transformation_views v ON v.id=b.value WHERE p.efficacy_type=103 AND v.begin_script_name IS NOT NULL AND v.begin_script_name NOT IN ('','0') GROUP BY p.id,c.id"
+  },
+  {
+    "forgeKind": "transform-native",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards",
+      "battle_params",
+      "transformation_views"
+    ],
+    "sql": "SELECT 'transformation-end:'||p.id||':'||c.id AS key,'transform' AS kind,v.id AS viewId,v.end_script_name AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Native end animation for an inherited transformation. The gameplay form-change rules remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'transformation_views' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id JOIN battle_params b ON b.param_no=p.eff_value3 AND b.idx=11 JOIN transformation_views v ON v.id=b.value WHERE p.efficacy_type=103 AND v.end_script_name IS NOT NULL AND v.end_script_name NOT IN ('','0') GROUP BY p.id,c.id"
+  },
+  {
+    "forgeKind": "giant-native",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards",
+      "battle_params",
+      "metamorphic_views"
+    ],
+    "sql": "SELECT 'giant-begin:'||p.id||':'||c.id AS key,'giant' AS kind,v.id AS viewId,v.begin_script_name AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Native begin animation for an inherited giant form. The gameplay form-change rules remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'metamorphic_views' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id JOIN battle_params b ON b.param_no=p.eff_value3 AND b.idx=12 JOIN metamorphic_views v ON v.id=b.value WHERE p.efficacy_type=79 AND v.begin_script_name IS NOT NULL AND v.begin_script_name NOT IN ('','0') GROUP BY p.id,c.id"
+  },
+  {
+    "forgeKind": "giant-native",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards",
+      "battle_params",
+      "metamorphic_views"
+    ],
+    "sql": "SELECT 'giant-continue:'||p.id||':'||c.id AS key,'giant' AS kind,v.id AS viewId,v.continue_script_name AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Native continue animation for an inherited giant form. The gameplay form-change rules remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'metamorphic_views' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id JOIN battle_params b ON b.param_no=p.eff_value3 AND b.idx=12 JOIN metamorphic_views v ON v.id=b.value WHERE p.efficacy_type=79 AND v.continue_script_name IS NOT NULL AND v.continue_script_name NOT IN ('','0') GROUP BY p.id,c.id"
+  },
+  {
+    "forgeKind": "giant-native",
+    "tables": [
+      "passive_skills",
+      "passive_skill_set_relations",
+      "cards",
+      "battle_params",
+      "metamorphic_views"
+    ],
+    "sql": "SELECT 'giant-end:'||p.id||':'||c.id AS key,'giant' AS kind,v.id AS viewId,v.end_script_name AS script,CAST(c.id AS INTEGER) AS unitId,c.name AS unitName,p.name AS moveName,'Native end animation for an inherited giant form. The gameplay form-change rules remain unchanged.' AS description,COALESCE(c.resource_id,c.id) AS resourceId,c.rarity AS rarity,p.id AS relationId,'metamorphic_views' AS sourceTable FROM passive_skills p JOIN passive_skill_set_relations r ON r.passive_skill_id=p.id JOIN cards c ON c.passive_skill_set_id=r.passive_skill_set_id JOIN battle_params b ON b.param_no=p.eff_value3 AND b.idx=12 JOIN metamorphic_views v ON v.id=b.value WHERE p.efficacy_type=79 AND v.end_script_name IS NOT NULL AND v.end_script_name NOT IN ('','0') GROUP BY p.id,c.id"
+  }
+]

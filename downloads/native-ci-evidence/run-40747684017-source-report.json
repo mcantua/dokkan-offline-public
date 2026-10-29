@@ -1,0 +1,44 @@
+{
+  "source_commit": "0e48c9e183990b045eb134cb7fa6f5da30f7506c",
+  "architecture": "arm64",
+  "rust_target": "aarch64-apple-ios-sim",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "simulator_sdk": "27.1",
+  "scope": "Genuine iOS27.1+ hosted iPhone Duo simulator; default display configuration unchanged. Physical folds unverified.",
+  "native_checks_requested": true,
+  "physical_hardware_verified": false,
+  "pose_automation": "No undocumented fold CLI invoked; installed simctl help is captured for supported-control discovery.",
+  "simulator_frontend_mode": "headless-supported-simctl",
+  "simulator_frontend_bundle_available": false,
+  "simulator_id": "EEBCD885-59BB-4ADF-B6AC-BB260A96D708",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-1",
+  "simulator_device_type": "com.apple.CoreSimulator.SimDeviceType.iPhone-Duo",
+  "simulator_name": "iPhone Duo",
+  "simulator_preapp_attempts": [
+    {
+      "selection": "duo",
+      "device_type": {
+        "productFamily": "iPhone",
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/iPhone Duo.simdevicetype",
+        "maxRuntimeVersion": 4294967295,
+        "maxRuntimeVersionString": "65535.255.255",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.iPhone-Duo",
+        "modelIdentifier": "iPhone19,4",
+        "minRuntimeVersionString": "27.1.0",
+        "minRuntimeVersion": 1769728,
+        "name": "iPhone Duo"
+      },
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-1",
+      "preapp_only": true,
+      "physical_hardware_verified": false,
+      "simulator_id": "EEBCD885-59BB-4ADF-B6AC-BB260A96D708",
+      "status": "bare-os-ready"
+    }
+  ],
+  "simulator_regular_fallback_used": false,
+  "duo_os_verified": true,
+  "duo_native_tests_verified": false,
+  "actual_panel_transition_probe_executed": false,
+  "panel_transition_scope": "No panel power/configuration mutations. Duo native tests remain unverified until their actual results; regular fallback never counts as Duo proof.",
+  "simulator_storage": "New owned OS-managed ephemeral hosted CoreSimulator device; caller must shut down and delete this UUID on exit."
+}

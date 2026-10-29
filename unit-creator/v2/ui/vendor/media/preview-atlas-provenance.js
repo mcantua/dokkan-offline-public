@@ -1,0 +1,10 @@
+/* Original Forge private atlas-source provenance registry. MIT.
+ * Only the exact-hash public atlas loader adapter records these relationships.
+ * A fitted Canvas blob is never mistaken for untouched original game bytes. */
+const records=new Map(),LIMIT=4096,MAX_URL=16384;
+const valid=url=>typeof url==='string'&&url.length>0&&url.length<=MAX_URL;
+function put(url,value){if(!valid(url)||!valid(value.sourceURL)||url===value.sourceURL)return false;const upstream=getAtlasProvenance(value.sourceURL);if(upstream){if(upstream.sourceURL===url||upstream.operations.length>=15)return false;value={...value,sourceURL:upstream.sourceURL,upstream:upstream.operations};}records.delete(url);records.set(url,Object.freeze(value));while(records.size>LIMIT)records.delete(records.keys().next().value);return true;}
+export function registerAtlasAlias(aliasURL,sourceURL){return put(aliasURL,{sourceURL,mode:'alias'});}
+export function registerAtlasFit(fittedURL,sourceURL,{mode,fromW,fromH,width,height}={}){if(!['stretch','rotate90'].includes(mode)||![fromW,fromH,width,height].every(value=>Number.isInteger(value)&&value>0&&value<=16384))return false;return put(fittedURL,{sourceURL,mode,fromW,fromH,width,height});}
+export function getAtlasProvenance(url){if(!valid(url)||!records.has(url))return null;const seen=new Set(),operations=[];let current=url;for(let depth=0;depth<16;depth++){if(seen.has(current))return null;seen.add(current);const entry=records.get(current);if(!entry){const fits=operations.filter(row=>row.mode!=='alias'),first=fits[0],last=fits[fits.length-1];return Object.freeze({sourceURL:current,transformed:fits.length>0,operations:Object.freeze(operations),...(first?{width:first.width,height:first.height,sourceWidth:last.fromW,sourceHeight:last.fromH}:{})});}const {upstream,...operation}=entry;operations.push(Object.freeze(operation),...(upstream||[]));if(operations.length>16)return null;current=entry.sourceURL;}return null;}
+export function forgetAtlasSource(url){records.delete(url);}

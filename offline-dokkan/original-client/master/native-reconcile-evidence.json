@@ -1,0 +1,17 @@
+{
+  "kind": "one-new-native-core-to-sidecar-reconcile-pipeline-scenario",
+  "source_sha256": "cf13b8553448507ad723e17a7b347e6eac4d7627a2e4fff56c0f7747660dffd8",
+  "content_namespace": "sparking:sha256:<selected-master-sha256>",
+  "checks": {
+    "native_snapshot_fetch_durable_write_readback_ack": true,
+    "source_qualified_content_identity_preserved": true,
+    "ack_failure_keeps_core_intent_pending": true,
+    "restart_reconciles_committed_sidecar_idempotently": true,
+    "native_edit_preserves_owned_instance_binding": true,
+    "unverified_runtime_feature_blocks_ack_without_dropping_core_definition": true,
+    "source_master_unchanged": true
+  },
+  "personal_device_or_connection_used": false,
+  "original_engine_attachment_verified": false,
+  "raw_rows_emitted": false
+}

@@ -1,0 +1,8 @@
+title = "dokkan-offline-public"
+[extend]
+useDefault = true
+
+# The default generic-api-key rule flags low-entropy identifiers, fixture ids, and hashes.
+[[rules]]
+id = "generic-api-key"
+entropy = 4.5

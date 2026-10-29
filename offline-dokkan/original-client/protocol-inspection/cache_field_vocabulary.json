@@ -1,0 +1,697 @@
+{
+  "kind": "reviewed-cached-response-structural-field-vocabulary",
+  "source_hashes": {
+    "iphone_main": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+    "iphone_patcher": "74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc",
+    "android_patcher": "83c0b40f49ae0edb0c91650ff36eb97a528db2c14627333f7023c3a13e0018d4"
+  },
+  "rules": "Only source-cache dictionary FIELD LABELS matching lowercase ASCII identifiers and exact NUL-boundary literals in a pinned original client/patcher. No scalar values, dynamic ID keys or opaque names retained.",
+  "fields": [
+    {
+      "field": "priority",
+      "literal_sources": [
+        "iphone_main",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "title",
+      "literal_sources": [
+        "iphone_main",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "banner",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_new",
+      "literal_sources": [
+        "iphone_main",
+        "iphone_patcher",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "summary",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "category",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "layout_type",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "awakening_item_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "battle_status",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "battle_room_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "stage_type",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_force_remove_battle_room",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "card_skin_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "total_value",
+      "literal_sources": [
+        "iphone_main",
+        "iphone_patcher",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "parameter_id",
+      "literal_sources": [
+        "iphone_main",
+        "iphone_patcher",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "parameter_type",
+      "literal_sources": [
+        "iphone_main",
+        "iphone_patcher",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "not_owned_card_parameters",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "ball_type",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "area_name",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "quest_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "difficulties",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "quest_name",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_got",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "courses",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "price",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "currency_id",
+      "literal_sources": [
+        "iphone_main",
+        "iphone_patcher",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "items_count",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "drawable_count",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "treasure_item_count",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "open_at",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "banner_url",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "current_step",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "usm_file_path",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "banner_lwf_path",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_rate_visible",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "treasure_item_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "gasha_category_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "mypage_banner_url",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "timer_layout_type",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "information_announcement_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "notification_announcement_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "gasha_categories",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_default",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "card_exp_init",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "jukeboxes",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "jukebox_albums",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "jacket_image_url",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "jacket_thumbnail_url",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "jukebox_tracks",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "point",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "unlocked_at",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "acquired_at",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "kobetu_card_limitations",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "conditions",
+      "literal_sources": [
+        "iphone_main",
+        "iphone_patcher",
+        "android_patcher"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "only_card_ids",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "link_skill_lv_up_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "link_skill_lv_up_item_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "file_name",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "current_value",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "mission_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "completed_at",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "accepted_reward_at",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "potential_item_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "sd_characters",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "collection_ids",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "sd_packs",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "shop_on_sale_treasure_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "shop_on_sale_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "discount_price",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_sale",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_premium",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "buyable",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "buyable_num",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "currency_type",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "shop_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_display_remaining_time",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "recommended_shop_on_sale_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "special_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "support_memory_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "support_memory_enhancement_items",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": true
+    },
+    {
+      "field": "selected_kobetu_team_num",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "training_field_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "total_score",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "act_cure_shortened_sec",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "boost_cure_shortened_sec",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "area_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_cleared_hard",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_cleared_normal",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "user_sugoroku_maps",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "cleared_count",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "challenge_label",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "sugoroku_map_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "is_cleared_very_hard",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "max_clear_level",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "z_battle_stage_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    },
+    {
+      "field": "category_id",
+      "literal_sources": [
+        "iphone_main"
+      ],
+      "root_field": false
+    }
+  ]
+}

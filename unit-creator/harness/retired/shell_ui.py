@@ -1,0 +1,73 @@
+"""New shell: navigation, More, tour, settings, help, presets."""
+import os
+os.environ["FORGE_STATE"] = "/home/claude/work/harness/state-shell"; os.environ["FRESH"] = "1"
+from harness import Session
+SP = "/tmp/claude-0/-home-claude/fc61b99f-cb57-56bc-b827-ee4cb4796a4c/scratchpad/shell/"
+os.makedirs(SP, exist_ok=True)
+s = Session(viewport=(412, 915)).open(); pg = s.page; w = lambda ms=500: pg.wait_for_timeout(ms)
+while pg.evaluate("window.__forgeWorkspaceStartup") != "ready": w(100)
+w(800)
+vis = "[...document.querySelectorAll('.mobile-nav button')].filter(b=>b.offsetParent).map(b=>b.innerText.replace(/\\n/g,' '))"
+print("bottom bar:", pg.evaluate(vis))
+print("top:", pg.evaluate("[...document.querySelectorAll('.top-actions > *')].filter(b=>b.offsetParent).map(b=>b.getAttribute('aria-label')||b.textContent)"), "| title:", pg.inner_text(".mobile-brand"))
+pg.screenshot(path=SP + "01-home.png")
+pg.locator(".shell-more-button").click(); w(400); pg.screenshot(path=SP + "02-more.png")
+print("more items:", pg.evaluate("[...document.querySelectorAll('#shell-more .more-item strong')].map(e=>e.textContent)"))
+pg.locator('#shell-more [data-shell-go="settings"]').click(); w(800); pg.screenshot(path=SP + "03-settings.png")
+pg.locator('#set-contrast').check(); pg.locator('#set-motion').check(); pg.locator('#set-tips').uncheck()
+pg.locator('input[name="set-theme"][value="calm"]').check(); pg.locator('input[name="set-text"][value="130"]').check(); w(300)
+print("classes:", pg.evaluate("document.documentElement.className"), "| zoom:", getattr(s.native, "text_zoom", None))
+pg.locator('[data-set-reset="all"]').click(); w(800)
+print("after restore:", pg.evaluate("document.documentElement.className"), "| zoom:", getattr(s.native, "text_zoom", None), "| settings:", pg.evaluate("JSON.stringify(ForgeShell.settings())"))
+pg.evaluate("document.querySelectorAll('dialog[open]').forEach(d=>d.close())"); w(200)
+# tour
+pg.evaluate("ForgeShell.tour()"); w(400); pg.screenshot(path=SP + "04-tour1.png")
+pg.click('[data-tour="next"]'); w(200); pg.check('input[name="tour-experience"][value="advanced"]'); w(300); pg.screenshot(path=SP + "05-tour2.png")
+pg.click('[data-tour="next"]'); w(200); pg.check('input[name="tour-text"][value="115"]'); w(200); pg.screenshot(path=SP + "06-tour3.png")
+pg.click('[data-tour="next"]'); w(200); pg.screenshot(path=SP + "07-tour4.png")
+print("tour:", pg.evaluate("JSON.stringify(ForgeShell.settings())"), "simple:", pg.evaluate("state.simple"))
+pg.click('[data-tour-go="home"]'); w(500)
+print("onboarded:", pg.evaluate("ForgeShell.settings().onboarded"))
+pg.evaluate("ForgeShell.setExperience('beginner')"); w(300); print("simple back:", pg.evaluate("state.simple"))
+# help
+pg.locator("#shell-help").click(); w(400); pg.screenshot(path=SP + "08-help.png")
+pg.fill("#help-search", "ki"); w(300); print("help search ki ->", pg.inner_text(".help-topic h3"))
+pg.fill("#help-search", "zzzz"); w(200); print("no result:", pg.inner_text(".help-index")[:60])
+pg.evaluate("document.querySelectorAll('dialog[open]').forEach(d=>d.close())")
+pg.evaluate("navigate('animations')"); w(1200); pg.locator("#tl-help, .tl-empty #tl-more").first.click() if False else pg.evaluate("ForgeHelp.open()"); w(300); print("help on animations:", pg.inner_text(".help-topic h3"))
+pg.evaluate("document.querySelectorAll('dialog[open]').forEach(d=>d.close())")
+# presets
+pg.evaluate("createUnit(1018721)")
+for _ in range(100):
+    if pg.evaluate("state.view==='editor' && document.getElementById('busy').hidden"): break
+    w(200)
+w(1000)
+print("presets button in builder:", pg.locator(".shell-presets-button").count(), "| title:", pg.inner_text(".mobile-brand"))
+pg.locator('[data-b="tab:passive"]').first.click(); w(800)
+print("inline preset button:", pg.locator(".shell-presets-inline").count())
+rows = "ForgeAIConnect && (()=>{const set=Forge.primaryPassive(state.project);const ids=new Set((state.project.tables.passive_skill_set_relations||[]).filter(r=>r.passive_skill_set_id===set.id).map(r=>r.passive_skill_id));return (state.project.tables.passive_skills||[]).filter(r=>ids.has(r.id)).length})()"
+before = pg.evaluate(rows)
+pg.locator(".shell-presets-inline").click(); w(600)
+i = pg.evaluate("[...document.querySelectorAll('.preset-card strong')].findIndex(e=>e.textContent==='Critical striker')")
+pg.locator(".preset-card").nth(i).click(); w(800); pg.screenshot(path=SP + "09-preset-preview.png")
+print("preview:", pg.inner_text(".preset-preview")[:300].replace("\n", " | "))
+pg.click("#preset-apply"); w(1500)
+print("passive rows:", before, "->", pg.evaluate(rows), "| toast:", pg.inner_text("#toast"))
+pg.locator('[data-guide="undo"]').first.click(); w(1000)
+print("after undo:", pg.evaluate(rows))
+# whole-unit template
+pg.locator(".shell-presets-button").click(); w(500)
+pg.locator('[data-preset-group="unit"]').click(); w(300)
+print("unit templates:", pg.evaluate("[...document.querySelectorAll('.preset-card strong')].map(e=>e.textContent)"))
+i = pg.evaluate("[...document.querySelectorAll('.preset-card strong')].findIndex(e=>e.textContent==='Tank')")
+pg.locator(".preset-card").nth(i).click(); w(800)
+print("tank preview:", pg.inner_text(".preset-preview")[:400].replace("\n", " | "))
+name_before = pg.evaluate("Forge.card(state.project).name")
+pg.click("#preset-apply"); w(1500)
+print("name kept:", name_before == pg.evaluate("Forge.card(state.project).name"), "| errors:", pg.evaluate("Forge.validate(state.project).errors"))
+pg.locator(".shell-presets-button").click(); w(400); pg.locator('[data-preset-group="leader"]').click(); w(300)
+i = pg.evaluate("[...document.querySelectorAll('.preset-card strong')].findIndex(e=>e.textContent==='My Category +170%')")
+pg.locator(".preset-card").nth(i).click(); w(800); print("cat leader:", pg.inner_text("#preset-review")[:200].replace("\n"," | "))
+pg.evaluate("document.querySelectorAll('dialog[open]').forEach(d=>d.close())")
+print("errors:", s.errors[:3])
+s.close()

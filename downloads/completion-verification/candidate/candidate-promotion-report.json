@@ -1,0 +1,53 @@
+{
+  "classification": "unsigned-candidate",
+  "candidate_integrity_verified": true,
+  "notices_verified": true,
+  "corresponding_source_verified": true,
+  "relink_instructions_verified": true,
+  "unresolved_notice_cases": 0,
+  "release_ready": false,
+  "source_commit": "7059c85ad55645ef57db9f8de287e6a66b8c122e",
+  "source_bundle_sha256": "1ba83e045df171a3ca51bc7b1b44aaec131f6489e07d73778b6fafeb917e95cf",
+  "source_tree_sha256": "0f305e96ea438eb46275184018c21ce2987d08314a09cf849e4d38379d0e5d42",
+  "locked_dependency_graph_hash": "28d6828268adaa9378e9da51b14fd26c0825befaf256a25d79ba12268d802430",
+  "draft": true,
+  "release_id": 427060273,
+  "original_package_run": 40777027792,
+  "compilation_performed": false,
+  "tests_repeated": false,
+  "device_install_attempted": false,
+  "preserved_fixture_asset_ids": {
+    "InstallationCheck-test-fixture.zip": 686008776,
+    "InstallationCheck-test-fixture.json": 686008738
+  },
+  "promoted_assets": {
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2206,
+      "sha256": "c34115f0df219d63245da424695e8a062f1c169660e477b794d1fe20b8402680"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 78336612,
+      "sha256": "1ba83e045df171a3ca51bc7b1b44aaec131f6489e07d73778b6fafeb917e95cf"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 5537336,
+      "sha256": "d7763210d64f7c21851399c8678172c94c261e8a397faa68fe68d7133c0cac35"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 5537332,
+      "sha256": "08d89f2a11aaffb5a686f8c17df7a23beddfc45e25a23e312484019c6e1cf768"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 892,
+      "sha256": "0e6ebe586bbc69c47c29356e528e299853f2b5b19093206b6d9c1938276dedce"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 35149949,
+      "sha256": "e814dd588ff46be402d0372e2f66ce2154f5e3661a3ded93224bb0f1bfe41bf6"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1331,
+      "sha256": "1ac01232dba5217db6a261744ce1dae3aa0de05584ea7958db2e1a3cd0a78439"
+    }
+  }
+}

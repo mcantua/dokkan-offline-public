@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "path": "/tools/lua-player/js/usm-player.js",
+  "sourceSha256": "228ccf71d0b9d2d58f22e0eee0e9d88e96ab6d7c75896fe8353acba046c2c03e",
+  "patches": [
+    {
+      "find": "import { movieZIndex } from './layers.js';",
+      "replace": "import { rememberMovieAudio as forgeMovieAudio } from '/_forge/media/preview-movie-audio.js';\nimport { prepareMovieBlob as forgePreparedBlob, movieObjectUrl as forgeMovieUrl, releaseMovieUrl as forgeReleaseMovieUrl, playMovieVideo as forgePlayMovieVideo } from '/_forge/media/playback.js';\nimport { movieZIndex } from './layers.js';"
+    },
+    {
+      "find": "        URL.revokeObjectURL(entry.url);",
+      "replace": "        forgeReleaseMovieUrl(entry.url);"
+    },
+    {
+      "find": "if (!prev.url) prev.url = URL.createObjectURL(prev.blob);",
+      "replace": "if (!prev.url) prev.url = forgeMovieUrl(prev.blob);"
+    },
+    {
+      "find": "        blob = await res.blob();",
+      "replace": "        blob = await forgePreparedBlob(await res.arrayBuffer());"
+    },
+    {
+      "find": "        url: URL.createObjectURL(blob),",
+      "replace": "        url: forgeMovieUrl(blob),"
+    },
+    {
+      "find": "      return { blob: new Blob([result.mp4], { type: 'video/mp4' }), stamp };",
+      "replace": "      return { blob: forgeMovieAudio(await forgePreparedBlob(result.mp4), new Uint8Array(buf), this, key), stamp };"
+    },
+    {
+      "find": "      const errBody = await apiRes.json().catch(() => ({}));\n      if (!apiRes.ok) {",
+      "replace": "      if (!apiRes.ok) {\n        const errBody = await apiRes.json().catch(() => ({}));"
+    },
+    {
+      "find": "        blob: await apiRes.blob(),",
+      "replace": "        blob: forgeMovieAudio(await forgePreparedBlob(await apiRes.arrayBuffer()), new Uint8Array(buf), this, key),"
+    },
+    {
+      "find": "      entry.url = URL.createObjectURL(entry.blob);",
+      "replace": "      entry.url = forgeMovieUrl(entry.blob);"
+    },
+    {
+      "find": "          void video.play();",
+      "replace": "          void forgePlayMovieVideo(video);"
+    },
+    {
+      "find": "        void c.video.play();",
+      "replace": "        void forgePlayMovieVideo(c.video);"
+    },
+    {
+      "find": "  async stepByFrames(frameDelta, fps = 30) {\n    const delta = Math.round(Number(frameDelta) || 0);\n    if (!delta || !this.clips.length) return;\n    const wasLocked = this._refLock;\n    if (wasLocked) this._refLock = false;\n    const rate = Math.max(1, Number(fps) || 30);\n",
+      "replace": "  async stepByFrames(frameDelta, fps = 30) {\n    const delta = Math.round(Number(frameDelta) || 0);\n    if (!delta || !this.clips.length) return;\n    const wasLocked = this._refLock;\n    if (wasLocked) this._refLock = false;\n    const rate = 60; // Native logical frames: convertToMovieFps(frame) = trunc(frame / 2).\n"
+    },
+    {
+      "find": "  async seekToAbFrame(abFrame, fps = 30, opts = {}) {\n    if (this._refLock && !opts?.force) return;\n    const f = Number(abFrame);\n    if (!Number.isFinite(f)) return;\n    const rate = Math.max(1, Number(fps) || 30);\n",
+      "replace": "  async seekToAbFrame(abFrame, fps = 30, opts = {}) {\n    if (this._refLock && !opts?.force) return;\n    const f = Number(abFrame);\n    if (!Number.isFinite(f)) return;\n    const rate = 60; // Native logical frames: convertToMovieFps(frame) = trunc(frame / 2).\n"
+    }
+  ]
+}

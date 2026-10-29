@@ -1,0 +1,17 @@
+{
+  "scope": "Creator archive component source and focused portable ZIP interoperability",
+  "format": "dokkan-user-content",
+  "versions": [1, 2],
+  "native_syntax_headers": "iPhoneOS16.5",
+  "objective_c_and_c_syntax_passed": true,
+  "portable_zip_roundtrip_passed": true,
+  "independent_standard_zip_reader_passed": true,
+  "deflated_streaming_descriptor_input_passed": true,
+  "crc_corruption_rejected": true,
+  "source_and_sentinel_preservation_passed": true,
+  "native_foundation_restore_transaction_executed": false,
+  "security_scoped_files_provider_executed": false,
+  "device_performance_verified": false,
+  "app_packages_built": false,
+  "original_game_or_duo_execution_verified": false
+}

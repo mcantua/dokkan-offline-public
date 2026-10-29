@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "path": "/tools/lwf-player/js/lwf-pack.js",
+  "sourceSha256": "00c05200f9ac33063aa640dd8c01723fdd0fb22ec5ca744b0125ae2f86808621",
+  "patches": [
+    {
+      "find": "  getFrameState() {",
+      "replace": "  getFrameState() {\n    if (globalThis.ForgeLwfTimeline) return globalThis.ForgeLwfTimeline.state(this);"
+    },
+    {
+      "find": "  seekFrame(frame) {",
+      "replace": "  seekFrame(frame) {\n    const nested = globalThis.ForgeLwfTimeline?.seek(this, frame);\n    if (nested) return nested;"
+    },
+    {
+      "find": "    const cur = Number(this.movie.currentFrame) || 1;\n    return this.seekFrame(cur + Number(delta || 0));",
+      "replace": "    const cur = Number(this.getFrameState().current) || 1;\n    return this.seekFrame(cur + Number(delta || 0));"
+    },
+    {
+      "find": "  _checkEnd() {",
+      "replace": "  _checkEnd() {\n    if (globalThis.ForgeLwfTimeline?.checkEnd(this)) return;"
+    },
+    {
+      "find": "  _renderStill() {\n    try {\n      this.lwf?.exec?.(0);\n      this.lwf?.render?.();",
+      "replace": "  _renderStill() {\n    try {\n      if (this.lwf?.forceExecWithoutProgress) this.lwf.forceExecWithoutProgress();\n      else this.lwf?.exec?.(-1);\n      this.lwf?.render?.();"
+    },
+    {
+      "find": "const TEX_RE =",
+      "replace": "import {beginPackPrepare,beginPackLoad,assertPackOperation,preservePackAtlas,clearPackRenderer,bindPackRenderer} from '/_forge/media/preview-pack-renderer.js';\nconst TEX_RE ="
+    },
+    {
+      "find": "  clear() {\n    this.pause();",
+      "replace": "  clear() {\n    clearPackRenderer(this);\n    this.pause();"
+    },
+    {
+      "find": "  async prepare(lwfFile) {\n    const bytes = new Uint8Array(await lwfFile.arrayBuffer());",
+      "replace": "  async prepare(lwfFile) {\n    const forgePackToken = beginPackPrepare(this);\n    const bytes = new Uint8Array(await lwfFile.arrayBuffer());\n    assertPackOperation(this, forgePackToken);"
+    },
+    {
+      "find": "        const result = await fitSheetBlobToTextureSize(src, tex.width, tex.height);",
+      "replace": "        const result = await fitSheetBlobToTextureSize(src, tex.width, tex.height);\n        assertPackOperation(this, forgePackToken, {url: result.fitted ? result.url : undefined});"
+    },
+    {
+      "find": "          try {\n            URL.revokeObjectURL(src);\n          } catch {\n\n          }",
+      "replace": "          preservePackAtlas(this, forgePackToken, result.url, src, {...result, width: tex.width, height: tex.height});"
+    },
+    {
+      "find": "      } catch (e) {\n        this.log(`atlas fit failed",
+      "replace": "      } catch (e) {\n        assertPackOperation(this, forgePackToken);\n        if (e.name === 'AbortError') throw e;\n        this.log(`atlas fit failed"
+    },
+    {
+      "find": "  async load() {",
+      "replace": "  async load() {\n    const forgePackToken = beginPackLoad(this);"
+    },
+    {
+      "find": "    const lwf = await this._loadOnce(cache);",
+      "replace": "    const lwf = await this._loadOnce(cache);\n    assertPackOperation(this, forgePackToken, {lwf});"
+    },
+    {
+      "find": "    return this.movies;\n  }\n\n  setMovie",
+      "replace": "    await bindPackRenderer(this, forgePackToken);\n    return this.movies;\n  }\n\n  setMovie"
+    }
+  ]
+}

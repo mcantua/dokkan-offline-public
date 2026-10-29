@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "adapter_version": 1,
+  "source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "source_bytes": 55697728,
+  "prepared_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "prepared_bytes": 55697728,
+  "file_type": "MH_DYLIB",
+  "source_sdk_unchanged": true,
+  "pagezero_removed": true,
+  "chained_segment_indexes_adjusted": true,
+  "unused_source_patcher_dependency_removed": true,
+  "source_patcher_bind_count": 0,
+  "old_signature_command_removed": true,
+  "signed": false,
+  "executed": false,
+  "dyld_runtime_verified": false,
+  "initializer_containment_verified": false,
+  "original_game_launch_verified": false,
+  "static_validation": {
+    "selected_objc_abi_unchanged": true,
+    "chained_rebase_bind_counts_unchanged": true,
+    "prepared_macho_metadata_valid": true,
+    "original_sha256_unchanged": true
+  }
+}

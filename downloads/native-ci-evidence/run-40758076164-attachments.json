@@ -1,0 +1,58 @@
+{
+  "run_id": 40758076164,
+  "commit": "eeae1484059827148fda8f240e1c480f96bbcdf2",
+  "artifact_id": 12846188200,
+  "artifact_zip_sha256": "2fd7721246964f54a44cc7d98b56edfa9230457f1e5ccfcd7e048220cc1c14d7",
+  "original_payloads": [
+    {
+      "file": "accessibility-main-narrow.png",
+      "attachment_name": "Actual UIKit maximum accessibility trait \u2014 TEST-ONLY main width 390",
+      "payload_reference": "0~ht8fH9oSxEitZnr8Do1ck-odv_6ZlpqmxdMhbtnYVkw3FZdDawPZ9-PMjic244fhCZoNLcuWuZdH30oqqnc9RQ==",
+      "bytes": 271577,
+      "sha256": "d2e51ba240078a050bd54b6a9c3dba78aefa63807e141d4dabcf850410075f05",
+      "pixel_dimensions": [
+        1170,
+        2532
+      ],
+      "run_id": 40758076164,
+      "source_commit": "eeae1484059827148fda8f240e1c480f96bbcdf2",
+      "scope": "Original actual maximum UIKit accessibility traits; TEST-ONLY main service metadata or production Settings; hosted Duo simulator. No image edits, account, physical or fold claims."
+    },
+    {
+      "file": "accessibility-main-wide.png",
+      "attachment_name": "Actual UIKit maximum accessibility trait \u2014 TEST-ONLY main width 669",
+      "payload_reference": "0~LaIqzObXsVcCwMEQQsfGwNpNsWPUKEKCSQTXGxiiUUGHAHSADqiCwfWlV6LpXrpEXy_oJPs7nYpCNFE27Wx_Mg==",
+      "bytes": 373703,
+      "sha256": "3e2827ef568c0a5349180ea7b31a5e54155a7c76e8ad88fd758cae4b1e8448f2",
+      "pixel_dimensions": [
+        2007,
+        2532
+      ],
+      "run_id": 40758076164,
+      "source_commit": "eeae1484059827148fda8f240e1c480f96bbcdf2",
+      "scope": "Original actual maximum UIKit accessibility traits; TEST-ONLY main service metadata or production Settings; hosted Duo simulator. No image edits, account, physical or fold claims."
+    },
+    {
+      "file": "run-40758076164-keyboard-email.json",
+      "attachment_name": "Actual keyboard reachability \u2014 email",
+      "payload_reference": "0~KpbHKHg-Rd8VvfU7hnkbmMZkEjqtKiEybxoY_k9ufsOkialsb3rDlNzQkeSchu-jcSrvPb6pp1cq4kBM7ObeEA==",
+      "sha256": "d92e8014ce69531d76f5c388b58f177fde800dc5941d7b87567dbe06c6cf87e8",
+      "bytes": 624
+    },
+    {
+      "file": "run-40758076164-keyboard-password.json",
+      "attachment_name": "Actual keyboard reachability \u2014 password",
+      "payload_reference": "0~O7ZlKjI9zYmZbPQ02dXDq3Bzm_1D8HOMvTT3ERgkruvKHnOe0LAPRu3W-OzeNsQH8xhxBMzcQuuMCc5bYpv3eA==",
+      "sha256": "d68bae01de48b226cdbfafe62320a6807fb832913974374649056b0c8eb8bb64",
+      "bytes": 627
+    },
+    {
+      "file": "run-40758076164-keyboard-code.json",
+      "attachment_name": "Actual keyboard reachability \u2014 code",
+      "payload_reference": "0~CYM64PxxKeUFaoYsWJItkYJFoB8g9VHFctkq4O3HlsK9Cl8GzoHIyA9Thq9lckatgUA-VXSwqt4g7DdFBPtiag==",
+      "sha256": "d00e0a63f3e7175d2d23db87513855ff1c0d0ad55caed873872813318f9df013",
+      "bytes": 623
+    }
+  ],
+  "discarded_image": "Original AX Settings narrow attachment was blank on visual inspection, so not retained or presented as UI appearance proof. Settings automated layout assertions passed; no new test was run for imagery."
+}

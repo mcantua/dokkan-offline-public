@@ -1,0 +1,115 @@
+{
+  "kind": "actual-current-bootstrap-static-contract",
+  "source_executable_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "source_version": "supplied iPhone6.6.0/build26093018",
+  "method_proof": {
+    "request_kind_member_offset": 188,
+    "vtable_getter_slot": 17,
+    "vtable_materializer_slot": 2,
+    "nonce_and_sign_in_inherit_same_getter_and_materializer": true,
+    "materializer_cocos_method_offset": 12,
+    "actual_foundation_table": [
+      {
+        "kind": 0,
+        "method": "GET"
+      },
+      {
+        "kind": 1,
+        "method": "POST"
+      },
+      {
+        "kind": 2,
+        "method": "PUT"
+      },
+      {
+        "kind": 3,
+        "method": "DELETE"
+      }
+    ],
+    "final_call": "NSMutableURLRequest setHTTPMethod:"
+  },
+  "auth_nonce": {
+    "route": "/auth/nonce",
+    "method": "GET",
+    "request_kind": 0,
+    "reader_relative_object_fields": {
+      "auth_transaction_id": "string conversion",
+      "nonce": "string conversion"
+    },
+    "wire_body_envelope_verified": false,
+    "field_requiredness_verified": false,
+    "field_value_format_verified": false
+  },
+  "auth_sign_in": {
+    "route": "/auth/sign_in",
+    "method": "POST",
+    "request_kind": 1,
+    "token_consumer_fields": {
+      "access_token": "string conversion",
+      "expires_in": "numeric signed32-second duration"
+    },
+    "expiry_semantics": "current native time(NULL) plus signed32 expires_in",
+    "string_expiry_supported": false,
+    "wire_body_envelope_verified": false,
+    "full_success_response_verified": false,
+    "secret_or_captcha_fields_admitted": false
+  },
+  "reviewed_bodies": [
+    {
+      "role": "nonce_request_constructor",
+      "bytes": 228,
+      "sha256": "a4ab39956604b70ed4f0812fdbafb22b2b6b82470b0ed7b53ffa50f530730386"
+    },
+    {
+      "role": "sign_in_request_builder",
+      "bytes": 236,
+      "sha256": "b6a67095081dc3f45b42dbef186b38ddc57141c53ee67583fd4fd47257fb492f"
+    },
+    {
+      "role": "nonce_reader",
+      "bytes": 120,
+      "sha256": "686df04ae70cfcfaf04b55b0b79e7e8c36dc940dd546e9f1377d646a09d789bd"
+    },
+    {
+      "role": "token_response_consumer",
+      "bytes": 396,
+      "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4"
+    },
+    {
+      "role": "common_request_constructor",
+      "bytes": 420,
+      "sha256": "9d8e134af30873e345b61ff3542d2e85399c549c0b1f1331843c9807c5865910"
+    },
+    {
+      "role": "auth_request_constructor",
+      "bytes": 392,
+      "sha256": "3c6d85dde0682e7c60cf425fcde4b8f85726c81a5e9a2c21dd2aad49c3526b63"
+    },
+    {
+      "role": "method_kind_getter",
+      "bytes": 8,
+      "sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845"
+    },
+    {
+      "role": "request_materializer",
+      "bytes": 1284,
+      "sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37"
+    },
+    {
+      "role": "foundation_method_bridge",
+      "bytes": 2960,
+      "sha256": "b44fb3f524c67beab241d0bfdbb480efac2f48aad21ca89445b168d940a17dbe"
+    },
+    {
+      "role": "signed_expiry_conversion",
+      "bytes": 512,
+      "sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c"
+    }
+  ],
+  "credential_values_extracted": false,
+  "player_values_adopted": false,
+  "remote_account_or_game_api_called": false,
+  "runtime_execution_verified": false,
+  "transport_enablement_claimed": false,
+  "pending": "Follow existing nonce-reader caller alias and generic response processing to bind reader input to complete HTTP JSON root or an envelope. Do not enable a complete response solely from reader-relative fields. Actual native diagnostic observer is the next runtime method/path confirmation. No further analysis performed after user stop."
+}

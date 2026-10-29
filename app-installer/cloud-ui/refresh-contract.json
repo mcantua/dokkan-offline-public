@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "release_id": 427060273,
+  "tag_name": "app-installer-current-candidate",
+  "source_commit": "8eafc2379d875d702a704a524a28982ccf66d598",
+  "source_tree_sha256": "8d7ddcc0250145a1694808922a2a17e2cae9a0a8b3a3a1d4146c2ed5c892df45",
+  "bootstrap_tool_commit": "8eafc2379d875d702a704a524a28982ccf66d598",
+  "package_run_id": 40764445110,
+  "source_artifact": {
+    "id": 12849904378,
+    "bytes": 89475100,
+    "sha256": "7579c9be9df472277cfdb812b00af6db2cb73119204fd0682405cb448b2668e9"
+  },
+  "kit_artifact": {
+    "id": 12850571184,
+    "bytes": 34845399,
+    "sha256": "32302b05bc1c795a4eb3d4305338b2d288efd2d50a94eee9d4077a3e3bef7cba"
+  },
+  "assets": {
+    "AppInstaller-candidate-manifest.json": {
+      "id": 686295339,
+      "bytes": 2206,
+      "sha256": "f76e336525ad012500fbfa787c3e53985445b8d2572c1775247748b7fe663117"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "id": 686295372,
+      "bytes": 78328952,
+      "sha256": "fd1797027192b6c7fa205cb512acf351bac6960e90654294e0e4f16a4339b9d4"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "id": 686295523,
+      "bytes": 5537320,
+      "sha256": "bcb7071e576d849fa848d1bf81757107857b5a93b4bf777c6d1cf005c65220fb"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "id": 686295569,
+      "bytes": 5537316,
+      "sha256": "6bade2bf7847ffa746b5485d03cd3ac4c52a7004c3e8c767ecee7958a5c7ad77"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "id": 686295603,
+      "bytes": 892,
+      "sha256": "2a551735391d07c03a811002db829c9c3146df19d6217fb967d3c30f1354bb38"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "id": 686295621,
+      "bytes": 35147765,
+      "sha256": "16b1d190a2fb4773d2e197992044dc7fe9456f1021c2b8b79a6e5bd9b559d5b4"
+    },
+    "cloud-device-library-manifest.json": {
+      "id": 686295700,
+      "bytes": 1331,
+      "sha256": "667a5004725e3f7a570e3f0a523ba807b873c1b8448b5e7e7c5267b23627bf68"
+    },
+    "InstallationCheck-test-fixture.json": {
+      "id": 686008738,
+      "bytes": 906,
+      "sha256": "4153e4678f90147cb950623564d58842913aa1b03cd047ca6671c48898d26f18"
+    },
+    "InstallationCheck-test-fixture.zip": {
+      "id": 686008776,
+      "bytes": 26007,
+      "sha256": "d3c5560c02cb5a3cd18e80d35cb7e26f2e7c9703c18a88fe6fe80d9c49b92654"
+    }
+  },
+  "replacements": [
+    "app-installer/device/setup-wizard.py"
+  ]
+}

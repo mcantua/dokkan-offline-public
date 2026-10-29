@@ -1,0 +1,105 @@
+name: App Installer cloud verification and candidates
+on:
+  workflow_dispatch:
+    inputs:
+      package_candidates:
+        description: Build genuine-SDK unsigned device candidates after tests pass
+        required: false
+        type: boolean
+        default: false
+      native_checks:
+        description: Run the affected native simulator checks (disable for a package-only correction)
+        required: false
+        type: boolean
+        default: true
+      native_test_scope:
+        description: Run all native checks, or only the affected responsive fixture after a targeted fix
+        required: false
+        type: choice
+        default: all
+        options:
+          - all
+          - responsive
+          - accessibility
+          - authorization-cancel
+      rust_test_scope:
+        description: Select only first-login transport and TLS for a network-initialization correction
+        required: false
+        type: choice
+        default: all
+        options:
+          - all
+          - login-startup
+permissions:
+  contents: read
+  actions: write # Prune only previous artifacts with this workflow's exact evidence name.
+concurrency:
+  group: app-installer-cloud-${{ inputs.package_candidates }}-${{ inputs.native_checks }}
+  cancel-in-progress: false
+jobs:
+  simulator:
+    runs-on: xcode-27
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - name: Build and run hosted UIKit and secure-storage checks
+        id: verification
+        env:
+          AI_PACKAGE_DEVICE_CANDIDATES: ${{ inputs.package_candidates && '1' || '0' }}
+          AI_RUN_NATIVE_CHECKS: ${{ inputs.native_checks && '1' || '0' }}
+          AI_NATIVE_TEST_SCOPE: ${{ inputs.native_test_scope }}
+          AI_RUST_TEST_SCOPE: ${{ inputs.rust_test_scope }}
+        run: bash app-installer/cloud-ui/run.sh
+      - name: Keep integrity-checked unsigned candidates with their source
+        id: evidence
+        if: always() && inputs.package_candidates && steps.verification.outputs.candidate-ready == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-cloud-ui-latest
+          path: |
+            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/
+            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
+            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
+          retention-days: 7
+          if-no-files-found: error
+      - name: Keep the minimal native setup kit
+        id: kit
+        if: always() && inputs.package_candidates && steps.verification.outputs.candidate-ready == 'true' && steps.evidence.outputs.artifact-id != ''
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-native-kit-latest
+          path: |
+            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
+            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Keep failed or standalone test diagnostics
+        id: diagnostics
+        if: always() && (failure() || !inputs.package_candidates)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-cloud-tests-latest
+          path: |
+            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/
+            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/**
+          retention-days: 7
+          if-no-files-found: error
+      - name: Retain a complete kit and source pair
+        if: always() && (steps.evidence.outputs.artifact-id != '' || steps.kit.outputs.artifact-id != '')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_ARTIFACT_ID: ${{ steps.evidence.outputs.artifact-id }}
+          KIT_ARTIFACT_ID: ${{ steps.kit.outputs.artifact-id }}
+        run: python3 app-installer/cloud-ui/prune-artifacts.py --pair
+      - name: Keep only current standalone test diagnostics
+        if: always() && steps.diagnostics.outputs.artifact-id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIAGNOSTIC_ARTIFACT_ID: ${{ steps.diagnostics.outputs.artifact-id }}
+        run: python3 app-installer/cloud-ui/prune-artifacts.py

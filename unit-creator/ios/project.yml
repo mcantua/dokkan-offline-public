@@ -1,0 +1,65 @@
+name: App
+options:
+  bundleIdPrefix: com.dokkanunitcreator
+  deploymentTarget:
+    iOS: "16.4"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "2.30.1"
+    CURRENT_PROJECT_VERSION: "88"
+targets:
+  App:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+      - path: site            # the built web app (web/site-ios), served offline from inside the app
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_NAME: App
+        PRODUCT_BUNDLE_IDENTIFIER: com.dokkanunitcreator.ios
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGNING_ALLOWED: NO
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGN_IDENTITY: ""
+        ENABLE_BITCODE: NO
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Unit Creator
+        CFBundleName: Unit Creator
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        UILaunchScreen:
+          UIColorName: LaunchBg
+        UIStatusBarStyle: UIStatusBarStyleLightContent
+        UIViewControllerBasedStatusBarAppearance: true
+        UIRequiresFullScreen: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        ITSAppUsesNonExemptEncryption: false
+        # the file picker can offer "Take Photo"/photos and the share sheet "Save Image"
+        NSCameraUsageDescription: Lets you take a photo to use as unit artwork.
+        NSPhotoLibraryUsageDescription: Lets you pick a picture to use as unit artwork.
+        NSPhotoLibraryAddUsageDescription: Lets you save pictures you export.
+    scheme: {}

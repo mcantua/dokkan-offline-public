@@ -1,0 +1,11 @@
+-- Our own historical save schema from c05f0c6, frozen for migration verification. No game data.
+CREATE TABLE meta(k TEXT PRIMARY KEY,v TEXT NOT NULL) STRICT;
+CREATE TABLE profiles(id TEXT PRIMARY KEY,revision INTEGER NOT NULL DEFAULT 0 CHECK(revision>=0),stamina INTEGER NOT NULL DEFAULT 0 CHECK(stamina BETWEEN 0 AND 9007199254740991)) STRICT;
+CREATE TABLE inventory(profile TEXT NOT NULL REFERENCES profiles(id),kind TEXT NOT NULL,item_id INTEGER NOT NULL CHECK(item_id>=0),quantity INTEGER NOT NULL CHECK(quantity BETWEEN 0 AND 9007199254740991),PRIMARY KEY(profile,kind,item_id)) STRICT;
+CREATE TABLE owned_cards(id INTEGER PRIMARY KEY,profile TEXT NOT NULL REFERENCES profiles(id),master_id INTEGER NOT NULL CHECK(master_id>0),level INTEGER NOT NULL DEFAULT 1 CHECK(level>=1),sa_level INTEGER NOT NULL DEFAULT 1 CHECK(sa_level>=1),potential TEXT NOT NULL DEFAULT '{}' CHECK(json_valid(potential))) STRICT;
+CREATE TABLE teams(profile TEXT NOT NULL REFERENCES profiles(id),slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 19),members TEXT NOT NULL CHECK(json_valid(members)),PRIMARY KEY(profile,slot)) STRICT;
+CREATE TABLE quest_progress(profile TEXT NOT NULL REFERENCES profiles(id),quest_id INTEGER NOT NULL CHECK(quest_id>0),clears INTEGER NOT NULL CHECK(clears>0),PRIMARY KEY(profile,quest_id)) STRICT;
+CREATE TABLE runs(id TEXT PRIMARY KEY,profile TEXT NOT NULL REFERENCES profiles(id),map_id INTEGER NOT NULL CHECK(map_id>0),quest_id INTEGER NOT NULL CHECK(quest_id>0),content TEXT NOT NULL,team_slot INTEGER NOT NULL,team_snapshot TEXT NOT NULL CHECK(json_valid(team_snapshot)),entry_cost INTEGER NOT NULL CHECK(entry_cost>=0),rewards TEXT NOT NULL CHECK(json_valid(rewards)),state TEXT NOT NULL CHECK(state IN('started','finished')),outcome TEXT CHECK(outcome IS NULL OR outcome IN('clear','failed')),result TEXT CHECK(result IS NULL OR json_valid(result))) STRICT;
+CREATE TABLE reward_sources(profile TEXT NOT NULL REFERENCES profiles(id),source TEXT NOT NULL,input TEXT NOT NULL CHECK(json_valid(input)),PRIMARY KEY(profile,source)) STRICT;
+CREATE TABLE commands(profile TEXT NOT NULL REFERENCES profiles(id),id TEXT NOT NULL,operation TEXT NOT NULL,input TEXT NOT NULL CHECK(json_valid(input)),result TEXT NOT NULL CHECK(json_valid(result)),PRIMARY KEY(profile,id)) STRICT;
+PRAGMA user_version=1;

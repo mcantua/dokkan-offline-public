@@ -1,0 +1,7 @@
+Upstream package author credit (verbatim published manifest; not an invented copyright ownership statement):
+Jackson Coxson
+
+Published license declaration: MIT
+Selected license branch: MIT
+
+The immutable published package contains 0 explicit copyright notice lines. All supplied notices are retained below; absence of a standalone LICENSE filename is not treated as absence of the published license grant.

@@ -1,0 +1,449 @@
+{
+  "kind": "partial-static-allowlisted-handler-references",
+  "source_sha256": "74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc",
+  "handlers": [
+    {
+      "method": "handleEventsWithOriginal:parsedRequest:",
+      "implementation_bytes": 784,
+      "implementation_sha256": "b41d5b8e07f66b46763b3e6c39ad8209350e40c331ea9cc1aa412bb68bd15da0",
+      "allowlisted_field_references": [
+        "events"
+      ],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 3,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false
+    },
+    {
+      "method": "handleMyDataWithOriginal:parsedRequest:",
+      "implementation_bytes": 872,
+      "implementation_sha256": "011a92ce1cd39e9ad78640af3be979e5e1378a4c4461490bf653cd27b2176ba0",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 3,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false
+    },
+    {
+      "method": "handleQuestStartWithOriginal:parsedRequest:",
+      "implementation_bytes": 1192,
+      "implementation_sha256": "7ed5331b28848940f11170a9d1c4a71b63a46603b57d86cc2c76bb65e2d7fec7",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [
+        {
+          "selector": "count"
+        }
+      ],
+      "unreported_message_count": 7,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false
+    },
+    {
+      "method": "handleQuestsBriefingWithOriginal:parsedRequest:",
+      "implementation_bytes": 828,
+      "implementation_sha256": "b75b8bc712a991eca3a9e0ce177bd6433383a8b3095279865f59bdcd7aa1e867",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 3,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false
+    },
+    {
+      "method": "handleResponseForParsedRequest:originalData:statusCode:error:",
+      "implementation_bytes": 2736,
+      "implementation_sha256": "11b3bce3f6a595ed70fc14979ddf9827173f6278c291dd7c9f7255889116b9fc",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [
+        "/announcements",
+        "/briefing",
+        "/events",
+        "/quests",
+        "/resources/login",
+        "/sugoroku_maps/start",
+        "/support_leaders",
+        "/teams"
+      ],
+      "message_observations": [
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "mutableCopy"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "handleEventsWithOriginal:parsedRequest:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "handleQuestStartWithOriginal:parsedRequest:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "handleQuestsBriefingWithOriginal:parsedRequest:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "handleMyDataWithOriginal:parsedRequest:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "containsString:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "isEqualToString:"
+        },
+        {
+          "selector": "isEqualToString:"
+        }
+      ],
+      "unreported_message_count": 8,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false
+    }
+  ],
+  "direct_helpers": [
+    {
+      "method": "direct-helper-001",
+      "implementation_bytes": 368,
+      "implementation_sha256": "7a6bfc827e156fede88914dd1fe2904785f39c8ed25222a56ebaa543cd18d13f",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 2,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleResponseForParsedRequest:originalData:statusCode:error:"
+      ]
+    },
+    {
+      "method": "direct-helper-002",
+      "implementation_bytes": 1016,
+      "implementation_sha256": "d1207cb5fbfc0f9fc48812dc24e226f898ec415d337623f3bfbcde27e2c1d66d",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 16,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleEventsWithOriginal:parsedRequest:",
+        "handleMyDataWithOriginal:parsedRequest:",
+        "handleQuestStartWithOriginal:parsedRequest:",
+        "handleQuestsBriefingWithOriginal:parsedRequest:",
+        "handleResponseForParsedRequest:originalData:statusCode:error:"
+      ]
+    },
+    {
+      "method": "direct-helper-003",
+      "implementation_bytes": 584,
+      "implementation_sha256": "94a9f38a3a1426c1954199204e8978314756695927956af34d9d31b3b4e5f834",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 2,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleMyDataWithOriginal:parsedRequest:",
+        "handleQuestsBriefingWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-004",
+      "implementation_bytes": 352,
+      "implementation_sha256": "db153b75da2018760bcae90b57bf8debea98cd2f73119ea1e0692e0b10bebd00",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 1,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleQuestStartWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-005",
+      "implementation_bytes": 528,
+      "implementation_sha256": "a0bfd2340dc8f77af0f996dd03a6366124383800d1e640e1b65852a1b6176142",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 0,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleResponseForParsedRequest:originalData:statusCode:error:"
+      ]
+    },
+    {
+      "method": "direct-helper-006",
+      "implementation_bytes": 768,
+      "implementation_sha256": "e10b20e5250780f5bdc560002854fcf5c3c2cf221c574aa61eeaf20fea0b9ac4",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [
+        {
+          "selector": "JSONObjectWithData:options:error:"
+        }
+      ],
+      "unreported_message_count": 6,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleQuestStartWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-007",
+      "implementation_bytes": 876,
+      "implementation_sha256": "980231fc2ee96b417df0a67c159b532d82b994ae212ce42ccde5d1a42e248343",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 6,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleEventsWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-008",
+      "implementation_bytes": 880,
+      "implementation_sha256": "3fe7320c977d4926852f46642d93596eca039cb7546e47dbc672374a051f6938",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [
+        {
+          "selector": "objectForKeyedSubscript:"
+        },
+        {
+          "selector": "isKindOfClass:"
+        },
+        {
+          "selector": "count"
+        },
+        {
+          "selector": "mutableCopy"
+        },
+        {
+          "selector": "isKindOfClass:"
+        },
+        {
+          "selector": "objectForKeyedSubscript:"
+        },
+        {
+          "selector": "mutableCopy"
+        },
+        {
+          "selector": "isKindOfClass:"
+        },
+        {
+          "selector": "isKindOfClass:"
+        },
+        {
+          "selector": "mutableCopy"
+        },
+        {
+          "selector": "setObject:forKeyedSubscript:"
+        }
+      ],
+      "unreported_message_count": 7,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleQuestsBriefingWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-009",
+      "implementation_bytes": 692,
+      "implementation_sha256": "c9af06c165b315474f580fe35f7b102588821a6ffd4723f3c8bc7d5b4c40677e",
+      "allowlisted_field_references": [
+        "leader"
+      ],
+      "allowlisted_route_references": [],
+      "message_observations": [
+        {
+          "selector": "isKindOfClass:"
+        },
+        {
+          "selector": "setObject:forKeyedSubscript:",
+          "field": "leader"
+        }
+      ],
+      "unreported_message_count": 2,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleMyDataWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-010",
+      "implementation_bytes": 504,
+      "implementation_sha256": "cbfcfe84662fdd29fb96f9b270cf0b809fa00bd19ddb9217151bff8b6eca40cf",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 3,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleEventsWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-011",
+      "implementation_bytes": 100,
+      "implementation_sha256": "a9c2960778f2f6869f908d9f2f8e34f5b0beaf4e0860a8c17442f0e2941c23fa",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [
+        {
+          "selector": "mutableCopy"
+        }
+      ],
+      "unreported_message_count": 0,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleEventsWithOriginal:parsedRequest:",
+        "handleMyDataWithOriginal:parsedRequest:",
+        "handleQuestStartWithOriginal:parsedRequest:",
+        "handleQuestsBriefingWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-012",
+      "implementation_bytes": 972,
+      "implementation_sha256": "74d1da4a0af5ae6f5cd87d7175a7a6b1d24ea845bfd32ed4cdb53b773b2813ee",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [
+        {
+          "selector": "dataWithJSONObject:options:error:"
+        }
+      ],
+      "unreported_message_count": 7,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleEventsWithOriginal:parsedRequest:",
+        "handleMyDataWithOriginal:parsedRequest:",
+        "handleQuestStartWithOriginal:parsedRequest:",
+        "handleQuestsBriefingWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-013",
+      "implementation_bytes": 136,
+      "implementation_sha256": "9a3f66e94f09a0bc362e825409e5fa968caed9c2ac38f18852d629fc630ef9c7",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 1,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleMyDataWithOriginal:parsedRequest:",
+        "handleQuestStartWithOriginal:parsedRequest:",
+        "handleQuestsBriefingWithOriginal:parsedRequest:"
+      ]
+    },
+    {
+      "method": "direct-helper-014",
+      "implementation_bytes": 392,
+      "implementation_sha256": "983f90b3de25c99c46bb0271b1dd54842d9afd3a28a553ca9a1651b89f77f12a",
+      "allowlisted_field_references": [],
+      "allowlisted_route_references": [],
+      "message_observations": [],
+      "unreported_message_count": 2,
+      "complete_schema_established": false,
+      "runtime_behavior_verified": false,
+      "direct_callers": [
+        "handleMyDataWithOriginal:parsedRequest:"
+      ]
+    }
+  ],
+  "helper_depth": 1,
+  "bounded_helpers_skipped": 0,
+  "limits": "Conservative local instruction windows only. Unknown literals/messages are omitted. Field references and partial patcher edits do not establish a complete original-client request/response schema.",
+  "reviewed_dataflow_fragments": [
+    {
+      "kind": "partial-source-patcher-response-mutation",
+      "path": "MyData handler to guarded leader mutation",
+      "input": "NSData-compatible JSON bytes",
+      "parse_class_import": "NSJSONSerialization",
+      "parse_selector": "JSONObjectWithData:options:error:",
+      "parse_options": 1,
+      "requires_parse_error_nil": true,
+      "requires_root_class": "NSDictionary",
+      "mutable_copy_after_guard": true,
+      "field": "leader",
+      "field_type": "object",
+      "candidate_class_guard": "NSDictionary",
+      "field_written_only_when_candidate_present_and_guard_succeeds": true,
+      "write_selector": "setObject:forKeyedSubscript:",
+      "preserves_other_parsed_root_members": true,
+      "dictionary_parser_helper": {
+        "bytes": 524,
+        "implementation_sha256": "7a2f46bedd2a567a7dfd5819a90806c17a1bdd052107bffc2060f9266cf32bc7"
+      },
+      "client_required_fields_established": false,
+      "field_children_schema_established": false,
+      "complete_response_schema": false,
+      "runtime_behavior_verified": false
+    }
+  ]
+}

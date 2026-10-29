@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "extra_objc_sources": [
+    "unit-creator/ios-objc/Host.m",
+    "unit-creator/ios-objc/Player.m"
+  ],
+  "apply_defines_only_to_extra_sources": {
+    "ForgeStorageContext": "ODScopedCreatorStorageContext",
+    "ForgeSchemeHandler": "ODScopedCreatorSchemeHandler",
+    "ForgeHost": "ODScopedCreatorHost",
+    "ForgePlayer": "ODScopedCreatorPlayer",
+    "ForgeDownload": "ODScopedCreatorDownload",
+    "ForgeConnection": "ODScopedCreatorConnection",
+    "ForgeFolderPicker": "ODScopedCreatorFolderPicker",
+    "ForgeDisplayGeometry": "ODScopedCreatorDisplayGeometry"
+  },
+  "wrapper_source": "offline-dokkan/original-client/creator-tools/ODScopedCreatorTools.m",
+  "wrapper_defines_its_own_renamed_imports": true,
+  "required_frameworks": [
+    "UIKit",
+    "WebKit",
+    "Foundation",
+    "Security",
+    "Network",
+    "UniformTypeIdentifiers",
+    "CoreGraphics",
+    "QuartzCore"
+  ],
+  "required_libraries": [
+    "sqlite3",
+    "System",
+    "z"
+  ],
+  "global_definition": {
+    "name": "ODScopedCreatorDisplayGeometry",
+    "defined_once_in": "offline-dokkan/original-client/creator-tools/ODScopedCreatorTools.m",
+    "purpose": "Actual native display geometry only; no fabricated reserved regions"
+  },
+  "shared_context_definition": "unit-creator/ios-objc/Host.m compiled once with these defines",
+  "transport_dependency": "offline-dokkan/original-client/ios/ODNativeCreatorNetwork.m",
+  "sqlite": "Link the plugin's existing single SQLite implementation; do not compile a second amalgamation",
+  "compile_only_validation_sdk": "iPhoneOS16.5 public SDK; not genuine SDK27.1 or Duo runtime evidence",
+  "release_sdk_requirement": "Root's genuine SDK27.1 host and final matching plugin cohort; source change does not authorize app packages",
+  "native_source_codec_sources": [
+    "offline-dokkan/original-client/creator-tools/ODCreatorSourceCodec.m",
+    "offline-dokkan/original-client/creator-tools/apk_libbase.c",
+    "offline-dokkan/original-client/master/source_material.c"
+  ],
+  "archive_dependency": "offline-dokkan/original-client/creator-archive/ODCreatorContentArchive.m plus archive component C source",
+  "native_source_database_sources": [
+    "offline-dokkan/original-client/creator-tools/ODCreatorSourceDatabases.m"
+  ],
+  "native_source_database_capability": {
+    "mode": "readonly staged-source inspector",
+    "opaque_handles": true,
+    "allowed_kinds": [
+      "quickCheck",
+      "tableType",
+      "tableInfo",
+      "cardCount"
+    ],
+    "general_sql_exposed": false,
+    "selected_master_writable": false
+  }
+}

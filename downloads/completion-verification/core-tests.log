@@ -1,0 +1,25 @@
+   Compiling isideload v0.5.0 (/workspace/AI-Workspace/claude-chatg/downloads/isideload/isideload-0.5.0)
+   Compiling app-installer-core v0.1.0 (/workspace/AI-Workspace/claude-chatg/app-installer/core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.26s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/app_installer_core-94c7a67f59210328)
+
+running 16 tests
+test archive::tests::accepts_valid_arm64_bundle_preserves_identity_and_cleans_staging ... ok
+test cleanup::tests::failed_and_cancelled_upload_intents_survive_success_or_absence_clears ... ok
+test capabilities::tests::fat_slices_signature_ranges_and_extension_capabilities_cannot_hide ... ok
+test engine::tests::cancelled_sign_cannot_emit_success_or_release_a_new_operation ... ok
+test engine::tests::membership_requires_evidence_and_never_guesses_individual_as_paid ... ok
+test entitlement_policy::tests::groups_push_cloud_and_nested_profile_values_cannot_be_widened_or_silently_remapped ... ok
+test entitlement_policy::tests::required_grants_preserved_and_unused_profile_privileges_not_copied ... ok
+test identity::tests::repeat_import_updates_same_main_extensions_and_team_namespace ... ok
+test capabilities::tests::identity_schema_and_der_agreement_fail_closed ... ok
+test identity::tests::self_and_legacy_installs_keep_identity_and_long_source_ids_stay_bounded ... ok
+test archive::tests::rejects_adversarial_archives_without_leftovers ... ok
+test tests::expiry_boundary_expired_and_extreme_values ... ok
+test tests::free_account_preflight_covers_updates_extensions_and_unknown_usage ... ok
+test cleanup::tests::foreign_paths_never_removed_and_duplicate_intents_are_bounded ... ok
+test signed_verification::synthetic_signing_tests::synthetic_profiles_never_establish_apple_authorization_or_wrong_identity ... ok
+test signed_verification::synthetic_signing_tests::actual_isideload_signing_round_trip_and_tamper_detection ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.85s
+

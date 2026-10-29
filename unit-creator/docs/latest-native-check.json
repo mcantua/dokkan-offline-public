@@ -1,0 +1,177 @@
+{
+  "checked_at": "2026-10-28T15:51:47.480330-05:00",
+  "artifact": "unit-creator/out/UnitCreator-2.36.3.ipa",
+  "version": "2.36.3",
+  "build": "128",
+  "bytes": 50162249,
+  "sha256": "1b3fa2ae1526c83afdd8acd98b12c9e35b699a086f7011bf5a389f41cd857d60",
+  "executable_sha256": "18db225cd578fcfc724b1dbf6c0b89eb2213fb05d6113cd52fbc1a1ce006218a",
+  "toolchain": {
+    "compiler": "Hosted Apple Xcode27.1 / build27A9275",
+    "actual_compile_sdk": "iPhoneOS27.1",
+    "simulator_sdk": "iPhoneSimulator27.1",
+    "executable_sdk": "27.1.0",
+    "device_platform": "arm64 iOS device (2), not simulator",
+    "minimum_ios": "16.4",
+    "scope": "Actual genuine SDK compiled binary; original supplied DB bytes restored locally after cloud checks"
+  },
+  "signature": {
+    "kind": "Development candidate without Apple identity/provisioning",
+    "embedded_mobileprovision": false,
+    "apple_identity_signed": false,
+    "device_install_ready": false
+  },
+  "passed_checks": [
+    "Authentic checked bootstrap hashes/current source/site",
+    "Actual device Mach-O iOS2/SDK27.1 (not simulator)",
+    "Original private database byte hashes/counts/integrity",
+    "ZIP CRC and Duo static gates"
+  ],
+  "not_verified": [
+    "Apple provisioning/signing",
+    "Actual device launch/folding/touch/keyboard",
+    "Physical iPhone/Android acceptance",
+    "Real game import/install",
+    "Complete Dokkan battle-script playback"
+  ],
+  "privacy": {
+    "private_raw_databases_committed": false,
+    "signing_keys_published": false,
+    "sparking_keys_bundled": false
+  },
+  "source_commit_at_build_start": "3b2aaeb139ee1d12827c07103c34e3d6c14356c2",
+  "embedded_site_index_sha256": "10dc677020f34e7479bd74ddeb1c5a858c87fab3ed78b2d1a10ba95640fcb293",
+  "original_databases": {
+    "reference.db": {
+      "sha256": "a176b34b32dfcacc1801bac0cbe7a9ae429f6b69ba30fa527a1f8a3d39fc622b",
+      "bytes": 103497728,
+      "cards": 17786
+    },
+    "sparking-reference.db": {
+      "sha256": "cf13b8553448507ad723e17a7b347e6eac4d7627a2e4fff56c0f7747660dffd8",
+      "bytes": 104357888,
+      "cards": 19308
+    }
+  },
+  "android_development": {
+    "version": "2.36.3",
+    "code": 128,
+    "package": "com.dokkanunitcreator.development",
+    "channel": "Coexisting development package; cannot update original release identity",
+    "sha256": "3dd5146b51984ad99126af0509ed21fd47bb5b72ed90d162b2658fa90a570cb7",
+    "bytes": 52749902,
+    "minimum_android_api": 26,
+    "target_android_api": 35,
+    "actual_native_code": "Retained original primary dex plus compiled current dock/src patches; real SDK35, no runtime stubs",
+    "databases": "Supplied original Eclipse and Sparking databases; never committed",
+    "verified": [
+      "Original required hooks patched and disassembly checked",
+      "Actual SDK Java8 compilation and D8 conversion",
+      "Exact3 regenerated resource IDs",
+      "APK ZIP CRC and required assets",
+      "zipalign4 and apksigner verification for API26 minimum",
+      "Distinct package/provider/storage/signing identity"
+    ],
+    "not_verified": [
+      "Android install/launch/runtime",
+      "All features/platform parity on hardware",
+      "Android16KB-page runtime compatibility of original zstd binaries"
+    ],
+    "artifact": "unit-creator/out/Dokkan-Unit-Creator-Development-2.36.3.apk",
+    "source_cohort": "3b2aaeb139ee1d12827c07103c34e3d6c14356c2; Unit Creator product sources unchanged during build",
+    "built_after_genuine_duo_pass": true
+  },
+  "hosted_native_final_run": {
+    "run_id": 40765280330,
+    "source_commit": "3b2aaeb139ee1d12827c07103c34e3d6c14356c2",
+    "actual_xcode": "27.1 (27A9275)",
+    "actual_simulator_sdk": "27.1",
+    "target": "iPhone Duo / iOS27.1 / arm64",
+    "native_result": {
+      "codec_capabilities": {
+        "vp9Decoder": true,
+        "vp9Encoder": true
+      },
+      "scope": "Actual production UIKit/WKWebView sources and native SQL/file bridge on hosted iOS simulator",
+      "geometry": {
+        "bridge": true,
+        "bodyReady": true,
+        "ios": true,
+        "innerHeight": 678,
+        "pageWidth": 466,
+        "screenHeight": 678,
+        "startup": "ready",
+        "innerWidth": 466,
+        "screenWidth": 466
+      },
+      "native_card_counts": {
+        "eclipse": 17786,
+        "sparking": 19308
+      },
+      "native_file_roundtrip": true,
+      "eclp_production_roundtrip": {
+        "subtle": true,
+        "workerErrors": 0,
+        "origin": "app://local",
+        "same": true,
+        "workerCreated": 2,
+        "archiveBytes": 334,
+        "workerKeyReplies": 2
+      },
+      "windowHeight": 678,
+      "windowWidth": 466,
+      "not_verified": [
+        "Physical folding and reserved regions",
+        "Touch/keyboard interaction",
+        "Signing or device installation",
+        "Original database byte fidelity",
+        "Game import/export/encryption"
+      ],
+      "home_content": {
+        "placeholder": false,
+        "heading": "\u26a1Create a unitBrand-new unit",
+        "visible": true
+      }
+    },
+    "standalone_file_result": {
+      "scheme": "file:",
+      "movie_worker_wasm": {
+        "hca": true,
+        "vp9": true,
+        "ready": true,
+        "version": "ffmpeg version 5.1.4 Copyright (c) 2000-2023 the FFmpeg developers"
+      },
+      "scope": "Actual self-contained HTML loaded by WebKit fileURL, exact-file read scope and all HTTP(S) blocked; not Safari/Quicklook UI or physical phone proof",
+      "pageWidth": 466,
+      "sparking": 19308,
+      "network_blocked": true,
+      "homeVisible": true,
+      "startup": "ready",
+      "innerWidth": 466,
+      "nativeBridgeInjected": false,
+      "eclipse": 17786
+    },
+    "offline_host_result": {
+      "actual_master_import_and_reselection": true,
+      "sqlite_version": "3.50.4",
+      "reopened_profile_equal": true,
+      "separate_eclipse_sparking_profiles": true,
+      "scope": "Own Offline Dokkan native local-save host, not original game launch or gameplay",
+      "rooted_content_darwin_resolved": 1,
+      "width": 466,
+      "height": 678,
+      "not_verified": [
+        "Original game scenes/endpoints/battle",
+        "Physical Duo folding",
+        "Touch/keyboard",
+        "Android runtime",
+        "Device signing/install"
+      ],
+      "unverified_game_wire_rejected": true,
+      "profile_persisted": true
+    },
+    "visual_review": "Current WK compositor screenshots show fully rendered UI, replacing stale initial loading tiles. Native screenshot has normal New game data prompt; standalone screenshot has welcome tour. Unobscured Home/physical interaction not established by these captures.",
+    "device_compilation": "Actual iPhoneOS27.1 device bootstrap and data-free Offline IPA compiled after genuine Duo tests; original-DB Unit Creator IPA repack/promotion is separate.",
+    "physical_device_verified": false
+  }
+}

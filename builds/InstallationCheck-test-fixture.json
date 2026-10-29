@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "test_only": true,
+  "unsigned": true,
+  "artifacts": [
+    {
+      "file": "InstallationCheck-v1.ipa",
+      "bytes": 10399,
+      "sha256": "121034d782ea500a965e7ba021d4de7a7fc6b2d80bc85621a1c5ee7e8f7d8333",
+      "version": "1.0",
+      "bundle_id": "org.tin.installationcheck"
+    },
+    {
+      "file": "InstallationCheck-v2.ipa",
+      "bytes": 10402,
+      "sha256": "0f87caa0b72225cc5315e2e05276af8850f42053bc590d56df77c8f07108d13f",
+      "version": "2.0",
+      "bundle_id": "org.tin.installationcheck"
+    }
+  ],
+  "delivery": {
+    "file": "InstallationCheck-test-fixture.zip",
+    "bytes": 26007,
+    "sha256": "d3c5560c02cb5a3cd18e80d35cb7e26f2e7c9703c18a88fe6fe80d9c49b92654"
+  },
+  "structural_check_passed": true,
+  "physical_install_verified": false,
+  "physical_update_verified": false,
+  "data_retention_verified": false,
+  "personal_resources_used": false
+}

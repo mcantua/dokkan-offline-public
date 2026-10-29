@@ -1,0 +1,14 @@
+{
+  "kind": "synthetic player against supplied read-only Eclipse master",
+  "master_sha256": "4b8d0d0d4c46f339da4dd2c72ab014fdfcb4cc5dc56870aec412481c4a61eae7",
+  "passed": [
+    "profile persistence",
+    "typed 3x/6x/10x resource mapping",
+    "idempotent reward replay",
+    "master-backed card and team ownership",
+    "player-only export/import",
+    "master bytes unchanged"
+  ],
+  "game_wire_verified": false,
+  "game_battle_or_assets_verified": false
+}

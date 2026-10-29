@@ -1,0 +1,186 @@
+{
+  "scope": "Bounded static source-method review; no runtime execution or display acceptance",
+  "source_executable_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "methods": {
+    "AppController.application:didFinishLaunchingWithOptions:": {
+      "bytes": 504,
+      "implementation_sha256": "28de45501b422aea6c020f528a3239191f815d11d497a936ea631083ae28dce5"
+    },
+    "RootViewController.supportedInterfaceOrientations": {
+      "bytes": 8,
+      "implementation_sha256": "7b5b9bb8689a4d3703729066f9c625d899a47e35c432b603c966cd0fa0a80905"
+    },
+    "RootViewController.shouldAutorotate": {
+      "bytes": 8,
+      "implementation_sha256": "5103ba3de080c52a046485f800433848701faa49ab8f60241a80987ca249d7ac"
+    },
+    "CCEAGLView.initWithFrame:": {
+      "bytes": 36,
+      "implementation_sha256": "363e78612eedf64244d84513226b121594fe9edb5163bdc8759bb85302b32aee"
+    },
+    "CCEAGLView.layoutSubviews": {
+      "bytes": 136,
+      "implementation_sha256": "ff1a6623ae058ca9d6b98bac9326dadc5c85ec705f13e8fc3b750a9cb1017dae"
+    },
+    "CCEAGLView.swapBuffers": {
+      "bytes": 4,
+      "implementation_sha256": "110f46b5b35c069160560c6ad6786f647dd44e8760a52a46fc22dbbcd7630b91"
+    },
+    "CCEAGLView.layerClass": {
+      "bytes": 12,
+      "implementation_sha256": "ec013166513bdd55937ef88acf028492fc2d24c4f00291ebc301032420d37eb7"
+    },
+    "CCEAGLView.touchesBegan:withEvent:": {
+      "bytes": 492,
+      "implementation_sha256": "ae0d95ea1e1c8bdab778643328e5566cb4716d77e299ea9bbc01a546b7948d62",
+      "encoding": "v32@0:8@16@24"
+    },
+    "CCEAGLView.touchesMoved:withEvent:": {
+      "bytes": 632,
+      "implementation_sha256": "9f22b1e7a5857c006f10761a7d31010b81177495cfa2c561cb4227f38c740442",
+      "encoding": "v32@0:8@16@24"
+    },
+    "CCEAGLView.touchesEnded:withEvent:": {
+      "bytes": 480,
+      "implementation_sha256": "25937a4ebad650eda89e92095d23e7c1d3d711db1b3fe74034e286774c560898",
+      "encoding": "v32@0:8@16@24"
+    },
+    "CCEAGLView.touchesCancelled:withEvent:": {
+      "bytes": 480,
+      "implementation_sha256": "d7d69e7bcfe354bc8b0cf02875a47599216affeeb46aeb8c5abcba4a3262b592",
+      "encoding": "v32@0:8@16@24"
+    },
+    "AppController.applicationWillResignActive:": {
+      "bytes": 4,
+      "implementation_sha256": "110f46b5b35c069160560c6ad6786f647dd44e8760a52a46fc22dbbcd7630b91",
+      "encoding": "v24@0:8@16"
+    },
+    "AppController.applicationDidBecomeActive:": {
+      "bytes": 112,
+      "implementation_sha256": "6edd1c936b189b183ee7c5f6e6c0f220e6f2ca9f78571bd748e0f97ff41e7c1e",
+      "encoding": "v24@0:8@16"
+    },
+    "AppController.applicationDidEnterBackground:": {
+      "bytes": 28,
+      "implementation_sha256": "bc1e8998f52ab82476c0feacb15e524d43227719de6e9b6db6ff7ffebd11bd5d",
+      "encoding": "v24@0:8@16"
+    },
+    "AppController.applicationWillEnterForeground:": {
+      "bytes": 28,
+      "implementation_sha256": "1547b8e6bac7f766e9d73f63b69018b6970d51aad42e4f174bb1a7ba6ea1ccb9",
+      "encoding": "v24@0:8@16"
+    }
+  },
+  "observed": {
+    "layer_class_ref_import": "CAMetalLayer",
+    "swap_buffers": "ret only; not a presentation method",
+    "layout_selectors": [
+      "bounds",
+      "contentScaleFactor",
+      "isMainThread"
+    ],
+    "layout_pixel_dimensions": "bounds.size multiplied by contentScaleFactor and stored in original view size pair",
+    "layout_native_tail_behavior_unverified": true,
+    "orientation_mask": 26,
+    "should_autorotate": true,
+    "launch": "Original AppController creates legacy UIWindow, assigns CCEAGLView as RootViewController.view, installs that controller and makes the window key",
+    "source_app_window_accessor_methods_present": false,
+    "layer_class_tail_import": "_objc_opt_class",
+    "layer_class_return": "CAMetalLayer via unchanged classref x0 and objc_opt_class",
+    "touch_coordinate_contract": {
+      "selectors": [
+        "view",
+        "locationInView:",
+        "contentScaleFactor"
+      ],
+      "point_space": "the UITouch view; original same CCEAGLView retained",
+      "conversion": "x/y multiplied by renderer contentScaleFactor before original native virtual dispatch",
+      "native_projection_semantics_verified": false,
+      "runtime_touch_alignment_verified": false
+    },
+    "source_pause_path": {
+      "will_resign_active": "ret only; no engine pause",
+      "did_become_active": "not admitted as an engine resume primitive",
+      "background_dispatch": "actual shared Application derived virtual slot0x18",
+      "foreground_dispatch": "actual shared Application derived virtual slot0x20",
+      "background_effect": "Director interval saved, paused flag set; stopped flag set",
+      "foreground_effect": "interval restored, paused/stopped flags cleared and timing reset",
+      "frame_loop_gate": "stopped flag skips normal draw/update tail (purge/restart branches exist before this gate)",
+      "all_threads_quiescent_proven": false,
+      "runtime_gameplay_freeze_observed": false,
+      "method_paths": {
+        "actual-application-background": {
+          "bytes": 144,
+          "implementation_sha256": "b6161619d5839287e751ba3b09044563d5ff9154a697912d5ac190ed660633c4"
+        },
+        "actual-application-foreground": {
+          "bytes": 64,
+          "implementation_sha256": "80cdf917dcddc6ec6572c1c04391a0f671125a08ad8ffcdce6ddfa8026e4450d"
+        },
+        "source-director-pause": {
+          "bytes": 72,
+          "implementation_sha256": "354bfaed377500c9371604f01f11dea0f4650ab3cb1e1ce0531a0358b416230f"
+        },
+        "source-director-stop-animation": {
+          "bytes": 12,
+          "implementation_sha256": "6b3d8a200d8a61a00bec390e4a8625840501b5f48366a31498d16a47044fa5fa"
+        },
+        "source-director-resume": {
+          "bytes": 76,
+          "implementation_sha256": "5b7841c3ca0429a27310cf7035b4a3d8f5eab9aca97b86f3fa5d4c2354f5eb41"
+        },
+        "source-director-start-animation": {
+          "bytes": 16,
+          "implementation_sha256": "6b6bc240951e0644cc5f3d1f537775e60f973df61e8aa03c0251568b682fb585"
+        },
+        "source-frame-loop-stopped-gate": {
+          "bytes": 80,
+          "implementation_sha256": "a37c5cf123b3e36be5774e232b6daf230a931672cc95ded94f29139c74ac03e1"
+        },
+        "source-start-animation-virtual": {
+          "bytes": 80,
+          "implementation_sha256": "05060e4ad285a0553f1d7ac7e2cc81c7e67740aabc55c5c64e2f4c11c2dcd76f"
+        }
+      }
+    }
+  },
+  "integration_source": {
+    "uses_original_app_delegate": true,
+    "uses_original_root_and_renderer": true,
+    "legacy_window_ivar_written": false,
+    "new_window_created_from_uiwindow_scene": true,
+    "metal_drawable_tracks_actual_view_pixels": true,
+    "logical_design_resolution_invented": false,
+    "original_touch_handlers_retained": true,
+    "genuine_sdk_27_1_host_required": true,
+    "scene_lifecycle_observer": true,
+    "deferred_resume_requires_explicit_native_confirmation": true,
+    "source_background_state_preserved_across_scene_reconnect": true,
+    "trusted_original_app_controller_provider_supported": true,
+    "requires_game_object_to_be_shared_application_delegate": false,
+    "source_imps_copied_to_shell_delegate": false,
+    "creator_pause_lease": {
+      "api": "ODDuoBeginCreatorPause / ODDuoEndCreatorPause",
+      "native_only_opaque_issued_object": true,
+      "one_retained_lease": true,
+      "source_callback_body_hashes_checked": true,
+      "read_only_version_pinned_engine_state_probe": true,
+      "actual_own_process_vm_region_api": "vm_region_64",
+      "cpp_functions_called_or_hooked": false,
+      "initial_internal_pause_or_stop_rejected": true,
+      "pause_and_resume_flag_postconditions_required": true,
+      "foreground_bypass_while_held_rejected": true,
+      "save_reconciliation_required_of_native_issuer": true,
+      "unconfirmed_close_never_auto_releases": true
+    }
+  },
+  "unverified": [
+    "Scene/runtime launch",
+    "Method observation installation",
+    "C++ projection/logical-design adaptation",
+    "Native framebuffer/render/touch behavior during folding",
+    "Camera-safe original-game HUD placement",
+    "Both physical Duo displays",
+    "SDK27.1 compilation/execution"
+  ]
+}

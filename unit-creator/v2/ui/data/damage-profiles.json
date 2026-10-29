@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Low damage",
+    "key": "low",
+    "increase_rate": 30,
+    "lv_bonus": 10
+  },
+  {
+    "name": "Standard damage",
+    "key": "normal",
+    "increase_rate": 70,
+    "lv_bonus": 10
+  },
+  {
+    "name": "Huge damage",
+    "key": "huge",
+    "increase_rate": 100,
+    "lv_bonus": 10
+  },
+  {
+    "name": "Extreme damage",
+    "key": "extreme",
+    "increase_rate": 120,
+    "lv_bonus": 15
+  },
+  {
+    "name": "Supreme damage",
+    "key": "supreme",
+    "increase_rate": 150,
+    "lv_bonus": 20
+  },
+  {
+    "name": "Immense damage",
+    "key": "immense",
+    "increase_rate": 180,
+    "lv_bonus": 25
+  },
+  {
+    "name": "Colossal damage",
+    "key": "colossal",
+    "increase_rate": 200,
+    "lv_bonus": 5
+  },
+  {
+    "name": "Mega-colossal damage",
+    "key": "mega-colossal",
+    "increase_rate": 250,
+    "lv_bonus": 10
+  },
+  {
+    "name": "Destructive damage",
+    "key": "destructive",
+    "increase_rate": 100,
+    "lv_bonus": 10
+  }
+]

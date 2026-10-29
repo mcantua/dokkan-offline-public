@@ -1,0 +1,383 @@
+{
+  "scope": "static allowlisted metadata only; not a runtime/behavior proof",
+  "inputs": [
+    {
+      "kind": "allowlisted-static-objc-abi",
+      "sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+      "bytes": 55697728,
+      "pointer_formats": [
+        6
+      ],
+      "resolved_rebase_count": 702664,
+      "unresolved_bind_count": 41447,
+      "classes": [
+        {
+          "name": "AppController",
+          "methods": [
+            {
+              "selector": "application:didFinishLaunchingWithOptions:",
+              "kind": "instance",
+              "encoding": "B32@0:8@16@24"
+            },
+            {
+              "selector": "applicationDidBecomeActive:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "applicationDidEnterBackground:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "applicationWillEnterForeground:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "applicationWillResignActive:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "applicationWillTerminate:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "dealloc",
+              "kind": "instance",
+              "encoding": "v16@0:8"
+            }
+          ],
+          "ivars": [
+            {
+              "name": "window",
+              "encoding": "@\"UIWindow\"",
+              "offset": 8,
+              "bytes": 8,
+              "alignment_log2": 3
+            },
+            {
+              "name": "_viewController",
+              "encoding": "@\"RootViewController\"",
+              "offset": 16,
+              "bytes": 8,
+              "alignment_log2": 3
+            }
+          ]
+        },
+        {
+          "name": "CCEAGLView",
+          "methods": [
+            {
+              "selector": "layerClass",
+              "kind": "class",
+              "encoding": "#16@0:8"
+            },
+            {
+              "selector": "dealloc",
+              "kind": "instance",
+              "encoding": "v16@0:8"
+            },
+            {
+              "selector": "initWithFrame:",
+              "kind": "instance",
+              "encoding": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16"
+            },
+            {
+              "selector": "layoutSubviews",
+              "kind": "instance",
+              "encoding": "v16@0:8"
+            },
+            {
+              "selector": "swapBuffers",
+              "kind": "instance",
+              "encoding": "v16@0:8"
+            }
+          ],
+          "ivars": []
+        },
+        {
+          "name": "HttpAsynConnection",
+          "methods": [
+            {
+              "selector": "connection:didFailWithError:",
+              "kind": "instance",
+              "encoding": "v32@0:8@16@24"
+            },
+            {
+              "selector": "connection:didReceiveData:",
+              "kind": "instance",
+              "encoding": "v32@0:8@16@24"
+            },
+            {
+              "selector": "connection:didReceiveResponse:",
+              "kind": "instance",
+              "encoding": "v32@0:8@16@24"
+            },
+            {
+              "selector": "connectionDidFinishLoading:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "dealloc",
+              "kind": "instance",
+              "encoding": "v16@0:8"
+            },
+            {
+              "selector": "responseCode",
+              "kind": "instance",
+              "encoding": "q16@0:8"
+            },
+            {
+              "selector": "responseData",
+              "kind": "instance",
+              "encoding": "@16@0:8"
+            },
+            {
+              "selector": "responseHeader",
+              "kind": "instance",
+              "encoding": "@16@0:8"
+            },
+            {
+              "selector": "setResponseData:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "setResponseHeader:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "setStatusString:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "startRequest:",
+              "kind": "instance",
+              "encoding": "v24@0:8@16"
+            },
+            {
+              "selector": "statusString",
+              "kind": "instance",
+              "encoding": "@16@0:8"
+            }
+          ],
+          "ivars": [
+            {
+              "name": "responseHeader",
+              "encoding": "@\"NSDictionary\"",
+              "offset": 32,
+              "bytes": 8,
+              "alignment_log2": 3
+            },
+            {
+              "name": "responseData",
+              "encoding": "@\"NSMutableData\"",
+              "offset": 40,
+              "bytes": 8,
+              "alignment_log2": 3
+            },
+            {
+              "name": "responseCode",
+              "encoding": "q",
+              "offset": 56,
+              "bytes": 8,
+              "alignment_log2": 3
+            },
+            {
+              "name": "statusString",
+              "encoding": "@\"NSString\"",
+              "offset": 64,
+              "bytes": 8,
+              "alignment_log2": 3
+            }
+          ]
+        },
+        {
+          "name": "RootViewController",
+          "methods": [
+            {
+              "selector": "dealloc",
+              "kind": "instance",
+              "encoding": "v16@0:8"
+            },
+            {
+              "selector": "shouldAutorotate",
+              "kind": "instance",
+              "encoding": "B16@0:8"
+            },
+            {
+              "selector": "supportedInterfaceOrientations",
+              "kind": "instance",
+              "encoding": "Q16@0:8"
+            }
+          ],
+          "ivars": []
+        }
+      ],
+      "method_behavior_verified": false,
+      "runtime_execution_verified": false
+    },
+    {
+      "kind": "allowlisted-static-objc-abi",
+      "sha256": "74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc",
+      "bytes": 5657724,
+      "pointer_formats": [],
+      "resolved_rebase_count": 0,
+      "unresolved_bind_count": 0,
+      "classes": [
+        {
+          "name": "LocalResponseHandler",
+          "methods": [
+            {
+              "selector": "handleAnnouncementsWithOriginal:parsedRequest:",
+              "kind": "class",
+              "encoding": "@32@0:8@16@24"
+            },
+            {
+              "selector": "handleEventsWithOriginal:parsedRequest:",
+              "kind": "class",
+              "encoding": "@32@0:8@16@24"
+            },
+            {
+              "selector": "handleMyDataWithOriginal:parsedRequest:",
+              "kind": "class",
+              "encoding": "@32@0:8@16@24"
+            },
+            {
+              "selector": "handlePingWithOriginal:",
+              "kind": "class",
+              "encoding": "@24@0:8@16"
+            },
+            {
+              "selector": "handleQuestStartWithOriginal:parsedRequest:",
+              "kind": "class",
+              "encoding": "@32@0:8@16@24"
+            },
+            {
+              "selector": "handleQuestsBriefingWithOriginal:parsedRequest:",
+              "kind": "class",
+              "encoding": "@32@0:8@16@24"
+            },
+            {
+              "selector": "handleResponseForParsedRequest:originalData:statusCode:error:",
+              "kind": "class",
+              "encoding": "@48@0:8@16@24q32^@40"
+            }
+          ],
+          "ivars": []
+        }
+      ],
+      "method_behavior_verified": false,
+      "runtime_execution_verified": false
+    }
+  ],
+  "implementation_review": {
+    "kind": "bounded-static-implementation-review",
+    "tool": "existing pinned NDK r28b llvm-objdump, disassemble selected own method spans only, raw instruction bytes suppressed",
+    "source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+    "method_spans": [
+      {
+        "method": "startRequest:",
+        "bytes": 188,
+        "implementation_sha256": "cd64af5b83eb0f205516832096628740cdf78e068d87d4e492c456f7ef29c00b"
+      },
+      {
+        "method": "connection:didReceiveResponse:",
+        "bytes": 300,
+        "implementation_sha256": "02df1cb1b793e3361dc973fb5b0a82a3d05fd05008ba3868045be321a431c2c0"
+      },
+      {
+        "method": "connection:didReceiveData:",
+        "bytes": 52,
+        "implementation_sha256": "a75f8a9448e28e2a43cf1d03dfc709ef2112333417b13fe1bf2b47b45208f3fc"
+      },
+      {
+        "method": "connection:didFailWithError:",
+        "bytes": 44,
+        "implementation_sha256": "59acd7d4f573d7cacd03c03eb53c6aa8de8306c6406bfbc337794e27e02205c5"
+      },
+      {
+        "method": "connectionDidFinishLoading:",
+        "bytes": 12,
+        "implementation_sha256": "cc3771ced5b3a50081e6a2eb79027da7a89dcf208239684616a4d5110e43691b"
+      }
+    ],
+    "allowlisted_class_imports": {
+      "connection_classref": "NSURLConnection",
+      "data_classref": "NSMutableData",
+      "runloop_classref": "NSRunLoop",
+      "httpresponse_classref": "NSHTTPURLResponse"
+    },
+    "chained_import_format": 3,
+    "start_request": {
+      "argument_forwarded_unchanged": true,
+      "foundation_initializer": "initWithRequest:delegate:startImmediately:",
+      "receiver_import": "NSURLConnection",
+      "delegate": "self",
+      "start_immediately": false,
+      "run_loop_selector": "currentRunLoop",
+      "schedule_selector": "scheduleInRunLoop:forMode:",
+      "final_selector": "start",
+      "concrete_argument_instance_verified": false,
+      "request_contract": "Foundation NSURLRequest-compatible; concrete runtime argument class unobserved"
+    },
+    "response_callback": {
+      "selectors": [
+        "allHeaderFields",
+        "statusCode",
+        "localizedStringForStatusCode:",
+        "setResponseHeader:",
+        "setStatusString:",
+        "setLength:"
+      ],
+      "signed_status_ivar_offset": 56,
+      "response_data_ivar_offset": 40,
+      "resets_data_length": true,
+      "runtime_response_order_observed": false
+    },
+    "data_callback": {
+      "selector": "appendData:",
+      "response_data_ivar_offset": 40,
+      "increments_counter_offset": 48
+    },
+    "completion_callback": {
+      "sets_completion_byte_offset": 8,
+      "value": 1,
+      "calls_another_function": false,
+      "dispatches_game_callback": false
+    },
+    "failure_callback": {
+      "forwards_error_argument_to_unreported_setter": true,
+      "sets_completion_byte_offset": 8,
+      "value": 1
+    },
+    "runtime_interception_verified": false,
+    "source_patcher_coexistence_verified": false,
+    "game_callback_polling_path_verified": false
+  },
+  "main_entry_review": {
+    "kind": "bounded-static-LC_MAIN-review",
+    "implementation_bytes": 96,
+    "implementation_sha256": "a1cc60035c2b5cf7ca54c41bca4a052ca35ec52ad9d7c24d93914bfc90c1718f",
+    "verified_imports": [
+      "objc_alloc_init",
+      "UIApplicationMain",
+      "objc_release"
+    ],
+    "pool_class_import": "NSAutoreleasePool",
+    "principal_class_argument": "nil",
+    "delegate_class_constant": "AppController",
+    "argc_argv_forwarded": true,
+    "returns_UIApplicationMain_result": true,
+    "additional_engine_setup_in_this_body": false,
+    "image_constructors_verified": false,
+    "AppController_startup_body_verified": false,
+    "wrapper_loader_execution_verified": false
+  }
+}

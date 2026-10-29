@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "kind": "actual-core-resource-projection-check",
+  "source_core_schema": 11,
+  "observed_schema_sha256": "0db95aef3ea8d86a6fbab4c886aee6c4fc55f16d2f32f5ff370557d73e0c4feb",
+  "fresh_core_fixture_sha256": "d5f76c57a4bac52ada98d1d24ef8f7d58360d7bcee7a6bb6e53db2d08482f720",
+  "canonical_identity_act_rank_exp_and_balances_projected": true,
+  "empty_actual_owned_collection_preserved": true,
+  "forged_balance_override_rejected": true,
+  "changed_save_scope_rejected": true,
+  "incomplete_resource_configuration_rejected": true,
+  "observed_diagnostic_count": 67,
+  "http_route_admitted": false,
+  "raw_source_player_values_used": false,
+  "original_iphone_runtime_verified": false,
+  "tested_module_sha256": "8956c46a32b7fbd3eb979253611c2972d027e3d0751ad11f3241dd2aa0fb6414",
+  "current_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
+  "evidence_reuse": "Prior actual fresh-player identity/ACT/rank/EXP/ledger/empty-owned-card/scope paths remain unchanged and reuse their passing scenario. One additional actual Core11 fixture check covers new source-rank facts and the custom engine-ID/pending projection guards; actual engine bindings and iPhone runtime remain unverified.",
+  "additional_changed_boundary_check": {
+    "tested_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
+    "fresh_fixture_sha256": "2522e8a9e69d74dfca20562d66a3284ad2de0dfe2789292e1e1e40992db757f8",
+    "created_fixture_sha256": "c1b7cc6b6cfea37f74a3601349709673ed69d49a418b3500ecae09f5b23ae396",
+    "actual_master_friends_capacity_projected": true,
+    "forged_capacity_override_rejected": true,
+    "actual_new_owned_exp_preserved": true,
+    "custom_engine_identity_required": true,
+    "dirty_native_projection_rejected": true,
+    "complete_response_or_route_admitted": false
+  }
+}

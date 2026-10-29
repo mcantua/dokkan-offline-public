@@ -1,0 +1,13 @@
+2026-10-28T18:57:51.9103160Z ** TEST BUILD SUCCEEDED **
+2026-10-28T18:58:08.9691260Z Test Suite 'Selected tests' started at 2026-10-28 18:58:08.906.
+2026-10-28T18:58:08.9813810Z Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-10-28 18:58:08.907.
+2026-10-28T18:58:08.9835480Z Test Suite 'AppInstallerCloudUITests' started at 2026-10-28 18:58:08.907.
+2026-10-28T18:58:08.9839790Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+2026-10-28T18:58:12.2827710Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' passed (3.366 seconds).
+2026-10-28T18:58:12.2850330Z Test Suite 'AppInstallerCloudUITests' passed at 2026-10-28 18:58:12.275.
+2026-10-28T18:58:12.2851360Z 	 Executed 1 test, with 0 failures (0 unexpected) in 3.366 (3.368) seconds
+2026-10-28T18:58:12.3081190Z Test Suite 'AppInstallerCloudUITests.xctest' passed at 2026-10-28 18:58:12.275.
+2026-10-28T18:58:12.3144330Z 	 Executed 1 test, with 0 failures (0 unexpected) in 3.366 (3.369) seconds
+2026-10-28T18:58:12.3243390Z Test Suite 'Selected tests' passed at 2026-10-28 18:58:12.276.
+2026-10-28T18:58:12.3243940Z 	 Executed 1 test, with 0 failures (0 unexpected) in 3.366 (3.370) seconds
+2026-10-28T18:58:12.7347580Z ** TEST EXECUTE SUCCEEDED **

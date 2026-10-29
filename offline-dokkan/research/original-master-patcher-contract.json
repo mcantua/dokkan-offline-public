@@ -1,0 +1,62 @@
+{
+  "schema": "original-master-patcher-contract-v1",
+  "method": "bounded readonly selected Mach-O symbols, call instructions, and reviewed path/PRAGMA constants; source code not executed",
+  "source": {
+    "main_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+    "patcher_sha256": "74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc"
+  },
+  "current_master": {
+    "owner": "Sparking::Patcher::OpenDokkanDatabase",
+    "function_vm_range": [
+      432024,
+      432540
+    ],
+    "language": "gActiveLanguage converted to NSString and passed through SPRKSandboxGameLanguage; normalization not yet established",
+    "path_builder_vm_range": [
+      435288,
+      435592
+    ],
+    "path_template": "NSHomeDirectory()/Documents/assets/sqlite/current/<source-language>/database.db",
+    "mutex": "SandboxOperationMutex",
+    "open_cipher_vm_range": [
+      428796,
+      430948
+    ],
+    "open_flags": 65537,
+    "open_flags_meaning": [
+      "SQLITE_OPEN_READONLY",
+      "SQLITE_OPEN_FULLMUTEX"
+    ],
+    "sqlite3_key_after_successful_open": true,
+    "static_key_object_nonempty": true,
+    "key_material_read": false,
+    "plaintext_bypass_observed": false,
+    "cipher_compatibility": 4,
+    "subsequent_reviewed_statements": [
+      "PRAGMA cipher_compatibility=4",
+      "PRAGMA cipher_memory_security=OFF",
+      "PRAGMA foreign_keys=ON",
+      "SELECT COUNT(*) FROM sqlite_master"
+    ],
+    "security_note": "Statements describe supplied source only; no cipher security weakening copied into authored helper."
+  },
+  "cards_cache": {
+    "owner": "Sparking::Patcher::SprkCardsDataDatabasePath",
+    "function_vm_range": [
+      423396,
+      423588
+    ],
+    "path_template": "NSHomeDirectory()/Documents/assets/User/sqlite/local/SPRK_Cards_Data.db",
+    "source_user_files_read": false,
+    "master_alias": false
+  },
+  "limits": {
+    "main_engine_consumption_proven": false,
+    "main_engine_database_key_contract_proven": false,
+    "android_iphone_key_equality_proven": false,
+    "derived_plaintext_master_admitted_to_original_engine": false,
+    "runtime_or_cache_lifetime_proven": false,
+    "original_client_run": false
+  },
+  "next": "Establish actual MAIN engine open/key/path/caching caller before permitting any derived-master redirect. The supplied patcher helper alone does not establish game-engine consumption."
+}

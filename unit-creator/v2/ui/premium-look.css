@@ -1,0 +1,292 @@
+/* ======================================================================================================
+   Dokkan Unit Creator — the new look (v2.36 "Dragon Ball intensity"). Loads after premium.css + premium-art.css.
+   A dark battlefield lit by a fiery ki aura, Super Saiyan gold and fire on everything you can press, Goku-blue
+   for second choices, blue lightning accents, comic titles with an ink outline, and fighting-game menus made of
+   angled slash bars (like the Budokai Tenkaichi / Sparking menus).
+   Only looks change here: no sizes that move screen edges, no safe-area values, nothing hidden.
+   ====================================================================================================== */
+html.dbz{
+  --ink:#0b0410; --night:#120720; --night-2:#1c0d33; --night-3:#2a1448;
+  --fire-hi:#ffe14a; --fire:#ff8a00; --fire-lo:#e8420a; --fire-edge:#8a1c00;
+  --ki:#ffd000; --gi-hi:#4cc6ff; --gi:#1677e8; --gi-lo:#0b3f9e; --spark:#7fd8ff;
+  --p-text:#ffffff; --p-sub:#e6d6ff;
+  --fire-grad:linear-gradient(180deg,var(--fire-hi),var(--fire) 48%,var(--fire-lo));
+  --gi-grad:linear-gradient(180deg,var(--gi-hi),var(--gi) 50%,var(--gi-lo));
+  --outline:0 2px 0 var(--ink),2px 0 0 var(--ink),0 -2px 0 var(--ink),-2px 0 0 var(--ink),2px 2px 0 var(--ink),-2px 2px 0 var(--ink),2px -2px 0 var(--ink),-2px -2px 0 var(--ink);
+  --outline-sm:0 1px 0 var(--ink),1px 0 0 var(--ink),0 -1px 0 var(--ink),-1px 0 0 var(--ink),1px 1px 0 var(--ink),-1px 1px 0 var(--ink);
+  --aura-glow:0 0 18px #ff6a0099,0 0 42px #ff3d0040;
+  --brackets:
+    linear-gradient(var(--fire),var(--fire)) 6px 6px/22px 3px no-repeat,
+    linear-gradient(var(--fire),var(--fire)) 6px 6px/3px 22px no-repeat,
+    linear-gradient(var(--fire),var(--fire)) calc(100% - 6px) calc(100% - 6px)/22px 3px no-repeat,
+    linear-gradient(var(--fire),var(--fire)) calc(100% - 6px) calc(100% - 6px)/3px 22px no-repeat;
+  --slash:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);
+  background:#0d0618;
+}
+
+/* ---- the battlefield: original ki-aura art behind every screen ---- */
+html.dbz body::after{background:linear-gradient(180deg,#0b041033,#0b0410b3),var(--p-art-sky) center bottom/cover no-repeat,#120720}
+html.dbz.tier-low body::after,html.dbz.lite body::after{background:var(--p-art-sky) center bottom/cover no-repeat,#120720}
+
+/* ---- titles: comic lettering, white with an ink outline and a ki glow ---- */
+html.dbz .section-heading h1,html.dbz .anim-head h1,html.dbz #main h1,html.dbz .panel>h2,html.dbz .bld .panel>h2,
+html.dbz .sheet-head h2,html.dbz dialog h2,html.dbz .db-section h2,html.dbz .section-heading h2,html.dbz .tl-empty h1{
+  font-family:"DB Bangers","DB Russo",system-ui,sans-serif;font-weight:400;letter-spacing:1px;color:#fff;
+  text-shadow:var(--outline),0 5px 0 var(--ink),0 0 22px #ff6a0099}
+html.dbz .section-heading h1,html.dbz .anim-head h1,html.dbz #main>h1,html.dbz #main .simple-heading h1{font-size:clamp(34px,5.4vw,52px);line-height:1}
+html.dbz .panel>h2,html.dbz .bld .panel>h2,html.dbz .db-section h2,html.dbz .section-heading h2{font-size:clamp(24px,3vw,30px);line-height:1.05}
+html.dbz .sheet-head h2,html.dbz dialog h2{font-size:clamp(24px,3vw,30px)}
+html.dbz .section-heading h1::after,html.dbz .anim-head h1::after{display:none}
+html.dbz .panel h3,html.dbz .pf-sec h4{color:var(--ki);text-shadow:var(--outline-sm)}
+html.dbz .eyebrow,html.dbz .db-kicker{background:none;-webkit-text-fill-color:currentColor;color:var(--fire);text-shadow:var(--outline-sm);letter-spacing:1.5px}
+html.dbz .hint,html.dbz .section-heading p,html.dbz .field small,html.dbz .pf-help{color:var(--p-sub)}
+html.dbz main p,html.dbz main .hint,html.dbz main label,html.dbz main small,html.dbz .db-progress{text-shadow:0 1px 3px #000000cc}
+html.dbz .panel p,html.dbz .panel .hint,html.dbz .panel label,html.dbz .panel small,html.dbz dialog p,html.dbz dialog label,html.dbz dialog small{text-shadow:none}
+
+/* ---- frames: dark glass, ink outline, a burning top edge, orange corner brackets ---- */
+html.dbz .panel,html.dbz .bld .panel{
+  border:3px solid var(--ink);border-radius:8px;
+  background:var(--brackets),linear-gradient(180deg,#ff6a001f,#ff6a0000 80px),linear-gradient(180deg,#1f0f36f0,#130824f2);
+  box-shadow:inset 0 3px 0 var(--fire),inset 0 0 0 1px #ff8a0033,0 6px 0 #000000b3,0 0 30px #ff4a0026}
+html.dbz .summary-card,html.dbz .export-option,html.dbz .ai-card,html.dbz .effect-card,html.dbz .asset-item,html.dbz .preset-card,
+html.dbz .set-section,html.dbz .anim-card,html.dbz .anim-step,html.dbz .help-topic,html.dbz .creation-task,html.dbz .of-tile,html.dbz .of-opt,html.dbz .qc-pick,
+html.dbz .bld-ability,html.dbz .bld-group,html.dbz .bld-subability,html.dbz .pf-item,html.dbz .pf-sec,html.dbz .check-item{
+  border:2px solid var(--ink)!important;border-radius:8px;
+  background:linear-gradient(180deg,#ffffff0d,#ffffff00 40px),linear-gradient(180deg,var(--night-3),var(--night-2));
+  box-shadow:inset 0 0 0 1px #b07cff2e,inset 0 2px 0 #ffffff1a,0 4px 0 #000000b3}
+html.dbz .bld-ability.open,html.dbz .bld-subability.open{box-shadow:inset 0 0 0 2px var(--fire),0 4px 0 #000000b3,var(--aura-glow)}
+html.dbz .check-item:has(input:checked),html.dbz .of-tile.of-eclipse:has(input:checked),html.dbz .of-opt:has(input:checked){background:linear-gradient(180deg,#ffffff1f,#ffffff00 40px),linear-gradient(180deg,#c24a00,#7a1f00);box-shadow:inset 0 0 0 2px var(--fire-hi),0 4px 0 #000000b3,var(--aura-glow)}
+html.dbz .pf-summary{border:2px solid var(--ink);border-radius:8px;background:linear-gradient(180deg,#0a4d5e,#06303d);box-shadow:inset 0 0 0 1px #7fd8ff55,0 4px 0 #000000b3}
+html.dbz .notice{border:2px solid var(--ink);border-radius:8px;box-shadow:0 4px 0 #000000b3}
+html.dbz .bld-tip{border:2px solid var(--ink);border-radius:8px;background:linear-gradient(180deg,#2a1448,#1c0d33);color:#f3eaff;box-shadow:inset 5px 0 0 var(--fire),0 4px 0 #000000b3}
+html.dbz .bld-tip a,html.dbz .bld-tip .text-button{color:var(--fire-hi)}
+html.dbz .bld-tip *{text-shadow:none}
+
+/* ---- buttons: fire for the main action, Goku-blue for second choices, ink outline, pressed in when tapped ---- */
+html.dbz .button,html.dbz .send-btn{font-family:"DB Russo",system-ui,sans-serif;font-weight:400;letter-spacing:.4px;border-radius:10px!important;color:#fff!important;text-shadow:var(--outline-sm),0 2px 0 var(--ink)}
+html.dbz .button:not(.ghost):not(.subtle):not(.teal):not(.danger){background:var(--fire-grad);border:3px solid var(--ink);
+  box-shadow:inset 0 3px 0 #ffffffa6,inset 0 -4px 0 var(--fire-edge),0 4px 0 var(--ink),var(--aura-glow)}
+html.dbz .button.ghost{background:var(--gi-grad);border:3px solid var(--ink);box-shadow:inset 0 3px 0 #ffffff80,inset 0 -4px 0 #06276b,0 4px 0 var(--ink),0 0 16px #1677e866}
+html.dbz .button.subtle{background:linear-gradient(180deg,var(--night-3),var(--night-2));border:3px solid var(--ink);box-shadow:inset 0 0 0 1px #ff8a0066,0 4px 0 var(--ink)}
+html.dbz .button.teal{background:linear-gradient(180deg,#8affea,#18c7b0 50%,#0a7a6a);border:3px solid var(--ink);box-shadow:inset 0 3px 0 #ffffff99,inset 0 -4px 0 #06665a,0 4px 0 var(--ink)}
+html.dbz .button.danger{background:linear-gradient(180deg,#ff8080,#e01b2c 50%,#8a0a18);border:3px solid var(--ink);box-shadow:inset 0 3px 0 #ffffff80,inset 0 -4px 0 #6a0812,0 4px 0 var(--ink)}
+html.dbz .button:hover{filter:brightness(1.1) saturate(1.1)}
+html.dbz .button:active,html.dbz .send-btn:active{transform:translateY(3px);box-shadow:inset 0 2px 0 #ffffff60,0 1px 0 var(--ink)!important}
+html.dbz .button:disabled{filter:grayscale(.8) brightness(.7)}
+html.dbz .icon-button,html.dbz .shell-icon{border:3px solid var(--ink)!important;background:var(--gi-grad)!important;color:#fff!important;box-shadow:inset 0 2px 0 #ffffff80,0 3px 0 var(--ink)!important;text-shadow:var(--outline-sm)}
+html.dbz .sheet-head .icon-button,html.dbz #qc-close{background:linear-gradient(180deg,#ff8080,#e01b2c 50%,#8a0a18)!important}
+
+/* ---- fields ---- */
+html.dbz input:not([type=checkbox]):not([type=radio]):not([type=range]),html.dbz select,html.dbz textarea,
+html.dbz .bld .field input:not([type=checkbox]):not([type=radio]):not([type=range]),html.dbz .bld .field select,html.dbz .bld .field textarea{
+  background-color:#0d0618;border:2px solid var(--ink);border-radius:8px;color:#fff;box-shadow:inset 0 0 0 1px #8a5cd055,inset 0 3px 8px #00000080}
+html.dbz select,html.dbz .bld .field select{background-image:linear-gradient(45deg,transparent 50%,var(--fire) 50%),linear-gradient(135deg,var(--fire) 50%,transparent 50%),linear-gradient(180deg,#1a0b2e,#0d0618)}
+html.dbz input:focus,html.dbz select:focus,html.dbz textarea:focus{border-color:var(--ink)!important;box-shadow:inset 0 0 0 2px var(--fire),0 0 0 3px #ff8a0055,0 0 18px #ff6a0066!important}
+html.dbz .field,html.dbz .bld .field{color:#f1e6ff;font-weight:600}
+html.dbz input[type=range],html.dbz input[type=checkbox],html.dbz input[type=radio]{accent-color:var(--fire)}
+
+/* ---- chips and choice pills ---- */
+html.dbz .fd-chip,html.dbz .set-jump button,html.dbz .tabs button,html.dbz .preset-tabs button,html.dbz .help-link,html.dbz .bld-pill,html.dbz .bld-kind,html.dbz .bld-type-pill,html.dbz .pf-quick-btn,html.dbz .library-tabs button,html.dbz .set-choice,html.dbz .tour-choice,html.dbz .perf-choice{
+  border:2px solid var(--ink)!important;background:linear-gradient(180deg,var(--night-3),var(--night-2));color:#fff;font-weight:700;text-shadow:var(--outline-sm);box-shadow:inset 0 0 0 1px #ff8a0055,inset 0 2px 0 #ffffff1a,0 3px 0 var(--ink)}
+html.dbz .fd-chip.on,html.dbz .tabs button.active,html.dbz .preset-tabs button.on,html.dbz .help-link.on,html.dbz .bld-pill.on,html.dbz .bld-kind.on,html.dbz .bld-type-pill.on,html.dbz .pf-quick-btn.on,html.dbz .library-tabs button.active,html.dbz .library-tabs button[aria-pressed=true],html.dbz .set-choice.on,html.dbz .tour-choice.on,html.dbz .perf-choice.on{
+  background:var(--fire-grad);color:#fff;box-shadow:inset 0 2px 0 #ffffffa6,inset 0 -3px 0 var(--fire-edge),0 3px 0 var(--ink),0 0 16px #ff6a0099}
+html.dbz .fd-chip.t0.on{background:linear-gradient(180deg,#8fd0ff,#2f8cff 50%,#1450c8)}html.dbz .fd-chip.t1.on{background:linear-gradient(180deg,#9dffb0,#22c55e 50%,#11803a)}
+html.dbz .fd-chip.t2.on{background:linear-gradient(180deg,#e2b5ff,#a855f7 50%,#6b21a8)}html.dbz .fd-chip.t3.on{background:linear-gradient(180deg,#ffb0b0,#ef4444 50%,#a01a1a)}
+html.dbz .fd-chip.t4.on{background:linear-gradient(180deg,#ffe2a0,#f59e0b 50%,#b45309)}
+html.dbz .count{border:2px solid var(--ink);background:var(--fire-grad);color:#fff;text-shadow:var(--outline-sm)}
+html.dbz .chip:not(.has-rb){border:1.5px solid var(--ink);background:var(--night-3);color:#fff}
+
+/* ---- top bar: black band with a burning rule ---- */
+html.dbz .topbar{background:linear-gradient(180deg,#0b0410f5,#160a28f0);border-bottom:0;box-shadow:0 3px 0 var(--ink),0 10px 24px #00000080}
+html.dbz .topbar::after{height:3px;bottom:-3px;background:linear-gradient(90deg,var(--fire-lo),var(--fire-hi) 35%,var(--fire) 65%,var(--fire-lo));opacity:1;box-shadow:0 0 14px #ff6a00cc}
+html.dbz .breadcrumb,html.dbz .mobile-brand{font-family:"DB Bangers","DB Russo",sans-serif;font-size:22px!important;letter-spacing:1px;color:#fff!important;text-shadow:var(--outline-sm),0 2px 0 var(--ink),0 0 14px #ff6a0099}
+
+/* ---- side menu: a fighting-game menu of angled slash bars ---- */
+html.dbz .sidebar{background:linear-gradient(90deg,#0b0410fa,#140826f2);border-right:0;box-shadow:inset -3px 0 0 var(--ink),inset -5px 0 0 #ff6a0066,8px 0 30px #00000099}
+html.dbz .sidebar .brand{position:relative;padding:12px 14px 16px;margin:-6px -6px 0;border:3px solid var(--ink);border-radius:8px;background:var(--brackets),radial-gradient(120% 120% at 15% 50%,#ff8a0040,transparent 60%),linear-gradient(180deg,#2a1448,#140826);box-shadow:inset 0 3px 0 var(--fire),0 5px 0 var(--ink)}
+html.dbz .sidebar .brand>span:last-child{font-family:"DB Bangers","DB Russo",sans-serif;font-size:22px;letter-spacing:1.5px;color:#fff;text-shadow:var(--outline-sm),0 2px 0 var(--ink)}
+html.dbz .sidebar .brand-second{background:none;-webkit-text-fill-color:currentColor;color:var(--fire-hi);filter:none;font-size:24px;text-shadow:var(--outline-sm),0 2px 0 var(--ink),0 0 16px #ff6a00cc!important}
+html.dbz .nav-label{color:var(--fire);text-shadow:var(--outline-sm);font-family:"DB Russo",sans-serif}
+html.dbz .nav-label::after{background:linear-gradient(90deg,var(--fire),transparent)}
+html.dbz .sidebar nav{gap:8px}
+html.dbz .sidebar nav button,html.dbz .shell-side-extra button{position:relative;min-height:50px;border:0!important;border-radius:0!important;clip-path:var(--slash);color:#fff;font-family:"DB Bangers","DB Russo",sans-serif;font-size:19px!important;letter-spacing:1px;text-shadow:var(--outline-sm),0 2px 0 var(--ink);
+  padding-left:14px!important;background:linear-gradient(90deg,#2a1448,#1a0c30 70%,#120720);box-shadow:inset 4px 0 0 #ff8a0080,inset 0 -3px 0 #00000080;transition:transform .14s cubic-bezier(.2,.8,.2,1),background .14s,filter .14s}
+html.dbz .shell-side-extra button{font-size:16px!important;min-height:44px}
+html.dbz .sidebar nav button:hover,html.dbz .shell-side-extra button:hover{transform:translateX(6px);filter:none;background:linear-gradient(90deg,#4a1f10,#2a1220 70%,#140826);box-shadow:inset 4px 0 0 var(--fire),inset 0 -3px 0 #00000080}
+html.dbz .sidebar nav button.active{color:#fff;background:linear-gradient(90deg,var(--fire-hi),var(--fire) 45%,var(--fire-lo));box-shadow:inset 0 3px 0 #ffffffa6,inset 0 -4px 0 var(--fire-edge);transform:translateX(6px)}
+html.dbz .sidebar nav button.active::before{display:none}
+html.dbz .sidebar .nav-icon{display:inline-grid;place-items:center;vertical-align:middle;width:28px;height:28px;margin-right:8px;border:0;border-radius:0;color:var(--fire-hi);background:none;box-shadow:none;filter:drop-shadow(0 2px 0 var(--ink))}
+html.dbz .sidebar nav button.active .nav-icon{color:#fff;background:none}
+html.dbz .shell-side-extra{border-top:0;padding-top:22px;position:relative}
+html.dbz .shell-side-extra::before{content:"Tools";position:absolute;top:0;left:4px;font:400 12px "DB Russo",sans-serif;letter-spacing:1px;color:var(--fire);text-shadow:var(--outline-sm)}
+html.dbz .sidebar-bottom .local-pill{padding:10px 12px;border:2px solid var(--ink);border-radius:8px;background:#0b0410;color:#bff7e2}
+html.dbz .p-ico{width:20px;height:20px;display:block}
+html.dbz .sidebar .nav-icon .p-ico{width:22px;height:22px}
+html.lite.dbz .sidebar nav button,html.tier-low.dbz .sidebar nav button{transition:none}
+
+/* ---- bottom bar / iPhone Duo rail: black band, burning edge, the current screen in fire ---- */
+html.dbz .mobile-nav{background:linear-gradient(180deg,#160a28,#0b0410)!important;border-top:3px solid var(--ink)!important;box-shadow:inset 0 3px 0 #ff6a0099,0 -8px 22px #000000a6}
+html.ios-app.duo-rail.dbz .mobile-nav{background:linear-gradient(90deg,#160a28,#0b0410)!important;border-top:0!important;border-left:3px solid var(--ink)!important;box-shadow:inset 3px 0 0 #ff6a0099,-8px 0 22px #000000a6}
+html.ios-app.duo-rail.duo-rail-left.dbz .mobile-nav{border-left:0!important;border-right:3px solid var(--ink)!important;box-shadow:inset -3px 0 0 #ff6a0099,8px 0 22px #000000a6}
+html.dbz .mobile-nav button,html.ios-app.duo-rail.dbz .mobile-nav button:not(.active){color:#fff!important;text-shadow:var(--outline-sm);font-family:"DB Russo",sans-serif;border-radius:10px}
+html.dbz .mobile-nav .nav-glyph{color:var(--fire-hi)}
+html.dbz .mobile-nav button.active,html.ios-app.duo-rail.dbz .mobile-nav button.active{background:var(--fire-grad)!important;color:#fff!important;border:2.5px solid var(--ink);box-shadow:inset 0 2px 0 #ffffffa6,0 3px 0 var(--ink),var(--aura-glow)}
+html.dbz .mobile-nav button.active .nav-glyph{color:#fff}
+html.dbz .mobile-nav .nav-glyph .p-ico{width:24px;height:24px;margin:0 auto 2px;filter:drop-shadow(0 2px 0 var(--ink))}
+
+/* ---- More menu: the same slash bars ---- */
+html.dbz .more-item{border:0!important;border-radius:0!important;clip-path:var(--slash);background:linear-gradient(90deg,#2a1448,#1a0c30 75%,#120720)!important;box-shadow:inset 4px 0 0 #ff8a0080!important;transition:transform .14s cubic-bezier(.2,.8,.2,1),background .14s}
+@media (hover:hover){html.dbz .more-item:hover{transform:translateX(6px);background:linear-gradient(90deg,#4a1f10,#2a1220 75%,#140826)!important;box-shadow:inset 4px 0 0 var(--fire)!important}}
+html.dbz .more-item strong{font-family:"DB Bangers","DB Russo",sans-serif;font-weight:400;font-size:20px;letter-spacing:1px;color:#fff;text-shadow:var(--outline-sm),0 2px 0 var(--ink)}
+html.dbz .more-icon,html.dbz .preset-icon{background:none!important;box-shadow:none!important;color:var(--fire-hi);filter:drop-shadow(0 2px 0 var(--ink))}
+html.dbz .more-group{color:var(--fire);text-shadow:var(--outline-sm)}
+
+/* ---- builder: slash tabs, the card in a burning frame ---- */
+html.dbz .bld-tabs{gap:6px}
+html.dbz .bld-tab{border:0!important;border-radius:0!important;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);color:#fff!important;text-shadow:var(--outline-sm);background:linear-gradient(180deg,var(--night-3),var(--night-2))!important;box-shadow:inset 0 -3px 0 #00000080,inset 0 3px 0 #ff8a0040!important;padding-left:20px!important;padding-right:20px!important}
+html.dbz .bld-tab.active{background:var(--fire-grad)!important;box-shadow:inset 0 3px 0 #ffffffa6,inset 0 -4px 0 var(--fire-edge)!important}
+html.dbz .bld-tab .bld-dot{border:1.5px solid var(--ink)}
+html.dbz .bld-card{border:4px solid var(--ink)!important;border-radius:10px;box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--type-accent) 80%,#fff),0 6px 0 var(--ink),0 0 36px color-mix(in srgb,var(--type-accent) 55%,transparent),0 0 70px #ff6a0033!important}
+html.dbz .bld-card-name{font-family:"DB Bangers","DB Russo",sans-serif;font-size:24px;letter-spacing:1px;text-shadow:var(--outline),0 3px 0 var(--ink)}
+html.dbz .bld-card-stats div{border:2px solid var(--ink);background:linear-gradient(180deg,var(--night-3),var(--night-2));box-shadow:inset 0 1px 0 #ffffff26}
+html.dbz .bld-card-stats strong{font-family:"DB Russo",sans-serif;color:#fff;text-shadow:var(--outline-sm)}
+html.dbz .db-progress .db-count{color:#fff;text-shadow:var(--outline-sm)}
+html.dbz .bld-footer{border-top:3px solid var(--ink)}
+
+/* ---- unit tiles: card frames in the unit's type colour, aura on hover ---- */
+html.dbz .unit-tile,html.dbz .source-tile,html.dbz .db-tile,html.dbz .fd-tile,html.dbz .patch-tile{
+  border:3px solid var(--ink)!important;border-radius:10px!important;
+  box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--type,#ff8a00) 85%,#fff),0 5px 0 var(--ink),0 10px 18px #00000080!important}
+html.dbz .unit-tile,html.dbz .source-tile,html.dbz .fd-tile{background:linear-gradient(180deg,var(--night-3),var(--night))!important}
+html.dbz .db-tile strong,html.dbz .tile-body h3,html.dbz .tile-body h2,html.dbz .fd-tile strong{color:#fff;text-shadow:var(--outline-sm)}
+@media (hover:hover){html.dbz .unit-tile:hover,html.dbz .source-tile:hover,html.dbz .db-tile:hover,html.dbz .fd-tile:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 3px var(--fire-hi),0 9px 0 var(--ink),var(--aura-glow)!important}}
+
+/* ---- Home: a title-screen banner in a golden aura, then the menu as slash bars ---- */
+html.dbz .db-hero{border:4px solid var(--ink)!important;border-radius:10px!important;padding-top:28px!important;padding-bottom:28px!important;
+  background:linear-gradient(90deg,#0b0410e6 0%,#0b0410a6 40%,transparent 68%),var(--p-art-burst) right center/cover no-repeat,#2a0d00!important;
+  box-shadow:inset 0 0 0 2px var(--fire),0 7px 0 var(--ink),0 0 40px #ff6a0059,0 18px 40px #000000a6!important}
+html.dbz .db-hero::after{display:none}
+html.dbz .db-hero .db-kicker,html.dbz .db-hero .db-hero-steps{display:none}
+html.dbz .db-title{text-shadow:var(--outline),0 6px 0 var(--ink),0 0 30px #ff6a00b3!important}
+@media (max-width:700px){html.dbz .db-hero{background:linear-gradient(180deg,#0b0410f0 0%,#0b0410c0 55%,#0b041040 100%),var(--p-art-burst) 70% center/cover no-repeat,#2a0d00!important}}
+.p-menu{display:flex;flex-direction:column;gap:10px;margin:8px 0 26px;max-width:560px}
+.p-menu button{position:relative;display:flex;align-items:center;gap:14px;min-height:64px;padding:8px 40px 8px 18px;text-align:left;cursor:pointer;border:0;border-radius:0;
+  clip-path:polygon(0 0,100% 0,calc(100% - 22px) 100%,0 100%);color:#fff;
+  background:linear-gradient(90deg,#2a1448,#1a0c30 70%,#120720);box-shadow:inset 5px 0 0 #ff8a00,inset 0 -4px 0 #00000080;
+  transition:transform .14s cubic-bezier(.2,.8,.2,1),background .14s}
+.p-menu .p-ico{position:static;width:34px;height:34px;flex:none;color:#ffe14a;filter:drop-shadow(0 2px 0 #0b0410)}
+.p-menu .p-txt{display:flex;flex-direction:column;gap:2px}
+.p-menu .p-txt span{font:400 24px/1 "DB Bangers","DB Russo",sans-serif;letter-spacing:1px;text-shadow:0 2px 0 #0b0410,2px 0 0 #0b0410,0 -2px 0 #0b0410,-2px 0 0 #0b0410,2px 2px 0 #0b0410,-2px 2px 0 #0b0410,0 0 16px #ff6a0099}
+.p-menu .p-txt small{font:600 13px/1.3 system-ui,sans-serif;color:#e6d6ff}
+@media (hover:hover){.p-menu button:hover{transform:translateX(8px);background:linear-gradient(90deg,#ffe14a,#ff8a00 45%,#e8420a);box-shadow:inset 0 3px 0 #ffffffa6,inset 0 -4px 0 #8a1c00}
+  .p-menu button:hover .p-ico{color:#fff}.p-menu button:hover small{color:#fff}}
+.p-menu button:active{transform:translateX(4px) scale(.99)}
+html.lite .p-menu button,html.tier-low .p-menu button{transition:none}
+@media (prefers-reduced-motion:reduce){.p-menu button,html.dbz .sidebar nav button,html.dbz .more-item{transition:none}}
+
+/* ---- dialogs and sheets: dark windows with a burning top edge ---- */
+html.dbz dialog,html.dbz .aic-dialog,html.dbz .shell-sheet,html.dbz .movie-editor-dialog,html.dbz .sequence-picker{
+  border:4px solid var(--ink)!important;border-radius:10px!important;
+  background:var(--brackets),linear-gradient(180deg,#ff6a0026,#ff6a0000 90px),linear-gradient(180deg,#1f0f36,#0f061c)!important;
+  box-shadow:inset 0 3px 0 var(--fire),0 8px 0 var(--ink),0 0 40px #ff4a0033,0 30px 80px #000000cc!important}
+html.dbz dialog::backdrop{background:radial-gradient(circle at 50% 40%,#3a0d0099,#05020ae6 70%)}
+html.dbz .sheet-head{border-bottom:3px solid var(--ink)}
+html.dbz #toast{border:3px solid var(--ink);box-shadow:0 5px 0 var(--ink),0 14px 30px #00000080}
+html.dbz .busy-card{border:4px solid var(--ink);border-radius:10px;background:var(--brackets),linear-gradient(180deg,#1f0f36,#0f061c);box-shadow:inset 0 3px 0 var(--fire),0 8px 0 var(--ink),var(--aura-glow)}
+html.dbz .spinner{border-color:#2a1448;border-top-color:var(--fire);box-shadow:var(--aura-glow)}
+
+/* ---- "Put it in your game" ---- */
+html.dbz .send-btn{border:3px solid var(--ink)!important;box-shadow:inset 0 3px 0 #ffffff80,0 5px 0 var(--ink),0 10px 18px #00000080!important}
+
+/* ---- Portraits & Sprites tab ---- */
+html.dbz .ap-now{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px;margin:10px 0 14px;border:2px solid var(--ink);border-radius:8px;background:linear-gradient(180deg,var(--night-3),var(--night-2));box-shadow:inset 0 0 0 1px #ff8a0055,0 4px 0 #000000b3}
+html.dbz .ap-now img{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 4px 6px #000a)}
+html.dbz .ap-now div{flex:1;min-width:160px}
+html.dbz .ap-now small{display:block;color:var(--p-sub);line-height:1.5}
+html.dbz .ap-parts{margin:10px 0 12px}
+html.dbz .ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+html.dbz .ap-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 6px 10px;text-align:center;color:#fff;cursor:pointer;
+  border:3px solid var(--ink);border-radius:10px;background:linear-gradient(180deg,var(--night-3),var(--night));box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--type,#ff8a00) 80%,#fff),0 4px 0 var(--ink)}
+html.dbz .ap-tile.t0{--type:#2d7ff9}html.dbz .ap-tile.t1{--type:#1fae4b}html.dbz .ap-tile.t2{--type:#9b51e0}html.dbz .ap-tile.t3{--type:#e5383b}html.dbz .ap-tile.t4{--type:#f08c00}
+html.dbz .ap-tile img{width:86px;height:86px;object-fit:contain;filter:drop-shadow(0 4px 6px #000a)}
+html.dbz .ap-tile span{font-weight:700;font-size:12.5px;line-height:1.2;text-shadow:var(--outline-sm)}
+html.dbz .ap-tile small{font-size:11px;color:var(--p-sub)}
+html.dbz .ap-tile.on{box-shadow:inset 0 0 0 3px var(--fire-hi),0 4px 0 var(--ink),var(--aura-glow)}
+html.dbz .ap-tile.on::after{content:"✓";position:absolute;top:4px;right:6px;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--ink);background:var(--fire-grad);font-weight:900;font-size:13px}
+html.dbz .ap-pick{all:unset;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;width:100%}
+html.dbz .ap-pick:disabled{opacity:.5;cursor:not-allowed}
+html.dbz .ap-play,html.dbz .ap-motion-play{display:inline-grid;place-items:center;min-width:34px;height:30px;padding:0 8px;border:2px solid var(--ink);border-radius:8px;background:var(--gi-grad);color:#fff;font-size:13px;cursor:pointer;box-shadow:0 2px 0 var(--ink)}
+html.dbz .ap-motions{display:flex;flex-direction:column;gap:8px}
+html.dbz .ap-motion{display:flex;align-items:center;gap:12px;flex-wrap:wrap;text-align:left;padding:10px 12px;color:#fff;cursor:pointer;border:2px solid var(--ink);border-radius:8px;background:linear-gradient(180deg,var(--night-3),var(--night-2));box-shadow:inset 0 0 0 1px #ff8a0055,0 3px 0 var(--ink)}
+html.dbz .ap-motion strong{font-family:"DB Bangers","DB Russo",sans-serif;font-weight:400;font-size:20px;letter-spacing:1px;min-width:110px;text-shadow:var(--outline-sm)}
+html.dbz .ap-motion small{flex:1;min-width:160px;color:var(--p-sub)}
+html.dbz .ap-motion.on{background:var(--fire-grad);box-shadow:inset 0 2px 0 #ffffffa6,0 3px 0 var(--ink),var(--aura-glow)}
+html.dbz .ap-motion.on small{color:#fff}
+/* Portraits & Sprites: three big choice buttons, each showing what is chosen now */
+html.dbz .ap-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:8px 0 14px}
+html.dbz .ap-step{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:96px;padding:12px 8px;border:2px solid var(--ink);border-radius:10px;background:linear-gradient(180deg,var(--night-3),var(--night-2));color:#fff;cursor:pointer;box-shadow:0 4px 0 #000000b3;text-align:center}
+html.dbz .ap-step img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 3px 5px #000a)}
+html.dbz .ap-step strong{font-family:"DB Bangers","DB Russo",sans-serif;font-size:1.25rem;letter-spacing:.04em;line-height:1.1}
+html.dbz .ap-step small{opacity:.8;font-size:.78rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.dbz .ap-step-n{position:absolute;top:6px;left:8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.8rem;background:#000;color:var(--fire-hi)}
+html.dbz .ap-step.on{background:linear-gradient(180deg,var(--fire-hi),var(--fire) 55%,var(--fire-lo));color:#1a0600;box-shadow:0 4px 0 #000000b3,0 0 18px #ff8a0088}
+html.dbz .ap-step.on .ap-step-n{background:#1a0600;color:#fff}
+html.dbz .ap-search{margin:0 0 8px}
+html.dbz .ap-foot{margin-top:14px;text-align:center}
+@media (max-width:420px){html.dbz .ap-step{min-height:84px;padding:10px 4px}html.dbz .ap-step strong{font-size:1.05rem}html.dbz .ap-step img{width:40px;height:40px}}
+/* Super Attacks as tap-to-open cards; folded extras (animations, in-game description, other saves) */
+html.dbz details.bld-super-card>summary,html.dbz details.bld-anim-more>summary,html.dbz details.bld-pdesc-fold>summary{list-style:none;cursor:pointer}
+html.dbz details.bld-super-card>summary::-webkit-details-marker,html.dbz details.bld-anim-more>summary::-webkit-details-marker,html.dbz details.bld-pdesc-fold>summary::-webkit-details-marker{display:none}
+html.dbz .bld-super-sum{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center}
+html.dbz .bld-super-kind{grid-column:1;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--fire-hi)}
+html.dbz .bld-super-sum strong{grid-column:1;font-size:1.15rem;line-height:1.2}
+html.dbz .bld-super-sum small{grid-column:1;opacity:.75}
+html.dbz .bld-super-edit{grid-column:2;grid-row:1/4;padding:8px 14px;border-radius:8px;font-weight:800;background:linear-gradient(180deg,var(--gi-hi,#4fb0ff),var(--gi,#1f6fe0));color:#fff;border:2px solid var(--ink);box-shadow:0 3px 0 #000a}
+html.dbz details.bld-super-card[open]>.bld-super-sum{padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid #ffffff1f}
+html.dbz details.bld-super-card[open] .bld-super-edit{background:#000;color:var(--fire-hi)}
+html.dbz details.bld-super-card[open] .bld-super-edit::after{content:""}
+html.dbz details.bld-anim-more>summary,html.dbz details.bld-pdesc-fold>summary{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+html.dbz details.bld-anim-more>summary h2,html.dbz details.bld-pdesc-fold>summary h2{margin:0}
+html.dbz details.bld-anim-more>summary small,html.dbz details.bld-pdesc-fold>summary small{opacity:.7}
+html.dbz details.bld-anim-more[open]>summary small,html.dbz details.bld-pdesc-fold[open]>summary small{display:none}
+html.dbz details.bld-anim-more>summary h2::after,html.dbz details.bld-pdesc-fold>summary h2::after{content:" ▾";color:var(--fire-hi)}
+html.dbz details.bld-anim-more[open]>summary h2::after,html.dbz details.bld-pdesc-fold[open]>summary h2::after{content:" ▴"}
+html.dbz .bld-ready-line{margin:6px 0 14px;padding:12px 14px;border-radius:8px;font-weight:800;background:#0f3d2a;border:2px solid #2fd28a;color:#c9ffe6}
+html.dbz .bld-more-saves .export-grid{margin-top:10px}
+html.dbz .check-item small{display:none}
+/* ---- Home: Dokkan-style main screen (big fighter, banners on the right, Continue like the game's Quest button) ---- */
+html.dbz .dk-stage{position:relative;overflow:hidden;min-height:clamp(520px,74vh,640px);margin:0 0 18px;border:4px solid var(--ink);border-radius:12px;background:radial-gradient(ellipse at 30% 70%,#ff8a0055 0%,transparent 55%),linear-gradient(180deg,#0b0410cc 0%,#0b041040 30%,#0b0410e6 100%),var(--p-art-burst) center/cover,var(--night-2);box-shadow:0 10px 0 #000000b3,inset 0 0 0 2px #ff8a0044}
+html.dbz .dk-art{position:absolute;left:-6%;bottom:56px;width:72%;height:calc(100% - 110px);display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+html.dbz .dk-art::before{content:"";position:absolute;left:10%;right:10%;bottom:0;height:70%;border-radius:50%;background:radial-gradient(closest-side,#ffd24acc,#ff7a0066 55%,transparent);filter:blur(8px)}
+html.dbz .dk-art-img{position:relative;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 0 14px #ffb300aa) drop-shadow(0 10px 10px #000c)}
+html.dbz .dk-empty .dk-art::before{opacity:.5}
+html.dbz .dk-top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;background:linear-gradient(180deg,#000000d9,#00000080);border-bottom:2px solid var(--fire)}
+html.dbz .dk-logo{font-family:"DB Bangers","DB Russo",sans-serif;font-size:1.35rem;letter-spacing:.06em;line-height:1;color:#fff;-webkit-text-stroke:1px #000;text-shadow:0 2px 0 #000}
+html.dbz .dk-logo b{display:block;font-weight:400;font-size:.8em;color:var(--fire-hi)}
+html.dbz .dk-games{font-size:.72rem;font-weight:800;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:#000;border:1px solid var(--fire);color:var(--fire-hi)}
+html.dbz .dk-banners{position:absolute;right:10px;top:66px;bottom:118px;width:min(48%,300px);display:flex;flex-direction:column;gap:8px;overflow-y:auto;scrollbar-width:none;padding:2px}
+html.dbz .dk-banners::-webkit-scrollbar{display:none}
+html.dbz .dk-banner{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:8px;min-height:54px;padding:8px 12px 8px 10px;border:2px solid var(--ink);border-radius:8px;clip-path:polygon(6% 0,100% 0,100% 100%,0 100%);background:linear-gradient(100deg,var(--gi-lo,#0d3a8a),var(--gi,#1f6fe0) 60%,var(--gi-hi,#4fb0ff));color:#fff;text-align:left;cursor:pointer;box-shadow:0 3px 0 #000a;transition:transform .12s}
+html.dbz .dk-banner:active{transform:translateX(-3px) scale(.98)}
+html.dbz .dk-banner-icon{flex:0 0 auto;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#000a;font-size:1rem}
+html.dbz .dk-banner-txt{display:flex;flex-direction:column;min-width:0}
+html.dbz .dk-banner strong{font-family:"DB Bangers","DB Russo",sans-serif;font-weight:400;font-size:1.12rem;letter-spacing:.04em;line-height:1.05;-webkit-text-stroke:.6px #000;text-shadow:0 2px 0 #000}
+html.dbz .dk-banner small{font-size:.7rem;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.dbz .dk-banner.dk-main{min-height:74px;background:linear-gradient(100deg,var(--fire-lo),var(--fire) 55%,var(--fire-hi));color:#1a0600}
+html.dbz .dk-banner.dk-main strong{font-size:1.45rem;color:#fff}
+html.dbz .dk-banner.dk-main small{color:#1a0600;font-weight:800}
+html.dbz .dk-plate{position:absolute;left:12px;bottom:14px;max-width:52%;padding:8px 14px 9px;border:2px solid var(--ink);border-radius:8px;clip-path:polygon(0 0,100% 0,94% 100%,0 100%);background:linear-gradient(180deg,#000000e6,#1a0820e6);box-shadow:inset 0 2px 0 var(--fire)}
+html.dbz .dk-plate small{display:block;font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--fire-hi)}
+html.dbz .dk-plate strong{display:block;font-size:1rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.dbz .dk-continue{position:absolute;right:12px;bottom:12px;min-width:min(42%,230px);min-height:70px;padding:10px 20px;border:3px solid var(--ink);border-radius:14px;background:radial-gradient(ellipse at 50% 0%,#fff6 0%,transparent 45%),linear-gradient(180deg,var(--fire-hi),var(--fire) 55%,var(--fire-lo));color:#fff;font-family:"DB Bangers","DB Russo",sans-serif;font-size:1.9rem;letter-spacing:.06em;-webkit-text-stroke:1.2px #000;text-shadow:0 3px 0 #000;cursor:pointer;box-shadow:0 6px 0 #000c,0 0 24px #ff8a0099}
+html.dbz:not(.lite):not(.tier-low) .dk-continue{animation:dk-pulse 2.4s ease-in-out infinite}
+@keyframes dk-pulse{0%,100%{box-shadow:0 6px 0 #000c,0 0 18px #ff8a0080}50%{box-shadow:0 6px 0 #000c,0 0 34px #ffb300cc}}
+@media (prefers-reduced-motion:reduce){html.dbz .dk-continue{animation:none!important}}
+html.dbz .dk-continue:active{transform:translateY(3px);box-shadow:0 3px 0 #000c}
+@media (min-width:900px){html.dbz .dk-stage{min-height:600px}html.dbz .dk-art{width:62%;left:0}html.dbz .dk-banners{width:340px;right:18px}html.dbz .dk-banner{min-height:64px}html.dbz .dk-banner.dk-main{min-height:88px}}
+@media (max-width:380px){html.dbz .dk-banner small{display:none}html.dbz .dk-banner{min-height:46px}html.dbz .dk-continue{font-size:1.5rem;min-height:58px}}
+/* home art: soft edges so the portrait blends into the aura; banners fit on wide screens */
+html.dbz .dk-art-img{width:min(100%,520px);-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 62%,transparent 100%)}
+html.dbz .dk-art{bottom:70px}
+@media (min-width:900px){html.dbz .dk-banners{gap:7px}html.dbz .dk-banner{min-height:52px;padding:6px 12px 6px 10px}html.dbz .dk-banner.dk-main{min-height:74px}html.dbz .dk-stage{min-height:640px}}
+html.dbz .of-reuse{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 0 12px;padding:10px 12px;border-radius:8px;background:#ffffff0d;border:1px solid #ffffff22;font-size:.9rem}

@@ -1,0 +1,15 @@
+`test-page/UnitCreator-test.html` is not stored in git. From `unit-creator/`, run `python3 web/build.py` to rebuild that self-contained page locally.
+
+# Unit Creator browser test page
+
+`UnitCreator-test.html` is the one current self-contained **2.36.3 test**. It embeds the app screens, both supplied game-data snapshots, fonts, scripts, workers and local media runtime. Download the HTML itself; no adjacent files are needed. Safari16.4+ or a current browser is required for gzip decompression. Original remote artwork/media still needs downloading before offline use.
+
+From `unit-creator/`, run `python3 web/build.py` after a logical change batch. This builds the actual `web/site-artifact` and overwrites the same HTML atomically, with its version and short change line. During parallel development, `python3 tools/build-test-checkpoint.py` performs that command from one committed source snapshot and promotes only complete output. `TEST_PAGE_VERSION` and `TEST_PAGE_CHANGES` set the banner. Claude's original sidebar artifact is separate.
+
+The browser uses the same unit, ability, appearance and animation editors. Actual resource imports and ZIP/ECLP exports, saved versions, independent animation documents/backups, real textured LWF pose previews and reviewed AI copy/paste are implemented. VP9/AV1 movies use local browser codecs when available; a lazy bundled FFmpeg worker handles supported older movies and plain/public-type1 HCA without private game keys. Shared copy tools preserve custom move/art resources and supported linked forms. Recovery never deletes files still referenced by saved units, versions or gallery documents.
+
+`build-source.json` identifies the exact source and HTML hash. `verification.json` records the focused final packed-page check against that file; `preview.png` is its actual current Home screen. Historical editor tests are not repeatedly rerun. The cloud native workflow also checks the same HTML using genuine WKWebView fileURL access with no injected native adapter and all HTTP blocked; its result is separate evidence and must pass before being claimed. Browser viewport sizes do not establish actual native folding.
+
+Remaining acceptance: Safari/Files/Quicklook opening on the physical phone, full Dokkan battle-script playback rather than LWF poses, native picker/share/reinstall and real game imports. Physical Apple provisioning/signing, install, touch, keyboard and both folded displays need real device evidence. Do not call the entire app complete from an HTML bundle or a synthetic layout result.
+
+Raw input APKs, ZIPs, SQLite files and signing material remain ignored. The requested embedded browser snapshot is the only committed game-data deliverable. The hosted workflow reconstructs temporary SQLite tables from this snapshot with explicit binary/schema fidelity limits; native device packaging restores the supplied original DB bytes locally instead. The specific Mac metadata/sign/install/check steps are already approved; this chat has no attached Mac control tool.

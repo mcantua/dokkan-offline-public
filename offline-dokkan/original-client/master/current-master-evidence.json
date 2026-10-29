@@ -1,0 +1,30 @@
+{
+  "format": "sqlcipher4-authenticated-master-restoration",
+  "schema": 1,
+  "source_encrypted_sha256": "f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d",
+  "source_bytes": 114827264,
+  "plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "plaintext_bytes": 114827264,
+  "authenticated_pages": 28034,
+  "sqlite_quick_check": "ok",
+  "cards": 19588,
+  "tables": 232,
+  "codec": "existing Host.m SqlCipherDecrypt mode4",
+  "apk_provenance": {
+    "source_version": "6.6",
+    "library_sha256": "83c0b40f49ae0edb0c91650ff36eb97a528db2c14627333f7023c3a13e0018d4",
+    "admission_source": "unit-creator/dock/src/com/personal/aihub/SparkingSetup.java"
+  },
+  "keys_written_or_emitted": false,
+  "original_source_modified": false,
+  "original_client_runtime_admitted": false,
+  "total_tables_including_sqlite_sequence": 233,
+  "schema_table_sets_match_editor_reference": true,
+  "schema_column_metadata_matches_editor_reference": true,
+  "editor_reference_cards": 19308,
+  "additional_card_rows": 280,
+  "crypto_primitive_package": "cryptography",
+  "crypto_primitive_package_version": "50.0.0",
+  "private_plaintext_path": "offline-dokkan/private/iphone-client/current-export-master.plain.db",
+  "decryption_key_delivery": "derived from original pinned APK in memory only; no key argument, output, file or embedded value"
+}

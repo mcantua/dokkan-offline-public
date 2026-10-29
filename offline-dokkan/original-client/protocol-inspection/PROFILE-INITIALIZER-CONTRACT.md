@@ -1,0 +1,9 @@
+# Actual native profile initialization
+
+`research/original-profile-initializer-contract.json` pins the actual main executable and ten bounded body hashes. The ownership path was followed from the original state-manager singleton through its actual virtual profile-container getter, container constructor and `shared_ptr<User>` allocation/control-block constructor to the real232byte `User` initializer. No name-only inference or played source-profile scalar was used.
+
+The initializer explicitly sets tutorial `contents_lv=0`, `progress=0`, `is_finished=true`; card/total/support-item capacities0; and extended-support capacity false. The later2416byte profile decoder builds a per-field JSON default from each existing native field and selects that prior value when the member is absent/null. Thus missing fields preserve existing model initialization/state rather than implying a server-side zero policy.
+
+**These are pre-server model sentinels, not verified new-account server defaults.** In particular, finished=true and zero card capacity do not establish a playable fresh profile or permission to skip/complete tutorial progression. ACT20/friends50/rank1/EXP0 come independently from the actual master/own-state rules; played-cache counters are never adopted. No formula relating card_capacity and total_card_capacity was established: they are independently decoded fields.
+
+The evidence records only field offsets/types/default facts and source body hashes, never raw instructions or user values. It does not authorize manually writing native object offsets. The actionable attachment requirement is to observe the actual original-client startup/profile application under the verified loaded image and bind its known fields to the fresh own-core projection; unresolved server defaults/tutorial phase mapping remain explicit until actual source policy or native behavior establishes them.

@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "source_executable_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "source_executable_bytes": 55697728,
+  "symbol": "_fopen",
+  "source_image_base": 4294967296,
+  "pointer_format": 6,
+  "imports_format": 3,
+  "symbols_format": 0,
+  "fixups_file_offset": 50839552,
+  "fixups_bytes": 265800,
+  "slots": [
+    {
+      "import_index": 779,
+      "library_ordinal": 41,
+      "name_offset": 24462,
+      "import_addend": 0,
+      "import_record_file_offset": 50852936,
+      "vm_address": 4339177888,
+      "image_relative_vm_offset": 44210592,
+      "slot_file_offset": 44210592,
+      "segment_vm_address": 4339171328,
+      "segment_vm_bytes": 6012928,
+      "segment_file_offset": 44204032,
+      "segment_file_bytes": 6012928,
+      "segment_max_protection": 3,
+      "segment_initial_protection": 3,
+      "pointer_format": 6
+    }
+  ],
+  "unknown_symbol_names_emitted": false,
+  "original_modified": false,
+  "runtime_slots_attached": false,
+  "attachment_source": "original-client/content/fopen_bind_attach.h/.c",
+  "attachment_check": "Actual original-header/metadata fixture passed one exact slot callback attach/detach and readonly/changed-pointer/identity/PAC rejection; source-only standard-C build passed. No original image executed or VM protection changed."
+}

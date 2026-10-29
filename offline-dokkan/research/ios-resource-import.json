@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "catalog_sha256": "a45b7c9f308e6d07452fd07ac2eeea28981be034554a73e35094552ba9163384",
+  "manifest_sha256": "2196f85c0d09e41967d6b0c08a1860fe57037c1f172cd8c048e9cad70f0f5a33",
+  "ipa_sha256": "0ea61911a09c4e7735f2d7b32b7b2c6c6977c1f4acf0a9db278049528b662816",
+  "resources": 27,
+  "bytes": 51272144,
+  "selected_resource_hashes_verified": true,
+  "whole_ipa_rehashed": false,
+  "original_client_path_hook_installed": false,
+  "codec_execution_verified": false,
+  "catalog_bytes": 36864,
+  "verified_original_bundle_aliases": 29,
+  "native_alias_cache_verification": true,
+  "selective_zip_member_check": "Actual6752-byte IPA member extracted by exact path/length/SHA; existing stages/output roots preserved. Full26GB archive and missing master not accessed."
+}

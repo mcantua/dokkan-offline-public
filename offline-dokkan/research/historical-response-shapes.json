@@ -1,0 +1,1186 @@
+{
+  "kind": "historical-public-structural-evidence",
+  "verified_for_current_client": false,
+  "warning": "Field names/types only, with all scalar values removed. These historical third-party fixtures are not authoritative for current Eclipse/Sparking. Do not ship fixture responses as server behavior.",
+  "sources": [
+    {
+      "source": "https://github.com/BunRum/SillyDokkanNodejs/blob/a650dd4809805d595c7d031eb07cb9a47409196d/local/resources/login.json",
+      "responseShape": {
+        "type": "object",
+        "properties": {
+          "cards": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "card_id": {
+                    "type": "integer"
+                  },
+                  "exp": {
+                    "type": "integer"
+                  },
+                  "skill_lv": {
+                    "type": "integer"
+                  },
+                  "is_favorite": {
+                    "type": "boolean"
+                  },
+                  "awakening_route_id": {
+                    "type": "null"
+                  },
+                  "is_released_potential": {
+                    "type": "boolean"
+                  },
+                  "released_rate": {
+                    "type": "integer"
+                  },
+                  "optimal_awakening_step": {
+                    "type": "null"
+                  },
+                  "card_decoration_id": {
+                    "type": "null"
+                  },
+                  "exchangeable_item_id": {
+                    "type": "null"
+                  },
+                  "awakenings": {
+                    "type": "array",
+                    "items": [],
+                    "sampled": false
+                  },
+                  "unlocked_square_statuses": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "integer"
+                      }
+                    ],
+                    "sampled": false
+                  },
+                  "updated_at": {
+                    "type": "integer"
+                  },
+                  "created_at": {
+                    "type": "integer"
+                  },
+                  "potential_parameters": {
+                    "type": "array",
+                    "items": [],
+                    "sampled": false
+                  },
+                  "equipment_skill_items": {
+                    "type": "array",
+                    "items": [],
+                    "sampled": false
+                  },
+                  "link_skill_lvs": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "skill_lv": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    ],
+                    "sampled": false
+                  },
+                  "potential_board_id": {
+                    "type": "integer"
+                  }
+                }
+              }
+            ],
+            "sampled": false
+          },
+          "item_cards": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "user_card_id_updates": {
+            "type": "object",
+            "properties": {
+              "[dynamic-key]": {
+                "type": "integer"
+              }
+            }
+          },
+          "card_tags": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_card_ids": {
+                    "type": "array",
+                    "items": [],
+                    "sampled": false
+                  }
+                }
+              }
+            ],
+            "sampled": false
+          },
+          "teams": {
+            "type": "object",
+            "properties": {
+              "user_card_teams": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "num": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "null"
+                      },
+                      "team_bgm_filename": {
+                        "type": "null"
+                      },
+                      "user_card_ids": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "integer"
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    }
+                  }
+                ],
+                "sampled": false
+              },
+              "selected_team_num": {
+                "type": "integer"
+              }
+            }
+          },
+          "support_leaders": {
+            "type": "object",
+            "properties": {
+              "support_leader_ids": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              }
+            }
+          },
+          "friendships": {
+            "type": "object",
+            "properties": {
+              "friendships": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "pending_friendships": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "max_accepts_at_once": {
+                "type": "integer"
+              }
+            }
+          },
+          "dragonball_sets": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "missions_data": {
+            "type": "object",
+            "properties": {
+              "missions": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "mission_categories": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "comeback": {
+                "type": "object",
+                "properties": {
+                  "day": {
+                    "type": "null"
+                  },
+                  "mission_ids": {
+                    "type": "array",
+                    "items": [],
+                    "sampled": false
+                  },
+                  "mission_end_at": {
+                    "type": "null"
+                  },
+                  "is_boost": {
+                    "type": "boolean"
+                  },
+                  "end_at": {
+                    "type": "null"
+                  }
+                }
+              },
+              "eventkagi_area_ids": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "eventkagi_z_battle_stage_ids": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "daily_refresh_at": {
+                "type": "integer"
+              },
+              "processed_at": {
+                "type": "integer"
+              }
+            }
+          },
+          "gashas": {
+            "type": "object",
+            "properties": {}
+          },
+          "[dynamic-key]": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "start_at": {
+                "type": "integer"
+              },
+              "end_at": {
+                "type": "integer"
+              },
+              "result_end_at": {
+                "type": "integer"
+              },
+              "sd_map_id": {
+                "type": "integer"
+              },
+              "tutorial": {
+                "type": "object",
+                "properties": {
+                  "is_opening_finished": {
+                    "type": "boolean"
+                  },
+                  "progress": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "stages_in_progress": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "login_bonuses": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "expires_at": {
+                "type": "integer"
+              }
+            }
+          },
+          "secret_treasure_boxes": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "act_items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "support_items": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "item_id": {
+                        "type": "integer"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ],
+                "sampled": true
+              }
+            }
+          },
+          "support_memories": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "support_films": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "support_film_id": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                }
+              }
+            ],
+            "sampled": false
+          },
+          "support_film_max_quantity": {
+            "type": "integer"
+          },
+          "awakening_items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "training_items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "training_fields": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "treasure_items": {
+            "type": "object",
+            "properties": {
+              "user_treasure_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              }
+            }
+          },
+          "potential_items": {
+            "type": "object",
+            "properties": {
+              "user_potential_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              }
+            }
+          },
+          "eventkagi_items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "wallpaper_items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "equipment_skill_items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "equipment_skill_item_id": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                }
+              }
+            ],
+            "sampled": true
+          },
+          "card_sticker_items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "user_areas": {
+            "type": "object",
+            "properties": {
+              "user_areas": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "user_z_battles": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              }
+            }
+          },
+          "user_subscription": {
+            "type": "object",
+            "properties": {}
+          },
+          "budokai": {
+            "type": "object",
+            "properties": {}
+          },
+          "rmbattles": {
+            "type": "object",
+            "properties": {}
+          },
+          "sns_campaign": {
+            "type": "object",
+            "properties": {}
+          },
+          "login_movies": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "popups": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "comeback_campaigns": {
+            "type": "object",
+            "properties": {}
+          },
+          "login_bonuses": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "missions": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "announcement_tab_id": {
+            "type": "integer"
+          },
+          "announcement_tabs": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "announcements": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "chain_battles": {
+            "type": "object",
+            "properties": {}
+          },
+          "gifts": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "joint_campaigns": {
+            "type": "object",
+            "properties": {}
+          },
+          "cooperation_campaigns": {
+            "type": "object",
+            "properties": {}
+          },
+          "genkai_battles": {
+            "type": "object",
+            "properties": {
+              "genkai_battles": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "genkai_battle_reward_acceptable": {
+                "type": "boolean"
+              },
+              "expire_at": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "source": "https://github.com/BunRum/SillyDokkanNodejs/blob/a650dd4809805d595c7d031eb07cb9a47409196d/local/resources/home.json",
+      "responseShape": {
+        "type": "object",
+        "properties": {
+          "dragonball_sets": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "user_subscription": {
+            "type": "object",
+            "properties": {}
+          },
+          "budokai": {
+            "type": "object",
+            "properties": {}
+          },
+          "rmbattles": {
+            "type": "object",
+            "properties": {}
+          },
+          "banners": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "image": {
+                    "type": "string"
+                  },
+                  "link_to": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "start_at": {
+                    "type": "integer"
+                  },
+                  "end_at": {
+                    "type": "integer"
+                  }
+                }
+              }
+            ],
+            "sampled": false
+          },
+          "tutorial": {
+            "type": "object",
+            "properties": {
+              "progress": {
+                "type": "integer"
+              },
+              "is_finished": {
+                "type": "boolean"
+              },
+              "contents_lv": {
+                "type": "integer"
+              }
+            }
+          },
+          "treasure_item_switching_banners": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "bonus_schedules": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "random_login_bonuses": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "apologies": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "gifts": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          }
+        }
+      }
+    },
+    {
+      "source": "https://github.com/BunRum/SillyDokkanNodejs/blob/a650dd4809805d595c7d031eb07cb9a47409196d/local/events.json",
+      "responseShape": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "announcement_id": {
+                    "type": "integer"
+                  },
+                  "event_image": {
+                    "type": "string"
+                  },
+                  "banner_image": {
+                    "type": "string"
+                  },
+                  "minibanner_image": {
+                    "type": "null"
+                  },
+                  "listbutton_image": {
+                    "type": "null"
+                  },
+                  "recommend": {
+                    "type": "null"
+                  },
+                  "lock": {
+                    "type": "null"
+                  },
+                  "start_at": {
+                    "type": "string"
+                  },
+                  "end_at": {
+                    "type": "string"
+                  },
+                  "wday": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "sampled": false
+                  },
+                  "wday_start_at": {
+                    "type": "string"
+                  },
+                  "wday_end_at": {
+                    "type": "string"
+                  },
+                  "quests": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "visit_count_max": {
+                            "type": "null"
+                          },
+                          "interval_reset_visited_days": {
+                            "type": "null"
+                          },
+                          "user_quest": {
+                            "type": "object",
+                            "properties": {
+                              "visited_count": {
+                                "type": "integer"
+                              },
+                              "next_reset_at": {
+                                "type": "null"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "sampled": false
+                  }
+                }
+              }
+            ],
+            "sampled": false
+          },
+          "z_battle_stages": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "eventkagi_events": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "eventkagi_z_battle_stages": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          }
+        }
+      }
+    },
+    {
+      "source": "https://github.com/BunRum/SillyDokkanNodejs/blob/a650dd4809805d595c7d031eb07cb9a47409196d/local/quests/955003/sugoroku_maps/start.json",
+      "responseShape": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "dummy_card_id": {
+            "type": "integer"
+          },
+          "sugoroku": {
+            "type": "object",
+            "properties": {
+              "map": {
+                "type": "string"
+              },
+              "events": {
+                "type": "object",
+                "properties": {
+                  "[dynamic-key]": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "integer"
+                      },
+                      "content": {
+                        "type": "object",
+                        "properties": {
+                          "script_id": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "first_focus_step": {
+                "type": "integer"
+              },
+              "dice": {
+                "type": "object",
+                "properties": {
+                  "nums": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "num": {
+                            "type": "integer"
+                          },
+                          "weight": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    ],
+                    "sampled": false
+                  }
+                }
+              }
+            }
+          },
+          "user": {
+            "type": "null"
+          },
+          "missions": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          }
+        }
+      }
+    },
+    {
+      "source": "https://github.com/BunRum/SillyDokkanNodejs/blob/a650dd4809805d595c7d031eb07cb9a47409196d/local/quests/403001/sugoroku_maps/finish.json",
+      "responseShape": {
+        "type": "object",
+        "properties": {
+          "exp": {
+            "type": "integer"
+          },
+          "zeni": {
+            "type": "integer"
+          },
+          "required_zeni": {
+            "type": "integer"
+          },
+          "user_exp": {
+            "type": "integer"
+          },
+          "gasha_point": {
+            "type": "integer"
+          },
+          "clear_time_ms": {
+            "type": "integer"
+          },
+          "prev_record_time_ms": {
+            "type": "null"
+          },
+          "continue_count": {
+            "type": "integer"
+          },
+          "quest_clear_rewards": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "item_type": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "integer"
+                  }
+                }
+              }
+            ],
+            "sampled": false
+          },
+          "items": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "dragonballs": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "user_items": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "zeni": {
+                    "type": "integer"
+                  },
+                  "gasha_point": {
+                    "type": "integer"
+                  },
+                  "exchange_point": {
+                    "type": "integer"
+                  },
+                  "stone": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "training_items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "training_item_id": {
+                        "type": "integer"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ],
+                "sampled": false
+              },
+              "support_items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "support_item_id": {
+                        "type": "integer"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ],
+                "sampled": false
+              },
+              "cards": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "card_id": {
+                        "type": "integer"
+                      },
+                      "exp": {
+                        "type": "integer"
+                      },
+                      "skill_lv": {
+                        "type": "integer"
+                      },
+                      "is_favorite": {
+                        "type": "boolean"
+                      },
+                      "awakening_route_id": {
+                        "type": "null"
+                      },
+                      "is_released_potential": {
+                        "type": "boolean"
+                      },
+                      "released_rate": {
+                        "type": "integer"
+                      },
+                      "optimal_awakening_step": {
+                        "type": "null"
+                      },
+                      "card_decoration_id": {
+                        "type": "null"
+                      },
+                      "exchangeable_item_id": {
+                        "type": "null"
+                      },
+                      "awakenings": {
+                        "type": "array",
+                        "items": [],
+                        "sampled": false
+                      },
+                      "unlocked_square_statuses": {
+                        "type": "array",
+                        "items": [],
+                        "sampled": false
+                      },
+                      "updated_at": {
+                        "type": "integer"
+                      },
+                      "created_at": {
+                        "type": "integer"
+                      },
+                      "potential_parameters": {
+                        "type": "array",
+                        "items": [],
+                        "sampled": false
+                      },
+                      "equipment_skill_items": {
+                        "type": "array",
+                        "items": [],
+                        "sampled": false
+                      },
+                      "link_skill_lvs": {
+                        "type": "array",
+                        "items": [],
+                        "sampled": false
+                      }
+                    }
+                  }
+                ],
+                "sampled": false
+              },
+              "support_films": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "support_film_id": {
+                        "type": "integer"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ],
+                "sampled": false
+              }
+            }
+          },
+          "user_dragonball_sessions": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "is_ondemand": {
+                "type": "boolean"
+              },
+              "rank": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "act": {
+                "type": "integer"
+              },
+              "boost_point": {
+                "type": "integer"
+              },
+              "act_max": {
+                "type": "integer"
+              },
+              "act_at": {
+                "type": "integer"
+              },
+              "boost_at": {
+                "type": "integer"
+              },
+              "wallpaper_item_id": {
+                "type": "integer"
+              },
+              "achievement_id": {
+                "type": "null"
+              },
+              "mainpage_card_id": {
+                "type": "null"
+              },
+              "mainpage_user_card_id": {
+                "type": "null"
+              },
+              "mydata_subpage_visible": {
+                "type": "boolean"
+              },
+              "card_capacity": {
+                "type": "integer"
+              },
+              "total_card_capacity": {
+                "type": "integer"
+              },
+              "friends_capacity": {
+                "type": "integer"
+              },
+              "support_item_capacity": {
+                "type": "integer"
+              },
+              "is_support_item_capacity_extended": {
+                "type": "boolean"
+              },
+              "battle_energy": {
+                "type": "object",
+                "properties": {
+                  "energy": {
+                    "type": "integer"
+                  },
+                  "recover_point_with_stone": {
+                    "type": "integer"
+                  },
+                  "battle_at": {
+                    "type": "integer"
+                  },
+                  "seconds_per_cure": {
+                    "type": "integer"
+                  },
+                  "max_recovery_count": {
+                    "type": "integer"
+                  },
+                  "recovered_count": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "zeni": {
+                "type": "integer"
+              },
+              "gasha_point": {
+                "type": "integer"
+              },
+              "exchange_point": {
+                "type": "integer"
+              },
+              "stone": {
+                "type": "integer"
+              },
+              "tutorial": {
+                "type": "object",
+                "properties": {
+                  "progress": {
+                    "type": "integer"
+                  },
+                  "is_finished": {
+                    "type": "boolean"
+                  },
+                  "contents_lv": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "is_potential_releaseable": {
+                "type": "boolean"
+              },
+              "processed_at": {
+                "type": "integer"
+              }
+            }
+          },
+          "friend_status": {
+            "type": "integer"
+          },
+          "missions": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "is_reviewable": {
+            "type": "boolean"
+          },
+          "boosted": {
+            "type": "boolean"
+          },
+          "cleared_difficulties": {
+            "type": "array",
+            "items": [
+              {
+                "type": "integer"
+              }
+            ],
+            "sampled": false
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "one-new-native-C-to-SQLite-overlay-boundary-check",
+  "source_sha256": "cf13b8553448507ad723e17a7b347e6eac4d7627a2e4fff56c0f7747660dffd8",
+  "compiler_warnings_are_errors": true,
+  "checks": {
+    "scoped_row_read": true,
+    "binding_snapshot_read": true,
+    "stale_core_revision_rejected": true,
+    "unbound_instance_rejected": true,
+    "nonsettings_table_rejected": true,
+    "wrong_save_identity_rejected": true,
+    "sidecar_unchanged": true,
+    "original_master_unchanged": true
+  },
+  "original_engine_attachment_verified": false,
+  "ios_device_execution_verified": false,
+  "raw_rows_emitted": false,
+  "python_staging_sqlite_version": "3.53.1",
+  "native_reader_sqlite_version": "3.46.1"
+}

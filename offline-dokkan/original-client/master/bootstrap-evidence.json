@@ -1,0 +1,22 @@
+{
+  "kind": "one-focused-core11-native-bootstrap-identity-and-new-grant-exp-scenario",
+  "core_schema": 11,
+  "selected_plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "checks": {
+    "trusted_local_identity_matches_atomic_own_snapshot": true,
+    "new_card_source_exp_zero_and_exact_retry": true,
+    "no_client_selectable_identity_provision": true,
+    "creator_exp_seed_after_effective_binding": true,
+    "creator_retry_keeps_earned_exp": true,
+    "identity_and_known_exp_survive_restart": true,
+    "identity_known_exp_export_import_exact": true,
+    "legacy_lv1_and_lv2_unknown_totals_not_backfilled": true,
+    "post_import_capture_seeds_only_new_insert": true,
+    "legacy_unknowns_preserved_after_reopen": true
+  },
+  "captured_online_account_values_used": false,
+  "tutorial_or_card_capacity_defaults_invented": false,
+  "original_game_wire_admitted": false,
+  "raw_player_rows_emitted": false,
+  "focused_retry_reason": "check expectation corrected to existing UNSUPPORTED_OPERATION denial; implementation unchanged"
+}

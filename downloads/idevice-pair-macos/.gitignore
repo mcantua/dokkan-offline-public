@@ -1,0 +1,3 @@
+# Official macOS pairing tool downloaded only on approved setup execution.
+*.dmg
+*.pending

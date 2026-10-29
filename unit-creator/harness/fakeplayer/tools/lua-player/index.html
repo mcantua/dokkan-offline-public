@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta name="viewport" content="width=device-width"><style>
+body{margin:0;background:#111;color:#eee;font:14px sans-serif}.layout{display:grid;grid-template-columns:300px 1fr;height:calc(100vh - 120px)}
+.panel{padding:8px;overflow:auto;max-height:100%}.stage-wrap{position:relative;display:flex;flex-direction:column;align-items:center;padding:12px;gap:8px;height:100%;overflow:hidden}
+.stage-fit{position:relative;max-width:426px;aspect-ratio:852/1536;border:2px solid orange;background:#000;overflow:hidden}.stage{position:absolute;left:0;top:0;width:852px;height:1536px;background:linear-gradient(#335,#a53);transform-origin:top left}
+@media(max-width:900px){.layout{display:block;height:auto}.panel{max-height:none}}</style></head><body>
+<header class="nav-container">Eclipse nav</header><h1>LUA Player</h1>
+<div id="modeLua" class="layout"><aside class="panel"><select id="scriptSelect"><option>…</option></select><input id="scriptFilter"><input id="scriptPath"><button id="btnLoad">Load</button><input type="file" id="scriptFile">
+<button id="btnPlay" disabled>Play</button><button id="btnPause">Pause</button><button id="btnStop">Stop</button><label><input type="checkbox" id="highSpeed">2x</label><label><input type="checkbox" id="phoneCrop">Phone crop</label><button id="btnRecord">Record</button>
+<label><input id="attackerCardId"></label><label><input id="enemyCardId"></label><label><input id="levelBgId"></label><label><input id="dokkanFieldId"></label></aside>
+<section class="stage-wrap"><div class="stage-fit"><div class="stage" id="stage"><canvas id="overlayCanvas" width="852" height="1536"></canvas></div></div><div class="conditions"><h2>Conditions</h2><div id="conditionList"></div></div></section></div>
+<div class="log-wrap"><pre id="log"></pre></div><div id="statusBar">Ready</div>
+<script>
+const $=id=>document.getElementById(id);
+function fit(){const f=document.querySelector('.stage-fit'),st=$('stage'),phone=f.dataset.phone==='1',vh=phone?1136:1536;const wrap=f.closest('#modeLua')||f.closest('.stage-wrap')||f.parentElement;
+ const aw=Math.max(120,(wrap.clientWidth||innerWidth)-16),ah=Math.max(120,(wrap.clientHeight||innerHeight)-28),sc=Math.min(aw/852,ah/vh);f.style.width=852*sc+'px';f.style.height=vh*sc+'px';f.style.aspectRatio='auto';st.style.transform=`translate(0px, ${phone?-200*sc:0}px) scale(${sc})`;}
+new ResizeObserver(fit).observe(document.querySelector('.stage-fit').closest('#modeLua'));addEventListener('resize',fit);fit();
+setTimeout(()=>{$('scriptSelect').innerHTML='<option>a</option><option>b</option>';},400);
+$('scriptFile').addEventListener('change',()=>{window.loaded=($('scriptFile').files[0]||{}).name;setTimeout(()=>$('btnPlay').disabled=false,300);});
+$('btnPlay').onclick=()=>{window.plays=(window.plays||0)+1;$('statusBar').textContent='frame 10 · playing';};
+$('btnPause').onclick=()=>{window.paused=(window.paused||0)+1;};$('btnStop').onclick=()=>{window.stops=(window.stops||0)+1;};
+$('phoneCrop').addEventListener('change',()=>{document.querySelector('.stage-fit').dataset.phone=$('phoneCrop').checked?'1':'0';fit();});
+$('highSpeed').addEventListener('change',()=>{window.speed=$('highSpeed').checked;});
+</script></body></html>

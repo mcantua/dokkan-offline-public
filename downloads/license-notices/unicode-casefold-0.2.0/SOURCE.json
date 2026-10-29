@@ -1,0 +1,107 @@
+{
+  "crate": "unicode-casefold",
+  "version": "0.2.0",
+  "upstream_repository": "https://github.com/lfairy/unicode-casefold",
+  "upstream_commit": null,
+  "complete_upstream_notice": false,
+  "gap_reason": "",
+  "notice_files": [
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/unicode-casefold/unicode-casefold-0.2.0.crate#Cargo.toml",
+      "sha256": "c88e90579a62afeae27cf7f1ee4755d51f780a203fceda9f98e1416cae439ebd"
+    },
+    {
+      "path": "PUBLISHED-README.md",
+      "url": "https://static.crates.io/crates/unicode-casefold/unicode-casefold-0.2.0.crate#README.md",
+      "sha256": "c26ccaea5dd9f651a6642e015dfe2e8a3612f14129844d2479c19b86fb8f19ea"
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "https://static.crates.io/crates/unicode-casefold/unicode-casefold-0.2.0.crate#published-manifest-and-source-audit",
+      "sha256": "25c5b80b21fa81b8b4b4129d127b13bc686d21df1fbef85c044f5533b445b5f7"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0.txt",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "LICENSE-UNICODE-DFS-2016.txt",
+      "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.26.0/text/Unicode-DFS-2016.txt",
+      "sha256": "1a33fc12a3abb0b3eb14db70e36ef1d0af51c93b1cc1f80f022c3bd406e9b874"
+    },
+    {
+      "path": "UNICODE-CaseFolding-9.0.0.txt",
+      "url": "https://www.unicode.org/Public/9.0.0/ucd/CaseFolding.txt",
+      "sha256": "37d40cf8c2c35637f4a04e746814e1fc4eb764c272bed9238a87ee96a4866857"
+    }
+  ],
+  "schema_version": 2,
+  "declared_license": "MIT/Apache-2.0",
+  "selected_license": "Apache-2.0 AND Unicode-DFS-2016",
+  "package_checksum": "b7f66b1c8f8caa2ab31dc6d3f35386f16efdab89668f93411e565ac368908e8f",
+  "release_requirements_satisfied": true,
+  "obligations": [
+    {
+      "id": "published-license-grant",
+      "status": "satisfied",
+      "evidence": [
+        "PUBLISHED-Cargo.toml",
+        "PUBLISHED-README.md"
+      ]
+    },
+    {
+      "id": "selected-license-text",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-APACHE-2.0.txt",
+        "LICENSE-UNICODE-DFS-2016.txt"
+      ]
+    },
+    {
+      "id": "preserve-provided-attribution-and-notices",
+      "status": "satisfied",
+      "evidence": [
+        "ATTRIBUTION.txt",
+        "SOURCE-AUDIT.json"
+      ]
+    },
+    {
+      "id": "published-source-integrity",
+      "status": "satisfied",
+      "evidence": [
+        "SOURCE-AUDIT.json"
+      ]
+    },
+    {
+      "id": "unicode-data-notices-and-source",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-UNICODE-DFS-2016.txt",
+        "UNICODE-CaseFolding-9.0.0.txt",
+        "SOURCE-AUDIT.json"
+      ]
+    }
+  ],
+  "source_audit": "SOURCE-AUDIT.json",
+  "published_evidence": [
+    {
+      "archive_path": "Cargo.toml",
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/unicode-casefold/unicode-casefold-0.2.0.crate#Cargo.toml",
+      "sha256": "c88e90579a62afeae27cf7f1ee4755d51f780a203fceda9f98e1416cae439ebd"
+    },
+    {
+      "archive_path": "README.md",
+      "path": "PUBLISHED-README.md",
+      "url": "https://static.crates.io/crates/unicode-casefold/unicode-casefold-0.2.0.crate#README.md",
+      "sha256": "c26ccaea5dd9f651a6642e015dfe2e8a3612f14129844d2479c19b86fb8f19ea"
+    }
+  ],
+  "required_distribution_artifacts": [],
+  "resolution_basis": "Published immutable package license/README declarations supply the grant. Selected standard license text, actual author credit and every provided notice are preserved; no copyright holder or missing notice is invented. Apache4(c)/(d) preservation applies to notices actually supplied, not a requirement to invent an absent LICENSE/NOTICE filename.",
+  "additional_licenses": [
+    "Unicode-DFS-2016"
+  ]
+}

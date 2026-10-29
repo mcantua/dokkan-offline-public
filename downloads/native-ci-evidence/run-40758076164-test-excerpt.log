@@ -1,0 +1,15 @@
+2026-10-28T19:57:57.8059620Z ** TEST BUILD SUCCEEDED **
+2026-10-28T19:58:18.2665740Z Test Suite 'Selected tests' started at 2026-10-28 19:58:18.226.
+2026-10-28T19:58:18.2675590Z Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-10-28 19:58:18.227.
+2026-10-28T19:58:18.2798280Z Test Suite 'AppInstallerCloudUITests' started at 2026-10-28 19:58:18.227.
+2026-10-28T19:58:18.2811270Z Test Case '-[AppInstallerCloudUITests test03AccessibilityTextKeepsControlsReadable]' started.
+2026-10-28T19:58:25.7842130Z Test Case '-[AppInstallerCloudUITests test03AccessibilityTextKeepsControlsReadable]' passed (7.552 seconds).
+2026-10-28T19:58:25.7844760Z Test Case '-[AppInstallerCloudUITests test04KeyboardKeepsFocusedFieldsReachable]' started.
+2026-10-28T19:58:29.9287230Z Test Case '-[AppInstallerCloudUITests test04KeyboardKeepsFocusedFieldsReachable]' passed (4.020 seconds).
+2026-10-28T19:58:29.9998420Z Test Suite 'AppInstallerCloudUITests' passed at 2026-10-28 19:58:29.803.
+2026-10-28T19:58:30.0524350Z 	 Executed 2 tests, with 0 failures (0 unexpected) in 11.573 (11.576) seconds
+2026-10-28T19:58:30.0726390Z Test Suite 'AppInstallerCloudUITests.xctest' passed at 2026-10-28 19:58:29.804.
+2026-10-28T19:58:30.1809660Z 	 Executed 2 tests, with 0 failures (0 unexpected) in 11.573 (11.577) seconds
+2026-10-28T19:58:30.1899970Z Test Suite 'Selected tests' passed at 2026-10-28 19:58:29.805.
+2026-10-28T19:58:30.2002310Z 	 Executed 2 tests, with 0 failures (0 unexpected) in 11.573 (11.579) seconds
+2026-10-28T19:58:30.5278290Z ** TEST EXECUTE SUCCEEDED **

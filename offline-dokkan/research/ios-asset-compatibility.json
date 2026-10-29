@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "ipa_sha256": "0ea61911a09c4e7735f2d7b32b7b2c6c6977c1f4acf0a9db278049528b662816",
+  "manifest_sha256": "2196f85c0d09e41967d6b0c08a1860fe57037c1f172cd8c048e9cad70f0f5a33",
+  "bundle_id": "GLB.Dkkn.Sparking.dev",
+  "version": "6.6.0",
+  "counts": {
+    "non_resource_entries_excluded": 351,
+    "resource_candidates": 1067,
+    "byte_identical_entries": 29,
+    "absent_from_export": 221,
+    "different_size": 170,
+    "different_sha256": 647,
+    "unique_admitted_references": 27
+  },
+  "verified_entry_formats": {
+    "cri-utf": 6,
+    "cri-awb": 20,
+    "cri-cpk": 3
+  },
+  "catalog_reference_bytes": 51272144,
+  "bundled_seed": {
+    "bytes": 535552,
+    "sha256": "667e554a9cfb8c4765f05a1d85f0fdf707ade61562b50e3e5cd98ac52f997ba3",
+    "plaintext_sqlite": false,
+    "full_master_admitted": false
+  },
+  "runtime_paths_verified": false,
+  "all_android_assets_compatible": false,
+  "original_game_launch_verified": false,
+  "targeted_verification": "Actual inputs pinned; immutable exact-byte catalog, original preservation, private/path exclusion, runtime-claim separation passed.",
+  "native_resolver_verification": "Actual catalog admitted6,752 iPhone-bundled matching bytes into readonly verified cache. Private/traversal paths and direct tutorial aliases rejected; absent source bytes remained unavailable. No client path-hook or audio decode proof.",
+  "catalog_bytes": 36864,
+  "catalog_sha256": "a45b7c9f308e6d07452fd07ac2eeea28981be034554a73e35094552ba9163384",
+  "verified_alias_schema": 1,
+  "verified_original_bundle_aliases": 29
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "package": "apple-codesign-quick",
+  "version": "0.1.0",
+  "package_checksum": "519defc726db80b8a43836bbd6f69eb606a42783db799716a103436042593f0b",
+  "declared_license": "LGPL-2.1-or-later",
+  "selected_license": "LGPL-3.0-or-later",
+  "required_distribution_artifacts": [
+    "corresponding-source/relink-bundle"
+  ],
+  "required_bundle_components": [
+    "corresponding-application-source",
+    "complete-library-source",
+    "exact-locked-transitive-source",
+    "modified-path-dependency-source",
+    "build-relink-recipes",
+    "recipient-installation-information",
+    "complete-licenses-and-notices"
+  ],
+  "required_library_source_manifest": "downloads/license-notices/apple-codesign-quick-0.1.0/SOURCE-FILES.json",
+  "required_library_source_root": "downloads/license-notices/apple-codesign-quick-0.1.0/source",
+  "required_rights_notice": "downloads/license-notices/apple-codesign-quick-0.1.0/ATTRIBUTION.txt",
+  "required_relink_instructions": "app-installer/licensing-signing.md",
+  "bind_to_ipa_and_release_manifest": [
+    "source_fingerprint",
+    "locked_dependency_graph_hash",
+    "source_bundle_sha256"
+  ],
+  "reject_substitutes": [
+    "notice-only-IPA",
+    "private-repository-URL-only",
+    "unmatched-source-bundle",
+    "original-library-only-binary-enforcement"
+  ],
+  "no_additional_reverse_engineering_or_relink_restriction": true
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "one-new-native-memory-material-boundary-check",
+  "source_version": "6.6",
+  "library_sha256": "83c0b40f49ae0edb0c91650ff36eb97a528db2c14627333f7023c3a13e0018d4",
+  "checks": {
+    "native_database_material_matches_existing_apk_codec": true,
+    "native_sprk_material_matches_existing_zero_padded_format": true,
+    "explicit_material_clear_zeroes_output": true,
+    "modified_unpinned_library_rejected_without_material": true
+  },
+  "key_values_printed_or_written": false,
+  "master_decryption_repeated": false,
+  "native_keychain_scope_verified": false
+}

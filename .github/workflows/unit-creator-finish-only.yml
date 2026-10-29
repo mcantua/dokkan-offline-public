@@ -1,0 +1,96 @@
+name: Duo Creator Finish targeted diagnostic
+on:
+  push:
+    branches: ['chatgpt/ios-eclipse-database-reuse']
+    paths:
+      - 'unit-creator/cloud-ui/finish-only-intent.json'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: duo-creator-finish-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  finish:
+    runs-on: xcode-27
+    timeout-minutes: 18
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - name: Read the explicit scope for this necessary check
+        id: intent
+        run: |
+          python3 - <<'PY'
+          import json,os
+          j=json.load(open('unit-creator/cloud-ui/finish-only-intent.json'))
+          if j.get('schema')!=1 or type(j.get('compile_components',False)) is not bool:
+              raise SystemExit('Invalid native check intent')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write('components='+str(j.get('compile_components',False)).lower()+'\n')
+          PY
+      - name: Compile the changed authored Duo components with genuine device SDK
+        id: components
+        if: steps.intent.outputs.components == 'true'
+        continue-on-error: true
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: |
+          mkdir -p offline-dokkan/private/component-build-log
+          set -o pipefail
+          bash offline-dokkan/original-client/build-components.sh 2>&1 | tee offline-dokkan/private/component-build-log/compile.log
+      - name: Run the one unresolved actual WK Finish boundary on Duo
+        id: finish
+        continue-on-error: true
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: bash unit-creator/cloud-ui/finish-only-run.sh
+      - name: Retain diagnostic evidence only, never reconstructed DBs or apps
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: duo-creator-finish-latest
+          path: |
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.json
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.png
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/**/*.png
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.log
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Upload every simulator screenshot the diagnostic reached
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: duo-creator-simulator-screenshots
+          path: |
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.png
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/**/*.png
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Retain only the authored library and compiler evidence
+        if: always() && steps.intent.outputs.components == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: duo-authored-components-latest
+          path: |
+            AI-Workspace/claude-chatg/offline-dokkan/private/component-build/OfflineDokkanHost.dylib
+            AI-Workspace/claude-chatg/offline-dokkan/private/component-build/evidence/*.json
+            AI-Workspace/claude-chatg/offline-dokkan/private/component-build-log/compile.log
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Keep compiler and native outcomes explicit
+        if: always()
+        env:
+          FINISH_OUTCOME: ${{ steps.finish.outcome }}
+          COMPONENT_REQUESTED: ${{ steps.intent.outputs.components }}
+          COMPONENT_OUTCOME: ${{ steps.components.outcome }}
+        run: |
+          test "$FINISH_OUTCOME" = success
+          if test "$COMPONENT_REQUESTED" = true; then
+            test "$COMPONENT_OUTCOME" = success
+          fi

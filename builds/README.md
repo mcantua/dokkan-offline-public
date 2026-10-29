@@ -1,0 +1,11 @@
+# Current App Installer artifacts
+
+Unsigned development candidates from clean `7059c85ad55645ef57db9f8de287e6a66b8c122e`, genuine Xcode27.1/iPhoneOS SDK27.1, production fingerprint `0f305e96ea438eb46275184018c21ce2987d08314a09cf849e4d38379d0e5d42`. This correction initializes the existing ring cryptography provider before any first Apple-account HTTP transport, preventing the identified Reqwest no-provider panic path. The physical sign-in crash is not yet confirmed fixed; update/retest is required.
+
+Current kit35,149,949bytes SHA256`e814dd588ff46be402d0372e2f66ce2154f5e3661a3ded93224bb0f1bfe41bf6`, compiled/tool revision both7059c85. Corresponding source78,336,612bytes SHA256`1ba83e045df171a3ca51bc7b1b44aaec131f6489e07d73778b6fafeb917e95cf`. Exact IPA/library hashes are in the receipts.307 notice packages,0gaps. Source/kit remain assets of this same private draft: https://github.com/mcantua/claude-chatg/releases . These are not final releases.
+
+Targeted40777027792 passed exactly1fresh-process first-account transport check and2relevantTLS checks,0failures, each group0.01seconds. No credentials or test HTTP requests. Earlier19core/response/native methods were not repeated; their original8eaf evidence remains source-scoped, never claimed rerun at7059. Genuine device Rust/native/bootstrap-project and both actual candidate/source/kit integrity gates passed once.
+
+Tin reported successful Mac signing/private IPA export/install of the previous8eaf app, then manually opened it and encountered the sign-in/unlock crash. Update the same installed identity and preserve app data. app-installer/device/UPDATE-EXISTING-KIT.md describes a pinned file merge that retains existing private signing outputs and marks the new library for relink. Keep Apple credentials, profiles, signed personal IPAs and pairing exports off GitHub.
+
+InstallationCheck-test-fixture.zip retains owned unsignedv1/v2 with source/license for one real install/update/data-retention acceptance task; both remain needed. No Unit Creator build was made here. Actual login/IPA signing/update/refresh/recovery/Duo displays still need physical verification. Existing routine resource approval persists; large Xcode/account changes retain separate approval.

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Full JDK ct.sym is required for --release 8; do not silently fall back to host API classes.
+HERE="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+REPO="$(CDPATH= cd -- "$HERE/../.." && pwd)"
+UC_TOOLS="${UC_NATIVE_TOOLS:-$REPO/downloads/unit-creator-tools}"
+JDK="$UC_TOOLS/jdk/usr/lib/jvm/java-21-openjdk-amd64"
+test -f "$JDK/lib/ct.sym" || { echo "Missing JDK ct.sym; run unit-creator/tools/setup-native-tools.py" >&2; exit 1; }
+exec "$JDK/bin/java" -Djava.home="$JDK" -m jdk.compiler/com.sun.tools.javac.Main "$@"

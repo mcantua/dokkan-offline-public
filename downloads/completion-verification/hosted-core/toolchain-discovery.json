@@ -1,0 +1,32 @@
+{
+  "required_minimum_sdk": "27.1",
+  "selected": {
+    "developer_dir": "/Applications/Xcode_27.1.app/Contents/Developer",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "simulator_sdk": "27.1",
+    "device_sdk": "27.1"
+  },
+  "installed_probes": [
+    {
+      "developer_dir": "/Applications/Xcode_27.1.app/Contents/Developer",
+      "xcode": "Xcode 27.1\nBuild version 27A9275",
+      "simulator_sdk": "27.1",
+      "device_sdk": "27.1"
+    },
+    {
+      "developer_dir": "/Applications/Xcode_27.0.0.app/Contents/Developer",
+      "xcode": "Xcode 27.0\nBuild version 27A266a",
+      "simulator_sdk": "27.0",
+      "device_sdk": "27.0"
+    },
+    {
+      "developer_dir": "/Applications/Xcode_27.2.0.app/Contents/Developer",
+      "xcode": "Xcode 27.2\nBuild version 27B48",
+      "simulator_sdk": "27.2",
+      "device_sdk": "27.2"
+    }
+  ],
+  "official_runner_manifest": "https://github.com/actions/runner-images/blob/09456acd2718d935451373231c236286f861fd9c/images/macos/xcode-27-arm64-Readme.md",
+  "sdk_mark_overridden": false,
+  "sdk_download_or_license_bypass": false
+}

@@ -1,0 +1,2 @@
+COMMAND xcrun simctl create App Installer Preapp 40747684017 duo com.apple.CoreSimulator.SimDeviceType.iPhone-Duo com.apple.CoreSimulator.SimRuntime.iOS-27-1
+EEBCD885-59BB-4ADF-B6AC-BB260A96D708

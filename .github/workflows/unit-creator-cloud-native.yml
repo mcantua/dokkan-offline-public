@@ -1,0 +1,224 @@
+name: Offline Dokkan unified Duo native check
+on:
+  # Tin's October 29 gate: coordinate one necessary Duo check explicitly;
+  # do not repeat the complete cohort on every parallel agent's source update.
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write # Remove only old evidence artifacts from this exact workflow.
+concurrency:
+  group: unit-creator-native-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      artifact_id: ${{ steps.browser.outputs.artifact-id }}
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - name: Reuse passed browser evidence only when frontend and data inputs match
+        id: reuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UC_SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: python3 unit-creator/cloud-ui/reuse-browser.py select
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: steps.reuse.outputs.found == 'true'
+        with:
+          artifact-ids: ${{ steps.reuse.outputs.artifact_id }}
+          run-id: ${{ steps.reuse.outputs.run_id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/browser-reuse/artifact
+      - name: Confirm exact source and page identity before accepting old checks
+        if: steps.reuse.outputs.found == 'true'
+        id: verified-reuse
+        run: python3 unit-creator/cloud-ui/reuse-browser.py verify
+      - name: Build current single-file browser from the real embedded game snapshots
+        if: steps.verified-reuse.outputs.accepted != 'true'
+        run: python3 unit-creator/cloud-ui/build-browser.py
+      - name: Check the actual packed page and worker dependencies once
+        if: steps.verified-reuse.outputs.accepted != 'true'
+        run: |
+          python3 -m pip install playwright==1.62.0
+          python3 unit-creator/web/check-packed-page.py
+      - name: Keep the one current self-contained browser file and its checks
+        id: browser
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: unit-creator-browser-latest
+          path: |
+            AI-Workspace/claude-chatg/test-page/UnitCreator-test.html
+            AI-Workspace/claude-chatg/test-page/build-source.json
+            AI-Workspace/claude-chatg/test-page/verification.json
+            AI-Workspace/claude-chatg/test-page/preview.png
+          retention-days: 7
+          if-no-files-found: error
+  publish-browser:
+    needs: web
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      actions: write
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: unit-creator-browser-latest
+          path: AI-Workspace/claude-chatg/test-page
+      - name: Overwrite only the verified browser page while preserving concurrent source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UC_SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
+          UC_SOURCE_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          UC_BROWSER_ARTIFACT_ID: ${{ needs.web.outputs.artifact_id }}
+        run: python3 unit-creator/cloud-ui/publish-browser.py
+  duo:
+    needs: web
+    runs-on: xcode-27
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: unit-creator-browser-latest
+          path: AI-Workspace/claude-chatg/test-page
+      - name: Find genuine Duo evidence for unchanged native inputs
+        id: native-reuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UC_SOURCE_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: python3 unit-creator/cloud-ui/reuse-native.py select
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: steps.native-reuse.outputs.found == 'true'
+        with:
+          artifact-ids: ${{ steps.native-reuse.outputs.artifact_id }}
+          run-id: ${{ steps.native-reuse.outputs.run_id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/native-reuse/artifact
+      - name: Validate genuine SDK, source, data, device artifacts and existing checks
+        if: steps.native-reuse.outputs.found == 'true'
+        id: verified-native-reuse
+        run: python3 unit-creator/cloud-ui/reuse-native.py verify
+      - name: Build actual Unit Creator sources and run one native Duo check
+        if: steps.verified-native-reuse.outputs.accepted != 'true'
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: bash unit-creator/cloud-ui/run.sh
+      - name: Compile actual SDK27.1 device app once after native checks pass
+        # Packaging also recreates an obsolete Offline save-manager IPA.
+        # Keep it disabled until an authorized original-client package replaces it.
+        if: ${{ false }}
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: bash unit-creator/cloud-ui/package-device.sh
+      - name: Keep native evidence only (never reconstructed DB or app packages)
+        id: evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: unit-creator-native-latest
+          path: |
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/*.json
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/*.txt
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/*.png
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/xcodebuild.log
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/device-build.log
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/work/evidence/offline-device-build.log
+          retention-days: 7
+          if-no-files-found: error
+      - name: Overwrite prior Unit Creator evidence only after current upload succeeds
+        if: success() && steps.evidence.outputs.artifact-id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UC_ARTIFACT_ID: ${{ steps.evidence.outputs.artifact-id }}
+        run: python3 unit-creator/cloud-ui/prune-evidence.py
+  android:
+    # No automatic Android work, including after Duo passes. Tin must explicitly
+    # authorize starting this version after accepting the complete unified Duo app.
+    if: ${{ false }}
+    needs: duo
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: unit-creator-browser-latest
+          path: AI-Workspace/claude-chatg/test-page
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.15.0'
+      - name: Permit KVM only on this disposable hosted runner
+        run: |
+          test -e /dev/kvm
+          sudo chmod a+rw /dev/kvm
+      - name: Reserve cloud disk for the pinned emulator and native tools
+        run: |
+          # This disposable runner's stock SDK is unused: all compilation uses
+          # our SHA256-pinned SDK in downloads/android-sdk instead.
+          test "$GITHUB_ACTIONS" = true && test "$RUNNER_OS" = Linux
+          if test -d /usr/local/lib/android/sdk; then
+            sudo rm -rf -- /usr/local/lib/android/sdk
+          fi
+          python3 - <<'PY'
+          import shutil
+          free = shutil.disk_usage('.').free
+          print(f'Cloud disk available before pinned tools: {free / 2**30:.1f} GiB')
+          if free < 12 * 2**30:
+              raise SystemExit('At least 12 GiB free is required before emulator/NDK setup; no APK was built.')
+          PY
+      - name: Install public headless emulator runtime libraries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -y libpulse0 libx11-6 libx11-xcb1 libxcb1 libxcb-cursor0 libxkbcommon-x11-0 libglu1-mesa libasound2t64
+      - name: Install owned development app and verify real Android WebView save/relaunch
+        run: bash unit-creator/cloud-ui/android-run.sh
+      - name: Keep private Android native evidence and the actual test APK
+        id: evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: unit-creator-android-native-latest
+          path: |
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/android-work/evidence/
+            AI-Workspace/claude-chatg/unit-creator/out/Dokkan-Unit-Creator-Development-2.36.3.apk
+            AI-Workspace/claude-chatg/offline-dokkan/mobile/android/build/Offline-Dokkan-Save-Manager-development.apk
+          retention-days: 7
+          if-no-files-found: error
+      - name: Preserve working Android baseline until new native checks pass
+        if: success() && steps.evidence.outputs.artifact-id != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UC_ARTIFACT_ID: ${{ steps.evidence.outputs.artifact-id }}
+        run: python3 unit-creator/cloud-ui/prune-evidence.py --android

@@ -1,0 +1,13 @@
+{
+  "package": "luaparse",
+  "version": "0.3.1",
+  "license": "MIT",
+  "source": "https://registry.npmjs.org/luaparse/0.3.1",
+  "tarballSha256": "facb9742bf9ddecb2a2fa2935d486a05e359db51f5fd6147f4f23d433e3c854b",
+  "npmIntegrity": "sha512-b21h2bFEbtGXmVqguHogbyrMAA0wOHyp9u/rx+w6Yc9pW1t9YjhGUsp87lYcp7pFRqSWN/PhFkrdIqKEUzRjjQ==",
+  "files": {
+    "luaparse.js": "1c70940a6e46be63c84c285036925715f110bf06cbf058922372fb5c9d060b27",
+    "LICENSE": "bedf97319fd3fb51c22dc5a44daf603ca4b2515ae75cae8ac677fb6bd40ec34e",
+    "package.json": "d55e4a44927273ff7513abfbc21d7637772de6c7b6bf1607fab6bb292fcfe645"
+  }
+}

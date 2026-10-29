@@ -1,0 +1,513 @@
+{
+  "kind": "static-evidence-inventory",
+  "routes": [
+    {
+      "reported_fragment": "/auth/nonce",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2718
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          801
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/auth/sign_in",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2723
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/resources/login",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2375
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          445
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          5391,
+          8896
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          4603
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/resources/home",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2731
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          1899
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/user/mydata",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2737
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          428,
+          429
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/user_areas",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2743
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/user_cards/",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2370
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1430
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          1843
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          1752
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/cards",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2741
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          431,
+          432
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/teams",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2742
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1413
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          7721,
+          11478,
+          11479
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          6420
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/events",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2381
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          2311
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          4873
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/quests",
+      "static_string_lines": {
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          2314
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/sugoroku_maps/start",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2378
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          2313
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          3335
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/sugoroku_maps/finish",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2379
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/missions",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2752
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          2638
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/missions/put_forward",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2749
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/potentials",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2371
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1431
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          12234
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          10079
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/potentials/release",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2372
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1432
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          5400
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          4602
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/equip",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2740
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1429
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          5401,
+          6157,
+          7780
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          4601
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/dragonball_sets",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2761
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          6590
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/db_stories",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2756
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/genkai_battles",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2747
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/joint_campaigns",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2768
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/cooperation_campaigns",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2769
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/announcements",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2764
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          2317
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          8138
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/briefing",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2380
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          2315,
+          2338
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          10084
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/support_leaders",
+      "static_string_lines": {
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1414
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/client_assets",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2770
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1039
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          1937,
+          5137,
+          8204,
+          11941
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/ondemand_assets",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2771
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/assets/database",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2369
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/sd/battle",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2760
+        ],
+        "mac-workspace/research/eclipse-android-libbase-strings.txt": [
+          8549
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/sd/characters",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2759
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/sd/packs",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2758
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/unrelease",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2373
+        ],
+        "mac-workspace/research/sparking-ios-patcher-strings.txt": [
+          1434
+        ],
+        "mac-workspace/research/sparking-android-libbase-strings.txt": [
+          877
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/item_reverse_resolutions",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2748
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    },
+    {
+      "reported_fragment": "/iap_rails",
+      "static_string_lines": {
+        "mac-workspace/research/eclipse-ios-patcher-strings.txt": [
+          2753
+        ]
+      },
+      "method_verified_current": false,
+      "request_verified_current": false,
+      "response_verified_current": false
+    }
+  ],
+  "warning": "A string fragment is not a full route, method or response contract"
+}

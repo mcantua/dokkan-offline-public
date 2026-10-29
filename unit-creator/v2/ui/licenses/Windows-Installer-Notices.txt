@@ -1,0 +1,35 @@
+Optional Windows installer and build/test tools
+
+The optional installer uses unmodified NSIS3.12, from electron-builder's pinned
+nsis@1.2.1 bundle. NSIS core/plugins use zlib/libpng except where otherwise noted;
+compression components also carry the bzip2 and Common Public License1.0 terms.
+See licenses/NSIS-3.12-LICENSE.txt and sources/nsis-v312-source.tar.gz.
+
+StdUtils1.14, copyright2004-2018 LoRd_MuldeR, is LGPL2.1-or-later with the author's
+NSIS plug-in-interface clarification. Its original DLL is unmodified. The exact
+upstream release archive includes its complete Sources.tar, project/build files
+and third-party hashing sources. See sources/StdUtils-1.14.zip and the LGPL,
+clarification, RHash/BLAKE2 and attribution files in licenses/.
+
+nsis7z19.00 uses the LZMA SDK public-domain notice by Igor Pavlov, with the named
+Dmitry Shkarin/Wei Dai contributions. The original plugin source/build archive
+and matching complete LZMA SDK19.00 sources are retained in sources/.
+
+Other unmodified installer plugins come from the original NSIS-wiki packages:
+nsProcess1.6 by Shengalts Aleksander/brainsucker and attributed contributors;
+WinShell by Anders; and UAC by Anders, whose included license is zlib/libpng.
+Their original release archives/notices and the NSIS-wiki default zlib/libpng
+license statements are retained; WinShell's published archive contains DLLs,
+while nsProcess/UAC include their source. No missing WinShell source is invented.
+
+Build-time only: electron-builder26.15.3 (MIT), its exact npm dependency lock and
+per-package original license files, and 7-Zip24.09 (upstream LGPL/BSD/public-domain
+and unRAR notices as applicable). These build executables are not installed as
+part of Forge. Wine and any private32-bit Linux support are build/test-only,
+not Windows runtime dependencies. The builder's official component checksums
+and downloaded source archive hashes are recorded in the provenance manifests.
+
+The installer includes original component DLLs without linking them into Forge's
+own application code. Rebuilding it is supported by the pinned package-lock,
+installer.json, generated manifest hooks, and scripts/build-windows-installer.py.
+No Microsoft signing identity or reputation/SmartScreen approval is claimed.

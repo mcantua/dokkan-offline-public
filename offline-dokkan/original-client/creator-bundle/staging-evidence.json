@@ -1,0 +1,24 @@
+{
+  "kind": "one-actual-current-master-existing-forge-full-bundle-staging-boundary",
+  "source_plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "source_card_ids": [
+    1012901,
+    1007471
+  ],
+  "source_open_mode": "read-only immutable",
+  "checks": {
+    "two_real_source_forms": true,
+    "cloned_source_ability_retained": true,
+    "one_owned_instance_only": true,
+    "existing_forms_reservation_and_link_remapping": true,
+    "source_project_unchanged": true,
+    "runtime_project_bytes_hash_bound": true,
+    "wrong_resource_scope_rejected": true,
+    "original_engine_admitted": false,
+    "compiled_rows": 234
+  },
+  "resource_positive_transfer_cpk_or_codec_verified": false,
+  "native_core_or_session_gates_changed": false,
+  "original_engine_or_gameplay_verified": false,
+  "personal_device_or_network_used": false
+}

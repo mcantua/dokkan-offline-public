@@ -1,0 +1,49 @@
+/* iPhone app styles */
+/* while folding / unfolding: no decorative transitions or looping animations, so the switch stays smooth */
+html.forge-resizing *, html.forge-resizing *::before, html.forge-resizing *::after { transition: none !important; animation-play-state: paused !important; }
+.ios-display p { margin: .2em 0; font-size: .92em; }
+/* character finder: lay tiles out up front. content-visibility:auto made the first scroll through a fresh
+   list stutter (slowest frames ~95 ms -> ~20 ms with the CPU slowed 4x); a finder page is at most 60 tiles. */
+.fd-tile { content-visibility: visible; }
+/* builder "⋯ More" menu: anchor to the whole tools row so it never runs off a narrow outer screen */
+@media (max-width: 640px) {
+  .bld-tools { position: relative; }
+  .bld-tools .bld-more { position: static; }
+  .bld-tools .bld-more-menu { right: 0; left: auto; max-width: calc(100vw - 16px); }
+}
+/* ---- iPhone screen edges (status bar / Dynamic Island / home bar / rounded corners), on both displays and in
+   every orientation. The web view fills the whole screen, so the page keeps its content inside the safe area. */
+html.ios-app body { padding-top: var(--sa-t,env(safe-area-inset-top)); padding-left: var(--sa-l,env(safe-area-inset-left)); padding-right: var(--sa-r,env(safe-area-inset-right)); }
+/* a solid strip behind the status bar so scrolled content never shows through under the clock / Dynamic Island */
+html.ios-app body::before { content: ""; position: fixed; z-index: 150; top: 0; left: 0; right: 0; height: var(--sa-t,env(safe-area-inset-top)); background: #0b1024; pointer-events: none; }
+html.ios-app .sidebar { top: var(--sa-t,env(safe-area-inset-top)); left: var(--sa-l,env(safe-area-inset-left)); bottom: var(--sa-b,env(safe-area-inset-bottom)); }
+html.ios-app .mobile-nav { padding-left: var(--sa-l,env(safe-area-inset-left)); padding-right: var(--sa-r,env(safe-area-inset-right)); }
+html.ios-app dialog[open] { top: var(--sa-t,env(safe-area-inset-top)); bottom: var(--sa-b,env(safe-area-inset-bottom)); left: var(--sa-l,env(safe-area-inset-left)); right: var(--sa-r,env(safe-area-inset-right));
+  max-height: calc(100dvh - var(--sa-t,env(safe-area-inset-top)) - var(--sa-b,env(safe-area-inset-bottom)) - 16px) !important; max-width: calc(100vw - var(--sa-l,env(safe-area-inset-left)) - var(--sa-r,env(safe-area-inset-right)) - 16px); }
+html.ios-app #toast { margin-bottom: var(--sa-b,env(safe-area-inset-bottom)); }
+/* sideways screens are short: the sidebar scrolls if needed and is a bit more compact */
+html.ios-app .sidebar { overflow-y: auto; overscroll-behavior: contain; }
+@media (max-height: 720px) {
+  html.ios-app .sidebar { padding-top: 14px; padding-bottom: 10px; }
+  html.ios-app .sidebar nav button { min-height: 38px; padding-top: 8px; padding-bottom: 8px; }
+  html.ios-app .sidebar-bottom { padding-top: 14px; }
+}
+
+/* ---- iPhone Duo (iOS 27.1 layout): the status bar and cameras sit in a column on one side ("rail"). UIKit keeps
+   that whole column out of the safe area, so the page's content stops there; below the status bar the column is
+   free, and like Apple's own apps the tab bar moves into it, standing upright. The app sends the column's side,
+   width and where the status bar ends (main.m -geometry: html.duo-rail, --rail-w, --rail-top). Rules in
+   docs/IPHONE-DUO-DISPLAY.md. */
+html.ios-app.duo-rail .mobile-nav { position: fixed; z-index: 30; top: calc(var(--rail-top, 0px) + 6px); bottom: var(--sa-b, 0px); left: auto; right: 0; width: var(--rail-w, 84px);
+  height: auto !important; min-height: 0 !important; padding: 4px 4px !important; flex-direction: column; justify-content: flex-start; gap: 6px;
+  border-top: 0; border-left: 1px solid #ff8c1a40; border-top-left-radius: 14px; overflow-x: hidden; overflow-y: auto; }
+html.ios-app.duo-rail.duo-rail-left .mobile-nav { left: 0; right: auto; border-left: 0; border-right: 1px solid #ff8c1a40; border-top-left-radius: 0; border-top-right-radius: 14px; }
+html.ios-app.duo-rail .mobile-nav button { flex: 0 0 auto !important; width: 100%; min-height: 58px !important; padding: 6px 1px !important; font-size: 10px !important; line-height: 1.15; white-space: normal; }
+html.ios-app.duo-rail .mobile-nav .nav-glyph { font-size: 18px; }
+html.ios-app.duo-rail { --nav-h: 0px; }
+/* wide layouts (inner display sideways, measured on the phone: 951 x 669, column 84 wide, status to y=178): the same
+   upright tab bar replaces the left sidebar, so the content gets the sidebar's width too and the column isn't left empty */
+html.ios-app.duo-rail .sidebar { display: none !important; }
+html.ios-app.duo-rail .workspace { margin-left: 0 !important; width: 100% !important; }
+html.ios-app.duo-rail .mobile-nav { display: flex !important; }
+html.ios-app.duo-rail .mobile-nav button:not(.active) { background: transparent !important; color: #8da0b8; }

@@ -1,0 +1,1486 @@
+{
+  "scope": "Baseline static literal-operation audit; current_native_tools_integration records subsequent source wiring. Neither registration nor staging is runtime parity proof.",
+  "shared_ui_js_files": 94,
+  "ui_literal_operations": 69,
+  "native_session_allowed": [
+    "assets",
+    "cardIndex",
+    "deleteProject",
+    "deleteProjectVersion",
+    "info",
+    "listProjectVersions",
+    "loadProject",
+    "loadProjectVersion",
+    "offlineBattleDispatch",
+    "offlineBattleLoad",
+    "offlineCardStats",
+    "offlineCreatorFinish",
+    "offlineCreatorPrepare",
+    "offlineGameSnapshot",
+    "offlineTeamSet",
+    "patches",
+    "projects",
+    "query",
+    "querySparking",
+    "restoreProjectVersion",
+    "saveProject",
+    "saveProjectVersion",
+    "settings",
+    "settingsSave"
+  ],
+  "original_mode_denied_game_harness_operations": [
+    "offlineBattleDispatch",
+    "offlineBattleLoad",
+    "offlineCardStats",
+    "offlineGameSnapshot",
+    "offlineTeamSet"
+  ],
+  "operation_inventory": {
+    "ai": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 395
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 660
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 1103
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiCancel": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 46
+        },
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 58
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiCompose": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-assistant.js",
+          "line": 30
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiConnections": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 25
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiPoll": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 47
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiRemoveConnection": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 178
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiSaveConnection": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 157
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "aiStart": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 42
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "animationCatalog": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/anim-choice.js",
+          "line": 111
+        },
+        {
+          "path": "unit-creator/v2/ui/anim-choice.js",
+          "line": 153
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 196
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "animationFiles": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/guided.js",
+          "line": 1081
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 180
+        },
+        {
+          "path": "unit-creator/v2/ui/studio.js",
+          "line": 98
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "animationImportLeases": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 61
+        },
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 64
+        },
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 73
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "animationSource": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 125
+        },
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 127
+        },
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 162
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "animationVisuals": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/appearance.js",
+          "line": 93
+        },
+        {
+          "path": "unit-creator/v2/ui/guided.js",
+          "line": 920
+        },
+        {
+          "path": "unit-creator/v2/ui/studio.js",
+          "line": 384
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "assetStatus": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 837
+        },
+        {
+          "path": "unit-creator/v2/ui/unit-copy.js",
+          "line": 238
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "assetUrl": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 536
+        },
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 30
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 225
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "assets": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 1013
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 102
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 277
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "browseAssets": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 1084
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 301
+        },
+        {
+          "path": "unit-creator/v2/ui/art-studio.js",
+          "line": 77
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "cardIndex": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/finder.js",
+          "line": 21
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "checkSparkingUpdates": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 102
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 113
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 535
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-sparking.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "checkUpdates": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/import-hub.js",
+          "line": 52
+        },
+        {
+          "path": "unit-creator/v2/ui/import-hub.js",
+          "line": 66
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "convert": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 891
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "copy": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-assistant.js",
+          "line": 30
+        },
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 459
+        },
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 518
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "deletePatch": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/library-delete.js",
+          "line": 57
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "deleteProject": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/library-delete.js",
+          "line": 41
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "dokkanFiles": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 304
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 313
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 320
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "downloadAsset": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 402
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 327
+        },
+        {
+          "path": "unit-creator/v2/ui/art-studio.js",
+          "line": 93
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "downloadSparkingAssets": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 114
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-sparking.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "export": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 48
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 757
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 783
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "external": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 52
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 608
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 659
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "findSparkingAssets": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 112
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-sparking.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "gameFolderStatus": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 809
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 287
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "import": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 132
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 230
+        },
+        {
+          "path": "unit-creator/v2/ui/art-studio.js",
+          "line": 231
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "importAnimationBackup": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 55
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "importStatus": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 983
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "info": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 717
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 1118
+        },
+        {
+          "path": "unit-creator/v2/ui/battle-pose-editor.js",
+          "line": 95
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": true
+    },
+    "linkGameFolder": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 937
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 293
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "loadProject": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 240
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 774
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 868
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "offlineLibrary": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 127
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 137
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 160
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-offline.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "openEclipse": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/import-hub.js",
+          "line": 106
+        },
+        {
+          "path": "unit-creator/v2/ui/library.js",
+          "line": 37
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "openStore": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/compat.js",
+          "line": 40
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "patches": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 148
+        },
+        {
+          "path": "unit-creator/v2/ui/library-delete.js",
+          "line": 33
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "pickTextFile": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 675
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "previewAnimation": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 215
+        },
+        {
+          "path": "unit-creator/v2/ui/appearance.js",
+          "line": 96
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 398
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-player.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "previewCache": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 220
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 366
+        },
+        {
+          "path": "unit-creator/v2/ui/preview-storage.js",
+          "line": 50
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-preview.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "previewDock": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/dock.js",
+          "line": 18
+        },
+        {
+          "path": "unit-creator/v2/ui/dock.js",
+          "line": 19
+        },
+        {
+          "path": "unit-creator/v2/ui/dock.js",
+          "line": 20
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-player.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "previewTools": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/preview-tools.js",
+          "line": 62
+        },
+        {
+          "path": "unit-creator/v2/ui/preview-tools.js",
+          "line": 82
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-preview.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "projects": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-assistant.js",
+          "line": 23
+        },
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 198
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 145
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "query": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-assistant.js",
+          "line": 23
+        },
+        {
+          "path": "unit-creator/v2/ui/ai-assistant.js",
+          "line": 23
+        },
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 401
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "querySparking": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/dbz-home.js",
+          "line": 156
+        },
+        {
+          "path": "unit-creator/v2/ui/dbz-home.js",
+          "line": 182
+        },
+        {
+          "path": "unit-creator/v2/ui/dbz-home.js",
+          "line": 186
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js",
+        "unit-creator/web/src/ios-sparking.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "readAsset": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 838
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 88
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 405
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "renderMode": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/perf.js",
+          "line": 75
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "restoreDatabase": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 617
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "saveProject": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 128
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 245
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 686
+        }
+      ],
+      "native_session_registration": true,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "sendToGame": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 900
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "sparkingCatalog": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 31
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [],
+      "host_adapter_inline_reply": false
+    },
+    "sparkingInfo": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/animation-gallery.js",
+          "line": 174
+        },
+        {
+          "path": "unit-creator/v2/ui/card-versions.js",
+          "line": 36
+        },
+        {
+          "path": "unit-creator/v2/ui/dbz-home.js",
+          "line": 154
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-sparking.js"
+      ],
+      "host_adapter_inline_reply": true
+    },
+    "storageAccess": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 64
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-offline.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "storageCheck": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 36
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 56
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-offline.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "storageDecline": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 72
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-offline.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "storeAsset": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/ai-connect.js",
+          "line": 535
+        },
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 357
+        },
+        {
+          "path": "unit-creator/v2/ui/art-studio.js",
+          "line": 157
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "storeDecoration": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/art-editor.js",
+          "line": 369
+        },
+        {
+          "path": "unit-creator/v2/ui/art-studio.js",
+          "line": 111
+        },
+        {
+          "path": "unit-creator/v2/ui/dbz-home.js",
+          "line": 171
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "storeLwf": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/battle-pose-editor.js",
+          "line": 29
+        },
+        {
+          "path": "unit-creator/v2/ui/dbz-home.js",
+          "line": 172
+        },
+        {
+          "path": "unit-creator/v2/ui/guided.js",
+          "line": 380
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "storeMovie": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/movie-editor.js",
+          "line": 16
+        },
+        {
+          "path": "unit-creator/v2/ui/movie-editor.js",
+          "line": 19
+        },
+        {
+          "path": "unit-creator/v2/ui/movie-editor.js",
+          "line": 23
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-assets.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "sync": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 627
+        },
+        {
+          "path": "unit-creator/v2/ui/import-hub.js",
+          "line": 75
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "textZoom": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/shell.js",
+          "line": 20
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "unlinkGameFolder": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 942
+        },
+        {
+          "path": "unit-creator/v2/ui/app.js",
+          "line": 969
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-io.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "updateSparking": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 114
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 535
+        },
+        {
+          "path": "unit-creator/v2/ui/sparking-content.js",
+          "line": 17
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-sparking.js"
+      ],
+      "host_adapter_inline_reply": false
+    },
+    "userContentArchive": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 327
+        },
+        {
+          "path": "unit-creator/v2/ui/offline.js",
+          "line": 344
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [],
+      "host_adapter_inline_reply": false
+    },
+    "wipeData": {
+      "ui_references": [
+        {
+          "path": "unit-creator/v2/ui/settings.js",
+          "line": 104
+        }
+      ],
+      "native_session_registration": false,
+      "existing_ios_handler_files": [
+        "unit-creator/web/src/ios-native.js"
+      ],
+      "host_adapter_inline_reply": false
+    }
+  },
+  "existing_ios_handlers": {
+    "animationFiles": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "animationSource": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "animationCatalog": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "animationVisuals": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "assets": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "assetUrl": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "assetStatus": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "readAsset": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "downloadAsset": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "browseAssets": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "storeAsset": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "storeDecoration": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "storeLwf": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "storeMovie": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "cardIndex": [
+      "unit-creator/web/src/ios-assets.js"
+    ],
+    "patches": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "deletePatch": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "export": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "gameFolderStatus": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "linkGameFolder": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "unlinkGameFolder": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "sendToGame": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "import": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "pickTextFile": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "animationImportLeases": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "importAnimationBackup": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "importApk": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "convert": [
+      "unit-creator/web/src/ios-io.js"
+    ],
+    "info": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "query": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "querySparking": [
+      "unit-creator/web/src/ios-native.js",
+      "unit-creator/web/src/ios-sparking.js"
+    ],
+    "aiConnections": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "aiSaveConnection": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "aiRemoveConnection": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "aiStart": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "aiPoll": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "aiCancel": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "aiCompose": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "ai": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "importStatus": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "dokkanFiles": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "sync": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "checkUpdates": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "restoreDatabase": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "projects": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "loadProject": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "saveProject": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "deleteProject": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "listProjectVersions": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "saveProjectVersion": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "loadProjectVersion": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "restoreProjectVersion": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "wipeData": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "copy": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "external": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "openEclipse": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "openStore": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "renderMode": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "textZoom": [
+      "unit-creator/web/src/ios-native.js"
+    ],
+    "storageCheck": [
+      "unit-creator/web/src/ios-offline.js"
+    ],
+    "storageAccess": [
+      "unit-creator/web/src/ios-offline.js"
+    ],
+    "storageDecline": [
+      "unit-creator/web/src/ios-offline.js"
+    ],
+    "offlineLibrary": [
+      "unit-creator/web/src/ios-offline.js"
+    ],
+    "previewAnimation": [
+      "unit-creator/web/src/ios-player.js"
+    ],
+    "previewDock": [
+      "unit-creator/web/src/ios-player.js"
+    ],
+    "previewCache": [
+      "unit-creator/web/src/ios-preview.js"
+    ],
+    "previewTools": [
+      "unit-creator/web/src/ios-preview.js"
+    ],
+    "sparkingInfo": [
+      "unit-creator/web/src/ios-sparking.js"
+    ],
+    "checkSparkingUpdates": [
+      "unit-creator/web/src/ios-sparking.js"
+    ],
+    "updateSparking": [
+      "unit-creator/web/src/ios-sparking.js"
+    ],
+    "findSparkingAssets": [
+      "unit-creator/web/src/ios-sparking.js"
+    ],
+    "downloadSparkingAssets": [
+      "unit-creator/web/src/ios-sparking.js"
+    ],
+    "sparkingAudioCatalog": [
+      "unit-creator/web/src/ios-sparking.js"
+    ]
+  },
+  "host_adapter_inline_replies": {
+    "info": "Native-pinned selected master info",
+    "sparkingInfo": "Only the active Sparking master, or unavailable in an Eclipse session; no second database is implied"
+  },
+  "current_native_tools_integration": {
+    "stage": "offline-dokkan/creator-ui/build.py",
+    "bootstrap": "offline-dokkan/creator-ui/bootstrap.js",
+    "same_owner_router": "offline-dokkan/creator-ui/ios-tools-adapter.js",
+    "native_tools": "offline-dokkan/original-client/creator-tools/ODScopedCreatorTools.h",
+    "authority": "ODCreatorSession for projects/versions/settings/Finish and bounded readonly selected master; scoped ForgeHost/ForgePlayer for actual tools; native-only source codec/archive callbacks",
+    "runtime_verified": false,
+    "unresolved": [
+      "Actual original-engine consumption of custom forms/art/animation abilities",
+      "Hosted Finish sourceStatGrowth saved-boundary mismatch pending exact numeric evidence",
+      "Native selected-master close/rebind activation",
+      "Actual complete tools runtime on hosted/physical Duo"
+    ]
+  }
+}

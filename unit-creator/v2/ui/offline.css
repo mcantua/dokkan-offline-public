@@ -1,0 +1,68 @@
+.offline [hidden],#offline-pill[hidden]{display:none!important}
+.offline .offline-packs{display:flex;flex-direction:column;gap:10px;margin:0 0 12px}
+.offline-pack{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid #2c3b4f;border-radius:12px;background:#141d2a;font-size:12px;color:#d8e2ee;line-height:1.6}
+.offline-pack:has(input:checked){border-color:#9a7044;background:#30291f}
+.offline-pack input{margin-top:3px}
+.offline-pack small{color:#ffcf96;font-size:11px}
+.offline-pack-text{color:#a6b7ce;font-size:11px}
+.offline-done{display:block;color:var(--teal);font-size:11px;margin-top:4px}
+.offline-sub{margin-left:18px}
+.offline .check-item{margin:6px 0}
+.offline-progress{margin:14px 0 6px}
+.offline-progress progress{width:100%;height:10px;accent-color:var(--accent)}
+.offline-phase{margin:0 0 6px!important;color:#edf2f7!important;font-weight:600}
+.offline-actions{margin:8px 0 6px}
+.offline-player{border:0;padding:0;margin:10px 0}
+.offline-player legend{font-size:12px;color:#c9d6e5;margin-bottom:6px}
+.offline-player input[type=radio]{width:17px;height:17px;accent-color:var(--accent);flex-shrink:0}
+.offline-errors{font-size:11px;color:#eac69f;padding-left:18px}
+.offline-callout{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px 16px;margin:0 0 14px;border:1px solid #6d5131;border-radius:12px;background:linear-gradient(120deg,#33281d,#1d2633)}
+.offline-callout p{margin:0;font-size:12px;line-height:1.6;color:#e8d6c0;flex:1 1 220px}
+#offline-pill{position:fixed;right:14px;bottom:82px;z-index:95;min-height:40px;padding:0 14px;border-radius:20px;background:#ffb15d;color:#251b10;font-weight:700;font-size:13px;box-shadow:0 6px 18px #0008}
+#offline-pill[hidden]{display:none}
+@media(min-width:761px){#offline-pill{bottom:24px}}
+
+/* simple downloads screen: one choice + Sparking as a clearly visible extra */
+.of-opts{display:grid;gap:10px;margin:0 0 12px}
+.of-opt{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:2px solid #2c3b4f;border-radius:14px;background:#141d2a;cursor:pointer}
+.of-opt:has(input:checked){border-color:#f7b733;background:#30291f}
+.of-opt.rec strong{color:#ffd27a}
+.of-opt input{margin-top:4px;flex:none;width:20px;height:20px}
+.of-opt strong{font-size:16px}
+.of-opt small{color:#ffcf96;font-size:12px}
+.of-opt-text{color:#b8c6da;font-size:13px}
+.of-sparking{margin:0 0 12px;padding:14px 16px;border-radius:14px;border:2px solid #8a5cff;background:linear-gradient(135deg,#251a45,#17203a);box-shadow:0 0 0 1px #8a5cff40}
+.of-sp-row{display:flex;gap:12px;align-items:center;justify-content:space-between;cursor:pointer}
+.of-sp-text strong{font-size:16px;color:#e7dcff}
+.of-sp-text small{color:#cdb8ff;font-size:12px}
+.of-sp-status{font-size:12px}
+.of-sp-new{color:#ffd27a;font-weight:700}
+.of-sp-ok{color:#8fe3b0}
+input.of-switch{appearance:none!important;-webkit-appearance:none!important;flex:none!important;width:52px!important;min-width:52px!important;height:30px!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:15px!important;background:#3a4560!important;position:relative;cursor:pointer;transition:background .15s;box-shadow:none!important}
+input.of-switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s}
+input.of-switch:checked{background:#8a5cff!important}
+input.of-switch:checked::after{left:25px}
+input.of-switch:disabled{opacity:.45}
+.of-data{margin:4px 0 12px}
+.of-go{min-height:52px;font-size:17px;padding-left:28px;padding-right:28px}
+.of-sp-status .button{margin-top:6px}
+/* two big tiles you tap on/off + a small "Download everything" */
+.of-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 12px}
+.of-tile{position:relative;display:flex;gap:12px;align-items:flex-start;padding:18px 16px;border:3px solid #2c3b4f;border-radius:16px;background:#141d2a;cursor:pointer;min-height:118px;transition:border-color .12s,background .12s}
+.of-tile input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.of-tile-check{flex:none;width:30px;height:30px;border-radius:50%;border:3px solid #55657d;margin-top:2px;display:grid;place-items:center}
+.of-tile input:checked+.of-tile-check{background:#f7b733;border-color:#f7b733}
+.of-tile input:checked+.of-tile-check::after{content:"✓";color:#1b0f00;font-weight:900;font-size:17px}
+.of-tile.of-eclipse:has(input:checked){border-color:#f7b733;background:#30291f}
+.of-tile.of-spark{border-color:#5b3fb0;background:linear-gradient(135deg,#221a40,#151d36)}
+.of-tile.of-spark:has(input:checked){border-color:#a77bff;background:linear-gradient(135deg,#34236a,#1d2550)}
+.of-tile.of-spark input:checked+.of-tile-check{background:#a77bff;border-color:#a77bff}
+.of-tile:has(input:disabled){opacity:.8;cursor:default}
+.of-tile:has(input:focus-visible){outline:3px solid #ffd27a;outline-offset:2px}
+.of-tile-body{display:grid;gap:3px}
+.of-tile-body strong{font-size:19px}
+.of-tile-body small{color:#ffcf96;font-size:12px;font-weight:700}
+.of-spark .of-tile-body small{color:#cdb8ff}
+.of-all{display:block;width:100%;margin:10px 0 4px;padding:9px 12px;font-size:13px;opacity:.9}
+.of-all small{display:block;font-size:11px;opacity:.75;font-weight:500}
+.offline-actions .of-go{flex:1 1 auto}

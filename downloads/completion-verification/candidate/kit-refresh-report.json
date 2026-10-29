@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "classification": "unsigned-candidate",
+  "release_ready": false,
+  "release_id": 427060273,
+  "draft": true,
+  "source_commit": "8eafc2379d875d702a704a524a28982ccf66d598",
+  "bootstrap_tool_commit": "4ad510a47eeb394e26fe3a0c955d4754f3413112",
+  "replaced_helpers": [
+    "app-installer/device/setup-wizard.py"
+  ],
+  "source_artifact_preserved": 12849904378,
+  "old_kit_artifact_id": 12850571184,
+  "production_inputs_unchanged": true,
+  "compiled_rust_reused": true,
+  "compilation_performed": false,
+  "tests_repeated": false,
+  "personal_resources_used": false,
+  "device_install_attempted": false,
+  "assets": {
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 35148054,
+      "sha256": "f3b33fe28b6bb10419df4d96d43f15b3bed0315cb61ed0b56982783749b2527f"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 892,
+      "sha256": "615a93185ebcc6dadc40963d80f9bc4a095cd8732c417ac266eff91a5f1dc48b"
+    }
+  }
+}

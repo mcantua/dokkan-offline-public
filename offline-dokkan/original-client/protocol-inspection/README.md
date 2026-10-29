@@ -1,0 +1,25 @@
+# Current handler field inspection
+
+`inspect_handler_fields.py` examines selected own methods of the actual source patcher's `LocalResponseHandler` and one bounded level of their direct helper functions. It uses the existing pinned NDKr28b LLVM disassembler, bounds methods by the actual function-start table and admits only reviewed field/route literals and Foundation/handler selectors. Unknown strings, payload values, symbols and raw code remain unreported. Original inputs are read-only; prior output is preserved by exclusive creation. Helper inspection is capped at32functions/4,096bytes each, never recursive beyond depth1; skipped helpers are explicit.
+
+The sanitized current observations are `research/current-handler-field-observations.json`, pinned to source patcher SHA256 `74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc`. The selected method sizes are dispatcher2736bytes, events784, quest-start1192, briefing828 and my-data872.
+
+Current observations:
+
+- Dispatcher references include `/resources/login`, `/events`, `/quests`, `/sugoroku_maps/start`, `/briefing`, `/support_leaders`, `/teams` and `/announcements`. Selected actual calls reach the events/quest-start/briefing/my-data handler methods.
+- The events handler references the reviewed `events` field. This alone establishes neither its container nor its value type or required children.
+- Own my-data/quest-start/briefing bodies did not establish any reviewed full field schema. The14bounded direct helpers additionally expose `JSONObjectWithData:options:error:`, `dataWithJSONObject:options:error:`, keyed subscripting, class checks and mutable copies. Their message references establish parsing/serialization and mutation operations are present; they do not establish each field/container/type, a dictionary argument contract at the public entry, or that a handler creates a valid response without original server data.
+
+## Narrow MyData object fragment
+
+Further targeted stack-alias review established one concrete current fragment. The MyData transformation's original-data path reaches `NSJSONSerialization JSONObjectWithData:options:error:` with option1. The parse helper requires no error and an `NSDictionary` root before returning a mutable copy. A later candidate must independently pass `NSDictionary isKindOfClass:` before it is written under the exact root field `leader` using `setObject:forKeyedSubscript:`. Other root members survive this mutation. The `NSDictionary` and `NSJSONSerialization` class bindings were verified through the actual patcher's bind table using the existing LLVM tool.
+
+This is a partial source-patcher mutation: JSON-object input with an optional object-valued `leader` write. It is not proof of the original client's required fields or leader children, and does not authorize a blank root/leader response. No source/player values were inspected or adopted. The committed observations include the guarded fragment and helper code hashes only. After admitting the reviewed field label, only that changed692byte helper was rescanned; unchanged handlers were reused.
+
+## Eclipse offline implementation availability
+
+On October29, the official public [Downloads page](https://dokkan-eclipse.com/downloads) was checked for the referenced Eclipse offline implementation. Its Download link leads to a Discord channel; no direct public IPA/patcher download was exposed by that page or its two UI scripts. No account, Discord private content, guessed download endpoint or access bypass was used. A narrow connected-Drive metadata search also found no Eclipse IPA/patcher. Source-page hashes and bounded cached HTML remain private research provenance. The historical `EclipseOfflineProtocol` / `_buildOfflineLoginResponse` labels therefore remain historical references, not an inspected current binary or reusable full schema.
+
+The scanner deliberately clears symbolic register tags at control-flow boundaries and unknown writes/calls. It does not track stack aliases, recover arbitrary helper semantics, resolve dynamic Objective-C dispatch or infer response field types from nearby literals. First inspection exposed LLVM angle-bracket symbol annotations breaking exact operand recognition; after stripping those annotations, the focused scanner was rerun. No other app tests or packages were run.
+
+**Admission remains closed:** this evidence is a partial patcher view, not a current login/home/my-data/quest-start/finish request/response specification. Do not turn these route strings or the leader fragment into successful fake responses or automatically enable the original-client transport. The next useful requirement is matching actual selected-client parser fields/types to local projections; partial source-patcher mutations cannot supply the complete original server schema. Original startup/image-initializer containment and intercepted-client runtime behavior are separate requirements. A missing full schema remains a genuine unverified integration requirement rather than permission to substitute historical response guesses.

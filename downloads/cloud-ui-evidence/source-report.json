@@ -1,0 +1,11 @@
+{
+  "source_commit": "1bdb7260b9c2a39667b44a71db10a0971002404d",
+  "architecture": "arm64",
+  "rust_target": "aarch64-apple-ios-sim",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "simulator_sdk": "18.5",
+  "scope": "Hosted simulator only. Two tests. No Apple login or physical phone install. Responsive main test uses a TEST-ONLY service fixture.",
+  "simulator_id": "56CFA423-5839-4E7D-9182-AE1264C447AF",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_storage": "OS-managed ephemeral GitHub-hosted CoreSimulator default set; this newly created device is shut down and deleted on exit. No pre-existing device is modified."
+}

@@ -1,0 +1,3197 @@
+{
+  "kind": "own-export-cached-resource-response-schema-only",
+  "source_archive_sha256": "bd46997a0fcae532138baf1fd2b4456f7dc8ed7cf290449072337defed2bb32f",
+  "member_sha256": "32a17d605f84cfa7a5cc0ae8a55039d041096b5bb83a6c731afd56a882b800ec",
+  "member_bytes": 4363742,
+  "member_path_sha256": "1a4ba301d6e6eb3dd66ab1611b5eab5d2eb4865de8e273bf71f0e7ccf40626e1",
+  "known_fixed_cache_basename": "resources_login_response.json",
+  "route_filename_binding": "/resources/login",
+  "http_method_verified": false,
+  "source_platform": "Android export6.6.0/code351",
+  "cache_client_version_independently_recorded": false,
+  "iphone_runtime_compatibility_verified": false,
+  "observed_fields_are_required": false,
+  "unknown_names_remain_redacted": true,
+  "all_scalar_values_removed": true,
+  "player_state_adopted": false,
+  "vocabulary_sha256": "c6ff2ad42cffcc2995ee4df1c9eb125dfbd8ba579fc8eb7f6b1413ec26f460ad",
+  "structure": {
+    "type": "object",
+    "properties": {
+      "act_items": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "announcement_tab_id": {
+        "type": "integer"
+      },
+      "announcement_tabs": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "announcements": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "banner": {
+                "type": "string"
+              },
+              "is_new": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "category": {
+                "type": "integer"
+              },
+              "start_at": {
+                "type": "integer"
+              },
+              "layout_type": {
+                "type": "integer"
+              },
+              "announcement_tab_id": {
+                "type": "integer"
+              },
+              "[redacted-key]": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 1,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "banner": {
+                "type": "null"
+              },
+              "is_new": {
+                "type": "boolean"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "category": {
+                "type": "integer"
+              },
+              "start_at": {
+                "type": "integer"
+              },
+              "layout_type": {
+                "type": "integer"
+              },
+              "announcement_tab_id": {
+                "type": "integer"
+              },
+              "[redacted-key]": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 1,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "awakening_items": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "awakening_item_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": true
+      },
+      "battle_status": {
+        "type": "object",
+        "properties": {
+          "battle_room_id": {
+            "type": "null"
+          },
+          "stage_type": {
+            "type": "null"
+          },
+          "is_force_remove_battle_room": {
+            "type": "null"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "budokai": {
+        "type": "object",
+        "properties": {},
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "card_skin_items": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "card_sticker_items": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "card_tags": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "num": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "user_card_ids": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "cards": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "card_id": {
+                "type": "integer"
+              },
+              "skill_lv": {
+                "type": "integer"
+              },
+              "awakenings": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "type": "integer"
+              },
+              "is_favorite": {
+                "type": "boolean"
+              },
+              "released_rate": {
+                "type": "integer"
+              },
+              "link_skill_lvs": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "skill_lv": {
+                        "type": "integer"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "awakening_route_id": {
+                "type": "integer"
+              },
+              "card_decoration_id": {
+                "type": "null"
+              },
+              "exchangeable_item_id": {
+                "type": "null"
+              },
+              "potential_parameters": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "integer"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "null"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "equipment_skill_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "is_released_potential": {
+                "type": "boolean"
+              },
+              "optimal_awakening_step": {
+                "type": "null"
+              },
+              "unlocked_square_statuses": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "sampled": false
+              },
+              "not_owned_card_parameters": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "card_id": {
+                "type": "integer"
+              },
+              "skill_lv": {
+                "type": "integer"
+              },
+              "awakenings": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "type": "integer"
+              },
+              "is_favorite": {
+                "type": "boolean"
+              },
+              "released_rate": {
+                "type": "integer"
+              },
+              "link_skill_lvs": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "awakening_route_id": {
+                "type": "null"
+              },
+              "card_decoration_id": {
+                "type": "null"
+              },
+              "exchangeable_item_id": {
+                "type": "null"
+              },
+              "potential_parameters": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "equipment_skill_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "is_released_potential": {
+                "type": "boolean"
+              },
+              "optimal_awakening_step": {
+                "type": "null"
+              },
+              "unlocked_square_statuses": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "not_owned_card_parameters": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "card_id": {
+                "type": "integer"
+              },
+              "skill_lv": {
+                "type": "integer"
+              },
+              "awakenings": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "type": "integer"
+              },
+              "is_favorite": {
+                "type": "boolean"
+              },
+              "released_rate": {
+                "type": "integer"
+              },
+              "link_skill_lvs": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "skill_lv": {
+                        "type": "integer"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "awakening_route_id": {
+                "type": "integer"
+              },
+              "card_decoration_id": {
+                "type": "null"
+              },
+              "exchangeable_item_id": {
+                "type": "null"
+              },
+              "potential_parameters": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "null"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "integer"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "equipment_skill_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "is_released_potential": {
+                "type": "boolean"
+              },
+              "optimal_awakening_step": {
+                "type": "null"
+              },
+              "unlocked_square_statuses": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "sampled": false
+              },
+              "not_owned_card_parameters": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "card_id": {
+                "type": "integer"
+              },
+              "skill_lv": {
+                "type": "integer"
+              },
+              "awakenings": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "type": "integer"
+              },
+              "is_favorite": {
+                "type": "boolean"
+              },
+              "released_rate": {
+                "type": "integer"
+              },
+              "link_skill_lvs": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "awakening_route_id": {
+                "type": "integer"
+              },
+              "card_decoration_id": {
+                "type": "null"
+              },
+              "exchangeable_item_id": {
+                "type": "null"
+              },
+              "potential_parameters": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "null"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "integer"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "equipment_skill_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "is_released_potential": {
+                "type": "boolean"
+              },
+              "optimal_awakening_step": {
+                "type": "null"
+              },
+              "unlocked_square_statuses": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "sampled": false
+              },
+              "not_owned_card_parameters": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "card_id": {
+                "type": "integer"
+              },
+              "skill_lv": {
+                "type": "integer"
+              },
+              "awakenings": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "type": "integer"
+              },
+              "is_favorite": {
+                "type": "boolean"
+              },
+              "released_rate": {
+                "type": "integer"
+              },
+              "link_skill_lvs": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "skill_lv": {
+                        "type": "integer"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "awakening_route_id": {
+                "type": "integer"
+              },
+              "card_decoration_id": {
+                "type": "null"
+              },
+              "exchangeable_item_id": {
+                "type": "null"
+              },
+              "potential_parameters": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "null"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "integer"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "equipment_skill_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "is_released_potential": {
+                "type": "boolean"
+              },
+              "optimal_awakening_step": {
+                "type": "integer"
+              },
+              "unlocked_square_statuses": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "sampled": false
+              },
+              "not_owned_card_parameters": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "exp": {
+                "type": "integer"
+              },
+              "card_id": {
+                "type": "integer"
+              },
+              "skill_lv": {
+                "type": "integer"
+              },
+              "awakenings": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "type": "integer"
+              },
+              "is_favorite": {
+                "type": "boolean"
+              },
+              "released_rate": {
+                "type": "integer"
+              },
+              "link_skill_lvs": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "skill_lv": {
+                        "type": "integer"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "awakening_route_id": {
+                "type": "integer"
+              },
+              "card_decoration_id": {
+                "type": "null"
+              },
+              "exchangeable_item_id": {
+                "type": "null"
+              },
+              "potential_parameters": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "integer"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "total_value": {
+                        "type": "integer"
+                      },
+                      "parameter_id": {
+                        "type": "null"
+                      },
+                      "parameter_type": {
+                        "type": "string"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "equipment_skill_items": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "is_released_potential": {
+                "type": "boolean"
+              },
+              "optimal_awakening_step": {
+                "type": "integer"
+              },
+              "unlocked_square_statuses": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "sampled": false
+              },
+              "not_owned_card_parameters": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": true
+      },
+      "cooperation_campaigns": {
+        "type": "object",
+        "properties": {},
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "dragonball_sets": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "ball_type": {
+                "type": "integer"
+              },
+              "start_at": {
+                "type": "integer"
+              },
+              "end_at": {
+                "type": "integer"
+              },
+              "dragonballs": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "num": {
+                        "type": "integer"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "area_name": {
+                        "type": "string"
+                      },
+                      "quest_id": {
+                        "type": "integer"
+                      },
+                      "difficulties": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "integer"
+                          }
+                        ],
+                        "sampled": false
+                      },
+                      "quest_name": {
+                        "type": "string"
+                      },
+                      "is_got": {
+                        "type": "boolean"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "ball_type": {
+                "type": "integer"
+              },
+              "start_at": {
+                "type": "integer"
+              },
+              "end_at": {
+                "type": "integer"
+              },
+              "dragonballs": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "num": {
+                        "type": "integer"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "area_name": {
+                        "type": "string"
+                      },
+                      "quest_id": {
+                        "type": "integer"
+                      },
+                      "difficulties": {
+                        "type": "null"
+                      },
+                      "quest_name": {
+                        "type": "string"
+                      },
+                      "is_got": {
+                        "type": "boolean"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "equipment_skill_items": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "equipment_skill_item_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "eventkagi_items": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "friendships": {
+        "type": "object",
+        "properties": {
+          "friendships": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "max_accepts_at_once": {
+            "type": "integer"
+          },
+          "pending_friendships": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "gashas": {
+        "type": "object",
+        "properties": {
+          "gashas": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "end_at": {
+                    "type": "integer"
+                  },
+                  "is_new": {
+                    "type": "boolean"
+                  },
+                  "courses": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "price": {
+                            "type": "integer"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "currency_id": {
+                            "type": "integer"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "items_count": {
+                            "type": "integer"
+                          },
+                          "drawable_count": {
+                            "type": "integer"
+                          },
+                          "treasure_item_count": {
+                            "type": "integer"
+                          },
+                          "[redacted-key]": {
+                            "type": "integer"
+                          }
+                        },
+                        "sampled": false,
+                        "redacted_key_count": 1,
+                        "redaction_collisions": false
+                      }
+                    ],
+                    "sampled": false
+                  },
+                  "open_at": {
+                    "type": "integer"
+                  },
+                  "banner_url": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "current_step": {
+                    "type": "integer"
+                  },
+                  "usm_file_path": {
+                    "type": "string"
+                  },
+                  "banner_lwf_path": {
+                    "type": "string"
+                  },
+                  "is_rate_visible": {
+                    "type": "boolean"
+                  },
+                  "treasure_item_id": {
+                    "type": "integer"
+                  },
+                  "gasha_category_id": {
+                    "type": "integer"
+                  },
+                  "mypage_banner_url": {
+                    "type": "string"
+                  },
+                  "timer_layout_type": {
+                    "type": "integer"
+                  },
+                  "information_announcement_id": {
+                    "type": "integer"
+                  },
+                  "notification_announcement_id": {
+                    "type": "null"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          },
+          "processed_at": {
+            "type": "integer"
+          },
+          "gasha_categories": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "type": "integer"
+                  },
+                  "is_default": {
+                    "type": "boolean"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "genkai_battles": {
+        "type": "object",
+        "properties": {
+          "expire_at": {
+            "type": "integer"
+          },
+          "genkai_battles": {
+            "type": "array",
+            "items": [],
+            "sampled": false
+          },
+          "genkai_battle_reward_acceptable": {
+            "type": "boolean"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "gifts": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "item_id": {
+                "type": "integer"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "item_type": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "card_exp_init": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "item_cards": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "card_id": {
+                "type": "integer"
+              },
+              "quantity": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "joint_campaigns": {
+        "type": "object",
+        "properties": {},
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "jukeboxes": {
+        "type": "object",
+        "properties": {
+          "jukebox_albums": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "jacket_image_url": {
+                    "type": "string"
+                  },
+                  "jacket_thumbnail_url": {
+                    "type": "string"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          },
+          "jukebox_tracks": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "point": {
+                    "type": "integer"
+                  },
+                  "unlocked_at": {
+                    "type": "integer"
+                  },
+                  "acquired_at": {
+                    "type": "integer"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": true
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "kobetu_card_limitations": {
+        "type": "object",
+        "properties": {
+          "kobetu_card_limitations": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "conditions": {
+                    "type": "object",
+                    "properties": {
+                      "only_card_ids": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "integer"
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          },
+          "expire_at": {
+            "type": "integer"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "link_skill_lv_up_items": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "link_skill_lv_up_item_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "login_movies": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "file_name": {
+                "type": "string"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "missions_data": {
+        "type": "object",
+        "properties": {
+          "missions": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "current_value": {
+                    "type": "integer"
+                  },
+                  "mission_id": {
+                    "type": "integer"
+                  },
+                  "completed_at": {
+                    "type": "null"
+                  },
+                  "accepted_reward_at": {
+                    "type": "null"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": true
+          },
+          "mission_categories": {
+            "type": "null"
+          },
+          "comeback": {
+            "type": "object",
+            "properties": {
+              "day": {
+                "type": "null"
+              },
+              "mission_ids": {
+                "type": "null"
+              },
+              "mission_end_at": {
+                "type": "null"
+              },
+              "is_boost": {
+                "type": "boolean"
+              },
+              "end_at": {
+                "type": "null"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          "eventkagi_area_ids": {
+            "type": "null"
+          },
+          "eventkagi_z_battle_stage_ids": {
+            "type": "null"
+          },
+          "daily_refresh_at": {
+            "type": "integer"
+          },
+          "processed_at": {
+            "type": "integer"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "popups": {
+        "type": "null"
+      },
+      "potential_items": {
+        "type": "object",
+        "properties": {
+          "user_potential_items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "potential_item_id": {
+                    "type": "integer"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "rmbattles": {
+        "type": "object",
+        "properties": {},
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "secret_treasure_boxes": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "special_items": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "support_film_max_quantity": {
+        "type": "integer"
+      },
+      "support_films": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "support_film_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "support_items": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "item_id": {
+                    "type": "integer"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "support_leaders": {
+        "type": "object",
+        "properties": {
+          "support_leader_ids": {
+            "type": "array",
+            "items": [
+              {
+                "type": "integer"
+              }
+            ],
+            "sampled": false
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "support_memories": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "support_memory_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": true
+      },
+      "support_memory_enhancement_items": {
+        "type": "array",
+        "items": [],
+        "sampled": false
+      },
+      "teams": {
+        "type": "object",
+        "properties": {
+          "user_card_teams": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "num": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_card_ids": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "integer"
+                      }
+                    ],
+                    "sampled": false
+                  },
+                  "team_bgm_filename": {
+                    "type": "null"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          },
+          "selected_team_num": {
+            "type": "integer"
+          },
+          "selected_kobetu_team_num": {
+            "type": "null"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "training_fields": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "training_field_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "training_items": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "training_item_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "treasure_items": {
+        "type": "object",
+        "properties": {
+          "user_treasure_items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "treasure_item_id": {
+                    "type": "integer"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": false
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "act": {
+            "type": "integer"
+          },
+          "exp": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "integer"
+          },
+          "zeni": {
+            "type": "integer"
+          },
+          "stone": {
+            "type": "integer"
+          },
+          "act_at": {
+            "type": "integer"
+          },
+          "act_max": {
+            "type": "integer"
+          },
+          "boost_at": {
+            "type": "integer"
+          },
+          "tutorial": {
+            "type": "object",
+            "properties": {
+              "progress": {
+                "type": "integer"
+              },
+              "contents_lv": {
+                "type": "integer"
+              },
+              "is_finished": {
+                "type": "boolean"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          "boost_point": {
+            "type": "integer"
+          },
+          "gasha_point": {
+            "type": "integer"
+          },
+          "is_ondemand": {
+            "type": "boolean"
+          },
+          "total_score": {
+            "type": "integer"
+          },
+          "processed_at": {
+            "type": "integer"
+          },
+          "card_capacity": {
+            "type": "integer"
+          },
+          "achievement_id": {
+            "type": "null"
+          },
+          "exchange_point": {
+            "type": "integer"
+          },
+          "friends_capacity": {
+            "type": "integer"
+          },
+          "mainpage_card_id": {
+            "type": "integer"
+          },
+          "wallpaper_item_id": {
+            "type": "integer"
+          },
+          "total_card_capacity": {
+            "type": "integer"
+          },
+          "mainpage_user_card_id": {
+            "type": "integer"
+          },
+          "support_item_capacity": {
+            "type": "integer"
+          },
+          "act_cure_shortened_sec": {
+            "type": "integer"
+          },
+          "mydata_subpage_visible": {
+            "type": "boolean"
+          },
+          "boost_cure_shortened_sec": {
+            "type": "integer"
+          },
+          "is_potential_releaseable": {
+            "type": "boolean"
+          },
+          "is_support_item_capacity_extended": {
+            "type": "boolean"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "user_areas": {
+        "type": "object",
+        "properties": {
+          "user_areas": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "area_id": {
+                    "type": "integer"
+                  },
+                  "is_cleared_hard": {
+                    "type": "boolean"
+                  },
+                  "is_cleared_normal": {
+                    "type": "boolean"
+                  },
+                  "user_sugoroku_maps": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "cleared_count": {
+                            "type": "integer"
+                          },
+                          "visited_count": {
+                            "type": "integer"
+                          },
+                          "challenge_label": {
+                            "type": "null"
+                          },
+                          "sugoroku_map_id": {
+                            "type": "integer"
+                          }
+                        },
+                        "sampled": false,
+                        "redacted_key_count": 0,
+                        "redaction_collisions": false
+                      }
+                    ],
+                    "sampled": false
+                  },
+                  "is_cleared_very_hard": {
+                    "type": "boolean"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": true
+          },
+          "user_z_battles": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "challenge_label": {
+                    "type": "string"
+                  },
+                  "max_clear_level": {
+                    "type": "integer"
+                  },
+                  "z_battle_stage_id": {
+                    "type": "integer"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              }
+            ],
+            "sampled": true
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "user_card_id_updates": {
+        "type": "object",
+        "properties": {
+          "[redacted-key]": {
+            "type": "integer"
+          }
+        },
+        "sampled": true,
+        "redacted_key_count": 256,
+        "redaction_collisions": true
+      },
+      "user_subscription": {
+        "type": "object",
+        "properties": {
+          "category_id": {
+            "type": "integer"
+          },
+          "processed_at": {
+            "type": "integer"
+          }
+        },
+        "sampled": false,
+        "redacted_key_count": 0,
+        "redaction_collisions": false
+      },
+      "wallpaper_items": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "integer"
+              },
+              "wallpaper_item_id": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ],
+        "sampled": false
+      },
+      "[redacted-key]": {
+        "type": "union",
+        "variants": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "end_at": {
+                "type": "integer"
+              },
+              "start_at": {
+                "type": "integer"
+              },
+              "tutorial": {
+                "type": "object",
+                "properties": {
+                  "progress": {
+                    "type": "integer"
+                  },
+                  "is_opening_finished": {
+                    "type": "boolean"
+                  }
+                },
+                "sampled": false,
+                "redacted_key_count": 0,
+                "redaction_collisions": false
+              },
+              "sd_map_id": {
+                "type": "integer"
+              },
+              "expires_at": {
+                "type": "integer"
+              },
+              "result_end_at": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "sd_characters": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              },
+              "collection_ids": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "sd_packs": {
+                "type": "array",
+                "items": [],
+                "sampled": false
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "shop_on_sale_treasure_items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "treasure_item_id": {
+                        "type": "integer"
+                      },
+                      "shop_on_sale_items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "integer"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "object",
+                                "properties": {
+                                  "start_at": {
+                                    "type": "integer"
+                                  },
+                                  "end_at": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "sampled": false,
+                                "redacted_key_count": 0,
+                                "redaction_collisions": false
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "object",
+                                "properties": {
+                                  "start_at": {
+                                    "type": "integer"
+                                  },
+                                  "end_at": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "sampled": false,
+                                "redacted_key_count": 0,
+                                "redaction_collisions": false
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "treasure_item_id": {
+                        "type": "integer"
+                      },
+                      "shop_on_sale_items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "object",
+                                "properties": {
+                                  "start_at": {
+                                    "type": "integer"
+                                  },
+                                  "end_at": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "sampled": false,
+                                "redacted_key_count": 0,
+                                "redaction_collisions": false
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "treasure_item_id": {
+                        "type": "integer"
+                      },
+                      "shop_on_sale_items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "treasure_item_id": {
+                        "type": "integer"
+                      },
+                      "shop_on_sale_items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "object",
+                                "properties": {
+                                  "start_at": {
+                                    "type": "integer"
+                                  },
+                                  "end_at": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "sampled": false,
+                                "redacted_key_count": 0,
+                                "redaction_collisions": false
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "treasure_item_id": {
+                        "type": "integer"
+                      },
+                      "shop_on_sale_items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "object",
+                                "properties": {
+                                  "start_at": {
+                                    "type": "integer"
+                                  },
+                                  "end_at": {
+                                    "type": "integer"
+                                  }
+                                },
+                                "sampled": false,
+                                "redacted_key_count": 0,
+                                "redaction_collisions": false
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": true
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "treasure_item_id": {
+                        "type": "integer"
+                      },
+                      "shop_on_sale_items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "null"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "discount_price": {
+                                "type": "integer"
+                              },
+                              "is_sale": {
+                                "type": "boolean"
+                              },
+                              "is_premium": {
+                                "type": "boolean"
+                              },
+                              "buyable": {
+                                "type": "boolean"
+                              },
+                              "buyable_num": {
+                                "type": "integer"
+                              },
+                              "currency_id": {
+                                "type": "integer"
+                              },
+                              "currency_type": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "shop_items": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "item_id": {
+                                        "type": "integer"
+                                      },
+                                      "item_type": {
+                                        "type": "string"
+                                      },
+                                      "quantity": {
+                                        "type": "integer"
+                                      },
+                                      "card_exp_init": {
+                                        "type": "integer"
+                                      }
+                                    },
+                                    "sampled": false,
+                                    "redacted_key_count": 0,
+                                    "redaction_collisions": false
+                                  }
+                                ],
+                                "sampled": false
+                              },
+                              "recommend": {
+                                "type": "null"
+                              },
+                              "start_at": {
+                                "type": "integer"
+                              },
+                              "end_at": {
+                                "type": "integer"
+                              },
+                              "is_display_remaining_time": {
+                                "type": "boolean"
+                              }
+                            },
+                            "sampled": false,
+                            "redacted_key_count": 0,
+                            "redaction_collisions": false
+                          }
+                        ],
+                        "sampled": false
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "recommended_shop_on_sale_items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      }
+                    },
+                    "sampled": false,
+                    "redacted_key_count": 0,
+                    "redaction_collisions": false
+                  }
+                ],
+                "sampled": false
+              },
+              "processed_at": {
+                "type": "integer"
+              }
+            },
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          },
+          {
+            "type": "object",
+            "properties": {},
+            "sampled": false,
+            "redacted_key_count": 0,
+            "redaction_collisions": false
+          }
+        ]
+      }
+    },
+    "sampled": false,
+    "redacted_key_count": 5,
+    "redaction_collisions": true
+  }
+}

@@ -1,0 +1,126 @@
+name: UnitCreatorCloud
+options:
+  minimumXcodeGenVersion: 2.46.0
+  deploymentTarget:
+    iOS: '16.4'
+settings:
+  base:
+    CODE_SIGNING_ALLOWED: NO
+    CLANG_ENABLE_OBJC_ARC: YES
+    IPHONEOS_DEPLOYMENT_TARGET: '16.4'
+    TARGETED_DEVICE_FAMILY: '1,2'
+    ONLY_ACTIVE_ARCH: YES
+    ARCHS: __ARCH__
+targets:
+  UnitCreator:
+    type: application
+    platform: iOS
+    sources:
+      - path: ../../ios-objc
+        includes: ['*.m', '*.h']
+      - path: ../../ios/App/Assets.xcassets
+      - path: site
+        type: folder
+        buildPhase: resources
+      - path: db
+        type: folder
+        buildPhase: resources
+      - path: cloud-data-provenance.json
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dokkanunitcreator.cloudcheck
+        INFOPLIST_FILE: Info.plist
+        PRODUCT_NAME: UnitCreator
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    dependencies:
+      - sdk: UIKit.framework
+      - sdk: WebKit.framework
+      - sdk: Foundation.framework
+      - sdk: Security.framework
+      - sdk: Network.framework
+      - sdk: UniformTypeIdentifiers.framework
+      - sdk: libsqlite3.tbd
+  UnitCreatorCloudTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ../Tests
+      - path: ../../../test-page/UnitCreator-test.html
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dokkanunitcreator.cloudcheck.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: '$(BUILT_PRODUCTS_DIR)/UnitCreator.app/UnitCreator'
+        BUNDLE_LOADER: '$(TEST_HOST)'
+    dependencies:
+      - target: UnitCreator
+      - sdk: XCTest.framework
+      - sdk: WebKit.framework
+  OfflineDokkanHost:
+    type: application
+    platform: iOS
+    sources:
+      - path: ../../../offline-dokkan/creator-ui/site
+        type: folder
+        buildPhase: resources
+      - path: ../../../offline-dokkan/mobile/ios
+        excludes: ['Tests']
+      - path: ../../../offline-dokkan/adapter/ios
+      - path: ../../../offline-dokkan/adapter/od_bridge.c
+      - path: ../../../offline-dokkan/core
+        includes: ['*.c', '*.h']
+        excludes: ['od_cli.c', 'test_*.c', 'check_*.c']
+      - path: ../../../offline-dokkan/content/content.c
+      - path: ../../../offline-dokkan/content/master_archive.c
+      - path: ../../../downloads/sqlite-amalgamation/source/sqlite3.c
+      - path: db
+        type: folder
+        buildPhase: resources
+      - path: cloud-data-provenance.json
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.personaldokkan.offline.cloudcheck
+        PRODUCT_NAME: OfflineDokkanHost
+        INFOPLIST_FILE: OfflineInfo.plist
+        HEADER_SEARCH_PATHS: '$(SRCROOT)/../../../downloads/sqlite-amalgamation/source'
+        GCC_PREPROCESSOR_DEFINITIONS: ['$(inherited)', 'SQLITE_THREADSAFE=1', 'SQLITE_OMIT_LOAD_EXTENSION', 'SQLITE_DQS=0', 'OD_CLOUD_FIXTURES=1']
+    dependencies:
+      - sdk: UIKit.framework
+      - sdk: WebKit.framework
+      - sdk: JavaScriptCore.framework
+      - sdk: Foundation.framework
+      - sdk: Security.framework
+      - sdk: UniformTypeIdentifiers.framework
+      - sdk: libz.tbd
+  OfflineDokkanHostTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: ../../../offline-dokkan/mobile/ios/Tests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.personaldokkan.offline.cloudcheck.tests
+        GENERATE_INFOPLIST_FILE: YES
+        HEADER_SEARCH_PATHS: '$(SRCROOT)/../../../downloads/sqlite-amalgamation/source'
+        TEST_HOST: '$(BUILT_PRODUCTS_DIR)/OfflineDokkanHost.app/OfflineDokkanHost'
+        BUNDLE_LOADER: '$(TEST_HOST)'
+    dependencies:
+      - target: OfflineDokkanHost
+      - sdk: XCTest.framework
+      - sdk: WebKit.framework
+schemes:
+  UnitCreatorCloud:
+    build:
+      targets:
+        UnitCreator: all
+        UnitCreatorCloudTests: [test]
+        OfflineDokkanHost: all
+        OfflineDokkanHostTests: [test]
+    test:
+      gatherCoverageData: false
+      targets:
+        - UnitCreatorCloudTests
+        - OfflineDokkanHostTests

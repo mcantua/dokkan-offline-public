@@ -1,0 +1,99 @@
+# Only source and provenance are committed for large tool downloads.
+/downloads/rust-toolchain/*
+!/downloads/rust-toolchain/SOURCE.md
+/downloads/apple-sdk/*
+!/downloads/apple-sdk/SOURCE.md
+/downloads/llvm/*
+!/downloads/llvm/SOURCE.md
+/app-installer/core/target/
+/app-installer/build/work/
+.DS_Store
+*.p12
+*.p8
+*.mobileprovision
+*.mobiledevicepairing
+*.pem
+*.key
+.env
+
+# Private Unit Creator inputs and extracted game databases must never be committed.
+/unit-creator/base/
+/unit-creator/apk/
+/unit-creator/signing/
+/unit-creator/signing-key.zip
+/unit-creator/**/*.apk
+/unit-creator/**/*.db
+/unit-creator/**/*.db-*
+/unit-creator/web/ios-db/
+/unit-creator/web/site/
+/unit-creator/web/site-ios/
+/unit-creator/web/site-artifact/
+/unit-creator/out/
+/offline-dokkan/private/
+/offline-dokkan/data/
+/offline-dokkan/**/*.ipa
+/offline-dokkan/**/*.apk
+/offline-dokkan/**/*.db
+/offline-dokkan/**/*.db-*
+/offline-dokkan/core/build/
+/downloads/sqlite-header/*
+!/downloads/sqlite-header/SOURCE.md
+/downloads/unit-creator-tools/*
+!/downloads/unit-creator-tools/SOURCE.md
+
+# Disposable Python caches from offline build checks.
+__pycache__/
+*.pyc
+
+# Disposable isolated cloud reproducibility run; retain only its evidence.
+/downloads/repro-check/*
+!/downloads/repro-check/SOURCE.md
+
+# Hosted simulator tooling and generated projects/results are disposable.
+/app-installer/cloud-ui/work/
+/downloads/cloud-ui-tools/*
+!/downloads/cloud-ui-tools/SOURCE.md
+
+# Other ChatGPT distribution rule preserved from current main.
+/builds/AppInstaller-corresponding-source.tar.xz
+
+# Unit Creator hosted native checks use source-browser snapshots only; no raw DB/app outputs.
+/unit-creator/cloud-ui/work/
+/unit-creator/cloud-ui/finish-work/
+/downloads/unit-creator-cloud-tools/*
+!/downloads/unit-creator-cloud-tools/SOURCE.md
+
+# Public Android dex tooling; only provenance belongs in Git.
+/downloads/unit-creator-smali/*
+!/downloads/unit-creator-smali/SOURCE.md
+
+# Own mobile engine links pinned public SQLite; no downloaded/generated binaries in Git.
+/downloads/sqlite-amalgamation/*
+!/downloads/sqlite-amalgamation/SOURCE.md
+/offline-dokkan/mobile/work/
+/offline-dokkan/adapter/build/
+/offline-dokkan/mobile/android/build/
+/offline-dokkan/creator-ui/site/
+/offline-dokkan/out/
+
+# Public official Android toolchain packages; keep only source provenance.
+/downloads/android-sdk/*
+!/downloads/android-sdk/SOURCE.md
+
+# Disposable owned Android emulator and standalone pinned Java runtime.
+/unit-creator/cloud-ui/android-work/
+/downloads/unit-creator-java-tools/
+
+# Preserve the other chat distribution rule from current main.
+/builds/AppInstaller-native-bootstrap-kit.zip
+
+# Scrubbed-copy guard. Real device and network values stay untracked.
+/config/private.local
+/save/
+**/save/
+builds/*.ipa
+test-page/UnitCreator-test.html
+*.ips
+sparking*.key
+*sparking*.keystore
+*sparking*.p12

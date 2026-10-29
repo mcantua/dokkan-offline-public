@@ -1,0 +1,20 @@
+{
+  "kind": "one-focused-actual-source-admission-scenario",
+  "editor_reference_sha256": "cf13b8553448507ad723e17a7b347e6eac4d7627a2e4fff56c0f7747660dffd8",
+  "editor_reference_bytes": 104357888,
+  "editor_reference_cards": 19308,
+  "bundled_iphone_seed_sha256": "667e554a9cfb8c4765f05a1d85f0fdf707ade61562b50e3e5cd98ac52f997ba3",
+  "bundled_iphone_seed_bytes": 535552,
+  "checks": {
+    "actual_reference_columns_admitted": true,
+    "unknown_column_rejected": true,
+    "unverified_runtime_policy_rejected": true,
+    "definition_source_mismatch_rejected": true,
+    "current_export_not_substituted": true,
+    "actual_nonplaintext_seed_rejected": true
+  },
+  "source_preserved": true,
+  "original_client_runtime_admitted": false,
+  "raw_rows_emitted": false,
+  "current_full_master_available": false
+}

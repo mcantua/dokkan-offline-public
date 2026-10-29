@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_commit": "7059c85ad55645ef57db9f8de287e6a66b8c122e",
+  "workflow_run_url": "https://github.com/mcantua/claude-chatg/actions/runs/40777027792",
+  "rust_test_scope": "login-startup",
+  "fresh_process_first_account_transport": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 0.01
+  },
+  "pairing_tls": {
+    "passed": 2,
+    "failed": 0,
+    "seconds": 0.01
+  },
+  "unrelated_core_or_installation_response_or_native_tests_repeated": false,
+  "live_apple_authentication_verified": false,
+  "physical_crash_fixed_verified": false
+}

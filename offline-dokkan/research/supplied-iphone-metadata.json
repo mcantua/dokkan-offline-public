@@ -1,0 +1,114 @@
+{
+  "kind": "ipa-metadata-only",
+  "bundle_id": "GLB.Dkkn.Sparking.dev",
+  "version": "6.6.0",
+  "build": "26093018",
+  "executable_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "executable_bytes": 55697728,
+  "patchers": [
+    {
+      "name": "DokkanSparkingPatcher.dylib",
+      "sha256": "74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc",
+      "bytes": 5657724,
+      "hooks_present": [
+        "HttpAsynConnection",
+        "startRequest:",
+        "responseData",
+        "responseCode",
+        "connectionDidFinishLoading:",
+        "LocalResponseHandler"
+      ],
+      "macho": {
+        "format": "Mach-O",
+        "slices": [
+          {
+            "architecture": "arm64",
+            "cpu_type": 16777228,
+            "cpu_subtype": 0,
+            "file_type": 6,
+            "header_bits": 64,
+            "build_versions": [
+              {
+                "command": "LC_BUILD_VERSION",
+                "platform": "iOS",
+                "platform_id": 2,
+                "minimum_os": "14.0.0",
+                "sdk": "16.5.0"
+              }
+            ],
+            "encryption": [
+              {
+                "cryptid": 0,
+                "encrypted": false,
+                "encrypted_bytes": 2736128
+              }
+            ],
+            "chained_fixups_present": false,
+            "allowlisted_libraries": [
+              "CoreFoundation",
+              "Foundation",
+              "Security",
+              "UIKit",
+              "libSystem.B.dylib",
+              "libc++.1.dylib",
+              "libobjc.A.dylib",
+              "libz.1.dylib"
+            ],
+            "unreported_library_count": 7
+          }
+        ]
+      }
+    }
+  ],
+  "wire_payloads_collected": false,
+  "executable_macho": {
+    "format": "Mach-O",
+    "slices": [
+      {
+        "architecture": "arm64",
+        "cpu_type": 16777228,
+        "cpu_subtype": 0,
+        "file_type": 2,
+        "header_bits": 64,
+        "build_versions": [
+          {
+            "command": "LC_BUILD_VERSION",
+            "platform": "iOS",
+            "platform_id": 2,
+            "minimum_os": "15.0.0",
+            "sdk": "26.0.0"
+          }
+        ],
+        "encryption": [
+          {
+            "cryptid": 0,
+            "encrypted": false,
+            "encrypted_bytes": 4096
+          }
+        ],
+        "chained_fixups_present": true,
+        "allowlisted_libraries": [
+          "AVFoundation",
+          "AudioToolbox",
+          "CFNetwork",
+          "CoreFoundation",
+          "DokkanSparkingPatcher.dylib",
+          "Foundation",
+          "Metal",
+          "OpenGLES",
+          "QuartzCore",
+          "Security",
+          "SystemConfiguration",
+          "UIKit",
+          "WebKit",
+          "libSystem.B.dylib",
+          "libc++.1.dylib",
+          "libobjc.A.dylib",
+          "libsqlite3.dylib",
+          "libz.1.dylib"
+        ],
+        "unreported_library_count": 45
+      }
+    ]
+  }
+}

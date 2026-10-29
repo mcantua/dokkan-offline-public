@@ -1,0 +1,117 @@
+(function(root, factory) {
+  const api = factory();
+  if (typeof module === "object" && module.exports) module.exports = api;
+  else root.ForgeNativeAdx = api;
+})(typeof globalThis !== "undefined" ? globalThis : this, function() {
+  "use strict";
+  const LIMIT = 160 * 1024 * 1024, f = Math.fround, clip = (n) => Math.max(-32768, Math.min(32767, n));
+  function coefficients(rate, cutoff) {
+    const a = f(f(Math.SQRT2) - f(Math.cos(f(f(cutoff * f(2 * Math.PI)) / rate)))), b = f(f(Math.SQRT2) - 1), c = f(f(a - f(Math.sqrt(f(f(a + b) * f(a - b))))) / b);
+    return [Math.trunc(f(f(c + c) * 4096)), Math.trunc(f(f(c * c) * -4096))];
+  }
+  function inspect(input) {
+    if (!(input instanceof Uint8Array) || input.length < 40 || input.length > LIMIT) throw Error("Invalid ADX size.");
+    const v = new DataView(input.buffer, input.byteOffset, input.byteLength), offset = v.getUint16(2) + 4, channels = input[7], sampleRate = v.getUint32(8), samples = v.getUint32(12), cutoff = v.getUint16(16);
+    if (v.getUint16(0) !== 32768 || input[4] !== 3 || input[5] !== 18 || input[6] !== 4 || channels < 1 || channels > 2 || ![3, 4].includes(input[18]) || input[19] !== 0 || offset < (input[18] === 4 ? 24 + channels * 4 + 6 : 24) || offset > 4096 || offset > input.length || sampleRate < 8e3 || sampleRate > 96e3 || !samples || samples > LIMIT / (channels * 2) || cutoff >= sampleRate / 2 || String.fromCharCode(...input.subarray(offset - 6, offset)) !== "(c)CRI" || offset + Math.ceil(samples / 32) * 18 * channels > input.length) throw Error("Unsupported or truncated plain ADX audio.");
+    return { offset, channels, sampleRate, samples, cutoff };
+  }
+  function decodeADX(input) {
+    const info = inspect(input), { offset, channels, samples, sampleRate, cutoff } = info, [c1, c2] = coefficients(sampleRate, cutoff), pcm = new Int16Array(samples * channels), history = Array.from({ length: channels }, (_, ch) => input[18] === 4 ? [new DataView(input.buffer, input.byteOffset, input.byteLength).getInt16(24 + ch * 4), new DataView(input.buffer, input.byteOffset, input.byteLength).getInt16(26 + ch * 4)] : [0, 0]);
+    let at = offset;
+    for (let base = 0; base < samples; base += 32) for (let channel = 0; channel < channels; channel++) {
+      const scale = ((input[at] << 8 | input[at + 1]) & 8191) + 1, h = history[channel];
+      for (let i = 0; i < 32; i++) {
+        const raw = input[at + 2 + (i >> 1)], n = i & 1 ? raw & 15 : raw >> 4, signed = n >= 8 ? n - 16 : n, value = clip(signed * scale + Math.floor((h[0] * c1 + h[1] * c2) / 4096));
+        h[1] = h[0];
+        h[0] = value;
+        if (base + i < samples) pcm[(base + i) * channels + channel] = value;
+      }
+      at += 18;
+    }
+    return { pcm, ...info };
+  }
+  function createEncoder({ samples, sampleRate = 48e3, channels = 2, cutoff = 500 } = {}) {
+    if (!Number.isSafeInteger(samples) || samples < 1 || samples * channels * 2 > LIMIT || !Number.isInteger(sampleRate) || sampleRate < 8e3 || sampleRate > 96e3 || ![1, 2].includes(channels) || !Number.isInteger(cutoff) || cutoff < 0 || cutoff >= sampleRate / 2) throw Error("Invalid audio output settings.");
+    const [c1, c2] = coefficients(sampleRate, cutoff), blocks = Math.ceil(samples / 32), output = new Uint8Array(288 + blocks * channels * 18 + 18), v = new DataView(output.buffer), history = Array.from({ length: channels }, () => [0, 0]), pending = new Uint8Array(32 * channels * 2);
+    v.setUint16(0, 32768);
+    v.setUint16(2, 284);
+    output.set([3, 18, 4, channels], 4);
+    v.setUint32(8, sampleRate);
+    v.setUint32(12, samples);
+    v.setUint16(16, cutoff);
+    output[18] = 4;
+    output.set(new TextEncoder().encode("(c)CRI"), 282);
+    let count = 0, pendingSize = 0, outAt = 288, closed = false;
+    function encodeBlock() {
+      const pv = new DataView(pending.buffer);
+      for (let ch = 0; ch < channels; ch++) {
+        const h = history[ch];
+        let p = h[0], q = h[1], min = 0, max = 0;
+        for (let i = 0; i < 32; i++) {
+          const x = pv.getInt16((i * channels + ch) * 2, true), res = x - Math.floor((p * c1 + q * c2) / 4096);
+          min = Math.min(min, res);
+          max = Math.max(max, res);
+          q = p;
+          p = x;
+        }
+        const scale = Math.min(8192, Math.max(1, Math.ceil(max / 7), Math.ceil(-min / 8)));
+        v.setUint16(outAt, scale - 1);
+        for (let i = 0; i < 32; i++) {
+          const x = pv.getInt16((i * channels + ch) * 2, true), predict = Math.floor((h[0] * c1 + h[1] * c2) / 4096), ratio = (x - predict) / scale, n = Math.max(-8, Math.min(7, ratio < 0 ? -Math.floor(-ratio + 0.5) : Math.floor(ratio + 0.5))), value = clip(n * scale + predict);
+          h[1] = h[0];
+          h[0] = value;
+          output[outAt + 2 + (i >> 1)] |= (n & 15) << (i & 1 ? 0 : 4);
+        }
+        outAt += 18;
+      }
+      pendingSize = 0;
+      pending.fill(0);
+    }
+    function write(input, offset = 0, length = input.length - offset) {
+      if (closed || !ArrayBuffer.isView(input) || input.BYTES_PER_ELEMENT !== 1 || !Number.isSafeInteger(offset) || !Number.isSafeInteger(length) || offset < 0 || length < 0 || offset + length > input.length || count + length > samples * channels * 2) throw Error("Invalid PCM audio write.");
+      let at = offset, left = length;
+      while (left) {
+        const take = Math.min(left, pending.length - pendingSize);
+        pending.set(input.subarray(at, at + take), pendingSize);
+        pendingSize += take;
+        at += take;
+        left -= take;
+        if (pendingSize === pending.length) encodeBlock();
+      }
+      count += length;
+      return length;
+    }
+    function finish() {
+      if (closed || count !== samples * channels * 2) throw Error("The decoded audio ended before all selected samples.");
+      if (pendingSize) encodeBlock();
+      output.set([128, 1, 0, 14], outAt);
+      closed = true;
+      return output;
+    }
+    return { write, finish };
+  }
+  function encodePCM(pcm, options = {}) {
+    if (!(pcm instanceof Int16Array)) throw Error("Audio input must be signed 16-bit PCM.");
+    const channels = options.channels || 2, encoder = createEncoder({ ...options, samples: pcm.length / channels }), bytes = new Uint8Array(pcm.length * 2), v = new DataView(bytes.buffer);
+    for (let i = 0; i < pcm.length; i++) v.setInt16(i * 2, pcm[i], true);
+    encoder.write(bytes);
+    return encoder.finish();
+  }
+  function pcmToWav({ pcm, channels, sampleRate }) {
+    if (!(pcm instanceof Int16Array) || !Number.isInteger(channels) || channels < 1 || channels > 2 || pcm.byteLength > LIMIT) throw Error("Invalid decoded PCM.");
+    const out = new Uint8Array(44 + pcm.byteLength), v = new DataView(out.buffer);
+    for (const [at, text] of [[0, "RIFF"], [8, "WAVE"], [12, "fmt "], [36, "data"]]) out.set(new TextEncoder().encode(text), at);
+    v.setUint32(4, out.length - 8, true);
+    v.setUint32(16, 16, true);
+    v.setUint16(20, 1, true);
+    v.setUint16(22, channels, true);
+    v.setUint32(24, sampleRate, true);
+    v.setUint32(28, sampleRate * channels * 2, true);
+    v.setUint16(32, channels * 2, true);
+    v.setUint16(34, 16, true);
+    v.setUint32(40, pcm.byteLength, true);
+    for (let i = 0; i < pcm.length; i++) v.setInt16(44 + i * 2, pcm[i], true);
+    return out;
+  }
+  return { coefficients, inspect, decodeADX, createEncoder, encodePCM, pcmToWav };
+});

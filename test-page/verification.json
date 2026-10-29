@@ -1,0 +1,87 @@
+{
+  "html_sha256": "7d0960fcdbd73f25d89a376fcdf75b843e0f8d232b46ea580e468e2ad2977f12",
+  "html_bytes": 32300483,
+  "browser": "156.0.8078.0",
+  "checks": [
+    {
+      "name": "actual Home is visible with the current version",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "both real embedded catalogs load",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Duo outer browser layout fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Duo inner browser layout fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original game resource parsers and movie tools are packaged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "embedded compatibility worker and WASM decoder actually load",
+      "passed": true,
+      "detail": {
+        "ready": true,
+        "version": "ffmpeg version 5.1.4 Copyright (c) 2000-2023 the FFmpeg developers",
+        "vp9": true,
+        "hca": true
+      }
+    },
+    {
+      "name": "independent animation editing opens and saves",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved animation survives reopening the packed page",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no JavaScript exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "no adjacent scripts, fonts, styles or data are needed",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:40973/UnitCreator-test.html",
+        "http://127.0.0.1:40973/UnitCreator-test.html"
+      ]
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Chromium with a local HTTP origin and disposable storage",
+    "Duo browser viewport sizes do not establish native folding or physical-device behavior",
+    "External services and artwork were blocked",
+    "Genuine WKWebView file-opening and native services are measured separately"
+  ],
+  "reused_browser_verification": {
+    "run_id": 40776285076,
+    "artifact_id": 12855875048,
+    "verified_source_commit": "30ac181b48ec1929a10134bf36d461ae32cbec98",
+    "source_inputs": {
+      "unit-creator/v2/ui": "44ccd559c08f186183c6aaeec3bcf32935204629",
+      "unit-creator/web/src": "1259b9992a4634f7651f960a334aa2ef070ec541",
+      "unit-creator/web/build.py": "c01649ab55bb0c01fc66cf61ac31d87755730805",
+      "unit-creator/web/standalone.py": "ee471b5d4ec24c5fde17e7c1757ac923ac4f7bb2",
+      "unit-creator/web/check-packed-page.py": "4d204c3a1b8d33f047913d725085b029e64442db",
+      "unit-creator/cloud-ui/build-browser.py": "b68485a53a78c9c685c87930a36f6955f85e8ede"
+    },
+    "html_sha256": "7d0960fcdbd73f25d89a376fcdf75b843e0f8d232b46ea580e468e2ad2977f12",
+    "checks_rerun": false
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.personal.offlinedokkan">
+  <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35"/>
+  <!-- Internet is used only by explicit data-source downloads. External files use system pickers. -->
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <application android:label="Offline Dokkan Save Manager (Development)" android:theme="@android:style/Theme.Material.NoActionBar" android:allowBackup="false" android:debuggable="true" android:usesCleartextTraffic="false" android:extractNativeLibs="true">
+    <activity android:name=".OfflineCreatorActivity" android:exported="false" android:windowSoftInputMode="adjustResize" android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden"/>
+    <activity android:name=".LocalSaveActivity" android:exported="true" android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden">
+      <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+    </activity>
+  </application>
+</manifest>

@@ -1,0 +1,36 @@
+import os, shutil, json, glob
+os.environ["FORGE_STATE"]="/home/claude/work/harness/state-eza"; shutil.rmtree(os.environ["FORGE_STATE"], ignore_errors=True)
+from harness import Session
+from util import buttons
+KIND=os.environ.get("KIND","eza"); CARD=os.environ.get("CARD","Super Saiyan Goku")
+s=Session(viewport=(412,915)).open(); pg=s.page; w=lambda ms=700: pg.wait_for_timeout(ms)
+w(1500)
+pg.locator("#db-eza").click(); w(500)
+pg.locator("#ez-"+KIND).click(); w(800)
+pg.fill("#fd-root [data-fd-text]", CARD); w(1500)
+pick=os.environ.get("PICK")
+for _ in range(10):
+    if not pick or pg.locator(f'#fd-root [data-fd-pick="{pick}"]').count(): break
+    pg.locator("#guide-unit-next").click(); w(1200)
+(pg.locator(f'#fd-root [data-fd-pick="{pick}"]') if pick else pg.locator("#fd-root [data-fd-pick]")).first.click(); w(4000)
+print([c for c in s.console if "TOAST" in c][-2:])
+print("EZA tab:", pg.inner_text(".bld-main")[:900])
+pg.screenshot(path=f"shots/eza-{KIND}-overview.png", full_page=True)
+pg.locator('[data-b="tab:passive"]').first.click(); w(800)
+print("stages:", pg.inner_text(".bld-stages")[:300])
+pg.locator('[data-b="adding:on"]').first.click(); w(300); pg.locator('[data-b="passive-add:crit"]').click(); w(600)
+pg.locator('[data-b="tab:leader"]').first.click(); w(2000)
+pg.locator('[data-b="leader-preset:all-150"]').click(); w(800)
+pg.locator('[data-b="tab:supers"]').first.click(); w(600)
+pg.locator('[data-b="super-add-eza:Normal"]').click(); w(800)
+print("SUPERS:", pg.inner_text(".bld-main")[:500])
+pg.locator('[data-b="tab:save"]').first.click(); w(700)
+print("SAVE:", pg.inner_text(".bld-main")[:400])
+pg.locator('[data-export="eclp"]').first.click(); w(7000)
+print("exports:", s.native.exports); print([c for c in s.console if "TOAST" in c][-3:]); print(pg.inner_text("#dialog") if pg.locator("#dialog[open]").count() else "")
+req=json.load(open(s.native.exports[-1])); open(f"/tmp/claude-0/ui-{KIND}.sql","w").write([e for e in req["entries"] if e["path"].endswith(".sql")][0]["text"])
+print("progress:", pg.inner_text(".db-count"))
+# guard negative test
+r=pg.evaluate("""async () => { try { await ForgeIdGuard.check('export', {kind:'sql', text:'INSERT OR REPLACE INTO "passive_skills" ("id","name") VALUES (1998,\\'x\\');'}); return 'not blocked'; } catch(e) { return e.message; } }""")
+print("guard:", r)
+s.report("eza"); s.close()

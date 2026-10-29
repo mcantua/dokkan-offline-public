@@ -1,0 +1,42 @@
+name: Refresh only the current setup wizard
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: app-installer-current-candidate-draft-assets
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          path: AI-Workspace/claude-chatg
+      - name: Refresh only the pinned committed setup wizard and replace the private draft kit pair
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 app-installer/cloud-ui/refresh-native-kit.py
+      - name: Deliver one refreshed kit pair and its provenance
+        id: refreshed
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-native-kit-latest
+          path: AI-Workspace/claude-chatg/app-installer/cloud-ui/work/native-kit-refresh/
+          retention-days: 7
+          if-no-files-found: error
+      - name: Retire only the superseded original kit artifact after durable replacement verifies
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEW_KIT_ARTIFACT_ID: ${{ steps.refreshed.outputs.artifact-id }}
+          NEW_KIT_ARTIFACT_DIGEST: ${{ steps.refreshed.outputs.artifact-digest }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 app-installer/cloud-ui/refresh-native-kit.py --retire-original

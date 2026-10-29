@@ -1,0 +1,21 @@
+{
+  "purpose": "Grok takeover recovery metadata only; no environment variables or credentials collected",
+  "python": "3.12.14",
+  "cloud_commands": {
+    "node": "v24.19.0",
+    "git": "git version 2.52.0",
+    "cc": "cc (Debian 14.2.0-19) 14.2.0",
+    "openssl": "OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)",
+    "tar": "tar (GNU tar) 1.35",
+    "gzip": "gzip 1.13"
+  },
+  "python_packages_available": {
+    "cryptography": "50.0.0",
+    "zstandard": "0.25.0"
+  },
+  "native_accepted_toolchain": "See genuine hosted toolchain.json: Xcode27.1, iOS27.1 SDK; matching current compile stopped at missing sqlite3_enable_load_extension symbol before WK",
+  "linux_native_pins_document": "downloads/unit-creator-tools/SOURCE.md",
+  "shared_bootstrap": "app-installer/build/setup-linux.py (read-only shared dependency, other app remains outside this project)",
+  "android_target_status": "Paused; NDK LLVM may be used for source binary inspection only",
+  "service_managed_os_and_xcode": "Not copied as an OS image; retain source pins and hosted job recovery instructions"
+}

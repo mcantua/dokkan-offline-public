@@ -1,0 +1,275 @@
+{
+  "schema": 1,
+  "source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "source_bytes": 55697728,
+  "scope": "bounded static startup/import inventory; no initializer execution or containment proof",
+  "startup_sections": [
+    {
+      "section": "__init_offsets",
+      "entries": 5259,
+      "section_type": 22,
+      "table_sha256": "9894ef9a8b5127754f60656eebdb2e5b750d1c548f2b0ab998662128ab74f77e",
+      "targets_in_text": true,
+      "bodies_audited": false
+    },
+    {
+      "section": "__mod_term_func",
+      "entries": 3,
+      "section_type": 10,
+      "table_sha256": "7ef439f74ec0d1aa4c243ade957de50c0ff832a1e48287cc9cc3dc2e872bb193",
+      "targets_in_text": null,
+      "bodies_audited": false
+    },
+    {
+      "section": "__objc_nlclslist",
+      "entries": 21,
+      "section_type": 0,
+      "table_sha256": "66ca52ed4cdb03fdf8ee7a421537fa535420b9b0e0ce213a2eeb7aa827c58d24",
+      "targets_in_text": null,
+      "bodies_audited": false
+    },
+    {
+      "section": "__objc_nlcatlist",
+      "entries": 3,
+      "section_type": 0,
+      "table_sha256": "9a40179056c0f6b2e57a56a9d5a27d23593f69b33c8e8701ee3be353719835bb",
+      "targets_in_text": null,
+      "bodies_audited": false
+    }
+  ],
+  "routine_commands": 0,
+  "dependency_count": 63,
+  "system_dependency_count": 61,
+  "private_rpath_dependency_ordinals": [
+    38
+  ],
+  "source_patcher_ordinal": 63,
+  "network_imports": [
+    {
+      "symbol": "_connect",
+      "alias": "_od_cnct",
+      "import_index": 716,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50851928,
+      "name_file_offset": 50919025,
+      "name_bytes_including_nul": 9,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    },
+    {
+      "symbol": "_connectx",
+      "alias": "_od_cncxx",
+      "import_index": 717,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50851944,
+      "name_file_offset": 50919034,
+      "name_bytes_including_nul": 10,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    },
+    {
+      "symbol": "_getaddrinfo",
+      "alias": "_od_dns_fail",
+      "import_index": 800,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50853272,
+      "name_file_offset": 50920174,
+      "name_bytes_including_nul": 13,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    },
+    {
+      "symbol": "_send",
+      "alias": "_od_s",
+      "import_index": 951,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50855688,
+      "name_file_offset": 50922379,
+      "name_bytes_including_nul": 6,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    },
+    {
+      "symbol": "_sendto",
+      "alias": "_od_snd",
+      "import_index": 952,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50855704,
+      "name_file_offset": 50922385,
+      "name_bytes_including_nul": 8,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    },
+    {
+      "symbol": "_socket",
+      "alias": "_od_skt",
+      "import_index": 970,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50855992,
+      "name_file_offset": 50922554,
+      "name_bytes_including_nul": 8,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    },
+    {
+      "symbol": "_socketpair",
+      "alias": "_od_spairxx",
+      "import_index": 971,
+      "source_library_ordinal": 41,
+      "import_record_file_offset": 50856008,
+      "name_file_offset": 50922562,
+      "name_bytes_including_nul": 12,
+      "same_length_alias": true,
+      "foreign_name_overlap": false
+    }
+  ],
+  "network_bind_slots": [
+    {
+      "symbol": "_connect",
+      "import_index": 716,
+      "image_relative_vm_offset": 44210088,
+      "slot_file_offset": 44210088,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    },
+    {
+      "symbol": "_connectx",
+      "import_index": 717,
+      "image_relative_vm_offset": 44210096,
+      "slot_file_offset": 44210096,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    },
+    {
+      "symbol": "_getaddrinfo",
+      "import_index": 800,
+      "image_relative_vm_offset": 44210760,
+      "slot_file_offset": 44210760,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    },
+    {
+      "symbol": "_send",
+      "import_index": 951,
+      "image_relative_vm_offset": 44211968,
+      "slot_file_offset": 44211968,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    },
+    {
+      "symbol": "_sendto",
+      "import_index": 952,
+      "image_relative_vm_offset": 44211976,
+      "slot_file_offset": 44211976,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    },
+    {
+      "symbol": "_socket",
+      "import_index": 970,
+      "image_relative_vm_offset": 44212120,
+      "slot_file_offset": 44212120,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    },
+    {
+      "symbol": "_socketpair",
+      "import_index": 971,
+      "image_relative_vm_offset": 44212128,
+      "slot_file_offset": 44212128,
+      "segment_initial_protection": 3,
+      "data_const": true,
+      "runtime_rewrite_authorized": false
+    }
+  ],
+  "additional_reviewed_network_imports": [],
+  "dynamic_resolution_or_syscall_imports": [
+    "_NSClassFromString",
+    "_NSSelectorFromString",
+    "_dlopen",
+    "_dlsym"
+  ],
+  "static_redirect_is_admitted": false,
+  "required_redirect_policy": "Explicit authored-plugin dependency ordinal and same-length alias changes before signing; preserve original initializer order and other names. No VM protection weakening.",
+  "remaining_boundaries": [
+    "Unreviewed initializer/class/category bodies",
+    "Private dependency startup",
+    "Foundation sessions outside the installed protocol",
+    "CFNetwork/system-library internal calls",
+    "WKWebView/network subprocesses",
+    "Dynamic resolution/syscalls",
+    "Local IPC compatibility"
+  ],
+  "initializer_containment_verified": false,
+  "original_modified": false,
+  "unknown_names_or_strings_emitted": false,
+  "private_dependency_metadata": [
+    {
+      "ordinal": 38,
+      "bytes": 649088,
+      "sha256": "564cdec07867697f3e23b8df760a5c3d9c067ff5dec2780dd905c83eaf2f96cd",
+      "role": "unreviewed private dependency",
+      "macho": {
+        "format": "Mach-O",
+        "slices": [
+          {
+            "architecture": "arm64",
+            "cpu_type": 16777228,
+            "cpu_subtype": 0,
+            "file_type": 6,
+            "header_bits": 64,
+            "build_versions": [
+              {
+                "command": "LC_BUILD_VERSION",
+                "platform": "iOS",
+                "platform_id": 2,
+                "minimum_os": "12.0.0",
+                "sdk": "17.2.0"
+              }
+            ],
+            "encryption": [
+              {
+                "cryptid": 0,
+                "encrypted": false,
+                "encrypted_bytes": 573440
+              }
+            ],
+            "chained_fixups_present": false,
+            "allowlisted_libraries": [
+              "CoreFoundation",
+              "Foundation",
+              "QuartzCore",
+              "Security",
+              "UIKit",
+              "libSystem.B.dylib",
+              "libobjc.A.dylib"
+            ],
+            "unreported_library_count": 0
+          }
+        ]
+      },
+      "early_sections": [],
+      "constructors_audited": false,
+      "early_sections_inspected": true,
+      "dependency_count": 7,
+      "selected_slice_bytes": 649088,
+      "dependency_origins": {
+        "system": 7,
+        "private_rpath": 0,
+        "other": 0
+      },
+      "allowlisted_network_or_dynamic_imports": [
+        "_connect",
+        "_send",
+        "_socket"
+      ],
+      "undefined_symbols_inspected": true
+    }
+  ]
+}

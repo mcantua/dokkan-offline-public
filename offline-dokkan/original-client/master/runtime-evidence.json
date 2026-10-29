@@ -1,0 +1,55 @@
+{
+  "kind": "one-real-current-master-existing-forge-and-core-finish-runtime-compiler-scenario",
+  "source_plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "reused_creator": "unit-creator/v2/ui/core.js loadTemplate, validate, nextUnitId and materializeAll",
+  "checks": {
+    "actual_core_finish_export_bound_to_actual_forge_project": true,
+    "derived_master_insert_only_and_official_rows_unchanged": true,
+    "existing_private_block_allocator_used": true,
+    "native_root_card_and_relations_materialized": true,
+    "known_scalar_references_resolve": true,
+    "exact_compilation_retry_returns_same_receipt": true,
+    "new_version_uses_new_block_and_keeps_previous_rows": true,
+    "source_project_target_id_unchanged": true,
+    "project_definition_mismatch_and_forms_reject_without_publication": true,
+    "source_file_preserved": true
+  },
+  "new_native_reader_boundary": {
+    "warnings_as_errors_compile": true,
+    "actual_compiled_binding_returns_private_runtime_card_id": true,
+    "wrong_save_scope_and_project_hash_reject_with_zero_output": true
+  },
+  "retry_reasons": [
+    "new worker relative module path corrected",
+    "fixture-only absent optional atk_max override initialized from actual card"
+  ],
+  "not_verified": [
+    "native accepted-project registry consumption",
+    "on-device materializer execution",
+    "unknown encoded relationship semantics",
+    "custom resource or linked-form admission",
+    "original engine loads derived file and owned DTO runtime IDs",
+    "original game cache/reload and in-flight battle revision behavior",
+    "Duo gameplay/display"
+  ],
+  "original_client_attached": false,
+  "personal_device_or_network_used": false,
+  "raw_game_records_or_secrets_published": false,
+  "accepted_binding_followup": {
+    "mandatory_native_packet_guard": true,
+    "false_acceptance_boolean_wrong_instance_version_hash_scope_rejected_before_write": true,
+    "native_compatible_global_forge_branch_on_real_project": true,
+    "objective_c_javascriptcore_compile_and_device_execution": "pending genuine SDK/native integration"
+  },
+  "native_writer": {
+    "source_files": [
+      "ODRuntimeMasterStore.h",
+      "ODRuntimeMasterStore.m"
+    ],
+    "source_ready": true,
+    "genuine_sdk_compile": "pending combined hosted scenario",
+    "native_transaction_execution": "pending combined hosted scenario",
+    "planned_check": "same accepted Finish packet -> compile/retry/read private runtime ID -> original master unchanged",
+    "original_engine_path_cipher_and_cache_contract": "unverified"
+  }
+}

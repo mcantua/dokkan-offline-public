@@ -1,0 +1,124 @@
+<manifest versionCode='351' versionName='6.6.0' installLocation='1' compileSdkVersion='35' compileSdkVersionCodename='15' package='com.sparkingDokkan.GLB' platformBuildVersionCode='35' platformBuildVersionName='15'>
+  <uses-sdk minSdkVersion='21' targetSdkVersion='29'>
+  <uses-feature glEsVersion='131072'>
+  <supports-screens anyDensity='true' smallScreens='true' normalScreens='true' largeScreens='true' xlargeScreens='true'>
+  <uses-permission name='android.permission.INTERNET'>
+  <uses-permission name='android.permission.ACCESS_NETWORK_STATE'>
+  <uses-permission name='android.permission.POST_NOTIFICATIONS'>
+  <uses-permission name='android.permission.VIBRATE'>
+  <uses-permission name='com.google.android.gms.permission.AD_ID'>
+  <uses-permission name='android.permission.READ_EXTERNAL_STORAGE'>
+  <uses-permission name='android.permission.WRITE_EXTERNAL_STORAGE'>
+  <uses-permission name='android.permission.MANAGE_EXTERNAL_STORAGE'>
+  <queries >
+    <intent >
+      <action name='com.android.vending.billing.InAppBillingService.BIND'>
+    <intent >
+      <action name='com.google.android.apps.play.billingtestcompanion.BillingOverrideService.BIND'>
+    <package name='com.google.android.gms'>
+    <package name='com.android.vending'>
+  <uses-permission name='android.permission.USE_BIOMETRIC'>
+  <uses-permission name='android.permission.USE_FINGERPRINT'>
+  <uses-permission name='com.android.vending.BILLING'>
+  <uses-permission name='com.google.android.c2dm.permission.RECEIVE'>
+  <uses-permission name='android.permission.WAKE_LOCK'>
+  <uses-permission name='com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE'>
+  <uses-permission name='android.permission.ACCESS_ADSERVICES_ATTRIBUTION'>
+  <uses-permission name='android.permission.ACCESS_ADSERVICES_AD_ID'>
+  <permission name='com.sparkingDokkan.GLB.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION' protectionLevel='2'>
+  <uses-permission name='com.sparkingDokkan.GLB.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'>
+  <application theme='@7f100005' label='@7f0f001e' icon='@7f0d0000' name='org.cocos2dx.cpp.AppApplication' debuggable='true' allowBackup='false' hardwareAccelerated='true' supportsRtl='true' extractNativeLibs='true' resizeableActivity='false' supportsPictureInPicture='false' roundIcon='@7f0d0000' appCategory='0' appComponentFactory='androidx.core.app.CoreComponentFactory' requestLegacyExternalStorage='true' enableOnBackInvokedCallback='false'>
+    <meta-data name='com.google.android.gms.games.APP_ID' value='@7f0f004c'>
+    <meta-data name='android.app.lib_name' value='cocos2dcpp'>
+    <meta-data name='com.google.android.gms.version' value='@7f0a0004'>
+    <receiver name='com.adjust.sdk.AdjustReferrerReceiver' exported='true'>
+      <intent-filter >
+        <action name='com.android.vending.INSTALL_REFERRER'>
+    <receiver name='jp.aktsk.ishinclient.LocalPushNotificationReceiver' process=':remote'>
+    <receiver name='io.repro.android.ReproReceiver' permission='com.google.android.c2dm.permission.SEND' exported='true'>
+      <intent-filter >
+        <action name='com.google.android.c2dm.intent.RECEIVE'>
+        <category name='com.sparkingDokkan.GLB'>
+    <meta-data name='jp.aktsk.googlesignin.client_id' value='33528429135-tosmtg8e15lp4l2bulmj8nc5un2ba7s3.apps.googleusercontent.com'>
+    <meta-data name='com.localpush.notification.channel_id' value='ishin_notification_channel'>
+    <meta-data name='com.localpush.notification.channel_name' resource='@7f0f0058'>
+    <meta-data name='io.repro.android.PushNotification.ChannelId' value='ishin_notification_channel'>
+    <meta-data name='io.repro.android.PushNotification.ChannelName' resource='@7f0f0058'>
+    <meta-data name='io.repro.android.PushNotification.ChannelDescription' resource='@7f0f0057'>
+    <meta-data name='io.repro.android.PushNotification.ShowBadge' value='true'>
+    <meta-data name='io.repro.android.PushNotification.SmallIcon' resource='@7f0d0008'>
+    <activity theme='@7f100005' label='@7f0f001e' name='org.cocos2dx.cpp.AppActivity' exported='true' launchMode='2' screenOrientation='1' configChanges='1073742976'>
+      <intent-filter >
+        <action name='android.intent.action.MAIN'>
+        <category name='android.intent.category.LAUNCHER'>
+      <intent-filter >
+        <action name='android.intent.action.VIEW'>
+        <category name='android.intent.category.DEFAULT'>
+        <category name='android.intent.category.BROWSABLE'>
+        <data scheme='dbzdokkanww' host='jp.co.bandainamcogames.BNGI0221'>
+    <provider name='com.adjust.sdk.SystemLifecycleContentProvider' exported='false' authorities='com.sparkingDokkan.GLB.adjust-lifecycle-provider'>
+    <service name='androidx.credentials.playservices.CredentialProviderMetadataHolder' enabled='true' exported='false'>
+      <meta-data name='androidx.credentials.CREDENTIAL_PROVIDER_KEY' value='androidx.credentials.playservices.CredentialProviderPlayServicesImpl'>
+    <activity theme='@7f100116' name='androidx.credentials.playservices.controllers.identityauth.HiddenActivity' enabled='true' exported='false' configChanges='1440' fitsSystemWindows='true'>
+    <activity theme='@7f100116' name='androidx.credentials.playservices.controllers.identitycredentials.IdentityCredentialApiHiddenActivity' enabled='true' exported='false' configChanges='1440' fitsSystemWindows='true'>
+    <meta-data name='com.google.android.play.billingclient.version' value='8.3.0'>
+    <activity theme='@01030010' name='com.android.billingclient.api.ProxyBillingActivity' exported='false' configChanges='1456'>
+    <activity theme='@01030010' name='com.android.billingclient.api.ProxyBillingActivityV2' exported='false' configChanges='1456'>
+    <receiver name='com.google.android.gms.measurement.AppMeasurementReceiver' enabled='true' exported='false'>
+    <service name='com.google.android.gms.measurement.AppMeasurementService' enabled='true' exported='false'>
+    <service name='com.google.android.gms.measurement.AppMeasurementJobService' permission='android.permission.BIND_JOB_SERVICE' enabled='true' exported='false'>
+    <service name='com.google.firebase.components.ComponentDiscoveryService' exported='false' directBootAware='true'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.crashlytics.ndk.CrashlyticsNdkRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.perf.FirebasePerfKtxRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.perf.FirebasePerfRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.crashlytics.FirebaseCrashlyticsKtxRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.remoteconfig.FirebaseRemoteConfigKtxRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.sessions.FirebaseSessionsRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+      <meta-data name='com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar' value='com.google.firebase.components.ComponentRegistrar'>
+    <activity theme='@01030010' name='com.google.android.gms.auth.api.signin.internal.SignInHubActivity' exported='false' excludeFromRecents='true'>
+    <service name='com.google.android.gms.auth.api.signin.RevocationBoundService' permission='com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION' exported='true' visibleToInstantApps='true'>
+    <meta-data name='com.google.android.gms.games.nativeSdkVersion' value='1.0.0'>
+    <provider name='com.google.android.gms.games.provider.PlayGamesInitProvider' exported='false' authorities='com.sparkingDokkan.GLB.playgamesinitprovider' initOrder='99'>
+    <activity theme='@7f100115' name='com.google.android.gms.games.internal.v2.resolution.GamesResolutionActivity' exported='false'>
+    <activity theme='@7f100115' name='com.google.android.gms.games.internal.v2.appshortcuts.PlayGamesAppShortcutsActivity' exported='true'>
+    <meta-data name='com.google.android.gms.games.version' value='@7f0f0059'>
+    <receiver name='com.google.firebase.iid.FirebaseInstanceIdReceiver' permission='com.google.android.c2dm.permission.SEND' exported='true'>
+      <intent-filter >
+        <action name='com.google.android.c2dm.intent.RECEIVE'>
+      <meta-data name='com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED' value='true'>
+    <service name='com.google.firebase.messaging.FirebaseMessagingService' exported='false' directBootAware='true'>
+      <intent-filter priority='4294966796'>
+        <action name='com.google.firebase.MESSAGING_EVENT'>
+    <activity theme='@01030010' name='com.google.android.gms.common.api.GoogleApiActivity' exported='false'>
+    <service name='com.google.firebase.sessions.SessionLifecycleService' enabled='false' exported='false'>
+    <provider name='com.google.firebase.provider.FirebaseInitProvider' exported='false' authorities='com.sparkingDokkan.GLB.firebaseinitprovider' initOrder='100' directBootAware='true'>
+    <provider name='androidx.startup.InitializationProvider' exported='false' authorities='com.sparkingDokkan.GLB.androidx-startup'>
+      <meta-data name='androidx.emoji2.text.EmojiCompatInitializer' value='androidx.startup'>
+      <meta-data name='androidx.lifecycle.ProcessLifecycleInitializer' value='androidx.startup'>
+      <meta-data name='androidx.profileinstaller.ProfileInstallerInitializer' value='androidx.startup'>
+    <uses-library name='android.ext.adservices' required='false'>
+    <receiver name='androidx.profileinstaller.ProfileInstallReceiver' permission='android.permission.DUMP' enabled='true' exported='true' directBootAware='false'>
+      <intent-filter >
+        <action name='androidx.profileinstaller.action.INSTALL_PROFILE'>
+      <intent-filter >
+        <action name='androidx.profileinstaller.action.SKIP_FILE'>
+      <intent-filter >
+        <action name='androidx.profileinstaller.action.SAVE_PROFILE'>
+      <intent-filter >
+        <action name='androidx.profileinstaller.action.BENCHMARK_OPERATION'>
+    <service name='com.google.android.datatransport.runtime.backends.TransportBackendDiscovery' exported='false'>
+      <meta-data name='backend:com.google.android.datatransport.cct.CctBackendFactory' value='cct'>
+    <service name='com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService' permission='android.permission.BIND_JOB_SERVICE' exported='false'>
+    <receiver name='com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver' exported='false'>
+    <activity name='io.repro.android.notification.IntentHandler' exported='false' launchMode='2'>
+    <service name='com.google.firebase.messaging.MessageForwardingService' permission='android.permission.BIND_JOB_SERVICE' exported='true'>
+    <activity theme='@7f100117' name='com.google.android.play.core.common.PlayCoreDialogWrapperActivity' exported='false' stateNotNeeded='true'>

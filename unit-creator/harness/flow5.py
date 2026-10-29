@@ -1,0 +1,16 @@
+from harness import Session
+from util import snap, buttons
+s = Session().open()
+s.page.wait_for_timeout(1500)
+s.page.locator('main [data-open]').first.click()
+s.page.wait_for_timeout(2500)
+s.page.locator('main button:has-text("4. Save")').click(); s.page.wait_for_timeout(1500)
+s.page.locator('main button:has-text("Compatibility notes")').click() if s.page.locator('main button:has-text("Compatibility notes")').count() else s.page.locator('main summary:has-text("Compatibility notes")').click()
+s.page.wait_for_timeout(500)
+print(s.page.inner_text('main')[s.page.inner_text('main').find('Compatibility'):][:800])
+s.page.locator('main button:has-text("Save game file (.eclp)")').click()
+s.page.wait_for_timeout(8000)
+snap(s, "f5-export", n=300)
+print("TOAST:", s.page.inner_text('#toast'))
+print("DIALOG:", s.page.evaluate("document.getElementById('dialog').open && document.getElementById('dialog').innerText"))
+print(s.native.exports, s.native.log[-15:])

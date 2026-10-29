@@ -1,0 +1,80 @@
+{
+  "schema": "original-master-main-contract-v1",
+  "source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "method": "Readonly bounded static instruction/path inspection; source not run; no key data followed",
+  "path": {
+    "selected_entry_vm_range": [
+      4299493836,
+      4299494184
+    ],
+    "formatter_vm_range": [
+      4310759932,
+      4310760048
+    ],
+    "reviewed_relative_template": "sqlite/current/%s/database.db",
+    "language_provider_vm": 4299279096,
+    "path_prefix_helper_vm": 4318157312,
+    "prefix_behavior": "Uses native configured asset prefix when nonempty, otherwise constructs assets; prepends resource singleton vtable+0x98 returned path and joins selected relative path. Actual native root return not observed.",
+    "fallback_basename": "database.db",
+    "fallback_resolution": "resource singleton vtable+0x48",
+    "resource_singleton_getter_vm": 4327753288,
+    "resource_vtable_vm": 4344819528,
+    "resource_vtable_0x98_vm": 4327753436,
+    "resource_vtable_0x48_vm": 4327769740
+  },
+  "open_and_key": {
+    "cached_master_wrapper_vm": 4299487824,
+    "path_and_key_wrapper_vm": 4299364548,
+    "internal_open_shim_vm": 4297667908,
+    "internal_open_core_vm": 4297667920,
+    "open_flags": 6,
+    "open_flags_meaning": [
+      "SQLITE_OPEN_READWRITE",
+      "SQLITE_OPEN_CREATE"
+    ],
+    "open_vfs_null": true,
+    "key_string_provider_vm_range": [
+      4299488140,
+      4299489140
+    ],
+    "key_material_read": false,
+    "key_length_from_strlen": true,
+    "key_called_after_open_success": true,
+    "internal_key_attach_vm": 4297552068,
+    "internal_codec_attach_vm": 4297552424,
+    "selected_db_name_literal": "main",
+    "symbol_caveat": "Actual MAIN nlist has zero sqlite3_* names; these internal open/codec roles are inferred from exact call ABI, flags, handle layout and control flow, not symbol exports."
+  },
+  "cipher": {
+    "initial_schema_statements": [
+      "PRAGMA cipher_store_pass = 1;",
+      "PRAGMA cipher_memory_security = OFF;",
+      "select * from sqlite_master; "
+    ],
+    "schema_failure_retry_statement": "PRAGMA cipher_compatibility = 3;",
+    "schema_retry": true,
+    "forced_compatibility_4_in_main": false,
+    "plaintext_bypass_observed": false,
+    "security_note": "Source statements are observations only; no weakening settings copied into authored helper."
+  },
+  "cache": {
+    "singleton_getter_vm": 4299487724,
+    "handle_object_offset": 16,
+    "nonzero_handle_short_circuit": true,
+    "close_reopen_vm": 4299494184,
+    "close_behavior": "Invokes internal close routine, zeroes object+0x10, then calls master wrapper with supplied path.",
+    "resource_path_cache_observed": "Resource vtable+0x48 reads string-path cache at object+0xd0; returned full-path mapping may be cached separately.",
+    "cache_invalidation_runtime_verified": false
+  },
+  "distinction": "Patcher uses explicit Documents/assets/sqlite/current/<language>/database.db with READONLY|FULLMUTEX and forced cipher compatibility4. MAIN resolves native asset-root + sqlite/current/%s/database.db, uses internal open flags6, schema checks and compatibility3 fallback. These are separate contracts.",
+  "limits": {
+    "runtime_invocation_observed": false,
+    "actual_native_root_return_observed": false,
+    "key_values_read": false,
+    "android_iphone_key_equality_proven": false,
+    "derived_plaintext_master_admitted": false,
+    "safe_runtime_master_redirect_implemented": false,
+    "post_edit_native_compile_run": false
+  },
+  "next": "Preserve plaintext derived master detached; establish actual trusted native asset-root/key/cipher handling and cache lifecycle before any master redirect. Do not point MAIN flags6 at the only immutable source DB. No hook implemented in this investigation."
+}

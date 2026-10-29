@@ -1,0 +1,267 @@
+(function(root, factory) {
+  if (typeof module === "object" && module.exports) module.exports = factory();
+  else root.ForgeUsmWriter = factory();
+})(typeof globalThis === "object" ? globalThis : this, function() {
+  "use strict";
+  const MAX_BYTES = 160 * 1024 * 1024, MAX_FRAMES = 1e4, encoder = new TextEncoder(), widths = { 0: 1, 1: 1, 2: 2, 3: 2, 4: 4, 5: 4, 6: 8, 7: 8, 10: 4 };
+  const align = (value, unit) => Math.ceil(value / unit) * unit;
+  function fail(message) {
+    throw Error("USM: " + message);
+  }
+  function utf(name, columns, rows) {
+    var _a, _b, _c;
+    const strings = [new Uint8Array(1)], offsets = /* @__PURE__ */ new Map([["", 0]]);
+    let stringSize = 1;
+    function text(value) {
+      value = String(value);
+      if (!offsets.has(value)) {
+        const bytes2 = encoder.encode(value);
+        offsets.set(value, stringSize);
+        stringSize += bytes2.length + 1;
+        strings.push(bytes2, new Uint8Array(1));
+      }
+      return offsets.get(value);
+    }
+    const tableName = text(name), names = columns.map((column) => text(column[0]));
+    for (const row of rows) for (const [column, type] of columns) if (type === 10) text((_a = row[column]) != null ? _a : "");
+    const rowSize = columns.reduce((n, column) => n + widths[column[1]], 0), rowOffset = 32 + columns.length * 5, stringOffset = rowOffset + rows.length * rowSize, dataOffset = stringOffset + stringSize, bytes = new Uint8Array(align(dataOffset, 8)), view = new DataView(bytes.buffer);
+    bytes.set(encoder.encode("@UTF"));
+    view.setUint32(4, bytes.length - 8);
+    view.setUint32(8, rowOffset - 8);
+    view.setUint32(12, stringOffset - 8);
+    view.setUint32(16, dataOffset - 8);
+    view.setUint32(20, tableName);
+    view.setUint16(24, columns.length);
+    view.setUint16(26, rowSize);
+    view.setUint32(28, rows.length);
+    let at = 32;
+    columns.forEach((column, index) => {
+      bytes[at] = 80 | column[1];
+      view.setUint32(at + 1, names[index]);
+      at += 5;
+    });
+    for (const row of rows) for (const [column, type] of columns) {
+      const value = type === 10 ? text((_b = row[column]) != null ? _b : "") : (_c = row[column]) != null ? _c : 0;
+      switch (type) {
+        case 0:
+          view.setInt8(at, value);
+          break;
+        case 1:
+          view.setUint8(at, value);
+          break;
+        case 2:
+          view.setInt16(at, value);
+          break;
+        case 3:
+          view.setUint16(at, value);
+          break;
+        case 4:
+          view.setInt32(at, value);
+          break;
+        case 5:
+          view.setUint32(at, value);
+          break;
+        case 6:
+          view.setBigInt64(at, BigInt(value));
+          break;
+        case 7:
+          view.setBigUint64(at, BigInt(value));
+          break;
+        default:
+          view.setUint32(at, value);
+      }
+      at += widths[type];
+    }
+    at = stringOffset;
+    for (const part of strings) {
+      bytes.set(part, at);
+      at += part.length;
+    }
+    return bytes;
+  }
+  function packet(tag, kind, payload, { time = 0, rate = 30, minimum = 0, alignment = 32 } = {}) {
+    const size = align(Math.max(minimum, payload.length + 32), alignment), padding = size - payload.length - 32;
+    if (padding > 65535) fail("Unsupported chunk padding.");
+    const bytes = new Uint8Array(size), view = new DataView(bytes.buffer);
+    bytes.set(encoder.encode(tag));
+    view.setUint32(4, size - 8);
+    view.setUint16(8, 24);
+    view.setUint16(10, padding);
+    bytes[15] = kind;
+    view.setUint32(16, time);
+    view.setUint32(20, rate);
+    bytes.set(payload, 32);
+    return bytes;
+  }
+  function ivf(input) {
+    const bytes = input instanceof Uint8Array ? input : new Uint8Array(input), view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    if (bytes.length < 44 || bytes.length > MAX_BYTES || String.fromCharCode(...bytes.subarray(0, 4)) !== "DKIF" || view.getUint16(4, true) !== 0 || view.getUint16(6, true) !== 32 || String.fromCharCode(...bytes.subarray(8, 12)) !== "VP90") fail("Choose a VP9 IVF movie.");
+    const width = view.getUint16(12, true), height = view.getUint16(14, true), rate = view.getUint32(16, true), scale = view.getUint32(20, true), frames = [], fps = rate / scale;
+    if (!width || !height || rate > 2147483647 || scale > 2147483647 || width > 4096 || height > 4096 || width * height > 16 * 1024 * 1024 || !Number.isFinite(fps) || fps < 1 || fps > 120) fail("Unsupported movie dimensions or frame rate.");
+    let offset = 32;
+    while (offset < bytes.length) {
+      if (offset + 12 > bytes.length || frames.length >= MAX_FRAMES) fail("Truncated or oversized IVF frame list.");
+      const size = view.getUint32(offset, true), stamp = view.getBigUint64(offset + 4, true);
+      if (size < 1 || size > MAX_BYTES || offset + 12 + size > bytes.length || stamp !== BigInt(frames.length)) fail("Movie timestamps must start at zero and advance one tick per frame.");
+      const coded = bytes[offset + 12], profile = coded >> 5 & 1 | (coded >> 4 & 1) << 1;
+      if (coded >> 6 !== 2 || profile !== 0) fail("Use standard 8-bit VP9 profile 0 for native game export.");
+      frames.push({ offset, size, key: !(coded & 8) && !(coded & 4) });
+      offset += 12 + size;
+    }
+    if (!frames.length || !frames[0].key) fail("The movie must begin with a complete keyframe.");
+    const declared = view.getUint32(24, true);
+    if (declared && declared !== frames.length) fail("IVF frame count does not match its data.");
+    return { bytes, width, height, rate, scale, fps, frames };
+  }
+  function layoutVP9(input, { name = "forge-motion", audio = null } = {}) {
+    if (audio != null) return layoutAudioVP9(input, { name, audio });
+    if (typeof name !== "string" || !/^[A-Za-z0-9_-]{1,80}$/.test(name)) fail("Choose a short plain movie filename.");
+    const video = ivf(input), header = video.bytes.slice(0, 32);
+    new DataView(header.buffer).setUint32(24, video.frames.length, true);
+    const frames = [], keys = [];
+    let offset = 0, maxChunk = 0;
+    for (let index = 0; index < video.frames.length; index++) {
+      const frame = video.frames[index], payloadSize = frame.size + 12 + (index === 0 ? 32 : 0), size = align(payloadSize + 32, 32), padding = size - payloadSize - 32;
+      if (frame.key) keys.push({ ofs_byte: offset, ofs_frmid: index, num_skip: 0, resv: 0 });
+      frames.push({ frame, index, size, padding });
+      offset += size;
+      maxChunk = Math.max(maxChunk, size);
+      if (offset > MAX_BYTES) fail("Movie exceeds the 160 MB export limit.");
+    }
+    const endText = (text) => encoder.encode(text + "\0"), headerEnd = packet("@SFV", 2, endText("#HEADER END     ===============")), metadataEnd = packet("@SFV", 2, endText("#METADATA END   ===============")), contentsEnd = packet("@SFV", 2, endText("#CONTENTS END   ===============")), seekColumns = [["ofs_byte", 6], ["ofs_frmid", 5], ["num_skip", 3], ["resv", 3]];
+    let seek = packet("@SFV", 3, utf("VIDEO_SEEKINFO", seekColumns, keys), { minimum: 256, alignment: 128 });
+    const values = { width: video.width, height: video.height, mat_width: video.width, mat_height: video.height, disp_width: video.width, disp_height: video.height, scrn_width: 0, mpeg_dcprec: 0, mpeg_codec: 9, alpha_type: 0, total_frames: video.frames.length, framerate_n: video.rate, framerate_d: video.scale, metadata_count: 1, metadata_size: seek.length, ixsize: maxChunk, pre_padding: 0, max_picture_size: 0, color_space: 0, picture_type: 0 }, videoHeader = packet("@SFV", 1, utf("VIDEO_HDRINFO", Object.keys(values).map((key) => [key, ["mpeg_codec", "mpeg_dcprec"].includes(key) ? 0 : 4]), [values]), { alignment: 128 }), firstData = 2048 + videoHeader.length + headerEnd.length + seek.length + metadataEnd.length;
+    for (const key of keys) key.ofs_byte += firstData;
+    seek = packet("@SFV", 3, utf("VIDEO_SEEKINFO", seekColumns, keys), { minimum: 256, alignment: 128 });
+    const total = firstData + offset + contentsEnd.length;
+    if (total > MAX_BYTES) fail("Movie exceeds the 160 MB export limit.");
+    const bitrate = Math.ceil(video.bytes.length * 8 * video.fps / video.frames.length);
+    if (bitrate > 2147483647) fail("Movie bitrate exceeds the native metadata range.");
+    const columns = [["fmtver", 4], ["filename", 10], ["filesize", 4], ["datasize", 4], ["stmid", 4], ["chno", 2], ["minchk", 2], ["minbuf", 4], ["avbps", 4]], directory = packet("CRID", 1, utf("CRIUSF_DIR_STREAM", columns, [{ fmtver: 16777984, filename: name + ".usm", filesize: total, datasize: 0, stmid: 0, chno: -1, minchk: 1, minbuf: align(maxChunk * 2, 32), avbps: bitrate }, { fmtver: 16777984, filename: name + ".ivf", filesize: video.bytes.length, datasize: 0, stmid: 1079199318, chno: 0, minchk: 3, minbuf: maxChunk - 32, avbps: bitrate }]), { minimum: 2048, alignment: 2048 });
+    if (directory.length !== 2048) fail("The movie directory exceeds its native sector.");
+    return { header: [directory, videoHeader, headerEnd, seek, metadataEnd], end: contentsEnd, total, frames, video, ivfHeader: header };
+  }
+  function adx(input) {
+    if (!input || input.kind !== "adx" || !(input.data instanceof Uint8Array)) fail("Movie audio needs a verified plain ADX source.");
+    const bytes = input.data, view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    if (bytes.length < 24 || bytes.length > MAX_BYTES || view.getUint16(0) !== 32768) fail("The ADX sound header is incomplete.");
+    const offset = view.getUint16(2) + 4, encoding = bytes[4], blockSize = bytes[5], bits = bytes[6], channels = bytes[7], sampleRate = view.getUint32(8), samples = view.getUint32(12), version = bytes[18], flags = bytes[19];
+    if (offset < 24 || offset > 4096 || offset > bytes.length || encoding !== 3 || blockSize !== 18 || bits !== 4 || channels !== 2 || sampleRate !== 48e3 || !samples || samples > 2147483647 || ![3, 4].includes(version) || flags !== 0 || String.fromCharCode(...bytes.subarray(offset - 6, offset)) !== "(c)CRI") fail("Movie audio supports plain stereo 48 kHz ADX encoding 3, versions 3 and 4.");
+    const blocks = Math.ceil(samples / 32), required = offset + blocks * blockSize * channels;
+    if (required > bytes.length) fail("The ADX sound ends inside its declared samples.");
+    const remainder = bytes.length - required;
+    if (remainder !== 0 && (remainder !== 18 || view.getUint16(required) !== 32769 || view.getUint16(required + 2) !== 14)) fail("The ADX sound has an unsupported trailing marker.");
+    return { bytes, offset, blocks, required, samples, sampleRate, channels, version };
+  }
+  function layoutAudioVP9(input, { name = "forge-motion", audio } = {}) {
+    const base = layoutVP9(input, { name, audio: null }), sound = adx(audio), video = base.video;
+    if (Math.abs(sound.samples / sound.sampleRate - video.frames.length / video.fps) > 1 / video.fps + 1 / sound.sampleRate) fail("Trim or pad the sound to match the edited movie before exporting.");
+    const clock = 2997, blockStride = 36, audioFrames = [];
+    let firstBlock = 0, index = 0, maxAudioChunk = 0;
+    const stream = (tag, parts, time, rate, frameIndex = null) => {
+      const length = parts.reduce((n, p) => n + p.length, 0), size = align(length + 32, 32);
+      return { tag, parts, time, rate, frameIndex, size, padding: size - length - 32 };
+    };
+    while (firstBlock < sound.blocks) {
+      const next = Math.min(sound.blocks, Math.max(firstBlock + 1, Math.floor((index + 1) * sound.sampleRate * 100 / (32 * clock)))), chunk = stream("@SFA", [sound.bytes.subarray(sound.offset + firstBlock * blockStride, sound.offset + next * blockStride)], index * 100, clock);
+      chunk.startSample = firstBlock * 32;
+      maxAudioChunk = Math.max(maxAudioChunk, chunk.size);
+      audioFrames.push(chunk);
+      firstBlock = next;
+      index++;
+      if (index > MAX_FRAMES * 5) fail("The ADX packet list exceeds the movie limit.");
+    }
+    const ordered = [], keys = [];
+    let nextAudio = 0, streamBytes = 0;
+    function append(item) {
+      ordered.push(item);
+      streamBytes += item.size;
+      if (streamBytes > MAX_BYTES) fail("Movie and sound exceed the 160 MB export limit.");
+    }
+    for (const item of base.frames) {
+      if (item.frame.key) keys.push({ ofs_byte: streamBytes, ofs_frmid: item.index, num_skip: 0, resv: 0 });
+      append(stream("@SFV", item.index ? [video.bytes.subarray(item.frame.offset, item.frame.offset + 12 + item.frame.size)] : [base.ivfHeader, video.bytes.subarray(item.frame.offset, item.frame.offset + 12 + item.frame.size)], Math.floor(item.index * 99.9), Math.round(video.fps * 100), item.index));
+      if (!item.index) append(stream("@SFA", [sound.bytes.subarray(0, sound.offset)], 0, clock));
+      while (nextAudio < audioFrames.length && audioFrames[nextAudio].startSample / sound.sampleRate < (item.index + 1) / video.fps) append(audioFrames[nextAudio++]);
+    }
+    const controls = (text) => packet("@SFA", 2, encoder.encode(text + "\0"));
+    append({ raw: base.end, size: base.end.length });
+    while (nextAudio < audioFrames.length) append(audioFrames[nextAudio++]);
+    const marker = sound.bytes.length > sound.required ? sound.bytes.subarray(sound.required) : new Uint8Array([128, 1, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    append(stream("@SFA", [marker], index * 100, clock));
+    const audioEnd = controls("#CONTENTS END   ==============="), audioHeaderEnd = controls("#HEADER END     ==============="), fields = { audio_codec: 2, sampling_rate: sound.sampleRate, total_samples: sound.samples, num_channels: sound.channels, metadata_count: 0, metadata_size: 0, ixsize: Math.max(27860, maxAudioChunk * 15), ambisonics: 0 }, audioHeader = packet("@SFA", 1, utf("AUDIO_HDRINFO", Object.keys(fields).map((key) => [key, ["audio_codec", "num_channels", "ambisonics"].includes(key) ? 0 : 4]), [fields]), { alignment: 128 }), seekColumns = [["ofs_byte", 6], ["ofs_frmid", 5], ["num_skip", 3], ["resv", 3]];
+    let seek = packet("@SFV", 3, utf("VIDEO_SEEKINFO", seekColumns, keys), { minimum: 256, alignment: 128 });
+    const firstData = 2048 + base.header[1].length + audioHeader.length + base.header[2].length + audioHeaderEnd.length + seek.length + base.header[4].length;
+    for (const key of keys) key.ofs_byte += firstData;
+    seek = packet("@SFV", 3, utf("VIDEO_SEEKINFO", seekColumns, keys), { minimum: 256, alignment: 128 });
+    const total = firstData + streamBytes + audioEnd.length;
+    if (total > MAX_BYTES) fail("Movie and sound exceed the 160 MB export limit.");
+    const videoMax = Math.max(...base.frames.map((frame) => frame.size)), videoRate = Math.ceil(video.bytes.length * 8 * video.fps / video.frames.length), audioRate = Math.ceil(sound.bytes.length * 8 * sound.sampleRate / sound.samples);
+    if (videoRate + audioRate > 2147483647) fail("Movie bitrate exceeds the native metadata range.");
+    const columns = [["fmtver", 4], ["filename", 10], ["filesize", 4], ["datasize", 4], ["stmid", 4], ["chno", 2], ["minchk", 2], ["minbuf", 4], ["avbps", 4]], common = { fmtver: 16777984, datasize: 0, chno: 0 };
+    const directory = packet("CRID", 1, utf("CRIUSF_DIR_STREAM", columns, [{ ...common, filename: name + ".usm", filesize: total, stmid: 0, chno: -1, minchk: 1, minbuf: align(videoMax * 2 + maxAudioChunk * 15, 32), avbps: videoRate + audioRate }, { ...common, filename: name + ".ivf", filesize: video.bytes.length, stmid: 1079199318, minchk: 3, minbuf: videoMax - 32, avbps: videoRate }, { ...common, filename: name + ".adx", filesize: sound.bytes.length + (sound.bytes.length === sound.required ? 18 : 0), stmid: 1079199297, minchk: 1, minbuf: fields.ixsize, avbps: audioRate }]), { minimum: 2048, alignment: 2048 });
+    if (directory.length !== 2048) fail("The movie directory exceeds its native sector.");
+    return { ...base, header: [directory, base.header[1], audioHeader, base.header[2], audioHeaderEnd, seek, base.header[4]], ordered, end: audioEnd, total, audio: sound };
+  }
+  function* audioChunks(plan) {
+    for (const part of plan.header) yield part;
+    for (const item of plan.ordered) {
+      if (item.raw) {
+        yield item.raw;
+        continue;
+      }
+      const header = new Uint8Array(32), view = new DataView(header.buffer);
+      header.set(encoder.encode(item.tag));
+      view.setUint32(4, item.size - 8);
+      view.setUint16(8, 24);
+      view.setUint16(10, item.padding);
+      view.setUint32(16, item.time);
+      view.setUint32(20, item.rate);
+      yield header;
+      for (const part of item.parts) for (let offset = 0; offset < part.length; offset += 1024 * 1024) yield part.subarray(offset, Math.min(part.length, offset + 1024 * 1024));
+      if (item.padding) yield new Uint8Array(item.padding);
+    }
+    yield plan.end;
+  }
+  function* chunksFromLayout(plan) {
+    if (plan.audio) {
+      yield* audioChunks(plan);
+      return;
+    }
+    for (const part of plan.header) yield part;
+    for (const item of plan.frames) {
+      const bytes = new Uint8Array(32), view = new DataView(bytes.buffer);
+      bytes.set(encoder.encode("@SFV"));
+      view.setUint32(4, item.size - 8);
+      view.setUint16(8, 24);
+      view.setUint16(10, item.padding);
+      view.setUint32(16, Math.floor(item.index * 99.9));
+      view.setUint32(20, Math.round(plan.video.fps * 100));
+      yield bytes;
+      if (!item.index) yield plan.ivfHeader;
+      const first = item.frame.offset, last = first + 12 + item.frame.size;
+      for (let offset = first; offset < last; offset += 1024 * 1024) yield plan.video.bytes.subarray(offset, Math.min(last, offset + 1024 * 1024));
+      if (item.padding) yield new Uint8Array(item.padding);
+    }
+    yield plan.end;
+  }
+  function* chunksVP9(input, options) {
+    yield* chunksFromLayout(layoutVP9(input, options));
+  }
+  function encodeVP9(input, options) {
+    const plan = layoutVP9(input, options), output = new Uint8Array(plan.total);
+    let at = 0;
+    for (const part of chunksFromLayout(plan)) {
+      output.set(part, at);
+      at += part.length;
+    }
+    return output;
+  }
+  async function writeVP9(input, sink, options) {
+    if (typeof sink !== "function") fail("Choose a writable movie destination.");
+    const plan = layoutVP9(input, options);
+    for (const part of chunksFromLayout(plan)) await sink(part);
+    return { bytes: plan.total, frames: plan.frames.length, width: plan.video.width, height: plan.video.height, framerate: plan.video.fps };
+  }
+  return { encodeVP9, layoutVP9, chunksVP9, writeVP9, inspectIVF: ivf, inspectAdx: adx, MAX_BYTES, MAX_FRAMES };
+});

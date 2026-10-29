@@ -1,0 +1,80 @@
+{
+  "schema": "forge-imported-preview-rules-v1",
+  "observedAt": "2026-10-17",
+  "description": "Observed public preview API templates. Paths are candidates only; local files must be verified before advertising any URL.",
+  "categories": {
+    "0": {
+      "lwf": [
+        "comic_text/en/{pack}/{pack}.lwf",
+        "comic_text/{pack}/{pack}.lwf"
+      ],
+      "usm": [
+        "movie/en/ingame/battle/sp_effect/{pack}.usm",
+        "movie/ingame/battle/sp_effect/{pack}.usm",
+        "movie/en/ingame/battle/effect/{pack}.usm",
+        "movie/ingame/battle/effect/{pack}.usm"
+      ],
+      "source": "https://dokkan-eclipse.com/api/effect-pack/10000"
+    },
+    "1": {
+      "lwf": [
+        "ingame/battle/effect/{pack}/en/{pack}.lwf",
+        "ingame/battle/effect/{pack}/{pack}.lwf",
+        "ingame/battle/sp_effect/{pack}/en/{pack}.lwf",
+        "ingame/battle/sp_effect/{pack}/{pack}.lwf"
+      ],
+      "usm": [
+        "movie/en/ingame/battle/effect/{pack}.usm",
+        "movie/ingame/battle/effect/{pack}.usm",
+        "movie/en/ingame/battle/sp_effect/{pack}.usm",
+        "movie/ingame/battle/sp_effect/{pack}.usm"
+      ],
+      "source": "https://dokkan-eclipse.com/api/effect-pack/1"
+    },
+    "2": {
+      "lwf": [
+        "ingame/sugoroku/effect/{pack}/{pack}.lwf"
+      ],
+      "usm": [
+        "movie/en/ingame/battle/sp_effect/{pack}.usm",
+        "movie/ingame/battle/sp_effect/{pack}.usm",
+        "movie/en/ingame/battle/effect/{pack}.usm",
+        "movie/ingame/battle/effect/{pack}.usm"
+      ],
+      "source": "https://dokkan-eclipse.com/api/effect-pack/50000"
+    },
+    "3": {
+      "lwf": [
+        "outgame/effect/{pack}/en/{pack}.lwf",
+        "outgame/effect/{pack}/{pack}.lwf"
+      ],
+      "usm": [
+        "movie/en/ingame/battle/sp_effect/{pack}.usm",
+        "movie/ingame/battle/sp_effect/{pack}.usm",
+        "movie/en/ingame/battle/effect/{pack}.usm",
+        "movie/ingame/battle/effect/{pack}.usm"
+      ],
+      "source": "https://dokkan-eclipse.com/api/effect-pack/20000",
+      "additionalEvidence": [
+        "https://dokkan-eclipse.com/assets/outgame/effect/anim_50000/en/anim_50000.lwf"
+      ]
+    },
+    "5": {
+      "lwf": [
+        "ingame/battle/sp_effect/{pack}/en/{pack}.lwf",
+        "ingame/battle/sp_effect/{pack}/{pack}.lwf",
+        "ingame/battle/effect/{pack}/en/{pack}.lwf",
+        "ingame/battle/effect/{pack}/{pack}.lwf"
+      ],
+      "usm": [
+        "movie/en/ingame/battle/sp_effect/{pack}.usm",
+        "movie/ingame/battle/sp_effect/{pack}.usm",
+        "movie/en/ingame/battle/effect/{pack}.usm",
+        "movie/ingame/battle/effect/{pack}.usm"
+      ],
+      "source": "https://dokkan-eclipse.com/api/effect-pack/100000"
+    }
+  },
+  "enemyMovieSuffix": "_enemy",
+  "enemySource": "https://dokkan-eclipse.com/api/effect-pack/50?enemy=1"
+}

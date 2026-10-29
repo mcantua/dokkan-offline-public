@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "scoped_low_level_operations": 50,
+  "existing_native_handler_operations": 44,
+  "explicit_capability_operations": [
+    "sourceCodecImportAPK",
+    "sourceCodecStatus",
+    "userContentArchive",
+    "sourceDatabaseOpen",
+    "sourceDatabaseRead",
+    "sourceDatabaseClose"
+  ],
+  "same_native_master_project_finish_authority_preserved": true,
+  "raw_source_secret_bridge_available": false,
+  "native_apk_reader_check": "Actual108832078-byte admitted APK yielded only pinned4621104-byte libbase SHA83c0...; original stat preserved, extracted native memory buffer cleared/freed; no key values read by this check or emitted.",
+  "native_syntax_check": "Renamed Host/Player/Tools/SourceCodec compiled arm64 with real iPhoneOS16.5 headers; source-only boundary, not genuine SDK27.1 runtime or device proof.",
+  "storage_actor_runtime_verified": false,
+  "keychain_runtime_verified": false,
+  "full_creator_runtime_verified": false,
+  "packages_built": false,
+  "network_requests_executed": false,
+  "last_checked_low_level_operations": 47,
+  "staged_source_database_inspection": {
+    "source_ready": true,
+    "native_check": "Pending root combined native cohort; no new task test run",
+    "opaque_handles": true,
+    "readonly_only": true,
+    "no_arbitrary_sql_or_paths": true,
+    "existing_sql_binding_conversion_reused": true,
+    "observed_frontend_requirements": [
+      "PRAGMA quick_check",
+      "sqlite_schema type lookup",
+      "PRAGMA table_info for eight required tables",
+      "SELECT count(*) FROM cards",
+      "close"
+    ],
+    "writable_export_engine_needed_by_inspected_frontend": false
+  }
+}

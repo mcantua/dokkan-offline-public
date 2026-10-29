@@ -1,0 +1,106 @@
+{
+  "kind": "actual-original-native-user-model-initializer-contract",
+  "source_executable_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "model_identity": "User via selected shared_ptr controlblock RTTI and actual state-manager/profile-container construction path",
+  "ownership_path": [
+    "original state-manager singleton",
+    "virtual getter of profile container",
+    "container shared User pair atoffset64",
+    "make_shared allocation216bytes/controlblock24bytes",
+    "User constructor thunk",
+    "232byte User constructor"
+  ],
+  "fields": {
+    "contents_lv": {
+      "store": "str",
+      "offset": 112,
+      "original_model_constructor_default": 0
+    },
+    "progress": {
+      "store": "str",
+      "offset": 120,
+      "original_model_constructor_default": 0
+    },
+    "is_finished": {
+      "store": "strb",
+      "offset": 145,
+      "original_model_constructor_default": true
+    },
+    "card_capacity": {
+      "store": "str",
+      "offset": 64,
+      "original_model_constructor_default": 0
+    },
+    "total_card_capacity": {
+      "store": "str",
+      "offset": 68,
+      "original_model_constructor_default": 0
+    },
+    "support_item_capacity": {
+      "store": "str",
+      "offset": 100,
+      "original_model_constructor_default": 0
+    },
+    "is_support_item_capacity_extended": {
+      "store": "strb",
+      "offset": 144,
+      "original_model_constructor_default": false
+    }
+  },
+  "missing_member_behavior": "decoder constructs default JSON from prior model field; missing/null member lookup selects prior value",
+  "fresh_server_defaults_verified": false,
+  "runtime_execution_verified": false,
+  "safe_use_limit": "Native pre-server model sentinels only: is_finished=true and capacities0 are not evidence of a playable fresh account. Never silently seed official/new-player state from these facts. No played cache values used.",
+  "reviewed_bodies": [
+    {
+      "role": "profile_decoder",
+      "bytes": 2416,
+      "sha256": "4b634d9dbf00a7af014407d8efa876cde23e4975916ff9c98aa2662d94496e3e"
+    },
+    {
+      "role": "lookup_with_prior_value_fallback",
+      "bytes": 52,
+      "sha256": "a5e6db7043c8b681bf414de5a53c6764a3479c3fb450414914bc2940f2e4ba4d"
+    },
+    {
+      "role": "nullable_member_lookup",
+      "bytes": 284,
+      "sha256": "c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6"
+    },
+    {
+      "role": "state_manager_accessor",
+      "bytes": 112,
+      "sha256": "80d26d5832b2f1a08fad5854bb745c87b0652247b14629952d6d9133bda2f6c1"
+    },
+    {
+      "role": "profile_container_virtual_getter",
+      "bytes": 8,
+      "sha256": "7d034b986493b874beac652e085924560a44ec4f14e9569b1200df40eb281566"
+    },
+    {
+      "role": "profile_container_constructor",
+      "bytes": 124,
+      "sha256": "57a54645bad86d54dfbb5677364eb5d83afe9feafbc916826468c7b1e91f1922"
+    },
+    {
+      "role": "profile_shared_allocation",
+      "bytes": 72,
+      "sha256": "93997012f6c15d1de7ee98b26ac66a92ce59302cdde8e8b16465662a335c8c25"
+    },
+    {
+      "role": "profile_shared_controlblock_constructor",
+      "bytes": 76,
+      "sha256": "e990b0483e3c3515768df487a0f1912cd93ab16f34de50aba9f501b9f55db026"
+    },
+    {
+      "role": "user_constructor_thunk",
+      "bytes": 4,
+      "sha256": "19965fc5ff6a382dd61173c477fdb259c375b8fcd7d798b41763b3be5434a93e"
+    },
+    {
+      "role": "user_constructor",
+      "bytes": 232,
+      "sha256": "a380ab8151049ccc611e4e7b0448c5241300c72dd1f29760b7c07c754f429afd"
+    }
+  ]
+}

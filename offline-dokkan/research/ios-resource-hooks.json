@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "main_executable_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "source_patcher_sha256": "74e47aa75fdbd828fa3918a966b50457e8497143962d5be573cb60f332e055dc",
+  "main_symbol_count": 3460,
+  "patcher_symbol_count": 68154,
+  "verified_main_file_io_imports": [
+    "_fopen",
+    "_fclose",
+    "_fread",
+    "_fseek",
+    "_ftell",
+    "_stat",
+    "_lstat",
+    "_access",
+    "_open",
+    "_read"
+  ],
+  "cocos_resource_root_export_found": false,
+  "provider_current_and_6_4_maps_byte_identical": true,
+  "provider_maps_contain_android_ndk_signatures": true,
+  "provider_map_offsets_admitted": false,
+  "libc_read_adapter_source_ready": true,
+  "libc_adapter_targeted_check": "Actual6752 matching resource bytes resolved via readonly FD; unsupported/other-bundle/write requests forwarded to preserved callback; traversal rejected.",
+  "original_import_slots_rebound": false,
+  "original_resource_search_path_changed": false,
+  "original_gameplay_verified": false
+}

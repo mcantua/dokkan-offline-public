@@ -1,0 +1,111 @@
+{
+  "kind": "readonly-current-source-rank-and-new-card-exp-facts",
+  "source_plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "source_encrypted_sha256": "f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d",
+  "rank_columns": [
+    [
+      "id",
+      "INTEGER"
+    ],
+    [
+      "rank",
+      "INTEGER"
+    ],
+    [
+      "exp_total",
+      "INTEGER"
+    ],
+    [
+      "act_max",
+      "INTEGER"
+    ],
+    [
+      "friends_capacity",
+      "INTEGER"
+    ],
+    [
+      "created_at",
+      "datetime"
+    ],
+    [
+      "updated_at",
+      "datetime"
+    ]
+  ],
+  "rank_rows": 2000,
+  "rank_range": [
+    1,
+    2000
+  ],
+  "rank_threshold_range": [
+    0,
+    6599117685
+  ],
+  "rank_ids_contiguous": true,
+  "exp_thresholds_strictly_increasing": true,
+  "act_caps_nondecreasing": true,
+  "first_five_rank_records": [
+    {
+      "rank": 1,
+      "exp_total": 0,
+      "act_max": 20,
+      "friends_capacity": 50
+    },
+    {
+      "rank": 2,
+      "exp_total": 15,
+      "act_max": 20,
+      "friends_capacity": 50
+    },
+    {
+      "rank": 3,
+      "exp_total": 45,
+      "act_max": 22,
+      "friends_capacity": 51
+    },
+    {
+      "rank": 4,
+      "exp_total": 90,
+      "act_max": 22,
+      "friends_capacity": 51
+    },
+    {
+      "rank": 5,
+      "exp_total": 160,
+      "act_max": 22,
+      "friends_capacity": 51
+    }
+  ],
+  "last_rank_record": {
+    "rank": 2000,
+    "exp_total": 6599117685,
+    "act_max": 350,
+    "friends_capacity": 100
+  },
+  "new_level1_exp": {
+    "observed_curve_types": 18,
+    "all_observed_lv1_totals_zero": true,
+    "used_card_exp_types": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      15,
+      25
+    ],
+    "every_used_type_has_lv1_row": true,
+    "new_grants_only": true,
+    "legacy_missing_exp_may_be_between_level_thresholds": "must remain unknown; do not backfill from level"
+  },
+  "not_established_by_these_rows": [
+    "rank-up ACT refill/overflow policy",
+    "recovery interval/clock behavior",
+    "rank EXP award amounts from a real battle result",
+    "progress beyond maximum source rank",
+    "fresh card capacity/tutorial state enums"
+  ],
+  "core_modified": false
+}

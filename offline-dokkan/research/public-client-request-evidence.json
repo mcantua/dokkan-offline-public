@@ -1,0 +1,228 @@
+{
+  "kind": "historical-public-client-interface-evidence",
+  "repository": "https://github.com/pawelorzech/dokkan-battle-bot",
+  "upstream_path": "commands.py",
+  "source_sha256": "1fd1821782f50c35bb0471369d35e928aefd7bd78f44ed8af557b1983cf67404",
+  "upstream_license": "LGPL-3.0",
+  "function": "complete_stage",
+  "request_dictionary_literals": [
+    {
+      "source_line": 91,
+      "fields": [
+        {
+          "field": "difficulty",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "eventkagi_item_id",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "friend_id",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "is_playing_script",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "selected_team_num",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    },
+    {
+      "source_line": 94,
+      "fields": [
+        {
+          "field": "difficulty",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "friend_id",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "is_playing_script",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "selected_team_num",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    },
+    {
+      "source_line": 98,
+      "fields": [
+        {
+          "field": "difficulty",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "eventkagi_item_id",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "cpu_friend_id",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "is_playing_script",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "selected_team_num",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    },
+    {
+      "source_line": 101,
+      "fields": [
+        {
+          "field": "difficulty",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "cpu_friend_id",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "is_playing_script",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "selected_team_num",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    },
+    {
+      "source_line": 119,
+      "fields": [
+        {
+          "field": "sign",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    },
+    {
+      "source_line": 173,
+      "fields": [
+        {
+          "field": "actual_steps",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "difficulty",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "elapsed_time",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "energy_ball_counts_in_boss_battle",
+          "literal_source_type": "array"
+        },
+        {
+          "field": "has_player_been_taken_damage",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "is_cheat_user",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "is_cleared",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "is_defeated_boss",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "is_player_special_attack_only",
+          "literal_source_type": "boolean"
+        },
+        {
+          "field": "max_damage_to_boss",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "min_turn_in_boss_battle",
+          "literal_source_type": "integer"
+        },
+        {
+          "field": "quest_finished_at_ms",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "quest_started_at_ms",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "steps",
+          "literal_source_type": "unresolved_expression"
+        },
+        {
+          "field": "token",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    },
+    {
+      "source_line": 206,
+      "fields": [
+        {
+          "field": "sign",
+          "literal_source_type": "unresolved_expression"
+        }
+      ],
+      "required_at_runtime": "not_established",
+      "conditional_variants_possible": true
+    }
+  ],
+  "indexed_field_names": [
+    "amount",
+    "card_id",
+    "cards",
+    "code",
+    "error",
+    "events",
+    "gasha_point",
+    "id",
+    "is_cpu",
+    "item_id",
+    "item_type",
+    "items",
+    "quantity",
+    "quest_clear_rewards",
+    "rank",
+    "sign",
+    "stone",
+    "sugoroku",
+    "token",
+    "user",
+    "user_items",
+    "zeni"
+  ],
+  "limits": "Indexed fields may refer to local/intermediate objects. Dictionaries are historical client construction, not server implementations or complete response schemas. Unknown expressions are not inferred. No scalar sample values retained.",
+  "source_executed": false,
+  "game_api_contacted": false,
+  "selected_6_6_client_contract_verified": false,
+  "transport_admission_granted": false
+}

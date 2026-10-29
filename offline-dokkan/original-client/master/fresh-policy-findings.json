@@ -1,0 +1,31 @@
+{
+  "kind": "bounded-current-source-fresh-policy-inspection",
+  "source_plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "grounded": {
+    "rank1": {"rank":1,"exp_total":0,"act_max":20,"friends_capacity":50},
+    "tutorial_master_tables": ["tutorial_phases","tutorial_steps","tutorial_processes"],
+    "tutorial_table_row_counts": [16,17,73],
+    "first_phase_number":1,
+    "first_phase_id":1,
+    "first_step_ids":[1,2],
+    "first_steps_phase_id":1,
+    "first_steps_resume_points":true
+  },
+  "capacity_settings_found": ["shop_expand_card_capacity_max","shop_expand_card_capacity_use_stone"],
+  "capacity_settings_are_not_initial_capacity_proof": true,
+  "not_found_in_bounded_master_and_startup_metadata": [
+    "initial card_capacity and total_card_capacity",
+    "initial support_item_capacity",
+    "mapping from tutorial rows to fresh wire progress/contents_lv/is_finished"
+  ],
+  "additional_inspection": {
+    "tutorial0_resource_inventory": "939 CPK,24 USM,21 AWB,7 ACB; no plain JSON/Lua/XML startup policy",
+    "main_symbol_table": "3460 bounded symbols; no grounded tutorial/default-capacity initializer found",
+    "public_github_code_search": "no matching public Dokkan wire-field default source found",
+    "official_faq_title_page": "https://bnfaq.channel.or.jp/title/1624",
+    "official_faq_initial_defaults_found": false
+  },
+  "played_account_scalar_defaults_used": false,
+  "tutorial_skipped_or_unlocks_granted": false,
+  "unverified_policy_invented": false
+}

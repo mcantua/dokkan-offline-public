@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "route": "approved-public-sparking-database",
+  "attempts": 1,
+  "expected_bytes": 114827264,
+  "expected_sha256": "f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d",
+  "source_url": "https://ddl.dokkan-sparking.com/dokkan/assets/global/en/sqlite/current/en/database.db",
+  "mac_network_used": false,
+  "account_or_keys_requested": false,
+  "status": "not_downloaded",
+  "reason": "SOURCE_HTTP_400"
+}
