@@ -10,6 +10,10 @@ Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
 Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says "make the builds".
 
+## Latest repository transition
+
+2026-10-29 11:13 AM US Central: Tin confirmed this public repository as the only active destination and the old private repo as untouched backup. Read all five required startup files and confirmed draft PRs #1 auth, #2 validation, #3 launcher, #4 engine/menu against the specified base. Documentation updates are isolated on `chatgpt/public-repo-transition-log`; no base push/merge, code review, build, app test, save access, key access or personal-machine action occurred. Current no-build/local-config/privacy instructions are at the top of README and context/TIN-RULES. Work is logged in STATUS and the existing private Drive Documentation folder; check the transition log for the exact sync receipt. Older CI/native results and acceptance gaps below remain scoped historical evidence.
+
 ## Done
 - 1a24cfc and earlier: guarded the omitted sqlite3_enable_load_extension call. Extension loading stays OFF.
 - Selected-master read now denies SQL printf/format.
