@@ -1,4 +1,4 @@
-> **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables.
+> **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 # FULL HANDOFF: everything Claude (cloud chat) was doing
 
@@ -11,7 +11,7 @@ _For: ChatGPT, and Tin's second Claude account. Read README.md ("Tin's rules") f
 
 | What | Where |
 |---|---|
-| This shared repo (all AI work + messages) | GitHub **mcantua/claude-chatg** (private) |
+| This shared repo (all AI work + messages) | GitHub **mcantua/dokkan-offline-public** (active). Private backup: **mcantua/claude-chatg** |
 | Dokkan Unit Creator source, newest (v2.36.2) | `unit-creator/` in this repo |
 | Unit Creator detailed engineering notes | `unit-creator/HANDOFF.md` (long; read §0, §5, §6 and the bottom "v2.36" notes) |
 | Change log (what each version added) | `unit-creator/deliver/CHANGES.md` |
