@@ -1,0 +1,76 @@
+{
+  "recorded_at_utc": "2026-10-28T16:44:27.336784+00:00",
+  "scope": "Offline Linux runtime tests; real signer and synthetic RAM-only keys/profiles, no Apple account/device installation. Uncommitted development source, not release proof.",
+  "core_tests_passed": 16,
+  "core_tests_failed": 0,
+  "tls_tests_passed": 2,
+  "tls_tests_failed": 0,
+  "initial_tls_command": "Wrong non-workspace -p invocation rejected before any TLS test; corrected documented direct-manifest invocation passed.",
+  "known_warning": "Upstream idevice RsdProvider unused import with ring-only TLS-test feature subset; production app feature compile is separate.",
+  "sources": [
+    {
+      "file": "app-installer/core/Cargo.lock",
+      "sha256": "3d45373a3e0d615c2e639c631b3387083831f35b0e674f776f68f5fbd99fe75c"
+    },
+    {
+      "file": "app-installer/core/Cargo.toml",
+      "sha256": "eeca3220877c54535e391d4ae671e37bf4779effee5b44bfac9d21f3a9d7c250"
+    },
+    {
+      "file": "app-installer/core/src/archive.rs",
+      "sha256": "7afa970708c4be890404360e1119e818a75cc114dbff390994ccaea55f663e73"
+    },
+    {
+      "file": "app-installer/core/src/capabilities.rs",
+      "sha256": "a0f163f718e5d23ace275c6947469723b8a158efbb0de427eb8c16d9633126bf"
+    },
+    {
+      "file": "app-installer/core/src/cleanup.rs",
+      "sha256": "8783176ca5a04a64e9fbdb7e05970f95b618dd12b1a725097ab1ac5e1c0f1c04"
+    },
+    {
+      "file": "app-installer/core/src/engine.rs",
+      "sha256": "97b5d290b613c3e418e1a338b31ef525593c25a5b79d1d4ae711c0d0130b1f5b"
+    },
+    {
+      "file": "app-installer/core/src/entitlement_policy.rs",
+      "sha256": "92f58f7168db3a8ea10a9a678bd360269941fec8742ad363dc13aff4186acc82"
+    },
+    {
+      "file": "app-installer/core/src/identity.rs",
+      "sha256": "b7aa34726ba329daa169e91623eb45a75d739f50f148270b9419ec2794434b0d"
+    },
+    {
+      "file": "app-installer/core/src/lib.rs",
+      "sha256": "600bb0d051708c690aa46929a4053cd1b6e126e2d9fd0735cd5ae698f998a6ba"
+    },
+    {
+      "file": "app-installer/core/src/signed_verification.rs",
+      "sha256": "6703e4137fd4fd74130c95cd85011ec0032e437c826354e22d08cd053f09d5a4"
+    },
+    {
+      "file": "app-installer/core/src/synthetic_signing_tests.rs",
+      "sha256": "db7662e05541fc3b6f9b693bdfa140deedfb111b940277314122d28e01670187"
+    },
+    {
+      "file": "downloads/idevice/idevice-0.1.68/Cargo.lock",
+      "sha256": "a3407d2a14e12abe3778a1816a4cf555b0758418faf8fc42638250a01cfa69d4"
+    },
+    {
+      "file": "downloads/idevice/idevice-0.1.68/src/sni.rs",
+      "sha256": "24fba90b2beff5a93242d8d743a9077dc60fbd7907f3d417aee64c2da450c853"
+    },
+    {
+      "file": "downloads/isideload/isideload-0.5.0/src/dev/app_groups.rs",
+      "sha256": "dff3bc338bcde18ebc7074ca34345f97de41bc9bc05613905b2ea5872faba6ba"
+    },
+    {
+      "file": "downloads/isideload/isideload-0.5.0/src/dev/app_ids.rs",
+      "sha256": "c9fb340359c9b30352d9bbad40a3faaddd40328fbade36fb23abe45ed2d9968e"
+    },
+    {
+      "file": "downloads/isideload/isideload-0.5.0/src/sideload/sign.rs",
+      "sha256": "bad531143627e938a8285999f13149c1894454449b1f8e8b60d149d30b2b7b16"
+    }
+  ]
+}

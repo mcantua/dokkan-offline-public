@@ -1,0 +1,54 @@
+{
+  "classification": "unsigned-candidate",
+  "candidate_integrity_verified": true,
+  "notices_verified": true,
+  "corresponding_source_verified": true,
+  "relink_instructions_verified": true,
+  "unresolved_notice_cases": 0,
+  "release_ready": false,
+  "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+  "source_bundle_sha256": "bc8f927364b8c88a5bec365bfba48dbdac72db8625aa9999e3fe78648b8c917f",
+  "source_tree_sha256": "7bde209ce40f55deb2d3ee49f455354224cf3b84d4484467bb9f257695d802ac",
+  "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+  "secure_rp_helper_verified": true,
+  "draft": true,
+  "release_id": 427060273,
+  "original_package_run": 40798347194,
+  "compilation_performed": false,
+  "tests_repeated": false,
+  "device_install_attempted": false,
+  "preserved_fixture_asset_ids": {
+    "InstallationCheck-test-fixture.json": 686008738,
+    "InstallationCheck-test-fixture.zip": 686008776
+  },
+  "promoted_assets": {
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2206,
+      "sha256": "b3badef06238ec1d71bb003f991da82976660090b393bf5566d69631274e0c14"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 1561,
+      "sha256": "37ce854bee6e7ee19d1a27afafe358fa8be8873f8aa60cef66d487ae111e1368"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 43104667,
+      "sha256": "770f5c93ac0b1d73a644a0af9fe96b5d7d0601de8f592a5828c7ae4ead9a9606"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 8378458,
+      "sha256": "cb24d72bb9854129e0ea2cf784be42cde79af40ed384b44760f6f74dcc18b7ca"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 8378461,
+      "sha256": "7166a382f3571531b533e91474e0a430597eb95470029b7994e8cd49ab83caf5"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1332,
+      "sha256": "305f2edc6bd60539092fd8ce5bbcb1fda41677dd90803836521f75d716646b88"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 92840736,
+      "sha256": "bc8f927364b8c88a5bec365bfba48dbdac72db8625aa9999e3fe78648b8c917f"
+    }
+  }
+}

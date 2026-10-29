@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T00:26:31.040451+00:00",
+  "environment": "cloud Linux",
+  "scope": "One combined syntax, original Linux receipt integrity, and exact locked metadata/notices preflight. No tests reexecuted, no compile/package/sign/install or personal resources.",
+  "python_ast": "passed",
+  "bash_syntax": "passed",
+  "reused_groups": [
+    "core_connection",
+    "peer_auth",
+    "tunnel_security",
+    "helper",
+    "pinned_tls"
+  ],
+  "selected_linux_successes_reused": 10,
+  "notices": {
+    "core": {
+      "dependency_count": 318,
+      "notice_gap_count": 0,
+      "distribution_requirements": [
+        {
+          "package": "apple-codesign-quick",
+          "version": "0.1.0",
+          "requirement": "corresponding-source/relink-bundle"
+        }
+      ],
+      "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+      "targets": [
+        "aarch64-apple-ios"
+      ],
+      "openssl_source_notice_files": [
+        [
+          "LICENSE-APACHE",
+          "LICENSE-MIT",
+          "openssl/LICENSE.txt"
+        ]
+      ]
+    },
+    "helper": {
+      "dependency_count": 138,
+      "notice_gap_count": 0,
+      "distribution_requirements": [],
+      "locked_dependency_graph_hash": "2b261271e9146ed4cb02f86ec83ab2c9cf2a6e542df258c751656b4d7cc57850",
+      "targets": [
+        "aarch64-apple-darwin",
+        "x86_64-apple-darwin"
+      ],
+      "openssl_source_notice_files": []
+    }
+  },
+  "limits": [
+    "Worktree not yet frozen; hosted candidate/source-kit build remains pending.",
+    "Original scoped evidence limitations are preserved in individual Linux proofs.",
+    "App LGPL source/relink delivery condition must be fulfilled by actual matching companion archive."
+  ],
+  "new_critical_pinned_tls_followup": {
+    "reuse_receipt": "accepted",
+    "source_before_after_hashes": "equal and match current bytes",
+    "changed_python_shell_syntax": "passed",
+    "test_execution": "none"
+  },
+  "native_hosted_selection_pending": [
+    "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+    "AppInstallerPairingDiscoveryTests/testBoundedDiscoveryCancellationRejectsLateCallbacksAndFinishesOnce",
+    "PairingStoreValidationTests/testRemotePairingV2ImportAndRecoveryFormatGuardPreservesLegacySupport"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "kind": "scoped-offline-helper-publication-proof",
+  "environment": "cloud Linux; no Mac, USB, Apple account or device transport execution",
+  "recorded_at_utc": "2026-10-29T13:40:41.704682+00:00",
+  "source_commit_context": "23ea51451f3da3fa5aae4d1153c36d4d3fab4deb",
+  "clean_commit_claim": false,
+  "os": "Linux",
+  "architecture": "x86_64",
+  "os_release": "6.18.55",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "rustc_verbose": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "app-installer/device/secure-rp-bootstrap/Cargo.toml",
+    "--bin",
+    "app-installer-rp-bootstrap",
+    "new_record_verification_gates_private_publication_without_retry"
+  ],
+  "environment_setup": "source app-installer/build/env.sh",
+  "cargo_target_dir": "app-installer/core/target",
+  "exit_code": 0,
+  "method": "tests::new_record_verification_gates_private_publication_without_retry",
+  "filter": "new_record_verification_gates_private_publication_without_retry",
+  "passed": 1,
+  "failed": 0,
+  "ignored": 0,
+  "filtered_out": 2,
+  "test_seconds": 0.0,
+  "compile_seconds": 3.31,
+  "raw_log": {
+    "path": "helper-publication-tests.log",
+    "sha256": "7a8972109ff56d9e838ac3df327d643c358cfeebc941c15b5ea47b3c6aebf105",
+    "collection": "Exact visible exec_command/write_stdin stdout/stderr chunks transcribed after completion; not a contemporaneous tee capture."
+  },
+  "files": {
+    "app-installer/device/secure-rp-bootstrap/Cargo.toml": "aec908a5e16c428ecb45aa501f02dfed0df0ec8cb72db354599b72e171b5e680",
+    "app-installer/device/secure-rp-bootstrap/Cargo.lock": "f17960bd2869ced3d3ab3028bda7e74f98963e9aaece86bf1ef65d36a0349519",
+    "app-installer/device/secure-rp-bootstrap/src/main.rs": "35bb255b27cc91cdf2cb69734bd283e681cf87c2ecd781464a7a30a5f694d176"
+  },
+  "hash_capture": "post-run only; own helper Cargo.toml/Cargo.lock/src/main.rs unchanged between successful test and snapshot; README only updated afterward",
+  "pre_run_hashes_captured": false,
+  "pre_run_hashes": null,
+  "vendor_inputs_unchanged_claim": false,
+  "scope": "Synthetic result injection tests publication/file gate only: failed verification cannot publish, accepted verifier precedes private atomic write, existing export cannot be replaced. No real USB transport, cryptographic pair-verify, Apple account or current vendor-closure proof.",
+  "vendor_edit_limit": "Engine confirmed shared vendor lib.rs and rp_pairing_file.rs edits were in progress. Their current hashes are deliberately excluded rather than asserted as tested before/after. Current genuine build plus separately scoped vendor checks must cover full changed closure.",
+  "reuse_authorization": "Root approved reuse only for exact unchanged own three-file hashes and this narrow publication/filegate scope despite explicit missing pre-run hash capture; no new test execution claim."
+}

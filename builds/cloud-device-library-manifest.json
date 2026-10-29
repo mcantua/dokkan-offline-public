@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "target": "aarch64-apple-ios",
+  "file": "libapp_installer_core.a",
+  "bytes": 112270024,
+  "sha256": "9ba3a7c4e112caad804297df8f62a98a92924e2406840c4cb4f2f4270a108697",
+  "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+  "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+  "source_bundle_sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e",
+  "source_bundle_file": "AppInstaller-corresponding-source.tar.xz",
+  "source_bundle_bytes": 92848016,
+  "source_bundle_location": "same-artifact/candidates/AppInstaller-corresponding-source.tar.xz",
+  "source_bundle": {
+    "file": "AppInstaller-corresponding-source.tar.xz",
+    "sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e",
+    "bytes": 92848016,
+    "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+    "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+    "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+    "corresponding_source_verified": true,
+    "relink_instructions_verified": true
+  },
+  "compilation_sdk": "27.1",
+  "unsigned": true
+}

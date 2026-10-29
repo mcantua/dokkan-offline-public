@@ -1,0 +1,2 @@
+package android.webkit;
+public class WebResourceResponse { public WebResourceResponse(String m,String e,java.io.InputStream d){} public WebResourceResponse(String m,String e,int s,String r,java.util.Map<String,String> h,java.io.InputStream d){} public int getStatusCode(){return 0;} public String getMimeType(){return null;} public java.io.InputStream getData(){return null;} public java.util.Map<String,String> getResponseHeaders(){return null;} }

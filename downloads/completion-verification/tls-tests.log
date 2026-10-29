@@ -1,0 +1,101 @@
+   Compiling libc v0.2.185
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling cfg-if v1.0.4
+   Compiling unicode-ident v1.0.24
+   Compiling shlex v1.3.0
+   Compiling find-msvc-tools v0.1.9
+   Compiling crossbeam-utils v0.8.21
+   Compiling cc v1.2.57
+   Compiling cfg_aliases v0.2.1
+   Compiling autocfg v1.5.0
+   Compiling memoffset v0.9.1
+   Compiling syn v2.0.117
+   Compiling paste v1.0.15
+   Compiling parking_lot_core v0.9.12
+   Compiling ring v0.17.14
+   Compiling powerfmt v0.2.0
+   Compiling bitflags v2.11.0
+   Compiling deranged v0.5.8
+   Compiling getrandom v0.2.17
+   Compiling concurrent-queue v2.5.0
+   Compiling serde_core v1.0.228
+   Compiling bytes v1.11.1
+   Compiling zeroize v1.8.2
+   Compiling time-core v0.1.8
+   Compiling smallvec v1.15.1
+   Compiling num-conv v0.2.1
+   Compiling time v0.3.47
+   Compiling event-listener v5.4.1
+   Compiling rustls-pki-types v1.14.0
+   Compiling lock_api v0.4.14
+   Compiling errno v0.3.14
+   Compiling nix v0.30.1
+   Compiling futures-core v0.3.32
+   Compiling thiserror v2.0.18
+   Compiling log v0.4.29
+   Compiling serde v1.0.228
+   Compiling tokio-macros v2.6.1
+   Compiling thiserror-impl v2.0.18
+   Compiling serde_derive v1.0.228
+   Compiling signal-hook-registry v1.4.8
+   Compiling netlink-packet-core v0.8.1
+   Compiling parking_lot v0.12.5
+   Compiling event-listener-strategy v0.5.4
+   Compiling socket2 v0.6.3
+   Compiling mio v1.1.1
+   Compiling nix v0.31.2
+   Compiling getrandom v0.4.2
+   Compiling equivalent v1.0.2
+   Compiling rand_core v0.10.0
+   Compiling memchr v2.8.0
+   Compiling fastrand v2.3.0
+   Compiling futures-io v0.3.32
+   Compiling indexmap v2.13.0
+   Compiling piper v0.2.5
+   Compiling quick-xml v0.38.4
+   Compiling rustls v0.23.46
+   Compiling tokio v1.50.0
+   Compiling async-channel v2.5.0
+   Compiling rustls-webpki v0.103.16
+   Compiling netlink-packet-route v0.25.1
+   Compiling netlink-sys v0.8.8
+   Compiling futures-lite v2.6.1
+   Compiling base64 v0.23.1
+   Compiling ipnet v2.12.0
+   Compiling tun-rs v2.8.1
+   Compiling cpufeatures v0.3.0
+   Compiling async-task v4.7.1
+   Compiling subtle v2.6.1
+   Compiling blocking v1.6.2
+   Compiling plist v1.8.0
+   Compiling chacha20 v0.10.0
+   Compiling pem v4.0.0
+   Compiling netconfig-rs v0.1.6
+   Compiling tracing-attributes v0.1.31
+   Compiling yasna v0.6.0
+   Compiling getifaddrs v0.6.0
+   Compiling tracing v0.1.44
+   Compiling rcgen v0.14.10
+   Compiling tokio-rustls v0.26.4
+   Compiling rand v0.10.0
+   Compiling plist-macro v0.1.6
+   Compiling idevice v0.1.68 (/workspace/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68)
+warning: unused import: `RsdProvider`
+  --> src/lib.rs:57:33
+   |
+57 | use provider::{IdeviceProvider, RsdProvider};
+   |                                 ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `idevice` (lib test) generated 1 warning (run `cargo fix --lib -p idevice --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.35s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/idevice-f418ae94c149f982)
+
+running 2 tests
+test sni::tests::trusted_pairing_and_real_signature_complete_tls12_and_tls13 ... ok
+test sni::tests::substituted_identity_and_tampered_signature_fail_tls12_and_tls13 ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.01s
+

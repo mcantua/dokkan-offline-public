@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "scope": "One grouped chooser/path/pinned-source regression. TEST-ONLY copied public scripts from verified5855kit; fake chooser; stops before importing wizard. No actualMac/USB/Keychain/network/install/build/test-suite execution.",
+  "passed": true,
+  "cases": [
+    "AI-Workspace/claude-chatg accepted without old-home-path dependency",
+    "AI-Workspace/AI-Workspace/claude-chatg accepted without old-home-path dependency",
+    "setup-wizard.py tampering rejected before import",
+    "device-workflow.py tampering rejected before import",
+    "missing wizard stopped without traceback/import",
+    "chooser cancellation stopped before import"
+  ],
+  "recipe_sha256": "4153578caf306d432f2b3bd12ef1dff246041649ee177ecd25d1cd08ad7fbc9b"
+}

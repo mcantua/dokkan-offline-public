@@ -1,0 +1,37 @@
+/* Performance. Big blurred glows, backdrop blur and never-ending animations are expensive to
+   draw on phones, so the default theme keeps the look but drops the costliest effects, and
+   "Lite" mode (App speed) removes the rest. */
+.db-burst{animation:none!important}
+.mobile-nav{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:#131d2b!important}
+html.dbz .mobile-nav{background:#0d1638!important}
+.studio-tabs{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:#10151d!important}
+.ai-studio-dialog::backdrop{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+#busy.quiet{background:transparent}
+#busy.quiet .busy-card{visibility:hidden}
+#bld-card{contain:layout style}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+html.lite *,html.lite *::before,html.lite *::after{box-shadow:none!important;text-shadow:none!important;transition:none!important}
+html.lite .db-burst{display:none}
+html.lite img,html.lite .db-ball{filter:none!important}
+html.lite .unit-tile:hover,html.lite .source-tile:hover{transform:none}
+html.lite .combat-workshop *{animation:none!important}
+html.lite input:focus,html.lite select:focus,html.lite textarea:focus{outline:2px solid #ff8c1a!important;outline-offset:1px}
+html.lite .bld-kind.on,html.lite .qc-style.on{outline:2px solid #ffb15d;outline-offset:-2px}
+.perf-choices{display:grid;gap:8px;margin:8px 0 16px}
+.perf-choice{display:flex;gap:12px;align-items:flex-start;padding:12px;border:2px solid #2d3f88;border-radius:12px;background:#0f1840;cursor:pointer}
+.perf-choice.on{border-color:#ffd23f;background:#2a2410}
+.perf-choice input{width:18px;height:18px;min-height:0;flex:0 0 18px;padding:0;margin:3px 0 0;accent-color:#ff8c1a}
+.perf-choice strong{display:block;font-size:14px;color:#fff}
+.perf-choice small{display:block;font-size:12px;line-height:1.5;color:#b9c3e6;margin-top:3px}
+#dialog-content h3{margin:14px 0 4px}
+/* Bottom navigation: keep the end of every screen (Next / Save buttons) scrollable above it.
+   --nav-h is measured live by perf.js because the bar's height changes with fonts and phones. */
+@media(max-width:760px){
+  main#main,.creation-workspace #main,html[data-layout] #main{padding-bottom:calc(var(--nav-h,72px) + 56px)!important}
+  html{scroll-padding-bottom:calc(var(--nav-h,72px) + 16px)}
+  #toast{bottom:calc(var(--nav-h,72px) + 12px)}
+}
+/* Long lists: tiles that are off screen are not drawn until you scroll to them. */
+/* .fd-tile left out: finder pages are at most 60 tiles, and content-visibility made the first scroll stutter */
+.unit-tile,.source-tile,.animation-tile{content-visibility:auto;contain-intrinsic-size:auto 150px}
+.porg-name{content-visibility:auto;contain-intrinsic-size:auto 64px}

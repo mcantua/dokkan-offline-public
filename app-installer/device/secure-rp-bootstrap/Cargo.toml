@@ -1,0 +1,24 @@
+[package]
+name = "app-installer-rp-bootstrap"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99.1"
+license = "AGPL-3.0-only"
+publish = false
+
+[dependencies]
+idevice = { version = "=0.1.68", path = "../../../downloads/idevice/idevice-0.1.68", default-features = false, features = ["ring", "tcp", "usbmuxd", "pair", "remote_pairing"] }
+tokio = { version = "=1.54.1", default-features = false, features = ["rt-multi-thread", "macros", "time"] }
+libc = "=0.2.191"
+serde_json = "=1.0.154"
+uuid = { version = "=1.29.0", features = ["v4"] }
+zeroize = "=1.9.1"
+# Upstream pairing parsers contain secret-bearing trace statements. Disable all
+# tracing at compile time, including development builds; never install a logger.
+tracing = { version = "=0.1.44", default-features = false, features = ["std", "max_level_off", "release_max_level_off"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
+panic = "abort"

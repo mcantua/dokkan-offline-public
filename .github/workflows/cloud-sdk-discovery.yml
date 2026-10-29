@@ -1,0 +1,44 @@
+name: App Installer hosted Apple SDK inventory
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: xcode-27
+    timeout-minutes: 5
+    steps:
+      - name: Inspect installed hosted Apple tools
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/AI-Workspace/claude-chatg/downloads/sdk-discovery"
+          cd "$GITHUB_WORKSPACE/AI-Workspace/claude-chatg/downloads/sdk-discovery"
+          xcodebuild -version | tee xcode-version.txt
+          xcrun --sdk iphoneos --show-sdk-version | tee device-sdk.txt
+          xcrun --sdk iphonesimulator --show-sdk-version | tee simulator-sdk.txt
+          xcrun simctl list -j > simulator-inventory.json
+          xcrun simctl help > simctl-help.txt
+          xcrun simctl io help > simctl-io-help.txt 2>&1 || true
+          xcrun simctl ui help > simctl-ui-help.txt 2>&1 || true
+          owned_simulator=""
+          cleanup() {
+            if [[ -n "$owned_simulator" ]]; then
+              xcrun simctl shutdown "$owned_simulator" >/dev/null 2>&1 || true
+              xcrun simctl delete "$owned_simulator" >/dev/null 2>&1 || true
+            fi
+          }
+          trap cleanup EXIT
+          owned_simulator="$(xcrun simctl create "Installer display discovery $GITHUB_RUN_ID" com.apple.CoreSimulator.SimDeviceType.iPhone-Duo com.apple.CoreSimulator.SimRuntime.iOS-27-1)"
+          [[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]]
+          xcrun simctl boot "$owned_simulator"
+          xcrun simctl bootstatus "$owned_simulator" -b
+          xcrun simctl io "$owned_simulator" enumerate > duo-display-enumeration.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: app-installer-sdk-inventory
+          path: AI-Workspace/claude-chatg/downloads/sdk-discovery/
+          retention-days: 7
+          if-no-files-found: error

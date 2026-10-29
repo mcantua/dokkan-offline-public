@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T14:04:24.340490+00:00",
+  "run_id": 40884961768,
+  "job_id": 123486088590,
+  "workflow_run_url": "https://github.com/mcantua/claude-chatg/actions/runs/40884961768",
+  "workflow_conclusion": "success",
+  "job_duration_seconds": 755,
+  "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+  "genuine_toolchain": {
+    "sdk_version": "27.1",
+    "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+    "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "native_checks": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 0.101,
+    "method": "PairingImportReadTests/testCoordinatedPairingReadUsesBoundedBytesAndHonorsCancellation",
+    "scope": "Actual NSFileCoordinator/nonsecret owned-file/cancellation regression and explicit materialization fixture; not a live cloud provider, account or physical phone proof. Prior native methods were not repeated."
+  },
+  "compiled_native_input_sha256": {
+    "app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m": "1ea3958ca949c5c371db63ae913d4d4d9fdcd8cb5f1a9faf113e8e3a39445d8e",
+    "app-installer/cloud-ui/Tests/AppInstallerPairingDiscoveryTests.m": "44413840b50c65135cf9466d22949983d1bf70ef4269ff7d14671561f435f12e",
+    "app-installer/cloud-ui/Tests/PairingImportReadTests.m": "6fa19c19b6a83c98069a2f86475e8d78956b63ebb2d37bb83c121bd11e327ac1",
+    "app-installer/cloud-ui/Tests/PairingStoreValidationTests.m": "45cf6832d5f77f01633ac11a250a9a183bb8f0a8c6f0f5ba35cef30ac3d98ca7",
+    "app-installer/cloud-ui/Tests/RefreshLifecycleTests.m": "4f81c0061557367d784f16e786af93d34e44b15f86ed3dcfcd3401a9476c235a",
+    "app-installer/cloud-ui/Tests/SecureStoreBootstrapTests.m": "4029bab32170356a1fb21ac21fd401ebb1ddc3c980f0a910eb697c97e27d8e62",
+    "app-installer/cloud-ui/project.yml": "d0c2b321f27a0ec90a660fd1bad79e5594aed728505da86b7e5a17c13d8b5ff7",
+    "app-installer/cloud-ui/run.sh": "ef16bb0b9df92a4b7e069adbd42b943a700cb88d320d89dd80158c61f2639b5e",
+    "app-installer/core/app_installer.h": "8802adfd588753a8de7de81250332a0f1cb2f2f5f2d5b20ec7be6b732bac75b1",
+    "app-installer/core/secure_storage.h": "3d38d2df048dbe2b090fb79175f30812c63e55a4827d075eef58f8fbe823e6e7",
+    "app-installer/ios/DisplayDiagnostics.h": "85ba6243644b5e53b3b0238f63741c9b57f0ca4c6e7376b384e6d2531841eb68",
+    "app-installer/ios/DisplayDiagnostics.m": "8b9e5e83a5d1c0bf34a86a81dd54d52f6675ebcd00a0968710b4414087014d86",
+    "app-installer/ios/Info.plist": "4572d98f33706b93912f06c59e8dde2ec8dc7e79f75c1c9f29e47ba6d82ef9f7",
+    "app-installer/ios/InstallerService.h": "8071d08af8731d0c98f68c296e44136e4f1fd24551abcad4dde910df39463ca8",
+    "app-installer/ios/InstallerService.m": "16948ac0d0e7947da9eac61fc59d48f354170630c2f24b951809e25f3ca190a2",
+    "app-installer/ios/PairingStore.h": "62f0555d91aad9ca96b7c37f97117b573ffee476e3d7673a4236d19b47ca2736",
+    "app-installer/ios/PairingStore.m": "9d3e7ad096947fede82122b548cb237ca0493956519a42b088faf99e41dcf0f6",
+    "app-installer/ios/RefreshCoordinator.h": "a4c29d55c9158f1fa8492498ecdd2ca4e32d57693276d1138d9974adf73f93c6",
+    "app-installer/ios/RefreshCoordinator.m": "6a462f2e6754a32fef1081129d71072cbd680576342ea954fd0379e746efdc21",
+    "app-installer/ios/SecureStore.h": "feaac8a8c8a09e1d64d1501e736ce7fd4545001bd24be03d2fe2d009696b0849",
+    "app-installer/ios/SecureStore.m": "d23ba8096ce653a57c07c63a3de06d9a7a84fd26ce0310000626cff97bbdeae6",
+    "app-installer/ios/assets/AppIcon1024.png": "9d006cd59f3a96a2cb1c63b8de4a6ff8ea3c15589fefcae09d69d9bdd2f08087",
+    "app-installer/ios/assets/AppIcon120.png": "6221630847a870edb3bb6d4139057edbedd78b390ec07e23c5ef4209b6a8dd03",
+    "app-installer/ios/assets/AppIcon180.png": "b94ac06ed13ce7aef222d5bbeb55ddb71b40cba120d7f97777f13fa583d15758",
+    "app-installer/ios/assets/generate-icons.py": "42c5d5b51245c64b1ee83b707dfac6e378f3999c383bf094c594f54384de45bc",
+    "app-installer/ios/display-evidence.md": "81fbe620039b65299f77f2b123dc2b16933a803ecbb50d6bea2c9c17a2ab83d5",
+    "app-installer/ios/main.m": "58b6e5d34c59d7635f23cb2e3d78ea965e2fd1affdcbf5e8c6f56cbc8e6ce1c1"
+  },
+  "current_native_input_changes": [],
+  "linux_proof_reuse": {
+    "new_test_execution": false,
+    "groups": {
+      "rp_connectivity": 2,
+      "helper_publication": 1
+    },
+    "helper_limit": "Own three unchanged source hashes and injected publication/file-gate semantics; no pre-run snapshot/current vendor-runtime proof. Original limitations preserved; current genuine target compile covers changed closure."
+  },
+  "raw_selected_job_log": {
+    "file": "hosted-40884961768-selected.log",
+    "sha256": "cb7b3de3ad3e8355e61368095dbb2173ce69d8b7b5124947ae1a171bcdd9b74c"
+  },
+  "outer_artifact_pins": {
+    "candidate": {
+      "id": 12902613724,
+      "bytes": 109678956,
+      "sha256": "2836a1b8bdcf14e8a6e41cc58da88f0af26ec966ce28416b7289bae1ce588199"
+    },
+    "kit": {
+      "id": 12902409391,
+      "bytes": 42768123,
+      "sha256": "e244d381d00d911a2c2f145cb854bfe0b55ac2266f8d0e034213b3882a54b4bc"
+    }
+  },
+  "verified_inner_asset_pins": {
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2206,
+      "sha256": "45ce68286627ce0caf81961cbf6484d7406fc844fd2bca6cd66ddad3cf36bed0"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 92848016,
+      "sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 8381293,
+      "sha256": "295c0e66a9f42296d91de92875cea458dd41dbd184300f35cf9aa62e032de3be"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 8381290,
+      "sha256": "4971e88514b79b319c4c3a900b58102f4d7977057a92c34f556c13a35974e97b"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1332,
+      "sha256": "739c631b066dadf4bfa41e41bfa4b34aaf8ce0e89bbbaffd07ff9660781fb324"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 1561,
+      "sha256": "e8499f2327ec5708146a94bdc6a6ea9307e325b38a6262c95007679eefb4a725"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 43111535,
+      "sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93"
+    }
+  },
+  "actual_distribution_verification": {
+    "classification": "unsigned-candidate",
+    "candidate_integrity_verified": true,
+    "notices_verified": true,
+    "corresponding_source_verified": true,
+    "relink_instructions_verified": true,
+    "unresolved_notice_cases": 0,
+    "release_ready": false,
+    "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+    "source_bundle_sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e",
+    "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+    "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+    "secure_rp_helper_verified": true,
+    "library_bytes": 112270024,
+    "library_sha256": "9ba3a7c4e112caad804297df8f62a98a92924e2406840c4cb4f2f4270a108697",
+    "kit_expanded_bytes": 122425763,
+    "kit_bytes": 43111535,
+    "kit_sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93",
+    "helper_binary": {
+      "file": "app-installer-rp-bootstrap",
+      "bytes": 4744560,
+      "sha256": "c38c83632ef89be8c31b96803c5e3aebf5ffd9d2705fe9ef57708cc2ff703869"
+    },
+    "helper_genuine_toolchain": {
+      "xcode": "Xcode 27.1\nBuild version 27A9275",
+      "macos_sdk": "27.0",
+      "sdk_settings_sha256": "90a738dbf3fd88e7f6d35646e19d3a8a716923b9773ce1b67260466d9ceed370",
+      "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)"
+    },
+    "helper_architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "helper_notarized": false,
+    "outer_artifacts_verified": true,
+    "actual_inner_stage_verified": true,
+    "compilation_performed": false,
+    "tests_repeated": false,
+    "release_assets_mutated": false,
+    "run_id": 40884961768
+  },
+  "release_assets_mutated": false,
+  "classification": "unsigned-candidate",
+  "release_ready": false,
+  "personal_resources_used": false,
+  "phone_install_attempted": false
+}

@@ -1,0 +1,17 @@
+/* GPL-3.0-or-later. Cancellable local movie editing; no external upload. */
+import './movie-edit-plan.js';
+import './usm-writer.js';
+const queue=[];let active=false;
+export function ensureMovieRuntime(){
+ let supported=false;
+ try{supported=typeof Worker==='function'&&typeof WebAssembly==='object'&&typeof WebAssembly.validate==='function'&&WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,22,1,20,0,253,12,...Array(16).fill(0),11]));}catch(_){/* Show the same actionable guidance for a missing runtime. */}
+ if(!supported)throw Error(/Android/i.test(globalThis.navigator?.userAgent||'')?'Update Android System WebView and Chrome to combine movies. Your saved animation is unchanged.':'Update your browser to combine movies. Your saved animation is unchanged.');
+}
+export async function editMovie(request,onProgress=()=>{}){
+ const plan=globalThis.ForgeMovieEditPlan.plan(request);if(request.signal?.aborted)throw new DOMException('Movie edit cancelled.','AbortError');ensureMovieRuntime();if(queue.length+(active?1:0)>=12)throw Error('Too many movies are waiting to be edited.');
+ return new Promise((resolve,reject)=>{const job={request,plan,onProgress,resolve,reject};job.cancel=()=>{const index=queue.indexOf(job);if(index>=0){queue.splice(index,1);request.signal?.removeEventListener('abort',job.cancel);reject(new DOMException('Movie edit cancelled.','AbortError'));}};request.signal?.addEventListener('abort',job.cancel,{once:true});queue.push(job);pump();});
+}
+async function pump(){if(active||!queue.length)return;active=true;const job=queue.shift();job.request.signal?.removeEventListener('abort',job.cancel);try{job.resolve(await run(job));}catch(error){job.reject(error);}finally{active=false;pump();}}
+async function run({request,plan,onProgress}){if(request.signal?.aborted)throw new DOMException('Movie edit cancelled.','AbortError');const worker=new Worker(new URL('./editor-worker.js',import.meta.url));return new Promise((resolve,reject)=>{let done=false;const timer=setTimeout(()=>finish(Error('Movie editing took too long. Choose fewer or shorter sections.')),Number.isFinite(request.timeoutMs)?Math.max(1000,Math.min(600000,request.timeoutMs)):600000),cancel=()=>finish(new DOMException('Movie edit cancelled.','AbortError'));const finish=(error,value)=>{if(done)return;done=true;clearTimeout(timer);request.signal?.removeEventListener('abort',cancel);worker.terminate();error?reject(error):resolve(value);};request.signal?.addEventListener('abort',cancel,{once:true});worker.onerror=event=>finish(Error(event.message||'The local movie editor could not start.'));worker.onmessageerror=()=>finish(Error('The local movie editor returned unreadable data.'));worker.onmessage=({data})=>{if(data.type==='progress'){try{onProgress(data.event);}catch{}}else if(data.type==='error')finish(Error(data.message));else if(data.type==='result'){try{const bytes=globalThis.ForgeUsmWriter.encodeVP9(data.video,{name:request.name||'forge-motion',audio:data.audio?{kind:'adx',data:data.audio}:null});finish(null,{data:bytes,mime:'application/octet-stream',metadata:data.metadata});}catch(error){finish(error);}}};
+ const copies=[],clips=plan.clips.map((clip,i)=>{const video=clip.video.slice(),audio=clip.audio?.slice()||null;copies.push(video.buffer);if(audio)copies.push(audio.buffer);return {...request.clips[i],video,audio};});try{worker.postMessage({...request,signal:undefined,clips},copies);}catch(error){finish(error);}
+ });}

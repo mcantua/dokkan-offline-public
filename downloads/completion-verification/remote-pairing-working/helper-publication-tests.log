@@ -1,0 +1,19 @@
+   Compiling idevice v0.1.68 (/workspace/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68)
+warning: unused import: `RsdProvider`
+  --> /workspace/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68/src/lib.rs:57:33
+   |
+57 | use provider::{IdeviceProvider, RsdProvider};
+   |                                 ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `idevice` (lib) generated 1 warning (run `cargo fix --lib -p idevice` to apply 1 suggestion)
+   Compiling app-installer-rp-bootstrap v0.1.0 (/workspace/AI-Workspace/claude-chatg/app-installer/device/secure-rp-bootstrap)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.31s
+     Running unittests src/main.rs (app-installer/core/target/debug/deps/app_installer_rp_bootstrap-e424cd49c02f03ae)
+
+running 1 test
+test tests::new_record_verification_gates_private_publication_without_retry ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+

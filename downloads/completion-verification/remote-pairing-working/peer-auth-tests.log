@@ -1,0 +1,10 @@
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.01s
+     Running unittests src/lib.rs (app-installer/core/target/rp-security-tests/debug/deps/idevice-946940d97a92d526)
+
+running 2 tests
+test remote_pairing::secure_identity_tests::rp_auth_verify_requires_pinned_peer_and_authenticates_exact_ephemeral_transcript ... ok
+test remote_pairing::secure_identity_tests::rp_auth_trusted_setup_signature_and_strict_export_reject_substitution ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 22 filtered out; finished in 0.04s
+

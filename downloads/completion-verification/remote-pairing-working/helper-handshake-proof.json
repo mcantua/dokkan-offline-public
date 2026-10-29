@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "kind": "scoped-offline-helper-handshake-diagnostics-proof",
+  "environment": "cloud Linux; no Mac/USB/device/account/network operation",
+  "started_at_utc": "2026-10-29T14:43:24.512983+00:00",
+  "finished_at_utc": "2026-10-29T14:43:27.149914+00:00",
+  "source_commit_context": "fa0149384b904733bb634128dec870ef669817d6",
+  "clean_commit_claim": false,
+  "os": "Linux",
+  "architecture": "x86_64",
+  "os_release": "6.18.55",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "rustc_verbose": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "app-installer/device/secure-rp-bootstrap/Cargo.toml",
+    "--bin",
+    "app-installer-rp-bootstrap",
+    "pairing_progress_and_failure_routing_are_fixed_and_private"
+  ],
+  "environment_setup": "source app-installer/build/env.sh",
+  "cargo_target_dir": "app-installer/core/target",
+  "exit_code": 0,
+  "method": "tests::pairing_progress_and_failure_routing_are_fixed_and_private",
+  "filter": "pairing_progress_and_failure_routing_are_fixed_and_private",
+  "passed": 1,
+  "failed": 0,
+  "raw_log": {
+    "path": "helper-handshake-tests.log",
+    "sha256": "13fd0d261a8f6e864f003ba882ba68600db78bc5cf21cd325ed1391f031c4df5",
+    "collection": "Captured directly during subprocess execution; stdout and stderr combined."
+  },
+  "files_before": {
+    "app-installer/device/secure-rp-bootstrap/Cargo.toml": "aec908a5e16c428ecb45aa501f02dfed0df0ec8cb72db354599b72e171b5e680",
+    "app-installer/device/secure-rp-bootstrap/Cargo.lock": "f17960bd2869ced3d3ab3028bda7e74f98963e9aaece86bf1ef65d36a0349519",
+    "app-installer/device/secure-rp-bootstrap/src/main.rs": "cfbf1c9bd59eaa9872b6d5d6e35f8b6818e57d99f0cb0cbc66325701f76785e6"
+  },
+  "files_after": {
+    "app-installer/device/secure-rp-bootstrap/Cargo.toml": "aec908a5e16c428ecb45aa501f02dfed0df0ec8cb72db354599b72e171b5e680",
+    "app-installer/device/secure-rp-bootstrap/Cargo.lock": "f17960bd2869ced3d3ab3028bda7e74f98963e9aaece86bf1ef65d36a0349519",
+    "app-installer/device/secure-rp-bootstrap/src/main.rs": "cfbf1c9bd59eaa9872b6d5d6e35f8b6818e57d99f0cb0cbc66325701f76785e6"
+  },
+  "files": {
+    "app-installer/device/secure-rp-bootstrap/Cargo.toml": "aec908a5e16c428ecb45aa501f02dfed0df0ec8cb72db354599b72e171b5e680",
+    "app-installer/device/secure-rp-bootstrap/Cargo.lock": "f17960bd2869ced3d3ab3028bda7e74f98963e9aaece86bf1ef65d36a0349519",
+    "app-installer/device/secure-rp-bootstrap/src/main.rs": "cfbf1c9bd59eaa9872b6d5d6e35f8b6818e57d99f0cb0cbc66325701f76785e6"
+  },
+  "pre_run_hashes_captured": true,
+  "inputs_unchanged": true,
+  "vendor_inputs_unchanged_claim": false,
+  "scope": "One new synthetic helper test only: fixed stage mapping, typed rejected/SRP/protocol/transport/identity classification, secret-bearing error text never forwarded, explicit elapsed-timeout route versus returned error and success. No wire handshake, live USB pairing, device success or full vendor cryptographic closure claim. Separate vendor protocol checks and final genuine build cover changed shared source.",
+  "prior_checks_repeated": false,
+  "filtered_out": 3,
+  "test_seconds": 0.0,
+  "compile_seconds": 2.61
+}

@@ -1,0 +1,47 @@
+# Only source and provenance are committed for large tool downloads.
+/downloads/rust-toolchain/*
+!/downloads/rust-toolchain/SOURCE.md
+/downloads/apple-sdk/*
+!/downloads/apple-sdk/SOURCE.md
+/downloads/llvm/*
+!/downloads/llvm/SOURCE.md
+/app-installer/core/target/
+/app-installer/build/work/
+.DS_Store
+*.p12
+*.p8
+*.mobileprovision
+*.mobiledevicepairing
+*.pem
+*.key
+.env
+
+# Disposable Python caches from offline build checks.
+__pycache__/
+*.pyc
+
+# Disposable isolated cloud reproducibility run; retain only its evidence.
+/downloads/repro-check/*
+!/downloads/repro-check/SOURCE.md
+
+# Hosted simulator tooling and generated projects/results are disposable.
+/app-installer/cloud-ui/work/
+/downloads/cloud-ui-tools/*
+!/downloads/cloud-ui-tools/SOURCE.md
+
+# Matching source/relink distribution is a release asset, never a large Git blob.
+/builds/AppInstaller-corresponding-source.tar.xz
+
+# The minimal native kit is distributed with matching source as a release asset.
+/builds/AppInstaller-native-bootstrap-kit.zip
+
+# Scrubbed-copy guard. Real device and network values stay untracked.
+/config/private.local
+/save/
+**/save/
+builds/*.ipa
+test-page/UnitCreator-test.html
+*.ips
+sparking*.key
+*sparking*.keystore
+*sparking*.p12

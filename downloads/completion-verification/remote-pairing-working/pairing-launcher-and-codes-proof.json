@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-29T13:42:50.954004+00:00",
+  "command": [
+    "python3",
+    "app-installer/device/test-device-rp-workflow.py",
+    "PairingWorkflowTests.test_pairing_codes_and_failed_helper_do_not_expose_private_output_or_reinstall",
+    "PairingWorkflowTests.test_actual_launcher_routes_pair_only_without_full_setup_and_preserves_explicit_flags"
+  ],
+  "exit_code": 0,
+  "environment": "cloud Linux; fake AppleScript/Python launcher programs, no wizard import through launcher, no Mac/device/account action",
+  "source_sha256_before": {
+    "app-installer/device/device-workflow.py": "2f13bdce3a22a57c7579d54f4aaa9ec509dc4f154b01b1c3f6e179deec2e9869",
+    "app-installer/device/Run-App-Installer-Setup.command": "2f0f5286dd7b9ae280fed2f3167146ddbbd7026873859aa3124e65aac37b4ebc",
+    "app-installer/device/test-device-rp-workflow.py": "c35d2441c592055ef7454d6f00267ac44d088e5e1fb0a062d51b0c51fc5abe68"
+  },
+  "source_sha256_after": {
+    "app-installer/device/device-workflow.py": "2f13bdce3a22a57c7579d54f4aaa9ec509dc4f154b01b1c3f6e179deec2e9869",
+    "app-installer/device/Run-App-Installer-Setup.command": "2f0f5286dd7b9ae280fed2f3167146ddbbd7026873859aa3124e65aac37b4ebc",
+    "app-installer/device/test-device-rp-workflow.py": "c35d2441c592055ef7454d6f00267ac44d088e5e1fb0a062d51b0c51fc5abe68"
+  },
+  "source_unchanged": true,
+  "log": {
+    "path": "pairing-launcher-and-codes-tests.log",
+    "sha256": "b72ec94cdbf0e57efb6483ae9167a0c56ba2e33d31f8f63ca1e40c7b0ee16f32"
+  },
+  "scope": "2 targeted grouped tests: real shell routing with only Mac programs substituted; mocked helper privacy/code/classification/error propagation, no live pairing transport proof."
+}

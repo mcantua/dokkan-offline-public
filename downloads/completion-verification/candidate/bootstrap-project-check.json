@@ -1,0 +1,32 @@
+{
+  "scope": "Generated native bootstrap project: unsigned hosted-cloud compilation only; no account/provisioning/phone installation.",
+  "passed": true,
+  "device_install_attempted": false,
+  "apple_account_used": false,
+  "secure_rp_helper": {
+    "file": "app-installer-rp-bootstrap",
+    "bytes": 4744864,
+    "sha256": "8600fe53c32522ec8aac6057cfb816f1029ad0c072c33784efcf3238e2a73ec0",
+    "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+    "source_tree_sha256": "7bde209ce40f55deb2d3ee49f455354224cf3b84d4484467bb9f257695d802ac",
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "version": "0.1.0",
+    "ad_hoc_signed": true,
+    "notarized": false,
+    "version_only_executed": true,
+    "usb_or_pairing_executed": false,
+    "scope": "Rechecked exact hosted build receipt/payload; no additional helper or device execution."
+  },
+  "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+  "source_tree_sha256": "7bde209ce40f55deb2d3ee49f455354224cf3b84d4484467bb9f257695d802ac",
+  "rust_archive_sha256": "bef5da616899fd08728b6a851e4a8d69a02f85fee221a8dbee831e9b62794a5c",
+  "rust_archive_bytes": 112269856,
+  "actual_iphoneos_sdk": "27.1",
+  "compiled_binary_sha256": "2c19cdd7b2118f4bdbdf28c8de4d3a100814b561d71c57ff8248fe6e8f0fe250",
+  "codesigning_allowed": false,
+  "profile_present": false,
+  "generated_shared_scheme_compiled": true
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scope": "Pairing-recovery recipe syntax and actual Linux proof integrity only; no builds or tests executed. Native single import method awaits source-owner freeze and hosted execution.",
+  "python_syntax": "passed",
+  "bash_syntax": "passed",
+  "groups": {
+    "rp_connectivity": {
+      "passed_linux_checks_reused": 2,
+      "failed": 0,
+      "new_test_execution": false,
+      "context": {
+        "os": "Linux",
+        "rustc_version": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+        "requires_current_target_compilation": true,
+        "pre_and_post_source_hashes_equal": true,
+        "proof_scope": "Two new offline tests only: strict optional RP discovery-key type and in-memory RSD response error rejection/success framing; no existing auth/TLS/core suites repeated. Standalone locked vendor dependency graph, not core production feature-graph execution."
+      },
+      "original_manifest_sha256": "ca03bfb88be5b5486a607c492265f9cec8ccb92550160d5bd5867502900e0545"
+    },
+    "helper_publication": {
+      "passed_linux_checks_reused": 1,
+      "failed": 0,
+      "new_test_execution": false,
+      "context": {
+        "os": "Linux",
+        "rustc_version": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+        "requires_current_target_compilation": true,
+        "pre_run_source_hashes_available": false,
+        "source_capture_limit": "post-run only; own helper Cargo.toml/Cargo.lock/src/main.rs unchanged between successful test and snapshot; README only updated afterward",
+        "vendor_inputs_unchanged_claim": false,
+        "vendor_edit_limit": "Engine confirmed shared vendor lib.rs and rp_pairing_file.rs edits were in progress. Their current hashes are deliberately excluded rather than asserted as tested before/after. Current genuine build plus separately scoped vendor checks must cover full changed closure.",
+        "proof_scope": "Synthetic result injection tests publication/file gate only: failed verification cannot publish, accepted verifier precedes private atomic write, existing export cannot be replaced. No real USB transport, cryptographic pair-verify, Apple account or current vendor-closure proof."
+      },
+      "original_manifest_sha256": "33e86a0089b20a3996d4fc560196e96439788c9187e3dd94aaef58edbca1d94f"
+    }
+  },
+  "dispatch_inputs": {
+    "package_candidates": true,
+    "native_checks": true,
+    "native_test_scope": "pairing-recovery",
+    "rust_test_scope": "pairing-recovery"
+  }
+}

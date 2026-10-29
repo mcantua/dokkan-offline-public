@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "group": "refresh_recovery",
+  "receipt_verified": true,
+  "source_input_count": 186,
+  "passed_linux_tests_reused": 2,
+  "tests_reexecuted": false,
+  "changed_recipe_syntax": "passed",
+  "native_checks_selected": false,
+  "dispatch_scope": "refresh-recovery",
+  "source_proof_file": "refresh-recovery-proof.json",
+  "source_proof_sha256": "be42586fff252a084a6e11be17d69c92793ea8069d4ad00d98271c8e78114308"
+}

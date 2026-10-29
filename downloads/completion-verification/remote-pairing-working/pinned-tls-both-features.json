@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-10-29T00:25:36.707014+00:00",
+  "command": [
+    "cargo",
+    "test",
+    "--manifest-path",
+    "downloads/idevice/idevice-0.1.68/Cargo.toml",
+    "--locked",
+    "--offline",
+    "--no-default-features",
+    "--features",
+    "ring,tcp,remote_pairing,openssl,tunnel_tcp_stack,rsd",
+    "--lib",
+    "sni::tests::",
+    "--",
+    "--nocapture"
+  ],
+  "exit_code": 0,
+  "counts": {
+    "passed": 2,
+    "failed": 0
+  },
+  "source_sha256_before": {
+    "downloads/idevice/idevice-0.1.68/Cargo.toml": "4c7f1403aa2026604418eb33141e7927699e159ae98e3712da70e96440024d7f",
+    "downloads/idevice/idevice-0.1.68/Cargo.lock": "37df5316547752bf0972cad7032159cafd6dc8a3c702ee4992f0723befb03337",
+    "downloads/idevice/idevice-0.1.68/src/lib.rs": "1eae6fe1bcdeedcfcbad46c308e0d969fc15fdc4856c7fa907a3f8484c2ed0c6",
+    "downloads/idevice/idevice-0.1.68/src/sni.rs": "24fba90b2beff5a93242d8d743a9077dc60fbd7907f3d417aee64c2da450c853",
+    "downloads/idevice/idevice-0.1.68/src/pairing_file.rs": "dbd75bb049f336d8c7aa4f2a69728e4bae408c99dd44c5b18dac67e9dedbf04d"
+  },
+  "source_sha256_after": {
+    "downloads/idevice/idevice-0.1.68/Cargo.toml": "4c7f1403aa2026604418eb33141e7927699e159ae98e3712da70e96440024d7f",
+    "downloads/idevice/idevice-0.1.68/Cargo.lock": "37df5316547752bf0972cad7032159cafd6dc8a3c702ee4992f0723befb03337",
+    "downloads/idevice/idevice-0.1.68/src/lib.rs": "1eae6fe1bcdeedcfcbad46c308e0d969fc15fdc4856c7fa907a3f8484c2ed0c6",
+    "downloads/idevice/idevice-0.1.68/src/sni.rs": "24fba90b2beff5a93242d8d743a9077dc60fbd7907f3d417aee64c2da450c853",
+    "downloads/idevice/idevice-0.1.68/src/pairing_file.rs": "dbd75bb049f336d8c7aa4f2a69728e4bae408c99dd44c5b18dac67e9dedbf04d"
+  },
+  "source_unchanged": true,
+  "log": "downloads/completion-verification/remote-pairing-working/pinned-tls-both-features.log",
+  "log_sha256": "96b8637b46d89735b1a67bb08f79d3ea69b29325f7c6d2f8d9c80e26df8723fc",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "scope": "Linux in-memory pinned rustls TLS1.2/1.3 with production ring+openssl features together; real certificate/signature verification; no network/account/device/userpairing"
+}

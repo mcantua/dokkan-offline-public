@@ -1,0 +1,2 @@
+package android.widget;
+public class TextView extends android.view.View { public TextView(android.content.Context c){super(c);} public final void setText(CharSequence t){} public void setTextColor(int c){} public void setTextSize(float s){} public void setSingleLine(boolean b){} public void setEllipsize(android.text.TextUtils.TruncateAt w){} public void setGravity(int g){} public void setMinWidth(int w){} }

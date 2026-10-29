@@ -1,0 +1,11 @@
+Source attribution and license election
+
+Exact published package: apple-codesign-quick 0.1.0.
+Published source grant: LGPL-2.1-or-later, preserved verbatim in PUBLISHED-Cargo.toml.orig.
+For this distribution we use the GNU LGPL version 3 option authorized by that grant; the original grant is retained and is not replaced. LGPL3 incorporates GPL3, whose full text is included. App Installer's own code remains AGPL-3.0-only.
+
+The package does not declare a Cargo authors field or provide source-file copyright notices. No copyright holder or date is invented here. The published repository is Dadoum/apple-crates; its exact-commit workspace README describes the author's Rust port of Sideloader's D signer. Those original manifests/README and the complete published library source are retained. The related Sideloader project's GPL3 license is retained as source-lineage evidence; it is not substituted for the crate's explicit LGPL2.1-or-later grant.
+
+The combined application is distributed with corresponding application/library source and build/relink instructions; see app-installer/licensing-signing.md. A notice-only IPA or private-repository URL is insufficient. Distribution must be blocked if the matching source bundle is absent.
+
+No App Installer term forbids modifying this library, replacing it, reverse engineering the combined work to debug library modifications, rebuilding/relinking, or installing a modified build with the recipient's own lawful signing identity. Apple account credentials/keys are not part of this notice or source package.

@@ -1,0 +1,51 @@
+{
+  "crate": "isideload-vfs",
+  "version": "0.0.1",
+  "upstream_repository": null,
+  "upstream_commit": "9212a79ca947374c2f1a4adfc02a2827e5226f47",
+  "complete_upstream_notice": true,
+  "notice_files": [
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://crates.io/api/v1/crates/isideload-vfs/0.0.1/download#Cargo.toml",
+      "sha256": "f578d5fa65aa08352bc06dd5743bc2b0048adef368a75cf015a5f56a2ca7679c"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://crates.io/api/v1/crates/isideload-vfs/0.0.1/download#Cargo.toml.orig",
+      "sha256": "cfaeca7cbca1d95dbf3bf71a9a58d842cb69356dd0336849e95f1b55d707c205"
+    },
+    {
+      "path": "PUBLISHED-VCS-INFO.json",
+      "url": "https://crates.io/api/v1/crates/isideload-vfs/0.0.1/download#.cargo_vcs_info.json",
+      "sha256": "daeb1d678b2ea165a4f700461cf62b4c44afb0821d03320051b070e88d914f59"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0.txt",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "project-authored provenance/election; published archive SHA-256 a1133e156a6beed9d5e14a2b9618d52f8c2c6786326f4efbd73c7aecfcabab4c",
+      "sha256": "98fcafd983689be671692b9cd9a4093d8fc79e02c49798aeaf6a21dde1ca9303"
+    }
+  ],
+  "declared_license": "MIT OR Apache-2.0",
+  "selected_license": "Apache-2.0",
+  "package_checksum": "a1133e156a6beed9d5e14a2b9618d52f8c2c6786326f4efbd73c7aecfcabab4c",
+  "notice_basis": "Explicit published package license grant; selected authorized license alternative with complete canonical text and all actually supplied attribution material. No invented copyright.",
+  "release_requirements_satisfied": true,
+  "requires_corresponding_source_bundle": false,
+  "obligations": [
+    {
+      "id": "Apache2-section4-notice-preservation",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-APACHE-2.0.txt",
+        "PUBLISHED-Cargo.toml.orig",
+        "ATTRIBUTION.txt"
+      ]
+    }
+  ]
+}

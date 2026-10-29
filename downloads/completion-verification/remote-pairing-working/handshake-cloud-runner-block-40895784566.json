@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T14:57:39.936594+00:00",
+  "workflow_run_id": 40895784566,
+  "job_id": 123524375920,
+  "source_commit": "8e602da9110f58fa4a3e550b07f8aa83a6713fe6",
+  "workflow_url": "https://github.com/mcantua/claude-chatg/actions/runs/40895784566",
+  "conclusion": "failure",
+  "started_at": "2026-10-29T14:52:12Z",
+  "completed_at": "2026-10-29T14:52:17Z",
+  "job_steps": [],
+  "check_run_annotations": [
+    {
+      "path": ".github",
+      "blob_href": "https://github.com/mcantua/claude-chatg/blob/8e602da9110f58fa4a3e550b07f8aa83a6713fe6/.github",
+      "start_line": 1,
+      "start_column": null,
+      "end_line": 1,
+      "end_column": null,
+      "annotation_level": "failure",
+      "title": "",
+      "message": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+      "raw_details": ""
+    }
+  ],
+  "scope": "Actual GitHub runner-start billing/account block. No checkout, Rust/native tests, helper compilation, IPA/kit build or transfer ran. This is not an established pipeline/source failure.",
+  "logs_endpoint_result": "GitHub BlobNotFound404 because no job log was created. Exact actionable failure is the check-run annotation.",
+  "billing_settings_changed": false,
+  "retries_launched": 0,
+  "delivered_source_unchanged": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "current_verified_kit_bytes": 43111535,
+  "current_verified_kit_sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93",
+  "new_handshake_source_packaged": false
+}

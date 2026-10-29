@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-29T14:46:50.811248+00:00",
+  "command": [
+    "python3",
+    "app-installer/device/test-device-rp-workflow.py",
+    "PairingWorkflowTests.test_live_pairing_stages_are_streamed_before_exit_without_forwarding_private_output",
+    "PairingWorkflowTests.test_live_pairing_deadline_and_output_bound_stop_only_the_owned_child"
+  ],
+  "exit_code": 0,
+  "environment": "cloud Linux; real Python subprocesses with synthetic output only; no Mac, USB, account, private record or network action",
+  "source_sha256_before": {
+    "app-installer/device/device-workflow.py": "a70b27c6dbb05475d425dc0150ccc7bd8c0d18c72325abaa94c01d1194a2122b",
+    "app-installer/device/setup-wizard.py": "68ec3df35d2344609eda6872afccb93cba579b6a56af9cfe722c81cccc264cc2",
+    "app-installer/device/test-device-rp-workflow.py": "7fe325948bc60c1c512256c07f526ac79c5ec63729fffd905756b695b244e473"
+  },
+  "source_sha256_after": {
+    "app-installer/device/device-workflow.py": "a70b27c6dbb05475d425dc0150ccc7bd8c0d18c72325abaa94c01d1194a2122b",
+    "app-installer/device/setup-wizard.py": "68ec3df35d2344609eda6872afccb93cba579b6a56af9cfe722c81cccc264cc2",
+    "app-installer/device/test-device-rp-workflow.py": "7fe325948bc60c1c512256c07f526ac79c5ec63729fffd905756b695b244e473"
+  },
+  "source_unchanged": true,
+  "raw_log": {
+    "path": "pairing-live-progress-tests.log",
+    "sha256": "2f16a56533cf4febfae2997eab23bbfcb83d9392d972b5ce2e35e072c6cb519d"
+  },
+  "scope": "2 grouped checks: fixed stage reaches output before child exit, private stdout/stderr suppressed, typed safe error parsing, owned child deadline/termination, bounded diagnostic output."
+}

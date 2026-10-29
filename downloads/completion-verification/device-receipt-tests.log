@@ -1,0 +1,8 @@
+Source: 8eafc2379d875d702a704a524a28982ccf66d598
+Command: PYTHONDONTWRITEBYTECODE=1 python3 app-installer/device/test-device-receipts.py
+Scope: cloud-only TEST-ONLY files and mocked OS/device operations; no Mac, account, network or phone action.
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.024s
+
+OK

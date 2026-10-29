@@ -1,0 +1,88 @@
+{
+  "crate": "apple-codesign-quick",
+  "version": "0.1.0",
+  "upstream_repository": "https://github.com/Dadoum/apple-crates",
+  "upstream_commit": "91fad87099663252dec23e4b5332a8ca979986f4",
+  "complete_upstream_notice": true,
+  "notice_files": [
+    {
+      "path": "UPSTREAM-Cargo.toml",
+      "url": "https://raw.githubusercontent.com/Dadoum/apple-crates/91fad87099663252dec23e4b5332a8ca979986f4/apple-codesign-quick/Cargo.toml",
+      "sha256": "68ba91b2a9b2f24e7a8deb0a92b3c3bd74686c46c7fdda2f5180b9ad688694ec"
+    },
+    {
+      "path": "LICENSE-LGPL-2.1.txt",
+      "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://crates.io/api/v1/crates/apple-codesign-quick/0.1.0/download#Cargo.toml",
+      "sha256": "8102ea142d5fb1e622f3e2173e61ae5f200e3a347b23e541b7d15606630f6250"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://crates.io/api/v1/crates/apple-codesign-quick/0.1.0/download#Cargo.toml.orig",
+      "sha256": "68ba91b2a9b2f24e7a8deb0a92b3c3bd74686c46c7fdda2f5180b9ad688694ec"
+    },
+    {
+      "path": "PUBLISHED-VCS-INFO.json",
+      "url": "https://crates.io/api/v1/crates/apple-codesign-quick/0.1.0/download#.cargo_vcs_info.json",
+      "sha256": "32e476e04f1a318c4f392b8e2be673f61cc5eff3e0631fab44c6a5d3fffa51f5"
+    },
+    {
+      "path": "LICENSE-LGPL-3.0.txt",
+      "url": "https://www.gnu.org/licenses/lgpl-3.0.txt",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+    },
+    {
+      "path": "LICENSE-GPL-3.0.txt",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.txt",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "UPSTREAM-README.MD",
+      "url": "https://raw.githubusercontent.com/Dadoum/apple-crates/91fad87099663252dec23e4b5332a8ca979986f4/README.MD",
+      "sha256": "c43ed28ffde731d4036d89bdccf5d91bef600330a5da675cb936fa4efb14613d"
+    },
+    {
+      "path": "UPSTREAM-WORKSPACE-Cargo.toml",
+      "url": "https://raw.githubusercontent.com/Dadoum/apple-crates/91fad87099663252dec23e4b5332a8ca979986f4/Cargo.toml",
+      "sha256": "b710bbcc413dd77b22b3d389f05f73a14763925eb77cf514472cc97fab9f7e9e"
+    },
+    {
+      "path": "LINEAGE-Sideloader-LICENSE",
+      "url": "https://raw.githubusercontent.com/Dadoum/Sideloader/ed89e287ec64d39f09cacc1d1903b8a5af074201/LICENSE",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "project-authored provenance/election; published archive SHA-256 519defc726db80b8a43836bbd6f69eb606a42783db799716a103436042593f0b",
+      "sha256": "4b17f1698ddccfdd0ce977959302bc70c030c86e950acd143cd8a34674773673"
+    }
+  ],
+  "declared_license": "LGPL-2.1-or-later",
+  "selected_license": "LGPL-3.0-or-later",
+  "package_checksum": "519defc726db80b8a43836bbd6f69eb606a42783db799716a103436042593f0b",
+  "notice_basis": "Explicit published package license grant; selected authorized license alternative with complete canonical text and all actually supplied attribution material. No invented copyright.",
+  "release_requirements_satisfied": false,
+  "requires_corresponding_source_bundle": true,
+  "obligations": [
+    {
+      "id": "LGPL3-combined-work-source-relink",
+      "status": "conditional",
+      "evidence": [
+        "ATTRIBUTION.txt",
+        "SOURCE-FILES.json",
+        "DISTRIBUTION-REQUIREMENTS.json",
+        "../../../app-installer/licensing-signing.md"
+      ],
+      "required_distribution_artifacts": [
+        "corresponding-source/relink-bundle"
+      ]
+    }
+  ],
+  "required_distribution_artifacts": [
+    "corresponding-source/relink-bundle"
+  ]
+}

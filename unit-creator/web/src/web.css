@@ -1,0 +1,19 @@
+/* web version */
+html.web-version [data-shell-go="offline"],html.web-version [data-shell-go="movies"],html.web-version [data-shell-go="ai"],
+html.web-version [data-set-jump="anim"],html.web-version #set-anim,html.web-version [data-set-go="offline"],html.web-version [data-set-go="ai"],html.web-version [data-set-go="speed"],
+html.web-version [data-imp="update"],html.web-version [data-imp="apk"],html.web-version [data-imp="resources"],html.web-version [data-imp="offline"],
+html.web-version .sidebar [data-nav="movies"],html.web-version .sidebar [data-nav="assets"],html.web-version .sidebar [data-nav="ai"],
+html.web-version #offline-pill,html.web-version .fd-update,
+html.web-version #aic-settings-open,html.web-version [data-side-go="offline"],html.web-version [data-library-filter="sparking"]{display:none!important}
+.web-note{max-width:560px;margin:40px auto;text-align:center;padding:28px 20px;background:#121b27;border:1px solid #2c3b50;border-radius:18px}
+.web-note h1{font-size:22px;margin:12px 0}.web-note p{color:#b9c6d6;line-height:1.6}
+.web-note-art{width:64px;height:64px;margin:0 auto;border-radius:18px;background:#2b2418;color:#ffc27a;display:grid;place-items:center;font-size:30px}
+.web-file-dialog{max-width:min(420px,calc(100vw - 32px));text-align:center}
+.web-file-dialog .button{display:flex;width:100%;margin:8px 0;min-height:50px;font-size:15px}
+.web-file-dialog p{color:#b9c6d6}
+#web-install{position:fixed;left:12px;right:12px;bottom:calc(var(--nav-h,70px) + 12px + var(--sa-b,env(safe-area-inset-bottom)));z-index:150;background:#13213f;border:2px solid #6aa9ff;border-radius:16px;padding:14px 16px;color:#fff;box-shadow:0 8px 30px #000a}
+#web-install p{margin:6px 0 10px;font-size:14px;line-height:1.5;color:#d6e4ff}
+/* iPhone notch and home bar in Home Screen mode */
+html.web-standalone body{padding-top:var(--sa-t,env(safe-area-inset-top))}
+html.web-version .mobile-nav{padding-bottom:max(5px,var(--sa-b,env(safe-area-inset-bottom)));height:auto;min-height:62px}
+@media (min-width:700px){#web-install{left:auto;right:20px;max-width:440px;bottom:calc(20px + var(--sa-b,env(safe-area-inset-bottom)))}}

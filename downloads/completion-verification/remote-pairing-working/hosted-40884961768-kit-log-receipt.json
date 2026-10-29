@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "file": "AppInstaller-native-bootstrap-kit.zip",
+  "bytes": 43111535,
+  "sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93",
+  "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "bootstrap_tool_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+  "variant": "duo",
+  "corresponding_source": {
+    "file": "AppInstaller-corresponding-source.tar.xz",
+    "sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e",
+    "bytes": 92848016,
+    "delivery": "separate-cloud-companion-artifact",
+    "artifact": "app-installer-cloud-ui-latest",
+    "path": "candidates/AppInstaller-corresponding-source.tar.xz"
+  },
+  "secure_rp_tool": {
+    "binary": "app-installer/device/tools/app-installer-rp-bootstrap",
+    "manifest": "app-installer/device/tools/RPBootstrapBuildManifest.json",
+    "notices": "app-installer/device/tools/RPBootstrapThirdPartyNotices.txt",
+    "notice_report": "app-installer/device/tools/RPBootstrapThirdPartyNoticeReport.json",
+    "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+    "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+    "version": "0.1.0",
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "protocol_record_version": 2,
+    "ad_hoc_signed": true,
+    "notarized": false
+  },
+  "minimal_bootstrap_kit": true,
+  "personal_resources_used": false,
+  "device_install_attempted": false
+}

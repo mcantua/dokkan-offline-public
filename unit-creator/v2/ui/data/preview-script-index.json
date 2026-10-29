@@ -1,0 +1,8190 @@
+{
+  "schemaVersion": 1,
+  "indexVersion": "1312ab78352fa4edcc5a79a29129efe40478c51961e727c5d51eb3b8ddb27ad2",
+  "source": "https://dokkan-eclipse.com/api/scripts",
+  "observedUTC": "2026-10-17T05:07:29.588909+00:00",
+  "sourceResponseSHA256": "1e2e72fe8f0194dac87fd4022745d4bfe591ab098b98358e6a40f1ef00a75f01",
+  "scope": "Observed script-path metadata only, no hosted player source. Includes known empty/missing-runtime-resource scripts; a listed path does not guarantee availability or playback. Imported additional paths may be merged by native service.",
+  "scripts": [
+    {
+      "path": "ab_script/ab_sys/as0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0002.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0003.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0004.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0005.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0006.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0007.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0008.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0009.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0010.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0011.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0012.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0013.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0014.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0015.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0016.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0017.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0018.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0019.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0020.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0021.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0022.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0023.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0024.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0025.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0026.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0027.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0028.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0029.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0030.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0032.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0033.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0034.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/as0035.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/attack_break.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/cannot_attack.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/cannot_attack_majin.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/dg0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/no_attack.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/reflect_damage.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/reflect_damage_test.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/shielding.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/skill_cutin.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/stun.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys0002.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys0003.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys_ca0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys_cf0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys_dc0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/sys_rn0001.lua"
+    },
+    {
+      "path": "ab_script/ab_sys/target_focus.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0001.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0002.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0003.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0004.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0005.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0006.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0007.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0008.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0009.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0010.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0011.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0012.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0013.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0014.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0015.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0016.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0017.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0018.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0019.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0020.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0021.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0022.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0023.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0024.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0025.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0026.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0029.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0035.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0036.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0037.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0038.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0039.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0041.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0042.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0043.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0044.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0045.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0046.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0047.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0048.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0049.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0050.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0051.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0052.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0053.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0054.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0055.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0056.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0057.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0058.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0059.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0060.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0061.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0062.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0063.lua"
+    },
+    {
+      "path": "ab_script/active_skill/bs0064.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0001.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0002.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0003.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0004.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0005.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0007.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0008.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0009.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0010.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0012.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0013.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0014.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0016.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0017.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0018.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0019.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0020.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0021.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0026.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0027.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0029.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0030.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0031.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0033.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0034.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0035.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0036.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0037.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0038.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0039.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0040.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0041.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0043.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0045.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0048.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0049.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0050.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0051.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0053.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0057.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0058.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0059.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0061.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0062.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0063.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0064.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0065.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0066.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0067.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0068.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0069.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0070.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0071.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0072.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0073.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0074.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0076.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0077.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0078.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0079.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0080.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0085.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0086.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0087.lua"
+    },
+    {
+      "path": "ab_script/active_skill/tf0088.lua"
+    },
+    {
+      "path": "ab_script/attack_all/a0001.lua"
+    },
+    {
+      "path": "ab_script/attack_all/a0002.lua"
+    },
+    {
+      "path": "ab_script/attack_all/a0003.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0002.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0003.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0004.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0005.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0006.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0007.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0008.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0009.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0010.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0011.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0012.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0013.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0014.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0015.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0016.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0017.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0018.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0019.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0020.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0021.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0022.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0023.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0024.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0025.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0026.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0027.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0028.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0029.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0030.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0031.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0032.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0033.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0034.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0035.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0036.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0037.lua"
+    },
+    {
+      "path": "ab_script/attack_counter/c0038.lua"
+    },
+    {
+      "path": "ab_script/attack_dokkan/dkn0001.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0001.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0002.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0003.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0004.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0005.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0006.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0007.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0008.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0009.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0010.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0011.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0012.lua"
+    },
+    {
+      "path": "ab_script/attack_high/b0013.lua"
+    },
+    {
+      "path": "ab_script/attack_high_kidan/bk0001.lua"
+    },
+    {
+      "path": "ab_script/attack_high_kidan/bk0002.lua"
+    },
+    {
+      "path": "ab_script/attack_high_kidan/bk0003.lua"
+    },
+    {
+      "path": "ab_script/attack_high_kidan/bk1000.lua"
+    },
+    {
+      "path": "ab_script/attack_high_kidan/bk1001.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0001.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0002.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0003.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0004.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0005.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0006.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0007.lua"
+    },
+    {
+      "path": "ab_script/attack_low/a0008.lua"
+    },
+    {
+      "path": "ab_script/attack_low_kidan/ak0001.lua"
+    },
+    {
+      "path": "ab_script/attack_low_kidan/ak0002.lua"
+    },
+    {
+      "path": "ab_script/attack_low_kidan/ak0003.lua"
+    },
+    {
+      "path": "ab_script/attack_low_kidan/ak1000.lua"
+    },
+    {
+      "path": "ab_script/attack_low_kidan/ak1001.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0001.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0002.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0003.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0004.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0005.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0006.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0007.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0008.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0009.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0010.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0011.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0012.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0013.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0014.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0015.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0016.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0017.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0018.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0019.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0020.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0021.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0022.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0023.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0024.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0025.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0026.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0027.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0028.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0029.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0030.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0031.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0032.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0033.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0034.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0035.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0036.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0037.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0038.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0039.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0040.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0041.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0042.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0043.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0044.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0045.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0046.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0047.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0048.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0049.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0050.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0051.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0052.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0053.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0054.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0055.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0056.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0057.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0058.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0059.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0060.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0061.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0062.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0063.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0064.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0065.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0066.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0067.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0068.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0069.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0070.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0071.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0072.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0073.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0074.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0075.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0076.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0077.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0078.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0079.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0080.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0081.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0082.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0083.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0084.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0085.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0088.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0089.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0090.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0091.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0092.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0093.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0094.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0095.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0096.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0097.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0098.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0099.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0100.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0101.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0102.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0103.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0104.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0105.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0106.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0107.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0108.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0109.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0110.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0111.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0112.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0113.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0114.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0115.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0116.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0117.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0118.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0119.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0120.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0121.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0122.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0123.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0124.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0125.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0126.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0127.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0128.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0129.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0130.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0131.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0132.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0133.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0134.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0135.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0136.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0137.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0138.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0139.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0140.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0141.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0142.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0143.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0144.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0145.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0146.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0147.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0148.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0149.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0150.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0151.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0152.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0153.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0154.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0155.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0156.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0157.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0158.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0159.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0160.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0161.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0162.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0163.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0164.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0165.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0166.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0167.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0168.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0169.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0170.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0171.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0172.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0173.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0174.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0175.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0176.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0177.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0178.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0179.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0180.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0181.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0182.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0183.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0184.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0185.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0186.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0187.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0188.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0189.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0190.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0191.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0192.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0193.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0196.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0197.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0198.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0199.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0200.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0201.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0202.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0203.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0204.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0205.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0206.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0207.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0208.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0209.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0210.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0211.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0212.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0213.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0214.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0215.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0216.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0217.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0218.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0219.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0220.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0221.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0222.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0223.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0224.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0225.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0226.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0227.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0228.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0229.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0230.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0231.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0232.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0233.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0234.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0235.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0236.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0237.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0238.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0239.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0240.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0241.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0242.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0243.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0244.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0245.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0246.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0247.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0248.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0249.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0250.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0251.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0252.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0253.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0254.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0255.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0256.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0257.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0258.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0259.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0260.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0261.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0262.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0263.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0264.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0265.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0266.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0267.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0268.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0269.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0270.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0271.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0272.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0273.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0274.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0275.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0276.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0277.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0278.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0279.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0280.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0281.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0282.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0283.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0284.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0285.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0286.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0287.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0288.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0289.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0290.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0291.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0292.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0293.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0294.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0295.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0296.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0297.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0298.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0299.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0300.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0301.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0302.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0303.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0304.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0305.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0306.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0307.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0308.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0309.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0310.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0311.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0312.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0313.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0314.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0315.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0316.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0317.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0318.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0319.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0320.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0321.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0322.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0323.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0324.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0325.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0326.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0327.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0328.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0329.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0330.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0331.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0332.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0333.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0334.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0335.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0336.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0337.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0338.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0339.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0340.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0341.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0342.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0343.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0344.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0345.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0346.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0347.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0348.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0349.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0350.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0351.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0352.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0353.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0354.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0355.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0356.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0357.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0358.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0359.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0360.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0361.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0362.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0363.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0364.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0365.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0366.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0367.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0368.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0369.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0370.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0371.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0372.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0373.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0374.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0375.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0376.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0377.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0378.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0379.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0380.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0381.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0382.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0383.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0384.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0385.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0386.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0387.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0388.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0389.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0390.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0391.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0392.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0393.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0394.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0395.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0396.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0397.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0398.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0399.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0400.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0401.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0402.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0403.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0404.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0405.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0406.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0407.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0408.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0409.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0410.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0411.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0412.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0413.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0414.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0415.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0416.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0417.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0418.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0419.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0420.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0421.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0422.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0423.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0424.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0425.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0426.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0427.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0428.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0429.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0430.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0431.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0432.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0433.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0434.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0435.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0436.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0438.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0439.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0440.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0441.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0442.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0443.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0444.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0445.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0446.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0447.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0448.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0449.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0450.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0451.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0452.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0453.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0454.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0455.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0456.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0457.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0458.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0459.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0460.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0461.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0462.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0463.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0464.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0465.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0466.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0467.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0468.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0469.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0470.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0471.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0472.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0473.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0474.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0475.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0476.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0477.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0478.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0479.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0480.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0481.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0482.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0483.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0484.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0485.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0486.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0487.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0488.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0489.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0491.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0492.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0493.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0494.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0495.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0496.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0497.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0498.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0499.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0500.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0501.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0502.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0503.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0504.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0505.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0506.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0507.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0508.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0509.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0510.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0511.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0512.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0513.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0514.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0515.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0516.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0517.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0518.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0519.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0520.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0521.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0522.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0523.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0524.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0525.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0526.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0527.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0528.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0529.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0530.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0531.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0532.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0533.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0534.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0535.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0536.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0537.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0538.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0539.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0540.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0541.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0542.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0543.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0544.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0545.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0546.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0547.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0548.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0549.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0550.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0551.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0552.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0553.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0554.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0555.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0556.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0557.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0558.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0559.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0560.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0561.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0562.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0563.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0564.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0565.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0566.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0567.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0568.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0569.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0570.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0571.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0572.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0573.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0574.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0575.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0576.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0577.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0578.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0579.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0580.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0581.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0582.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0583.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0584.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0585.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0586.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0587.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0588.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0589.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0590.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0591.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0592.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0593.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0594.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0595.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0596.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0597.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0598.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0599.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0600.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0601.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0602.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0603.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0604.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0605.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0606.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0607.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0608.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0609.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0610.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0611.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0612.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0613.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0614.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0615.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0616.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0617.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0618.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp0619.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1001.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1002.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1003.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1004.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1005.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1006.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1007.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1008.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1009.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1010.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1011.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1012.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1013.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1014.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1015.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1016.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1017.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1018.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1019.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1020.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1021.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1022.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1024.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1025.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1026.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1027.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1028.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1029.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1030.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1031.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1032.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1033.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1034.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1035.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1036.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1037.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1038.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1039.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1040.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1041.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1042.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1043.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1044.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1045.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1046.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1047.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1048.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1049.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1050.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1051.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1052.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1053.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1054.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1055.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1056.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1057.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1058.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1059.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1060.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1061.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1062.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1063.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1064.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1065.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1066.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1067.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1068.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1069.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1070.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1071.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1072.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1073.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1074.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1075.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1076.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1077.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1078.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1079.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1080.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1081.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1082.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1083.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1084.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1085.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1086.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1087.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1088.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1089.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1090.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1093.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1094.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1095.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1096.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1097.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1098.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1099.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1100.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1101.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1102.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1103.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1104.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1105.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1106.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1107.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1108.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1109.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1110.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1111.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1112.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1113.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1114.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1115.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1116.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1117.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1118.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1119.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1120.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1121.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1122.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1123.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1124.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1125.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1126.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1127.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1128.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1129.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1130.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1131.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1132.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1133.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1135.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1136.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1137.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1137082.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1138.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1139.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1140.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1141.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1142.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1143.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1144.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1145.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1146.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1147.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1148.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1149.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1150.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1151.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1152.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1153.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1154.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1155.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1157.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1158.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1159.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1160.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1161.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1162.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1163.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1164.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1165.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1166.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1167.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1168.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1169.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1172.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1173.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1174.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1175.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1176.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1177.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1178.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1179.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1180.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1181.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1182.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1183.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1184.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1185.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1186.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1187.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1188.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1189.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1190.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1191.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1192.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1193.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1194.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1195.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1196.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1197.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1198.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1199.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1200.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1201.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1202.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1203.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1204.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1205.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1206.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1207.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1208.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1209.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1210.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1211.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1212.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1213.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1214.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1215.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1216.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1217.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1218.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1219.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1220.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1221.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1222.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1223.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1224.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1225.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1226.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1227.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1228.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1229.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1230.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1231.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1232.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1233.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1234.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1235.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1236.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1237.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1238.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1239.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1240.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1241.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1242.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1243.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1244.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1245.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1246.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1247.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1248.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1249.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1250.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1253.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1254.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1255.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1256.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1257.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1258.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1259.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1260.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1261.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1262.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1263.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1264.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1265.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1266.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1267.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1268.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1269.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1270.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1271.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1272.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1273.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1274.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1275.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1276.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1277.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1278.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1279.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1280.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1281.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1282.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1283.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1284.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1285.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1286.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1287.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1288.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1289.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1290.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1291.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1292.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1293.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1294.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1295.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1296.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1297.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1298.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1299.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1300.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1301.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1302.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1303.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1304.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1305.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1306.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1307.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1308.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1309.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1310.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1311.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1312.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1313.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1314.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1315.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1316.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1317.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1318.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1319.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1320.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1321.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1322.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1323.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1324.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1325.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1326.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1327.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1328.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1329.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1330.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1331.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1332.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1333.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1334.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1335.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1336.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1337.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1338.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1339.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1340.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1341.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1343.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1344.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1345.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1346.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1347.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1348.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1349.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1350.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1351.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1352.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1353.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1354.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1355.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1356.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1357.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1358.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1359.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1360.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1361.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1362.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1366.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1367.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1368.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1369.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1370.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1371.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1372.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1373.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1374.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1375.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1376.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1377.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1378.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1379.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1380.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1381.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1382.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1383.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1384.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1385.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1386.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1387.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1388.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1389.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1390.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1391.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1392.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1393.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1394.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1395.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1396.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1397.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1398.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1399.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1400.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1401.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1402.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1403.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1404.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1405.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1406.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1407.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1408.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1409.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1410.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1411.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1412.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1413.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1414.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1415.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1416.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1417.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1418.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1419.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1421.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1422.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1423.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1424.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1425.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1426.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1427.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1428.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1429.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1430.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1431.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1432.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1433.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1434.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1435.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1436.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp1437.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2001.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2002.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2004.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2005.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2006.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2007.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2008.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2009.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2010.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2011.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2012.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2013.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2015.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2016.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2018.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2019.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2020.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2021.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2022.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2023.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2024.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2025.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2026.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2027.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2028.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2029.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2030.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2032.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2033.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2034.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2035.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2036.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2037.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2038.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2039.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2040.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2041.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2042.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2043.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2044.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2045.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2046.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2047.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2048.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2049.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2050.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2051.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2052.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2053.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2054.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2055.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2056.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2057.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2058.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2059.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2060.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2061.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2062.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2063.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2064.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2065.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2066.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2067.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2068.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2069.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2070.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2071.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2072.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2073.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2074.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2075.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2076.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2077.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2078.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2079.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2080.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2081.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2082.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2083.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2084.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2085.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2086.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2087.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2088.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2089.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2090.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2091.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2092.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2093.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2094.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2095.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2096.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2097.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2098.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2099.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2100.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2101.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2102.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2103.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2104.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2105.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2106.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2107.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2108.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2109.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2110.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2111.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2112.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2113.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2114.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2115.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2116.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2117.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2119.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2120.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2121.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2122.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2123.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2124.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2125.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2126.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2127.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2128.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2129.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2130.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2131.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2132.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2133.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2134.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2135.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2136.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2137.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2138.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2139.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2140.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2141.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2142.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2143.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2144.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2145.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2146.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2147.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2148.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2149.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2150.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2151.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2152.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2153.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2154.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2155.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2156.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2157.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2158.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2159.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2160.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2161.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2162.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2163.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2164.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2165.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2166.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2167.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2169.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2170.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2171.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2172.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2173.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2174.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2175.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2176.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2177.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2178.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2179.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2180.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2181.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2182.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2183.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2184.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2185.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2186.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2187.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2188.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2189.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2190.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2191.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2192.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2193.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2194.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2195.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2196.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2198.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2199.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2200.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2201.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2202.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2203.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2204.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2205.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2206.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2207.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2208.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2209.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2210.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2211.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2212.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2213.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2214.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2216.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2218.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2219.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2220.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2221.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2222.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2223.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2224.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2225.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2226.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2227.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2228.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2229.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2230.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2231.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2232.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2233.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2234.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2235.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2236.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2237.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2238.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2239.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2240.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2241.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2242.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2243.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2244.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2245.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2246.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2247.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2248.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2249.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2250.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2251.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2252.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2253.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2254.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2255.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2256.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2257.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2258.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2259.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2260.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2261.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2262.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2263.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2264.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2265.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2266.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2267.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2268.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2269.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2271.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2272.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2273.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2274.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2275.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2276.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2277.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2278.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2279.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2280.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2281.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2282.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2283.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2284.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2285.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2286.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2287.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2288.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2289.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2290.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2291.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2292.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2293.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2294.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2295.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2296.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2297.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2298.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2299.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2300.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2301.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2302.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2303.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2304.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2305.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2306.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2307.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2308.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2309.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2310.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2311.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2312.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2313.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2314.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2315.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2316.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2317.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2318.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2319.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2320.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2321.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2322.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2323.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2324.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2325.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2326.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2327.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2328.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2329.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2330.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2331.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2332.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2333.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2334.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2335.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2336.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2337.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2338.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2339.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2340.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2341.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2342.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2343.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2344.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2345.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2346.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2347.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2348.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2349.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2350.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2351.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2352.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2353.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2354.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2355.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2356.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2357.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2358.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2359.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2360.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2361.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2362.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2363.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2364.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2365.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2366.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2367.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2368.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2369.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2370.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2371.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2372.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2373.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2374.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2375.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2376.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2377.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2378.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2379.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2380.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2381.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2382.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2383.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2384.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2385.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2386.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2387.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2388.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2389.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2390.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2391.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2392.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2393.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2394.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2395.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2396.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2397.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2398.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2399.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2400.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2401.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2402.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2403.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2404.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2405.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2406.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2407.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2408.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2409.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2410.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2411.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2412.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2413.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2414.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2415.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2416.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2417.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2418.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2419.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2420.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2421.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2422.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2423.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2424.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2425.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2426.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2427.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2428.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2429.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2430.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2431.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2432.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2433.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2434.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2435.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2436.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2437.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2438.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2439.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2441.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2442.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2443.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2444.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2445.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2446.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2447.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2448.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2449.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2450.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2451.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2452.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2453.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2454.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2455.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2456.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2457.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2458.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2459.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2460.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2461.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2462.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2463.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2464.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2465.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2466.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2467.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2468.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2469.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2470.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2471.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2472.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2473.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2474.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2475.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2476.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2477.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2478.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2479.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2480.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2481.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2482.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2483.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2485.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2486.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2487.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2488.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2489.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2490.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2491.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2492.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2493.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2494.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2495.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2496.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2498.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2499.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2500.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2501.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2502.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2503.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2504.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2505.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2506.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2507.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2508.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2509.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2510.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2511.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2512.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2513.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2514.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2515.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2516.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2517.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2518.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2519.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2520.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2521.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2522.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2523.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2524.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2525.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2526.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2527.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2528.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2529.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2530.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2531.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2532.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2533.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2534.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2535.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2536.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2537.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2538.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2539.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2540.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2541.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2542.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2543.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2544.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2545.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2546.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2547.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2548.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2549.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2550.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2551.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2552.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2553.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2554.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2555.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2556.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2557.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2558.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2559.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2560.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2561.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2562.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2563.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2564.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2565.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2566.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2567.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2568.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2569.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2570.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2571.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2572.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2573.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2574.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2575.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2576.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2577.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2578.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2579.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2580.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2581.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2582.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2583.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2584.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2585.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2586.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2587.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2588.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2589.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2590.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2591.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2592.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2593.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2594.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2595.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2596.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2597.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2598.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2599.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2600.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2601.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2602.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2603.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2604.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2605.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2606.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2607.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2608.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2609.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2610.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2611.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2612.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2613.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2614.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2615.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2616.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2617.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2618.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2619.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2620.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2621.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2622.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2623.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2624.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2625.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2626.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2627.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2628.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2629.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2630.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2631.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2632.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2633.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2634.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2636.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2637.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2638.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2639.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2640.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2641.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2642.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2643.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2644.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2645.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2646.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2648.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2649.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2650.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2651.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2652.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2653.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2654.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2655.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2656.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2657.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2658.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2659.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2660.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2661.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2662.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2663.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2664.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2665.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2666.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2667.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2668.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2669.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2670.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2671.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2672.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2673.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2674.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2675.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2676.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2677.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2678.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2679.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2680.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2681.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2682.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2683.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2684.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2685.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2686.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2687.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2688.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2689.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2690.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2691.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2692.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2694.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2695.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2696.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2697.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2698.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2699.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2700.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2701.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2702.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2703.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2704.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2705.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2706.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2707.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2708.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2709.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2710.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2711.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2712.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2713.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2714.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2715.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2716.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2717.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2718.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2719.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2720.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2722.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2723.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2724.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2725.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2726.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2727.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2728.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2729.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2730.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2731.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2732.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2733.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2734.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2735.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2736.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2737.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2738.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2739.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2740.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2741.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2742.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2743.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2744.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2745.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2746.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2747.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2748.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2749.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2750.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2751.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2752.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2753.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2754.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2755.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2756.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2757.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2758.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2759.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2760.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2761.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2762.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2763.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2764.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2765.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2766.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2767.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2768.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2769.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2770.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2771.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2772.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2773.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2774.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2775.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2776.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2777.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2778.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2779.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2780.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2781.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2782.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2783.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2784.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2785.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2786.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2787.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2788.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2789.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2790.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2791.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2792.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2793.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2794.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2795.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2796.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2797.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2798.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2799.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2800.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2801.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2802.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2803.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2804.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2805.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2806.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2807.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2808.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2809.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2810.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2811.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2812.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2813.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2814.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2815.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2816.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2817.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2818.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2819.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2820.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2821.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2822.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2823.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2824.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2825.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2826.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2827.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2828.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2829.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2830.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2831.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2832.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2833.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2834.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2835.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2836.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2837.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2838.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2839.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2840.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2841.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2842.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2843.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2844.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2845.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2846.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2847.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2848.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2849.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2850.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2851.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2852.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2853.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2854.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2855.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2856.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2857.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2858.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2859.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2860.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2861.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2862.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2863.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2864.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2865.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2866.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2867.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2868.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2869.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2870.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2871.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2872.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2873.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2874.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2875.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2876.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2877.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2878.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2879.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2880.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2881.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2882.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2883.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2884.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2885.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2887.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2889.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2890.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2891.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2892.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2893.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2894.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2895.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2896.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2897.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2898.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2899.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2900.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2901.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2902.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2903.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2904.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2905.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2906.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2907.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2908.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2909.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2910.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2911.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2913.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2914.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2915.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2916.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2917.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2918.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2919.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2920.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2921.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2922.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2923.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2924.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2926.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2927.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2928.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2929.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2930.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2931.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2932.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2933.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2934.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2936.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2937.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2938.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2939.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2940.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2941.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2942.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2943.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2944.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2945.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2946.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2947.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2948.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2949.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2950.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2951.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2952.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2953.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2954.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2955.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2956.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2957.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2958.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2959.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2960.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2962.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2963.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2964.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2965.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2966.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2967.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2968.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2969.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2970.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2971.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2972.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2973.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2974.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2975.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2977.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2978.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2979.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2980.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2981.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2982.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2983.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2984.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2985.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2986.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2987.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2988.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2989.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2990.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2991.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2992.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2993.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2994.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2995.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2996.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2997.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2998.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp2999.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3000.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3001.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3002.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3003.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3004.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3005.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3006.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3007.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3008.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3009.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3010.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3011.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3012.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3013.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3014.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3015.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3016.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3017.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3018.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3019.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3020.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3021.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3022.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3023.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3024.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3025.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3026.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3027.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3028.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3029.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3030.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3031.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3032.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3035.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3036.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3037.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3038.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3039.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3040.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3041.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3042.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3043.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3044.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3045.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3046.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3047.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3048.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3049.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3050.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3051.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3052.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3053.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3054.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3055.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3056.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3057.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3058.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3059.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3062.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3063.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3064.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3065.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3068.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3069.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3070.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3071.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3072.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3073.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3074.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3118.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp3119.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp7777.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp9000.lua"
+    },
+    {
+      "path": "ab_script/attack_sp/sp9999.lua"
+    },
+    {
+      "path": "ab_script/awaken/a0001.lua"
+    },
+    {
+      "path": "ab_script/common/common.lua"
+    },
+    {
+      "path": "ab_script/countdown/c0001.lua"
+    },
+    {
+      "path": "ab_script/enlarge/enl0001.lua"
+    },
+    {
+      "path": "ab_script/enlarge/enl0002.lua"
+    },
+    {
+      "path": "ab_script/enlarge/enl0003.lua"
+    },
+    {
+      "path": "ab_script/enlarge/enl0004.lua"
+    },
+    {
+      "path": "ab_script/enlarge/enl0005.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0001.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0002.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0003.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0004.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0005.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0006.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0007.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0008.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0009.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0010.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0011.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0012.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0013.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0014.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0015.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0016.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0017.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0018.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0019.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0020.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0021.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/fi0022.lua"
+    },
+    {
+      "path": "ab_script/finish_skill/sp0112.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0001.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0002.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0003.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0004.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0005.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0006.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0007.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0008.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0009.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0010.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0011.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0012.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0013.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0014.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0015.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0016.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0017.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0018.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0019.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0020.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0021.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0022.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0023.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0024.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0025.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0026.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0027.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0028.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0029.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0030.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0031.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0032.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0033.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0034.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0035.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0036.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0037.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0038.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0039.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0040.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0041.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0042.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0043.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0044.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0045.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0046.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0047.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0048.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0049.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0050.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0051.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0052.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0053.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0054.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0055.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0056.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0057.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0058.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0059.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0060.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0061.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0062.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0063.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0064.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0065.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0066.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0068.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0069.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0070.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0071.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0072.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0073.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0074.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0075.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0076.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0077.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0078.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0079.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0080.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0081.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0082.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0083.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0084.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0085.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0086.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0087.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0088.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0089.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0090.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0091.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0092.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0093.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0094.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0095.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0096.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0097.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0098.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0099.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0100.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0101.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0102.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0103.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0104.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0105.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0106.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0108.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0109.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0110.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0111.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0112.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0113.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0114.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0115.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0116.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0117.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0118.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0119.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0120.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0121.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0122.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0123.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0124.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0125.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0126.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0127.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0128.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0129.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse0130.lua"
+    },
+    {
+      "path": "ab_script/passive_skill_effect/pse137068.lua"
+    },
+    {
+      "path": "ab_script/recovery/recovery.lua"
+    },
+    {
+      "path": "ab_script/revival/rev0001.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0001.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0002.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0003.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0004.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0005.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0006.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0007.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0008.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0009.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0010.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0011.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0012.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0013.lua"
+    },
+    {
+      "path": "ab_script/standby_skill/stb0014.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10001.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10002.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10003.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10004.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10005.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10006.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10007.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm10008.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20001.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20002.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20003.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20004.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20005.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20006.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20007.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20008.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20009.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20010.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20012.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20013.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20014.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20015.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20016.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20017.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20018.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20019.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20020.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20021.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20022.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20023.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20024.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm20025.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30001.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30002.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30003.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30004.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30005.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30006.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30008.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30009.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30010.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30011.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30012.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30013.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm30014.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40001.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40002.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40003.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40004.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40005.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40006.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40007.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40008.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40009.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40010.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40011.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40013.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm40014.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50001.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50002.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50003.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50004.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50005.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50006.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50007.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50008.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50009.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50010.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50011.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50012.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50013.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50014.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50015.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50016.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50017.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50020.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50021.lua"
+    },
+    {
+      "path": "ab_script/support_memory/sm50022.lua"
+    },
+    {
+      "path": "ab_script/training/a0001.lua"
+    },
+    {
+      "path": "ab_script/training/a0002.lua"
+    },
+    {
+      "path": "ab_script/training/a0003.lua"
+    },
+    {
+      "path": "ab_script/training/a0004.lua"
+    },
+    {
+      "path": "ab_script/training/a0011.lua"
+    },
+    {
+      "path": "ab_script/training/a0012.lua"
+    },
+    {
+      "path": "ab_script/training/a0013.lua"
+    },
+    {
+      "path": "ab_script/training/a0014.lua"
+    },
+    {
+      "path": "ab_script/transformation/trs0001.lua"
+    },
+    {
+      "path": "ab_script/turn_end/te0001.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0001.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0002.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0003.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0004.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0005.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0006.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0007.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0008.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0009.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0010.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0011.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0013.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0014.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0015.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0016.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0017.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0018.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0019.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0020.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0021.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0022.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0023.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0024.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0025.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0026.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0027.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0028.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0029.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0030.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0031.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0032.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0033.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0034.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0035.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0036.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0037.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0038.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0039.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0040.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0041.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0042.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0043.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0044.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0045.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0046.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0047.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0048.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0049.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0050.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0051.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0052.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0053.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0054.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0055.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0056.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0057.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0058.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0059.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0060.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0061.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0062.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0063.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0064.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0065.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0066.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0067.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0068.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0069.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0070.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0071.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0072.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0073.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0074.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0075.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0076.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0077.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0078.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0079.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0080.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0081.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0082.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0083.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0084.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0085.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0086.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0087.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0088.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0089.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0090.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0091.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0092.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0093.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0094.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0095.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0096.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0097.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0098.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0099.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0100.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0101.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0102.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0103.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0105.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0106.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0107.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0108.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0109.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0110.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0111.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0112.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0113.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0114.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0115.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0116.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0118.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0119.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0120.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0121.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0122.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0123.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0124.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0125.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0126.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0127.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0128.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0129.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0130.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0131.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0132.lua"
+    },
+    {
+      "path": "ab_script/ultimate_special/ut0133.lua"
+    }
+  ],
+  "count": 2725,
+  "stale": false,
+  "building": false,
+  "error": null,
+  "base": "Packaged observed Eclipse script catalog"
+}

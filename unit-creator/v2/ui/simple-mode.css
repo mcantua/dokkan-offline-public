@@ -1,0 +1,45 @@
+/* Task-focused Android default; full workspace remains available. */
+.simple-tools-nav[hidden]{display:none!important}
+html[data-layout=simple] .sidebar nav [data-nav]:not([data-nav=home]):not([data-nav=source]),html[data-layout=simple] .mobile-nav [data-nav]:not([data-nav=home]):not([data-nav=source]){display:none}
+html[data-layout=simple] .mobile-nav{justify-content:space-around}
+html[data-layout=simple] .mobile-nav button{flex:1 1 0;min-width:0;white-space:normal;min-height:52px}
+html[data-layout=simple] button{user-select:none;-webkit-user-select:none;touch-action:manipulation}
+html[data-layout=simple] .simple-tools-nav{background:transparent;color:var(--muted);border:0;font-size:12px;padding:14px 12px;text-align:left;cursor:pointer}
+html[data-layout=simple] .mobile-nav .simple-tools-nav{text-align:center}
+.simple-start,.simple-heading{max-width:760px;margin:6px 0 30px}
+.simple-start h1,.simple-heading h1{font-size:clamp(25px,4vw,38px);line-height:1.25;margin:10px 0 14px;letter-spacing:-.6px}
+.simple-start p,.simple-heading p{line-height:1.7;color:var(--muted);font-size:14px}
+.simple-start-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.simple-start-actions .button{min-height:52px;font-size:14px;padding:14px 23px}
+.simple-saved{margin-top:35px}.simple-saved h2{font-size:21px}.simple-empty{border:1px dashed #44566b;padding:22px;border-radius:12px;line-height:1.7;color:var(--muted)}
+.simple-open{display:block;color:var(--accent);font-size:12px;margin-top:15px}
+.simple-reassurance{margin-top:26px;font-size:12px;color:var(--muted)}
+.simple-search{flex:1;min-width:180px}
+.simple-error{border:1px solid #bc6878;background:#3a232c;color:#ffe2e6;padding:14px;border-radius:10px;line-height:1.6;overflow-wrap:anywhere}
+.simple-steps{display:flex;gap:7px;margin-bottom:22px;max-width:700px}
+.simple-step{flex:1;min-width:0;min-height:48px;padding:9px 7px;border-radius:10px;border:1px solid #3c4c5f;background:#172230;color:#b9c8db;font-size:13px;cursor:pointer}
+.simple-step.active{background:#45311f;color:#ffd098;border-color:#ae8050}
+.simple-editor .editor-layout{display:flex;flex-direction:column;gap:10px;max-width:900px}
+.simple-editor .editor-layout>div{width:100%;min-width:0}
+.simple-editor .section-heading{flex-wrap:wrap;gap:16px}
+.simple-editor .section-heading h1{font-size:28px}
+.simple-editor .section-heading p{font-size:13px;line-height:1.7;max-width:700px}
+.simple-editor .hint{font-size:12px;line-height:1.75}
+.simple-editor .field{font-size:12px}
+.simple-editor input,.simple-editor select,.simple-editor textarea{font-size:16px}
+.simple-editor [aria-invalid=true]{border:2px solid #ff91a5}
+.simple-fold{border:1px solid #3b4c61;border-radius:11px;background:#121d2a;margin:14px 0;padding:5px 14px}
+.simple-fold>summary{font-size:14px;line-height:1.5;color:#d9e5f5;padding:12px 3px;margin:0;cursor:pointer}
+.simple-fold[open]>summary{margin-bottom:13px;border-bottom:1px solid #344459}
+.simple-fold>.effect-card{border:0;margin:0;padding:4px 0 14px}
+.simple-editor .simple-fold .preview{position:static;width:100%;max-width:360px}
+.simple-editor .simple-fold:has(>.preview){width:100%;margin:0 0 20px}
+.simple-options{padding:16px 0 5px}.simple-options h2{font-size:17px}.simple-options>.button{margin:4px 6px 6px 0;min-height:46px}
+.simple-stat-summary{border:1px solid #35665f;padding:15px;border-radius:10px;color:#b0eddf;background:#1b302e;font-size:14px;line-height:1.7}
+.simple-after-save{padding:15px 0}.simple-after-save h3{font-size:18px}.simple-after-save li,.simple-help li{font-size:14px;line-height:1.8;margin-bottom:12px}
+.simple-tool-grid{display:grid;gap:10px}.simple-tool-grid .button{text-align:left;min-height:49px}
+.simple-tool-return{margin-bottom:20px}.simple-editor .step-footer{position:static;background:#141e2bf5;border:1px solid #344458;border-radius:12px;padding:12px;z-index:6;gap:8px}.simple-editor .step-footer .button{min-height:48px}
+@media(max-width:760px){.simple-editor .step-footer{margin-bottom:12px}.simple-editor .step-footer .button{font-size:12px;padding:10px 12px}html[data-layout=simple] #import-top{display:none}#simple-layout-toggle{font-size:11px;padding:8px 10px;min-height:40px}.simple-editor .panel{padding:16px}.simple-steps{gap:5px}.simple-step{font-size:12px}}
+@media(max-width:430px){.simple-editor .field-grid{grid-template-columns:1fr}.simple-editor .step-footer span{font-size:11px}.simple-start-actions{flex-direction:column}.simple-start-actions .button{width:100%}}
+html[data-layout=simple][data-view=source] .tile-art{height:120px}
+html[data-layout=simple][data-view=source] .tile-art:has(img[hidden])::after{content:'Artwork not downloaded';font-size:11px;color:#becce0;padding:12px;text-align:center}

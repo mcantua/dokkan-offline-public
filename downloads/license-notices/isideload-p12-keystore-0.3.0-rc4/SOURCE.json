@@ -1,0 +1,66 @@
+{
+  "crate": "isideload-p12-keystore",
+  "version": "0.3.0-rc4",
+  "upstream_repository": "https://github.com/ancwrd1/p12-keystore",
+  "upstream_commit": "3c1debcdccda047fa3ba1ccfe7e50f887cd03301",
+  "complete_upstream_notice": true,
+  "notice_files": [
+    {
+      "path": "UPSTREAM-README.md",
+      "url": "https://raw.githubusercontent.com/ancwrd1/p12-keystore/3c1debcdccda047fa3ba1ccfe7e50f887cd03301/README.md",
+      "sha256": "a83cf5a32323b7da76f908d2ad0e049c26ce98c6563e097828dd5dbf938ea044"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://crates.io/api/v1/crates/isideload-p12-keystore/0.3.0-rc4/download#Cargo.toml",
+      "sha256": "38de30b8c8d3a34b6df30e42c91bd9eb980eba15d2db4c0bf9237e5d458dda8f"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://crates.io/api/v1/crates/isideload-p12-keystore/0.3.0-rc4/download#Cargo.toml.orig",
+      "sha256": "31434b64d86a9d4e02b9e8530b3ac13bb87a71007fc073d1306c1e2eb7818652"
+    },
+    {
+      "path": "PUBLISHED-VCS-INFO.json",
+      "url": "https://crates.io/api/v1/crates/isideload-p12-keystore/0.3.0-rc4/download#.cargo_vcs_info.json",
+      "sha256": "0229b3255543e9e49f5a96a59443c1597c6af13dcae5e51d26986936b438350b"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0.txt",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "FORK-Cargo.toml",
+      "url": "https://raw.githubusercontent.com/nab138/p12-keystore/3c1debcdccda047fa3ba1ccfe7e50f887cd03301/Cargo.toml",
+      "sha256": "31434b64d86a9d4e02b9e8530b3ac13bb87a71007fc073d1306c1e2eb7818652"
+    },
+    {
+      "path": "FORK-README.md",
+      "url": "https://raw.githubusercontent.com/nab138/p12-keystore/3c1debcdccda047fa3ba1ccfe7e50f887cd03301/README.md",
+      "sha256": "a83cf5a32323b7da76f908d2ad0e049c26ce98c6563e097828dd5dbf938ea044"
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "project-authored provenance/election; published archive SHA-256 169d9344eb672235ee5e1f311809d7dec0b3a0448ce5138d53d0f19c2924d6f9",
+      "sha256": "6370b6d5f7efbe673d68119f306649b269a6b7f03f2a9a020383f05313e4c500"
+    }
+  ],
+  "declared_license": "MIT/Apache-2.0",
+  "selected_license": "Apache-2.0",
+  "package_checksum": "169d9344eb672235ee5e1f311809d7dec0b3a0448ce5138d53d0f19c2924d6f9",
+  "notice_basis": "Explicit published package license grant; selected authorized license alternative with complete canonical text and all actually supplied attribution material. No invented copyright.",
+  "release_requirements_satisfied": true,
+  "requires_corresponding_source_bundle": false,
+  "obligations": [
+    {
+      "id": "Apache2-section4-notice-preservation",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-APACHE-2.0.txt",
+        "PUBLISHED-Cargo.toml.orig",
+        "ATTRIBUTION.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+Scope: updated physical-candidate filtering and post-selection identity guard, mocked cloud-only. No Mac/network/account/device access.
+Command: PYTHONDONTWRITEBYTECODE=1 python3 app-installer/device/test-device-selection.py
+setup-wizard.py SHA256 d13433c45c931ba496d5a39ab4f98bb952c3f4d7ecdc6509ee0d0e0f9bf87ebd
+test-device-selection.py SHA256 502142e10f00be00a7c9c2bcbb978612fa50696aa4f24886b03b24d1904326ed
+..
+Ran 2 tests in 0.005s
+OK

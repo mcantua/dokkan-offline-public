@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "classification": "unsigned-candidate",
+  "release_ready": false,
+  "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+  "source_tree_sha256": "7bde209ce40f55deb2d3ee49f455354224cf3b84d4484467bb9f257695d802ac",
+  "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+  "genuine_toolchain": {
+    "sdk_version": "27.1",
+    "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+    "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "ipa_artifacts": [
+    {
+      "variant": "iphone",
+      "file": "AppInstaller-iphone-candidate.ipa",
+      "bytes": 8378458,
+      "sha256": "cb24d72bb9854129e0ea2cf784be42cde79af40ed384b44760f6f74dcc18b7ca"
+    },
+    {
+      "variant": "duo",
+      "file": "AppInstaller-duo-candidate.ipa",
+      "bytes": 8378461,
+      "sha256": "7166a382f3571531b533e91474e0a430597eb95470029b7994e8cd49ab83caf5"
+    }
+  ],
+  "source_bundle": {
+    "file": "AppInstaller-corresponding-source.tar.xz",
+    "sha256": "bc8f927364b8c88a5bec365bfba48dbdac72db8625aa9999e3fe78648b8c917f",
+    "bytes": 92840736,
+    "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+    "source_tree_sha256": "7bde209ce40f55deb2d3ee49f455354224cf3b84d4484467bb9f257695d802ac",
+    "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+    "corresponding_source_verified": true,
+    "relink_instructions_verified": true
+  },
+  "licensing": {
+    "notices_verified": true,
+    "unresolved_notice_cases": 0,
+    "corresponding_source_verified": true,
+    "relink_instructions_verified": true
+  },
+  "unverified_release_requirements": [
+    "native simulator functionality is verified separately from candidate integrity",
+    "live Apple authentication/profile/signature/install/launch/refresh",
+    "physical Duo outer/inner/native-resolution/safe-area/touch/fold/state/crash checks"
+  ]
+}

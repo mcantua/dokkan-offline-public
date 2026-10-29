@@ -1,0 +1,95 @@
+{
+  "crate": "cms",
+  "version": "0.2.3",
+  "upstream_repository": "https://github.com/RustCrypto/formats",
+  "upstream_commit": "5821a21553509dbd03eae593b0a1fad4e2083d4e",
+  "complete_upstream_notice": false,
+  "gap_reason": "",
+  "notice_files": [
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#Cargo.toml",
+      "sha256": "31694e166b9ba2c236fe7e29be22a96373d51580ecb19717dae8a8086898c513"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#Cargo.toml.orig",
+      "sha256": "6681b2130600d9de3937e5c8206fc651e5415d4b11bf10fa4a1c0eb2ad9ba1ca"
+    },
+    {
+      "path": "PUBLISHED-README.md",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#README.md",
+      "sha256": "279211a02ae388bfb1053f8453d77c0eeee261d002d4b235ed66d740e52677c1"
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#published-manifest-and-source-audit",
+      "sha256": "deff2b6fec99b85dc6833cff2e2378fb861962e4d3fd525d76ec473523e89116"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0.txt",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ],
+  "schema_version": 2,
+  "declared_license": "Apache-2.0 OR MIT",
+  "selected_license": "Apache-2.0",
+  "package_checksum": "7b77c319abfd5219629c45c34c89ba945ed3c5e49fcde9d16b6c3885f118a730",
+  "release_requirements_satisfied": true,
+  "obligations": [
+    {
+      "id": "published-license-grant",
+      "status": "satisfied",
+      "evidence": [
+        "PUBLISHED-Cargo.toml",
+        "PUBLISHED-README.md"
+      ]
+    },
+    {
+      "id": "selected-license-text",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-APACHE-2.0.txt"
+      ]
+    },
+    {
+      "id": "preserve-provided-attribution-and-notices",
+      "status": "satisfied",
+      "evidence": [
+        "ATTRIBUTION.txt",
+        "SOURCE-AUDIT.json"
+      ]
+    },
+    {
+      "id": "published-source-integrity",
+      "status": "satisfied",
+      "evidence": [
+        "SOURCE-AUDIT.json"
+      ]
+    }
+  ],
+  "source_audit": "SOURCE-AUDIT.json",
+  "published_evidence": [
+    {
+      "archive_path": "Cargo.toml",
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#Cargo.toml",
+      "sha256": "31694e166b9ba2c236fe7e29be22a96373d51580ecb19717dae8a8086898c513"
+    },
+    {
+      "archive_path": "Cargo.toml.orig",
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#Cargo.toml.orig",
+      "sha256": "6681b2130600d9de3937e5c8206fc651e5415d4b11bf10fa4a1c0eb2ad9ba1ca"
+    },
+    {
+      "archive_path": "README.md",
+      "path": "PUBLISHED-README.md",
+      "url": "https://static.crates.io/crates/cms/cms-0.2.3.crate#README.md",
+      "sha256": "279211a02ae388bfb1053f8453d77c0eeee261d002d4b235ed66d740e52677c1"
+    }
+  ],
+  "required_distribution_artifacts": [],
+  "resolution_basis": "Published immutable package license/README declarations supply the grant. Selected standard license text, actual author credit and every provided notice are preserved; no copyright holder or missing notice is invented. Apache4(c)/(d) preservation applies to notices actually supplied, not a requirement to invent an absent LICENSE/NOTICE filename."
+}

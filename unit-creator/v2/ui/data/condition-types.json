@@ -1,0 +1,554 @@
+[
+  [
+    "0",
+    "isNoneRule",
+    "Nothing",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "1",
+    "isOverHpRate",
+    "HP is above %",
+    "HP Percent",
+    "0",
+    "0"
+  ],
+  [
+    "2",
+    "isUnderHpRate",
+    "HP is below %",
+    "HP Percent",
+    "0",
+    "0"
+  ],
+  [
+    "3",
+    "isOverEnergy",
+    "Ki is above a %",
+    "Ki %",
+    "0",
+    "0"
+  ],
+  [
+    "4",
+    "isUnderEnergy",
+    "Ki is below a %",
+    "Ki %",
+    "0",
+    "0"
+  ],
+  [
+    "5",
+    "isElapsedTurn",
+    "Battle has past turn number",
+    "Turn",
+    "0",
+    "0"
+  ],
+  [
+    "6",
+    "isPartyRaceType",
+    "Checks if entire deck has a certain link skill",
+    "Link Skill ID",
+    "0",
+    "0"
+  ],
+  [
+    "7",
+    "isEnemyRaceType",
+    "Checks if enemy has certain link skill",
+    "Link Skill ID",
+    "0",
+    "0"
+  ],
+  [
+    "8",
+    "isOverFightingPower",
+    "Checks current attack and defense is over a number",
+    "Attack",
+    "Defense",
+    "0"
+  ],
+  [
+    "9",
+    "isUnderFightingPower",
+    "Checks current attack and defense is under a number",
+    "Attack",
+    "Defense",
+    "0"
+  ],
+  [
+    "10",
+    "isOverHpRateOverEnergy",
+    "HP is above percent, Ki is above number",
+    "HP Percent",
+    "Ki Amount",
+    "0"
+  ],
+  [
+    "11",
+    "isOverHpRateUnderEnergy",
+    "HP is above percent, Ki is below number",
+    "HP Percent",
+    "Ki Amount",
+    "0"
+  ],
+  [
+    "12",
+    "isUnderHpRateOverEnergy",
+    "HP is below percent, Ki is above number",
+    "HP Percent",
+    "Ki Amount",
+    "0"
+  ],
+  [
+    "13",
+    "isUnderHpRateUnderEnergy",
+    "HP is below percent, Ki is below number",
+    "HP Percent",
+    "Ki Amount",
+    "0"
+  ],
+  [
+    "14",
+    "isFirstAttack",
+    "Card is in first slot",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "15",
+    "isOverTargetNum",
+    "More than a number of enemies",
+    "Number of Enemies",
+    "0",
+    "0"
+  ],
+  [
+    "16",
+    "isUnderTargetNum",
+    "Less than a number of enemies",
+    "Number of Enemies",
+    "0",
+    "0"
+  ],
+  [
+    "17",
+    "isOverTargetHpRate",
+    "Enemy target HP above a percent",
+    "HP Percent",
+    "0",
+    "0"
+  ],
+  [
+    "18",
+    "isUnderTargetHpRate",
+    "Enemy target HP below a percent",
+    "HP Percent",
+    "0",
+    "0"
+  ],
+  [
+    "19",
+    "isAttackOrder",
+    "Checks card slot position",
+    "Slot (0, 1, 2)",
+    "0",
+    "0"
+  ],
+  [
+    "20",
+    "isOverEnergyCondition",
+    "Ki is above percent AND Enemy has condition",
+    "Ki Percent",
+    "Enemy condition ID (seems to be required to be between 0 and 4)",
+    "0"
+  ],
+  [
+    "21",
+    "isUnderEnergyCondition",
+    "Ki is below percent AND Enemy has condition",
+    "Ki Percent",
+    "Enemy condition ID (seems to be required to be between 0 and 4)",
+    "0"
+  ],
+  [
+    "22",
+    "isPartyExistChara",
+    "Check if character is present in deck",
+    "Card Unique Info ID",
+    "0",
+    "0"
+  ],
+  [
+    "23",
+    "isLinkNum",
+    "Check if at number of links or greater are active",
+    "Number of links",
+    "0",
+    "0"
+  ],
+  [
+    "24",
+    "isHitDamaged",
+    "Activates upon being attacked",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "25",
+    "isTargetKill",
+    "Activates when target is killed",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "26",
+    "isOverHpRateEnableSpecial",
+    "HP is above percent, card has enough ki to super",
+    "HP Percent",
+    "0",
+    "0"
+  ],
+  [
+    "27",
+    "isUnderHpRateEnableSpecial",
+    "HP is below percent, card has enough ki to super",
+    "HP Percent",
+    "0",
+    "0"
+  ],
+  [
+    "28",
+    "isSlotElementType",
+    "Checks if any cards on rotation are a certain element",
+    "Element Type",
+    "0",
+    "0"
+  ],
+  [
+    "29",
+    "isEnemyExistChara",
+    "Check if character is an enemy",
+    "Card Unique Info ID",
+    "0",
+    "0"
+  ],
+  [
+    "30",
+    "isGuardSuccess",
+    "Check if card is guarding",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "31",
+    "isCombinationAttack",
+    "Activates if there are three enemy attacks",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "32",
+    "isChangeEnergyBallColor",
+    "Checks if there is a ki of a certain type on the board",
+    "Ki Type",
+    "0",
+    "0"
+  ],
+  [
+    "33",
+    "isBetweenHpRate",
+    "Checks if card HP percent is between two numbers",
+    "HP Percent Lower",
+    "HP Percent Higher",
+    "0"
+  ],
+  [
+    "34",
+    "isOverTeamCategoryNum",
+    "Check if category card is present",
+    "0 for deck; 1 for enemy; 2 for Attacking in the turn",
+    "Category ID",
+    "Amount"
+  ],
+  [
+    "35",
+    "hasAllElementBitpatternCards",
+    "Checks if deck has all types of an element bitset",
+    "Element Bitset",
+    "0",
+    "0"
+  ],
+  [
+    "36",
+    "isOverHpRateAndElapsedTurn",
+    "HP is above percent, battle has past turn number",
+    "HP Percent",
+    "Turn",
+    "0"
+  ],
+  [
+    "37",
+    "isUnderHpRateAndElapsedTurn",
+    "HP is below percent, battle has past turn number",
+    "HP Percent",
+    "Turn",
+    "0"
+  ],
+  [
+    "38",
+    "isTargetEnemyCondition",
+    "Enemy has required status effects",
+    "Status Effect Flags",
+    "0 for single status; 1 for multiple status",
+    "0"
+  ],
+  [
+    "39",
+    "isTargetElementTypeBitPattern",
+    "Check if enemy element matches element bitset",
+    "Element Bitset",
+    "0",
+    "0"
+  ],
+  [
+    "40",
+    "isSpecialAttack",
+    "Activates if attack is a Super Attack (Performed or Recieved)",
+    "Leave all 0",
+    "",
+    ""
+  ],
+  [
+    "41",
+    "isOverTeamUniqueCardNum",
+    "Activates if deck has card with name",
+    "(0 = Team, 1 = Enemy, 2 = Attacking Turn)",
+    "Card Unique Info Set ID",
+    "Number of allies"
+  ],
+  [
+    "42",
+    "isEnergyBallGetNum",
+    "Activates if character collects a certain amount of a specified Orb Type",
+    "Orb Type Bitset",
+    "Number of Orbs",
+    "0"
+  ],
+  [
+    "43",
+    "isDodgeSuccess",
+    "Checks if character evaded attack successfully",
+    "Unknown",
+    "Unknown",
+    "Unknown"
+  ],
+  [
+    "44",
+    "isCountUp",
+    "Count of 1: SA performed, 2: Attacks performed, 3: Attacks Recieved, 4: Guard activated, 5: Attacks Evaded",
+    "(1/2/3/4/5)",
+    "Amount",
+    "0"
+  ],
+  [
+    "45",
+    "isContainsCardByCategoryAndUniqueInfo",
+    "Activates if card is in target, category and unique info relations",
+    "Target (team, turn, enemy…)",
+    "Category (id, not sub target)",
+    "card unique info set relations"
+  ],
+  [
+    "46",
+    "isContainsSpecifiedElemenets",
+    "Activates if card is in specified element type bitset",
+    "0 for deck; 1 for enemy; 2 for ally attacking in turn",
+    "Type Bitset",
+    "amount of cards"
+  ],
+  [
+    "47",
+    "isExecutedRevivalSkill",
+    "Activates if character has executed a revival skill",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "48",
+    "isAttackedByEnemyWhichTakeSpecialDamage",
+    "Check if enemy hit by: (0,1,2,3,4) Any Super, Normal Super, Ultra Super, Active Skill/Finish Skill, Unit Super",
+    "(0/1/2/3/4)",
+    "0",
+    "0"
+  ],
+  [
+    "49",
+    "isHitBySuperType",
+    "Check if being hit by: (1) Ki Super, (2) Unarmed Super, (4) Physical Super",
+    "(1/2/4)",
+    "0",
+    "0"
+  ],
+  [
+    "50",
+    "hasPlayedPassiveSkillEffect",
+    "Activates if a character has played a passive skill effect",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "51",
+    "isUnderTurnCountFromApperance",
+    "Activates if a character is under X turns from apperance",
+    "Turn Amount",
+    "-",
+    "-"
+  ],
+  [
+    "52",
+    "chargeCount",
+    "-",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "53",
+    "inStandbyMode",
+    "Triggered if a character is in standby mode",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "54",
+    "isPartyExecutedRevivalSkill",
+    "Activates if character in your party has executed a revival skill",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "55",
+    "isOverTurnCountFromApperance",
+    "Checks if X turns have passed from character’s apperance",
+    "Turn Amount",
+    "0",
+    "0"
+  ],
+  [
+    "56",
+    "isNormalAttack",
+    "Checks if attack received by the character is a normal attack",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "57",
+    "isInSpecifiedDokkanField",
+    "Trigger if a specified dokkan field is active",
+    "Dokkan Field ID#",
+    "-",
+    "-"
+  ],
+  [
+    "58",
+    "isInDokkanField",
+    "Checks if a Dokkan Field is activated (0 = false, 1 = true)",
+    "(0/1)",
+    "-",
+    "-"
+  ],
+  [
+    "59",
+    "isSameAwakeningElementType",
+    "Checks if a character is in a specified class (1 = Super, 2 = Extreme)",
+    "(1/2)",
+    "-",
+    "-"
+  ],
+  [
+    "60",
+    "isInSubTargetTypeSet",
+    "Checks if character is in a sub target type set",
+    "SubTargetTypeSetID",
+    "-",
+    "-"
+  ],
+  [
+    "61",
+    "isReceivedAttackDuringTurn",
+    "Activates if character has recieved attack during turn",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "62",
+    "isAttackerElementTypeBitPattern",
+    "Checks if attacker matches element bitset? (See caus 39)",
+    "Element Bitset",
+    "-",
+    "-"
+  ],
+  [
+    "63",
+    "isElapsedTurnPerRound",
+    "Battle has elapsed x turns for round id? (See caus 5)",
+    "-",
+    "-",
+    "-"
+  ],
+  [
+    "64",
+    "Dragon Balls Obtained",
+    "Amount of Dragon Balls Required to Activate",
+    "1 = Less Than, 2 = Less Or Equal, 3 = Equal, 4 = greater or Equal, 5 = Greater Than, 6 = Different",
+    "Amount of Dragon Balls",
+    "-"
+  ],
+  [
+    "65",
+    "Giant Forms",
+    "Number Of Cards That Have A Giant Form",
+    "1 = Less Than, 2 = Less Or Equal, 3 = Equal, 4 = greater or Equal, 5 = Greater Than, 6 = Different",
+    "Amount of Cards",
+    "-"
+  ],
+  [
+    "66",
+    "Active Skills",
+    "Number of Active Skills activated",
+    "Number",
+    "-",
+    "-"
+  ],
+  [
+    "67",
+    "isAllTeamMembersHasCondition",
+    "Checks if all team members has (0) Category, (1) Name, (2), Type",
+    "0/1/2",
+    "(if 0) Category ID, (if 1) CardUniqueInfoSetRelations ID, (if 2) Element Bitset",
+    "-"
+  ],
+  [
+    "9001",
+    "isCriticalHit",
+    "Checks if an Attack Would Become a Critical Hit",
+    "Amount of Critical Hits Performed, 0 for All Critical Hits Trigger This Effect",
+    "0",
+    "0"
+  ]
+]

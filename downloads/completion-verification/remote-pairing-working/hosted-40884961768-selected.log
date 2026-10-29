@@ -1,0 +1,23 @@
+2026-10-29T13:46:40.4042650Z Reused rp_connectivity: 2 Linux successes, current recorded inputs match; original scope limits retained; no new hosted test execution.
+2026-10-29T13:46:40.4498250Z Reused helper_publication: 1 Linux successes, current recorded inputs match; original scope limits retained; no new hosted test execution.
+2026-10-29T13:47:53.5216420Z Collected notices for 138 Cargo packages; 0 unresolved license obligations; 0 source/relink delivery conditions.
+2026-10-29T13:47:54.0852760Z Universal Mac RP helper built and integrity/notices verified in hosted cloud; no USB pairing/account action performed.
+2026-10-29T13:49:47.1549700Z Collected notices for 318 Cargo packages; 0 unresolved license obligations; 1 source/relink delivery conditions.
+2026-10-29T13:50:53.8972730Z Generated native bootstrap .xcodeproj compiled with genuine iPhoneOS SDK; signing/accounts/device installation stayed disabled.
+2026-10-29T13:58:34.6650700Z SHA256 digest of uploaded artifact zip is 2836a1b8bdcf14e8a6e41cc58da88f0af26ec966ce28416b7289bae1ce588199
+2026-10-29T13:58:35.1473020Z Artifact app-installer-cloud-ui-latest has been successfully uploaded! Final size is 109678956 bytes. Artifact ID is 12902613724
+2026-10-29T13:58:37.2218970Z SHA256 digest of uploaded artifact zip is e244d381d00d911a2c2f145cb854bfe0b55ac2266f8d0e034213b3882a54b4bc
+2026-10-29T13:58:37.6708720Z Artifact app-installer-native-kit-latest has been successfully uploaded! Final size is 42768123 bytes. Artifact ID is 12902409391
+2026-10-29T13:58:26.3045900Z Test Suite 'Selected tests' started at 2026-10-29 13:58:26.247.
+2026-10-29T13:58:26.3240720Z Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-10-29 13:58:26.248.
+2026-10-29T13:58:26.3272250Z Test Suite 'PairingImportReadTests' started at 2026-10-29 13:58:26.248.
+2026-10-29T13:58:26.3303560Z Test Case '-[PairingImportReadTests testCoordinatedPairingReadUsesBoundedBytesAndHonorsCancellation]' started.
+2026-10-29T13:58:26.3529530Z Test Case '-[PairingImportReadTests testCoordinatedPairingReadUsesBoundedBytesAndHonorsCancellation]' passed (0.101 seconds).
+2026-10-29T13:58:26.3602530Z Test Suite 'PairingImportReadTests' passed at 2026-10-29 13:58:26.351.
+2026-10-29T13:58:26.3603170Z 	 Executed 1 test, with 0 failures (0 unexpected) in 0.101 (0.103) seconds
+2026-10-29T13:58:26.3603680Z Test Suite 'AppInstallerCloudUITests.xctest' passed at 2026-10-29 13:58:26.352.
+2026-10-29T13:58:26.3604130Z 	 Executed 1 test, with 0 failures (0 unexpected) in 0.101 (0.104) seconds
+2026-10-29T13:58:26.3604500Z Test Suite 'Selected tests' passed at 2026-10-29 13:58:26.352.
+2026-10-29T13:58:26.3604870Z 	 Executed 1 test, with 0 failures (0 unexpected) in 0.101 (0.105) seconds
+2026-10-29T13:58:26.3996280Z 2026-10-29 13:58:26.399 xcodebuild[76039:143285] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-10-29T13:58:26.3998220Z 2026-10-29 13:58:26.399 xcodebuild[76039:143285] [MT] IDESchemeActionDeviceRecord: versionAndBuild = 27.1 (24A94425), error = invalidDigitCount(94425).

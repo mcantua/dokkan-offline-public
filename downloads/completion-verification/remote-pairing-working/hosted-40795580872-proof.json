@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T00:52:39.881263+00:00",
+  "run_id": 40795580872,
+  "job_id": 123191147365,
+  "workflow_run_url": "https://github.com/mcantua/claude-chatg/actions/runs/40795580872",
+  "overall_workflow_result": "failure: helper packager sibling-module import from device validator",
+  "compiled_source_commit": "a412d7a10fe6e9b750b0b8e4cb3d156d400a0e92",
+  "compiled_source_tree_sha256": "f4e80764cdd58a20d8e8cee0ba37d2a4d7128c622e429883a562b9f37dc6ff5f",
+  "compiler": {
+    "sdk_version": "27.1",
+    "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+    "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "native_checks": {
+    "passed": 3,
+    "failed": 0,
+    "total_reported_seconds": 4.705,
+    "methods": [
+      {
+        "method": "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+        "seconds": 4.697
+      },
+      {
+        "method": "AppInstallerPairingDiscoveryTests/testBoundedDiscoveryCancellationRejectsLateCallbacksAndFinishesOnce",
+        "seconds": 0.004
+      },
+      {
+        "method": "PairingStoreValidationTests/testRemotePairingV2ImportAndRecoveryFormatGuardPreservesLegacySupport",
+        "seconds": 0.004
+      }
+    ]
+  },
+  "native_input_sha256_from_compiled_git_commit": {
+    "app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m": "e094afdd1df79a2628dde7e6e6539d9dbd4fc48daf5ee850e1b431c16baf18e4",
+    "app-installer/cloud-ui/Tests/AppInstallerPairingDiscoveryTests.m": "44413840b50c65135cf9466d22949983d1bf70ef4269ff7d14671561f435f12e",
+    "app-installer/cloud-ui/Tests/PairingStoreValidationTests.m": "45cf6832d5f77f01633ac11a250a9a183bb8f0a8c6f0f5ba35cef30ac3d98ca7",
+    "app-installer/cloud-ui/Tests/RefreshLifecycleTests.m": "4f81c0061557367d784f16e786af93d34e44b15f86ed3dcfcd3401a9476c235a",
+    "app-installer/cloud-ui/Tests/SecureStoreBootstrapTests.m": "4029bab32170356a1fb21ac21fd401ebb1ddc3c980f0a910eb697c97e27d8e62",
+    "app-installer/cloud-ui/project.yml": "d0c2b321f27a0ec90a660fd1bad79e5594aed728505da86b7e5a17c13d8b5ff7",
+    "app-installer/cloud-ui/run.sh": "5ba5499dfe6b126233b2a6171147b024ca20a7703366b22b4fa67927354b0460",
+    "app-installer/core/app_installer.h": "8802adfd588753a8de7de81250332a0f1cb2f2f5f2d5b20ec7be6b732bac75b1",
+    "app-installer/core/secure_storage.h": "3d38d2df048dbe2b090fb79175f30812c63e55a4827d075eef58f8fbe823e6e7",
+    "app-installer/ios/DisplayDiagnostics.h": "85ba6243644b5e53b3b0238f63741c9b57f0ca4c6e7376b384e6d2531841eb68",
+    "app-installer/ios/DisplayDiagnostics.m": "8b9e5e83a5d1c0bf34a86a81dd54d52f6675ebcd00a0968710b4414087014d86",
+    "app-installer/ios/Info.plist": "4572d98f33706b93912f06c59e8dde2ec8dc7e79f75c1c9f29e47ba6d82ef9f7",
+    "app-installer/ios/InstallerService.h": "8071d08af8731d0c98f68c296e44136e4f1fd24551abcad4dde910df39463ca8",
+    "app-installer/ios/InstallerService.m": "30d9c3308671048ab6cd09e8b0f146864f716d749bac572402a458183b409d7f",
+    "app-installer/ios/PairingStore.h": "62f0555d91aad9ca96b7c37f97117b573ffee476e3d7673a4236d19b47ca2736",
+    "app-installer/ios/PairingStore.m": "9d3e7ad096947fede82122b548cb237ca0493956519a42b088faf99e41dcf0f6",
+    "app-installer/ios/RefreshCoordinator.h": "a4c29d55c9158f1fa8492498ecdd2ca4e32d57693276d1138d9974adf73f93c6",
+    "app-installer/ios/RefreshCoordinator.m": "6a462f2e6754a32fef1081129d71072cbd680576342ea954fd0379e746efdc21",
+    "app-installer/ios/SecureStore.h": "feaac8a8c8a09e1d64d1501e736ce7fd4545001bd24be03d2fe2d009696b0849",
+    "app-installer/ios/SecureStore.m": "d23ba8096ce653a57c07c63a3de06d9a7a84fd26ce0310000626cff97bbdeae6",
+    "app-installer/ios/assets/AppIcon1024.png": "9d006cd59f3a96a2cb1c63b8de4a6ff8ea3c15589fefcae09d69d9bdd2f08087",
+    "app-installer/ios/assets/AppIcon120.png": "6221630847a870edb3bb6d4139057edbedd78b390ec07e23c5ef4209b6a8dd03",
+    "app-installer/ios/assets/AppIcon180.png": "b94ac06ed13ce7aef222d5bbeb55ddb71b40cba120d7f97777f13fa583d15758",
+    "app-installer/ios/assets/generate-icons.py": "42c5d5b51245c64b1ee83b707dfac6e378f3999c383bf094c594f54384de45bc",
+    "app-installer/ios/display-evidence.md": "81fbe620039b65299f77f2b123dc2b16933a803ecbb50d6bea2c9c17a2ab83d5",
+    "app-installer/ios/main.m": "3efb95fc3f3c7ee770c09939c221b43c1949cf20af349a829668f40629d0252d"
+  },
+  "current_native_inputs_changed": [],
+  "scope": "Actual hosted UIKit checks, labelled test-only responsive geometry and pure discovery/pairing-format regressions; not a physical phone/RP/account/install proof. Current Rust transport/refresh or recipe changes require their own genuine target compilation, not a repeated claim for this original run.",
+  "raw_selected_log": {
+    "file": "hosted-40795580872-native-and-import.log",
+    "sha256": "221b849fdebd7f605772c875e7cb4510fb3b6eb01ffd7217ac9b9296d1b2b202"
+  },
+  "diagnostics_only_artifact": {
+    "id": 12864037279,
+    "bytes": 3094890,
+    "sha256": "b99440755475ad5fb8b5c773a78940f8b0791ec9c66473990212d6e294d2254c"
+  },
+  "candidate_artifact_uploaded": false,
+  "kit_artifact_uploaded": false,
+  "diagnostics_candidate_exclusion": "Workflow excludes evidence/candidates/**; no candidate/source/library recovery available from this artifact.",
+  "helper_built": {
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "ad_hoc_signed": true,
+    "notarized": false,
+    "notice_dependency_count": 138,
+    "notice_gaps": 0
+  },
+  "candidate_outputs": {
+    "schema_version": 1,
+    "classification": "unsigned-candidate",
+    "release_ready": false,
+    "source_commit": "a412d7a10fe6e9b750b0b8e4cb3d156d400a0e92",
+    "source_tree_sha256": "f4e80764cdd58a20d8e8cee0ba37d2a4d7128c622e429883a562b9f37dc6ff5f",
+    "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+    "genuine_toolchain": {
+      "sdk_version": "27.1",
+      "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+      "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+      "xcode": "Xcode 27.1\nBuild version 27A9275",
+      "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+      "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+    },
+    "ipa_artifacts": [
+      {
+        "variant": "iphone",
+        "file": "AppInstaller-iphone-candidate.ipa",
+        "bytes": 8374330,
+        "sha256": "6ca3e73911a6a38928378b8fb9d7eeb86137537bcf2677dd3c1f26692db46e6e"
+      },
+      {
+        "variant": "duo",
+        "file": "AppInstaller-duo-candidate.ipa",
+        "bytes": 8374331,
+        "sha256": "6a1a019a111607693dcd56bb0a7f320191e6f1b39e1b8f946e72c0db1ca5c86e"
+      }
+    ],
+    "source_bundle": {
+      "file": "AppInstaller-corresponding-source.tar.xz",
+      "sha256": "feeb88e41e83420408c430cd76cde9586f632a151d5033d812a6c86019e3f924",
+      "bytes": 92831804,
+      "source_commit": "a412d7a10fe6e9b750b0b8e4cb3d156d400a0e92",
+      "source_tree_sha256": "f4e80764cdd58a20d8e8cee0ba37d2a4d7128c622e429883a562b9f37dc6ff5f",
+      "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+      "corresponding_source_verified": true,
+      "relink_instructions_verified": true
+    },
+    "licensing": {
+      "notices_verified": true,
+      "unresolved_notice_cases": 0,
+      "corresponding_source_verified": true,
+      "relink_instructions_verified": true
+    },
+    "unverified_release_requirements": [
+      "native simulator functionality is verified separately from candidate integrity",
+      "live Apple authentication/profile/signature/install/launch/refresh",
+      "physical Duo outer/inner/native-resolution/safe-area/touch/fold/state/crash checks"
+    ]
+  },
+  "candidate_outputs_limit": "These integrity-passed outputs are recorded in original public build logs, but were not uploaded. Log hashes do not recover the binary/source bytes.",
+  "local_fix_verification": "Sibling build directory added before licensing import; isolated dynamic-module import from device/ passed, no module main/compiler/helper/device execution.",
+  "library_size": "Not printed in available job log; no size claim."
+}

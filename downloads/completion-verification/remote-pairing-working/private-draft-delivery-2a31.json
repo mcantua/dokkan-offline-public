@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T14:07:34.270531+00:00",
+  "promotion_run_id": 40887996440,
+  "package_run_id": 40884961768,
+  "repository": "mcantua/claude-chatg",
+  "private": true,
+  "release_id": 427060273,
+  "tag_name": "app-installer-current-candidate",
+  "draft": true,
+  "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "server_asset_count": 9,
+  "assets": {
+    "AppInstaller-candidate-manifest.json": {
+      "id": 688754456,
+      "bytes": 2206,
+      "sha256": "45ce68286627ce0caf81961cbf6484d7406fc844fd2bca6cd66ddad3cf36bed0"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "id": 688754494,
+      "bytes": 92848016,
+      "sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "id": 688754725,
+      "bytes": 8381293,
+      "sha256": "295c0e66a9f42296d91de92875cea458dd41dbd184300f35cf9aa62e032de3be"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "id": 688754790,
+      "bytes": 8381290,
+      "sha256": "4971e88514b79b319c4c3a900b58102f4d7977057a92c34f556c13a35974e97b"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "id": 688754853,
+      "bytes": 1561,
+      "sha256": "e8499f2327ec5708146a94bdc6a6ea9307e325b38a6262c95007679eefb4a725"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "id": 688754902,
+      "bytes": 43111535,
+      "sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93"
+    },
+    "cloud-device-library-manifest.json": {
+      "id": 688755036,
+      "bytes": 1332,
+      "sha256": "739c631b066dadf4bfa41e41bfa4b34aaf8ce0e89bbbaffd07ff9660781fb324"
+    },
+    "InstallationCheck-test-fixture.json": {
+      "id": 686008738,
+      "bytes": 906,
+      "sha256": "4153e4678f90147cb950623564d58842913aa1b03cd047ca6671c48898d26f18"
+    },
+    "InstallationCheck-test-fixture.zip": {
+      "id": 686008776,
+      "bytes": 26007,
+      "sha256": "d3c5560c02cb5a3cd18e80d35cb7e26f2e7c9703c18a88fe6fe80d9c49b92654"
+    }
+  },
+  "preserved_fixture_ids": {
+    "InstallationCheck-test-fixture.json": 686008738,
+    "InstallationCheck-test-fixture.zip": 686008776
+  },
+  "all_server_assets_match_verified_contract": true,
+  "release_ready": false,
+  "published": false,
+  "tests_repeated": false,
+  "phone_install_attempted": false,
+  "promotion_receipt_artifact": {
+    "id": 12902774963,
+    "bytes": 1096,
+    "sha256": "4a60d325fbe04b8c9b5a4880945383b9d58dfb548240758317d1554e5040b235",
+    "inner_file": "draft-promotion-receipt-40887996440.json",
+    "inner_sha256": "b4f4b32e278955ea31fc9f2713a23015947eec30e4b10d2a49b39307be744832"
+  },
+  "sole_local_builds_replaced_after_server_success": true,
+  "kit_ready_for_approved_manual_setup": true
+}

@@ -1,0 +1,246 @@
+Dokkan Unit Forge editor source code: MIT (see LICENSE). Separately licensed media preparation modules and reference text are identified below.
+
+fflate 0.8.2
+Copyright (c) 2020 Arjun Barrett
+MIT license: https://github.com/101arrowz/fflate/blob/v0.8.2/LICENSE
+Vendored file: shared/vendor/fflate.js
+
+yauzl 3.2.0
+Copyright (c) 2014 Andrew Kelley
+MIT license; see the included node_modules/yauzl/LICENSE in desktop distributions.
+
+Electron 44.8.0 and Chromium/Node components
+Their upstream LICENSE and LICENSES.chromium.html files are included in the desktop distributions.
+
+Reference database/schema and card thumbnails
+Data source: Dokkan Eclipse public English database and asset routes.
+The reference database is game data, not covered by this application's MIT license.
+Thumbnails are retrieved from Eclipse's site when online, rather than redistributed in this source package.
+
+No source implementation from Dokkan-Unit-Creation-Tool or DokkanBrowser is included.
+
+
+Complete fflate license:
+
+MIT License
+
+Copyright (c) 2023 Arjun Barrett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Bouncy Castle 1.80 lightweight crypto subset (Android)
+Copyright (c) 2000-2025 The Legion of the Bouncy Castle Inc.
+See android/vendor/BOUNCY-CASTLE-LICENSE.html in source; complete notice follows.
+<html>
+<body bgcolor=#ffffff>
+
+Copyright (c) 2000-2023 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+and associated documentation files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+<p>
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
+<p>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+</body>
+</html>
+
+
+zstd-jni 1.5.7-4 (Android)
+Copyright (c) 2015-present, Luben Karavelov/ All rights reserved.
+
+BSD-2-Clause License https://opensource.org/license/bsd-2-clause
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice, this
+  list of conditions and the following disclaimer in the documentation and/or
+  other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Zstandard
+BSD License
+
+For Zstandard software
+
+Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+ * Neither the name Facebook, nor Meta, nor the names of its contributors may
+   be used to endorse or promote products derived from this software without
+   specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+hash-wasm 4.12.0 (desktop Argon2id)
+MIT License
+
+Copyright (c) 2020 Dani Biró
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Embedded C implementations might use other, similarly permissive licenses.
+Check the beginning of the files from the /src directory.
+
+Special thank you to the authors of original C algorithms:
+- Alexander Peslyak <solar@openwall.com>
+- Aleksey Kravchenko <rhash.admin@gmail.com>
+- Colin Percival
+- Stephan Brumme <create@stephan-brumme.com>
+- Steve Reid <steve@edmweb.com>
+- Samuel Neves <sneves@dei.uc.pt>
+- Solar Designer <solar@openwall.com>
+- Project Nayuki
+- ARM Limited
+- Yanbo Li dreamfly281@gmail.com, goldboar@163.comYanbo Li
+- Mark Adler
+- Yann Collet
+
+Animation preview services (2.4)
+Eclipse's public Lua/LWF players, asset APIs, and script directory are loaded
+online from https://dokkan-eclipse.com. Their renderer implementations and game
+assets are not bundled as Forge source. Hosted components retain their own
+licenses and ownership, including the renderer's Fengari and GREE LWF components.
+Forge's preview adapter, Lua composer, and beginner UI are original code.
+The test-only Fengari npm package is MIT licensed; its license is supplied with
+its development dependency. It is pruned from production desktop packages.
+
+2.5 iOS components
+Argon2 reference implementation 20190702: Apache-2.0 / CC0 alternatives;
+see ios/Vendor/argon2/LICENSE and retained source notices.
+Zstandard 1.5.7 C sources: BSD-3-Clause or GPL-2.0 alternatives;
+this app uses the BSD option; see ios/Vendor/zstd/LICENSE and COPYING.
+SQLite 3.40.1 public-domain header: ios/Include/sqlite3.h; native builds link
+system SQLite. The Linux test linker shim is not distributed.
+ZIPFoundation 0.9.20: MIT; fetched by SwiftPM from
+https://github.com/weichsel/ZIPFoundation with its upstream LICENSE.
+Swift Crypto 3.9.0 is a test dependency for Linux (Apache-2.0 with Runtime
+Library Exception and retained upstream notices). iOS uses Apple CryptoKit.
+xtool is an optional external build tool, not bundled app code. No Apple SDK,
+Apple account identity, provisioning profile, or private signing key is distributed.
+Hosted preview code/resources are downloaded directly to the user's private cache,
+not redistributed as Forge source. They retain their owners' notices/licenses.
+
+esbuild 0.25.12 (MIT) is used only while building compatible renderer scripts.
+Its binary is not a production dependency. See its upstream/development license.
+
+Swift 6.0.3 iOS compatibility libraries are extracted from the public official
+swift.org toolchain for Linux cross-linking. Apache-2.0 with Runtime Library
+Exception; upstream LICENSE.txt retained under ios/Vendor/swift-runtime.
+LLVM compiler-rt 17.0.6 os_version_check.c: Apache-2.0 with LLVM Exception;
+source and LICENSE.txt retained under ios/Vendor/llvm-compiler-rt. The Xcode
+build uses its own compiler runtime instead of this cross-build source.
+
+
+Sparking community reference text: Copyright Dokkan SPARKING Wiki contributors.
+Licensed CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+shared/data/sparking-reference.json adapts 121 publicly published character
+ descriptions parsed from 198 article pages. Each entry includes its original
+revision and contributor history. Adaptation: parsed/formatted plain text by
+Dokkan Unit Forge. Native game assets and scripts are not included in this guide.
+Source: https://dokkansparking.miraheze.org/
+Legal text: docs/licenses/Sparking-CC-BY-SA-4.0.txt (also bundled in ui/licenses).
+
+
+Local media preparation: FFmpeg.wasm, FFmpeg, libav.js and codec dependencies.
+The isolated media preparation worker and its adapters are GPL-3.0-or-later;
+third-party components retain the licenses in shared/vendor/media/licenses/.
+The complete GPLv3 text, component notices and pinned source manifests are
+bundled in shared/vendor/media/. See shared/vendor/media/NOTICE.txt.
+Corresponding upstream sources, Forge worker/adapters and build recipes are
+provided alongside release packages in
+Dokkan-Unit-Forge-Media-Corresponding-Source.zip.
+Do not redistribute compiled media modules without their corresponding sources.
+
+HCA metadata and test provenance: shared/hca-metadata.js is original MIT Forge
+source and adds no shipped decoder binary. Original synthetic test signals were
+encoded with MIT VGAudio 2.2.1; the research encoder and .NET runtime are absent
+from application packages. Unencrypted HCA 2.0 PCM was compared with the supplied
+original native decoder and independent VGAudio/FFmpeg output. Encrypted HCA
+requiring an unsupported key is explicitly rejected. See
+ docs/HCA-AUDIO-VERIFICATION.md and tests/fixtures/hca/README.md.
+
+OPTIONAL WINDOWS INSTALLER
+The optional Windows installer uses NSIS 3.12 (zlib/libpng with listed compression
+licenses), StdUtils 1.14 (LGPL 2.1+ and its NSIS-interface clarification),
+nsis7z 19.00/LZMA SDK (public-domain notice), and the original nsProcess,
+WinShell and UAC plugins with their attributions. Original notices, retained
+source/rebuild archives and exact provenance are in packaging/windows/ in the
+main source package. Plugin binaries are unmodified. electron-builder 26.15.3
+and 7-Zip 24.09 are build-time tools, not installed Forge dependencies.
+See packaging/windows/NOTICES.txt for component-specific terms and scope.

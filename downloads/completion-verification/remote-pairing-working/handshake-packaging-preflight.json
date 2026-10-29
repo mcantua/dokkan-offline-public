@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scope": "Pairing-handshake recipe syntax and original Linux proof-integrity check only. No Rust/native/UI tests or builds executed; source freeze and hosted package remain pending.",
+  "python_syntax": "passed",
+  "bash_syntax": "passed",
+  "groups": {
+    "rp_setup_wire": {
+      "passed_linux_checks_reused": 2,
+      "new_test_execution": false,
+      "context": {
+        "os": "Linux",
+        "rustc_version": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+        "requires_current_target_compilation": true,
+        "pre_and_post_source_hashes_equal": true,
+        "proof_scope": "Exactly two new offline tests. Full consent/SRP/M5/M6 initial pairing via production pair_with_progress against synthetic peer with independent strict255 wire decoder and real SRP/Ed25519/AEAD; good/tampered server and accessory proof plus duplicate identity, optional consent path, long metadata. TLV boundary/malformed/duplicate regression. Standalone vendor locked graph; no existing core/TLS/native/helper tests repeated and no physical cause confirmed.",
+        "physical_failure_cause_confirmed": false
+      },
+      "original_manifest_sha256": "71e9a277ffe1d1f78b775784d3b6db1c107db2d192ee858c92400ab63f680d4b"
+    },
+    "helper_handshake": {
+      "passed_linux_checks_reused": 1,
+      "new_test_execution": false,
+      "context": {
+        "os": "Linux",
+        "rustc_version": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+        "requires_current_target_compilation": true,
+        "pre_and_post_source_hashes_equal": true,
+        "vendor_inputs_unchanged_claim": false,
+        "proof_scope": "One new synthetic helper test only: fixed stage mapping, typed rejected/SRP/protocol/transport/identity classification, secret-bearing error text never forwarded, explicit elapsed-timeout route versus returned error and success. No wire handshake, live USB pairing, device success or full vendor cryptographic closure claim. Separate vendor protocol checks and final genuine build cover changed shared source."
+      },
+      "original_manifest_sha256": "5d74a5ac2478e3a7ca318c099b5b23d4cfe1370b902bb903fccb3a52403e2578"
+    }
+  },
+  "native_checks_must_be_explicitly_false": true,
+  "no_fallback_to_old_tests": true,
+  "dispatch_inputs": {
+    "package_candidates": true,
+    "native_checks": false,
+    "rust_test_scope": "pairing-handshake"
+  }
+}

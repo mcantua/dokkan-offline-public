@@ -1,0 +1,60 @@
+ Downloading crates ...
+  Downloaded compression-codecs v0.4.37
+  Downloaded futures-sink v0.3.32
+  Downloaded futures-task v0.3.32
+  Downloaded compression-core v0.4.31
+  Downloaded futures-macro v0.3.32
+  Downloaded simd-adler32 v0.3.8
+  Downloaded futures-executor v0.3.32
+  Downloaded pin-project-internal v1.1.11
+  Downloaded crc32fast v1.5.0
+  Downloaded futures-channel v0.3.32
+  Downloaded pin-project v1.1.11
+  Downloaded futures v0.3.32
+  Downloaded miniz_oxide v0.8.9
+  Downloaded async-compression v0.4.41
+  Downloaded futures-util v0.3.32
+  Downloaded flate2 v1.1.9
+  Downloaded tokio-util v0.7.18
+   Compiling futures-core v0.3.32
+   Compiling futures-sink v0.3.32
+   Compiling crc32fast v1.5.0
+   Compiling simd-adler32 v0.3.8
+   Compiling futures-macro v0.3.32
+   Compiling futures-channel v0.3.32
+   Compiling miniz_oxide v0.8.9
+   Compiling futures-lite v2.6.1
+   Compiling slab v0.4.12
+   Compiling futures-task v0.3.32
+   Compiling compression-core v0.4.31
+   Compiling async-channel v2.5.0
+   Compiling futures-util v0.3.32
+   Compiling pin-project-internal v1.1.11
+   Compiling flate2 v1.1.9
+   Compiling tokio-util v0.7.18
+   Compiling compression-codecs v0.4.37
+   Compiling blocking v1.6.2
+   Compiling async-compression v0.4.41
+   Compiling tun-rs v2.8.1
+   Compiling pin-project v1.1.11
+   Compiling async_zip v0.0.18
+   Compiling futures-executor v0.3.32
+   Compiling futures v0.3.32
+   Compiling idevice v0.1.68 (/Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68)
+warning: unused import: `RsdProvider`
+  --> src/lib.rs:57:33
+   |
+57 | use provider::{IdeviceProvider, RsdProvider};
+   |                                 ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `idevice` (lib test) generated 1 warning (run `cargo fix --lib -p idevice --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.57s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/idevice-937c69a76a030e89)
+
+running 1 test
+test services::installation_proxy::response_tests::error_fields_cannot_confirm_install_or_authorize_destructive_lookup ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+

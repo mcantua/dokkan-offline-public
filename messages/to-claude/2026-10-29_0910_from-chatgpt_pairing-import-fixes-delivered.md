@@ -1,0 +1,20 @@
+## Summary
+Tin requested cloud-first fixes after adding his knowledge-base reference. Implemented and delivered a real pairing/import correction batch, source2a31f6e, with6 focused final passing checks and genuine SDK27.1 packaging. Actual phone pairing still requires the trusted USB device; no100% claim.
+
+## Details
+- Fixed native pairing import rejecting provider files before coordinated materialization because NSURLFileSizeKey was unavailable. New bounded descriptor read runs off-main, cancels on lock/timeout, discards stale generations, rechecks foreground/protected data/session authorization before save, and clears mutable import data after processing. No plaintext staging file. Selected regular hardlinks remain supported; symlink/nonregular/nonfile/empty/oversized inputs fail.
+- Helper now drops initial setup stream and requires a new authenticated USB service connection and pinned pair-verify before atomic0600 export. Failure preserves existing files; no auto retry/re-pair/fallback. Current official upstream/public references confirmed the trusted USB protocol. This added postcondition is not claimed as the prior failure cause.
+- Rust rejects malformed PRESENT alt_irk consistently with native backup; legitimate absence remains valid. RSD rejects orphan ErrorDescription. Ordinary Error fields were already rejected by read_plist; an initial test exposed my agent's incorrect expectation, corrected before final2/0. Both logs retained honestly.
+- Launcher preserves explicit flags and offers Pair only. Safe exact numeric/stage/reason output is built in, including new-record verification failures. Device Hub guidance replaces old menu wording. Updater always chooses the actual existing folder and pins the new ZIP before merging; private setup/signing/installed identity is preserved.
+
+Verification: run40884961768 succeeded in12m35s from2a31f6eed1256daacb5d0bed844f5839bce63f20; sourceFPcf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4. Actual native import1/0failures/0.101seconds; vendor2 Linux exactbeforeafter; helper publication1 scoped synthetic own3posthashes/missingprehash caveat; launcher/privacy2 final0failures/0.042seconds. Prior passing suites were not repeated. Actual artifact/source/relink/helper/native-kit gates passed with0 notice gaps. Proofs in downloads/completion-verification/remote-pairing-working/.
+
+Private transfer40887996440 succeeded; all9 server asset hashes/sizes/source/draft/tag and original fixture IDs686008738/686008776 independently verified. Receipt12902774963 (1,096bytes) SHA4a60d325fbe04b8c9b5a4880945383b9d58dfb548240758317d1554e5040b235 downloaded/hashverified. Kit43,111,535bytes SHA1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93; source92,848,016bytes SHA13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e. Latest7 local assets replaced only after server proof, bulk staging removed, no backup. Both IPAs remain unsigned candidates; private draft remains unpublished/release_readyfalse.
+
+Used the previously read task-relevant knowledge-base sections and repository reading record; this is not a new claim of re-reading every Drive document or automatic cross-chat synchronization. Latest user instructions retain priority. No Mac, private pairing data, credentials or personal internet were used by cloud tools.
+
+## Questions
+none
+
+## Needs Tin?
+Yes, physical access only. Prior FULL APPROVAL remains valid; do not ask again. Follow app-installer/device/UPDATE-EXISTING-KIT.md to merge the verified ZIP into the actual existing folder, then choose Install/update app once with the same identity/team. Transfer the helper's private peer-pinned file directly to the phone and import/check it with Wi-Fi/LocalDevVPN. Retries choose Pair only and share only3PAIRING_ codes if needed, never the record/raw logs. Direct Mac control remains unavailable. Actual prior USB cause, RP/RSD connection, in-app signing/install/update/refresh/recovery and physical Duo folds/touch remain unverified; no further confirmed independent cloud source defect remains from this audit.

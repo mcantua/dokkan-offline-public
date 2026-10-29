@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T01:21:11.189998+00:00",
+  "run_id": 40798347194,
+  "job_id": 123200156224,
+  "workflow_run_url": "https://github.com/mcantua/claude-chatg/actions/runs/40798347194",
+  "workflow_conclusion": "success",
+  "job_duration_seconds": 786,
+  "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+  "source_tree_sha256": "7bde209ce40f55deb2d3ee49f455354224cf3b84d4484467bb9f257695d802ac",
+  "genuine_toolchain": {
+    "sdk_version": "27.1",
+    "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+    "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "native_checks": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 6.413,
+    "method": "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+    "scope": "Actual UIKit responsive, mixed refresh outcome and pairing fallback UI test; geometry variants explicitly synthetic fixtures, not physical Duo/fold acceptance. No old discovery/store method rerun."
+  },
+  "native_input_sha256_from_compiled_git_commit": {
+    "app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m": "1ea3958ca949c5c371db63ae913d4d4d9fdcd8cb5f1a9faf113e8e3a39445d8e",
+    "app-installer/cloud-ui/Tests/AppInstallerPairingDiscoveryTests.m": "44413840b50c65135cf9466d22949983d1bf70ef4269ff7d14671561f435f12e",
+    "app-installer/cloud-ui/Tests/PairingStoreValidationTests.m": "45cf6832d5f77f01633ac11a250a9a183bb8f0a8c6f0f5ba35cef30ac3d98ca7",
+    "app-installer/cloud-ui/Tests/RefreshLifecycleTests.m": "4f81c0061557367d784f16e786af93d34e44b15f86ed3dcfcd3401a9476c235a",
+    "app-installer/cloud-ui/Tests/SecureStoreBootstrapTests.m": "4029bab32170356a1fb21ac21fd401ebb1ddc3c980f0a910eb697c97e27d8e62",
+    "app-installer/cloud-ui/project.yml": "d0c2b321f27a0ec90a660fd1bad79e5594aed728505da86b7e5a17c13d8b5ff7",
+    "app-installer/cloud-ui/run.sh": "39c52f02935f28231cfce7e781a3273b148d686e27dd0637072095fb19d07d78",
+    "app-installer/core/app_installer.h": "8802adfd588753a8de7de81250332a0f1cb2f2f5f2d5b20ec7be6b732bac75b1",
+    "app-installer/core/secure_storage.h": "3d38d2df048dbe2b090fb79175f30812c63e55a4827d075eef58f8fbe823e6e7",
+    "app-installer/ios/DisplayDiagnostics.h": "85ba6243644b5e53b3b0238f63741c9b57f0ca4c6e7376b384e6d2531841eb68",
+    "app-installer/ios/DisplayDiagnostics.m": "8b9e5e83a5d1c0bf34a86a81dd54d52f6675ebcd00a0968710b4414087014d86",
+    "app-installer/ios/Info.plist": "4572d98f33706b93912f06c59e8dde2ec8dc7e79f75c1c9f29e47ba6d82ef9f7",
+    "app-installer/ios/InstallerService.h": "8071d08af8731d0c98f68c296e44136e4f1fd24551abcad4dde910df39463ca8",
+    "app-installer/ios/InstallerService.m": "30d9c3308671048ab6cd09e8b0f146864f716d749bac572402a458183b409d7f",
+    "app-installer/ios/PairingStore.h": "62f0555d91aad9ca96b7c37f97117b573ffee476e3d7673a4236d19b47ca2736",
+    "app-installer/ios/PairingStore.m": "9d3e7ad096947fede82122b548cb237ca0493956519a42b088faf99e41dcf0f6",
+    "app-installer/ios/RefreshCoordinator.h": "a4c29d55c9158f1fa8492498ecdd2ca4e32d57693276d1138d9974adf73f93c6",
+    "app-installer/ios/RefreshCoordinator.m": "6a462f2e6754a32fef1081129d71072cbd680576342ea954fd0379e746efdc21",
+    "app-installer/ios/SecureStore.h": "feaac8a8c8a09e1d64d1501e736ce7fd4545001bd24be03d2fe2d009696b0849",
+    "app-installer/ios/SecureStore.m": "d23ba8096ce653a57c07c63a3de06d9a7a84fd26ce0310000626cff97bbdeae6",
+    "app-installer/ios/assets/AppIcon1024.png": "9d006cd59f3a96a2cb1c63b8de4a6ff8ea3c15589fefcae09d69d9bdd2f08087",
+    "app-installer/ios/assets/AppIcon120.png": "6221630847a870edb3bb6d4139057edbedd78b390ec07e23c5ef4209b6a8dd03",
+    "app-installer/ios/assets/AppIcon180.png": "b94ac06ed13ce7aef222d5bbeb55ddb71b40cba120d7f97777f13fa583d15758",
+    "app-installer/ios/assets/generate-icons.py": "42c5d5b51245c64b1ee83b707dfac6e378f3999c383bf094c594f54384de45bc",
+    "app-installer/ios/display-evidence.md": "81fbe620039b65299f77f2b123dc2b16933a803ecbb50d6bea2c9c17a2ab83d5",
+    "app-installer/ios/main.m": "58b6e5d34c59d7635f23cb2e3d78ea965e2fd1affdcbf5e8c6f56cbc8e6ce1c1"
+  },
+  "current_native_inputs_changed": [],
+  "rust_checks": {
+    "new_test_execution": false,
+    "reused_group": "refresh_recovery",
+    "reused_linux_successes": 2,
+    "scope": "Actual prior source-bound Linux proof, not fresh hosted test execution."
+  },
+  "raw_selected_job_log": {
+    "file": "hosted-40798347194-selected.log",
+    "sha256": "1577bb0502c5f2608ec6b6c672a1a263492003694ea9224ca3c5c3806ee0ceda"
+  },
+  "artifact_pins": {
+    "candidate": {
+      "id": 12865656228,
+      "bytes": 112306847,
+      "sha256": "a0e78f472cce16168f523ac28fb1f3e6f389fc6981ece065021c444870e0fb2b"
+    },
+    "kit": {
+      "id": 12865755490,
+      "bytes": 42760791,
+      "sha256": "0afacbcee4bf1af26b79457d8fe5f3ed29f4337049729f3fec426c2ee646196d"
+    }
+  },
+  "candidate_log_receipt_file": "hosted-40798347194-candidate-log-receipt.json",
+  "kit_log_receipt_file": "hosted-40798347194-kit-log-receipt.json",
+  "gates": {
+    "universal_mac_helper_architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "helper_ad_hoc_signed": true,
+    "helper_notarized": false,
+    "helper_notice_packages": 138,
+    "helper_notice_gaps": 0,
+    "core_notice_packages": 318,
+    "core_notice_gaps": 0,
+    "actual_corresponding_source_verified": true,
+    "generated_unsigned_native_xcode_project_compiled": true,
+    "candidate_and_kit_uploaded": true,
+    "parent_actual_promotion_stage_verified": true,
+    "existing_member_and_total_bounds_sufficient": true
+  },
+  "candidate_designation": "unsigned-candidate",
+  "release_ready": false,
+  "phone_install_attempted": false,
+  "personal_resources_used": false,
+  "library_size": {
+    "bytes": 112269856,
+    "member_limit_bytes": 134217728,
+    "within_existing_bound": true,
+    "provenance": "Parent verified outer artifact SHA256 and actual extracted manifest/kit with promote-draft-candidate.verify_stage; no duplicate bulk download or verification by builds agent."
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "path": "/tools/lua-player/js/audio-bus.js",
+  "sourceSha256": "c99cd56fd964657d77e4214734176bff00ef5e922b2e61951bf8681029c2a663",
+  "patches": [
+    {
+      "find": "import { withPatchQuery, getActivePatchId } from './patch-context.js';",
+      "replace": "import { fetchImportedAudio as forgeFetchImportedAudio, rememberImportedAudioLoop as forgeRememberAudioLoop, configureImportedAudioLoop as forgeConfigureAudioLoop, hasImportedAudioLoop as forgeHasAudioLoop, importedAudioDuration as forgeAudioDuration } from '/_forge/imported-audio.js';\nimport { withPatchQuery, getActivePatchId } from './patch-context.js';"
+    },
+    {
+      "find": "        const res = await fetch(\n          withPatchQuery(url),\n          ctrl ? { signal: ctrl.signal, cache: 'no-store' } : { cache: 'no-store' },\n        );",
+      "replace": "        const res = await forgeFetchImportedAudio(\n          withPatchQuery(url),\n          ctrl ? { signal: ctrl.signal, cache: 'no-store' } : { cache: 'no-store' },\n          message => this.log(message),\n        );"
+    },
+    {
+      "find": "        this.cache.set(cacheKey, buf);",
+      "replace": "        forgeRememberAudioLoop(res, buf);\n        this.cache.set(cacheKey, buf);"
+    },
+    {
+      "find": "      const src = offline.createBufferSource();\n      src.buffer = buf;",
+      "replace": "      const src = offline.createBufferSource();\n      src.buffer = buf;\n      forgeConfigureAudioLoop(src, buf);"
+    },
+    {
+      "find": "            Math.min(playForSec * rate, buf.duration - offsetSec),",
+      "replace": "            forgeAudioDuration(buf, playForSec * rate, buf.duration - offsetSec),"
+    },
+    {
+      "find": "        src.start(when, offsetSec, Math.min(playForSec * rate, buf.duration - offsetSec));",
+      "replace": "        src.start(when, offsetSec, forgeAudioDuration(buf, playForSec * rate, buf.duration - offsetSec));"
+    },
+    {
+      "find": "  _startAt(buf, relVolume, key, when, { frame = 0, offsetMs = 0, endFrame = null, playbackRate = 1 } = {}) {\n    const ctx = this._ensureCtx();\n    if (ctx.state !== 'running') {\n      void this._ensureRunning().then(() => {\n        this._startAt(buf, relVolume, key, when, { frame, offsetMs, endFrame, playbackRate });\n      });\n      return;\n    }\n    const startAt = Math.max(ctx.currentTime, Number(when) || ctx.currentTime);\n    const offsetSec = Math.max(0, Math.min(buf.duration - 0.001, (Number(offsetMs) || 0) / 1000));\n    let rate = Number(playbackRate) || 1;\n    if (rate < 0.35) rate = 0.35;\n    if (rate > 3) rate = 3;\n    const src = ctx.createBufferSource();\n    src.buffer = buf;\n    src.playbackRate.value = rate;\n    const gain = ctx.createGain();\n    gain.gain.value = Math.max(0, relVolume);\n    src.connect(gain);\n    gain.connect(this.master);",
+      "replace": "  _startAt(buf, relVolume, key, when, { frame = 0, offsetMs = 0, endFrame = null, playbackRate = 1 } = {}) {\n    const ctx = this._ensureCtx();\n    if (ctx.state !== 'running') {\n      void this._ensureRunning().then(() => {\n        this._startAt(buf, relVolume, key, when, { frame, offsetMs, endFrame, playbackRate });\n      });\n      return;\n    }\n    const startAt = Math.max(ctx.currentTime, Number(when) || ctx.currentTime);\n    const offsetSec = Math.max(0, Math.min(buf.duration - 0.001, (Number(offsetMs) || 0) / 1000));\n    let rate = Number(playbackRate) || 1;\n    if (rate < 0.35) rate = 0.35;\n    if (rate > 3) rate = 3;\n    const src = ctx.createBufferSource();\n    src.buffer = buf;\n    forgeConfigureAudioLoop(src, buf);\n    src.playbackRate.value = rate;\n    const gain = ctx.createGain();\n    gain.gain.value = Math.max(0, relVolume);\n    if (!this._forgeBandpass?.connect(src, gain, key, ctx, {when: startAt, offsetSec, rate, frame, endFrame})) src.connect(gain);\n    gain.connect(this.master);"
+    },
+    {
+      "find": "  _startNow(buf, relVolume, key, { frame = 0, offsetMs = 0, endFrame = null, playbackRate = 1 } = {}) {\n    const ctx = this._ensureCtx();\n    if (ctx.state !== 'running') {\n      void this._ensureRunning().then(() => {\n        this._startNow(buf, relVolume, key, { frame, offsetMs, endFrame, playbackRate });\n      });\n      return;\n    }\n    const when = ctx.currentTime + 0.01;\n    const offsetSec = Math.max(0, Math.min(buf.duration - 0.001, (Number(offsetMs) || 0) / 1000));\n    let rate = Number(playbackRate) || 1;\n    if (rate < 0.35) rate = 0.35;\n    if (rate > 3) rate = 3;\n    const src = ctx.createBufferSource();\n    src.buffer = buf;\n    src.playbackRate.value = rate;\n    const gain = ctx.createGain();\n    gain.gain.value = Math.max(0, relVolume);\n    src.connect(gain);\n    gain.connect(this.master);",
+      "replace": "  _startNow(buf, relVolume, key, { frame = 0, offsetMs = 0, endFrame = null, playbackRate = 1 } = {}) {\n    const ctx = this._ensureCtx();\n    if (ctx.state !== 'running') {\n      void this._ensureRunning().then(() => {\n        this._startNow(buf, relVolume, key, { frame, offsetMs, endFrame, playbackRate });\n      });\n      return;\n    }\n    const when = ctx.currentTime + 0.01;\n    const offsetSec = Math.max(0, Math.min(buf.duration - 0.001, (Number(offsetMs) || 0) / 1000));\n    let rate = Number(playbackRate) || 1;\n    if (rate < 0.35) rate = 0.35;\n    if (rate > 3) rate = 3;\n    const src = ctx.createBufferSource();\n    src.buffer = buf;\n    forgeConfigureAudioLoop(src, buf);\n    src.playbackRate.value = rate;\n    const gain = ctx.createGain();\n    gain.gain.value = Math.max(0, relVolume);\n    if (!this._forgeBandpass?.connect(src, gain, key, ctx, {when: when, offsetSec, rate, frame, endFrame})) src.connect(gain);\n    gain.connect(this.master);"
+    },
+    {
+      "find": "      playForSec = (Number(endFrame) - Number(frame)) / this.fps;\n      src.loop = false;",
+      "replace": "      playForSec = (Number(endFrame) - Number(frame)) / this.fps;\n      if (!forgeHasAudioLoop(buf)) src.loop = false;"
+    },
+    {
+      "find": "      playForSec = (Number(endFrame) - Number(frame)) / this.fps;\n\n      src.loop = false;",
+      "replace": "      playForSec = (Number(endFrame) - Number(frame)) / this.fps;\n\n      if (!forgeHasAudioLoop(buf)) src.loop = false;"
+    },
+    {
+      "find": "        src.start(startAt, offsetSec, Math.min(playForSec * rate, buf.duration - offsetSec));",
+      "replace": "        src.start(startAt, offsetSec, forgeAudioDuration(buf, playForSec * rate, buf.duration - offsetSec));"
+    },
+    {
+      "find": "      const when = Math.max(0, (Number(ev.frame) || 0) / (this.fps || 30));",
+      "replace": "      const when = Math.max(0, Number.isFinite(ev.forgeCaptureSeconds) ? ev.forgeCaptureSeconds : (Number(ev.frame) || 0) / (this.fps || 30));"
+    },
+    {
+      "find": "      try {\n        if (playForSec != null) {",
+      "replace": "      if (Number.isFinite(ev.forgeEndSeconds)) playForSec = Math.max(0, ev.forgeEndSeconds - when);\n      if (playForSec === 0) continue;\n      try {\n        if (playForSec != null) {"
+    },
+    {
+      "find": "    const masterGain = offline.createGain();",
+      "replace": "    await this._forgeBandpass?.prepareOffline(offline, events);\n    const masterGain = offline.createGain();"
+    },
+    {
+      "find": "      src.connect(g);\n      g.connect(masterGain);",
+      "replace": "      if (!this._forgeBandpass?.connectOffline(src, g, ev, when)) src.connect(g);\n      g.connect(masterGain);"
+    }
+  ]
+}

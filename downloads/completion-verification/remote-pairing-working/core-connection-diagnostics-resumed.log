@@ -1,0 +1,87 @@
+   Compiling idevice v0.1.68 (/workspace/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68)
+   Compiling isideload v0.5.0 (/workspace/AI-Workspace/claude-chatg/downloads/isideload/isideload-0.5.0)
+   Compiling app-installer-core v0.1.0 (/workspace/AI-Workspace/claude-chatg/app-installer/core)
+error[E0283]: type annotations needed
+    --> src/engine.rs:2524:31
+     |
+2524 |                 let version = plist::Dictionary::from_iter([(
+     |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot infer type of the type parameter `T` declared on the associated function `from_iter`
+     |
+     = note: the type must implement `Into<std::string::String>`
+     = note: required for `plist::Dictionary` to implement `FromIterator<(_, plist::Value)>`
+help: consider specifying a concrete type for the type parameter `T`
+     |
+2524 |                 let version = plist::Dictionary::from_iter::</* Type */>([(
+     |                                                           ++++++++++++++
+
+error[E0283]: type annotations needed
+    --> src/engine.rs:2524:31
+     |
+2524 |                 let version = plist::Dictionary::from_iter([(
+     |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot infer type of the type parameter `T` declared on the associated function `from_iter`
+2525 |                     "Value".into(),
+     |                             ---- type must be known at this point
+     |
+     = note: multiple `impl`s satisfying `_: From<&str>` found in the following crates: `bytes`, `reqwest`:
+             - impl From<&'static str> for bytes::bytes::Bytes;
+             - impl From<&'static str> for reqwest::async_impl::body::Body;
+     = note: required for `&str` to implement `Into<_>`
+help: consider specifying a concrete type for the type parameter `T`
+     |
+2524 |                 let version = plist::Dictionary::from_iter::</* Type */>([(
+     |                                                           ++++++++++++++
+
+error[E0283]: type annotations needed
+    --> src/engine.rs:2548:31
+     |
+2548 |                 let version = plist::Dictionary::from_iter([(
+     |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot infer type of the type parameter `T` declared on the associated function `from_iter`
+2549 |                     "Value".into(),
+     |                             ---- type must be known at this point
+     |
+     = note: multiple `impl`s satisfying `_: From<&str>` found in the following crates: `bytes`, `reqwest`:
+             - impl From<&'static str> for bytes::bytes::Bytes;
+             - impl From<&'static str> for reqwest::async_impl::body::Body;
+     = note: required for `&str` to implement `Into<_>`
+help: consider specifying a concrete type for the type parameter `T`
+     |
+2548 |                 let version = plist::Dictionary::from_iter::</* Type */>([(
+     |                                                           ++++++++++++++
+
+error[E0283]: type annotations needed
+    --> src/engine.rs:2552:32
+     |
+2552 |                 let accepted = plist::Dictionary::from_iter([
+     |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot infer type of the type parameter `T` declared on the associated function `from_iter`
+2553 |                     ("EnableSessionSSL".into(), plist::Value::Boolean(true)),
+     |                                         ---- type must be known at this point
+     |
+     = note: multiple `impl`s satisfying `_: From<&str>` found in the following crates: `bytes`, `reqwest`:
+             - impl From<&'static str> for bytes::bytes::Bytes;
+             - impl From<&'static str> for reqwest::async_impl::body::Body;
+     = note: required for `&str` to implement `Into<_>`
+help: consider specifying a concrete type for the type parameter `T`
+     |
+2552 |                 let accepted = plist::Dictionary::from_iter::</* Type */>([
+     |                                                            ++++++++++++++
+
+error[E0283]: type annotations needed
+    --> src/engine.rs:2552:32
+     |
+2552 |                 let accepted = plist::Dictionary::from_iter([
+     |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot infer type of the type parameter `T` declared on the associated function `from_iter`
+...
+2555 |                         "SessionID".into(),
+     |                                     ---- type must be known at this point
+     |
+     = note: multiple `impl`s satisfying `_: From<&str>` found in the following crates: `bytes`, `reqwest`:
+             - impl From<&'static str> for bytes::bytes::Bytes;
+             - impl From<&'static str> for reqwest::async_impl::body::Body;
+     = note: required for `&str` to implement `Into<_>`
+help: consider specifying a concrete type for the type parameter `T`
+     |
+2552 |                 let accepted = plist::Dictionary::from_iter::</* Type */>([
+     |                                                            ++++++++++++++
+
+For more information about this error, try `rustc --explain E0283`.
+error: could not compile `app-installer-core` (lib test) due to 5 previous errors

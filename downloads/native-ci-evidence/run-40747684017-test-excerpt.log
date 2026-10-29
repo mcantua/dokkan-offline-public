@@ -1,0 +1,35 @@
+2026-10-28T18:48:26.5947510Z ** TEST BUILD SUCCEEDED **
+2026-10-28T18:48:35.7456230Z Wrote screenshot to: /Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/production-default-display.png
+2026-10-28T18:48:41.8057250Z Test Suite 'All tests' started at 2026-10-28 18:48:41.774.
+2026-10-28T18:48:41.8058230Z Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-10-28 18:48:41.775.
+2026-10-28T18:48:41.8058800Z Test Suite 'AppInstallerCloudUITests' started at 2026-10-28 18:48:41.775.
+2026-10-28T18:48:41.8059440Z Test Case '-[AppInstallerCloudUITests test01ProductionLoginAndSettingsLaunchWithoutAccount]' started.
+2026-10-28T18:48:43.4467400Z Test Case '-[AppInstallerCloudUITests test01ProductionLoginAndSettingsLaunchWithoutAccount]' passed (1.670 seconds).
+2026-10-28T18:48:43.4569250Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+2026-10-28T18:48:44.1057460Z /Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:263: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((rail.hidden) is false) failed
+2026-10-28T18:48:44.1066250Z /Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:263: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((rail.frame.origin.y) greater than or equal to (194.0)) failed: ("0") is less than ("194")
+2026-10-28T18:48:45.5848750Z /Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:263: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((rail.hidden) is false) failed
+2026-10-28T18:48:45.5949600Z /Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:263: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((rail.frame.origin.y) greater than or equal to (194.0)) failed: ("0") is less than ("194")
+2026-10-28T18:48:46.6483370Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' failed (3.201 seconds).
+2026-10-28T18:48:46.6485450Z Test Suite 'AppInstallerCloudUITests' failed at 2026-10-28 18:48:46.648.
+2026-10-28T18:48:46.6485920Z 	 Executed 2 tests, with 4 failures (0 unexpected) in 4.871 (4.873) seconds
+2026-10-28T18:48:46.6495230Z Test Suite 'RefreshLifecycleTests' started at 2026-10-28 18:48:46.649.
+2026-10-28T18:48:46.6507990Z Test Case '-[RefreshLifecycleTests testActualProfileExpiryDrivesForegroundRefreshIncludingEarlierExtension]' started.
+2026-10-28T18:48:46.6642090Z Test Case '-[RefreshLifecycleTests testActualProfileExpiryDrivesForegroundRefreshIncludingEarlierExtension]' passed (0.001 seconds).
+2026-10-28T18:48:46.6666440Z Test Case '-[RefreshLifecycleTests testForegroundRetryCooldownPreventsRepeatedPromptsWithoutBlockingClockRecovery]' started.
+2026-10-28T18:48:46.7085610Z Test Case '-[RefreshLifecycleTests testForegroundRetryCooldownPreventsRepeatedPromptsWithoutBlockingClockRecovery]' passed (0.050 seconds).
+2026-10-28T18:48:46.7148000Z Test Suite 'RefreshLifecycleTests' passed at 2026-10-28 18:48:46.700.
+2026-10-28T18:48:46.7149780Z 	 Executed 2 tests, with 0 failures (0 unexpected) in 0.051 (0.052) seconds
+2026-10-28T18:48:46.7150300Z Test Suite 'SecureStoreBootstrapTests' started at 2026-10-28 18:48:46.701.
+2026-10-28T18:48:46.7150960Z Test Case '-[SecureStoreBootstrapTests testExistingRecordOrCorruptSettingNeverEnablesFreshBootstrap]' started.
+2026-10-28T18:48:46.7354050Z Test Case '-[SecureStoreBootstrapTests testExistingRecordOrCorruptSettingNeverEnablesFreshBootstrap]' passed (0.034 seconds).
+2026-10-28T18:48:46.7367220Z Test Case '-[SecureStoreBootstrapTests testFreshKeychainPermitsBootstrapProbeWithoutGrantingAuthentication]' started.
+2026-10-28T18:48:46.7484960Z Test Case '-[SecureStoreBootstrapTests testFreshKeychainPermitsBootstrapProbeWithoutGrantingAuthentication]' passed (0.012 seconds).
+2026-10-28T18:48:46.7510330Z Test Suite 'SecureStoreBootstrapTests' passed at 2026-10-28 18:48:46.748.
+2026-10-28T18:48:46.7511330Z 	 Executed 2 tests, with 0 failures (0 unexpected) in 0.047 (0.048) seconds
+2026-10-28T18:48:46.7512760Z Test Suite 'AppInstallerCloudUITests.xctest' failed at 2026-10-28 18:48:46.748.
+2026-10-28T18:48:46.7514970Z 	 Executed 6 tests, with 4 failures (0 unexpected) in 4.968 (4.974) seconds
+2026-10-28T18:48:46.7516080Z Test Suite 'All tests' failed at 2026-10-28 18:48:46.749.
+2026-10-28T18:48:46.7516840Z 	 Executed 6 tests, with 4 failures (0 unexpected) in 4.968 (4.975) seconds
+2026-10-28T18:49:00.6866470Z ** TEST EXECUTE FAILED **
+2026-10-28T18:49:06.6584550Z ##[error]Process completed with exit code 65.

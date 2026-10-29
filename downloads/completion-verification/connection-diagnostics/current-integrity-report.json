@@ -1,0 +1,13 @@
+{
+  "classification": "unsigned-candidate",
+  "candidate_integrity_verified": true,
+  "notices_verified": true,
+  "corresponding_source_verified": true,
+  "relink_instructions_verified": true,
+  "unresolved_notice_cases": 0,
+  "release_ready": false,
+  "source_commit": "9361b32a469a7d6f275efd96100f419c5025806b",
+  "source_bundle_sha256": "45af9e6772c357d76d14912b3ce15c18c48ff057295190d2998ec47dad550d98",
+  "source_tree_sha256": "97da4d35d9cc66171ef5f115b534146f1d5ffd9734459c0ef080f638656a7c80",
+  "locked_dependency_graph_hash": "28d6828268adaa9378e9da51b14fd26c0825befaf256a25d79ba12268d802430"
+}

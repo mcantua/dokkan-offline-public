@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "environment": "cloud Linux, not hosted macOS or physical iPhone",
+  "os": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "compiler_verbose_file": "rustc-host.txt",
+  "compiler_verbose_sha256": "f22d5e4e9ced367e774ce5bc140d9e6b1235c1882fec80d011044851f3ae6369",
+  "source_state": "uncommitted shared worktree; no clean commit claimed",
+  "command": "source app-installer/build/env.sh; TMPDIR=$CARGO_TARGET_DIR/tmp cargo test --manifest-path app-installer/core/Cargo.toml --locked --offline --lib connection_diagnostics_",
+  "environment_paths": {
+    "CARGO_HOME": "downloads/rust-toolchain/cargo",
+    "RUSTUP_HOME": "downloads/rust-toolchain/rustup",
+    "CARGO_TARGET_DIR": "app-installer/core/target",
+    "TMPDIR": "app-installer/core/target/tmp"
+  },
+  "tests": {
+    "filter": "connection_diagnostics_",
+    "passed": 2,
+    "failed": 0,
+    "filtered_out": 19,
+    "test_seconds_reported": 0.0,
+    "incremental_compile_seconds_reported": 4.64
+  },
+  "raw_log": {
+    "path": "core-connection-diagnostics-final.log",
+    "sha256": "2847565faaef49e168a870ba9f8461e812a4d9a8f4d96c596b81efaf4c605e6a",
+    "mtime_utc": "2026-10-29T00:13:13.943936+00:00"
+  },
+  "unchanged_relevant_inputs_observed_after_execution": {
+    "app-installer/core/Cargo.toml": "a284beea6e2e8e18d1ce5e06a2e60eee7a61a979b3722777cc54cf0da97c4acb",
+    "app-installer/core/Cargo.lock": "230058e8fc343f99c7a19c69becfc3d716331b267949fb9a0bafdabc49f9e271",
+    "app-installer/core/src/engine.rs": "fa1075220fb403ef7189c5c7c621cf6fba65f622586973d931d09dd6a84a0bd6",
+    "app-installer/core/src/lib.rs": "f774596ffead8906dae5215722995c3a9160f3ba925f718b25932a1769224055",
+    "app-installer/core/src/cleanup.rs": "8d386069486f924ccae134e587ff591bda852a4afac49edcef8a5641b03f3e9b",
+    "downloads/idevice/idevice-0.1.68/src/services/lockdown.rs": "95e01e1705f9609287c510d575f23aae59cf1a6e97298bff32f65c79c6ed616f",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/mod.rs": "b45be2e0145ffb3b3bcfae26f29ab91b8e5670c462e3ad4655f7be99c2367021",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/rp_pairing_file.rs": "646ee51f6d4aa029d67484a725845b94e9e069bed4786d08e58337410a4d6940",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/socket.rs": "408e422c3720da42b20dbd1e98ca128e41077939759fc075d2ffca0fb0c78ab3",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tls_psk.rs": "b031f0475c0e4747f11cb092f20036ef9820c98b11dd747c5e72ab837c44be08",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tunnel.rs": "fe76fedcd9b121b5870ef5ea0456ee08c921e470c3c1b4e2f68593230602c4d2"
+  },
+  "post_execution_change": {
+    "path": "app-installer/core/src/transport.rs",
+    "current_sha256": "2ae4609630d6676589705a8e8ee5213ed9617106e320420ab67db9c8905708f5",
+    "detail": "Removed unused Drop implementation that called async AdapterHandle.close without polling; now relies on documented last-handle drop shutdown. This change occurred after the successful run. Do not treat the run as an exact whole-current-tree compile proof; final package compilation must cover it. The two selected diagnostic test bodies and their engine/Lockdown paths were unchanged."
+  },
+  "prior_attempts": [
+    "Initial session1448 interrupted before outcome",
+    "Resumed attempt had only synthetic test dictionary key .into inference errors; fixed to .to_owned before success"
+  ],
+  "not_verified": [
+    "real pairing",
+    "real Remote Pairing service",
+    "Apple account",
+    "physical install/update/refresh",
+    "unselected 19 core tests",
+    "hosted SDK/device package"
+  ]
+}

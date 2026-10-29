@@ -1,0 +1,27 @@
+2026-10-29T00:32:07.1015550Z info: downloading component 'rust-std' for 'x86_64-apple-darwin'
+2026-10-29T00:32:07.3793070Z info: installing component 'rust-std' for 'x86_64-apple-darwin'
+2026-10-29T00:32:09.4662100Z Traceback (most recent call last):
+2026-10-29T00:32:09.4666320Z   File "/Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/build/package-rp-bootstrap-cloud.py", line 121, in <module>
+2026-10-29T00:32:09.4666880Z     if __name__=='__main__':main()
+2026-10-29T00:32:09.4667130Z                             ~~~~^^
+2026-10-29T00:32:09.4667630Z   File "/Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/build/package-rp-bootstrap-cloud.py", line 59, in main
+2026-10-29T00:32:09.4668270Z     fingerprint=command(sys.executable,ROOT/'app-installer/build/source-fingerprint.py')
+2026-10-29T00:32:09.4668920Z   File "/Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/build/package-rp-bootstrap-cloud.py", line 24, in command
+2026-10-29T00:32:09.4669550Z     return subprocess.check_output(list(map(str,args)),cwd=ROOT,text=True,stderr=subprocess.STDOUT).strip()
+2026-10-29T00:32:09.4670020Z            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-29T00:32:09.4670530Z   File "/opt/homebrew/Cellar/python@3.15/3.15.1/Frameworks/Python.framework/Versions/3.15/lib/python3.15/subprocess.py", line 587, in check_output
+2026-10-29T00:32:09.4671160Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+2026-10-29T00:32:09.4671480Z            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-29T00:32:09.4671740Z                **kwargs).stdout
+2026-10-29T00:32:09.4671890Z                ^^^^^^^^^
+2026-10-29T00:32:09.4672300Z   File "/opt/homebrew/Cellar/python@3.15/3.15.1/Frameworks/Python.framework/Versions/3.15/lib/python3.15/subprocess.py", line 692, in run
+2026-10-29T00:32:09.4672730Z     raise CalledProcessError(retcode, process.args,
+2026-10-29T00:32:09.4673020Z                              output=stdout, stderr=stderr)
+2026-10-29T00:32:09.4674210Z subprocess.CalledProcessError: Command ['/opt/homebrew/opt/python@3.15/bin/python3.15', '/Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/app-installer/build/source-fingerprint.py'] returned non-zero exit status 1.
+2026-10-29T00:32:09.4709810Z Candidate packaging did not verify; continuing independent native checks.
+2026-10-29T00:33:33.5121960Z /Users/runner/work/claude-chatg/claude-chatg/AI-Workspace/claude-chatg/downloads/cloud-ui-tools/xcodegen.zip: OK
+2026-10-29T00:35:42.6066160Z   look over your available compiler tool chain or change your configuration.
+2026-10-29T00:35:42.6066430Z 
+2026-10-29T00:35:42.6066800Z   target already defined - iossimulator-arm64-xcrun (offending arg: arm64-apple-ios16.4-simulator)
+2026-10-29T00:35:42.6067580Z 
+2026-10-29T00:35:42.6067590Z

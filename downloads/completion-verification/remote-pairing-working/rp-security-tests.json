@@ -1,0 +1,88 @@
+{
+  "observed_at_utc": "2026-10-29T00:22:28.859306+00:00",
+  "commands": [
+    [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "downloads/idevice/idevice-0.1.68/Cargo.toml",
+      "--locked",
+      "--no-default-features",
+      "--features",
+      "ring,tcp,remote_pairing,openssl,tunnel_tcp_stack,rsd",
+      "--lib",
+      "remote_pairing::tunnel::security_tests::rp_tunnel_security_fragmentation_truncation_and_endpoint_bounds",
+      "--",
+      "--exact",
+      "--nocapture"
+    ],
+    [
+      "cargo",
+      "test",
+      "--manifest-path",
+      "downloads/idevice/idevice-0.1.68/Cargo.toml",
+      "--locked",
+      "--no-default-features",
+      "--features",
+      "ring,tcp,remote_pairing,openssl,tunnel_tcp_stack,rsd",
+      "--lib",
+      "remote_pairing::tls_psk::security_tests::rp_tls_security_authenticated_finished_records_and_framing",
+      "--",
+      "--exact",
+      "--nocapture"
+    ]
+  ],
+  "results": [
+    {
+      "filter": "remote_pairing::tunnel::security_tests::rp_tunnel_security_fragmentation_truncation_and_endpoint_bounds",
+      "exit_code": 0,
+      "one_test_passed": true
+    },
+    {
+      "filter": "remote_pairing::tls_psk::security_tests::rp_tls_security_authenticated_finished_records_and_framing",
+      "exit_code": 0,
+      "one_test_passed": true
+    }
+  ],
+  "source_sha256": {
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tls_psk.rs": "b031f0475c0e4747f11cb092f20036ef9820c98b11dd747c5e72ab837c44be08",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tunnel.rs": "fe76fedcd9b121b5870ef5ea0456ee08c921e470c3c1b4e2f68593230602c4d2",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/socket.rs": "408e422c3720da42b20dbd1e98ca128e41077939759fc075d2ffca0fb0c78ab3",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/mod.rs": "b45be2e0145ffb3b3bcfae26f29ab91b8e5670c462e3ad4655f7be99c2367021",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/rp_pairing_file.rs": "646ee51f6d4aa029d67484a725845b94e9e069bed4786d08e58337410a4d6940",
+    "downloads/idevice/idevice-0.1.68/Cargo.toml": "4c7f1403aa2026604418eb33141e7927699e159ae98e3712da70e96440024d7f",
+    "downloads/idevice/idevice-0.1.68/Cargo.lock": "37df5316547752bf0972cad7032159cafd6dc8a3c702ee4992f0723befb03337"
+  },
+  "log": "downloads/completion-verification/remote-pairing-working/rp-security-tests.log",
+  "log_sha256": "b32eac1052dbb14aa17063cfc42e61846cc46933e2b78f58d77a6e6b33dde4eb",
+  "scope": "Linux offline/in-memory crypto+framing only; cloud public dependency fetch through inherited proxy; no account, device, VPN, Mac, phone or user pairing contents used",
+  "registry_config_restored": true,
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1\n",
+  "source_hash_capture": "after execution; pre-run cryptographic source hashes were not captured",
+  "pre_run_source_hashes_available": false,
+  "preflight_failures": [
+    {
+      "stage": "dependency resolution/download before compilation/test execution",
+      "mode": "offline",
+      "reason": "old locked futures0.3.32 archive absent from cache"
+    },
+    {
+      "stage": "dependency download before compilation/test execution",
+      "mode": "default crates.io download URL",
+      "reason": "cloud proxy denied /version/download route; canonical public archive URL succeeded with lock checksum verification"
+    }
+  ],
+  "test_binary": "app-installer/core/target/rp-security-tests/debug/deps/idevice-946940d97a92d526",
+  "test_binary_sha256": "f98a2c4774c9334fa0d804cc323109155284b78ad422762d680d637395c8b84d",
+  "test_binary_mtime_ns": 1793233348643512145,
+  "source_mtime_ns": {
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tls_psk.rs": 1793231600254716668,
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tunnel.rs": 1793231723981278081,
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/socket.rs": 1793231810531186551,
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/mod.rs": 1793231967758529332,
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/rp_pairing_file.rs": 1793231600246716499,
+    "downloads/idevice/idevice-0.1.68/Cargo.toml": 1793232274003665362,
+    "downloads/idevice/idevice-0.1.68/Cargo.lock": 1793232827937406205
+  },
+  "source_mtimes_predate_test_binary": true
+}

@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "environment": "cloud Linux, not hosted macOS or physical iPhone",
+  "os": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "compiler_verbose_file": "rustc-host.txt",
+  "compiler_verbose_sha256": "f22d5e4e9ced367e774ce5bc140d9e6b1235c1882fec80d011044851f3ae6369",
+  "source_state": "uncommitted shared worktree; no clean commit claimed",
+  "command": "cargo test --manifest-path downloads/idevice/idevice-0.1.68/Cargo.toml --locked --offline --no-default-features --features ring,tcp,remote_pairing,openssl,tunnel_tcp_stack,rsd --lib remote_pairing::secure_identity_tests::rp_auth_",
+  "environment_paths": {
+    "CARGO_HOME": "downloads/rust-toolchain/cargo",
+    "RUSTUP_HOME": "downloads/rust-toolchain/rustup",
+    "CARGO_TARGET_DIR": "app-installer/core/target/rp-security-tests",
+    "TMPDIR": "app-installer/core/target/tmp"
+  },
+  "tests": {
+    "filter": "remote_pairing::secure_identity_tests::rp_auth_",
+    "passed": 2,
+    "failed": 0,
+    "filtered_out": 22,
+    "test_seconds_reported": 0.04,
+    "cargo_seconds_reported_including_build_lock_wait": 5.01
+  },
+  "raw_log": {
+    "path": "peer-auth-tests.log",
+    "sha256": "288c18756a4046d71b9303c6d193589ed5600e079cbdc1340f9feb8943b31b97",
+    "mtime_utc": "2026-10-29T00:22:28.743514+00:00"
+  },
+  "inputs_unchanged_during_run": {
+    "downloads/idevice/idevice-0.1.68/Cargo.toml": "4c7f1403aa2026604418eb33141e7927699e159ae98e3712da70e96440024d7f",
+    "downloads/idevice/idevice-0.1.68/Cargo.lock": "37df5316547752bf0972cad7032159cafd6dc8a3c702ee4992f0723befb03337",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/mod.rs": "b45be2e0145ffb3b3bcfae26f29ab91b8e5670c462e3ad4655f7be99c2367021",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/rp_pairing_file.rs": "646ee51f6d4aa029d67484a725845b94e9e069bed4786d08e58337410a4d6940",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/socket.rs": "408e422c3720da42b20dbd1e98ca128e41077939759fc075d2ffca0fb0c78ab3",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tls_psk.rs": "b031f0475c0e4747f11cb092f20036ef9820c98b11dd747c5e72ab837c44be08",
+    "downloads/idevice/idevice-0.1.68/src/remote_pairing/tunnel.rs": "fe76fedcd9b121b5870ef5ea0456ee08c921e470c3c1b4e2f68593230602c4d2"
+  },
+  "coverage": [
+    "SRP-M6 accessory signature and trusted pinned export",
+    "host public/private consistency and strict record version",
+    "pair-verify Msg2 AEAD exact peer identity and ephemeral transcript signature",
+    "ciphertext/pin/identifier/state substitution rejection",
+    "noncontributory X25519 rejection",
+    "consumed nonce/session invalidation after failed send and counter exhaustion"
+  ],
+  "scope_limits": [
+    "vendor standalone Cargo.lock graph; not the core Cargo.lock dependency graph",
+    "no actual USB trust enrollment",
+    "no Apple account",
+    "no iPhone RPPairing listener/RSD/service",
+    "no physical signing/install/update/refresh",
+    "no hosted SDK package"
+  ]
+}

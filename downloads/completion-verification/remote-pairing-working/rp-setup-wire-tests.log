@@ -1,0 +1,10 @@
+   Compiling idevice v0.1.68 (/workspace/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.77s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/idevice-946940d97a92d526)
+
+running 2 tests
+test remote_pairing::tlv::setup_wire_tests::rp_setup_wire_fragments_full_width_without_length_wrap_or_lost_bytes ... ok
+test remote_pairing::setup_wire_tests::rp_setup_wire_actual_srp_and_m6_require_canonical_fragments_and_authenticated_peer ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 26 filtered out; finished in 3.29s
+

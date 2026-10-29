@@ -1,0 +1,65 @@
+{
+  "package_checksum": "519defc726db80b8a43836bbd6f69eb606a42783db799716a103436042593f0b",
+  "files": [
+    {
+      "path": ".cargo_vcs_info.json",
+      "sha256": "32e476e04f1a318c4f392b8e2be673f61cc5eff3e0631fab44c6a5d3fffa51f5"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "edf2963ef9f5389ed0446e0df4016610f2a464671945ff66d16ac65a4f9e61a6"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "8102ea142d5fb1e622f3e2173e61ae5f200e3a347b23e541b7d15606630f6250"
+    },
+    {
+      "path": "Cargo.toml.orig",
+      "sha256": "68ba91b2a9b2f24e7a8deb0a92b3c3bd74686c46c7fdda2f5180b9ad688694ec"
+    },
+    {
+      "path": "assets/AppleIncRootCertificate.cer",
+      "sha256": "b0b1730ecbc7ff4505142c49f1295e6eda6bcaed7e2c68c5be91b5a11001f024"
+    },
+    {
+      "path": "assets/AppleWWDRCAG3.cer",
+      "sha256": "dcf21878c77f4198e4b4614f03d696d89c66c66008d4244e1b99161aac91601f"
+    },
+    {
+      "path": "src/bundle.rs",
+      "sha256": "3c3e6ce21dcef44f58176d88f805b2f636f04b18b5eed96544722ed640a47fcd"
+    },
+    {
+      "path": "src/error.rs",
+      "sha256": "1a937b262feeb7b178e42846f4926a8c423d2148f30e3800343ce820a1a4f746"
+    },
+    {
+      "path": "src/file_bytes.rs",
+      "sha256": "6897da92a9ad360e816a62a77ac1dc5f3b61b90567b5572b47e8fe9e15a1b7e6"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "32f051e3247acd18a5f5cdebd3d9c5c77b7698474cdf451e6848e1c15bb0f285"
+    },
+    {
+      "path": "src/macho.rs",
+      "sha256": "9f79a5397821c7897bebface0cde6d5c4e5d04e286cedfe448a34aa5b06438c3"
+    },
+    {
+      "path": "src/main.rs",
+      "sha256": "a4de0276076017895c1e167a700e0083f8d1bef1a11351c24a092d8076cb30f4"
+    },
+    {
+      "path": "src/provisioning.rs",
+      "sha256": "f5118f9b060cadee307f8f8c33c580c4872b07e90af5fe7863ae8dff0208b967"
+    },
+    {
+      "path": "src/rustcrypto_cms.rs",
+      "sha256": "2ef55b02855cf12a270f843902a5f6bc4cc359c2d89fa43942902d04f132afed"
+    },
+    {
+      "path": "src/signature.rs",
+      "sha256": "ed717b5d4127af94d46767b67851826f6478849aca202119c831be3fc15a37e7"
+    }
+  ]
+}

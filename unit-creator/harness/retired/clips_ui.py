@@ -1,0 +1,58 @@
+"""New clip editor: trim bars, nudges, typed times, drag, copy/move/remove, undo; speed."""
+import os
+os.environ["FORGE_STATE"] = "/home/claude/work/harness/state-clipsui"; os.environ["FRESH"] = "1"
+from harness import Session
+SP = "/tmp/claude-0/-home-claude/fc61b99f-cb57-56bc-b827-ee4cb4796a4c/scratchpad/"
+s = Session(viewport=(412, 915)).open(); pg = s.page; w = lambda ms=600: pg.wait_for_timeout(ms)
+while pg.evaluate("window.__forgeWorkspaceStartup") != "ready": w(100)
+pg.evaluate("createUnit(1018721)")
+for _ in range(100):
+    if pg.evaluate("state.view==='editor' && document.getElementById('busy').hidden"): break
+    w(200)
+pg.evaluate("navigate('animations')"); w(1500)
+def add(term):
+    pg.locator('[data-studio="browse"]').first.click(); w(1200)
+    pg.select_option("#studio-kind", "all"); w(800)
+    pg.fill("#studio-search", term); w(2000)
+    pg.locator('#studio-results [data-studio^="add:"]').first.click(); w(1200)
+    pg.evaluate("document.querySelectorAll('dialog.sequence-picker[open]').forEach(d=>d.querySelector('[aria-label=\"Close picker\"]')?.click())"); w(300)
+for t in ["Kamehameha", "Final Flash", "Galick"]: add(t)
+clips = lambda: pg.evaluate("studioProject().clips.map(c=>[c.from,c.to])")
+print("clips:", clips(), "|", pg.inner_text("#simple-sequence-summary"))
+def open_trim(i):
+    pg.evaluate("document.querySelectorAll('dialog.sequence-picker[open]').forEach(d=>d.querySelector('[aria-label=\"Close picker\"]')?.click())")
+    pg.evaluate(f"studioState.selected={i};renderStudioTimeline()"); w(200)
+    pg.click('.tl-tool[data-tl="trim"]'); w(500)
+    return pg.locator("dialog.sequence-picker[open] .clip-card")
+def select(i):
+    pg.evaluate("document.querySelectorAll('dialog.sequence-picker[open]').forEach(d=>d.querySelector('[aria-label=\"Close picker\"]')?.click())")
+    pg.evaluate(f"studioState.selected={i};renderStudioTimeline()"); w(200)
+print("blocks:", pg.evaluate("[...document.querySelectorAll('.tl-clip')].map(b=>b.querySelector('.tl-dur').textContent)"))
+card = open_trim(0)
+print("times shown:", card.locator(".trim-value").all_inner_texts())
+card.locator(".trim-from .trim-nudge").nth(1).click(); w(300); card.locator(".trim-from .trim-nudge").nth(1).click(); w(300)
+card.locator(".trim-to .trim-nudge").nth(0).click(); w(300)
+print("after nudges:", clips()[0], card.locator(".trim-kept").inner_text())
+card.locator(".trim-to .trim-value").click(); w(200)
+pg.keyboard.press("Control+A"); pg.keyboard.type("3.5"); pg.keyboard.press("Enter"); w(400)
+print("after typing end 3.5:", clips()[0], "| block:", pg.evaluate("document.querySelector('.tl-clip .tl-dur').textContent"))
+tr = card.locator(".trim-track").bounding_box(); h = card.locator(".trim-handle-start").bounding_box()
+pg.mouse.move(h["x"] + h["width"]/2, h["y"] + h["height"]/2); pg.mouse.down()
+pg.mouse.move(tr["x"] + tr["width"]*0.25, h["y"] + 10, steps=8); pg.mouse.up(); w(400)
+print("after drag start:", clips()[0])
+pg.screenshot(path=SP + "clips-ui.png")
+select(0); pg.click('.tl-tool[data-studio="copy:0"]'); w(500)
+print("after copy:", len(clips()), clips()[:2])
+select(0); pg.click('.tl-tool[data-studio="down:0"]'); w(500)
+print("after move:", pg.evaluate("studioProject().clips.map(c=>c.label.split(' · ')[0])"), "| selected follows:", pg.evaluate("document.querySelector('.tl-sel')?.dataset.tlClip"))
+select(3); pg.click('.tl-tool[data-studio="remove:3"]'); w(500)
+print("after remove:", len(clips()))
+pg.locator('[data-studio="undo"]').first.click(); w(800)
+print("after undo:", len(clips()))
+select(1); pg.click('.tl-tool[data-tl="watch"]'); w(800)
+print("preview request:", (s.native.last_preview or {}).get("name"), (s.native.last_preview or {}).get("dockSize"))
+card = open_trim(1)
+card.locator(".trim-from .trim-value").click(); pg.keyboard.press("Control+A"); pg.keyboard.type("99"); pg.keyboard.press("Enter"); w(400)
+print("start 99 clamps to:", clips()[1])
+print("errors:", s.errors[:3])
+s.close()

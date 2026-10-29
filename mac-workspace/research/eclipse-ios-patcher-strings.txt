@@ -1,0 +1,4381 @@
+__TEXT
+__text
+__TEXT
+__stubs
+__TEXT
+__stub_helper
+__TEXT
+__objc_methlist
+__TEXT
+__const
+__TEXT
+__cstring
+__TEXT
+__gcc_except_tab__TEXT
+__objc_methname
+__TEXT
+__objc_classname__TEXT
+__objc_methtype
+__TEXT
+__ustring
+__TEXT
+__unwind_info
+__TEXT
+__oslogstring
+__TEXT
+__DATA_CONST
+__got
+__DATA_CONST
+__mod_init_func
+__DATA_CONST
+__const
+__DATA_CONST
+__cfstring
+__DATA_CONST
+__objc_classlist__DATA_CONST
+__objc_protolist__DATA_CONST
+__objc_imageinfo__DATA_CONST
+__DATA
+__la_symbol_ptr
+__DATA
+__objc_const
+__DATA
+__objc_selrefs
+__DATA
+__objc_classrefs__DATA
+__objc_superrefs__DATA
+__objc_ivar
+__DATA
+__objc_data
+__DATA
+__data
+__DATA
+__bss
+__DATA
+__common
+__DATA
+__LINKEDIT
+@executable_path/Frameworks/eclipsepatcher.dylib
+/usr/lib/libobjc.A.dylib
+/System/Library/Frameworks/Foundation.framework/Foundation
+/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
+/System/Library/Frameworks/UIKit.framework/UIKit
+/System/Library/Frameworks/UniformTypeIdentifiers.framework/UniformTypeIdentifiers
+/System/Library/Frameworks/Security.framework/Security
+/usr/lib/libz.1.dylib
+/usr/lib/libc++.1.dylib
+/usr/lib/libSystem.B.dylib
+@executable_path/Frameworks/CydiaSubstrate.framework/CydiaSubstrate
+/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+@executable_path/Frameworks
++ih8J
+(H@9h
+Th/@8T
+?k(8(
+*k)8_
+*k+86
+v@9H"
+Iii8Jih8
+,kl8,k+8J
+lih8,k(8
+)kh8)
+2nj*8J
+*Mil8
+TKi,8
+RKi)8i
+(ih8*ij8
+5h.@9h
+5h*@y
+ThR@9h
+Th^@9
+(@yI@
+Rh*@y
+(@yI@
+`7i"@
+?i(8h*@y
+(ih8i
++ih8J
+@@y)@@y
+R;t{P
+4h*@y
+h>Cyh:
++ih8J
+)hi8(
++ih8J
+4!8zP
+4a3zp
+4!8zP
+4a8zp
+4!:zP
+4!<zp
+4A@zp
+4aFzP
+4ANz0
+4!Oz0
+4!Pzp
+(a19a
+Q@y)y
+Q@y)y
+4!]zp
+4!\zp
+Q@y)u
+TLii8Z
+6lIl8,
+hh8Kii8
+@9(ih8
+hj8-il8J
+is8*ij8s
+@8Kik8s
++il8m
+Jkh8)
+A9iJtP
+Lii8k
+(Ih8H
+R;$tP
+Zii8i
+@9hkh8
+)ij8k
+Hih8(
+9Iuv0
+!@9J#@9?
+T!Lxp
+4!LxP
++ih8J
++yhxJ
+Lii8k
+qD+Ez
+hz@9h
+Rh>@y
++ih8J
+Rh4tP
+r@9hr
+r@9hr
+4h>@y
+Tmij8
+Rij+8
+Thr@9
+R*i(8h
+?i(8u
+*A@9H
+Th&@9
+h"@9H
+ThN@9H
+ThZ@9
+h"@9H
+5h2@9h
+Th"@9
+b6@9<
+hB@9h^
+5hV@9
+4hB@9
+9hn@9
+X6h&@9
+4hV@9
+4h.@9h
+jV@9J
+T+ihx_
+T?i(x
+6tfAytf
+Th"@9
+5h.@9
+i@y)u
+9hB@9h^
+`7`&@
+4hN@9
+b>@9c
+7hV@9
+8@9*u
+5h.@9(
+P7h2@9
+P7`*@
+)k@y)
+j$@)(
++0@)J
++0A)J
++0B)J
++0C)J
++0D)J
++0E)J
++0F)J
++0G)J
+) ~X)
+h.@9H
+5h&@9
+i@y)y
+9i&@9j*@9)
+2@x)=
+k@#Xz
+h2@y9
+Iy)x)
+xqxcxd
+5hB@9
+T*1@9_
+ThR@y
+y(O@9
+R(SAx
+J)_@9)
+T(C@9
+S(G@9
+7S@9[
+)hR@y
+9hV@9
+h"@9h
+9hn@y
+hV@9(
+5hV@9
+)F|X)
+4hJ@9
+5hB@9
+hr@9H
+c"@9e"
+if@9)
+ThV@9
+h2@9h
+Th"@9
+4h&@9
+Q@y)u
+yhB@9
+hj@yI
+*A@9H
+ThV@9
++ih8J
+4h"C9
+Th"C9
+h"C9(
+7hV@9
+5h*@y
+yhZ@9
+6h"@9
+9h*@yI@
+9h*@y
+(P@9h
+)+yX)
+R*i38i~@
+)%yX)
+@9lil8L
+@9nin8
+@9lij8
+@9lil8
+9h*@y
+ThZ@9
+iZ@9?
+9h*@y
+TkGeP
+jyhx)
+[OAxi
+Lyixk
+k)@y*1
+J)@yJ
+q@9HV
+iNA8i7
+)Q@9)Q
+R@9)*!6
+Q@9('!7
+)@y)%
+)MA))}@
+@))}@
+hQ6NZ
+@))}@
+@)J}@
+@))}@
+A))}@
+@))}@
+@))}@
+@))}@
+)@y)y
+KMAxL]
+z@7iz
++yhxJ
+Lii8k
+]@9'U
+JU@9j
+)ia8*
+Tm=P6
++yhxJ
++yhxJ
++yhxJ
+?i(8)
+Ta0f0
++ih8J
+)ix8?
+7H?ep
+=(T@9
+Th*@y
+Th*@y
+h*@yi
+Lii8k
+h*@yix
+(@y((@y
++ih8J
+68h*@y
+yh*@y
+4 1@y
+5hN@9
+i7@yj3@
+5h7@yj'F
+yi#@9I
+Th#@9
+i3@yh+@
+Ti'@9(
+@yh2@y
+(6aR@
+hbA9(
+4hfA9h
+4Bod0
+K1Fxky
+Tif@y)9
+b>@9c
+4h"@9
+7j"@9
+uV@9u
+Ri*@y
+yh*@y
+X@9I @9
+(@y)(@y*
+2*i(8
+@9iVA9
+4hRA9
+H,@y(
++yhxJ1@y
+"@9?!5k
+4hRA9(
+5hRA9h
+T4K68(
+T<k68(
+x&@9B<
+9hb@9(
+i&@9j*@9
+)_@x)=
+?A@qa
+ioxJ=
+4ijux)=P
+4hjv8
+ijh8(
+@yJ=P
+5a2@y
+i&@9(
+TH3@9
+4I;@y
+J7@yK3@
+Tv2@yx6@yh&@y
+h2@9(
+4i:@y
++ijxk
+K+i*xi"@9
++ijxk
++3@y,3@9
+;ku8{
+4h2@y
+5h&@9
+R@x)=P
+y$@9h
+xIe@9
+9Ia@9
+i&@yj2@y<
+_@x)=
+?A@qa
+yh2@y
+yh&@9
+Rhz{x
+6h2@9i7
+9hb@9(
+Jyzx)
+i)oX)
+RhjA9
+4hnA9
+4hnA9
+Jik8_
+B))}@
++ih8J
+9"{[p
+T"9_P
+R*y5x
+5h2Fxi
+5h2Fx
+Th2Fx
+ 6a"@
++ij8h
+*(i*8
+h&G)jB@
+3)1@x)=P
+yhb@y
+Q@y)y
+i*EiI
+dAy(dAy?
+Q_K(8
+5A.^P
+4b8^0
+Jji(8
+A))}@
+J]sXj
+RWF^0
+/6!C^P
+R$!Jz
+T(kw8@
++ih8J
+_8)ik8)
+@yZlXP
+THKy8(
+TPyix
+Yox`=
++yhxJ
+R(';)N
+QDxky
+xKQDxk
+(#@9(
+YtxH7WP
+Lii8k
+Jh8h)VP
+Jk8Kik8)
+T(kw8
+T(/@9
+j68hZA
+*!@9*
+)9@9i
+T*1FxJ
+J!@9_
+3FxJy
+(i*8(
++xH @
+(i*8k
+)ihxhihx?
+TH1Fx
+?k;8H
+_8*ij8
+HOD8[
+yhSDx
+@9H387
+)PfX)
+?6"[@
+k48Ho
+{@9h(
+{@9hI
+)isx?
+)9@9?
++yhxJ
+4ALWp
+)it8*ki8
+4Hw@yI
+87K)@
+"@9I?Rp
+i{8)y{
+4A[Vp
+06c1V0
+T*ij8*
+TieU0
+nB)B|@
+*{hx)
++ih8J
++ih8J
+S?aHka
+b@yjb@y?
+*yhx_!!k
+,ij8k
+(6hJ@y
+ThJ@y
+hJ@yh
++ih8J
+6iN@y)
+Lii8k
+RBxQp
++ih8J
+T!vPP
+6K!@9
+Rij@y
+j(8hn
+=hz@9
+yh2Fx
++yhxJ
+@9(@ 6
+6iz@9
+*QDxJy
+jij8H
+77h2@
+J9@9_
+X6(SJx
+P67[@
+Tlii8
+i@y*=
+4!lMp
+D9z6@
+jii8_
+J9@9_
+/7k%@9
++iv8k
+QMIm8mi
+@9IYGP
+@8*ij8
+-hk8-im8J
+i@y*=
+*I@9*
++ih8J
+a#@9b
+iv@9jr@9_
+hv@9H
+4hr@9
+hz@9(
+hr@9H
+hz@9(
+@9hj;8(
+(7h.@
+/7Y+@
+@9|'@
+(7i+@
+(i989
++ih8J
+Tka@y
+07H|@
+(7H/@
++@yx#@y
+/@yu[
+`z7xaz
+_!(k!
+TL%@y
+i|8hW
+9%@9?
+4VvF0
+86(3Fx
+RI=G0
+Rw:G0
+THs@9
+X3@yY7@yI;@y
+)ix8?
+IQ@9?
+THK@9
+THO@9h
+ 7HO@9H
+hK@9(
+/87h;@
+*%@y_
+T))@y?5
+)U@9i
+RBdFP
+)1Fx)
+TiB@9?
+ThB@9
+9him8L
+Iii8)
+ 7hB@9
+(7!,@
+!@yI!
+4'@yT
+ThJ@9h
+*kz8_
+)!@9i
+H(@yi(@yJ$@yk$@yj
+J%@9j
+T*{hx
+`@yhF(
+*@yi&@
+I]D8H
+xiu@y
+ 7xu@yt
+87('@
+)3Fxi
+T(Q@9I
+ 6(+@
+T7'@y
+?7(+@y
+R7/>p
+Tkr@9k
+@9ir@9
+)@@9*@
+E@9,D@9
+06+l@y
+Rhr@9
+0@y)0@y
+5(l@y(
+K)h@y,l@y-
+P6ir@9i
+4(K@9
+ThK@9
+7hj@yH
+ThS@9
+yh.@y?
+yhS@9
+Ti'@y)
+T(K@9
+T('@y
+y(O@9
+Th2FxH
+yh2Fx
+Ti2Fx)
+Th2Fx
+Jy{x?
+)il8_
+H@9)P
+ji@y_
+Jiu8K
+Ji@y?
+Ja@9J
+)a@9)
+_!Hj(
+75o@y(3@y
+8-9@)
+90@y:l@y
+R8qB0
+Hk@y{
+RHk88
+hO@9(
+RHk88
+h+@yh
+J)@y_
+(6h;@
+*%@y_
+T*)@y_
+Lii8k
+@ykb@y_
+)@y(`
+%@xK=
+T)K@9I
+T(G@9
+4(K@9
+(C@9h
+)i@y?!:k
+('@9h
+;_B){
+jih8)
++ih8J
+Tij@y
+76h&@
+@yh:@
+5jn@y
+Tjj@y
+p6i&@
+Ri2Fx)
+7hB@9
+9`"@9
+@9i2@
+T*kh8Kkj8+
+@9Lkk8
+!p@9a
+hv@9(
+TAn<p
+@8Lik8
+@8Kik8+
+4Z#5P
+@9Hkw8(
+k"8c@
++ih8J
+hr@9(
+lil8L
+lil8L%
+C)(}*
++yhxJ
+TIkh8
+@8Hkh8
+Jh8)y
+Hkh8(
+@8J59P
+LIi8,
+_k)8)
+RHKv8
+HKv8H
+YK{88+
+IKh8?)
+IKi8*
+IKu8(
+KKu8l
+TKKk8k
+JKk8_
+TIKi8)
+THKu8
+T(kh8h
+HKu8hkh8
+HKu8I
+HKu8(ih8
+THKw8
+)ih8J
+THKw8
+Rlh0P
+R_@@q
+@9HS0P
+)Ij8?
+Lii8k
++yhxJ
+@9Ikh8
+Jh8Jki8
+RHKy8
+Jy8ikh8
+R+i*8
+4(i*8H
+R(i*8
+)ik8H
++ih8J
+)Ku8:
++iz8J
+T)Ks8?
+T(Kt8
+@9ikh8
+T7Kt8
+4)Ks8?
+T)Kt8)
+7(Ks8
+T)Ks8?
+T)kt8
+T*Kt8+ij8
+T*Ks8K
+)Ki8)
+T)Kt8?
+hi8Lik8
++ih8J
+IKi8?
++ih8J
+4A]6p
+T#Y60
+TcU6P
+*)it8)
+I!8t6@
+HXa~@
+*+ij8k
+Tkf@9k
+4hb@9
+6hb@9
++ih8J
+b@9?1
+*I`8_m
+Kik8k
+R,Ik8Lil8
+*, @9
+^@)Vyv
+^A)Tyt
+^B)Fyf
+VC)Tyt
+ZD)Uyu
+bE)Wyw
+fF)Wyw
+BG)Dyd
+IZ>X)
+jk8K!
++ih8J
+=LJI}
+)5IJ(}
+h&A)j.C)H!
+h&B)j.D)H!
+Ti*A)k2B)
+(A))}
+,B)JQ
+TH=JJ
+,ih8J
+-@)i%
+-@)j)
+i3@9>
+T)1,P
+.ih8J
++ih8J
+Ti%,P
++ih8J
+i{xZ#
+i{x9#
+i|xZ#
+i{x9#
+i{xZ#
+i{xZ#
+i{x9#
+i{xZ#
+TPE+P
+-@)j)
+Lih8k
+Tu @)
++ih8J
++ih8J
+Lii8k
+jyhx)
+jv8-'
+7!@Q7
++ih8J
++ih8J
++ih8J
++ih8J
++ih8J
+s"ssssss&-0
+ssssssssssssssssssssssssssssssssssssssssssssssssssA
+dddddddddddddddd
+!SS'S3SJSSSSSSSSSSSSSSSSSSSP
+#)46h4o
+(.9RN
+')355555555555555
+5555555555
+5553553/6666666666666666666666666666
+66666666666666666666666666666666666666666666
+/6666666666666666666666666666666666666666666666666666666666
++66666
+--------------------------------------------------------------------------/-
+----------------
+---------------
+---------
++++++++++
+^dgpv
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}"+7}}}}}}}}}}}@
+3333333333333333333333333
+33333333"
+*79CPY3.46.1
+expand 32-byte k
+ !"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+******""""""""""""""""""""
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+BINARY
+REINDEXEDESCAPEACHECKEYBEFOREIGNOREGEXPLAINSTEADDATABASELECTABLEFTHENDEFERRABLELSEXCLUDELETEMPORARYISNULLSAVEPOINTERSECTIESNOTNULLIKEXCEPTRANSACTIONATURALTERAISEXCLUSIVEXISTSCONSTRAINTOFFSETRIGGERANGENERATEDETACHAVINGLOBEGINNEREFERENCESUNIQUERYWITHOUTERELEASEATTACHBETWEENOTHINGROUPSCASCADEFAULTCASEC
+OLLATECREATECURRENT_DATEIMMEDIATEJOINSERTMATCHPLANALYZEPRAGMATERIALIZEDEFERREDISTINCTUPDATEVALUESVIRTUALWAYSWHENWHERECURSIVEABORTAFTERENAMEANDROPARTITIONAUTOINCREMENTCASTCOLUMNCOMMITCONFLICTCROSSCURRENT_TIMESTAMPRECEDINGFAILASTFILTEREPLACEFIRSTFOLLOWINGFROMFULLIMITIFORDERESTRICTOTHERSOVERETURNINGRIG
+HTROLLBACKROWSUNBOUNDEDUNIONUSINGVACUUMVIEWINDOWBYINITIALLYPRIMARY
+SQLite format 3
+  !!""##$$%%&&''(())**++,,--..//00112233445566778899
+#&-5a
+AAAAA&&A#
+@&&&&&&&&&&@
+onoffalseyestruextrafull
+':)|C!
+%vddUX*T
+row_number
+dense_rank
+percent_rank
+cume_dist
+ntile
+CADDEB
+nth_value
+first_value
+-)(*'&$ 
+naturaleftouterightfullinnercross
+0123456789ABCDEFlast_value
+second
+minute
+month
+fffff
+(D#$w
+@}@@@
+333333
+Y@ECLPECLP_KEY
+fECLP_MODSECURE!!!@#$%^&*25bf95b8dcb8389da20e146e67620308457b1450e3d0f2abdf8bf390b305ad16
+B@ffffff
+?333333
+F@333333
+?333333
+thstndrd
+0123456789ABCDEF0123456789abcdef
+(NULL)
+(join-%u)
+%u-ROW VALUES CLAUSE
+(subquery-%u)
+unix-none
+unix-dotfile
+unix-excl
+unix-posix
+unix-flock
+unix-afp
+unix-nfs
+unix-proxy
+PRAGMA "%w".page_count
+BEGIN IMMEDIATE; COMMIT;
+ATTACH x AS %Q
+backup is not supported with encrypted databases
+source and destination must be distinct
+string or blob too big
+cannot open virtual table: %s
+cannot open table without rowid: %s
+cannot open view: %s
+no such column: "%s"
+foreign key
+indexed
+cannot open %s column for writing
+sqlcipher_register_provider: entering SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_register_provider: entered SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_register_provider: leaving SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_register_provider: left SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_memset: setting %p[0-%llu]=%d)
+sqlcipher_free: calling sqlcipher_memset(%p,0,%llu)
+sqlcipher_malloc: calling sqlite3Malloc(%llu)
+sqlcipher_malloc: calling sqlcipher_memset(%p,0,%llu)
+%s %s
+4.6.1
+community
+%s %s 
+%Y-%m-%d %H:%M:%S
+%s.%03d: %s
+rekey
+sqlcipher_codec_pragma: db=%p iDb=%d pParse=%p zLeft=%s zRight=%s ctx=%p
+cipher_fips_status
+cipher_store_pass
+PRAGMA cipher_store_pass is deprecated, please remove from use
+cipher_profile
+cipher_add_random
+cipher_migrate
+sqlcipher_codec_pragma: error occurred during cipher_migrate: %d
+cipher_provider
+cipher_provider_version
+cipher_version
+cipher
+PRAGMA cipher is no longer supported.
+rekey_cipher
+PRAGMA rekey_cipher is no longer supported.
+cipher_default_kdf_iter
+kdf_iter
+fast_kdf_iter
+PRAGMA fast_kdf_iter is deprecated, please remove from use
+rekey_kdf_iter
+PRAGMA rekey_kdf_iter is no longer supported.
+page_size
+cipher_page_size
+cipher_default_page_size
+cipher_default_use_hmac
+cipher_use_hmac
+cipher_hmac_pgno
+PRAGMA cipher_hmac_pgno is deprecated, please remove from use
+native
+cipher_hmac_salt_mask
+PRAGMA cipher_hmac_salt_mask is deprecated, please remove from use
+cipher_plaintext_header_size
+cipher_default_plaintext_header_size
+cipher_salt
+cipher_hmac_algorithm
+HMAC_SHA1
+HMAC_SHA256
+HMAC_SHA512
+cipher_default_hmac_algorithm
+cipher_kdf_algorithm
+PBKDF2_HMAC_SHA1
+PBKDF2_HMAC_SHA256
+PBKDF2_HMAC_SHA512
+cipher_default_kdf_algorithm
+cipher_compatibility
+cipher_default_compatibility
+cipher_memory_security
+sqlcipher_set_mem_security: on
+sqlcipher_get_mem_security: sqlcipher_mem_security_on = %d, sqlcipher_mem_executed = %d
+cipher_settings
+PRAGMA kdf_iter = %d;
+pragma
+PRAGMA cipher_page_size = %d;
+PRAGMA cipher_use_hmac = %d;
+PRAGMA cipher_plaintext_header_size = %d;
+PRAGMA cipher_hmac_algorithm = %s;
+PRAGMA cipher_kdf_algorithm = %s;
+cipher_default_settings
+PRAGMA cipher_default_kdf_iter = %d;
+PRAGMA cipher_default_page_size = %d;
+PRAGMA cipher_default_use_hmac = %d;
+PRAGMA cipher_default_plaintext_header_size = %d;
+PRAGMA cipher_default_hmac_algorithm = %s;
+PRAGMA cipher_default_kdf_algorithm = %s;
+cipher_integrity_check
+cipher_log_level
+ERROR
+DEBUG
+TRACE
+cipher_log_source
+MEMORY
+MUTEX
+PROVIDER
+cipher_log
+sqlcipherCodecAttach: db=%p, nDb=%d
+sqlcipherCodecAttach: no codec attached to db
+sqlcipherCodecAttach: calling sqlcipher_activate()
+sqlcipherCodecAttach: entering database mutex %p
+sqlcipherCodecAttach: entered database mutex %p
+sqlcipherCodecAttach: calling sqlcipher_codec_ctx_init()
+sqlcipherCodecAttach: context initialization failed, forcing error state with rc=%d
+sqlcipherCodecAttach: leaving database mutex %p (early return on rc=%d)
+sqlcipherCodecAttach: left database mutex %p (early return on rc=%d)
+sqlcipherCodecAttach: calling sqlcipherPagerSetCodec()
+sqlcipherCodecAttach: calling codec_set_btree_to_codec_pagesize()
+sqlcipherCodecAttach: calling sqlite3BtreeSecureDelete()
+sqlcipherCodecAttach: calling sqlite3BtreeSetAutoVacuum()
+sqlcipherCodecAttach: leaving database mutex %p
+sqlcipherCodecAttach: left database mutex %p
+sqlite3_key: db=%p
+sqlite3_key_v2: db=%p zDb=%s
+sqlite3_key_v2: no key provided
+sqlite3_rekey: db=%p
+sqlite3_rekey_v2: db=%p zDb=%s
+sqlite3_rekey_v2: database zDb=%p db_index:%d
+sqlite3_rekey_v2: no codec attached to db %s: rekey can't be used on an unencrypted database
+sqlite3_rekey_v2: entering database mutex %p
+sqlite3_rekey_v2: entered database mutex %p
+sqlite3_rekey_v2: error %d occurred writing page %d
+sqlite3_rekey_v2: error %d occurred reading page %d
+sqlite3_rekey_v2: committing
+sqlite3_rekey_v2: rollback
+sqlite3_rekey_v2: leaving database mutex %p
+sqlite3_rekey_v2: left database mutex %p
+sqlite3_rekey_v2: no key provided for db %s: rekey can't be used to decrypt an encrypted database
+sqlcipherCodecGetKey:db=%p, nDb=%d
+invalid number of arguments (%d) passed to sqlcipher_export
+target database can't be NULL
+unknown database %s
+SELECT sql   FROM %s.sqlite_schema WHERE type='table' AND name!='sqlite_sequence'   AND rootpage>0
+SELECT sql   FROM %s.sqlite_schema WHERE sql LIKE 'CREATE INDEX %%' 
+SELECT sql   FROM %s.sqlite_schema WHERE sql LIKE 'CREATE UNIQUE INDEX %%'
+SELECT 'INSERT INTO %s.' || quote(name) || ' SELECT * FROM %s.' || quote(name) || ';'FROM %s.sqlite_schema WHERE type = 'table' AND name!='sqlite_sequence'   AND rootpage>0
+SELECT 'INSERT INTO %s.' || quote(name) || ' SELECT * FROM %s.' || quote(name) || ';' FROM %s.sqlite_schema WHERE name=='sqlite_sequence';
+INSERT INTO %s.sqlite_schema   SELECT type, name, tbl_name, rootpage, sql    FROM %s.sqlite_schema   WHERE type='view' OR type='trigger'      OR (type='table' AND rootpage=0)
+syntax error
+create
+trigger
+temporary
+explain
+unknown database: %s
+INTEGER
+no such table column: %s.%s
+SQLITE_
+2024-08-13 09:16:08 c9c2ab54ba1f5f46360f1b4f35d849cd3f080e6fc2b6c60e91b16c63f69aalt1
+afpfs
+smbfs
+webdav
+cannot fstat db file %s
+file unlinked while open: %s
+multiple links to file: %s
+file renamed while open: %s
+close
+os_unix.c:%d: (%d) %s(%s) - %s
+ftruncate
+full_fsync
+%s/etilqs_%llx%c
+/var/tmp
+/usr/tmp
+:auto: (not held)
+:auto:
+break
+path error (len %d)
+read error (len %d)
+create failed (%d)
+write failed (%d)
+rename failed (%d)
+broke stale lock on %s
+failed to break stale lock on %s, %s
+sqliteplocks
+attempt to open "%s" as file descriptor %d
+/dev/null
+cannot open file
+%s at line %d of [%.10s]
+dummy
+%s.lock
+-conch
+write
+%s-shm
+readonly_shm
+access
+getcwd
+fstat
+fcntl
+pread
+pread64
+pwrite
+pwrite64
+fchmod
+fallocate
+unlink
+openDirectory
+mkdir
+rmdir
+fchown
+geteuid
+munmap
+mremap
+getpagesize
+readlink
+lstat
+ioctl
+msdos
+exfat
+SQLITE_FORCE_PROXY_LOCKING
+modeof
+fsync
+/dev/urandom
+SQLITE_TMPDIR
+TMPDIR
+memdb(%p,%lld)
+database corruption
+recovered %d pages from %s
+unable to open a temporary database file for storing temporary tables
+:memory:
+memdb
+-journal
+nolock
+immutable
+recovered %d frames from WAL file %s
+cannot limit WAL size: %s
+destination database is in use
+API called with finalized prepared statement
+FOREIGN KEY constraint failed
+%.4c%s%.16c
+MJ delete: %s
+MJ collide: %s
+-mj%06X9%02X
+%!.15g
+922337203685477580
+out of memory
+API called with NULL prepared statement
+BINARY
+,%s%s%s
+%.18s-%s
+%s(%d)
+%.16g
+(blob)
+vtab:%p
+program
+Savepoint
+AutoCommit
+Transaction
+Checkpoint
+JournalMode
+Vacuum
+VFilter
+VUpdate
+Gosub
+InitCoroutine
+Yield
+MustBeInt
+IfNot
+IsType
+IfNullRow
+SeekLT
+SeekLE
+SeekGE
+SeekGT
+IfNotOpen
+IfNoHope
+NoConflict
+NotFound
+Found
+SeekRowid
+NotExists
+IfSizeBetween
+SorterSort
+Rewind
+SorterNext
+IdxLE
+IdxGT
+IdxLT
+IdxGE
+RowSetRead
+RowSetTest
+Program
+FkIfZero
+IsNull
+NotNull
+ElseEq
+IfPos
+IfNotZero
+DecrJumpZero
+IncrVacuum
+VNext
+Filter
+PureFunc
+Function
+Return
+EndCoroutine
+HaltIfNull
+Integer
+Int64
+String
+BeginSubrtn
+SoftNull
+Variable
+SCopy
+IntCopy
+FkCheck
+ResultRow
+CollSeq
+AddImm
+RealAffinity
+Permutation
+Compare
+IsTrue
+ZeroOrNull
+Offset
+Column
+TypeCheck
+Affinity
+MakeRecord
+Count
+ReadCookie
+SetCookie
+ReopenIdx
+BitAnd
+BitOr
+ShiftLeft
+ShiftRight
+Subtract
+Multiply
+Divide
+Remainder
+Concat
+OpenRead
+OpenWrite
+BitNot
+OpenDup
+OpenAutoindex
+String8
+OpenEphemeral
+SorterOpen
+SequenceTest
+OpenPseudo
+Close
+ColumnsUsed
+SeekScan
+SeekHit
+Sequence
+NewRowid
+Insert
+RowCell
+Delete
+ResetCount
+SorterCompare
+SorterData
+RowData
+Rowid
+NullRow
+SeekEnd
+IdxInsert
+SorterInsert
+IdxDelete
+DeferredSeek
+IdxRowid
+FinishSeek
+Destroy
+Clear
+ResetSorter
+CreateBtree
+SqlExec
+ParseSchema
+LoadAnalysis
+DropTable
+DropIndex
+DropTrigger
+IntegrityCk
+RowSetAdd
+Param
+FkCounter
+MemMax
+OffsetLimit
+AggInverse
+AggStep
+AggStep1
+AggValue
+AggFinal
+Expire
+CursorLock
+CursorUnlock
+TableLock
+VBegin
+VCreate
+VDestroy
+VOpen
+VCheck
+VInitIn
+VColumn
+VRename
+Pagecount
+MaxPgcnt
+ClrSubtype
+GetSubtype
+SetSubtype
+FilterAdd
+Trace
+CursorHint
+ReleaseReg
+Explain
+Abortable
+NOT NULL
+UNIQUE
+CHECK
+FOREIGN KEY
+%s constraint failed
+%z: %s
+abort at %d in [%s]: %s
+cannot store %s value in %s column %s.%s
+cannot open savepoint - SQL statements in progress
+no such savepoint: %s
+cannot release savepoint - SQL statements in progress
+cannot commit transaction - SQL statements in progress
+cannot start a transaction within a transaction
+cannot rollback - no transaction is active
+cannot commit - no transaction is active
+database schema has changed
+index corruption
+sqlite_master
+SELECT*FROM"%w".%s WHERE %s ORDER BY rowid
+too many levels of trigger recursion
+cannot change %s wal mode from within a transaction
+out of
+database table is locked: %s
+ValueList
+-- %s
+statement aborts at %d: [%s] %s
+table
+sqlite_temp_master
+CREATE TABLE x(type text,name text,tbl_name text,rootpage int,sql text)
+attached databases must use the same text encoding as main database
+unsupported file format
+SELECT*FROM"%w".%s ORDER BY rowid
+invalid rootpage
+orphan index
+rename
+drop column
+add column
+error in %s %s after %s: %s
+malformed database schema (%s)
+%z - %s
+database schema is locked: %s
+statement too long
+sqlite_stat1
+SELECT tbl,idx,stat FROM %Q.sqlite_stat1
+unordered*
+sz=[0-9]*
+noskipscan*
+Freelist: 
+max rootpage (%u) disagrees with header (%u)
+incremental_vacuum enabled with a max rootpage of zero
+Page %u: never used
+Page %u: pointer map referenced
+failed to get page %u
+freelist leaf count too big on page %u
+%s is %u but should be %u
+overflow list length
+invalid page number %u
+2nd reference to page %u
+Failed to read ptrmap key=%u
+Bad ptr map entry key=%u expected=(%u,%u) got=(%u,%u)
+Tree %u page %u: 
+unable to get the page. error code=%d
+btreeInitPage() returns error code %d
+free space corruption
+Tree %u page %u cell %u: 
+Tree %u page %u right child: 
+Offset %u out of range %u..%u
+Extends off end of page
+Rowid %lld out of order
+Child page depth differs
+Multiple uses for byte %u of page %u
+Fragmentation of %u bytes reported as %u on page %u
+delete
+persist
+truncate
+memory
+cannot VACUUM from within a transaction
+cannot VACUUM - SQL statements in progress
+non-text filename
+ATTACH %Q AS vacuum_db
+output file already exists
+BEGIN
+SELECT sql FROM "%w".sqlite_schema WHERE type='table'AND name<>'sqlite_sequence' AND coalesce(rootpage,1)>0
+SELECT sql FROM "%w".sqlite_schema WHERE type='index'
+SELECT'INSERT INTO vacuum_db.'||quote(name)||' SELECT*FROM"%w".'||quote(name)FROM vacuum_db.sqlite_schema WHERE type='table'AND coalesce(rootpage,1)>0
+INSERT INTO vacuum_db.sqlite_schema SELECT*FROM "%w".sqlite_schema WHERE type IN('view','trigger') OR(type='table'AND rootpage=0)
+no such module: %s
+vtable constructor called recursively: %s
+vtable constructor failed: %s
+vtable constructor did not declare schema: %s
+hidden
+opcode
+comment
+parent
+notused
+detail
+bind on a busy prepared statement: [%s]
+'%.*q'
+zeroblob(%d)
+cannot open value of type %s
+integer
+no such rowid: %lld
+sqlcipher_mem_malloc: calling sqlcipher_mlock(%p,%d)
+sqlcipher_mem_free: calling sqlcipher_memset(%p,0,%d) and sqlcipher_munlock(%p, %d)
+sqlcipher_munlock: calling munlock(%p,%lu)
+sqlcipher_munlock: munlock(%p,%lu) returned %d errno=%d
+sqlcipher_mlock: calling mlock(%p,%lu); _SC_PAGESIZE=%lu
+sqlcipher_mlock: mlock() returned %d errno=%d
+sqlcipher_mlock: mlock(%p,%lu) returned %d errno=%d
+stdout
+stderr
+logcat
+device
+Elapsed time:%.3f ms - %s
+sqlcipher_codec_add_random: using raw random blob from hex
+sqlcipher_codec_add_random: attemt to add random with invalid format
+sqlcipher_codec_ctx_migrate: no upgrade required - exiting
+PRAGMA cipher_compatibility = %d;
+sqlcipher_codec_ctx_migrate: version %d format found
+sqlcipher_codec_ctx_migrate: unable to determine format version for upgrade: this may indicate custom settings were used 
+%s-migrated
+ATTACH DATABASE '%s' as migrate;
+PRAGMA migrate.user_version = %d;
+sqlcipher_codec_ctx_migrate: set compatibility mode failed, error code %d
+PRAGMA journal_mode = delete;
+sqlcipher_codec_ctx_migrate: force journal mode DELETE failed, error code %d
+sqlcipher_codec_ctx_migrate: attach failed, error code %d
+migrate
+sqlcipher_codec_ctx_migrate: keying attached database failed, error code %d
+SELECT sqlcipher_export('migrate');
+sqlcipher_codec_ctx_migrate: sqlcipher_export failed, error code %d
+sqlcipher_codec_ctx_migrate: set user version failed, error code %d
+sqlcipher_codec_ctx_migrate: cannot migrate from within a transaction
+sqlcipher_codec_ctx_migrate: cannot migrate - SQL statements in progress
+sqlcipher_codec_ctx_migrate: failed to set btree page size to %d res %d rc %d
+sqlcipher_codec_ctx_migrate: performing POSIX rename
+sqlcipher_codec_ctx_migrate: error occurred while renaming migration files %s to %s: %d
+sqlcipher_codec_ctx_migrate: renamed migration database %s to main database %s: %d
+sqlcipher_codec_ctx_migrate: failed to reopen migration database %s: %d
+sqlcipher_codec_ctx_migrate: failed to reopen main database %s: %d
+sqlcipher_codec_ctx_migrate: reset pager
+DETACH DATABASE migrate;
+sqlcipher_codec_ctx_migrate: DETACH DATABASE migrate failed: %d
+sqlcipher_codec_ctx_migrate: reset all schemas
+PRAGMA journal_mode = %s;
+sqlcipher_codec_ctx_migrate: failed to re-set journal mode via %s: %d
+sqlcipher_codec_ctx_migrate: an error occurred attempting to migrate the database - last error %d
+sqlcipher_codec_ctx_migrate: failed to delete migration database %s: %d
+PRAGMA journal_mode;
+PRAGMA user_version;
+sqlcipher_codec_ctx_set_error %d
+cipher_page_size not a power of 2 and between 512 and 65536 inclusive
+codec_set_btree_to_codec_pagesize: sqlite3BtreeSetPageSize() size=%d reserve=%d
+codec_set_btree_to_codec_pagesize: entering database mutex %p
+codec_set_btree_to_codec_pagesize: entered database mutex %p
+codec_set_btree_to_codec_pagesize: sqlite3BtreeSetPageSize returned %d
+codec_set_btree_to_codec_pagesize: leaving database mutex %p
+codec_set_btree_to_codec_pagesize: left database mutex %p
+sqlcipher_codec_ctx_reserve_setup: base_reserve=%d block_sz=%d md_size=%d reserve=%d
+sqlcipher_codec_ctx_set_plaintext_header_size: attempt to set invalid plantext_header_size %d
+sqlcipher_codec_ctx_set_kdf_salt: attempt to set salt of incorrect size %d
+sqlcipher_codec_ctx_get_kdf_salt: error %d from sqlcipher_codec_ctx_init_kdf_salt
+sqlcipher_codec_ctx_init_kdf_salt: obtaining salt
+sqlcipher_codec_ctx_init_kdf_salt: unable to read salt from file header, generating random
+sqlcipher_codec_ctx_init_kdf_salt: error retrieving random bytes from provider
+%02x 
+database file is undefined
+HMAC is not enabled, unable to integrity check
+unable to derive keys
+error reading %d bytes from file page %d at offset %d
+HMAC operation failed for page %d
+HMAC verification failed for page %d
+page %d has an invalid size of %lld bytes (expected %d bytes)
+sqlcipher_codec_key_derive: error occurred deriving read_ctx key
+sqlcipher_codec_key_derive: error occurred copying read_ctx to write_ctx
+sqlcipher_codec_key_derive: error occurred deriving write_ctx key
+sqlcipher_cipher_ctx_key_derive: ctx->kdf_salt_sz=%d ctx->kdf_iter=%d ctx->fast_kdf_iter=%d ctx->key_sz=%d
+sqlcipher_cipher_ctx_key_derive: error %d from sqlcipher_codec_ctx_init_kdf_salt
+sqlcipher_cipher_ctx_key_derive: using raw key from hex
+sqlcipher_cipher_ctx_key_derive: deriving key using full PBKDF2 with %d iterations
+sqlcipher_cipher_ctx_key_derive: error occurred from provider kdf generating encryption key
+sqlcipher_cipher_ctx_key_derive: error %d from sqlcipher_cipher_ctx_set_keyspec
+cipher_ctx_key_derive: deriving hmac key from encryption key using PBKDF2 with %d iterations
+sqlcipher_cipher_ctx_key_derive: error occurred from provider kdf generating HMAC key
+sqlcipher_cipher_ctx_key_derive: key material is not present on the context for key derivation
+sqlcipher_cipher_ctx_cmp: c1=%p c2=%p sqlcipher_memcmp(c1->pass, c2_pass)=%d are_equal=%d
+sqlcipher_cipher_ctx_copy: target=%p, source=%p
+sqlcipher_set_log: set log to %s
+sqlcipher_activate: entering static master mutex
+sqlcipher_activate: entered static master mutex
+sqlcipher_activate: calling sqlcipher_register_provider(%p)
+sqlcipher_activate: called sqlcipher_register_provider(%p)
+sqlcipher_activate: leaving static master mutex
+sqlcipher_activate: left static master mutex
+sqlcipher_codec_ctx_init: allocating context
+sqlcipher_codec_ctx_init: allocating kdf_salt
+sqlcipher_codec_ctx_init: allocating hmac_kdf_salt
+sqlcipher_codec_ctx_init: allocating provider
+sqlcipher_codec_ctx_init: entering SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_codec_ctx_init: entered SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_codec_ctx_init: leaving SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_codec_ctx_init: left SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_codec_ctx_init: error %d returned from ctx_init
+sqlcipher_codec_ctx_init: error %d returned from sqlcipher_codec_ctx_set_pagesize with %d
+sqlcipher_codec_ctx_init: error %d setting sqlcipher_codec_ctx_set_plaintext_header_size with %d
+sqlcipher_codec_ctx_init: error %d initializing read_ctx
+sqlcipher_codec_ctx_init: error %d initializing write_ctx
+sqlcipher_codec_ctx_init: error %d setting pass key
+sqlcipher_codec_ctx_init: error %d copying write_ctx to read_ctx
+sqlcipher_cipher_ctx_init: allocating context
+sqlcipher_cipher_ctx_init: allocating key
+sqlcipher_cipher_ctx_init: allocating hmac_key
+sqlcipher_codec_ctx_set_pass: error %d from sqlcipher_cipher_ctx_set_pass
+sqlite3Codec: pgno=%d, mode=%d, ctx->page_sz=%d
+sqlite3Codec: error occurred during key derivation: %d
+sqlite3Codec: error invalid ctx->plaintext_header_sz: %d
+sqlite3Codec: switch mode=%d offset=%d
+SQLite format 3
+sqlite3Codec: error decrypting page %d data: %d
+sqlite3Codec: error retrieving salt: %d
+sqlite3Codec: error encrypting page %d data: %d
+sqlite3Codec: error unsupported codec mode %d
+sqlcipher_page_cipher: pgno=%d, mode=%d, size=%d
+sqlcipher_page_cipher: error possible context corruption, key_sz is zero for pgno=%d
+sqlcipher_page_cipher: hmac operation on decrypt failed for pgno=%d
+sqlcipher_page_cipher: comparing hmac on in=%p out=%p hmac_sz=%d
+sqlcipher_page_cipher: zeroed page (short read) for pgno %d with autovacuum enabled
+sqlcipher_page_cipher: hmac check failed for pgno=%d
+sqlcipher_page_cipher: cipher operation mode=%d failed for pgno=%d
+sqlcipher_page_cipher: hmac operation on encrypt failed for pgno=%d
+codec_ctx_free: iCtx=%p
+cipher_ctx_free: iCtx=%p
+sqlcipher_deactivate: entering static master mutex
+sqlcipher_deactivate: entered static master mutex
+sqlcipher_deactivate: entering SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_deactivate: entered SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_deactivate: leaving SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_deactivate: left SQLCIPHER_MUTEX_PROVIDER
+sqlcipher_deactivate: leaving static master mutex
+sqlcipher_deactivate: left static master mutex
+codec_set_pass_key: db=%p nDb=%d for_ctx=%d
+codec_set_pass_key: error ocurred fetching codec from pager on db %d
+codec_set_pass_key: no btree present on db %d
+commoncrypto
+aes-256-cbc
+com.apple.security
+unknown
+CFBundleShortVersionString
+pragma_
+no such view
+no such table
+%s: %s.%s
+%s: %s
+analysis_limit
+application_id
+auto_vacuum
+automatic_index
+busy_timeout
+cache_size
+cache_spill
+case_sensitive_like
+cell_size_check
+checkpoint_fullfsync
+collation_list
+compile_options
+count_changes
+data_version
+database_list
+default_cache_size
+defer_foreign_keys
+empty_result_callbacks
+encoding
+foreign_key_check
+foreign_key_list
+foreign_keys
+freelist_count
+full_column_names
+fullfsync
+function_list
+hard_heap_limit
+hexkey
+hexrekey
+ignore_check_constraints
+incremental_vacuum
+index_info
+index_list
+index_xinfo
+integrity_check
+journal_mode
+journal_size_limit
+legacy_alter_table
+lock_proxy_file
+locking_mode
+max_page_count
+mmap_size
+module_list
+optimize
+page_count
+pragma_list
+query_only
+quick_check
+read_uncommitted
+recursive_triggers
+reverse_unordered_selects
+schema_version
+secure_delete
+short_column_names
+shrink_memory
+soft_heap_limit
+synchronous
+table_info
+table_list
+table_xinfo
+temp_store
+temp_store_directory
+textkey
+textrekey
+threads
+trusted_schema
+user_version
+wal_autocheckpoint
+wal_checkpoint
+writable_schema
+CREATE TABLE x
+%c"%s"
+("%s"
+,arg HIDDEN
+,schema HIDDEN
+on_update
+on_delete
+match
+notnull
+dflt_value
+schema
+strict
+seqno
+builtin
+flags
+unique
+origin
+partial
+rowid
+checkpointed
+database
+status
+timeout
+PRAGMA 
+too many columns on %s
+unopened
+API call with %s database connection pointer
+dylib
+not authorized
+sqlite3_extension_init
+%s.%s
+sqlite3_
+_init
+no entry point [%s] in shared library [%s]
+error during initialization: %s
+unable to open shared library [%.*s]
+sqlite3_get_table() called with two or more incompatible queries
+no such collation sequence: %s
+unrecognized token: "%T"
+%s in "%s"
+unknown table option: %.*s
+set list
+near "%T": syntax error
+false
+qualified table names are not allowed on INSERT, UPDATE, and DELETE statements within triggers
+the INDEXED BY clause is not allowed on UPDATE or DELETE statements within triggers
+the NOT INDEXED clause is not allowed on UPDATE or DELETE statements within triggers
+generated column loop on "%s"
+misuse of aggregate: %#T()
+unknown function: %#T()
+%d columns assigned %d values
+row value misused
+RAISE() may only be used within a trigger-program
+hex literal too big: %s%#T
+numeric
+flexnum
+unsafe use of %#T()
+sub-select returns %d columns - expected %d
+REUSE SUBQUERY %d
+%sSCALAR SUBQUERY %d
+CORRELATED 
+USING ROWID SEARCH ON TABLE %s FOR IN-OPERATOR
+USING INDEX %s FOR IN-OPERATOR
+REUSE LIST SUBQUERY %d
+%sLIST SUBQUERY %d
+authorizer malfunction
+ROLLBACK
+COMMIT
+RELEASE
+temporary table name must be unqualified
+%s %T already exists
+there is already an index named %s
+corrupt database
+unknown database %T
+sqlite_
+object name reserved for internal use: %s
+unknown datatype for %s.%s: "%s"
+missing datatype for %s.%s
+AUTOINCREMENT not allowed on WITHOUT ROWID tables
+PRIMARY KEY missing on table %s
+must have at least one non-generated column
+TABLE
+CREATE %s %.*s
+UPDATE %Q.sqlite_master SET type='%s', name=%Q, tbl_name=%Q, rootpage=#%d, sql=%Q WHERE rowid=#%d
+CREATE TABLE %Q.sqlite_sequence(name,seq)
+tbl_name='%q' AND type!='trigger'
+SELECT*FROM"%w"."%w"
+sqlite_sequence
+the "." operator
+second argument to %#T() must be a constant between 0.0 and 1.0
+not authorized to use function: %#T
+non-deterministic functions
+%#T() may not be used as a window function
+window
+aggregate
+misuse of %s function %#T()
+no such function: %#T
+wrong number of arguments to function %#T()
+FILTER may not be used with non-aggregate %#T()
+subqueries
+parameters
+partial index WHERE clauses
+index expressions
+CHECK constraints
+generated columns
+%s prohibited in %s
+excluded
+misuse of aliased aggregate %s
+misuse of aliased window function %s
+double-quoted string literal: "%w"
+coalesce
+no such column
+ambiguous column name
+%s: %s.%s.%s
+%s: "%s" - should this be a string literal in single-quotes?
+sqlite_temp_schema
+sqlite_schema
+ROWID
+%s.%z
+access to %z is prohibited
+ORDER BY may not be used with non-aggregate %#T()
+RANGE with offset PRECEDING/FOLLOWING requires one ORDER BY expression
+FILTER clause may only be used with aggregate window functions
+no such window: %s
+HAVING clause on a non-aggregate query
+ORDER
+GROUP
+aggregate functions are not allowed in the GROUP BY clause
+too many references to "%s": max 65535
+access to view "%s" prohibited
+unsafe use of virtual table "%s"
+%s.%s.%s
+no such table: %s
+no tables specified
+too many columns in result set
+column%d
+%.*z:%u
+no such index: "%s"
+multiple references to recursive table: %s
+circular reference: %s
+table %s has %d values for %d columns
+multiple recursive references: %s
+recursive reference in a subquery: %s
+'%s' is not a function
+view %s is circularly defined
+no such index: %s
+a NATURAL join may not have an ON or USING clause
+cannot join using column %s - column not present in both tables
+ambiguous reference to %s in USING()
+_ROWID_
+%r %s BY term out of range - should be between 1 and %d
+too many terms in %s BY clause
+all VALUES must have the same number of terms
+SELECTs to the left and right of %s do not have the same number of result columns
+UNION ALL
+INTERSECT
+EXCEPT
+UNION
+too many terms in ORDER BY clause
+%r ORDER BY term does not match any column in the result set
+Expression tree is too large (maximum depth %d)
+CREATE TABLE 
+ TEXT
+ REAL
+always
+generated
+duplicate column name: %s
+default value of column [%s] is not constant
+cannot use DEFAULT on a generated column
+table "%s" has more than one primary key
+AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY
+generated columns cannot be part of the PRIMARY KEY
+unsupported use of NULLS %s
+FIRST
+index
+cannot create a TEMP index on non-TEMP table "%s"
+table %s may not be indexed
+views may not be indexed
+virtual tables may not be indexed
+there is already a table named %s
+index %s already exists
+sqlite_autoindex_%s_%d
+expressions prohibited in PRIMARY KEY and UNIQUE constraints
+conflicting ON CONFLICT clauses specified
+CREATE%s INDEX %.*s
+ UNIQUE
+INSERT INTO %Q.sqlite_master VALUES('index',%Q,%Q,#%d,%Q);
+name='%q' AND type='index'
+%s cannot use variables
+%s %T cannot reference objects in database %s
+index '%q'
+foreign key on %s should reference only one column of table %T
+number of columns in foreign key does not match the number of columns in the referenced table
+unknown column "%s" in foreign key definition
+virtual tables cannot use computed columns
+virtual
+stored
+error in generated column "%s"
+table %s may not be dropped
+use DROP TABLE to delete table %s
+use DROP VIEW to delete view %s
+sqlite_stat%d
+DELETE FROM %Q.%s WHERE %s=%Q
+DELETE FROM %Q.sqlite_sequence WHERE name=%Q
+DELETE FROM %Q.sqlite_master WHERE tbl_name=%Q and type!='trigger'
+DELETE FROM %Q.sqlite_master WHERE name=%Q AND type='trigger'
+corrupt schema
+UPDATE %Q.sqlite_master SET rootpage=%d WHERE #%d AND rootpage=#%d
+parameters are not allowed in views
+target object/alias may not appear in FROM clause: %s
+expected %d columns for '%s' but got %d
+CO-ROUTINE %!S
+MATERIALIZE %!S
+USE TEMP B-TREE FOR %s
+DISTINCT
+GROUP BY
+misuse of aggregate: %s()
+too many FROM clause terms, max: %d
+COMPOUND QUERY
+LEFT-MOST SUBQUERY
+%s USING TEMP B-TREE
+SCAN %d CONSTANT ROW%s
+cannot use window functions in recursive queries
+recursive aggregate queries not supported
+SETUP
+RECURSIVE STEP
+MERGE (%s)
+RIGHT
+count
+at most %d tables in a join
+SCAN CONSTANT ROW
+too many arguments on %s() - max %d
+ON clause references tables to its right
+NOCASE
+regexp
+abbreviated query algorithm search
+%s.xBestIndex malfunction
+no query solution
+automatic index on %s(%s)
+auto-index
+BLOOM FILTER ON %S (
+rowid=?
+ AND 
+<expr>
+%s %S
+SEARCH
+PRIMARY KEY
+AUTOMATIC PARTIAL COVERING INDEX
+AUTOMATIC COVERING INDEX
+COVERING INDEX %s
+INDEX %s
+ USING 
+ USING INTEGER PRIMARY KEY (%s
+>? AND %s
+ VIRTUAL TABLE INDEX %d:%s
+ LEFT-JOIN
+ANY(%s)
+MULTI-INDEX OR
+INDEX %d
+frame starting offset must be a non-negative integer
+frame ending offset must be a non-negative integer
+second argument to nth_value must be a positive integer
+frame starting offset must be a non-negative number
+frame ending offset must be a non-negative number
+internal query planner error
+RIGHT-JOIN %s
+DISTINCT aggregates must have exactly one argument
+USE TEMP B-TREE FOR %s(DISTINCT)
+USE TEMP B-TREE FOR %s(ORDER BY)
+SCAN %s%s%s
+ USING COVERING INDEX 
+USE TEMP B-TREE FOR %sORDER BY
+LAST TERM OF 
+USE TEMP B-TREE FOR LAST %d TERMS OF ORDER BY
+%s clause should come after %s not before
+ORDER BY
+LIMIT
+too many terms in compound SELECT
+a JOIN clause is required before %s
+USING
+unknown join type: %T%s%T%s%T
+rows deleted
+%s RETURNING is not available on virtual tables
+DELETE
+UPDATE
+table %s may not be modified
+cannot modify %s because it is a view
+-- TRIGGER %s
+foreign key mismatch - "%w" referencing "%w"
+RETURNING may not use "TABLE.*" wildcards
+cannot use RETURNING in a trigger
+sqlite_returning_%p
+too many columns in %s
+cannot UPDATE generated column "%s"
+no such column: %s
+rows updated
+%s.rowid
+cannot INSERT into generated column "%s"
+table %S has no column named %s
+SCAN %S
+table %S has %d columns but %d values were supplied
+%d values for %d columns
+UPSERT not implemented for virtual table "%s"
+cannot UPSERT a view
+rows inserted
+%sON CONFLICT clause does not match any PRIMARY KEY or UNIQUE constraint
+variable number must be between ?1 and ?%d
+too many SQL variables
+too many arguments on function %T
+DISTINCT is not supported for window functions
+IN(...) element has %d term%s - expected %d
+syntax error after column name "%.*s"
+no such index: %S
+index associated with UNIQUE or PRIMARY KEY constraint cannot be dropped
+DELETE FROM %Q.sqlite_master WHERE name=%Q AND type='index'
+normal
+exclusive
+not a writable directory
+failed to set lock proxy file
+Safety level may not be changed inside a transaction
+reset
+issisii
+issisi
+SELECT*FROM"%w"
+shadow
+sssiii
+isisi
+iissssss
+*** in database %s ***
+wrong # of entries in index 
+row not in PRIMARY KEY order for %s
+NULL value in %s.%s
+non-%s value in %s.%s
+NUMERIC value in %s.%s
+TEXT value in %s.%s
+CHECK constraint failed in %s
+ missing from index 
+rowid not at end-of-record for row 
+ of index 
+ values differ from index 
+non-unique entry in index 
+UTF-8
+UTF-16le
+UTF-16be
+UTF16le
+UTF16be
+UTF-16
+UTF16
+unsupported encoding: %s
+restart
+ANALYZE "%w"."%w"
+An error occurred with PRAGMA key or rekey. PRAGMA key requires a key of one or more characters. PRAGMA rekey can only be run on an existing encrypted database. Use sqlcipher_export() and ATTACH to convert encrypted/plaintext databases.
+incremental
+temporary storage cannot be changed from within a transaction
+utf16le
+utf16be
+sissii
+SET NULL
+SET DEFAULT
+CASCADE
+RESTRICT
+NO ACTION
+LIKE or GLOB pattern too complex
+ESCAPE expression must be a single character
+trigger "%s" may not write to shadow table "%s"
+INSERT INTO %Q.sqlite_master VALUES('trigger',%Q,%Q,0,'CREATE TRIGGER %q')
+type='trigger' AND name='%q'
+temporary trigger may not have qualified name
+cannot create triggers on virtual tables
+cannot create triggers on shadow tables
+trigger %T already exists
+cannot create trigger on system table
+cannot create %s trigger on view: %S
+BEFORE
+AFTER
+cannot create INSTEAD OF trigger on table: %S
+no such trigger: %S
+sqlite_attach
+too many attached databases - max %d
+database %s is already in use
+database is already attached
+Invalid key value
+unable to open database: %s
+file:
+localhost
+invalid uri authority: %.*s
+cache
+shared
+private
+no such %s mode: %s
+%s mode not allowed: %s
+no such vfs: %s
+sqlite_detach
+no such database: %s
+cannot detach database %s
+database %s is locked
+unable to identify the object to be reindexed
+tbl,idx,stat
+sqlite_stat4
+sqlite_stat3
+CREATE TABLE %Q.%s(%s)
+sqlite\_%
+stat_init
+stat_push
+stat_get
+ %llu
+there is already another table or index with this name: %s
+view %s may not be altered
+UPDATE "%w".sqlite_master SET sql = sqlite_rename_table(%Q, type, name, sql, %Q, %Q, %d) WHERE (type!='index' OR tbl_name=%Q COLLATE nocase)AND   name NOT LIKE 'sqliteX_%%' ESCAPE 'X'
+UPDATE %Q.sqlite_master SET tbl_name = %Q, name = CASE WHEN type='table' THEN %Q WHEN name LIKE 'sqliteX_autoindex%%' ESCAPE 'X'      AND type='index' THEN 'sqlite_autoindex_' || %Q || substr(name,%d+18) ELSE name END WHERE tbl_name=%Q COLLATE nocase AND (type='table' OR type='index' OR type='trigge
+UPDATE "%w".sqlite_sequence set name = %Q WHERE name = %Q
+UPDATE sqlite_temp_schema SET sql = sqlite_rename_table(%Q, type, name, sql, %Q, %Q, 1), tbl_name = CASE WHEN tbl_name=%Q COLLATE nocase AND   sqlite_rename_test(%Q, sql, type, name, 1, 'after rename', 0) THEN %Q ELSE tbl_name END WHERE type IN ('view', 'trigger')
+after rename
+table %s may not be altered
+SELECT 1 FROM "%w".sqlite_master WHERE name NOT LIKE 'sqliteX_%%' ESCAPE 'X' AND sql NOT LIKE 'create virtual%%' AND sqlite_rename_test(%Q, sql, type, name, %d, %Q, %d)=NULL 
+SELECT 1 FROM temp.sqlite_master WHERE name NOT LIKE 'sqliteX_%%' ESCAPE 'X' AND sql NOT LIKE 'create virtual%%' AND sqlite_rename_test(%Q, sql, type, name, 1, %Q, %d)=NULL 
+Cannot add a PRIMARY KEY column
+Cannot add a UNIQUE column
+Cannot add a REFERENCES column with non-NULL default value
+Cannot add a NOT NULL column with default value NULL
+Cannot add a column with non-constant default
+cannot add a STORED column
+UPDATE "%w".sqlite_master SET sql = printf('%%.%ds, ',sql) || %Q || substr(sql,1+length(printf('%%.%ds',sql))) WHERE type = 'table' AND name = %Q
+SELECT CASE WHEN quick_check GLOB 'CHECK*' THEN raise(ABORT,'CHECK constraint failed') WHEN quick_check GLOB 'non-* value in*' THEN raise(ABORT,'type mismatch on DEFAULT') ELSE raise(ABORT,'NOT NULL constraint failed') END  FROM pragma_quick_check(%Q,%Q) WHERE quick_check GLOB 'CHECK*' OR quick_chec
+k GLOB 'NULL*' OR quick_check GLOB 'non-* value in*'
+SELECT raise(ABORT,%Q) FROM "%w"."%w"
+no such column: "%T"
+cannot drop %s column: "%s"
+cannot drop column "%s": no other columns exist
+UPDATE "%w".sqlite_master SET sql = sqlite_drop_column(%d, sql, %d) WHERE (type=='table' AND tbl_name=%Q COLLATE nocase)
+after drop column
+virtual table
+cannot %s %s "%s"
+drop column from
+rename columns of
+UPDATE "%w".sqlite_master SET sql = sqlite_rename_quotefix(%Q, sql)WHERE name NOT LIKE 'sqliteX_%%' ESCAPE 'X' AND sql NOT LIKE 'create virtual%%'
+UPDATE temp.sqlite_master SET sql = sqlite_rename_quotefix('temp', sql)WHERE name NOT LIKE 'sqliteX_%%' ESCAPE 'X' AND sql NOT LIKE 'create virtual%%'
+virtual tables may not be altered
+Cannot add a column to a view
+sqlite_altertab_%s
+UPDATE "%w".sqlite_master SET sql = sqlite_rename_column(sql, type, name, %Q, %Q, %d, %Q, %d, %d) WHERE name NOT LIKE 'sqliteX_%%' ESCAPE 'X'  AND (type != 'index' OR tbl_name = %Q)
+UPDATE temp.sqlite_master SET sql = sqlite_rename_column(sql, type, name, %Q, %Q, %d, %Q, %d, 1) WHERE type IN ('trigger', 'view')
+CREATE VIRTUAL TABLE %T
+UPDATE %Q.sqlite_master SET type='table', name=%Q, tbl_name=%Q, rootpage=0, sql=%Q WHERE rowid=#%d
+name=%Q AND sql=%Q
+duplicate WITH table name: %s
+PARTITION clause
+ORDER BY clause
+frame specification
+cannot override %s of window: %s
+unsupported frame specification
+unrecognized token: "%s"
+incomplete input
+implies_nonnull_row
+expr_compare
+expr_implies_expr
+affinity
+load_extension
+sqlite_compileoption_used
+sqlite_compileoption_get
+unlikely
+likelihood
+likely
+ltrim
+rtrim
+typeof
+subtype
+length
+octet_length
+instr
+printf
+format
+unicode
+round
+upper
+lower
+unhex
+concat
+concat_ws
+ifnull
+random
+randomblob
+nullif
+sqlite_version
+sqlite_source_id
+sqlite_log
+quote
+last_insert_rowid
+changes
+total_changes
+replace
+zeroblob
+substr
+substring
+total
+group_concat
+string_agg
+integer overflow
+%!.*f
+%!0.15g
+%!0.20e
+sqlite_rename_column
+sqlite_rename_table
+sqlite_rename_test
+sqlite_drop_column
+sqlite_rename_quotefix
+CREATE 
+"%w" 
+error in %s %s%s%s: %s
+%.*s%s
+argument of ntile must be a positive integer
+julianday
+unixepoch
+datetime
+strftime
+timediff
+current_time
+current_timestamp
+current_date
+a CHECK constraint
+a generated column
+an index
+non-deterministic use of %s() in %s
+subsec
+subsecond
+40f-21a-21d
+20c:20e
+20b:20e
+ceiling
+floor
+localtime
+weekday 
+start of 
+month
+40f-20a-20d
+50f-20a-20d
+local time unavailable
+%06.3f
+%04d-%02d-%02d
+%02d:%02d
+%02d:%02d:%02d
+%c%04d-%02d-%02d %02d:%02d:%06.3f
+jsonb
+json_array
+jsonb_array
+json_array_length
+json_error_position
+json_extract
+jsonb_extract
+json_insert
+jsonb_insert
+json_object
+jsonb_object
+json_patch
+jsonb_patch
+json_pretty
+json_quote
+json_remove
+jsonb_remove
+json_replace
+jsonb_replace
+json_set
+jsonb_set
+json_type
+json_valid
+json_group_array
+jsonb_group_array
+json_group_object
+jsonb_group_object
+malformed JSON
+-9e999
+9e999
+inity
+9.0e999
+infinity
+bad JSON path: %Q
+\u0009
+\u0000
+0123456789abcdef
+JSON cannot hold BLOB values
+"\/bfnrt
+insert
+json_%s() needs an odd number of arguments
+json_object() requires an even number of arguments
+json_object() labels must be TEXT
+array
+object
+FLAGS parameter to json_valid() must be between 1 and 15
+failed to allocate %u bytes of memory
+failed memory resize %u to %u bytes
+hw.ncpu
+Sqlite_Heap
+unable to close due to unfinalized statements or unfinished backups
+not an error
+SQL logic error
+access permission denied
+query aborted
+database is locked
+database table is locked
+attempt to write a readonly database
+interrupted
+disk I/O error
+database disk image is malformed
+unknown operation
+database or disk is full
+unable to open database file
+locking protocol
+constraint failed
+datatype mismatch
+bad parameter or other API misuse
+authorization denied
+column index out of range
+file is not a database
+notification message
+warning message
+unknown error
+abort due to ROLLBACK
+another row available
+no more rows available
+unable to delete/modify user-function due to active statements
+unable to use function %s in the requested context
+PRAGMA table_list
+invalid
+RTRIM
+MATCH
+sqlcipher_export
+json_each
+json_tree
+CREATE TABLE x(key,value,type,atom,id,parent,fullkey,path,json HIDDEN,root HIDDEN)
+[%lld]
+."%.*s"
+.%.*s
+automatic extension loading failed: %s
+unable to delete/modify collation sequence due to active statements
+misuse
+0123456789
+ATOMIC_INTRINSICS=1
+COMPILER=clang-11.1.0
+DEFAULT_AUTOVACUUM
+DEFAULT_CACHE_SIZE=-2000
+DEFAULT_FILE_FORMAT=4
+DEFAULT_JOURNAL_SIZE_LIMIT=-1
+DEFAULT_MEMSTATUS=0
+DEFAULT_MMAP_SIZE=0
+DEFAULT_PAGE_SIZE=4096
+DEFAULT_PCACHE_INITSZ=20
+DEFAULT_RECURSIVE_TRIGGERS
+DEFAULT_SECTOR_SIZE=4096
+DEFAULT_SYNCHRONOUS=2
+DEFAULT_WAL_AUTOCHECKPOINT=1000
+DEFAULT_WAL_SYNCHRONOUS=2
+DEFAULT_WORKER_THREADS=0
+DIRECT_OVERFLOW_READ
+HAS_CODEC
+MALLOC_SOFT_LIMIT=1024
+MAX_ATTACHED=10
+MAX_COLUMN=2000
+MAX_COMPOUND_SELECT=500
+MAX_DEFAULT_PAGE_SIZE=8192
+MAX_EXPR_DEPTH=1000
+MAX_FUNCTION_ARG=127
+MAX_LENGTH=1000000000
+MAX_LIKE_PATTERN_LENGTH=50000
+MAX_MMAP_SIZE=0x7fff0000
+MAX_PAGE_COUNT=0xfffffffe
+MAX_PAGE_SIZE=65536
+MAX_SQL_LENGTH=1000000000
+MAX_TRIGGER_DEPTH=1000
+MAX_VARIABLE_NUMBER=32766
+MAX_VDBE_OP=250000000
+MAX_WORKER_THREADS=8
+MUTEX_PTHREADS
+SYSTEM_MALLOC
+TEMP_STORE=2
+THREADSAFE=1
+Argon2d
+argon2d
+Argon2i
+argon2i
+Argon2id
+argon2id
+Output pointer is NULL
+Output is too short
+Output is too long
+Password is too short
+Password is too long
+Salt is too short
+Salt is too long
+Associated data is too short
+Associated data is too long
+Secret is too short
+Secret is too long
+Time cost is too small
+Time cost is too large
+Memory cost is too small
+Memory cost is too large
+Too few lanes
+Too many lanes
+Password pointer is NULL, but password length is not 0
+Salt pointer is NULL, but salt length is not 0
+Secret pointer is NULL, but secret length is not 0
+Associated data pointer is NULL, but ad length is not 0
+Memory allocation error
+The free memory callback is NULL
+The allocate memory callback is NULL
+Argon2_Context context is NULL
+There is no such version of Argon2
+Output pointer mismatch
+Not enough threads
+Too many threads
+Missing arguments
+Encoding failed
+Decoding failed
+Threading failure
+Some of encoded parameters are too long or too short
+The password does not match the supplied hash
+Unknown error code
+Unspecified error code
+No error detected
+Error (generic)
+Unknown frame descriptor
+Version not supported
+Unsupported frame parameter
+Frame requires too much memory for decoding
+Data corruption detected
+Restored data doesn't match checksum
+Header of Literals' block doesn't respect format specification
+Unsupported parameter
+Unsupported combination of parameters
+Parameter is out of bound
+Context should be init first
+Allocation error : not enough memory
+workSpace buffer is not large enough
+Operation not authorized at current processing stage
+tableLog requires too much memory : unsupported
+Unsupported max Symbol Value : too large
+Specified maxSymbolValue is too small
+This mode cannot generate an uncompressed block
+pledged buffer stability condition is not respected
+Dictionary is corrupted
+Dictionary mismatch
+Cannot create Dictionary from provided samples
+Destination buffer is too small
+Src size is incorrect
+Operation on NULL destination buffer
+Operation made no progress over multiple calls, due to output buffer being full
+Operation made no progress over multiple calls, due to input being empty
+Frame index is too large
+An I/O error occurred when reading/seeking
+Destination buffer is wrong
+Source buffer is wrong
+Block-level external sequence producer returned an error code
+External sequences are not valid
+1.5.8
+EclipseHandled
+HTTP/1.1
+Content-Type
+application/json; charset=utf-8
+Content-Length
+EclipsePatchesReady
+EclipseNeedsDbRebuild
+eclipse_crash.log
+HttpAsynConnection
+AppController
+ishin-global.aktsk.com
+mod.dokkan-eclipse.com
+/potentials/
+client_assets/database
+/assets/database
+/user_cards/
+/potentials
+/potentials/release
+/unrelease
+potential_squares
+/resources/login
+cards
+/quests/
+/sugoroku_maps/start
+/sugoroku_maps/finish
+/briefing
+/events
+v8@?0
+v12@?0B8
+author
+Unknown
+version
+filePath
+isEnabled
+EclipseOfflineMode
+Eclipse
+Not a valid .eclp file
+Invalid ECLP metadata
+Failed to decrypt ECLP file
+Failed to save patch file
+assets
+patcher/
+supplementary/
+supplementary_
+SELECT COUNT(*) FROM cards
+SELECT COUNT(*) FROM cards WHERE id >= 1000000
+SELECT id FROM cards WHERE ((id >= 1000000 AND id <= 1999999) OR  (id >= 4000000 AND id <= 4999999) OR  id >= 10000000)
+SELECT c.id, c.skill_lv_max, c.rarity, c.optimal_awakening_grow_type, c.link_skill1_id, c.link_skill2_id, c.link_skill3_id, c.link_skill4_id, c.link_skill5_id, c.link_skill6_id, c.link_skill7_id, oag.skill_lv_max AS oag_skill_lv, oag.step AS oag_step FROM cards c LEFT JOIN (  SELECT o1.* FROM optima
+l_awakening_growths o1   JOIN (SELECT optimal_awakening_grow_type, MAX(step) AS max_step         FROM optimal_awakening_growths WHERE step IN (8,4,7,3)         GROUP BY optimal_awakening_grow_type) o2   ON o1.optimal_awakening_grow_type = o2.optimal_awakening_grow_type      AND o1.step = o2.max_step
+) oag ON oag.optimal_awakening_grow_type = c.optimal_awakening_grow_type WHERE (  (c.id >= 1000000 AND c.id <= 1999999) OR   (c.id >= 4000000 AND c.id <= 4999999) OR   c.id >= 10000000) AND c.hp_max > 300 AND c.leader_skill_set_id IS NOT NULL AND c.passive_skill_set_id IS NOT NULL AND (c.id - 1) NOT
+ IN (SELECT card_id FROM card_costumes) AND c.id NOT IN (SELECT card_id FROM item_card_properties) ORDER BY c.id
+skill_lv
+SELECT e.type, SUM(e.additional_value) as total FROM cards c JOIN potential_boards b ON c.potential_board_id = b.id JOIN potential_squares s ON b.id = s.potential_board_id JOIN potential_events e ON s.event_id = e.id WHERE c.id = %lld AND e.currency_id IS NULL GROUP BY e.type
+PotentialEvent::Atk
+PotentialEvent::Hp
+PotentialEvent::Defense
+WITH selection_choices AS (   SELECT sq.id as square_id, e2.currency_id as skill_id, e2.additional_value as val   FROM cards c   JOIN potential_boards b ON c.potential_board_id = b.id   JOIN potential_squares sq ON b.id = sq.potential_board_id   JOIN potential_events e ON sq.event_id = e.id   JOIN p
+otential_event_selections es ON e.currency_id = es.selection_table_id   JOIN potential_events e2 ON es.event_id = e2.id   WHERE c.id = %lld AND e.type = 'PotentialEvent::Select' ), skill_priorities(priority, skill_id) AS (   SELECT 7, 2 UNION SELECT 6, 1 UNION SELECT 5, 3 UNION SELECT 4, 6   UNION S
+ELECT 3, 7 UNION SELECT 2, 5 UNION SELECT 1, 4 ), selections AS (   SELECT sk.id, sk.name, val   FROM selection_choices sc   JOIN skill_priorities sp ON sc.skill_id = sp.skill_id   JOIN potential_skills sk ON sc.skill_id = sk.id   GROUP BY sc.square_id   HAVING priority = MAX(priority) ) SELECT id, 
+SUM(val) as total FROM (   SELECT id, SUM(val) as val FROM selections GROUP BY id   UNION   SELECT sk.id, SUM(e.additional_value) as val   FROM cards c   JOIN potential_boards b ON c.potential_board_id = b.id   JOIN potential_squares s ON b.id = s.potential_board_id   JOIN potential_events e ON s.ev
+ent_id = e.id   JOIN potential_skills sk ON e.currency_id = sk.id   WHERE c.id = %lld AND e.type = 'PotentialEvent::Skill'   GROUP BY sk.id ) GROUP BY id
+parameter_type
+parameter_id
+total_value
+Defense
+Skill
+card_id
+is_favorite
+awakening_route_id
+is_released_potential
+released_rate
+optimal_awakening_step
+card_decoration_id
+exchangeable_item_id
+awakenings
+unlocked_square_statuses
+equipment_skill_items
+link_skill_lvs
+updated_at
+created_at
+potential_parameters
+support_items
+item_id
+support_memories
+support_memory_id
+support_memory_enhancement_items
+support_memory_enhancement_item_id
+wallpaper_items
+wallpaper_item_id
+potential_items
+potential_item_id
+equipment_skill_item_id
+jsonKey
+quantity
+items
+user_potential_items
+,"%@":%@
+user_card_id_updates
+patcher/events/
+questIds
+.json
+event_%@_%@
+SELECT name FROM quests WHERE id = %@
+Quest %@
+http://127.0.0.1:%u/events/en/%@
+event_%@_event_image
+event_%@_banner_image
+event_%@_listbutton_image
+/event_image.png
+/banner_image.png
+/listbutton_image.png
+announcement_id
+event_image
+banner_image
+listbutton_image
+recommend
+start_at
+end_at
+sunday
+monday
+tuesday
+wednesday
+thursday
+friday
+saturday
+wday_start_at
+wday_end_at
+quests
+events
+visit_count_max
+interval_reset_visited_days
+score_benefit_visit_count_max
+user_quest
+visited_count
+next_reset_at
+user_z_battles
+/events/en/
+HTTP/1.1 200 OK
+Content-Type: image/png
+Content-Length: %lu
+Connection: close
+Cache-Control: max-age=86400
+HTTP/1.1 404 Not Found
+Content-Length: 0
+Connection: close
+listbutton_%@.png
+listbutton.png
+patcher/events/%d/%d.json
+sugoroku
+token
+ggp5RH1a+muWiHqSD3ykwA==
+friend_character
+Default Friend
+dummy_card_id
+missions
+is_team_trend
+required_zeni
+user_exp
+gasha_point
+clear_time_ms
+prev_record_time_ms
+continue_count
+quest_clear_rewards
+dragonballs
+user_items
+exchange_point
+stone
+user_dragonball_sessions
+friend_status
+is_reviewable
+boosted
+cleared_difficulties
+supporters
+user_card_id
+Mirrored Leader
+leader
+achievement_id
+is_friend
+is_dummy
+login_at
+is_cpu_supporter
+is_cooperation_inviter
+teaming_power_weight
+attack
+defense
+link_skill
+energy
+ranking_enabled
+last_deck_cards
+advantageous_card_ids
+optimal_awakening_advantageous_cards
+is_cpu_only
+genkai_battle
+genkai_battle_id
+genkai_battle_schedule_id
+previous_score
+previous_term
+best_score
+PRAGMA cipher_page_size = 4096;
+PRAGMA kdf_iter = 256000;
+PRAGMA cipher_hmac_algorithm = HMAC_SHA512;
+PRAGMA cipher_kdf_algorithm = PBKDF2_HMAC_SHA512;
+SELECT count(*) FROM sqlite_master;
+PRAGMA temp_store = MEMORY;
+PRAGMA journal_mode = MEMORY;
+PRAGMA synchronous = OFF;
+BEGIN TRANSACTION;
+blob%d
+SAVEPOINT %@;
+RELEASE %@;
+ROLLBACK TO %@;
+%lu statement(s) failed after recovery
+COMMIT;
+SELECT id FROM cards
+INSERT OR REPLACE INTO "main"."card_categories" ("id", "name", "kana", "priority", "open_at", "created_at", "updated_at") VALUES ('1491', 'Eclipse', NULL, '999999', '2025-05-30 05:00:00', '2025-06-05 08:07:55', '2025-06-05 08:07:55')
+INSERT OR REPLACE INTO "main"."card_card_categories" ("id", "card_id", "card_category_id", "num", "created_at", "updated_at") VALUES ('%lld149', '%lld', '1491', '149', '2025-09-24 03:21:55', '2025-09-24 03:21:55')
+card_category/label
+EclipseAssets/eclipse_category
+card_category_label_1491_a.png
+card_category_label_1491_b_off.png
+card_category_label_1491_b_on.png
+SELECT 1 FROM card_categories WHERE id = 1491 AND name = 'Eclipse' LIMIT 1
+category.sql
+EclipsePatchStatusUpdated
+full_login.dat
+user_data.json
+teams
+teams.json
+user_areas
+user_areas.json
+support_leaders
+support_leaders.json
+dragonball_sets
+dragonball_sets.json
+gashas
+gashas.json
+SELECT id FROM cards WHERE (id LIKE '%1') AND ((id < 2000000) OR (id > 4000000 AND id < 5000000) OR (id > 9999999 AND id < 50000000) OR (id >= 70000001 AND id < 80000000) OR (id >= 100000000)) AND (id-1 NOT IN (SELECT card_id FROM card_costumes)) AND (hp_max > 300) AND (leader_skill_set_id IS NOT NU
+LL) AND (passive_skill_set_id IS NOT NULL) AND id NOT IN (SELECT card_id FROM item_card_properties) ORDER BY id ASC
+SELECT id FROM %@
+item_cards
+user_card_teams
+selected_team_num
+user_card_ids
+card_tags
+eventkagi_items
+eventkagi_item_id
+special_items
+special_item_id
+training_fields
+training_field_id
+training_items
+training_item_id
+awakening_items
+awakening_item_id
+support_films
+support_film_id
+act_items
+act_item_id
+link_skill_lv_up_items
+link_skill_lv_up_item_id
+card_sticker_items
+card_sticker_item_id
+treasure_items
+treasure_item_id
+user_treasure_items
+support_film_max_quantity
+category
+layout_type
+title
+Welcome to Dokkan Eclipse!!!
+banner
+https://cdn.dokkan-eclipse.com/announcements/1.png
+summary
+Dokkan Eclipse is now available!!!
+Don't miss out on the new EZAs and Hidden Potential!
+new_appear_at
+is_new
+announcement_tab_id
+announcements
+Campaign
+priority
+Event
+Other
+announcement_tabs
+recommended_shop_on_sale_items
+processed_at
+budokai
+comeback_campaign
+script_id
+user_comeback_campaign
+is_coming_back_now
+comeback_at
+comeback_campaigns
+cooperation_campaigns
+friendships
+pending_friendships
+max_accepts_at_once
+genkai_battles
+genkai_battle_reward_acceptable
+expire_at
+gifts
+joint_campaigns
+login_bonuses
+login_movies
+login_popups
+popups
+mission_categories
+comeback
+mission_ids
+mission_end_at
+is_boost
+eventkagi_area_ids
+eventkagi_z_battle_stage_ids
+daily_refresh_at
+missions_data
+mission_updated_at
+rmbattles
+result_end_at
+sd_map_id
+tutorial
+is_opening_finished
+progress
+expires_at
+sd/battle
+sd_characters
+collection_ids
+sd/characters
+sd_packs
+sd/packs
+secret_treasure_boxes
+shop_on_sale_treasure_items
+shops/treasure/items
+sns_campaign
+category_id
+user_subscription
+error
+serialization_failed
+is_locked
+awakening_num
+[ECLP] Player
+is_ondemand
+boost_point
+act_max
+act_at
+act_cure_shortened_sec
+boost_at
+boost_cure_shortened_sec
+mainpage_card_id
+mainpage_user_card_id
+mydata_subpage_visible
+card_capacity
+total_card_capacity
+friends_capacity
+support_item_capacity
+is_support_item_capacity_extended
+is_finished
+contents_lv
+is_potential_releaseable
+/ping
+ping_info
+port_str
+cf_uri_prefix
+https://mod.dokkan-eclipse.com/
+/auth/nonce
+auth_transaction_id
+4e829f27-1a3e-4c97-855c-f5113ff5b878
+nonce
+QA0dmSFchLtZvRddtZarkkHIaLm_jGQ8jwMQZPzpMQ-J8UsBWSai25MnrdMMOgpR
+/auth/sign_in
+token_type
+bearer
+expires_in
+captcha_result
+success
+message
+Verification completed.
+/resources/home
+apologies
+banners
+bonus_schedules
+random_login_bonuses
+treasure_item_switching_banners
+/user/mydata
+/user
+/cards/
+/equip
+/cards
+/teams
+/user_areas
+z_battle_stages
+eventkagi_events
+eventkagi_z_battle_stages
+/genkai_battles
+/item_reverse_resolutions
+/missions/put_forward
+/missions/mission_board_campaigns
+mission_board_campaigns
+/missions
+/iap_rails
+products
+daily_reset_at
+/db_stories
+db_stories
+/sd/packs
+/sd/characters
+/sd/battle
+/dragonball_sets
+/announcements/notify
+announcement_is_new
+/announcements
+announcement
+/joint_campaigns/accept
+joint_campaign_events
+/joint_campaigns
+/cooperation_campaigns
+/client_assets
+/ondemand_assets
+battle_characters
+card_bgs
+card_potential_squares_%d
+card_potential_params_%d
+SELECT potential_board_id FROM cards WHERE id = %d
+SELECT s.id, s.event_id, e.type, e.currency_id FROM potential_squares s JOIN potential_events e ON s.event_id = e.id WHERE s.potential_board_id = %d
+PotentialEvent::Select
+SELECT id FROM potential_event_selections WHERE selection_table_id = %d LIMIT 1
+potential_square_id
+event_selection_id
+SELECT event_id FROM potential_squares WHERE id = %d
+SELECT type, additional_value, currency_id FROM potential_events WHERE id = %d
+SELECT event_id FROM potential_event_selections WHERE id = %d
+PotentialEvent::Skill
+SELECT COUNT(*) FROM cards c JOIN potential_boards b ON c.potential_board_id = b.id JOIN potential_squares s ON b.id = s.potential_board_id WHERE c.id = %d
+user_card_potential_squares
+Invalid user_card_id
+user_card_potential_parameters
+SELECT type, currency_id FROM potential_events WHERE id = %d
+SELECT type FROM potential_events WHERE id = %d
+Potential square not found
+user_card_potential_parameter
+EclipsePatches
+files
+OfflineCache
+%@|%@|%@
+patchlist.json
+ReplacedFiles
+movie/
+movie/en/
+movie/es/
+movie/de/
+movie/fr/
+movie/ko/
+movie/zh/
+database.db
+assets/sqlite/current
+Patched/database.db
+Base/database.db
+SELECT %s FROM %s
+1.2.11
+has no column named 
+VALUES
+%@(%@) VALUES %@
+ON CONFLICT
+ON DUPLICATE
+%@(%@) VALUES %@ %@
+EclipseSkipDisclaimer
+fonts
+btn_eclipse
+common 
+lineHeight
+char 
+width
+height
+xoffset
+yoffset
+xadvance
+{?=iiiiiii}
+Info.png
+Trash.png
+Loaded!
+Error!
+Enabled.png
+Disabled.png
+Patch Error
+bg.png
+Under Construction
+close.png
+Dev Log
+Menlo
+=== Previous session log ===
+No log entries yet...
+Download.png
+Modded.png
+Settings.png
+Play.png
+GetPatches.png
+Browse Patches
+Plus.png
+public.data
+Vanilla.png
+Settings
+Offline Mode
+v16@?0@"UIAction"8
+Play online first!
+Btn_Setting.png
+End Current Event
+ingamedata
+Ended Event
+Skip Disclaimer
+You must restart the game in order to continue.
+Patch Added!
+Import Failed!
+Remove "%@"?
+Cancel
+Remove
+v16@?0@"UIAlertAction"8
+Please Wait...
+Cover.png
+EclipseIPA
+EclipseAssets
+Eclipse es una experiencia free to play basada en el juego movil Dragon Ball Z: Dokkan Battle. No es una plataforma de pago. Si te han cobrado por acceder, reembolsalo inmediatamente y obtenlo de manera gratuita aqui: https://discord.gg/ExFE5GncKw
+Eclipse is a Free to Play Experience Based on Dragon Ball Z: Dokkan Battle. It is Not a Premium Platform. If You were Charged for Access, Get an Immediate Refund and Get it for Free at https://discord.gg/ExFE5GncKw
+shared
+offlineModeEnabled
+propertyForKey:inRequest:
+request
+absoluteString
+HTTPMethod
+HTTPBody
+offlineResponseForURL:method:body:
+dataWithJSONObject:options:error:
+length
+numberWithUnsignedInteger:
+stringValue
+dictionaryWithObjects:forKeys:count:
+initWithURL:statusCode:HTTPVersion:headerFields:
+client
+URLProtocol:didReceiveResponse:cacheStoragePolicy:
+URLProtocol:didLoadData:
+URLProtocolDidFinishLoading:
+canInitWithRequest:
+canonicalRequestForRequest:
+startLoading
+stopLoading
+array
+firstObject
+stringByAppendingPathComponent:
+writeToFile:atomically:encoding:error:
+loadPatchList
+startImageServer
+class
+registerClass:
+shouldTrustProtectionSpace:
+startRequest:
+responseData
+connectionDidFinishLoading:
+application:didFinishLaunchingWithOptions:
+isKindOfClass:
+containsString:
+stringByReplacingOccurrencesOfString:withString:
+URLWithString:
+setURL:
+srcURL
+patches
+count
+invalidateBaseDb
+standardUserDefaults
+setBool:forKey:
+synchronize
+rangeOfString:
+substringFromIndex:
+substringToIndex:
+intValue
+JSONObjectWithData:options:error:
+objectForKeyedSubscript:
+buildPotentialsReleaseResponseForUserCard:squares:
+buildPotentialsUnreleaseResponseForUserCard:squareId:
+buildPotentialsResponseForUserCard:
+bootReady
+cacheLoginResponse:
+cacheFullLoginResponse:
+customQuestIds
+numberWithInt:
+containsObject:
+buildSugorokuStartResponse:
+buildSugorokuFinishResponse:
+buildBriefingResponse
+customEvents
+injectEventsIntoResponse:
+allCards
+customItems
+injectCardsIntoResponse:forURL:
+injectItemsIntoResponse:
+boolForKey:
+countByEnumeratingWithState:objects:count:
+isEnabled
+setBootReady:
+clearPatchedDb
+removeAllObjects
+clearLoginCache
+verifyGameDbPatched
+buildPatchedDb
+installPatchedDbToGamePath
+generateCardsFromDb
+detectCustomItems
+loadPatcherFiles
+preloadCustomEvents
+setUuid:
+setName:
+setAuthor:
+setVersion:
+setFilePath:
+setIsEnabled:
+boolValue
+author
+version
+filePath
+numberWithBool:
+fromECLPMetadata:filePath:
+fromDictionary:
+toDictionary
+loadStatus
+setLoadStatus:
+loadError
+setLoadError:
+.cxx_destruct
+_isEnabled
+_uuid
+_name
+_author
+_version
+_filePath
+_loadStatus
+_loadError
+T@"NSString",C,N,V_uuid
+T@"NSString",C,N,V_name
+T@"NSString",C,N,V_author
+T@"NSString",C,N,V_version
+T@"NSString",C,N,V_filePath
+TB,N,V_isEnabled
+Tq,N,V_loadStatus
+T@"NSString",C,N,V_loadError
+dictionary
+defaultManager
+createDirectoryAtPath:withIntermediateDirectories:attributes:error:
+bytes
+subdataWithRange:
+dataWithContentsOfFile:
+addObject:
+stringByAppendingString:
+fileExistsAtPath:
+removeItemAtPath:error:
+copyItemAtPath:toPath:error:
+writeToFile:atomically:
+savePatchList
+startAccessingSecurityScopedResource
+dataWithContentsOfURL:options:error:
+stopAccessingSecurityScopedResource
+isECLP:
+errorWithDomain:code:userInfo:
+readECLPMetadata:
+lastPathComponent
+_loadFilesForPatch:
+hasSuffix:
+hasPrefix:
+moveItemAtPath:toPath:error:
+objectAtIndexedSubscript:
+_revertAssetsForPatch:
+removeObjectAtIndex:
+sharedURLCache
+removeAllCachedResponses
+setPatchedDbPath:
+attributesOfItemAtPath:error:
+unsignedLongLongValue
+patchedDbPath
+numberWithLongLong:
+timeIntervalSince1970
+stringWithFormat:
+UTF8String
+arrayWithObjects:count:
+numberWithInteger:
+longLongValue
+setObject:forKeyedSubscript:
+allValues
+addObjectsFromArray:
+mutableCopy
+minusSet:
+stringWithUTF8String:
+isEqualToString:
+setWithCapacity:
+string
+_loadParamsForUserCard:
+_calculateReleasedRate:userCardId:
+numberWithDouble:
+appendFormat:
+appendBytes:length:
+appendData:
+dataUsingEncoding:
+dataWithCapacity:
+integerValue
+stringByDeletingPathExtension
+isEqual:
+setObject:atIndexedSubscript:
+_handleImageClient:
+componentsSeparatedByString:
+imageWithContentsOfFile:
+lengthOfBytesUsingEncoding:
+arrayWithCapacity:
+initWithBytes:length:encoding:
+mainBundle
+bundlePath
+_dbIsUsable:
+_dbHasEclipseCategory:
+stringByDeletingLastPathComponent
+initWithData:encoding:
+arrayWithArray:
+_applySQLBlobs:toDb:
+unsignedIntegerValue
+componentsJoinedByString:
+_insertEclipseCategory:
+defaultCenter
+postNotificationName:object:
+restoreReplacedFiles
+enumeratorAtPath:
+nextObject
+fileExistsAtPath:isDirectory:
+_loadCachedJSON:
+_allCardIdsFromDb
+_generateCardData:timestamp:
+_batchQueryItems:idColumn:fromDb:
+isValidJSONObject:
+_buildOfflineLoginResponse
+_defaultUserData:
+cacheTeamsFromResponse:
+_saveSquaresForUserCard:squares:
+_loadSquaresForUserCard:
+_generateSquaresFromDb:userCardId:
+_generateParamsFromSquares:
+_saveParamsForUserCard:params:
+_findCardInAllCards:
+reason
+_affectedParameterForSquareId:eventSelectionId:
+setOfflineModeEnabled:
+addPatchFromURL:error:
+removePatchAtIndex:
+listbuttonImageForPatch:
+canEnableOfflineMode
+setAllCards:
+setCustomEvents:
+customEventImages
+setCustomEventImages:
+setCustomQuestIds:
+setCustomItems:
+imageServerPort
+_patches
+set_patches:
+patcherFiles
+setPatcherFiles:
+_offlineModeEnabled
+_bootReady
+_imageServerPort
+_patchedDbPath
+_allCards
+_customEvents
+_customEventImages
+_customQuestIds
+_customItems
+__patches
+_patcherFiles
+T@"NSMutableArray",&,N,V__patches
+T@"NSMutableDictionary",&,N,V_patcherFiles
+T@"NSMutableArray",R,N
+T@"NSString",C,N,V_patchedDbPath
+T@"NSMutableArray",&,N,V_allCards
+T@"NSMutableArray",&,N,V_customEvents
+T@"NSMutableDictionary",&,N,V_customEventImages
+T@"NSMutableSet",&,N,V_customQuestIds
+T@"NSMutableArray",&,N,V_customItems
+TB,N,V_offlineModeEnabled
+TB,V_bootReady
+TS,R,N,V_imageServerPort
+dataWithBytes:length:
+dataWithLength:
+mutableBytes
+setLength:
+contentsOfDirectoryAtPath:error:
+fileSystemRepresentation
+whitespaceAndNewlineCharacterSet
+stringByTrimmingCharactersInSet:
+uppercaseString
+characterAtIndex:
+substringWithRange:
+caseInsensitiveCompare:
+rangeOfString:options:range:
+setString:
+dataForKey:
+setObject:forKey:
+stringWithContentsOfFile:encoding:error:
+setAtlas:
+setLineHeight:
+valueWithBytes:objCType:
+setGlyphs:
+numberWithUnsignedShort:
+numberWithChar:
+getValue:
+mainScreen
+scale
+CGImage
+imageWithCGImage:
+drawInRect:
+fontNamed:
+render:height:
+glyphs
+atlas
+lineHeight
+_lineHeight
+_glyphs
+_atlas
+T@"NSDictionary",&,N,V_glyphs
+T@"UIImage",&,N,V_atlas
+Ti,N,V_lineHeight
+initWithStyle:reuseIdentifier:
+clearColor
+setBackgroundColor:
+setSelectionStyle:
+setTranslatesAutoresizingMaskIntoConstraints:
+setContentMode:
+contentView
+addSubview:
+initWithImage:
+setClipsToBounds:
+buttonWithType:
+setImage:forState:
+imageView
+_toggled
+addTarget:action:forControlEvents:
+_trash
+_statusTapped
+heightAnchor
+constraintEqualToConstant:
+topAnchor
+constraintEqualToAnchor:constant:
+centerXAnchor
+constraintEqualToAnchor:
+bottomAnchor
+leadingAnchor
+trailingAnchor
+centerYAnchor
+widthAnchor
+constraintLessThanOrEqualToAnchor:constant:
+activateConstraints:
+setImage:
+_updateToggle
+setUserInteractionEnabled:
+bounds
+setConstant:
+sharedApplication
+connectedScenes
+windows
+rootViewController
+alertControllerWithTitle:message:preferredStyle:
+actionWithTitle:style:handler:
+addAction:
+presentViewController:animated:completion:
+configureWithPatch:
+cardBg
+setCardBg:
+nameImg
+setNameImg:
+versionImg
+setVersionImg:
+statusBtn
+setStatusBtn:
+infoBtn
+setInfoBtn:
+toggleBtn
+setToggleBtn:
+trashBtn
+setTrashBtn:
+cardBgHeight
+setCardBgHeight:
+patchEnabled
+setPatchEnabled:
+onToggle
+setOnToggle:
+onDelete
+setOnDelete:
+currentPatch
+setCurrentPatch:
+_patchEnabled
+_cardBg
+_nameImg
+_versionImg
+_statusBtn
+_infoBtn
+_toggleBtn
+_trashBtn
+_cardBgHeight
+_onToggle
+_onDelete
+_currentPatch
+T@"UIImageView",&,N,V_cardBg
+T@"UIImageView",&,N,V_nameImg
+T@"UIImageView",&,N,V_versionImg
+T@"UIButton",&,N,V_statusBtn
+T@"UIButton",&,N,V_infoBtn
+T@"UIButton",&,N,V_toggleBtn
+T@"UIButton",&,N,V_trashBtn
+T@"NSLayoutConstraint",&,N,V_cardBgHeight
+TB,N,V_patchEnabled
+T@?,C,N,V_onToggle
+T@?,C,N,V_onDelete
+T@"SavedPatch",&,N,V_currentPatch
+viewDidLoad
+setFrame:
+setAutoresizingMask:
+_close
+safeAreaLayoutGuide
+dismissViewControllerAnimated:completion:
+setAlpha:
+colorWithWhite:alpha:
+setEditable:
+colorWithRed:green:blue:alpha:
+setTextColor:
+fontWithName:size:
+monospacedSystemFontOfSize:weight:
+setFont:
+layer
+setCornerRadius:
+_refresh
+viewWillDisappear:
+setText:
+scrollRangeToVisible:
+textView
+setTextView:
+_textView
+T@"UITextView",&,N,V_textView
+_reload
+addObserver:selector:name:object:
+_showUC
+_circleBtn:action:
+_toggleMode
+_showSettings
+_start
+setBackgroundImage:forState:
+_addPatch
+initWithFrame:style:
+setDataSource:
+setDelegate:
+setSeparatorStyle:
+setRowHeight:
+setEstimatedRowHeight:
+setContentInset:
+registerClass:forCellReuseIdentifier:
+reloadData
+setModalPresentationStyle:
+setModalTransitionStyle:
+typeWithIdentifier:
+initForOpeningContentTypes:asCopy:
+setAllowsMultipleSelection:
+initWithFrame:
+setTag:
+removeFromSuperview
+animateWithDuration:animations:completion:
+actionWithHandler:
+addAction:forControlEvents:
+_showFeedback:message:
+animateWithDuration:animations:
+_lockPlayButton
+setEnabled:
+setTransform:
+animateWithDuration:delay:options:animations:completion:
+dequeueReusableCellWithIdentifier:forIndexPath:
+_showRestartHint
+setDirty:
+performSelector:
+performSelector:withObject:
+performSelector:withObject:withObject:
+isProxy
+isMemberOfClass:
+conformsToProtocol:
+respondsToSelector:
+retain
+release
+autorelease
+retainCount
+superclass
+description
+debugDescription
+T@"NSString",R,C
+tableView:numberOfRowsInSection:
+tableView:cellForRowAtIndexPath:
+numberOfSectionsInTableView:
+tableView:titleForHeaderInSection:
+tableView:titleForFooterInSection:
+tableView:canEditRowAtIndexPath:
+tableView:canMoveRowAtIndexPath:
+sectionIndexTitlesForTableView:
+tableView:sectionForSectionIndexTitle:atIndex:
+tableView:commitEditingStyle:forRowAtIndexPath:
+tableView:moveRowAtIndexPath:toIndexPath:
+scrollViewDidScroll:
+scrollViewDidZoom:
+scrollViewWillBeginDragging:
+scrollViewWillEndDragging:withVelocity:targetContentOffset:
+scrollViewDidEndDragging:willDecelerate:
+scrollViewWillBeginDecelerating:
+scrollViewDidEndDecelerating:
+scrollViewDidEndScrollingAnimation:
+viewForZoomingInScrollView:
+scrollViewWillBeginZooming:withView:
+scrollViewDidEndZooming:withView:atScale:
+scrollViewShouldScrollToTop:
+scrollViewDidScrollToTop:
+scrollViewDidChangeAdjustedContentInset:
+tableView:willDisplayCell:forRowAtIndexPath:
+tableView:willDisplayHeaderView:forSection:
+tableView:willDisplayFooterView:forSection:
+tableView:didEndDisplayingCell:forRowAtIndexPath:
+tableView:didEndDisplayingHeaderView:forSection:
+tableView:didEndDisplayingFooterView:forSection:
+tableView:heightForRowAtIndexPath:
+tableView:heightForHeaderInSection:
+tableView:heightForFooterInSection:
+tableView:estimatedHeightForRowAtIndexPath:
+tableView:estimatedHeightForHeaderInSection:
+tableView:estimatedHeightForFooterInSection:
+tableView:viewForHeaderInSection:
+tableView:viewForFooterInSection:
+tableView:accessoryTypeForRowWithIndexPath:
+tableView:accessoryButtonTappedForRowWithIndexPath:
+tableView:shouldHighlightRowAtIndexPath:
+tableView:didHighlightRowAtIndexPath:
+tableView:didUnhighlightRowAtIndexPath:
+tableView:willSelectRowAtIndexPath:
+tableView:willDeselectRowAtIndexPath:
+tableView:didSelectRowAtIndexPath:
+tableView:didDeselectRowAtIndexPath:
+tableView:canPerformPrimaryActionForRowAtIndexPath:
+tableView:performPrimaryActionForRowAtIndexPath:
+tableView:editingStyleForRowAtIndexPath:
+tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:
+tableView:editActionsForRowAtIndexPath:
+tableView:leadingSwipeActionsConfigurationForRowAtIndexPath:
+tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:
+tableView:shouldIndentWhileEditingRowAtIndexPath:
+tableView:willBeginEditingRowAtIndexPath:
+tableView:didEndEditingRowAtIndexPath:
+tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:
+tableView:indentationLevelForRowAtIndexPath:
+tableView:shouldShowMenuForRowAtIndexPath:
+tableView:canPerformAction:forRowAtIndexPath:withSender:
+tableView:performAction:forRowAtIndexPath:withSender:
+tableView:canFocusRowAtIndexPath:
+tableView:shouldUpdateFocusInContext:
+tableView:didUpdateFocusInContext:withAnimationCoordinator:
+indexPathForPreferredFocusedViewInTableView:
+tableView:selectionFollowsFocusForRowAtIndexPath:
+tableView:shouldSpringLoadRowAtIndexPath:withContext:
+tableView:shouldBeginMultipleSelectionInteractionAtIndexPath:
+tableView:didBeginMultipleSelectionInteractionAtIndexPath:
+tableViewDidEndMultipleSelectionInteraction:
+tableView:contextMenuConfigurationForRowAtIndexPath:point:
+tableView:previewForHighlightingContextMenuWithConfiguration:
+tableView:previewForDismissingContextMenuWithConfiguration:
+tableView:willPerformPreviewActionForMenuWithConfiguration:animator:
+tableView:willDisplayContextMenuWithConfiguration:animator:
+tableView:willEndContextMenuInteractionWithConfiguration:animator:
+documentPicker:didPickDocumentsAtURLs:
+documentPickerWasCancelled:
+documentPicker:didPickDocumentAtURL:
+tableView
+setTableView:
+modeBtn
+setModeBtn:
+playBtn
+setPlayBtn:
+restartMsgView
+setRestartMsgView:
+modsEnabled
+setModsEnabled:
+dirty
+completion
+setCompletion:
+_modsEnabled
+_dirty
+_tableView
+_modeBtn
+_playBtn
+_restartMsgView
+_completion
+T@"UITableView",&,N,V_tableView
+T@"UIButton",&,N,V_modeBtn
+T@"UIButton",&,N,V_playBtn
+T@"UIImageView",&,N,V_restartMsgView
+TB,N,V_modsEnabled
+TB,N,V_dirty
+T@?,C,N,V_completion
+convertPoint:fromView:
+hitTest:withEvent:
+pointInside:withEvent:
+initWithWindowScene:
+setWindowLevel:
+setHidden:
+setRootViewController:
+blackColor
+CGColor
+setShadowColor:
+setShadowOpacity:
+setShadowOffset:
+setShadowRadius:
+makeKeyAndVisible
+resignKeyWindow
+activationState
+setShowsVerticalScrollIndicator:
+setIndicatorStyle:
+whiteColor
+boldSystemFontOfSize:
+setNumberOfLines:
+setTextAlignment:
+sizeThatFits:
+setContentSize:
+insertSubview:atIndex:
+preferredLanguages
+lowercaseString
+EclipseOfflineProtocol
+SavedPatch
+PatchManager
+ECBMFont
+EclipsePatchCell
+EclipseUCViewController
+EclipseLogViewController
+EclipseViewController
+UITableViewDataSource
+NSObject
+UITableViewDelegate
+UIScrollViewDelegate
+UIDocumentPickerDelegate
+EclipseFloatingWindow
+EclipseWindow
+B24@0:8@16
+@24@0:8@16
+v16@0:8
+@32@0:8@16@24
+@16@0:8
+v24@0:8@16
+B16@0:8
+v20@0:8B16
+q16@0:8
+v24@0:8q16
+@"NSString"
+B32@0:8@16^@24
+v24@0:8Q16
+v20@0:8i16
+@20@0:8i16
+@40@0:8@16@24^{sqlite3=}32
+@24@0:8i16i20
+@40@0:8@16@24@32
+v28@0:8i16@20
+d24@0:8i16i20
+@28@0:8i16@20
+S16@0:8
+@"NSMutableArray"
+@"NSMutableDictionary"
+@"NSMutableSet"
+@32@0:8@16d24
+i16@0:8
+@"NSDictionary"
+@"UIImage"
+@32@0:8q16@24
+@?16@0:8
+v24@0:8@?16
+@"UIImageView"
+@"UIButton"
+@"NSLayoutConstraint"
+@"SavedPatch"
+@"UITextView"
+#16@0:8
+@24@0:8:16
+@32@0:8:16@24
+@40@0:8:16@24@32
+B24@0:8#16
+B24@0:8:16
+Vv16@0:8
+Q16@0:8
+^{_NSZone=}16@0:8
+B24@0:8@"Protocol"16
+@"NSString"16@0:8
+q32@0:8@16q24
+q24@0:8@16
+@32@0:8@16q24
+B32@0:8@16@24
+q40@0:8@16@24q32
+v40@0:8@16q24@32
+v40@0:8@16@24@32
+q32@0:8@"UITableView"16q24
+@"UITableViewCell"32@0:8@"UITableView"16@"NSIndexPath"24
+q24@0:8@"UITableView"16
+@"NSString"32@0:8@"UITableView"16q24
+B32@0:8@"UITableView"16@"NSIndexPath"24
+@"NSArray"24@0:8@"UITableView"16
+q40@0:8@"UITableView"16@"NSString"24q32
+v40@0:8@"UITableView"16q24@"NSIndexPath"32
+v40@0:8@"UITableView"16@"NSIndexPath"24@"NSIndexPath"32
+v48@0:8@16{CGPoint=dd}24N^{CGPoint=dd}40
+v28@0:8@16B24
+v32@0:8@16@24
+v40@0:8@16@24d32
+v24@0:8@"UIScrollView"16
+v48@0:8@"UIScrollView"16{CGPoint=dd}24N^{CGPoint=dd}40
+v28@0:8@"UIScrollView"16B24
+@"UIView"24@0:8@"UIScrollView"16
+v32@0:8@"UIScrollView"16@"UIView"24
+v40@0:8@"UIScrollView"16@"UIView"24d32
+B24@0:8@"UIScrollView"16
+v40@0:8@16@24q32
+d32@0:8@16@24
+d32@0:8@16q24
+q32@0:8@16@24
+B48@0:8@16:24@32@40
+v48@0:8@16:24@32@40
+B40@0:8@16@24@32
+@48@0:8@16@24{CGPoint=dd}32
+v40@0:8@"UITableView"16@"UITableViewCell"24@"NSIndexPath"32
+v40@0:8@"UITableView"16@"UIView"24q32
+d32@0:8@"UITableView"16@"NSIndexPath"24
+d32@0:8@"UITableView"16q24
+@"UIView"32@0:8@"UITableView"16q24
+q32@0:8@"UITableView"16@"NSIndexPath"24
+v32@0:8@"UITableView"16@"NSIndexPath"24
+@"NSIndexPath"32@0:8@"UITableView"16@"NSIndexPath"24
+@"NSString"32@0:8@"UITableView"16@"NSIndexPath"24
+@"NSArray"32@0:8@"UITableView"16@"NSIndexPath"24
+@"UISwipeActionsConfiguration"32@0:8@"UITableView"16@"NSIndexPath"24
+@"NSIndexPath"40@0:8@"UITableView"16@"NSIndexPath"24@"NSIndexPath"32
+B48@0:8@"UITableView"16:24@"NSIndexPath"32@40
+v48@0:8@"UITableView"16:24@"NSIndexPath"32@40
+B32@0:8@"UITableView"16@"UITableViewFocusUpdateContext"24
+v40@0:8@"UITableView"16@"UITableViewFocusUpdateContext"24@"UIFocusAnimationCoordinator"32
+@"NSIndexPath"24@0:8@"UITableView"16
+B40@0:8@"UITableView"16@"NSIndexPath"24@"<UISpringLoadedInteractionContext>"32
+v24@0:8@"UITableView"16
+@"UIContextMenuConfiguration"48@0:8@"UITableView"16@"NSIndexPath"24{CGPoint=dd}32
+@"UITargetedPreview"32@0:8@"UITableView"16@"UIContextMenuConfiguration"24
+v40@0:8@"UITableView"16@"UIContextMenuConfiguration"24@"<UIContextMenuInteractionCommitAnimating>"32
+v40@0:8@"UITableView"16@"UIContextMenuConfiguration"24@"<UIContextMenuInteractionAnimating>"32
+v32@0:8@"UIDocumentPickerViewController"16@"NSArray"24
+v24@0:8@"UIDocumentPickerViewController"16
+v32@0:8@"UIDocumentPickerViewController"16@"NSURL"24
+@32@0:8@16:24
+v28@0:8B16@20
+@"UITableView"
+B40@0:8{CGPoint=dd}16@32
+We0O0!q
+0g0o0B0
+0~0[0
+0_04X
+va0k0
+eg0eQKbW0f0O0`0U0D0
+~Hr,g
+g`O(W
+zsS~b
+%{public}s
+Elapsed time:%{public}.3f ms - %{public}s
+A\AUA\AUA\AUA\AUA\AUA\AUAXAp
+p RAVL`
+BSAWL
+`PBWD`
+A`lA`CA`!B
+p SCp
+SAp p
+VARARARARA`
+C]A]AUAp
+`nARBSCp
+RBSCSCUASASASASASCSCSBSCSCSCSCSCSCSCSCSCSCp
+RBRBSCSCRBSCRBSCSCSCSC
+CRGRGRESASASASASASASASB`
+RESASASASASASASASASASASB`
+RESASASBVBSAp
+p0SASASASASASASASASASASASB`
+p@RGp0SBRBSAp
+RARARARARARARARARARARARARARARARARARARBRB`
+RARBRARARARARARARARARA[Ap
+RARARARARARARARARARARARARARA^ARBRARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARARA`5Ap
+RARARASASDp
+p SASASASASASASB`
+p@RGp@p(`
+Fp pxphRDp
+RCRCp RCp RCp RCp RCp RCp RCp p RCp RCp
+p TCp
+XARCVCp
+p@p SAp p
+p@p SAp p
+p@p p
+p@p@p p
+p UDUDUDUDUDUDUDUBp
+p@p@p p
+p UDUDUDUDUDUDUDUDUDUDUDUDUDUDUBp
+p UDUDUDUCSAWNSAWN
+@_OBJC_CLASS_$_NSObject
+@_OBJC_METACLASS_$_NSObject
+@___objc_personality_v0
+@__objc_empty_cache
+@_NSFileSize
+@_NSLocalizedDescriptionKey
+@_OBJC_CLASS_$_NSBundle
+@_OBJC_CLASS_$_NSCharacterSet
+@_OBJC_CLASS_$_NSError
+@_OBJC_CLASS_$_NSFileManager
+@_OBJC_CLASS_$_NSHTTPURLResponse
+@_OBJC_CLASS_$_NSJSONSerialization
+@_OBJC_CLASS_$_NSLayoutConstraint
+@_OBJC_CLASS_$_NSMutableString
+@_OBJC_CLASS_$_NSMutableURLRequest
+@_OBJC_CLASS_$_NSNotificationCenter
+@_OBJC_CLASS_$_NSNumber
+@_OBJC_CLASS_$_NSString
+@_OBJC_CLASS_$_NSURLCache
+@_OBJC_CLASS_$_NSURLProtocol
+@_OBJC_CLASS_$_NSValue
+@_OBJC_METACLASS_$_NSURLProtocol
+@_OBJC_CLASS_$_NSArray
+@_OBJC_CLASS_$_NSData
+@_OBJC_CLASS_$_NSDate
+@_OBJC_CLASS_$_NSDictionary
+@_OBJC_CLASS_$_NSLocale
+@_OBJC_CLASS_$_NSMutableArray
+@_OBJC_CLASS_$_NSMutableData
+@_OBJC_CLASS_$_NSMutableDictionary
+@_OBJC_CLASS_$_NSMutableSet
+@_OBJC_CLASS_$_NSNull
+@_OBJC_CLASS_$_NSURL
+@_OBJC_CLASS_$_NSUserDefaults
+@_OBJC_EHTYPE_$_NSException
+@___CFConstantStringClassReference
+@___NSArray0__
+@___NSDictionary0__
+@_OBJC_CLASS_$_UIAction
+@_OBJC_CLASS_$_UIAlertAction
+@_OBJC_CLASS_$_UIAlertController
+@_OBJC_CLASS_$_UIApplication
+@_OBJC_CLASS_$_UIButton
+@_OBJC_CLASS_$_UIColor
+@_OBJC_CLASS_$_UIDocumentPickerViewController
+@_OBJC_CLASS_$_UIFont
+@_OBJC_CLASS_$_UIImage
+@_OBJC_CLASS_$_UIImageView
+@_OBJC_CLASS_$_UILabel
+@_OBJC_CLASS_$_UIScreen
+@_OBJC_CLASS_$_UIScrollView
+@_OBJC_CLASS_$_UITableView
+@_OBJC_CLASS_$_UITableViewCell
+@_OBJC_CLASS_$_UITextView
+@_OBJC_CLASS_$_UIView
+@_OBJC_CLASS_$_UIViewController
+@_OBJC_CLASS_$_UIWindow
+@_OBJC_CLASS_$_UIWindowScene
+@_OBJC_METACLASS_$_UITableViewCell
+@_OBJC_METACLASS_$_UIViewController
+@_OBJC_METACLASS_$_UIWindow
+@_UIFontWeightRegular
+@_UITableViewAutomaticDimension
+@_UIWindowLevelAlert
+@_OBJC_CLASS_$_UTType
+@_kSecRandomDefault
+@___gxx_personality_v0
+@__NSConcreteGlobalBlock
+@__NSConcreteStackBlock
+@___stack_chk_guard
+@___stderrp
+@___stdoutp
+@__dispatch_main_q
+@__os_log_default
+@_access
+@_close
+@_fchmod
+@_fchown
+@_fcntl
+@_fstat
+@_ftruncate
+@_getcwd
+@_geteuid
+@_lstat
+@_memset
+@_mkdir
+@_mmap
+@_munmap
+@_pread
+@_pwrite
+@_read
+@_readlink
+@_rmdir
+@_stat
+@_unlink
+@_write
+@dyld_stub_binder
+@_CGRectZero
+@_CCCryptorCreate
+@_CCCryptorCreateWithMode
+@_CCCryptorFinal
+@_CCCryptorGCMDecrypt
+@_CCCryptorGCMFinal
+@_CCCryptorGCMSetIV
+@_CCCryptorRelease
+@_CCCryptorUpdate
+@_CCHmacFinal
+@_CCHmacInit
+@_CCHmacUpdate
+@_CCKeyDerivationPBKDF
+@_CC_SHA256
+@_CFBundleGetBundleWithIdentifier
+@_CFBundleGetValueForInfoDictionaryKey
+@_CFStringGetCStringPtr
+@_CGAffineTransformMakeTranslation
+@_CGImageCreateWithImageInRect
+@_CGImageRelease
+@_CGRectInset
+@_MSHookMessageEx
+@_NSSearchPathForDirectoriesInDomains
+@_SecRandomCopyBytes
+@_UIGraphicsBeginImageContextWithOptions
+@_UIGraphicsEndImageContext
+@_UIGraphicsGetImageFromCurrentImageContext
+@__Block_object_assign
+@__Block_object_dispose
+@__Unwind_Resume
+@___error
+@___memcpy_chk
+@___memset_chk
+@___sprintf_chk
+@___stack_chk_fail
+@___strlcpy_chk
+@__os_log_impl
+@_accept
+@_atoi
+@_bind
+@_bzero
+@_calloc
+@_close
+@_confstr
+@_dispatch_after
+@_dispatch_async
+@_dispatch_get_global_queue
+@_dispatch_once
+@_dispatch_time
+@_dlclose
+@_dlerror
+@_dlopen
+@_dlsym
+@_fclose
+@_flock
+@_fopen
+@_fprintf
+@_free
+@_fsctl
+@_fstatfs
+@_fsync
+@_futimes
+@_getenv
+@_getpid
+@_getsockname
+@_gettimeofday
+@_inflate
+@_inflateEnd
+@_inflateInit2_
+@_listen
+@_localtime
+@_localtime_r
+@_malloc
+@_malloc_create_zone
+@_malloc_default_zone
+@_malloc_set_zone_name
+@_malloc_size
+@_malloc_zone_free
+@_malloc_zone_malloc
+@_malloc_zone_realloc
+@_memchr
+@_memcmp
+@_memcpy
+@_memmove
+@_memset
+@_mlock
+@_munlock
+@_nanosleep
+@_objc_alloc
+@_objc_autorelease
+@_objc_autoreleasePoolPop
+@_objc_autoreleasePoolPush
+@_objc_autoreleaseReturnValue
+@_objc_begin_catch
+@_objc_copyWeak
+@_objc_destroyWeak
+@_objc_end_catch
+@_objc_enumerationMutation
+@_objc_getAssociatedObject
+@_objc_getClass
+@_objc_getProperty
+@_objc_initWeak
+@_objc_loadWeakRetained
+@_objc_msgSend
+@_objc_msgSendSuper2
+@_objc_release
+@_objc_retain
+@_objc_retainAutorelease
+@_objc_retainAutoreleaseReturnValue
+@_objc_retainAutoreleasedReturnValue
+@_objc_retainBlock
+@_objc_setAssociatedObject
+@_objc_setProperty_nonatomic_copy
+@_objc_storeStrong
+@_objc_sync_enter
+@_objc_sync_exit
+@_open
+@_os_log_type_enabled
+@_pthread_create
+@_pthread_exit
+@_pthread_join
+@_pthread_mutex_destroy
+@_pthread_mutex_init
+@_pthread_mutex_lock
+@_pthread_mutex_trylock
+@_pthread_mutex_unlock
+@_pthread_mutexattr_destroy
+@_pthread_mutexattr_init
+@_pthread_mutexattr_settype
+@_random
+@_recv
+@_rename
+@_send
+@_setsockopt
+@_snprintf
+@_socket
+@_srandomdev
+@_statfs
+@_strchr
+@_strcmp
+@_strcspn
+@_strftime
+@_strlcat
+@_strlcpy
+@_strlen
+@_strncmp
+@_strncpy
+@_strrchr
+@_strspn
+@_sysconf
+@_sysctlbyname
+@_time
+@_usleep
+@_utimes
+_ZSTD_
+version
+estimateD
+sizeof_D
+Number
+cString
+Error
+DeterministicBuild
+Frame
+SkippableFrame
+sertBlock
+StaticD
+DStream
+Stream
+_usingD
+Error
+Frame
+String
+ictID_from
+ecompressedSize
+Frame
+Header
+ContentSize
+_advanced
+reateD
+opyDCtx
+Stream
+advanced
+byReference
+_advanced
+_advanced
+ameHeaderSize
+Stream
+DecompressedSize
+FrameCompressedSize
+DictSize
+CtxSize
+StreamSize
+_fromFrame
+Stream
+adSkippableFrame
+setDStream
+Param_getBounds
+mpress
+dingBufferSize_min
+ionMargin
+_usingD
+_usingD
+Continue
+Stream
+_simpleArgs
+SrcSizeToDecompress
+InputType
+Stream
+InSize
+OutSize
+loadDictionary
+getParameter
+advanced
+byReference
+Prefix
+DDict
+_advanced
+MaxWindowSize
+Format
+Parameter
+$$p8X |
++H@x8
+`80p(
+8|8H,
+DDTt8
+4d<44<4D44
+D8(d|
+(8 ,,
+T`\dHHH\8H@
+$<4H$|0h
+hXXp<
+|<x(LT
+(P0(<
+D,4,<|d@
+\Xdl4HDX(
+HHTTT
+@@8`@
+dtd||LD
+(x`@$
+d0<X@
+H@$Ph
+P`xL<
+dp$``P
+08dlP
+PP@4xxDP|
+ \Pl@$L
+lx`<`
+P    
+<(<$H8<(T$(@$t
+$hH8D
+4,8XH
+`@<@4
+`d8x4
+d(\Ll
+|@HXh
+400,40
+\,<\<
+(8(8(8(8(8 0
+4P4<H
+$<$<$<$<$<$<$<$<,<,<,<$<
+*\4(p
+0XPph$<$<$<$<,<,<,<
+4`Xp`|4
+_CCCryptorCreate
+_CCCryptorCreateWithMode
+_CCCryptorFinal
+_CCCryptorGCMDecrypt
+_CCCryptorGCMFinal
+_CCCryptorGCMSetIV
+_CCCryptorRelease
+_CCCryptorUpdate
+_CCHmacFinal
+_CCHmacInit
+_CCHmacUpdate
+_CCKeyDerivationPBKDF
+_CC_SHA256
+_CFBundleGetBundleWithIdentifier
+_CFBundleGetValueForInfoDictionaryKey
+_CFStringGetCStringPtr
+_CGAffineTransformMakeTranslation
+_CGImageCreateWithImageInRect
+_CGImageRelease
+_CGRectInset
+_CGRectZero
+_MSHookMessageEx
+_NSFileSize
+_NSLocalizedDescriptionKey
+_NSSearchPathForDirectoriesInDomains
+_OBJC_CLASS_$_NSArray
+_OBJC_CLASS_$_NSBundle
+_OBJC_CLASS_$_NSCharacterSet
+_OBJC_CLASS_$_NSData
+_OBJC_CLASS_$_NSDate
+_OBJC_CLASS_$_NSDictionary
+_OBJC_CLASS_$_NSError
+_OBJC_CLASS_$_NSFileManager
+_OBJC_CLASS_$_NSHTTPURLResponse
+_OBJC_CLASS_$_NSJSONSerialization
+_OBJC_CLASS_$_NSLayoutConstraint
+_OBJC_CLASS_$_NSLocale
+_OBJC_CLASS_$_NSMutableArray
+_OBJC_CLASS_$_NSMutableData
+_OBJC_CLASS_$_NSMutableDictionary
+_OBJC_CLASS_$_NSMutableSet
+_OBJC_CLASS_$_NSMutableString
+_OBJC_CLASS_$_NSMutableURLRequest
+_OBJC_CLASS_$_NSNotificationCenter
+_OBJC_CLASS_$_NSNull
+_OBJC_CLASS_$_NSNumber
+_OBJC_CLASS_$_NSObject
+_OBJC_CLASS_$_NSString
+_OBJC_CLASS_$_NSURL
+_OBJC_CLASS_$_NSURLCache
+_OBJC_CLASS_$_NSURLProtocol
+_OBJC_CLASS_$_NSUserDefaults
+_OBJC_CLASS_$_NSValue
+_OBJC_CLASS_$_UIAction
+_OBJC_CLASS_$_UIAlertAction
+_OBJC_CLASS_$_UIAlertController
+_OBJC_CLASS_$_UIApplication
+_OBJC_CLASS_$_UIButton
+_OBJC_CLASS_$_UIColor
+_OBJC_CLASS_$_UIDocumentPickerViewController
+_OBJC_CLASS_$_UIFont
+_OBJC_CLASS_$_UIImage
+_OBJC_CLASS_$_UIImageView
+_OBJC_CLASS_$_UILabel
+_OBJC_CLASS_$_UIScreen
+_OBJC_CLASS_$_UIScrollView
+_OBJC_CLASS_$_UITableView
+_OBJC_CLASS_$_UITableViewCell
+_OBJC_CLASS_$_UITextView
+_OBJC_CLASS_$_UIView
+_OBJC_CLASS_$_UIViewController
+_OBJC_CLASS_$_UIWindow
+_OBJC_CLASS_$_UIWindowScene
+_OBJC_CLASS_$_UTType
+_OBJC_EHTYPE_$_NSException
+_OBJC_METACLASS_$_NSObject
+_OBJC_METACLASS_$_NSURLProtocol
+_OBJC_METACLASS_$_UITableViewCell
+_OBJC_METACLASS_$_UIViewController
+_OBJC_METACLASS_$_UIWindow
+_SecRandomCopyBytes
+_UIFontWeightRegular
+_UIGraphicsBeginImageContextWithOptions
+_UIGraphicsEndImageContext
+_UIGraphicsGetImageFromCurrentImageContext
+_UITableViewAutomaticDimension
+_UIWindowLevelAlert
+_ZSTD_DCtx_getParameter
+_ZSTD_DCtx_loadDictionary
+_ZSTD_DCtx_loadDictionary_advanced
+_ZSTD_DCtx_loadDictionary_byReference
+_ZSTD_DCtx_refDDict
+_ZSTD_DCtx_refPrefix
+_ZSTD_DCtx_refPrefix_advanced
+_ZSTD_DCtx_reset
+_ZSTD_DCtx_setFormat
+_ZSTD_DCtx_setMaxWindowSize
+_ZSTD_DCtx_setParameter
+_ZSTD_DStreamInSize
+_ZSTD_DStreamOutSize
+_ZSTD_copyDCtx
+_ZSTD_createDCtx
+_ZSTD_createDCtx_advanced
+_ZSTD_createDDict
+_ZSTD_createDDict_advanced
+_ZSTD_createDDict_byReference
+_ZSTD_createDStream
+_ZSTD_createDStream_advanced
+_ZSTD_dParam_getBounds
+_ZSTD_decodingBufferSize_min
+_ZSTD_decompress
+_ZSTD_decompressBegin
+_ZSTD_decompressBegin_usingDDict
+_ZSTD_decompressBegin_usingDict
+_ZSTD_decompressBlock
+_ZSTD_decompressBound
+_ZSTD_decompressContinue
+_ZSTD_decompressDCtx
+_ZSTD_decompressStream
+_ZSTD_decompressStream_simpleArgs
+_ZSTD_decompress_usingDDict
+_ZSTD_decompress_usingDict
+_ZSTD_decompressionMargin
+_ZSTD_estimateDCtxSize
+_ZSTD_estimateDDictSize
+_ZSTD_estimateDStreamSize
+_ZSTD_estimateDStreamSize_fromFrame
+_ZSTD_findDecompressedSize
+_ZSTD_findFrameCompressedSize
+_ZSTD_frameHeaderSize
+_ZSTD_freeDCtx
+_ZSTD_freeDDict
+_ZSTD_freeDStream
+_ZSTD_getDecompressedSize
+_ZSTD_getDictID_fromDDict
+_ZSTD_getDictID_fromDict
+_ZSTD_getDictID_fromFrame
+_ZSTD_getErrorCode
+_ZSTD_getErrorName
+_ZSTD_getErrorString
+_ZSTD_getFrameContentSize
+_ZSTD_getFrameHeader
+_ZSTD_getFrameHeader_advanced
+_ZSTD_initDStream
+_ZSTD_initDStream_usingDDict
+_ZSTD_initDStream_usingDict
+_ZSTD_initStaticDCtx
+_ZSTD_initStaticDDict
+_ZSTD_initStaticDStream
+_ZSTD_insertBlock
+_ZSTD_isDeterministicBuild
+_ZSTD_isError
+_ZSTD_isFrame
+_ZSTD_isSkippableFrame
+_ZSTD_nextInputType
+_ZSTD_nextSrcSizeToDecompress
+_ZSTD_readSkippableFrame
+_ZSTD_resetDStream
+_ZSTD_sizeof_DCtx
+_ZSTD_sizeof_DDict
+_ZSTD_sizeof_DStream
+_ZSTD_versionNumber
+_ZSTD_versionString
+__Block_object_assign
+__Block_object_dispose
+__NSConcreteGlobalBlock
+__NSConcreteStackBlock
+__Unwind_Resume
+___CFConstantStringClassReference
+___NSArray0__
+___NSDictionary0__
+___error
+___gxx_personality_v0
+___memcpy_chk
+___memset_chk
+___objc_personality_v0
+___sprintf_chk
+___stack_chk_fail
+___stack_chk_guard
+___stderrp
+___stdoutp
+___strlcpy_chk
+__dispatch_main_q
+__objc_empty_cache
+__os_log_default
+__os_log_impl
+_accept
+_access
+_atoi
+_bind
+_bzero
+_calloc
+_close
+_confstr
+_dispatch_after
+_dispatch_async
+_dispatch_get_global_queue
+_dispatch_once
+_dispatch_time
+_dlclose
+_dlerror
+_dlopen
+_dlsym
+_fchmod
+_fchown
+_fclose
+_fcntl
+_flock
+_fopen
+_fprintf
+_fsctl
+_fstat
+_fstatfs
+_fsync
+_ftruncate
+_futimes
+_getcwd
+_getenv
+_geteuid
+_getpid
+_getsockname
+_gettimeofday
+_inflate
+_inflateEnd
+_inflateInit2_
+_kSecRandomDefault
+_listen
+_localtime
+_localtime_r
+_lstat
+_malloc_create_zone
+_malloc_default_zone
+_malloc_set_zone_name
+_malloc_size
+_malloc_zone_free
+_malloc_zone_malloc
+_malloc_zone_realloc
+_memchr
+_memcmp
+_memcpy
+_memmove
+_memset
+_mkdir
+_mlock
+_mmap
+_munlock
+_munmap
+_nanosleep
+_objc_alloc
+_objc_autorelease
+_objc_autoreleasePoolPop
+_objc_autoreleasePoolPush
+_objc_autoreleaseReturnValue
+_objc_begin_catch
+_objc_copyWeak
+_objc_destroyWeak
+_objc_end_catch
+_objc_enumerationMutation
+_objc_getAssociatedObject
+_objc_getClass
+_objc_getProperty
+_objc_initWeak
+_objc_loadWeakRetained
+_objc_msgSend
+_objc_msgSendSuper2
+_objc_release
+_objc_retain
+_objc_retainAutorelease
+_objc_retainAutoreleaseReturnValue
+_objc_retainAutoreleasedReturnValue
+_objc_retainBlock
+_objc_setAssociatedObject
+_objc_setProperty_nonatomic_copy
+_objc_storeStrong
+_objc_sync_enter
+_objc_sync_exit
+_open
+_os_log_type_enabled
+_pread
+_pthread_create
+_pthread_exit
+_pthread_join
+_pthread_mutex_destroy
+_pthread_mutex_init
+_pthread_mutex_lock
+_pthread_mutex_trylock
+_pthread_mutex_unlock
+_pthread_mutexattr_destroy
+_pthread_mutexattr_init
+_pthread_mutexattr_settype
+_pwrite
+_random
+_read
+_readlink
+_recv
+_rename
+_rmdir
+_send
+_setsockopt
+_snprintf
+_socket
+_srandomdev
+_stat
+_statfs
+_strchr
+_strcmp
+_strcspn
+_strftime
+_strlcat
+_strlcpy
+_strlen
+_strncmp
+_strncpy
+_strrchr
+_strspn
+_sysconf
+_sysctlbyname
+_unlink
+_usleep
+_utimes
+_write
+dyld_stub_binder
+radr://5614542
+EclipsePatcher.dylib
+k.cc}
+h HF=
+}5W]o
+.z~HV
+zo].U]
+Q<h7w
+jB5Z7
+LFg`I
+-Dmjpqg
+CH+Di
+n4rm~6}
+CIr]\
+"~Dis
++WY}w
+O3Kuo
+1qf98f
+XP61l
+cze~#
+vr+5d
+ Vq~dO
+m$5fn
+i^X# H
+f4c&m
+_PIr5lu
+]uOp<+
+.i#b9
+0P?GZ#S
+%$n _
+O0jN`e
+off.(9
+qZJuUt
+AR+&i
+>BGYQ
+uV4v]
+D;J*D
+O{nZZq
+ea%Hj
+J~F{p
+CH\}2
+8X0T;_
+T4t{v
+L!4rz
+NyzeL{|
+EclipsePatcher.dylib
+subject.CN

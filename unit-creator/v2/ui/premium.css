@@ -1,0 +1,324 @@
+/* Premium look (v2.36) — one visual layer over every screen. Loads after all other app styles and before the
+   phone layers (web/ios.css), so the iPhone Duo rail, safe-area and fold rules keep the last word.
+   Only colour, light, depth, type and motion live here: no layout sizes, no screen-edge values, no hidden
+   features (rules in docs/IPHONE-DUO-DISPLAY.md §5 still apply). Effects switch off in Lite mode
+   (html.lite), on low-end phones (html.tier-low) and with Reduce motion. */
+
+html.dbz{
+  --p-bg:#100818;--p-bg2:#1c0e2c;--p-surface:#26153a;--p-surface2:#1e102e;--p-sunk:#160b23;
+  --p-edge:#452965;--p-edge-hi:#493263;--p-text:#f4f6ff;--p-sub:#b8c3ea;--p-dim:#8e9bcb;
+  --p-gold1:#fff3b0;--p-gold2:#ffd13d;--p-gold3:#ff9412;--p-gold4:#c54e00;
+  --p-blue:#3f8cff;--p-cyan:#5fe3ff;--p-ok:#4fe0a8;--p-bad:#ff5a6e;
+  --p-gold:linear-gradient(180deg,var(--p-gold2),var(--p-gold3) 62%,#f07000);
+  --p-frame:linear-gradient(140deg,#ffd46b,#ff8c1a 22%,#523276 48%,#3f275b 78%,#ffb02e);
+  --p-glass:linear-gradient(180deg,#2d1a42e6,#1f112ff2);
+  --p-shadow:0 10px 30px #00000073,0 2px 0 #ffffff08 inset;
+  --p-ease:cubic-bezier(.2,.8,.2,1);
+  --type-accent:#ff8c1a;
+  background:var(--p-bg);
+  scrollbar-color:#ff9412aa #1c0e2c;
+}
+html.dbz[data-type="0"]{--type-accent:#502185}html.dbz[data-type="1"]{--type-accent:#22c55e}
+html.dbz[data-type="2"]{--type-accent:#a855f7}html.dbz[data-type="3"]{--type-accent:#ef4444}html.dbz[data-type="4"]{--type-accent:#f59e0b}
+
+/* ---- backdrop: ki aura, energy rays and a fine star grid, painted once (no animation) ---- */
+html.dbz body{background:transparent;color:var(--p-text);-webkit-font-smoothing:antialiased}
+html.dbz body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(70vmax 46vmax at 100% -6%,#ff8c1a30,transparent 62%),
+    radial-gradient(60vmax 50vmax at -12% 34%,#50218526,transparent 62%),
+    radial-gradient(54vmax 40vmax at 60% 118%,#8b3dff1f,transparent 64%),
+    repeating-conic-gradient(from 8deg at 96% -4%,#ffd76a0a 0deg 1.4deg,transparent 1.4deg 7deg),
+    radial-gradient(#ffffff0d 1px,transparent 1.2px) 0 0/26px 26px,
+    linear-gradient(180deg,#13091e,#100818 55%,#120a1c);}
+html.dbz.tier-low body::after,html.dbz.lite body::after{background:radial-gradient(70vmax 46vmax at 100% -6%,#ff8c1a26,transparent 62%),linear-gradient(180deg,#1b0d2a,#100818)}
+
+/* ---- type ---- */
+html.dbz h1,html.dbz h2,html.dbz h3{color:var(--p-text);text-wrap:balance}
+html.dbz .section-heading h1,html.dbz .anim-head h1,html.dbz main>h1{font-size:clamp(26px,4.2vw,40px);line-height:1.08;letter-spacing:.2px;text-shadow:0 2px 0 #00000080,0 0 24px #3f8cff33}
+html.dbz .section-heading h1::after,html.dbz .anim-head h1::after{content:"";display:block;width:64px;height:4px;margin-top:10px;border-radius:4px;background:linear-gradient(90deg,var(--p-gold2),var(--p-gold3) 60%,transparent);box-shadow:0 0 12px #ff94127a}
+html.dbz .hint,html.dbz .section-heading p,html.dbz .field small{color:var(--p-sub)}
+html.dbz .eyebrow,html.dbz .db-kicker{background:linear-gradient(90deg,var(--p-gold1),var(--p-gold2) 40%,var(--p-gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
+html.dbz ::selection{background:#ff94125c;color:#fff}
+
+/* ---- side menu ---- */
+html.dbz .sidebar{background:linear-gradient(180deg,#26143bf5,#190c29f7 70%),repeating-conic-gradient(from 0deg at 0 0,#ffffff05 0 2deg,transparent 2deg 9deg);border-right:1px solid #4a2d6c;box-shadow:inset -1px 0 #ffffff0a,8px 0 30px #00000059}
+html.dbz .brand-mark{box-shadow:0 0 0 3px #ff8c1a2e,0 0 26px #ff9412a6}
+html.dbz .brand{text-shadow:0 2px 0 #00000080}
+html.dbz .brand-second{background:linear-gradient(180deg,var(--p-gold1),var(--p-gold2) 35%,var(--p-gold3));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 #6b2a00)}
+html.dbz .nav-label{color:#7f8fc4}
+html.dbz .sidebar nav button{position:relative;border-radius:14px;color:#c5cff3;transition:background .18s var(--p-ease),color .18s,transform .18s var(--p-ease)}
+html.dbz .sidebar nav button:hover{background:#351e4f;color:#fff;transform:translateX(2px)}
+html.dbz .sidebar nav button.active{color:#fff6d6;background:linear-gradient(90deg,#ff94123d,#ff94120d 70%,transparent);box-shadow:inset 0 0 0 1px #ff94124d}
+html.dbz .sidebar nav button.active::before{content:"";position:absolute;left:-2px;top:9px;bottom:9px;width:4px;border-radius:4px;background:var(--p-gold);box-shadow:0 0 14px #ff9412}
+html.dbz .shell-side-extra button{border-radius:12px;transition:background .18s,color .18s}
+html.dbz .shell-side-extra button:hover{background:#351e4f;color:#fff}
+
+/* ---- top bar ---- */
+html.dbz .topbar{background:linear-gradient(180deg,#231236f2,#1d0e2eeb);border-bottom:1px solid #4a2d6c;box-shadow:0 1px 0 #ffffff08 inset,0 8px 24px #0000004d;position:relative}
+html.dbz .topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,#ff9412 18%,#ffd13d 42%,#3f8cff 74%,transparent);opacity:.75;pointer-events:none}
+html.dbz .breadcrumb{color:var(--p-sub)}
+html.dbz #save-state{color:var(--p-ok)}
+html.dbz .shell-icon{background:#2a173f;border:1px solid #523276;box-shadow:0 2px 0 #100818,inset 0 1px #ffffff14;transition:transform .15s var(--p-ease),border-color .15s,box-shadow .15s}
+html.dbz .shell-icon:hover{border-color:#ffb02e;box-shadow:0 0 0 3px #ff94122e,0 2px 0 #100818}
+
+/* ---- bottom tab bar / rail tab bar (positions stay in ios.css) ---- */
+html.dbz .mobile-nav{background:linear-gradient(180deg,#25133bf7,#190c29f9);box-shadow:0 -8px 24px #00000066}
+html.dbz .mobile-nav button{border-radius:14px;transition:background .18s,color .18s,transform .15s var(--p-ease)}
+html.dbz .mobile-nav button:active{transform:scale(.94)}
+html.dbz .mobile-nav button.active{background:linear-gradient(180deg,#ffe066,#ff9412 58%,#e86a00);color:#1b0d00;box-shadow:0 0 18px #ff941280,inset 0 1px #fff6;text-shadow:0 1px 0 #ffe9a8}
+
+/* ---- panels and cards: glass with a gold-to-blue frame ---- */
+html.dbz .panel,html.dbz .bld .panel{border:1.5px solid transparent;border-radius:20px;
+  background:var(--p-glass) padding-box,var(--p-frame) border-box;box-shadow:var(--p-shadow)}
+html.dbz .panel h2{font-size:clamp(18px,2.2vw,22px)}
+html.dbz .summary-card,html.dbz .export-option,html.dbz .ai-card,html.dbz .effect-card,html.dbz .asset-item,html.dbz .more-item,html.dbz .preset-card,html.dbz .set-section,html.dbz .anim-card,html.dbz .anim-step{
+  background:linear-gradient(180deg,#2a173e,#201131);border-color:#4b2d6d;box-shadow:0 6px 18px #00000047,inset 0 1px #ffffff0d}
+html.dbz .notice{border-radius:14px;background:linear-gradient(180deg,#29173e,#241337);border-color:#4f3171;color:#cfe3ff}
+html.dbz .notice.warning{background:linear-gradient(180deg,#3a2a12,#2c1f0e);border-color:#8a5a1c;color:#ffe0b0}
+html.dbz .notice.error{background:linear-gradient(180deg,#3d1622,#2c101a);border-color:#8f2f46;color:#ffd0da}
+html.dbz .notice.success{background:linear-gradient(180deg,#0f3329,#0b261f);border-color:#2b7a5f;color:#c4f5e2}
+html.dbz .bld-tip{border-radius:16px;box-shadow:0 0 0 1px #ff94122e,0 8px 22px #00000040}
+
+/* ---- unit / character tiles ---- */
+html.dbz .unit-tile,html.dbz .source-tile,html.dbz .animation-tile,html.dbz .fd-tile,html.dbz .db-tile{transition:transform .2s var(--p-ease),box-shadow .2s var(--p-ease),border-color .2s}
+html.dbz .unit-tile,html.dbz .source-tile{border-radius:18px;background:linear-gradient(180deg,#2a173e,#1e102e);border-color:#4b2d6d;box-shadow:0 8px 20px #0000004d}
+html.dbz .tile-art{background:radial-gradient(circle at 50% 60%,#ffb02e33,transparent 62%),repeating-conic-gradient(from 0deg at 50% 70%,#ffffff07 0 4deg,transparent 4deg 14deg),linear-gradient(160deg,#381f54,#201131)}
+@media (hover:hover){
+  html.dbz .unit-tile:hover,html.dbz .source-tile:hover,html.dbz .animation-tile:hover,html.dbz .fd-tile:hover,html.dbz .db-tile:hover{transform:translateY(-4px);box-shadow:0 14px 30px #00000073,0 0 0 2px #ffb02e,0 0 26px #ff941259}
+}
+html.dbz .unit-tile:active,html.dbz .source-tile:active,html.dbz .fd-tile:active,html.dbz .db-tile:active{transform:scale(.97)}
+html.dbz .chip{border-radius:999px;padding:4px 8px}
+
+/* ---- buttons ---- */
+html.dbz .button{border-radius:14px;transition:transform .14s var(--p-ease),box-shadow .18s,filter .18s,background-color .18s,border-color .18s;-webkit-user-select:none;user-select:none}
+html.dbz .button:not(.ghost):not(.subtle):not(.teal):not(.danger){background:linear-gradient(180deg,#ffffff59,#ffffff00 46%),linear-gradient(180deg,#ffe066,#ff9a10 58%,#ee6c00);border:1.5px solid #8a3c00;box-shadow:0 3px 0 #7a3200,0 0 0 1px #ffd76a33 inset,0 6px 18px #ff94124d;color:#1d0d00}
+html.dbz .button:not(.ghost):not(.subtle):not(.teal):not(.danger):hover{filter:brightness(1.07) saturate(1.05);box-shadow:0 3px 0 #7a3200,0 0 0 1px #ffe9a866 inset,0 8px 26px #ff941280}
+html.dbz .button:not(.ghost):not(.subtle):not(.teal):not(.danger):active{transform:translateY(2px);box-shadow:0 1px 0 #7a3200,0 2px 10px #ff941240}
+html.dbz .button.ghost{background:linear-gradient(180deg,#371f52,#2a1740);border:1.5px solid #523276;color:#eef2ff;box-shadow:0 3px 0 #160b23,inset 0 1px #ffffff1a}
+html.dbz .button.ghost:hover{border-color:#ffb02e;box-shadow:0 3px 0 #160b23,0 0 0 3px #ff941226,inset 0 1px #ffffff1a}
+html.dbz .button.ghost:active,html.dbz .button.subtle:active{transform:translateY(2px);box-shadow:0 1px 0 #160b23}
+html.dbz .button.subtle{border:1.5px solid #523276;color:#cdd6f7}
+html.dbz .button.subtle:hover{background:#ffffff0a;border-color:#503471;color:#fff}
+html.dbz .button.danger{background:linear-gradient(180deg,#5a1f30,#43172a);border:1.5px solid #9b3651;color:#ffd3dd;box-shadow:0 3px 0 #22080f}
+html.dbz .button:disabled,html.dbz .button[aria-disabled=true]{filter:grayscale(.7) brightness(.8);box-shadow:none;transform:none}
+html.dbz .text-button:hover{color:#ffd27a}
+
+/* ---- form controls ---- */
+html.dbz input:not([type=checkbox]):not([type=radio]):not([type=range]),html.dbz select,html.dbz textarea{background:linear-gradient(180deg,#160b23,#1c0e2c);border:1.5px solid #4b2e6c;border-radius:12px;box-shadow:inset 0 2px 6px #0000004d;transition:border-color .15s,box-shadow .15s}
+html.dbz input:not([type=checkbox]):not([type=radio]):not([type=range]):hover,html.dbz select:hover,html.dbz textarea:hover{border-color:#493263}
+html.dbz input:focus,html.dbz select:focus,html.dbz textarea:focus{border-color:#ffb02e;box-shadow:0 0 0 3px #ff941238,inset 0 2px 6px #0000004d}
+html.dbz select{-webkit-appearance:none;appearance:none;padding-right:34px!important;background-image:linear-gradient(45deg,transparent 50%,#ffc23c 50%),linear-gradient(135deg,#ffc23c 50%,transparent 50%),linear-gradient(180deg,#160b23,#1c0e2c);background-position:calc(100% - 18px) 52%,calc(100% - 12px) 52%,0 0;background-size:6px 6px,6px 6px,100% 100%;background-repeat:no-repeat}
+html.dbz input[type=checkbox],html.dbz input[type=radio]{accent-color:var(--p-gold3)}
+html.dbz input[type=range]{accent-color:var(--p-gold3)}
+html.dbz .field{color:#c9d3f5}
+html.dbz .check-item{border-radius:12px;background:#1f1030;border-color:#4b2d6d}
+html.dbz .check-item:has(input:checked){background:linear-gradient(180deg,#3a2810,#2a1c0b);border-color:#d07a1c;box-shadow:0 0 0 1px #ff94124d}
+
+/* ---- choice pills / filters / segmented choices ---- */
+html.dbz .bld-pill,html.dbz .bld-kind,html.dbz .set-choice,html.dbz .tour-choice,html.dbz .perf-choice,html.dbz .of-opt,html.dbz .fd-chip,html.dbz .preset-tabs button,html.dbz .anim-size-option{transition:background .16s,border-color .16s,box-shadow .16s,transform .14s var(--p-ease)}
+html.dbz .bld-pill:active,html.dbz .bld-kind:active,html.dbz .fd-chip:active{transform:scale(.96)}
+html.dbz .bld-pill.on,html.dbz .bld-kind.on,html.dbz .set-choice.on,html.dbz .tour-choice.on,html.dbz .perf-choice.on,html.dbz .preset-tabs button.on{box-shadow:0 0 0 2px #ffb02e,0 0 18px #ff941259}
+
+/* ---- card builder ---- */
+html.dbz .bld-heading h1{text-shadow:0 3px 0 #00000099,0 0 28px color-mix(in srgb,var(--type-accent) 45%,transparent)}
+html.dbz .bld-tabs{gap:8px;padding-bottom:6px}
+@media (min-width:900px){html.dbz .bld-tabs{flex-wrap:wrap;overflow:visible}}
+html.dbz .bld-tab{transition:background .18s,color .18s,box-shadow .18s,transform .14s var(--p-ease)}
+html.dbz .bld-tab:hover{box-shadow:0 0 0 1.5px #ffb02e99}
+html.dbz .bld-tab.active{background:linear-gradient(180deg,#ffffff4d,#ffffff00 50%),linear-gradient(180deg,#ffe066,#ff9a10 60%,#ee6c00);color:#1b0d00;box-shadow:0 0 0 1.5px #8a3c00,0 6px 20px #ff941266}
+html.dbz .bld-card{box-shadow:0 0 0 1px #ffffff14 inset,0 16px 40px #00000080,0 0 34px color-mix(in srgb,var(--type-accent) 35%,transparent)}
+html.dbz .bld-card-art{background:radial-gradient(circle at 50% 62%,color-mix(in srgb,var(--type-accent) 45%,transparent),transparent 62%),repeating-conic-gradient(from 0deg at 50% 70%,#ffffff0a 0 3deg,transparent 3deg 12deg)}
+html.dbz .bld-card-stats div{background:linear-gradient(180deg,#26153a,#1b0e2a);border:1px solid #4b2d6d;border-radius:12px}
+html.dbz .bld-ability,html.dbz .bld-group,html.dbz .bld-subability{border-radius:16px;transition:border-color .18s,box-shadow .18s}
+html.dbz .bld-ability:hover{border-color:#493263}
+html.dbz .bld-ability.open,html.dbz .bld-subability.open{border-color:#ffb02e;box-shadow:0 0 0 1px #ff94124d,0 10px 26px #00000059}
+html.dbz .bld-icon{box-shadow:0 0 14px #ff941259}
+html.dbz .bld-footer{border-top:1px solid #452965}
+html.dbz .bld-more summary{transition:border-color .15s}
+html.dbz .bld-godly-ribbon{background:linear-gradient(90deg,#7a2bff,#ff3d9a 45%,#ffb02e);box-shadow:0 0 18px #ff3d9a66}
+
+/* ---- "Put it in your game" ---- */
+html.dbz .send-btn{transition:transform .14s var(--p-ease),box-shadow .2s,filter .2s}
+@media (hover:hover){html.dbz .send-btn:hover{transform:translateY(-3px);filter:brightness(1.08)}}
+html.dbz .send-btn:active{transform:scale(.97)}
+
+/* ---- dialogs and sheets ---- */
+html.dbz dialog,html.dbz .aic-dialog{border:1.5px solid transparent;background:linear-gradient(180deg,#2d1a42,#1e102e) padding-box,var(--p-frame) border-box;box-shadow:0 30px 80px #000000b3,0 0 0 1px #ffffff0a inset}
+html.dbz dialog::backdrop{background:radial-gradient(circle at 50% 30%,#3a1f5899,#0b0611e0 70%)}
+html.dbz dialog[open]{animation:p-pop .24s var(--p-ease)}
+html.dbz dialog[open]::backdrop{animation:p-fade .24s ease}
+html.dbz .sheet-head{border-bottom:1px solid #452965}
+
+/* ---- toast, busy card, progress ---- */
+html.dbz #toast{border-radius:999px;background:linear-gradient(180deg,#123a2e,#0b2a21);border:1.5px solid #3fbf8a;color:#d6ffee;box-shadow:0 12px 30px #00000080,0 0 20px #4fe0a833}
+html.dbz #toast.error{background:linear-gradient(180deg,#45182a,#30101d);border-color:#ff5a6e;color:#ffd6de;box-shadow:0 12px 30px #00000080,0 0 20px #ff5a6e33}
+html.dbz .busy-card{border:1.5px solid transparent;background:linear-gradient(180deg,#2d1a42,#1e102e) padding-box,var(--p-frame) border-box;border-radius:22px;box-shadow:0 30px 80px #000000b3}
+html.dbz .spinner{border-color:#452965;border-top-color:#ffb02e;box-shadow:0 0 18px #ff941259}
+html.dbz progress{accent-color:var(--p-gold3)}
+
+/* ---- tables, details, misc ---- */
+html.dbz .bld-table th,html.dbz .asset-table th{color:#ffd27a}
+html.dbz details>summary{transition:color .15s}
+html.dbz details>summary:hover{color:#ffd27a}
+html.dbz .count{background:linear-gradient(180deg,#ffd13d,#ff9412);color:#1d0d00;font-weight:700}
+html.dbz .empty{border-color:#523276;background:linear-gradient(180deg,#261439cc,#1b0e2acc)}
+html.dbz :focus-visible{outline:2px solid #ffc23c;outline-offset:3px}
+html.dbz .db-hero{box-shadow:0 18px 50px #000000a6,0 0 0 1px #ffd76a33 inset,0 0 60px #ff94122e}
+html.dbz .db-hero::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:repeating-conic-gradient(from 0deg at 78% 40%,#ffffff0d 0 1.6deg,transparent 1.6deg 8deg);-webkit-mask:radial-gradient(circle at 78% 40%,#000 0 30%,transparent 72%);mask:radial-gradient(circle at 78% 40%,#000 0 30%,transparent 72%)}
+html.dbz.lite .db-hero::after,html.dbz.tier-low .db-hero::after{display:none}
+@media (hover:hover) and (pointer:fine){
+  html.dbz ::-webkit-scrollbar{width:11px;height:11px}
+  html.dbz ::-webkit-scrollbar-track{background:#160b23}
+  html.dbz ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffb02e,#e06a00);border-radius:10px;border:3px solid #160b23}
+}
+
+/* ---- screen changes: content rises in (premium.js adds .p-enter for one moment) ---- */
+html.dbz #main.p-enter>*{animation:p-rise .32s var(--p-ease) both}
+html.dbz #main.p-enter>*:nth-child(2){animation-delay:.03s}
+html.dbz #main.p-enter>*:nth-child(3){animation-delay:.06s}
+html.dbz #main.p-enter>*:nth-child(n+4){animation-delay:.09s}
+html.dbz .bld-main.p-enter{animation:p-rise .26s var(--p-ease) both}
+@keyframes p-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes p-pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes p-fade{from{opacity:0}to{opacity:1}}
+html.lite.dbz #main.p-enter>*,html.lite.dbz .bld-main.p-enter,html.lite.dbz dialog[open],html.tier-low.dbz #main.p-enter>*,html.tier-low.dbz .bld-main.p-enter{animation:none}
+html.lite.dbz .sidebar nav button:hover{transform:none}
+@media (prefers-reduced-motion:reduce){html.dbz #main.p-enter>*,html.dbz .bld-main.p-enter,html.dbz dialog[open],html.dbz dialog[open]::backdrop{animation:none}}
+
+/* ---- chips: finder filters, settings jump bar, library filters, plain tab rows ---- */
+html.dbz .fd-chip,html.dbz .set-jump button,html.dbz .tabs button,html.dbz .preset-tabs button{background:linear-gradient(180deg,#311b4a,#27153b);border:1.5px solid #523177;color:#dbe3ff;box-shadow:inset 0 1px #ffffff14,0 2px 0 #100818}
+@media (hover:hover){html.dbz .fd-chip:hover,html.dbz .set-jump button:hover,html.dbz .tabs button:hover{border-color:#ffb02e;color:#fff}}
+html.dbz .fd-chip.on,html.dbz .tabs button.active,html.dbz .preset-tabs button.on{background:linear-gradient(180deg,#ffffff4d,#ffffff00 50%),linear-gradient(180deg,#ffe066,#ff9a10 60%,#ee6c00);border-color:#8a3c00;color:#1b0d00;box-shadow:0 0 14px #ff941266}
+html.dbz .fd-chip.t0.on{background:linear-gradient(180deg,#ffffff40,#ffffff00 50%),#4e247d;border-color:#512584;color:#fff;box-shadow:0 0 14px #4e247d80}
+html.dbz .fd-chip.t1.on{background:linear-gradient(180deg,#ffffff40,#ffffff00 50%),#24a852;border-color:#146a33;color:#fff;box-shadow:0 0 14px #24a85280}
+html.dbz .fd-chip.t2.on{background:linear-gradient(180deg,#ffffff40,#ffffff00 50%),#9a4ee6;border-color:#5e2a96;color:#fff;box-shadow:0 0 14px #9a4ee680}
+html.dbz .fd-chip.t3.on{background:linear-gradient(180deg,#ffffff40,#ffffff00 50%),#e2453c;border-color:#8f2420;color:#fff;box-shadow:0 0 14px #e2453c80}
+html.dbz .fd-chip.t4.on{background:linear-gradient(180deg,#ffffff40,#ffffff00 50%),#f08c00;border-color:#8a4f00;color:#1b0d00;box-shadow:0 0 14px #f08c0080}
+/* the hero keeps its solid gold kicker (gradient text would sink into the orange) */
+html.dbz .db-hero .db-kicker,html.dbz .db-hero .eyebrow{background:none;color:#ffe08a;-webkit-text-fill-color:currentColor;text-shadow:0 2px 0 #00000080}
+
+/* ---- builder fields (beat the more specific builder.css field rules) ---- */
+html.dbz .bld .field input:not([type=checkbox]):not([type=radio]):not([type=range]),html.dbz .bld .field textarea{background:linear-gradient(180deg,#160b23,#1c0e2c);border:1.5px solid #4b2e6c;border-radius:12px;box-shadow:inset 0 2px 6px #0000004d}
+html.dbz .bld .field select{border:1.5px solid #4b2e6c;border-radius:12px;background-color:#190c27}
+html.dbz .bld .field input:focus,html.dbz .bld .field select:focus,html.dbz .bld .field textarea:focus{border-color:#ffb02e;box-shadow:0 0 0 3px #ff941238}
+
+/* ---- ability editor: each part is a numbered step card (1 What it does · 2 Who gets it · 3 When · 4 Needs …) ---- */
+html.dbz .bld-ability,html.dbz .bld-subability{counter-reset:pfstep}
+html.dbz .pf-sec{border:1px solid #452965;border-radius:16px;padding:14px 14px 8px;margin:12px 0 0;background:linear-gradient(180deg,#241337b3,#1c0e2cb3)}
+html.dbz .pf-sec h4{counter-increment:pfstep;display:flex;align-items:center;gap:10px;font-family:"DB Russo",system-ui,sans-serif;font-weight:400;font-size:15px;color:#ffe08a}
+html.dbz .pf-sec h4::before{content:counter(pfstep);flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;font-size:12.5px;color:#1b0d00;background:linear-gradient(180deg,#ffe066,#ff9412);box-shadow:0 0 10px #ff941266}
+html.dbz .pf-summary{border-radius:16px;background:linear-gradient(180deg,#0f2d26,#0b221d);border-color:#2b7a5f;box-shadow:inset 0 1px #ffffff0d}
+html.dbz .pf-item{background:linear-gradient(180deg,#2a173e,#201131);border:1.5px solid #4b2d6d;border-radius:14px;transition:border-color .16s,box-shadow .16s,transform .14s var(--p-ease)}
+@media (hover:hover){html.dbz .pf-item:hover{border-color:#ffb02e;box-shadow:0 0 0 3px #ff941226}}
+html.dbz .pf-item:active{transform:scale(.98)}
+html.dbz .pf-icon{background:linear-gradient(180deg,#3a2810,#2a1c0b)!important;box-shadow:inset 0 0 0 1px #ff94124d}
+html.dbz .pf-quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+html.dbz .pf-quick-btn{min-height:34px;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:700;background:linear-gradient(180deg,#311b4a,#27153b);border:1.5px solid #523177;color:#dbe3ff}
+html.dbz .pf-quick-btn.on{background:linear-gradient(180deg,#ffe066,#ff9412);border-color:#8a3c00;color:#1b0d00;box-shadow:0 0 12px #ff941266}
+
+/* =====================================================================================================
+   ---- secondary screens (v2.36 polish): Animations timeline, Movies, Combat practice, Assets & data,
+   AI helpers, Downloads, Quick Create, More / Help / Templates sheets and library patch tiles.
+   Colour, border, shadow, radius and type only — sizes, positions and safe-area values stay where they are.
+   ===================================================================================================== */
+
+/* shared glass cards that were still flat grey */
+html.dbz .help-topic,html.dbz .tl-trim-card,html.dbz .sl .sl-whole,html.dbz .pt-top,html.dbz .anim-size,html.dbz .animation-gallery-card,html.dbz .sequence-unit-choice,html.dbz .imp-card,html.dbz .ucopy-item,html.dbz .ucopy-change,html.dbz .creation-start-options,html.dbz .creation-context,html.dbz .creation-source-intro,html.dbz .form-preview{
+  background:linear-gradient(180deg,#2a173e,#201131);border-color:#4b2d6d;box-shadow:0 6px 18px #00000047,inset 0 1px #ffffff0d}
+/* cards with a coloured clip stripe on the left keep it */
+html.dbz .sl-move,html.dbz .pt-card{background:linear-gradient(180deg,#2a173e,#201131);border-top-color:#4b2d6d;border-right-color:#4b2d6d;border-bottom-color:#4b2d6d;box-shadow:0 6px 18px #00000047,inset 0 1px #ffffff0d}
+html.dbz .sequence-unit-choice:hover,html.dbz .animation-gallery-card:hover{border-color:#493263}
+
+/* dialogs that set their own grey panel colour */
+html.dbz .movie-editor-dialog,html.dbz .sequence-picker,html.dbz .shell-sheet{border:1.5px solid transparent;background:linear-gradient(180deg,#2d1a42,#1e102e) padding-box,var(--p-frame) border-box;color:var(--p-text)}
+
+/* sheet close buttons (Help, More, Templates, Quick Create) */
+html.dbz .sheet-head .icon-button,html.dbz #qc-close{background:linear-gradient(180deg,#371f52,#2a1740);border:1.5px solid #523276;color:#ffd27a;box-shadow:0 3px 0 #160b23,inset 0 1px #ffffff1a;transition:border-color .15s,box-shadow .15s,transform .14s var(--p-ease)}
+html.dbz .sheet-head .icon-button:hover,html.dbz #qc-close:hover{border-color:#ffb02e;box-shadow:0 3px 0 #160b23,0 0 0 3px #ff941226}
+html.dbz .sheet-head .icon-button:active,html.dbz #qc-close:active{transform:translateY(2px);box-shadow:0 1px 0 #160b23}
+
+/* small round/square tool buttons on the timeline and movie steps */
+html.dbz .tl-icon,html.dbz .tl-tool,html.dbz .sl-icon,html.dbz .sl-nudge,html.dbz .movie-steps button{background:linear-gradient(180deg,#371f52,#2a1740);border:1.5px solid #523276;color:#eef2ff;box-shadow:0 2px 0 #160b23,inset 0 1px #ffffff14;transition:border-color .15s,box-shadow .15s,transform .14s var(--p-ease)}
+@media (hover:hover){html.dbz .tl-icon:hover,html.dbz .tl-tool:hover,html.dbz .sl-icon:hover,html.dbz .sl-nudge:hover,html.dbz .movie-steps button:hover{border-color:#ffb02e}}
+html.dbz .tl-icon:active,html.dbz .tl-tool:active,html.dbz .sl-nudge:active,html.dbz .movie-steps button:active{transform:translateY(1px);box-shadow:0 1px 0 #160b23}
+html.dbz .movie-steps button.on,html.dbz .movie-steps button.active,html.dbz .movie-steps button[aria-current=step],html.dbz .movie-steps button[aria-selected=true]{background:linear-gradient(180deg,#ffffff4d,#ffffff00 50%),linear-gradient(180deg,#ffe066,#ff9a10 60%,#ee6c00);border-color:#8a3c00;color:#1b0d00}
+html.dbz .movie-step{border-top-color:#452965}
+
+/* ---- Animations: timeline ---- */
+html.dbz .tl-name{background:linear-gradient(180deg,#160b23,#1c0e2c)}
+html.dbz .tl-view{background:linear-gradient(180deg,#160b23,#1b0e2a);border-color:#452965;box-shadow:inset 0 2px 10px #00000066}
+html.dbz .tl-ruler{border-bottom-color:#392254}
+html.dbz .tl-tick{background:#4b2d6d}
+html.dbz .tl-tick.tl-major{background:#493263;color:#a9b6e6}
+html.dbz .tl-music{background:linear-gradient(180deg,#371f54,#2a1740);color:#cfdaff;box-shadow:inset 0 0 0 1px #523276}
+html.dbz .tl-play{box-shadow:0 3px 0 #7a3200,0 0 16px #ff941259,inset 0 1px #fff6}
+html.dbz .tl-play.tl-loading,html.dbz .anim-empty .anim-watch{background:#371f52;color:#9aa8d8;box-shadow:none}
+html.dbz .tl-summary,html.dbz .tl-tools-hint{color:var(--p-sub)}
+html.dbz .tl-empty-art{box-shadow:0 0 0 3px #ff8c1a2e,0 0 30px #ff94128c}
+html.dbz .sl-track{background:repeating-linear-gradient(135deg,#392254 0 6px,#2d1a42 6px 12px)}
+html.dbz .pt-progress-track,html.dbz .pt-bar{background:#1c0e2c;box-shadow:inset 0 1px 3px #00000080}
+
+/* ---- Combat practice / Assets & data: "more about this" boxes and frames ---- */
+html.dbz .beginner-details,html.dbz .database-details,html.dbz .creation-preview-settings,html.dbz .creation-animation-tools{border-color:#4b2d6d;background:linear-gradient(180deg,#241337b3,#1c0e2cb3);border-radius:14px}
+html.dbz .beginner-details[open]{border-color:#493263}
+html.dbz fieldset#combat-training{border-color:#4b2d6d;border-radius:16px}
+html.dbz fieldset#combat-training legend{color:#ffe08a}
+html.dbz .combat-workshop{--combat-line:#4b2d6d}
+html.dbz .combat-workshop .combat-meter{background:#160b23;border-color:#452965}
+html.dbz .combat-workshop .combat-arena{border-color:#523276;box-shadow:0 10px 30px #00000073,inset 0 0 0 1px #ffffff0a}
+
+/* ---- AI helpers: the three task cards keep their colour, now in the glass style ---- */
+html.dbz .creation-task{background:linear-gradient(135deg,#3b2357,#201131 70%);border:1.5px solid #523276;box-shadow:0 8px 22px #0000004d,inset 0 1px #ffffff12;transition:border-color .16s,box-shadow .16s,transform .14s var(--p-ease)}
+html.dbz .creation-task:nth-child(2){background:linear-gradient(135deg,#0d3a48,#201131 70%);border-color:#2a8a8c}
+html.dbz .creation-task:nth-child(3){background:linear-gradient(135deg,#311d66,#201131 70%);border-color:#7a52c8}
+html.dbz .creation-task small{color:var(--p-sub)}
+@media (hover:hover){html.dbz .creation-task:hover{border-color:#ffb02e;box-shadow:0 10px 26px #00000066,0 0 0 3px #ff941226}}
+html.dbz .creation-task:active{transform:scale(.98)}
+
+/* ---- Downloads ---- */
+html.dbz .of-tile,html.dbz .of-opt{background:linear-gradient(180deg,#2a173e,#201131);border-color:#4b2d6d;box-shadow:0 6px 18px #00000040,inset 0 1px #ffffff0d}
+html.dbz .of-tile.of-eclipse:has(input:checked),html.dbz .of-opt:has(input:checked){background:linear-gradient(180deg,#3a2810,#22170a);border-color:#ffb02e;box-shadow:0 0 0 1px #ff94124d,0 0 22px #ff941240}
+html.dbz .of-tile-check{border-color:#493263}
+html.dbz .of-tile input:checked+.of-tile-check{background:linear-gradient(180deg,#ffe066,#ff9412);border-color:#ffb02e;box-shadow:0 0 12px #ff941280}
+html.dbz .of-tile.of-spark{background:linear-gradient(135deg,#251a52,#201131 75%);border-color:#6a48c8;box-shadow:0 6px 18px #00000040,0 0 0 1px #8a5cff33}
+html.dbz .of-tile.of-spark:has(input:checked){background:linear-gradient(135deg,#3a2680,#36204f);border-color:#a77bff;box-shadow:0 0 0 1px #a77bff66,0 0 22px #8a5cff4d}
+html.dbz .of-tile.of-spark input:checked+.of-tile-check{background:linear-gradient(180deg,#c9a8ff,#8a5cff);border-color:#a77bff;box-shadow:0 0 12px #8a5cff80}
+html.dbz .of-switch{background:#452965!important}
+html.dbz .of-switch:checked{background:#8a5cff!important}
+html.dbz .of-all{color:#dbe3ff;opacity:1}
+
+/* ---- Quick Create ---- */
+/* selected filter chips sit in sideways-scrolling rows: a tight ring instead of a wide glow, so the glow is not cut into a box */
+html.dbz .fd-row .fd-chip.on{box-shadow:inset 0 1px #ffffff59,0 0 0 1px #ffd76a66}
+html.dbz .fd-tile{background:linear-gradient(180deg,#2a173e,#201131);border-color:#4b2d6d;box-shadow:0 4px 12px #00000040}
+html.dbz #qc-dialog select,html.dbz .fd select{border-color:#4b2e6c}
+html.dbz .qc-pick{background:linear-gradient(180deg,#311a4a,#231337);border-color:#523177}
+html.dbz .qc-steps li{box-shadow:inset 0 1px #ffffff0d}
+html.dbz .qc-steps li.on{box-shadow:0 0 14px #ff941259,inset 0 1px #fff6}
+
+/* ---- More sheet / Templates: gold icon wells ---- */
+html.dbz .more-icon,html.dbz .preset-icon{background:linear-gradient(180deg,#3a2810,#2a1c0b);box-shadow:inset 0 0 0 1px #ff94124d,0 2px 8px #00000059}
+@media (hover:hover){html.dbz .more-item:hover,html.dbz .preset-card:hover{border-color:#ffb02e;box-shadow:0 0 0 3px #ff941226,0 6px 18px #00000047}}
+html.dbz .more-item,html.dbz .preset-card{transition:border-color .16s,box-shadow .16s}
+html.dbz .more-group{color:#ffe08a}
+
+/* ---- Help: topic links as chips ---- */
+html.dbz .help-link{background:linear-gradient(180deg,#311b4a,#27153b);border-color:#523177;color:#dbe3ff}
+html.dbz .help-link:hover{background:linear-gradient(180deg,#3b2158,#2e1847);border-color:#ffb02e;color:#fff}
+html.dbz .help-link.on{background:linear-gradient(180deg,#ffffff4d,#ffffff00 50%),linear-gradient(180deg,#ffe066,#ff9a10 60%,#ee6c00);border-color:#8a3c00;color:#1b0d00}
+
+/* ---- small chips (movies, library tiles, patch tiles) ---- */
+html.dbz .chip:not(.has-rb){background:#371f52;color:#dbe3ff;box-shadow:inset 0 0 0 1px #523276}
+html.dbz .chip.teal{background:#0f3329;color:#8ff0c8;box-shadow:inset 0 0 0 1px #2b7a5f}
+html.dbz .chip.orange{background:#3a2810;color:#ffc23c;box-shadow:inset 0 0 0 1px #ff94124d}
+html.dbz .patch-tile{background:linear-gradient(180deg,#ffb02e14,transparent 40%),linear-gradient(180deg,#2a173e,#1e102e);box-shadow:0 8px 20px #0000004d,inset 0 2px 0 #ffb02e66}
+html.dbz .patch-files p{border-bottom-color:#452965}
+html.dbz .button.subtle.tile-delete{border-color:#7a2f48;color:#ffb3c4}
+
+/* motion off where effects are off */
+html.lite.dbz .creation-task,html.lite.dbz .tl-icon,html.lite.dbz .tl-tool,html.tier-low.dbz .creation-task,html.tier-low.dbz .tl-icon,html.tier-low.dbz .tl-tool{transition:none}
+html.lite.dbz .creation-task:active,html.tier-low.dbz .creation-task:active{transform:none}
+@media (prefers-reduced-motion:reduce){html.dbz .creation-task,html.dbz .tl-icon,html.dbz .tl-tool,html.dbz .sl-nudge,html.dbz .movie-steps button,html.dbz .sheet-head .icon-button,html.dbz #qc-close{transition:none}html.dbz .creation-task:active{transform:none}}
+html.dbz .beginner-details.combat-scope{border-left-color:#ffb02e}
+

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "images": [
+    {
+      "file": "settled-production-login.png",
+      "attachment_name": "Production login \u2014 no credentials entered",
+      "payload_reference": "0~u3qsk489l645aMAOUzsAVnzkMqqSjD1LaOPIKR8uHCHdB4khR79YeqvURqX7OQiAzSImmJDfdUb9nuYRVY0X_w==",
+      "bytes": 284383,
+      "sha256": "68557deb0368e2f99d56c961152e73fc0e274c61fc690f05ac8aaa3dd69f15df",
+      "run_id": 40747684017,
+      "source_commit": "0e48c9e183990b045eb134cb7fa6f5da30f7506c",
+      "scope": "Original settled production view; hosted Duo simulator, no Apple credentials or physical phone. No image edits."
+    },
+    {
+      "file": "settled-production-settings.png",
+      "attachment_name": "Production settings \u2014 expiry visible",
+      "payload_reference": "0~7bO5DCjkKlb5NuQiTs2cwQgK9rCsnXQujr9iZJY13iQObm_nz5-dN4ClG9DgsyTZWQODh0ElS7VVfN98GUC36A==",
+      "bytes": 798121,
+      "sha256": "e776c160c9b35c002a5cb5bcc48296630c3d74dd8f0a9a1663be6a839d452094",
+      "run_id": 40747684017,
+      "source_commit": "0e48c9e183990b045eb134cb7fa6f5da30f7506c",
+      "scope": "Original settled production view; hosted Duo simulator, no Apple credentials or physical phone. No image edits."
+    },
+    {
+      "file": "responsive-narrow.png",
+      "attachment_name": "TEST-ONLY resize/camera  390x844",
+      "payload_reference": "0~tBqddqd0mMmOowi6WIVqHomW0M6dGd9A58laKiHIqDdWfNVaq3nXaA9Jv48PLfpDMu7m7HgdrgbD7_D4gwILhQ==",
+      "bytes": 551169,
+      "sha256": "0e0a892a080ff7281a2de5f7afda9594c26c076bbe4b802a93f468d33db651fe",
+      "pixel_dimensions": [
+        1170,
+        2532
+      ],
+      "run_id": 40749191964,
+      "source_commit": "337882604fd5707f8a91acaa18b97f6eda67d7d2",
+      "scope": "Original rendered TEST-ONLY geometry/service fixture, hosted Duo simulator. No real account/install/fold claim. No image edits."
+    },
+    {
+      "file": "responsive-wide.png",
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_reference": "0~nGvWfSSXZLP1LzF_7w0PLdIbC9QfPWoMMknz0uRBGPXQ3G3zsUPbyRjmsMUrqx9rB8qdZ-QoYcH1hb-uqYcPxA==",
+      "bytes": 744025,
+      "sha256": "eb53945981175f0ba2f4b97d528f550e06cd77205d2f55e185114639b60a8b6d",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "run_id": 40749191964,
+      "source_commit": "337882604fd5707f8a91acaa18b97f6eda67d7d2",
+      "scope": "Original rendered TEST-ONLY geometry/service fixture, hosted Duo simulator. No real account/install/fold claim. No image edits."
+    },
+    {
+      "file": "responsive-side-rail.png",
+      "attachment_name": "TEST-ONLY resize/camera right 466x678",
+      "payload_reference": "0~4ziEWqUefzLHZuBHX32DksACwn9cPgZn-aIjrjeVEuh-iux8yZILTY6nDtDrwkePA-c5L8OF-zPQjmb0Kf-3hA==",
+      "bytes": 555557,
+      "sha256": "f8677c9a05d3d66ce30d7343117c4d7f377c0efe41269cd92b10d72efcb344ba",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "run_id": 40749191964,
+      "source_commit": "337882604fd5707f8a91acaa18b97f6eda67d7d2",
+      "scope": "Original rendered TEST-ONLY geometry/service fixture, hosted Duo simulator. No real account/install/fold claim. No image edits."
+    },
+    {
+      "file": "accessibility-main-narrow.png",
+      "attachment_name": "Actual UIKit maximum accessibility trait \u2014 TEST-ONLY main width 390",
+      "payload_reference": "0~ht8fH9oSxEitZnr8Do1ck-odv_6ZlpqmxdMhbtnYVkw3FZdDawPZ9-PMjic244fhCZoNLcuWuZdH30oqqnc9RQ==",
+      "bytes": 271577,
+      "sha256": "d2e51ba240078a050bd54b6a9c3dba78aefa63807e141d4dabcf850410075f05",
+      "pixel_dimensions": [
+        1170,
+        2532
+      ],
+      "run_id": 40758076164,
+      "source_commit": "eeae1484059827148fda8f240e1c480f96bbcdf2",
+      "scope": "Original actual maximum UIKit accessibility traits; TEST-ONLY main service metadata or production Settings; hosted Duo simulator. No image edits, account, physical or fold claims."
+    },
+    {
+      "file": "accessibility-main-wide.png",
+      "attachment_name": "Actual UIKit maximum accessibility trait \u2014 TEST-ONLY main width 669",
+      "payload_reference": "0~LaIqzObXsVcCwMEQQsfGwNpNsWPUKEKCSQTXGxiiUUGHAHSADqiCwfWlV6LpXrpEXy_oJPs7nYpCNFE27Wx_Mg==",
+      "bytes": 373703,
+      "sha256": "3e2827ef568c0a5349180ea7b31a5e54155a7c76e8ad88fd758cae4b1e8448f2",
+      "pixel_dimensions": [
+        2007,
+        2532
+      ],
+      "run_id": 40758076164,
+      "source_commit": "eeae1484059827148fda8f240e1c480f96bbcdf2",
+      "scope": "Original actual maximum UIKit accessibility traits; TEST-ONLY main service metadata or production Settings; hosted Duo simulator. No image edits, account, physical or fold claims."
+    }
+  ]
+}

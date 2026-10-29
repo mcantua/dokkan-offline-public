@@ -1,0 +1,4 @@
+# Copy this file to config/private.local. That copy is gitignored.
+# Set the real phone identifier and device address only on your machine.
+DUO_UDID=00000000-0000000000000000
+OFFLINE_DEVICE_HOST=device-host.invalid

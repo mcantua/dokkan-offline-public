@@ -1,0 +1,69 @@
+Dokkan Unit Forge optional local video and game-sound converter
+
+converter.js, converter-worker.js, audio-decoder.js and audio-worker.js:
+GPL-3.0-or-later.
+Copyright 2026 Dokkan Unit Forge contributors.
+
+The independently loaded ffmpeg-core.js and ffmpeg-core.wasm are the unmodified
+single-thread @ffmpeg/core 0.12.10 release. Upstream declares GPL-2.0-or-later;
+we distribute this converter combination under GPL-3.0-or-later. Individual
+third-party files retain their original notices and licensing. No private
+server, paid API, device account, or SharedArrayBuffer is required to convert.
+
+AV1 software playback additionally uses unmodified libav.js6.10.9.0 LGPL/BSD
+variants av1-opus and webm-vp9-cli. Its libaom decoder works without native AV1
+hardware, decoding one IVF packet at a time into a VP8 intermediate before MP4
+preparation. 10-bit AV1 is converted to browser-compatible 8-bit output.
+
+Full corresponding upstream sources, including FFmpeg 5.1.4 and9.0, codec libraries,
+FFmpeg.wasm bindings/build scripts, Emscripten 3.1.40 and SDL2 2.24.2, are supplied
+in the accompanying Dokkan-Unit-Forge-Media-Corresponding-Source.zip. The exact
+source revisions and archive SHA256 values are recorded in the adjacent
+corresponding-source-manifest.json andlibav-source-manifest.json. Relevant license texts are in licenses/.
+Build preparation instructions and pinned source archives are in that ZIP.
+
+The sources match upstream release build references. Mutable references were
+resolved to commits older than npm publication; no bit-for-bit reproducibility
+claim is made because upstream Docker/system package inputs are not frozen.
+
+This module provides media preparation, not proof that every game movie or
+animation has been verified. Preserve this notice and ship corresponding
+sources with any redistributed compiled core.
+
+Audio preparation uses the same unmodified FFmpeg core for PCM muxing, gain,
+resampling and supported HCA fallback. Common plain ADX is first decoded by the
+original native-arithmetic helper into WAV. Actual supplied banks tested here
+contain ADX; availability
+of a codec does not establish encrypted HCA or every Atom cue is verified.
+Original Forge bank parsing/default routing and fixed-origin movie-source helper
+are supplied as accompanying application sources with their existing notices.
+
+The portable visual editor uses the same existing unmodified FFmpeg/LibAV WASM
+files. Its editor, streaming VP9 and AV1 normalization adapters are original
+GPL-3.0-or-later source. The original MIT native-adx.js arithmetic codec writes
+plain native-compatible ADX version4 movie sound; FFmpeg's ADX scale convention
+and predictor rounding differ from the supplied original CRI decoder. Exact
+original native decoder comparisons are documented separately from playback.
+Source input/planning/USM writer helpers retain their own notices. All authored
+helpers and their hash manifest accompany the corresponding-source archive.
+
+The original MIT hca-metadata.js helper validates bounded HCA headers/frame CRCs,
+logical delay/padding and loop sample ranges. Tested HCA2.0 cipher0 and public
+static cipher1 sources are copied/normalized, trimmed and polarity-corrected to
+match independently executed original game decoding before playback/editing.
+Original compressed source bytes are preserved. Static type1 follows the public
+MIT VGAudio CriHcaKey permutation, with fresh frame/header CRCs. Tests use original synthetic audio, not copied
+game sounds. Other encrypted/untested HCA is not claimed verified. No additional
+codec binary is shipped; the same unmodified FFmpeg core decodes HCA payloads.
+
+The original MIT preview-bgm.js and preview-bgm-source.js adapters bind move
+music to fixed native metadata and the exact successfully bound Lua source.
+They use this existing decoder worker and original AudioBus master/capture;
+no new codec binary or original game music is included in this module. Music
+is resolved from the user's imported resources or its fixed authorized public
+source through the existing preview transport and offline cache. Native codec,
+preview graph and capture verification remain separate from actual game mixer,
+physical-device and combat testing. The corresponding source includes both
+adapters alongside the independent converter's existing GPL license.
+
+Forge stage-recorder.js and stage-record-worker.js are original GPL-3.0-or-later adapters for fixed own-preview native snapshots and local streamed VP9/AAC recording; upstream LibAV/FFmpeg/libvpx retain the licenses listed above. Native snapshot/save controllers and Forge audio/context helpers are original MIT source. No original game music or captured game movies are included in the corresponding-source archive.

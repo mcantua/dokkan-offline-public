@@ -1,0 +1,10 @@
+   Compiling app-installer-core v0.1.0 (/workspace/AI-Workspace/claude-chatg/app-installer/core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.75s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/app_installer_core-6480b24743408d6a)
+
+running 2 tests
+test engine::tests::refresh_recovery_preinstall_failure_still_refreshes_other_apps_and_self_last ... ok
+test engine::tests::refresh_recovery_auth_cancel_and_unconfirmed_install_stop_without_discarding_source ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.00s
+

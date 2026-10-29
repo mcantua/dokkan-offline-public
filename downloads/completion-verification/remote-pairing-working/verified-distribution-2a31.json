@@ -1,0 +1,41 @@
+{
+  "classification": "unsigned-candidate",
+  "candidate_integrity_verified": true,
+  "notices_verified": true,
+  "corresponding_source_verified": true,
+  "relink_instructions_verified": true,
+  "unresolved_notice_cases": 0,
+  "release_ready": false,
+  "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+  "source_bundle_sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e",
+  "source_tree_sha256": "cf2a945cbafac3cf9871301813c13aecd69be0fb7186704922012fd6b47388c4",
+  "locked_dependency_graph_hash": "bbc0752b61da896aca0c6b62868d167bb193b9aaa217d4cc0bc2b1bbb8713b8d",
+  "secure_rp_helper_verified": true,
+  "library_bytes": 112270024,
+  "library_sha256": "9ba3a7c4e112caad804297df8f62a98a92924e2406840c4cb4f2f4270a108697",
+  "kit_expanded_bytes": 122425763,
+  "kit_bytes": 43111535,
+  "kit_sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93",
+  "helper_binary": {
+    "file": "app-installer-rp-bootstrap",
+    "bytes": 4744560,
+    "sha256": "c38c83632ef89be8c31b96803c5e3aebf5ffd9d2705fe9ef57708cc2ff703869"
+  },
+  "helper_genuine_toolchain": {
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "macos_sdk": "27.0",
+    "sdk_settings_sha256": "90a738dbf3fd88e7f6d35646e19d3a8a716923b9773ce1b67260466d9ceed370",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)"
+  },
+  "helper_architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "helper_notarized": false,
+  "outer_artifacts_verified": true,
+  "actual_inner_stage_verified": true,
+  "compilation_performed": false,
+  "tests_repeated": false,
+  "release_assets_mutated": false,
+  "run_id": 40884961768
+}

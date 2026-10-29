@@ -1,0 +1,11 @@
+Source attribution and selected license
+
+Package: isideload-p12-keystore 0.3.0-rc4.
+Package author, as declared in the published Cargo manifest: Dmitry Pankratov.
+This is an author credit, not an invented copyright notice or copyright date.
+
+The exact published manifest declares MIT/Apache-2.0 and the exact-commit fork README explicitly says "Licensed under MIT or Apache license". The Apache-2.0 alternative is selected.
+
+The publisher did not ship a standalone license/copyright file. Source-file inspection found no separate copyright, patent, trademark, or attribution notices to reproduce. Existing published manifest/README notices are retained verbatim, and the complete canonical Apache License 2.0 terms are included. This selection does not invent the missing MIT copyright line or replace any original notice.
+
+This project does not modify this package. Distribution preserves the authors' published license grant, author credit, and complete Apache2 terms. No NOTICE file was present in the exact package or inspected exact-commit source; no NOTICE content is invented. If the package changes, its exact source must be checked again.

@@ -1,0 +1,7 @@
+Upstream package author credit (verbatim published manifest; not an invented copyright ownership statement):
+Chris Wong <lambda.fairy@gmail.com>
+
+Published license declaration: MIT/Apache-2.0
+Selected license branch: Apache-2.0 AND Unicode-DFS-2016
+
+The immutable published package contains 0 explicit copyright notice lines. All supplied notices are retained below; absence of a standalone LICENSE filename is not treated as absence of the published license grant.

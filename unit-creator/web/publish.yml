@@ -1,0 +1,36 @@
+name: Publish the web app
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Unpack the app
+        run: |
+          # the most recently uploaded .zip (works even if the phone renamed it "... (1).zip")
+          zip_file=$(for f in *.zip; do echo "$(git log -1 --format=%ct -- "$f") $f"; done | sort -n | tail -n 1 | cut -d' ' -f2-)
+          echo "Using $zip_file"
+          mkdir _site
+          unzip -q "$zip_file" -d _site
+          test -f _site/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4

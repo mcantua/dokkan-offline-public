@@ -1,0 +1,10 @@
+   Compiling idevice v0.1.68 (/workspace/AI-Workspace/claude-chatg/downloads/idevice/idevice-0.1.68)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.78s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/idevice-946940d97a92d526)
+
+running 2 tests
+test connectivity_tests::rp_connectivity_rsd_rejection_never_establishes_service ... ok
+test remote_pairing::rp_pairing_file::connectivity_tests::rp_connectivity_optional_discovery_key_is_absent_or_exact_data ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 24 filtered out; finished in 0.00s
+

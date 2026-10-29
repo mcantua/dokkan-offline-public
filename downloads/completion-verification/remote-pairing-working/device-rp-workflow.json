@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "scope": "Two TEST-ONLY cloud Python setup/transfer integrity regressions; OS/device execution mocked, never physical proof",
+  "passed": 2,
+  "failed": 0,
+  "seconds": 0.006,
+  "initial_attempt": "Zero tests: test harness ExitStack import corrected before execution",
+  "source_hashes_observed_after_execution": {
+    "app-installer/device/device-workflow.py": "9425301390024eb2c68d36389ea89b17c266eee746ea04366e4d30bab9fddbaf",
+    "app-installer/device/setup-wizard.py": "f008b3a014fbfb39048e5c2465031859d74c8f083e430651ed39aa57d5d91ed1",
+    "app-installer/device/test-device-rp-workflow.py": "8b8a383e3332b5cc4f222d0dd9021b84331c016ad4f0404a3baff689345ac881"
+  },
+  "log": "device-rp-workflow.log",
+  "log_sha256": "b70aaee4b98aed3c929b11d2edf077f243b297ed21e6fabbffb70bd38d82b0f9",
+  "personal_resources_used": false
+}

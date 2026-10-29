@@ -1,0 +1,16 @@
+{
+  "source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+  "package_run": 40798347194,
+  "fresh_native_methods": 1,
+  "fresh_native_passed": 1,
+  "fresh_native_failed": 0,
+  "fresh_native_seconds": 6.413,
+  "native_method": "test02ResponsiveMainUsesLabelledTestOnlyFixture",
+  "reused_linux_refresh_methods": 2,
+  "unchanged_prior_native_discovery_and_pairing_format_methods": {
+    "run": 40795580872,
+    "source": "a412d7a10fe6e9b750b0b8e4cb3d156d400a0e92",
+    "passed": 2
+  },
+  "scope": "Original10RP/core/TLS/helper checks and Python2 retain original source scopes; no old full core suite repeated. No real Apple/device/phone/fold result."
+}

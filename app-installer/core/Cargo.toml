@@ -1,0 +1,46 @@
+[package]
+name = "app-installer-core"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-only"
+publish = false
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+isideload = { path = "../../downloads/isideload/isideload-0.5.0", version = "=0.5.0", default-features = false, features = ["install", "tokio-mt"] }
+idevice = { path = "../../downloads/idevice/idevice-0.1.68", version = "=0.1.68", default-features = false, features = ["ring", "tcp", "afc", "installation_proxy", "misagent", "remote_pairing", "rsd", "tunnel_tcp_stack", "openssl"] }
+apple-codesign-quick = "=0.1.0"
+rootcause = "0.12"
+tokio = { version = "1.49", features = ["rt-multi-thread", "sync", "time", "net"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.11"
+plist = { version = "=1.10.3", features = ["enable_unstable_features_that_may_break_with_minor_version_bumps"] }
+zip = { version = "=8.3.0", default-features = false, features = ["deflate"] }
+unicode-normalization = "0.1"
+unicode-casefold = "0.2"
+zeroize = { version = "1", features = ["derive"] }
+tracing = { version = "0.1", features = ["max_level_off", "release_max_level_off"] }
+
+cms = { version = "=0.2.3", features = ["builder", "rsa", "sha2"] }
+der = { version = "=0.7.10", features = ["alloc", "derive", "std"] }
+x509-cert = { version = "=0.2.5", features = ["builder"] }
+rsa = { version = "0.9.10", features = ["sha2"] }
+sha2_010 = { package = "sha2", version = "0.10" }
+sha1 = "=0.11.0"
+spki = "=0.7.3"
+ring = "=0.17.14"
+rustls = { version = "=0.23.46", default-features = false, features = ["ring", "std", "tls12"] }
+# Audited TLS1.2 external-PSK implementation; device X509 continues using pinned rustls.
+openssl = { version = "=0.10.81", features = ["vendored"] }
+
+[patch.crates-io]
+idevice = { path = "../../downloads/idevice/idevice-0.1.68" }
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
+strip = "debuginfo"

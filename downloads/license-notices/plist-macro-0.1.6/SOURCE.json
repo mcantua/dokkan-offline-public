@@ -1,0 +1,96 @@
+{
+  "crate": "plist-macro",
+  "version": "0.1.6",
+  "upstream_repository": "https://github.com/jkcoxson/plist_macro",
+  "upstream_commit": "d1d48559ddc8e9bd263f36180bbe1d4f2a3d55e5",
+  "complete_upstream_notice": false,
+  "gap_reason": "",
+  "notice_files": [
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#Cargo.toml",
+      "sha256": "f40885eaa05276c979b17c3041889df6b9cf164e0c91de47d9592d9b97ff0cad"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#Cargo.toml.orig",
+      "sha256": "3e8a15176277d7d4c968f47438ba8bcf2562a70170bd6fc74e20d962d1c7e7e4"
+    },
+    {
+      "path": "PUBLISHED-README.md",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#README.md",
+      "sha256": "5e2c21485fa6e5a3a685a94e3693e5faa4f9a2aa525e1b785875fae2328be864"
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#published-manifest-and-source-audit",
+      "sha256": "ed43ea5ffd977d30bce841356fa10afa17b19488e2c050d40d810e7da6630512"
+    },
+    {
+      "path": "LICENSE-MIT.txt",
+      "url": "https://raw.githubusercontent.com/spdx/license-list-data/v3.26.0/text/MIT.txt",
+      "sha256": "e92deed35e4fccfccfc5abf75d7305f371b688a14852129b80fd44d69b5d7f17",
+      "derivation": "Verbatim permission/condition/disclaimer body; unfilled canonical copyright placeholder omitted. No original copyright notice is supplied in this published package, and none is fabricated."
+    }
+  ],
+  "schema_version": 2,
+  "declared_license": "MIT",
+  "selected_license": "MIT",
+  "package_checksum": "82c39e020f2d8d361e91a434cfe26bc7c3e21ae54414379816d0110f3f7ca121",
+  "release_requirements_satisfied": true,
+  "obligations": [
+    {
+      "id": "published-license-grant",
+      "status": "satisfied",
+      "evidence": [
+        "PUBLISHED-Cargo.toml",
+        "PUBLISHED-README.md"
+      ]
+    },
+    {
+      "id": "selected-license-text",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-MIT.txt"
+      ]
+    },
+    {
+      "id": "preserve-provided-attribution-and-notices",
+      "status": "satisfied",
+      "evidence": [
+        "ATTRIBUTION.txt",
+        "SOURCE-AUDIT.json"
+      ]
+    },
+    {
+      "id": "published-source-integrity",
+      "status": "satisfied",
+      "evidence": [
+        "SOURCE-AUDIT.json"
+      ]
+    }
+  ],
+  "source_audit": "SOURCE-AUDIT.json",
+  "published_evidence": [
+    {
+      "archive_path": "Cargo.toml",
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#Cargo.toml",
+      "sha256": "f40885eaa05276c979b17c3041889df6b9cf164e0c91de47d9592d9b97ff0cad"
+    },
+    {
+      "archive_path": "Cargo.toml.orig",
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#Cargo.toml.orig",
+      "sha256": "3e8a15176277d7d4c968f47438ba8bcf2562a70170bd6fc74e20d962d1c7e7e4"
+    },
+    {
+      "archive_path": "README.md",
+      "path": "PUBLISHED-README.md",
+      "url": "https://static.crates.io/crates/plist-macro/plist-macro-0.1.6.crate#README.md",
+      "sha256": "5e2c21485fa6e5a3a685a94e3693e5faa4f9a2aa525e1b785875fae2328be864"
+    }
+  ],
+  "required_distribution_artifacts": [],
+  "resolution_basis": "The exact published manifest and README grant MIT. The standard permission/condition/disclaimer body is included; source audit finds no supplied copyright line, so no holder/year is invented. The published author is separately credited verbatim."
+}

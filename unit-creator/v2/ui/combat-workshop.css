@@ -1,0 +1,92 @@
+.combat-workshop { --combat-player: #66e8c6; --combat-opponent: #ff997a; --combat-line: #354454; max-width: 1160px; margin-inline: auto; }
+.combat-workshop button { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation; }
+.combat-workshop .combat-scope { border-left: 3px solid var(--combat-player); line-height: 1.65; margin-bottom: 1.2rem; }
+.combat-workshop .combat-setup { margin-bottom: 1.2rem; }
+.combat-workshop .combat-setup fieldset { min-width: 0; border: 1px solid var(--combat-line); border-radius: 14px; padding: 1rem; margin: 1rem 0; }
+.combat-workshop .combat-setup legend { font-size: .85rem; padding-inline: .4rem; }
+.combat-workshop .combat-training-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .8rem; }
+.combat-workshop .combat-meters { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.2rem; margin-bottom: 1rem; }
+.combat-workshop .combat-meter-card { min-width: 0; }
+.combat-workshop .combat-meter-card h3 { margin: 0 0 .65rem; overflow-wrap: anywhere; }
+.combat-workshop .combat-meter-label { display: flex; justify-content: space-between; gap: .6rem; font-size: .8rem; margin: .35rem 0; font-variant-numeric: tabular-nums; }
+.combat-workshop .combat-meter { height: 13px; overflow: hidden; border-radius: 99px; background: #080f18; border: 1px solid #344757; }
+.combat-workshop .combat-meter > span { display: block; height: 100%; width: 100%; background: var(--combat-player); transition: width 90ms linear; }
+.combat-workshop .combat-meter-card:nth-child(2) .combat-hp > span { background: var(--combat-opponent); }
+.combat-workshop .combat-ki { height: 8px; }
+.combat-workshop .combat-ki > span { background: #8baeff; }
+.combat-workshop .combat-arena { position: relative; isolation: isolate; height: clamp(245px,37vw,375px); overflow: hidden; border: 1px solid #3a5061; border-radius: 18px; background: radial-gradient(ellipse at 50% 85%,#233d48 0,transparent 70%),linear-gradient(#101e2c,#152530 70%,#243d43 71%,#13232b); }
+.combat-workshop .combat-arena:focus-visible { outline: 3px solid #ffb85d; outline-offset: 4px; }
+.combat-workshop .combat-arena-lines { position: absolute; inset: 71% 0 0; opacity: .3; background: repeating-linear-gradient(0deg,transparent 0 24px,#71939b 25px 26px); transform: perspective(180px) rotateX(25deg); }
+.combat-workshop .combat-fighter { position: absolute; bottom: 18%; left: 25%; display: grid; justify-items: center; width: clamp(85px,12vw,132px); transform: translate(-50%,calc(0px - var(--fighter-lift,0px))); transition: left 100ms linear,transform 100ms ease-out; color: var(--combat-player); z-index: 2; }
+.combat-workshop .combat-opponent { left: 55%; color: var(--combat-opponent); }
+.combat-workshop .combat-avatar { position: relative; display: grid; place-items: center; height: clamp(102px,15vw,165px); width: 100%; }
+.combat-workshop .combat-avatar::after { content: ""; position: absolute; bottom: -5px; width: 85%; height: 12px; border-radius: 50%; background: #0006; z-index: -1; }
+.combat-workshop .combat-avatar img { position: absolute; width: 76%; max-height: 92%; object-fit: contain; filter: drop-shadow(0 0 8px #000b); }
+.combat-workshop .combat-avatar img[hidden] { display: none; }
+.combat-workshop .combat-silhouette { position: relative; width: 41%; height: 62%; margin-top: 25%; border-radius: 40% 45% 15% 15%; background: currentColor; opacity: .8; transform: skewX(-6deg); box-shadow: -13px 8px 0 -6px currentColor,16px 11px 0 -6px currentColor; }
+.combat-workshop .combat-silhouette::before { content: ""; position: absolute; width: 68%; height: 39%; top: -35%; left: 16%; background: currentColor; border-radius: 45% 45% 35% 40%; }
+.combat-workshop .combat-silhouette::after { content: ""; position: absolute; bottom: -36%; left: 1%; width: 40%; height: 50%; background: currentColor; border-radius: 0 0 10% 10%; box-shadow: 27px 1px 0 currentColor; }
+.combat-workshop .combat-opponent .combat-silhouette { transform: scaleX(-1) skewX(-6deg); }
+.combat-workshop .combat-fighter-name { position: absolute; bottom: calc(100% + 5px); width: 100%; max-width: 112px; padding: 3px 5px; border-radius: 5px; font-size: .65rem; line-height: 1.3; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #f2f6fa; background: #0a142ae8; border: 1px solid currentColor; }
+.combat-workshop .combat-opponent .combat-fighter-name { bottom: calc(100% + 29px); }
+.combat-workshop #combat-round { scroll-margin-top: 1rem; }
+.combat-workshop .combat-pose { font-size: .67rem; text-transform: capitalize; opacity: .85; min-height: 1.1em; }
+.combat-workshop [data-pose="guard"] .combat-avatar { filter: drop-shadow(0 0 12px #8ebfff); }
+.combat-workshop [data-pose="charge"] .combat-avatar,.combat-workshop [data-pose="transform"] .combat-avatar { filter: drop-shadow(0 0 15px #ffe57d); }
+.combat-workshop [data-pose="dodge"] .combat-avatar { opacity: .45; transform: skewX(-12deg); }
+.combat-workshop [data-pose="hit"] .combat-avatar,.combat-workshop [data-pose="hurt"] .combat-avatar { filter: drop-shadow(0 0 10px #ff7457); }
+.combat-workshop [data-pose="defeat"] .combat-avatar { transform: rotate(-65deg) translateY(12px); opacity: .5; }
+.combat-workshop [data-pose="normal"] .combat-avatar,.combat-workshop [data-pose="launcher"] .combat-avatar,.combat-workshop [data-pose="counter"] .combat-avatar { animation: combat-strike 220ms ease-out; }
+.combat-workshop [data-pose="super"] .combat-avatar,.combat-workshop [data-pose="ultimate"] .combat-avatar,.combat-workshop [data-pose="ex"] .combat-avatar,.combat-workshop [data-pose="active"] .combat-avatar { animation: combat-power 500ms ease-out; }
+.combat-workshop [data-pose="combo"] .combat-avatar { animation: combat-strike 150ms ease-out 3; }
+.combat-workshop [data-pose="dash"] .combat-avatar { transform: skewX(-15deg); filter: drop-shadow(-14px 0 6px currentColor); }
+.combat-workshop [data-pose="telegraph"] .combat-avatar { filter: drop-shadow(0 0 9px #ff9d60); }
+@keyframes combat-strike { 0%,100% { transform: translateX(0) rotate(0); } 45% { transform: translateX(12px) rotate(-9deg); } }
+@keyframes combat-power { 0%,100% { filter: drop-shadow(0 0 0 currentColor); } 45% { filter: drop-shadow(0 0 22px currentColor); transform: scale(1.13); } }
+.combat-workshop .combat-telegraph { position: absolute; z-index: 4; top: 12px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 20px); padding: .65rem 1rem .8rem; border-radius: 10px; text-align: center; background: #552b19; color: #ffe4bc; font-size: .85rem; font-weight: 700; opacity: 0; overflow: hidden; }
+.combat-workshop .combat-telegraph.active { opacity: 1; }
+.combat-workshop .combat-telegraph::after { content: ""; position: absolute; bottom: 0; left: 0; height: 4px; background: #ffba64; width: calc(100% * var(--cue,0)); }
+.combat-workshop .combat-arena-status { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; text-align: center; pointer-events: none; font-weight: 800; color: #fff; text-shadow: 0 2px 10px #000; font-size: clamp(1.1rem,3vw,1.8rem); }
+.combat-workshop .combat-arena-status:empty { display: none; }
+.combat-workshop .is-paused::after { content: ""; position: absolute; inset: 0; background: #07101a88; z-index: 3; }
+.combat-workshop .combat-actions { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: .65rem; }
+.combat-workshop .combat-action { min-width: 0; }
+.combat-workshop .combat-action button { width: 100%; min-height: 52px; white-space: normal; padding: .65rem .4rem; touch-action: manipulation; }
+.combat-workshop .combat-action small { display: block; line-height: 1.3; min-height: 2.5em; margin-top: .25rem; color: #b9c8d5; font-size: .69rem; overflow-wrap: anywhere; }
+.combat-workshop .combat-action button:disabled { opacity: .48; cursor: default; }
+.combat-workshop #combat-feedback { min-height: 2.8em; line-height: 1.5; }
+.combat-workshop .combat-help { margin-top: 1rem; }
+.combat-workshop .combat-help p { line-height: 1.65; }
+.combat-workshop .combat-bindings,.combat-workshop .combat-warnings,.combat-workshop .combat-events { margin-top: 1rem; }
+.combat-workshop .combat-binding { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--combat-line); }
+.combat-workshop .combat-binding > span { min-width: 0; overflow-wrap: anywhere; }
+.combat-workshop .combat-binding small { display: block; color: #b9c8d5; margin-top: .3rem; }
+.combat-workshop .combat-binding button { flex-shrink: 0; }
+.combat-workshop #combat-assign { margin-top: 1rem; }
+.combat-workshop .combat-warnings li,.combat-workshop .combat-events li { line-height: 1.6; margin-bottom: .5rem; overflow-wrap: anywhere; }
+.combat-workshop #combat-event-log { max-height: 260px; overflow-y: auto; padding-left: 1.5rem; font-size: .83rem; }
+.combat-workshop .combat-damage { position: absolute; top: 39%; z-index: 6; transform: translateX(-50%); font-weight: 900; font-size: clamp(1.3rem,4vw,2rem); color: #fff4d7; text-shadow: 0 2px 2px #000,0 0 8px #9b3016; animation: combat-float 950ms ease-out forwards; pointer-events: none; }
+.combat-workshop .combat-heal { color: #a9ffe1; }
+@keyframes combat-float { from { opacity: 1; transform: translate(-50%,0); } to { opacity: 0; transform: translate(-50%,-55px); } }
+.combat-workshop .is-paused .combat-damage { animation-play-state: paused; }
+@media(max-width:700px) {
+  .combat-workshop .combat-actions { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .combat-workshop .combat-meters { gap: .7rem; }
+  .combat-workshop .combat-meter-card h3 { font-size: .9rem; }
+  .combat-workshop .combat-meter-label { font-size: .7rem; }
+  .combat-workshop .combat-round { padding: .8rem; }
+  .combat-workshop .combat-round > .section-heading { align-items: flex-start; flex-wrap: wrap; }
+  .combat-workshop .combat-round > .section-heading .row { flex-wrap: wrap; }
+}
+@media(max-width:420px) {
+  .combat-workshop .combat-actions { grid-template-columns: repeat(3,minmax(0,1fr)); gap: .5rem; }
+  .combat-workshop .combat-training-grid { grid-template-columns: 1fr; }
+  .combat-workshop .combat-meter-label { flex-wrap: wrap; gap: .1rem; }
+  .combat-workshop .combat-binding { align-items: flex-start; flex-wrap: wrap; }
+  .combat-workshop .combat-telegraph { font-size: .75rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .combat-workshop .combat-meter > span,.combat-workshop .combat-fighter { transition: none; }
+  .combat-workshop .combat-damage { animation: none; }
+  .combat-workshop .combat-avatar { animation: none !important; }
+}

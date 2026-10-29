@@ -1,0 +1,8 @@
+{
+  "scope": "One grouped synthetic folder-selection check; stops before ZIP choice, extraction, native build or any actualMac/USB action.",
+  "passed": true,
+  "cases": [
+    "AI-Workspace/claude-chatg resolves existing folder before ZIP choice/extraction",
+    "AI-Workspace/AI-Workspace/claude-chatg resolves existing folder before ZIP choice/extraction"
+  ]
+}

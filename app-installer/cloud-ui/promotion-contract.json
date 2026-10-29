@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "release_id": 427060273,
+  "tag_name": "app-installer-current-candidate",
+  "old_source_commit": "5855c7a2c0c9face341c28f6b7312705516962ce",
+  "old_assets": {
+    "AppInstaller-candidate-manifest.json": {
+      "id": 686946503,
+      "bytes": 2206,
+      "sha256": "b3badef06238ec1d71bb003f991da82976660090b393bf5566d69631274e0c14"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "id": 686946523,
+      "bytes": 92840736,
+      "sha256": "bc8f927364b8c88a5bec365bfba48dbdac72db8625aa9999e3fe78648b8c917f"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "id": 686946645,
+      "bytes": 8378461,
+      "sha256": "7166a382f3571531b533e91474e0a430597eb95470029b7994e8cd49ab83caf5"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "id": 686946691,
+      "bytes": 8378458,
+      "sha256": "cb24d72bb9854129e0ea2cf784be42cde79af40ed384b44760f6f74dcc18b7ca"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "id": 686946721,
+      "bytes": 1561,
+      "sha256": "37ce854bee6e7ee19d1a27afafe358fa8be8873f8aa60cef66d487ae111e1368"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "id": 686946735,
+      "bytes": 43104667,
+      "sha256": "770f5c93ac0b1d73a644a0af9fe96b5d7d0601de8f592a5828c7ae4ead9a9606"
+    },
+    "cloud-device-library-manifest.json": {
+      "id": 686946792,
+      "bytes": 1332,
+      "sha256": "305f2edc6bd60539092fd8ce5bbcb1fda41677dd90803836521f75d716646b88"
+    },
+    "InstallationCheck-test-fixture.json": {
+      "id": 686008738,
+      "bytes": 906,
+      "sha256": "4153e4678f90147cb950623564d58842913aa1b03cd047ca6671c48898d26f18"
+    },
+    "InstallationCheck-test-fixture.zip": {
+      "id": 686008776,
+      "bytes": 26007,
+      "sha256": "d3c5560c02cb5a3cd18e80d35cb7e26f2e7c9703c18a88fe6fe80d9c49b92654"
+    }
+  },
+  "new": {
+    "source_commit": "2a31f6eed1256daacb5d0bed844f5839bce63f20",
+    "run_id": 40884961768,
+    "artifacts": {
+      "candidate": {
+        "id": 12902613724,
+        "bytes": 109678956,
+        "sha256": "2836a1b8bdcf14e8a6e41cc58da88f0af26ec966ce28416b7289bae1ce588199"
+      },
+      "kit": {
+        "id": 12902409391,
+        "bytes": 42768123,
+        "sha256": "e244d381d00d911a2c2f145cb854bfe0b55ac2266f8d0e034213b3882a54b4bc"
+      }
+    },
+    "assets": {
+      "AppInstaller-candidate-manifest.json": {
+        "bytes": 2206,
+        "sha256": "45ce68286627ce0caf81961cbf6484d7406fc844fd2bca6cd66ddad3cf36bed0"
+      },
+      "AppInstaller-corresponding-source.tar.xz": {
+        "bytes": 92848016,
+        "sha256": "13a43fb6c8f412f97bafb11f397dd979cb4d5df5753470d35b73a80c96709e4e"
+      },
+      "AppInstaller-duo-candidate.ipa": {
+        "bytes": 8381293,
+        "sha256": "295c0e66a9f42296d91de92875cea458dd41dbd184300f35cf9aa62e032de3be"
+      },
+      "AppInstaller-iphone-candidate.ipa": {
+        "bytes": 8381290,
+        "sha256": "4971e88514b79b319c4c3a900b58102f4d7977057a92c34f556c13a35974e97b"
+      },
+      "cloud-device-library-manifest.json": {
+        "bytes": 1332,
+        "sha256": "739c631b066dadf4bfa41e41bfa4b34aaf8ce0e89bbbaffd07ff9660781fb324"
+      },
+      "AppInstaller-native-bootstrap-kit.json": {
+        "bytes": 1561,
+        "sha256": "e8499f2327ec5708146a94bdc6a6ea9307e325b38a6262c95007679eefb4a725"
+      },
+      "AppInstaller-native-bootstrap-kit.zip": {
+        "bytes": 43111535,
+        "sha256": "1cda0defbcf540ffd68d8eb743be9f9e618da01e4ed2e4f9f359aa81779cfe93"
+      }
+    }
+  }
+}

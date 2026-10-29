@@ -1,0 +1,26 @@
+name: Preserve current App Installer candidate and source in private draft
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: app-installer-current-candidate-draft-assets
+  cancel-in-progress: false
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - name: Transfer only the pinned verified candidate, matching source and native kit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 app-installer/cloud-ui/upload-draft-assets.py

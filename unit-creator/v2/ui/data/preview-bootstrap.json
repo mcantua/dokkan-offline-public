@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "version": "1a0498f313370a1275b0a44a74b5817502f6a160ce42dcb71c6f12bcfb33cb51",
+  "origin": "https://dokkan-eclipse.com",
+  "scope": "Download these fixed public preview tools to the individual user cache for offline use. Does not include all game assets. Hosted player code is not bundled or redistributed. Exact size/SHA mismatch requires an updated manifest, not acceptance of changed code.",
+  "resources": [
+    {
+      "path": "/api/script?path=ab_script%2Fcommon%2Fcommon.lua",
+      "bytes": 9172,
+      "sha256": "db32d96054291d644ea4f58259a38f6703357076f05559fa2d1a11e6396caad2",
+      "label": "Shared animation functions"
+    },
+    {
+      "path": "/css/site.css?v=3e1d9151f0e2",
+      "bytes": 110659,
+      "sha256": "8719f84fa438c57561dce33f7b6c629d4457f291b102c1fa2a4097400acdc108",
+      "label": "Player interface resources"
+    },
+    {
+      "path": "/static/js/site-theme.js?v=5",
+      "bytes": 37379,
+      "sha256": "da9a2c75ac94a59c32c816c1b1a9b01a9f051736102cff0ab71b5ca9a79de22e",
+      "label": "Player interface resources"
+    },
+    {
+      "path": "/static/vendor/lwf/lwf.js",
+      "bytes": 200636,
+      "sha256": "4b9f54d797c025906f79469ffae0a23d43591a45966bef6239c3c62bec4fc94b",
+      "label": "Game effect renderer"
+    },
+    {
+      "path": "/static/vendor/lwf/lwf.js?v=blend2",
+      "bytes": 200636,
+      "sha256": "4b9f54d797c025906f79469ffae0a23d43591a45966bef6239c3c62bec4fc94b",
+      "label": "Game effect renderer"
+    },
+    {
+      "path": "/static/wiki/thumb-effects.js?v=1792098288803",
+      "bytes": 17630,
+      "sha256": "d06b69353dc5ed98880a519d9ea352571971180ca84c8ab26eb3f352f5688e34",
+      "label": "Player interface resources"
+    },
+    {
+      "path": "/tools/lua-player/",
+      "bytes": 13971,
+      "sha256": "00de9891088e4f400aec2f5b8c8dddd4c742ae58f7565a99971fdf131cec008f",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/app.js?v=eclipse67",
+      "bytes": 38983,
+      "sha256": "b276c6e3c138d8b214e825f7a8b8bb3f3254bb36f35d9c2a2487f5c00da9eae6",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/atlas-fit.js?v=eclipse21",
+      "bytes": 11135,
+      "sha256": "a0959075966b1c78fb444a3896e2b6df09ef9fad798b6e298d2301c59ce2a086",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/audio-bus.js",
+      "bytes": 18090,
+      "sha256": "c99cd56fd964657d77e4214734176bff00ef5e922b2e61951bf8681029c2a663",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/audio-bus.js?v=eclipse56",
+      "bytes": 18090,
+      "sha256": "c99cd56fd964657d77e4214734176bff00ef5e922b2e61951bf8681029c2a663",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/bg-layer.js?v=eclipse44",
+      "bytes": 9908,
+      "sha256": "04c57a3e3e3f99cfebf3e8e7c26449bc3d70d36759fc021dd04f3e5fac8c1448",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/binders.js?v=eclipse44",
+      "bytes": 18313,
+      "sha256": "6f059f24bb35fda07f7425cc67b601e02d9e3a11bb41a8527cb3fc734c15c652",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/card-resolve.js",
+      "bytes": 7775,
+      "sha256": "a570684c6873971abaaa92bd6dde8eafa70c5802d025581bf02032ffaf41c0f7",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/card-resolve.js?v=eclipse53",
+      "bytes": 7775,
+      "sha256": "a570684c6873971abaaa92bd6dde8eafa70c5802d025581bf02032ffaf41c0f7",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/chara-layer.js?v=eclipse56",
+      "bytes": 33667,
+      "sha256": "c2c84340f7ec1dc96dc534e268557b4cac530257226700c7f1f4631887a151c5",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/conditions.js?v=eclipse52",
+      "bytes": 4391,
+      "sha256": "6f430c5c4c2431507eaa4f669bcbe5546481e9fe689465ef517e3ecea6b74351",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/effect-pack.js",
+      "bytes": 1256,
+      "sha256": "b4a1e6559afd2cc7a67e862c0722b022f73645d5c0b154d5b3b85b9d0a9e0f2b",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/effect-pack.js?v=eclipse44",
+      "bytes": 1256,
+      "sha256": "b4a1e6559afd2cc7a67e862c0722b022f73645d5c0b154d5b3b85b9d0a9e0f2b",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/fetch-fresh.js",
+      "bytes": 338,
+      "sha256": "4e89eba41be636096debe52a8c20f00e222f1e48f1c969296a30204ee56a936b",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/layers.js",
+      "bytes": 1359,
+      "sha256": "4011f3f140ca16fa2332218a9f98d8387ccde564d0110aa83eba2015e3e9d1d9",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/lua-host.js",
+      "bytes": 4295,
+      "sha256": "f0a0eac3872eb8029edbfbe911c80928fc79e184cc3ceaef61df25770ae70fb4",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/lwf-blend.js",
+      "bytes": 2705,
+      "sha256": "407fb2187103abfc8a8164d4e9c0b4c9282c925027dc6424d54c6083f1a0acd8",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/lwf-load.js",
+      "bytes": 3064,
+      "sha256": "e00394c66e4bf06db2336147af5df6e360a71e7e7541cb37057e1037995f85ed",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/lwf-player.js",
+      "bytes": 34527,
+      "sha256": "eb7362cccf381580bd7f729e391344d26e0a751fc8a03e9f73f461903bfa9274",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/lwf-player.js?v=eclipse53",
+      "bytes": 34527,
+      "sha256": "eb7362cccf381580bd7f729e391344d26e0a751fc8a03e9f73f461903bfa9274",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/lwf-player.js?v=eclipse63",
+      "bytes": 34527,
+      "sha256": "eb7362cccf381580bd7f729e391344d26e0a751fc8a03e9f73f461903bfa9274",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/patch-context.js",
+      "bytes": 1270,
+      "sha256": "a1fb919edf70ae181e7804d0d75eed28b0cf4e996a3d3e6846c71ce37f7c7c52",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/recorder.js?v=eclipse67",
+      "bytes": 20378,
+      "sha256": "0a7b908878d9ce5b1f3a1719c05a7b7a96c2097393558383ee51423b056ca0d2",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/reference-mode.js?v=eclipse60",
+      "bytes": 21404,
+      "sha256": "0695f20e92d0aa515df97a9f34f1cf812d4584cac3004b3cdcacce5ca29e9d27",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/runner.js?v=eclipse66",
+      "bytes": 65371,
+      "sha256": "3e6ffd6384f87a3dc68cf5f643018156f2e6f9015930f8b00b2094020dcecde5",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/sheet-export.js",
+      "bytes": 29756,
+      "sha256": "6969da9f3f869149ab833960c8e88bf5728b350955aa4223d570438faa3a76df",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/stage.js",
+      "bytes": 2828,
+      "sha256": "0f4f59e439b30f37534e42a83d47d0cc378103b11fba9ee30233e23809a2ef1f",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/tcb-keys.js?v=eclipse42",
+      "bytes": 2960,
+      "sha256": "17c64965281816fc73b7351e4c4d13fbfe731626d3e52b01a72fbff9ba60f2dc",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/texture-sync.js",
+      "bytes": 15253,
+      "sha256": "c6a643ce15475a4016aee76fe8efcebab6ca934fd5ed051ae47dce29c0e81483",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/usm-lwf-sync.js?v=eclipse61",
+      "bytes": 1926,
+      "sha256": "f1c839b65d9bd23859fb5421cc9a399b98f58605d99f2bc8211432d8f7cb189f",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/js/usm-player.js?v=eclipse67",
+      "bytes": 23549,
+      "sha256": "228ccf71d0b9d2d58f22e0eee0e9d88e96ab6d7c75896fe8353acba046c2c03e",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/player.css?v=eclipse51",
+      "bytes": 10759,
+      "sha256": "430c5457a90ab17ed3787a702a0a5732c019f8441b8b0c80f8a45f86e3c6e040",
+      "label": "Character animation player tools"
+    },
+    {
+      "path": "/tools/lua-player/vendor/fengari-web.min.js?v=2",
+      "bytes": 219493,
+      "sha256": "10747304d642289ff8314468bd7ec62abe462ad7c7d954e467e985a2780b74c3",
+      "label": "Lua animation engine"
+    },
+    {
+      "path": "/tools/lwf-player/",
+      "bytes": 7980,
+      "sha256": "518c269824a945982bf1777d71078b267303176fee98be649d7637c155b09680",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/lwf-player/js/app.js?v=8",
+      "bytes": 19776,
+      "sha256": "9785d41329607fb52e70ffe8148e1b9c8cd71282fc6fe1186c797b654740bb7d",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/lwf-player/js/export-record.js?v=9",
+      "bytes": 21011,
+      "sha256": "ba1c2cb7b2c2b9425b5bc779c8ad1bcdc6edea38ca03991dcdc15baf1f751a90",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/lwf-player/js/lwf-pack.js?v=8",
+      "bytes": 24897,
+      "sha256": "00c05200f9ac33063aa640dd8c01723fdd0fb22ec5ca744b0125ae2f86808621",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/lwf-player/js/sheet-export.js?v=8",
+      "bytes": 29756,
+      "sha256": "6969da9f3f869149ab833960c8e88bf5728b350955aa4223d570438faa3a76df",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/lwf-player/player.css",
+      "bytes": 6163,
+      "sha256": "97c3454f3be68b32c975cd8daf479fc010c3e732565357ada90326938ae364c3",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/lwf-player/vendor/mp4-muxer.mjs",
+      "bytes": 63378,
+      "sha256": "ff72d2892de62e59ae0cf6f90f7d27309d07495c4c7bfcd46eebef327be7c9f8",
+      "label": "Visual effect player tools"
+    },
+    {
+      "path": "/tools/usm-player/",
+      "bytes": 5854,
+      "sha256": "4ec2ccaf6e4be592124fd12fad664d0a3a752f8121955b23aa98479265a5e8c1",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/adx-decoder.js",
+      "bytes": 6947,
+      "sha256": "2aa103ebbe8de5e02348a7c83b1a371c7bf7a0d82f53671e8ac903f36e36dd2b",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/app.js?v=6",
+      "bytes": 9586,
+      "sha256": "1112d64bd0ef41993db0d4e38f8dcaa7b6903ed9d2ea5714cb03e674253cef2b",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/bytes.js",
+      "bytes": 1675,
+      "sha256": "a9d965469b115c9c9006402291e768b49aec1a694e8871f580ae7471dae20037",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/ivf.js",
+      "bytes": 3371,
+      "sha256": "2b608408fa42e6ad5c60b85ceca82605990959ec1ef358446d887e872f1839ba",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/mp4-muxer.js",
+      "bytes": 5125,
+      "sha256": "c563a09a62c28e4236e2616b60a3efff0cfd4dc422ea24011d2d9f0b5b0b2e04",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/probe.js",
+      "bytes": 1474,
+      "sha256": "189f0f0dd996421a131ce76dbc57bdf099042198ef9f52e3d5dcc87693489450",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/js/usm-demux.js",
+      "bytes": 3848,
+      "sha256": "6a1e80fff8dd54972e1da4652bdf44c815c424e189df0cb43624cea2bc4759f1",
+      "label": "Movie player tools"
+    },
+    {
+      "path": "/tools/usm-player/player.css",
+      "bytes": 4446,
+      "sha256": "79622f40f341ce6be16ac3b8c98b5f3b07465f27afc7b39d2d7aae74509c531e",
+      "label": "Movie player tools"
+    }
+  ],
+  "provenance": {
+    "checkedUTC": "2026-10-17T05:18:15.482682+00:00",
+    "hostedPlayerRedistributionPermission": "Not established; public availability is not a licence.",
+    "reviewedPublicRepository": "https://github.com/DokkanEclipse/DokkanBrowser",
+    "repositoryLicense": null,
+    "repositoryCommit": "3cc1141887f9c3f256755895132359f1c39db984",
+    "repositoryContainsCurrentWebPlayer": false,
+    "repositoryLicenseEndpointStatus": 404,
+    "externalDecorativeFontsAndLogo": "Excluded by the current native same-origin policy. System fonts support core playback; external Google font/logo links are not required offline."
+  }
+}

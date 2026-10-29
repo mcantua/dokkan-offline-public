@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-10-29T00:39:47.096753+00:00",
+  "original_run": 40794618919,
+  "original_job": 123187934308,
+  "scope": "One grouped OpenSSL Configure dry-run argument-parser regression plus changed recipe syntax. No compiler, crypto/unit/native test, SDK build, phone or personal resource execution. TEST-ONLY Mac SDK argument is a parser token, not an installed toolchain claim.",
+  "dependency_failure": "Reused Linux tests left fresh hosted CARGO_HOME empty before offline fingerprint; locked core/helper fetch now precedes offline graph inspection.",
+  "configure_source_sha256": "622e9c7013848b2b14adf5e5d20cadd5cc1555928bfcb9b9715c0099ae578e36",
+  "cases": {
+    "observed_split_target_failure": {
+      "return_code": 255,
+      "expected_return_code": 255,
+      "arguments": [
+        "iossimulator-arm64-xcrun",
+        "--target=arm64-apple-ios-simulator",
+        "-mios-simulator-version-min=16.4",
+        "-target",
+        "arm64-apple-ios16.4-simulator"
+      ],
+      "output": "Failure!  build file wasn't produced.\nPlease read INSTALL.md and associated NOTES-* files.  You may also have to\nlook over your available compiler tool chain or change your configuration.\n\ntarget already defined - iossimulator-arm64-xcrun (offending arg: arm64-apple-ios16.4-simulator)"
+    },
+    "fixed_simulator": {
+      "return_code": 0,
+      "expected_return_code": 0,
+      "arguments": [
+        "iossimulator-arm64-xcrun",
+        "--target=arm64-apple-ios-simulator",
+        "-mios-simulator-version-min=16.4",
+        "-mios-simulator-version-min=16.4"
+      ],
+      "output": "Configuring OpenSSL version 3.6.3 for target iossimulator-arm64-xcrun\nUsing os-specific seed configuration"
+    },
+    "fixed_device": {
+      "return_code": 0,
+      "expected_return_code": 0,
+      "arguments": [
+        "ios64-cross",
+        "--target=arm64-apple-ios",
+        "-miphoneos-version-min=16.4",
+        "-miphoneos-version-min=16.4"
+      ],
+      "output": "Configuring OpenSSL version 3.6.3 for target ios64-cross\nUsing os-specific seed configuration"
+    },
+    "unchanged_mac_arm64": {
+      "return_code": 0,
+      "expected_return_code": 0,
+      "arguments": [
+        "darwin64-arm64-cc",
+        "--target=arm64-apple-macosx",
+        "-isysroot",
+        "/TEST-ONLY-MAC-SDK",
+        "-mmacosx-version-min=12.0"
+      ],
+      "output": "Configuring OpenSSL version 3.6.3 for target darwin64-arm64-cc\nUsing os-specific seed configuration"
+    },
+    "unchanged_mac_x86_64": {
+      "return_code": 0,
+      "expected_return_code": 0,
+      "arguments": [
+        "darwin64-x86_64-cc",
+        "--target=x86_64-apple-macosx",
+        "-isysroot",
+        "/TEST-ONLY-MAC-SDK",
+        "-mmacosx-version-min=12.0"
+      ],
+      "output": "Configuring OpenSSL version 3.6.3 for target darwin64-x86_64-cc\nUsing os-specific seed configuration"
+    }
+  },
+  "changed_recipe_syntax": "passed",
+  "next_required": "Actual genuine hosted SDK target compilation and candidate/source/kit gates; original passed Linux tests remain reused."
+}
