@@ -4,7 +4,7 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:16 AM US Central (ChatGPT; public-repository migration receipt, docs only)_
+_Last updated: 2026-10-29 11:19 AM US Central (ChatGPT; public-repository migration receipt, docs only)_
 
 ## Right now
 | Project | Who | State |
@@ -20,6 +20,8 @@ _Last updated: 2026-10-29 11:16 AM US Central (ChatGPT; public-repository migrat
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:19 AM — ChatGPT: migration receipt published as draft [PR #6](https://github.com/mcantua/dokkan-offline-public/pull/6), never merged. Shared Drive mirror [dokkan-offline-public-STATUS.md](https://drive.google.com/file/d/1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--/view) was created in the existing Documentation folder and its text read back successfully. During PR creation GitHub reported base `220d7bbc7ebd535692b3dfc7f980c928cf04f267`, newer than the checkout pin; no merge/rebase/base write was performed. Read the current base/workstream tips before subsequent implementation. Existing private-backup artifacts were not overwritten. No application test or build was run.
+
 - 2026-10-29 11:16 AM — ChatGPT: activated only `mcantua/dokkan-offline-public` in a fresh cloud checkout; read README, HANDOFF, HAYATE-HANDOFF, STATUS and TIN-RULES in order. Base pin `62b437ac1de8dcfb9f3c03ceba991889dd1474e5`; documentation branch `chatgpt/public-repo-handoff-log`. Verified PR metadata: #1 auth, #2 full validation, #3 launcher, #4 engine master/menu; all open drafts targeting the base. Preserved existing workstream branches and newer Grok Finish evidence; no merge, app test, build, private-backup write, save/signing/config access, Mac/PC access or personal-connection use. Enabled the repository's local staged privacy guard and added current repository/no-build/privacy precedence to README/TIN-RULES plus the Hayate receipt. Only staged privacy verification is needed; docs do not rebuild the browser page. STATUS is mirrored as `dokkan-offline-public-STATUS.md` in the existing shared Drive Documentation folder so the next AI can continue without overwriting earlier backup documents.
 
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.
