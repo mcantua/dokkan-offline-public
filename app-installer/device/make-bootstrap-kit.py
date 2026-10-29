@@ -41,6 +41,8 @@ def build_kit(library,manifest_path,review_ipa,source_bundle,output,variant,rp_h
                'app-installer/core/app_installer.h','app-installer/core/secure_storage.h',
                'app-installer/device/.gitignore','app-installer/device/device-workflow.py',
                'app-installer/device/setup-wizard.py','app-installer/device/Run-App-Installer-Setup.command',
+               'app-installer/device/update-public-kit.py','app-installer/device/PUBLIC-QUICK-START.md',
+               'app-installer/device/UPDATE-EXISTING-KIT.md','app-installer/device/USER-ACTIONS.md',
                'app-installer/device/PUBLIC-CONTINUATION.md']
         files += [str(p.relative_to(ROOT)) for p in (ROOT/'app-installer/ios').rglob('*')
                   if p.is_file() and p.suffix in {'.m','.h','.plist','.png'}]
