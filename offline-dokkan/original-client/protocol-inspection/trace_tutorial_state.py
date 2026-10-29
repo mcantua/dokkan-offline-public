@@ -19,7 +19,8 @@ from inspect_handler_fields import function_starts, sections_and_symbols
 PREPARED_SHA = 'efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222'
 FIELDS = frozenset(('user', 'tutorial', 'progress', 'contents_lv', 'is_finished',
     'card_capacity', 'total_card_capacity', 'support_item_capacity',
-    'is_support_item_capacity_extended'))
+    'is_support_item_capacity_extended', 'timewarp'))
+URL_LITERALS=frozenset(('/', '?', '&', '='))
 ROLES = frozenset(('profile_decoder', 'lookup_with_prior_value_fallback',
                    'nullable_member_lookup', 'user_constructor'))
 
@@ -40,7 +41,19 @@ def analyze(args):
     pins = {(x['bytes'],x['sha256']):x['role'] for x in contract['reviewed_bodies'] if x['role'] in ROLES}
     found = {}
     known = {}
-    if args.loaders_from:
+    if args.frontier_from:
+        prior=json.loads(args.frontier_from.read_text())
+        if prior.get('source_sha256')!=PREPARED_SHA:raise ValueError('Explicit continuation identity mismatch')
+        selected=[x for x in prior['body_spans'] if x.get('sha256')!='4b634d9dbf00a7af014407d8efa876cde23e4975916ff9c98aa2662d94496e3e']
+        if not 1<=len(selected)<=32:raise ValueError('Explicit frontier exceeds bound')
+        for i,item in enumerate(selected,1):
+            start=item['start'];end=item['end']
+            if spans.get(start)!=end or end-start>32768:raise ValueError('Explicit span mismatch')
+            pos=image.offset(start,end-start)
+            if hashlib.sha256(raw[pos:pos+end-start]).hexdigest()!=item['sha256']:raise ValueError('Explicit hash mismatch')
+            role='tutorial_field_frontier_'+str(i)
+            found[role]=start;known[start]=role
+    elif args.loaders_from:
         prior=json.loads(args.loaders_from.read_text())
         if prior.get('source_sha256')!=PREPARED_SHA:raise ValueError('Loader continuation identity mismatch')
         selected={}
@@ -88,8 +101,32 @@ def analyze(args):
     from capstone.arm64 import ARM64_OP_IMM, ARM64_OP_REG, ARM64_OP_MEM
     cs = Cs(CS_ARCH_ARM64,CS_MODE_ARM);cs.detail=True
     identities = {}
+    # Resolve only standard-library imports needed to understand URL assembly.
+    # Never emit arbitrary symbol names or original strings.
+    sys.path.insert(0,str(HERE.parent/'content'))
+    from inspect_master_root import imports
+    bindings=imports(image)
+    def imported_role(target):
+        if not isinstance(target,int):return 'unmapped-or-import'
+        try:position=image.offset(target,24)
+        except ValueError:return 'unmapped-or-import'
+        registers={};symbol=None
+        for ins in cs.disasm(raw[position:position+24],target):
+            o=ins.operands
+            if ins.mnemonic=='adrp' and len(o)==2:registers[cs.reg_name(o[0].reg)]=o[1].imm
+            elif ins.mnemonic=='ldr' and len(o)==2 and o[1].type==ARM64_OP_MEM:
+                b=registers.get(cs.reg_name(o[1].mem.base))
+                if isinstance(b,int) and b+o[1].mem.disp in bindings:symbol=bindings[b+o[1].mem.disp]
+            if ins.mnemonic in ('br','ret','b'):break
+        if symbol in ('_strlen','_memcpy','_memmove','_memcmp'):return symbol[1:]
+        if symbol and 'basic_string' in symbol and 'append' in symbol:return 'std.basic_string.append'
+        if symbol and 'basic_string' in symbol and 'plI' in symbol:return 'std.basic_string.operator_plus'
+        if symbol and 'put_character_sequence' in symbol:return 'std.stream.insert_character_sequence'
+        if symbol and 'basic_ostream' in symbol:return 'std.basic_ostream.operation'
+        if symbol and 'basic_stringbuf' in symbol:return 'std.basic_stringbuf.operation'
+        return 'unmapped-or-import'
     def identity(start):
-        if start not in spans:return 'unmapped-or-import'
+        if start not in spans:return imported_role(start)
         if start not in identities:
             length=spans[start]-start; pos=image.offset(start,length)
             identities[start]={'bytes':length,'sha256':hashlib.sha256(raw[pos:pos+length]).hexdigest()}
@@ -121,6 +158,9 @@ def analyze(args):
             return 'unknown'
         def render(v):
             if isinstance(v,int):
+                try:literal=image.string(v,16)
+                except (ValueError,UnicodeError):literal=None
+                if literal in URL_LITERALS:return 'literal:'+literal
                 field=read_string(v)
                 if field:fields.add(field);return 'field:'+field
                 return 'opaque-address' if v>4096 else 'constant:'+str(v)
@@ -135,7 +175,18 @@ def analyze(args):
             elif ins.mnemonic.startswith('ldr') and len(ops)>=2 and ops[0].type==ARM64_OP_REG:state[reg(ops[0].reg)]=val(ops[1])
             elif ins.mnemonic in ('ldp',) and len(ops)==3 and ops[2].type==ARM64_OP_MEM:
                 base=reg(ops[2].mem.base)
-                for j in (0,1):state[reg(ops[j].reg)]=stack.get((base,ops[2].mem.disp+j*8),'unknown-pair-load')
+                for j in (0,1):
+                    displacement=ops[2].mem.disp+j*8
+                    if base in ('sp','fp','x29'):item=stack.get((base,displacement),'unknown-pair-load')
+                    else:
+                        address=state.get(base)
+                        if isinstance(address,int):
+                            try:item=image.pointer(address+displacement)
+                            except ValueError:item='unknown-pair-load'
+                        else:item=f'load({render(address)},{displacement})'
+                    state[reg(ops[j].reg)]=item
+            elif ins.mnemonic=='csel' and len(ops)>=3:
+                state[reg(ops[0].reg)]=f'select({render(val(ops[1]))},{render(val(ops[2]))})'
             elif ins.mnemonic in ('str','strb','stur') and len(ops)==2 and ops[1].type==ARM64_OP_MEM:
                 mem=ops[1].mem;base=reg(mem.base)
                 if base in ('sp','fp','x29'):stack[(base,mem.disp)]=val(ops[0])
@@ -148,19 +199,19 @@ def analyze(args):
                     for j in (0,1):stack[(base,ops[2].mem.disp+j*8)]=val(ops[j])
             elif ins.mnemonic in ('bl','blr'):
                 target=ops[0].imm if ops and ops[0].type==ARM64_OP_IMM else None
-                e={'event':'call','callee':identity(target),'args':{f'x{i}':render(state.get(f'x{i}','unknown')) for i in (0,1,2,3,8)}}
+                e={'event':'call','callee':identity(target),'args':{f'x{i}':render(state.get(f'x{i}','unknown')) for i in range(9)}}
                 events.append(e);state={k:v for k,v in state.items() if k[1:].isdigit() and int(k[1:])>=19}
                 state['x0']='result'+str(len(events)-1)
             elif ins.mnemonic in ('b','br') and ops:
                 target=ops[0].imm if ops[0].type==ARM64_OP_IMM else None
-                if target in spans and target!=start:events.append({'event':'tail','callee':identity(target),'args':{f'x{i}':render(state.get(f'x{i}','unknown')) for i in (0,1,2,3,8)}})
+                if target in spans and target!=start:events.append({'event':'tail','callee':identity(target),'args':{f'x{i}':render(state.get(f'x{i}','unknown')) for i in range(9)}})
             elif ops and ops[0].type==ARM64_OP_REG and ins.mnemonic not in ('cmp','cmn','tst','cbz','cbnz','tbz','tbnz','ret'):
                 state.pop(reg(ops[0].reg),None)
         identity(start)
         summaries.append({'role':role,**identities[start],'allowlisted_fields':sorted(fields),'events':events})
         private.append({'role':role,'start':start,'end':end})
     # Find immediate direct reader callers only, not a broad recursive caller walk.
-    targets={found["profile_decoder"]} if not (args.continue_from or args.loaders_from) else set();callers={x:set() for x in targets}
+    targets={found["profile_decoder"]} if not (args.continue_from or args.loaders_from or args.frontier_from) else set();callers={x:set() for x in targets}
     text_pos=image.offset(text,size)
     import bisect
     for rel in range(0,size-3,4) if targets else ():
@@ -174,7 +225,7 @@ def analyze(args):
         if n>=0 and starts[n] in spans and starts[n]!=target:callers[target].add(starts[n])
     pointers=[{'location':loc,'target':target} for loc,target in image.rebases.items() if target in targets]
     args.private_output.parent.mkdir(parents=True,exist_ok=True)
-    args.private_output.write_text(json.dumps({'source_sha256':PREPARED_SHA,'reader_spans':private,'pointer_locations':pointers,
+    args.private_output.write_text(json.dumps({'source_sha256':PREPARED_SHA,'reader_spans':private,'pointer_locations':pointers,'callee_spans':[{'start':key,'end':spans[key],**value} for key,value in identities.items() if key in spans],
        'callers':[{'role':known[target],'start':s,'end':spans[s],'identity':identity(s)} for target,values in callers.items() for s in sorted(values)],
        'symbolic_summaries':summaries,'limits':['Linear symbolic summaries are partial across branches.','No source strings outside allowlisted fields emitted.']},indent=2)+'\n')
     args.report.write_text(json.dumps({'kind':'actual-current-tutorial-reader-recovery','prepared_source_sha256':PREPARED_SHA,
@@ -193,6 +244,7 @@ def main():
     mode=p.add_mutually_exclusive_group()
     mode.add_argument('--continue-from',type=Path,help='Reuse the exact private reader/caller frontier; do not rescan previous pins or callers')
     mode.add_argument('--loaders-from',type=Path,help='Inspect only an already-recovered private tutorial loader-owner frontier')
+    mode.add_argument('--frontier-from',type=Path,help='Inspect only an already-recovered private tutorial field frontier')
     analyze(p.parse_args())
 
 

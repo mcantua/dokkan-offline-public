@@ -92,11 +92,14 @@ The nonce and token lookup wrappers both reach the same284-byte key-lookup helpe
 with SHA256
 `c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6`.
 Its key input is represented by begin/end pointers. Missing-key behavior and the
-subsequent string conversion remain unproved. Two bounded attempts to recover
-the additional requiredness helpers failed closed because the saved-focus
-locator accepted direct calls but omitted tail branches. The locator now accepts
-both encodings; it has **not** been run a third time. No requiredness result was
-fabricated, and no requiredness evidence file was created.
+subsequent string conversion remain unproved. At the first checkpoint two bounded
+attempts to recover additional requiredness helpers failed closed: the saved-focus
+locator omitted tail branches, and the needed direct-callee records were split
+between retained summaries. The corrected locator now accepts both encodings
+and merges only retained private metadata. A later narrowed continuation recovered
+the four exact lookup/copy/conversion bodies in one successful invocation.
+`research/bootstrap-field-requiredness-frontier.json` records their identities;
+it does **not** establish missing-field behavior or string strictness.
 
 Next use the saved `private/research/bootstrap-dispatch.private.json`,
 `bootstrap-receiver.private.json`, `bootstrap-holder-accessors.private.json` and
@@ -150,3 +153,69 @@ assignment-shaped helper. This is a different vtable from the callback-family
 slot6; it establishes no JSON-parser ABI. Evidence:
 `research/bootstrap-request-slot6.json`. Do not conflate unrelated tables merely
 because their numeric slot index matches.
+
+## Exact callback type from retained RTTI
+
+The two already-recovered callback address points were classified using only
+their retained type-info records. Both are libc++
+`std::__1::__function::__func` wrappers whose exact encoded function type is:
+
+`void(cocos2d::network::HttpResponse*, Json::Value&)`
+
+The JSON argument is a mutable JsonCpp `Json::Value` reference. This is compiled
+type evidence, not an assumption about nlohmann JSON, a string response, or an
+HTTP envelope. These two callback bodies return void. Source RTTI names and
+addresses remain in ignored `private/research/bootstrap-callable-types.private.json`;
+public facts are in `research/bootstrap-callable-types.json`.
+
+A bounded continuation through the retained rebase-pointer metadata classified
+446 relevant JsonCpp callable records without another code/caller scan. Most
+are consumers or predicates. No admitted record establishes a `Json::Value()`
+factory for the manager member+704. Initial type-name filtering missed coalesced
+RTTI in `__const`; the corrected prefix-first metadata lookup includes those
+records. Unrelated records are retained privately rather than bloating the
+public evidence. Their signatures do not establish call17's receiver.
+
+The prior candidate index also contains a600-byte caller of the1432-byte body,
+SHA256 `1f538d12ba3eb4e7833f2275c4850c3035bd047a9d872b2c581081fd3b26ec42`.
+That is a useful next receiver-provenance path. Its parameter types and complete
+HTTP-body binding have not been admitted. Continue exact factory/receiver
+provenance, keeping the request-family slot6 and callable-family slot6 distinct.
+
+## Ordinary JSON root recovered through the installed HTTP callback
+
+The earlier1432-byte returned-string candidate was a different callable family.
+It is not the missing producer for the void auth callbacks and is no longer
+the critical auth-root frontier. The actual chain is now bound by exact body
+identities and the closure RTTI installed by the current request materializer:
+
+1. The1284-byte request materializer invokes a920-byte completion installer.
+2. That installer copies request success/failure holders at offsets48/80 into
+   a104-byte closure. Its actual RTTI operator is the pinned588-byte
+   `void(HttpClient*,HttpResponse*)` completion.
+3. The completion copies the response-data byte range into one string. Its
+  216-byte codec predicate uses the508-byte `content-type` getter, splits the
+   header value at a semicolon, and compares the media type with
+   `application/x-zstd`.
+4. The ordinary nonempty, non-zstd path parses the string through a116-byte
+   wrapper and704-byte range-reader tail into one JsonCpp document value.
+5. The completion passes that same value to the captured success/failure
+   callback. It does not select a child wrapper. The previously pinned nonce
+   and token consumers therefore read their fields at that document root.
+
+This is a static plain-JSON envelope proof, not successful offline login.
+Compressed responses, complete success requirements, token/transaction formats,
+field requiredness, native transport binding and real original-client execution
+remain pending. The new JavaScript/native body candidates choose
+`application/json`; no route is enabled.
+
+Scope accounting is explicit in `research/bootstrap-plain-json-root.json`.
+The116-byte decompilation follows112 instruction sites into the separately
+admitted704-byte tail, not a1404-byte helper. The920-byte installer decompilation
+also follows53 sites into four other source bodies after unwind/tail handling;
+those body identities are retained. The capture/registration facts above were
+cross-checked against instructions inside the declared920-byte installer.
+The content-type getter and codec predicate each remain within their exact
+declared bodies. Raw C/highPcode, instructions and coordinates stay private.
+No whole-game execution, native compilation, account request or source-key
+extraction occurred.

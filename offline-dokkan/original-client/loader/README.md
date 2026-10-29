@@ -54,3 +54,67 @@ composition before use. No new workflow was added or dispatched for this
 change. One source-only shell/manifest check was performed; Objective-C
 compilation, constructor ordering, signing and actual original-game startup
 remain unverified.
+
+## Separate original-client startup diagnostic
+
+`ODOriginalDuoStartupDiagnostic` now supplies a concrete native diagnostic
+factory. It is deliberately separate from `ODCreateUnifiedDuoStartupHost`:
+the integrated production factory remains unfinished, and its entry still
+rejects diagnostics. Both entry defines together are a compile error.
+Component libraries retain inert startup by default. When builds are explicitly
+authorized, `--original-startup-diagnostic-entry` selects only this diagnostic
+constructor; it is not a playable/release target or an app-packaging command.
+
+The native factory selects these actual app-owned inputs:
+
+- The existing hash-pinned genuine SDK27.1 shell baseline at
+  `OriginalClient/OriginalGenuineDuoShell` and prepared original engine at
+  `Frameworks/OriginalDokkanEngine.dylib`.
+- The real `Frameworks/AdjustSigSdk.framework/AdjustSigSdk` dependency. Its
+  original649,088-byte source SHA is recorded in
+  `startup-diagnostic-source.json`; package preparation must check it before
+  normal signing. Runtime loading uses ordinary dyld/OS signing policy.
+- The opaque535,552-byte original app-root `database.db` seed, read-only hashed
+  against its recovered source pin. It is not decoded, replaced with an Android
+  database, or assigned a guessed encryption key.
+- The real first `NSDocumentDirectory` result plus `assets`, matching the
+  recovered native path getter. It must already exist and contain entries.
+  No `_resources` path, empty fallback tree or guessed master-language path is
+  created. Presence of entries alone does not attest complete resource staging.
+- A separate own Application Support `OriginalClientStartupDiagnostic`
+  directory, created with descriptor-relative/no-symlink checks. No existing
+  `save/` directory is read, copied, changed or deleted.
+
+Existing `ODInstallPreparedDuoShellBootstrap` supplies the concrete shell edge:
+it verifies the shell's exact launch and scene method encodings, installs the
+local Foundation transport before original image initialization, allocates and
+retains the real `AppController` separately, launches it once, and supplies that
+same object through the original-scene provider. The diagnostic factory reuses
+this path without copying source ivars/IMPs onto the shell or calling a guessed
+C++ entry. Scene lifecycle forwarding remains owned by the existing scene
+bridge. Installation failure stops before the shell's old WebView UI.
+
+The diagnostic installs **zero success routes**, no Creator services, no
+plaintext derived master, and no native cached-handle close/reopen. Its latest
+native host report can be read on main with
+`ODCopyOriginalDuoStartupDiagnosticReport`; no diagnostic files, account data or
+raw network requests are written. Foundation rejection is not kernel/raw-socket
+isolation, and loaded dependencies/SDK network behavior still needs observation.
+
+The real dependency binary and seed were absent from both retained resource and
+client-analysis caches, then restored through the targeted cloud-only IPA
+extractor with their exact pins. The framework's original bundle metadata has
+not been restored; the two binaries do not establish a complete framework or
+complete startup resources. A complete compatible pre-staged asset
+tree, source pin verification before signing, native compile, original dyld
+loading, actual AppController rendering and offline login/battle/save remain
+unverified. This factory is source progress toward startup, not evidence that
+the original game launched. No app/library build was run for this change.
+
+Only Foundation-selected native directory prefixes are canonicalized, after
+rejecting a symlink at that root and confirming the same directory inode. This
+admits iOS's OS-owned `/var` alias while all resource/framework/state descendants
+still use descriptor-relative `O_NOFOLLOW` traversal. Native database failure
+cleanup may remove its working `sqlite/current` tree, so working resources must
+be copies inside the own-app namespace; immutable originals/cache remain
+separate. No startup code redirects the engine to the only source copy.

@@ -68,4 +68,28 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
         @"source_or_server_key_shipped": @NO
     };
 }
++ (NSDictionary *)issuePlainJSONWithNativeTime:(int32_t)nativeTime expiresIn:(int32_t)expiresIn error:(NSError **)error {
+    NSDictionary *issued = [self issueWithNativeTime:nativeTime expiresIn:expiresIn error:error];
+    if (!issued) return nil;
+    NSMutableDictionary *bodies = [NSMutableDictionary dictionaryWithCapacity:2];
+    for (NSString *phase in @[@"nonce", @"sign_in"]) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:issued[@"reader_relative"][phase]
+            options:0 error:NULL];
+        NSString *body = data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : nil;
+        if (!body) {
+            if (error) *error = ODAuthError(@"OFFLINE_AUTH_JSON_ENCODING_FAILED");
+            return nil;
+        }
+        bodies[phase] = body;
+    }
+    NSMutableDictionary *candidate = [issued mutableCopy];
+    candidate[@"kind"] = @"offline-bootstrap-auth-plain-json-candidate";
+    candidate[@"plain_json_body_candidates"] = [bodies copy];
+    candidate[@"response_content_type"] = @"application/json";
+    candidate[@"parsed_payload_root_verified"] = @YES;
+    candidate[@"plain_json_body_envelope_verified"] = @YES;
+    candidate[@"full_success_response_verified"] = @NO;
+    candidate[@"original_iphone_runtime_verified"] = @NO;
+    return [candidate copy];
+}
 @end

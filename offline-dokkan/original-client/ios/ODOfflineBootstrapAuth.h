@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
-/** Local reader-relative auth candidate. Matches protocol/bootstrap-auth.js.
- * Does not build an HTTP body, choose a JSON root wrapper, or admit
+/** Local auth candidates. Matches protocol/bootstrap-auth.js.
+ * The base issueWithNativeTime method does not build an HTTP body or admit
  * GET /auth/nonce or POST /auth/sign_in. expiresIn is a caller-supplied
  * signed32 second count, not a recovered server TTL. nativeTime is time(NULL)
  * in signed32 range. The returned dictionary holds the local token; do not
@@ -10,5 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSDictionary *)issueWithNativeTime:(int32_t)nativeTime
                                      expiresIn:(int32_t)expiresIn
                                          error:(NSError * _Nullable * _Nullable)error;
+/** Encodes both candidate bodies once, sharing the same in-memory local issue.
+ * The original client's non-zstd JSON path uses the document root directly.
+ * Returned strings remain private in memory; no transport, complete sign-in
+ * response, runtime acceptance or route authority is supplied by this API. */
++ (nullable NSDictionary *)issuePlainJSONWithNativeTime:(int32_t)nativeTime
+                                              expiresIn:(int32_t)expiresIn
+                                                  error:(NSError * _Nullable * _Nullable)error;
 @end
 NS_ASSUME_NONNULL_END

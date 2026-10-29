@@ -18,7 +18,7 @@
 static ODUnifiedDuoHost *ODInstalledUnifiedHost;
 static NSError *ODHostFailure(NSInteger code) {
     NSString *message = code == 11
-        ? @"Auth routes stay closed because the HTTP JSON envelope is not verified. No success body was installed."
+        ? @"Offline login is not ready. The complete sign-in response and native login path still need verification."
         : @"The native original-game startup or same-save binding is unavailable. Existing files were preserved.";
     return [NSError errorWithDomain:@"OfflineDokkan.UnifiedDuoHost" code:code
         userInfo:@{NSLocalizedDescriptionKey:message}];

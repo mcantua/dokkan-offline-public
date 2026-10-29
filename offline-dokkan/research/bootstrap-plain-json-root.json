@@ -1,0 +1,97 @@
+{
+  "kind": "current-client-plain-json-auth-root-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "basis": "Pinned function bodies, actual installed callable RTTI, bounded Capstone and scoped Ghidra C/highPcode review",
+  "reviewed_bodies": [
+    {
+      "role": "request_materializer",
+      "bytes": 1284,
+      "sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37"
+    },
+    {
+      "role": "completion_installer",
+      "bytes": 920,
+      "sha256": "cf78c7eb19a216f38880ed0c7e9e67fc4df0c2ab9eeecf8dbcceb2626538cffc"
+    },
+    {
+      "role": "http_completion",
+      "bytes": 588,
+      "sha256": "ddfb0349d5a5136046c35ea0c5cd784d935333586e159fa551e338f064e51d40"
+    },
+    {
+      "role": "reader_string_wrapper",
+      "bytes": 116,
+      "sha256": "58a32f2f70bda15f08d752b5168da0c6dc80eb75367ad76f0cc6a0626539da9e"
+    },
+    {
+      "role": "reader_range_tail",
+      "bytes": 704,
+      "sha256": "e39b7e57ca0e31248c37a09bf3c3a8f33d25ad7ac7c133f685bcf38b5a5dabb0"
+    },
+    {
+      "role": "response_codec_predicate",
+      "bytes": 216,
+      "sha256": "0f0de627deaafa2e05173b64107dab1a466b142429b9be6ee908a8a01629184f"
+    },
+    {
+      "role": "response_content_type",
+      "bytes": 508,
+      "sha256": "8eb4d26ddb5f220c4aa97e8eedc1696c9580543b6fd989673d5e8b175bc29b60"
+    }
+  ],
+  "request_holder_offsets": [
+    48,
+    80
+  ],
+  "installed_callable_signature": "void(cocos2d::network::HttpClient*,cocos2d::network::HttpResponse*)",
+  "consumer_callable_signature": "void(cocos2d::network::HttpResponse*,Json::Value&)",
+  "facts": [
+    "Both current auth request families inherit the pinned materializer.",
+    "The materializer calls the completion installer with the original request object.",
+    "The installer copies success/failure callable holders into the exact closure whose operator is the pinned HTTP completion.",
+    "The completion copies HttpResponse response-data begin/end bytes into a string and constructs one JsonCpp value.",
+    "The content-type header value is split at semicolon and compared with application/x-zstd.",
+    "For a nonempty non-zstd payload the reader writes its parsed document directly into that value.",
+    "Success and failure callable invocation pass that same value by reference, with no child/member wrapper selected between parsing and invocation.",
+    "The pinned nonce and token consumers read their existing fields from the delivered value."
+  ],
+  "plain_json_body_envelope_verified": true,
+  "response_content_type_for_candidate": "application/json",
+  "response_json_wrapper": "document-root",
+  "full_success_response_verified": false,
+  "field_requiredness_verified": false,
+  "field_value_format_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "decompiler_scope_accounting": {
+    "reader_wrapper_sites_outside_116": 112,
+    "reader_wrapper_extra_sites_all_in_admitted_704_tail": true,
+    "installer_sites_outside_920": 53,
+    "installer_extra_observed_bodies": [
+      {
+        "bytes": 164,
+        "sha256": "9655e7333452b3ffb63f588804ac091e3eb979ad68def7185f3a5d79ef49f01a"
+      },
+      {
+        "bytes": 20,
+        "sha256": "a30576a8a9058d3075dabf2d6202207d1636b7a7e03c45a2e0b919e89a9646ec"
+      },
+      {
+        "bytes": 120,
+        "sha256": "631704e6c3ba8f8adf40cce8896e74143d07df184b020800d4cef7d89bdc5428"
+      },
+      {
+        "bytes": 48,
+        "sha256": "74758cab73d096541f1f4ab76fd8d6585c266bea17018f126200cca5ff537b1c"
+      }
+    ],
+    "installer_binding_facts_crosschecked_inside_declared_920": true,
+    "content_type_and_codec_predicate_sites_outside_declared_bodies": 0
+  },
+  "limits": [
+    "The compressed application/x-zstd path is not implemented or claimed by the candidate encoder.",
+    "This proves the plain JSON document shape, not complete sign-in success fields, token format, native startup, transport interception or successful login.",
+    "The older 1432-byte returned-string callback candidate is a different callable family and is not used in this proof.",
+    "No raw code, source coordinates, account/player values or credentials are published."
+  ]
+}

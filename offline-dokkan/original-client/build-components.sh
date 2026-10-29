@@ -5,10 +5,13 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 OWN="$ROOT/offline-dokkan/original-client"
 WORK="$ROOT/offline-dokkan/private/component-build"
 STARTUP_ENTRY=0
+DIAGNOSTIC_ENTRY=0
 if [[ "${1:-}" == --original-startup-entry && $# == 1 ]]; then
     STARTUP_ENTRY=1
+elif [[ "${1:-}" == --original-startup-diagnostic-entry && $# == 1 ]]; then
+    DIAGNOSTIC_ENTRY=1
 elif [[ $# != 0 ]]; then
-    echo 'Usage: build-components.sh [--original-startup-entry]' >&2
+    echo 'Usage: build-components.sh [--original-startup-entry | --original-startup-diagnostic-entry]' >&2
     exit 1
 fi
 if [[ "$STARTUP_ENTRY" == 1 ]]; then
@@ -29,11 +32,12 @@ mkdir -p "$WORK/objects" "$WORK/evidence"
 python3 "$ROOT/offline-dokkan/mobile/setup-sqlite.py"
 SDK="$(xcrun --sdk iphoneos --show-sdk-path)"
 CLANG="$(xcrun --find clang)"
-python3 - "$ROOT" "$CLANG" "$SDK" "$WORK" "$STARTUP_ENTRY" <<'PY'
+python3 - "$ROOT" "$CLANG" "$SDK" "$WORK" "$STARTUP_ENTRY" "$DIAGNOSTIC_ENTRY" <<'PY'
 from pathlib import Path
 import hashlib,json,subprocess,sys
 root,clang,sdk,work=Path(sys.argv[1]),sys.argv[2],sys.argv[3],Path(sys.argv[4])
 startup_entry=sys.argv[5]=='1'
+diagnostic_entry=sys.argv[6]=='1'
 own=root/'offline-dokkan/original-client';offline=root/'offline-dokkan'
 sources=list((offline/'core').glob('*.c'))
 sources=[p for p in sources if p.name!='od_cli.c' and not p.name.startswith(('test_','check_'))]
@@ -63,6 +67,14 @@ if startup_entry:
     if entry.get('schema')!=1 or entry.get('production_compile_define')!='OD_UNIFIED_DUO_STARTUP_ENTRY=1' or root/entry.get('entry_source','') not in sources:
         raise SystemExit('Invalid original-game startup source manifest')
     common += ['-D'+entry['production_compile_define']]
+if diagnostic_entry:
+    entry=json.loads((own/'loader/startup-diagnostic-source.json').read_text())
+    if (entry.get('schema')!=1 or entry.get('diagnostic_compile_define')!='OD_ORIGINAL_DUO_DIAGNOSTIC_ENTRY=1'
+            or entry.get('native_factory_implemented') is not True
+            or root/entry.get('entry_source','') not in sources
+            or entry.get('required_host_purpose')!='original-startup-diagnostic'):
+        raise SystemExit('Invalid original-client diagnostic source manifest')
+    common += ['-D'+entry['diagnostic_compile_define']]
 objects=[];manifest=[]
 for index,source in enumerate(sources):
     obj=work/'objects'/('%03d.o'%index)
@@ -79,7 +91,7 @@ for index,source in enumerate(sources):
 output=work/'OfflineDokkanHost.dylib'
 framework_args=[arg for f in frameworks for arg in ('-framework',f)]
 subprocess.run(common+['-dynamiclib','-install_name','@rpath/OfflineDokkanHost.dylib','-Wl,-dead_strip']+objects+framework_args+['-lz','-o',str(output)],check=True)
-report={'scope':'Authored Duo component library only; no original engine, assets, master, signing or app package','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'device_sdk':'27.1','architecture':'arm64','deployment_target':'16.4','sources':manifest,'scoped_legacy_class_defines':defines,'frameworks':frameworks,'original_startup_entry_enabled':startup_entry,'native_factory_implementation_required':startup_entry,'dylib_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'dylib_bytes':output.stat().st_size,'original_game_launch_verified':False}
+report={'scope':'Authored Duo component library only; no original engine, assets, master, signing or app package','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'device_sdk':'27.1','architecture':'arm64','deployment_target':'16.4','sources':manifest,'scoped_legacy_class_defines':defines,'frameworks':frameworks,'original_startup_entry_enabled':startup_entry,'original_startup_diagnostic_entry_enabled':diagnostic_entry,'native_factory_implementation_required':startup_entry,'dylib_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'dylib_bytes':output.stat().st_size,'original_game_launch_verified':False}
 (work/'evidence/component-build.json').write_text(json.dumps(report,indent=2)+'\n')
 print('Authored Duo component library compiled with genuine device SDK27.1; no app/runtime completion claimed.')
 PY

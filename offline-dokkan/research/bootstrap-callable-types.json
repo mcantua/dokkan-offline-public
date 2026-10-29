@@ -1,0 +1,73 @@
+{
+  "kind": "retained-bootstrap-callable-rtti",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "facts": [
+    {
+      "role": "token_callback",
+      "callback": {
+        "bytes": 396,
+        "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4"
+      },
+      "libcxx_function_wrapper_rtti": true,
+      "signature_returns_void": true,
+      "signature_contains_cocos_http_response": true,
+      "signature_contains_nlohmann_json": false,
+      "signature_contains_jsoncpp_value": true,
+      "virtual_slot": 6,
+      "exact_known_signature": "void(HttpResponse*,Json::Value&)"
+    },
+    {
+      "role": "nonce_callback",
+      "callback": {
+        "bytes": 200,
+        "sha256": "34cf3d5c78c7bae97efb781db82c8b72f67b04bddd16d8d62865771a440aaac2"
+      },
+      "libcxx_function_wrapper_rtti": true,
+      "signature_returns_void": true,
+      "signature_contains_cocos_http_response": true,
+      "signature_contains_nlohmann_json": false,
+      "signature_contains_jsoncpp_value": true,
+      "virtual_slot": 6,
+      "exact_known_signature": "void(HttpResponse*,Json::Value&)"
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "json_callable_metadata_count": 447,
+  "relevant_json_callables": [
+    {
+      "role": "http-json-callable",
+      "known_signature": "void(HttpResponse*,Json::Value&)",
+      "operator": {
+        "bytes": 396,
+        "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4"
+      },
+      "virtual_slot": 6
+    },
+    {
+      "role": "http-json-callable",
+      "known_signature": "void(HttpResponse*,Json::Value&)",
+      "operator": {
+        "bytes": 200,
+        "sha256": "34cf3d5c78c7bae97efb781db82c8b72f67b04bddd16d8d62865771a440aaac2"
+      },
+      "virtual_slot": 6
+    }
+  ],
+  "http_completion_callables": [
+    {
+      "role": "cocos-http-completion",
+      "known_signature": "void(HttpClient*,HttpResponse*)",
+      "operator": {
+        "bytes": 588,
+        "sha256": "ddfb0349d5a5136046c35ea0c5cd784d935333586e159fa551e338f064e51d40"
+      },
+      "virtual_slot": 6
+    }
+  ],
+  "limits": [
+    "RTTI describes the selected compiled callback type, not the HTTP JSON envelope.",
+    "Unknown names and source coordinates stay private."
+  ]
+}

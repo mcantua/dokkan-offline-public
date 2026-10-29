@@ -43,8 +43,10 @@ no replacement schema/module or production projection change was needed.
 A separate narrow table-reference pass found original native364-byte loader
 bodies for `tutorial_phases`, `tutorial_steps` and `tutorial_processes`.
 Their literal SQL is embedded as full SELECT expressions, rather than
-standalone table-name strings. Each passes its SELECT to the same164-byte DB
-helper; these SELECTs have no WHERE clause or bind parameters. Only schema
+standalone table-name strings. Each materializes its SELECT through the same164-byte string-construction
+helper (also used to construct the later tutorial request path). That helper
+is not the database query operation. These SELECTs have no WHERE clause or
+bind parameters. Only schema
 shape and function hashes are emitted in
 `research/tutorial-table-frontier.json`.
 

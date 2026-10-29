@@ -1,6 +1,6 @@
 # Original client: first playable path
 
-Updated October 29, 2026, 1:38 PM US Central.
+Updated October 29, 2026, 1:44 PM US Central.
 
 The real supplied Sparking iPhone client is the production foundation. Its
 compiled engine, original screens, combat and animation systems are retained.
@@ -39,7 +39,7 @@ C/Objective-C changes have not been compiled or executed in this cohort.
 | Pending step | Owner | What must be established next |
 |---|---|---|
 | Original startup | startup_factory | Real AppDelegate/provider/scene factory and separate gated diagnostic entry, with exact original dependencies |
-| Missing iPhone inputs | restore_startup_inputs | Restore AdjustSigSdk and opaque original app-root database seed from retained caches, or prepare a small account-authorized cloud extraction |
+| Remaining iPhone startup resources | startup_factory | Trace the first actual scene's assets and required framework metadata; the exact framework binary and opaque seed are restored |
 | Offline login | auth_first_path | Bind the exact HTTP completion/parser to nonce/token consumers, then implement only proven contracts |
 | Native master activation | master_lifecycle | Original seed/preferred-path/cache/open ordering and a compatible native activation boundary |
 | Player, home and team | player_home_team | Actual client fields/types and native consumers, bound to canonical persistent state |
@@ -52,11 +52,24 @@ C/Objective-C changes have not been compiled or executed in this cohort.
 The private original IPA is 1,144,358,271 bytes; the connected Drive fetch action
 rejects files over 268,435,456 bytes before issuing a download reference. Its
 old temporary transfer parts were removed after an earlier reconstruction.
-The engine and genuine shells are restored, but that small archive contains
-neither the required AdjustSigSdk framework nor the original database seed.
-Inspect retained caches first. If absent, finish and review a small selective
-Colab extractor before asking Tin for the single required Google-account step.
-Preserve the original IPA; never change sharing or extract signing/save/keys.
+The engine and genuine shells are restored. After both retained caches were
+checked, Tin ran the reviewed selective Colab extractor. Its 778,241-byte
+output was fetched from Drive and both exact original files were hash-verified
+and restored readonly: the 649,088-byte AdjustSigSdk binary and 535,552-byte
+opaque database seed. Neither the full IPA nor personal signing/save/key data
+was transferred. Framework metadata and a complete compatible startup asset
+set are separate pending inputs; the two recovered files do not prove launch.
+
+The new plain-JSON auth path now has source proof through the actual installed
+HTTP completion and JsonCpp reader. Native and JS encoders produce candidate
+bodies at the document root. The sign-in callback forwards that entire root
+to a further consumer, so complete response requirements are still being
+traced and the HTTP routes remain closed. Do not label the encoder a login.
+
+Master lifecycle analysis also found the original invalid-key/schema cleanup
+can remove its working `sqlite/current` tree. Stage only separate disposable
+working copies in the app's own container and preserve immutable originals;
+do not call the unsafe cached close/reopen as a host hot-reload operation.
 
 The cloud has no direct Mac/iPhone access. No native build is requested until
 Tin says “make the builds”. No playable download or new in-app screenshot exists.

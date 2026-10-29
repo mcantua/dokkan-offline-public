@@ -1,0 +1,28 @@
+{
+  "format": "od-original-startup-input-recovery-v1",
+  "retained_resource_cache_sha256": "4b024405cea50c8d96496f5a4a948dd32871438ab77d00f822ed8ae5d3a5c252",
+  "retained_resource_cache_files": 27,
+  "retained_resource_cache_bytes": 51272144,
+  "retained_client_analysis_sha256": "feb4fb42df4e36477da3d7f14e1dfd8a3dc5d1f0062f5a7ccb97cac68e9b016a",
+  "retained_client_analysis_files": 13,
+  "required_missing_members": [
+    {
+      "relative_path": "Frameworks/AdjustSigSdk.framework/AdjustSigSdk",
+      "bytes": 649088,
+      "sha256": "564cdec07867697f3e23b8df760a5c3d9c067ff5dec2780dd905c83eaf2f96cd"
+    },
+    {
+      "relative_path": "database.db",
+      "bytes": 535552,
+      "sha256": "667e554a9cfb8c4765f05a1d85f0fdf707ade61562b50e3e5cd98ac52f997ba3"
+    }
+  ],
+  "helper_source_read_limit_bytes": 16777216,
+  "synthetic_scenarios_run": 1,
+  "synthetic_exact_selection_passed": true,
+  "synthetic_ignored_range_rejected": true,
+  "synthetic_member_hash_mismatch_rejected": true,
+  "actual_cloud_extraction_run": false,
+  "original_client_launched": false,
+  "gameplay_verified": false
+}

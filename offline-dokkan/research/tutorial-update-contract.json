@@ -1,0 +1,139 @@
+{
+  "kind": "actual-current-tutorial-update-static-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "request_method": {
+    "method": "PUT",
+    "kind": 2,
+    "chain": [
+      {
+        "body_bytes": 264,
+        "parameter": "literal kind2 passed to game API constructor argument1"
+      },
+      {
+        "body_bytes": 712,
+        "parameter": "input1 forwarded as ancestor argument6"
+      },
+      {
+        "body_bytes": 352,
+        "parameter": "input6 forwarded as common constructor argument2"
+      },
+      {
+        "body_bytes": 420,
+        "parameter": "input2 stored as request method-kind member188"
+      },
+      {
+        "virtual_slot": 17,
+        "body_bytes": 8,
+        "parameter": "reads the same method-kind member"
+      },
+      {
+        "virtual_slot": 2,
+        "body_bytes": 1284,
+        "parameter": "actual inherited materializer consumes getter17"
+      },
+      {
+        "parameter": "previously pinned Foundation bridge method table maps2 to PUT"
+      }
+    ],
+    "tutorial_derived_vtable_inherits_exact_getter_and_materializer": true,
+    "static_method_chain_verified": true
+  },
+  "request_resource": {
+    "name": "tutorial",
+    "common_constructor_parameter": 3,
+    "native_string_offset": 192,
+    "constructed_relative_suffix": "/tutorial",
+    "optional_query_string_offset": 136,
+    "suffix_assembly_verified": true,
+    "query_absence_for_this_request_verified": false,
+    "configured_host_or_port_value_read": false,
+    "complete_runtime_url_verified": false
+  },
+  "request_body_before_serialization": {
+    "fields": {
+      "progress": {
+        "origin": "tutorial constructor caller signed32 input, sign-extended into native JSON numeric value"
+      },
+      "timewarp": {
+        "origin": "native request member16, placed into a64-bit native JSON numeric value",
+        "value_read": false,
+        "lifecycle_semantics_verified": false
+      }
+    },
+    "field_flow_verified": true,
+    "setter_native_string_offset": 112,
+    "complete_on_wire_serialization_verified": false
+  },
+  "response": {
+    "tutorial_callback_binding_verified": false,
+    "complete_http_body_root_verified": false,
+    "fields_admitted": []
+  },
+  "initial_tutorial_values_admitted": false,
+  "initial_capacity_values_admitted": false,
+  "http_route_admitted": false,
+  "native_execution_verified": false,
+  "reviewed_bodies": [
+    {
+      "role": "tutorial_update_constructor",
+      "bytes": 264,
+      "sha256": "66cc64dc0f5a6e6aebac1be862333c95390af9a2d7f271fead11c924cdc75f9b"
+    },
+    {
+      "role": "game_api_constructor",
+      "bytes": 712,
+      "sha256": "0179754c18025710cf1672a8ec5f131523c81832475d593f8c1952e0c0e2da05"
+    },
+    {
+      "role": "request_ancestor_constructor",
+      "bytes": 352,
+      "sha256": "a0eba4837b88cc8ec757d5d3bb467a73b86b0d8ff6753c672cb21db8f7307e0b"
+    },
+    {
+      "role": "common_request_constructor",
+      "bytes": 420,
+      "sha256": "9d8e134af30873e345b61ff3542d2e85399c549c0b1f1331843c9807c5865910"
+    },
+    {
+      "role": "request_materializer",
+      "bytes": 1284,
+      "sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37"
+    },
+    {
+      "role": "request_method_getter",
+      "bytes": 8,
+      "sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845"
+    },
+    {
+      "role": "request_body_setter",
+      "bytes": 240,
+      "sha256": "fcc67747f8c0a63511d413f51a0acaca1aa7cd95c76b841711ba6aa056cfc6d9"
+    },
+    {
+      "role": "progress_json_numeric_constructor",
+      "bytes": 36,
+      "sha256": "1ef574139ccdd31f39eb0b9cb40860d91bb786224b249ee52e9883e3f0521726"
+    },
+    {
+      "role": "timewarp_json_numeric_constructor",
+      "bytes": 32,
+      "sha256": "323596a073066664c12710422f1f39c1dbb50966d4bbb75e07e9ac3179d80438"
+    },
+    {
+      "role": "url_builder",
+      "bytes": 664,
+      "sha256": "4192af9cd1485f8a3402f6497c6f92669b60a55d006ff99e0ebfb5e2112df663"
+    },
+    {
+      "role": "relative_suffix_builder",
+      "bytes": 248,
+      "sha256": "3d0d976939e884fea40c87de204fba3db90f3956b8043df15133898ca8202a11"
+    }
+  ],
+  "limits": [
+    "Static reviewed relative request facts only, not a ready local route.",
+    "The configured URL prefix/optional query and full wire serialization still require verification.",
+    "No timewarp value, key, account cache or starting progress was adopted."
+  ]
+}

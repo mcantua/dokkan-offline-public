@@ -36,9 +36,11 @@
       "auth_transaction_id": "string conversion",
       "nonce": "string conversion"
     },
-    "wire_body_envelope_verified": false,
+    "wire_body_envelope_verified": true,
     "field_requiredness_verified": false,
-    "field_value_format_verified": false
+    "field_value_format_verified": false,
+    "wire_body_envelope_scope": "Static ordinary non-zstd JSON response-data document root; original runtime not executed",
+    "response_json_wrapper": "document-root"
   },
   "auth_sign_in": {
     "route": "/auth/sign_in",
@@ -50,9 +52,11 @@
     },
     "expiry_semantics": "current native time(NULL) plus signed32 expires_in",
     "string_expiry_supported": false,
-    "wire_body_envelope_verified": false,
+    "wire_body_envelope_verified": true,
     "full_success_response_verified": false,
-    "secret_or_captcha_fields_admitted": false
+    "secret_or_captcha_fields_admitted": false,
+    "wire_body_envelope_scope": "Static ordinary non-zstd JSON response-data document root; original runtime not executed",
+    "response_json_wrapper": "document-root"
   },
   "reviewed_bodies": [
     {
@@ -106,10 +110,22 @@
       "sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c"
     }
   ],
+  "callback_type_proof": {
+    "basis": "exact retained callback RTTI and pinned operator bodies",
+    "function_signature": "void(cocos2d::network::HttpResponse*, Json::Value&)",
+    "json_dom": "JsonCpp Json::Value",
+    "json_argument_is_mutable_reference": true,
+    "callable_family": "libc++ std::__1::__function::__func",
+    "callable_operator_virtual_slot": 6,
+    "evidence": "bootstrap-callable-types.json",
+    "http_body_root_binding_verified": true,
+    "runtime_execution_verified": false,
+    "http_body_root_binding_scope": "Nonempty ordinary non-zstd JSON response-data; bootstrap-plain-json-root.json"
+  },
   "credential_values_extracted": false,
   "player_values_adopted": false,
   "remote_account_or_game_api_called": false,
   "runtime_execution_verified": false,
   "transport_enablement_claimed": false,
-  "pending": "Follow existing nonce-reader caller alias and generic response processing to bind reader input to complete HTTP JSON root or an envelope. Do not enable a complete response solely from reader-relative fields. Actual native diagnostic observer is the next runtime method/path confirmation. No further analysis performed after user stop."
+  "pending": "Ordinary JSON response-data root binding is proved through the actual installed callback, separate from the earlier 1432-byte returned-string candidate. Implemented private in-memory plain-JSON body candidates in JavaScript/native source; no route enabled. Complete sign-in success fields, request/session token format, field-requiredness, native transport interception, startup and original-client runtime acceptance remain unverified."
 }

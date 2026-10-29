@@ -2,9 +2,10 @@
  * Reader-relative fields only: GET /auth/nonce reads auth_transaction_id and
  * nonce as strings; POST /auth/sign_in reads access_token as a string and
  * expires_in as a signed32 second count added to native time(NULL).
- * The HTTP JSON root versus a data wrapper is not verified. This module does
- * not choose that wrapper, serialize a success body, admit a route, call an
- * account service, or accept a secret/captcha field. Token text is supplied
+ * The current client's ordinary, non-zstd JSON response feeds its document
+ * root directly to these readers. issuePlainJSON adds encoded body candidates
+ * for that path; it does not admit a route or claim a complete login response.
+ * This module does not call an account service or accept a secret/captcha field. Token text is supplied
  * by the local issuer. No source or server key is embedded here. */
 (function(root,factory){
   const api=factory();
@@ -59,5 +60,20 @@
       source_or_server_key_shipped:false
     };
   }
-  return Object.freeze({issue,SIGNED32_MIN,SIGNED32_MAX,LOCAL_TOKEN_MAX});
+  function issuePlainJSON(local){
+    const issued=issue(local);
+    return Object.assign({},issued,{
+      kind:'offline-bootstrap-auth-plain-json-candidate',
+      plain_json_body_candidates:{
+        nonce:JSON.stringify(issued.reader_relative.nonce),
+        sign_in:JSON.stringify(issued.reader_relative.sign_in)
+      },
+      response_content_type:'application/json',
+      parsed_payload_root_verified:true,
+      plain_json_body_envelope_verified:true,
+      full_success_response_verified:false,
+      original_iphone_runtime_verified:false
+    });
+  }
+  return Object.freeze({issue,issuePlainJSON,SIGNED32_MIN,SIGNED32_MAX,LOCAL_TOKEN_MAX});
 });

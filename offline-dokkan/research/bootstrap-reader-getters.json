@@ -1,0 +1,25 @@
+{
+  "kind": "exact-retained-request-slot-facts",
+  "facts": [
+    {
+      "slot": 3,
+      "bytes": 8,
+      "sha256": "dfb556a413c8bda5332942d0202e8d5f1e52f45158aec3676294cf11ad5909cb",
+      "semantic": "returns_member_value",
+      "member_offset": 16
+    },
+    {
+      "slot": 4,
+      "bytes": 8,
+      "sha256": "303da3301898a95e86f40a0e005bc411a134e5d7bc97e044157001606ef01a2a",
+      "semantic": "stores_input1_to_member",
+      "member_offset": 16
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Offsets and getter/store operations do not identify a parser ABI or HTTP envelope."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "plain-json-bootstrap-candidate-source-evidence",
+  "source_contract": "../../research/bootstrap-plain-json-root.json",
+  "javascript_scenario": {
+    "invocations": 1,
+    "passed": true,
+    "checks": [
+      "Exact root fields survive JSON encoding, including quotation/newline/Unicode",
+      "Signed32 duration remains numeric",
+      "Invalid string TTL, overflow and guessed wrapper rejected",
+      "Legacy candidate and new plain JSON candidate leave route/runtime/full-success gates closed"
+    ]
+  },
+  "native_compiled": false,
+  "native_executed": false,
+  "original_client_executed": false,
+  "http_route_enabled": false,
+  "source_hashes": {
+    "protocol/bootstrap-auth.js": "6d82238295acaeb99054aa5426a2459575ac12078fbea7f77d13861e84dd2ae7",
+    "ios/ODOfflineBootstrapAuth.h": "d5d186ac10d2bbb5cd3671def254af2c4567f99023269ae651b2153dad37df0e",
+    "ios/ODOfflineBootstrapAuth.m": "1cf9acd02ac69a40b05faddf61fe897153fca2968000b17c820294e6df972e5f"
+  }
+}

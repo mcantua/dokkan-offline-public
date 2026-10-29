@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import struct
 import subprocess
+import re
 import sys
 
 from trace_bootstrap_envelope import Image, function_starts, sections_and_symbols, PREPARED_SHA, FIELDS
@@ -21,13 +22,19 @@ def main():
     ap.add_argument('--source', type=Path, required=True)
     ap.add_argument('--capstone-runtime', type=Path, required=True)
     ap.add_argument('--dispatch-report', type=Path, required=True)
+    ap.add_argument('--additional-private-report',type=Path,action='append',default=[],
+        help='Merge only retained private summary metadata for exact callee recovery.')
     ap.add_argument('--accessor-report', type=Path,
         help='Continue only saved setter accessors; skip constructor recovery.')
     ap.add_argument('--focus-body-sha',action='append',default=[],
         help='Inspect only a saved body/direct-callee identity from dispatch evidence.')
+    ap.add_argument('--vtable-report',type=Path,
+        help='Optional retained exact slot identities from a cooperating workstream.')
     ap.add_argument('--focus-helper-depth',type=int,default=1)
     ap.add_argument('--classify-callable-types',action='store_true',
         help='Classify only the retained two callback RTTI records; no code rescan.')
+    ap.add_argument('--find-json-callables',action='store_true',
+        help='Continue in the retained pointer metadata for Json::Value callable types.')
     ap.add_argument('--private-output', type=Path, required=True)
     ap.add_argument('--report', type=Path, required=True)
     args = ap.parse_args()
@@ -37,6 +44,10 @@ def main():
     if len(raw)>512*1024*1024 or hashlib.sha256(raw).hexdigest()!=PREPARED_SHA:
         raise ValueError('Prepared source identity rejected')
     old=json.loads(args.dispatch_report.read_text())
+    for additional in args.additional_private_report:
+        old['summaries'].update(json.loads(additional.read_text())['summaries'])
+    if any(not re.fullmatch('[0-9a-f]{64}',value) for value in args.focus_body_sha):
+        raise ValueError('Focus requires a complete SHA256 identity')
     sys.path.insert(0,str(args.capstone_runtime.resolve()))
     from capstone import Cs,CS_ARCH_ARM64,CS_MODE_ARM
     from capstone.arm64 import ARM64_OP_REG,ARM64_OP_IMM,ARM64_OP_MEM
@@ -48,7 +59,7 @@ def main():
         for point in old['address_points']:
             type_info=image.pointer(point['address_point']-8)
             name=image.string(image.pointer(type_info+8),16384)
-            decoded=subprocess.run(['c++filt','-t',name],capture_output=True,text=True,timeout=10)
+            decoded=subprocess.run(['c++filt','-t','--',name],capture_output=True,text=True,timeout=10)
             if decoded.returncode or not decoded.stdout or len(decoded.stdout)>32768:
                 raise ValueError('Bounded RTTI decoding failed')
             demangled=decoded.stdout.strip();prefix='std::__1::__function::__func<'
@@ -66,17 +77,77 @@ def main():
             signature=parameters[-1] if len(parameters)==3 else ''
             private_types.append({'role':point['role'],'private_type_info':type_info,
                 'private_mangled_name':name,'private_demangled_name':demangled,'private_signature':signature})
-            facts.append({'role':point['role'],'callback':identity(point['callback']),
+            previous_body=old['summaries'][str(point['callback'])]
+            facts.append({'role':point['role'],'callback':{key:previous_body[key] for key in ('bytes','sha256')},
                 'libcxx_function_wrapper_rtti':bool(signature),
                 'signature_returns_void':signature.startswith('void ('),
                 'signature_contains_cocos_http_response':'cocos2d::network::HttpResponse' in signature,
                 'signature_contains_nlohmann_json':'nlohmann::' in signature and 'basic_json<' in signature,
                 'signature_contains_jsoncpp_value':'Json::Value' in signature,
                 'virtual_slot':point['slot']})
+        json_callables=[];public_callables=[]
+        if args.find_json_callables:
+            selected_names={}
+            function_type_prefix=b'NSt3__110__function6__funcI'
+            for location,value in image.rebases.items():
+                try:
+                    # Coalesced Itanium RTTI names may be in __const rather
+                    # than __cstring. Compare the tiny exact prefix before
+                    # reading a bounded matching type name.
+                    offset=image.offset(value,len(function_type_prefix))
+                    if raw[offset:offset+len(function_type_prefix)]!=function_type_prefix:continue
+                    name=image.string(value,16384)
+                except (ValueError,UnicodeError):continue
+                if '4Json5Value' in name or 'HttpClient' in name and 'HttpResponse' in name:
+                    selected_names[location-8]=name
+            if len(selected_names)>4096 or sum(map(len,selected_names.values()))>4*1024*1024:
+                raise ValueError('JSON callable metadata exceeds bound')
+            if selected_names:
+                decoded=subprocess.run(['c++filt','-t'],input='\n'.join(selected_names.values())+'\n',capture_output=True,text=True,timeout=20)
+                lines=decoded.stdout.splitlines()
+                if decoded.returncode or len(lines)!=len(selected_names):raise ValueError('JSON callable type decoding failed')
+                starts_here=function_starts(image);text,size,_,_=sections[b'__text']
+                ends_here=dict(zip(starts_here,starts_here[1:]+[text+size]))
+                for (type_info,name),demangled in zip(selected_names.items(),lines):
+                    if not demangled.startswith(prefix) or not demangled.endswith('>'):continue
+                    inner=demangled[len(prefix):-1];begin=0;angle=paren=0;pieces=[]
+                    for i,char in enumerate(inner):
+                        if char=='<':angle+=1
+                        elif char=='>':angle-=1
+                        elif char=='(':paren+=1
+                        elif char==')':paren-=1
+                        elif char==',' and angle==0 and paren==0:pieces.append(inner[begin:i].strip());begin=i+1
+                    pieces.append(inner[begin:].strip());signature=pieces[-1] if len(pieces)==3 else ''
+                    role='cocos-http-completion' if 'cocos2d::network::HttpClient' in signature and 'cocos2d::network::HttpResponse' in signature else 'json-result-callable' if signature.startswith(('Json::Value (','Json::Value& (','Json::Value const& (')) else 'http-json-callable' if 'cocos2d::network::HttpResponse' in signature and 'Json::Value' in signature else 'json-dom-callable' if 'Json::Value' in signature else None
+                    if not role:continue
+                    for location,value in image.rebases.items():
+                        if value!=type_info:continue
+                        address_point=location+8
+                        try:
+                            if image.at('q',location-8)[0]!=0:continue
+                            target=image.pointer(address_point+6*8);end=ends_here.get(target)
+                            if end is None or not text<=target<end<=text+size or end-target>32768:continue
+                            offset=image.offset(target,end-target);digest=hashlib.sha256(raw[offset:offset+end-target]).hexdigest()
+                        except ValueError:continue
+                        exact_known={
+                            'void (cocos2d::network::HttpResponse*, Json::Value&)':'void(HttpResponse*,Json::Value&)',
+                            'void (cocos2d::network::HttpClient*, cocos2d::network::HttpResponse*)':'void(HttpClient*,HttpResponse*)',
+                            'Json::Value ()':'Json::Value()',
+                            'Json::Value& ()':'Json::Value&()',
+                            'std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > (cocos2d::network::HttpResponse*, Json::Value&)':'string(HttpResponse*,Json::Value&)'}
+                        json_callables.append({'role':role,'private_type_info':type_info,'private_name':name,
+                            'private_demangled':demangled,'private_signature':signature,'private_address_point':address_point,'private_operator':target})
+                        public_callables.append({'role':role,'known_signature':exact_known.get(signature,'not-in-exact-allowlist'),
+                            'operator':{'bytes':end-target,'sha256':digest},'virtual_slot':6})
+        for fact,private in zip(facts,private_types):
+            fact['exact_known_signature']='void(HttpResponse*,Json::Value&)' if private['private_signature']=='void (cocos2d::network::HttpResponse*, Json::Value&)' else 'not-in-exact-allowlist'
         args.private_output.parent.mkdir(parents=True,exist_ok=True)
-        args.private_output.write_text(json.dumps({'types':private_types},indent=2)+'\n')
+        args.private_output.write_text(json.dumps({'types':private_types,'json_callables':json_callables},indent=2)+'\n')
         report={'kind':'retained-bootstrap-callable-rtti','prepared_source_sha256':PREPARED_SHA,'facts':facts,
             'wire_body_envelope_verified':False,'runtime_execution_verified':False,'route_enablement_claimed':False,
+            'json_callable_metadata_count':len(public_callables),
+            'relevant_json_callables':[item for item in public_callables if item['role']=='json-result-callable' or item['operator']['sha256'] in {fact['callback']['sha256'] for fact in facts}],
+            'http_completion_callables':[item for item in public_callables if item['role']=='cocos-http-completion'],
             'limits':['RTTI describes the selected compiled callback type, not the HTTP JSON envelope.',
                 'Unknown names and source coordinates stay private.']}
         args.report.write_text(json.dumps(report,indent=2)+'\n')
@@ -95,10 +166,17 @@ def main():
     if args.focus_body_sha:
         selected=set()
         for wanted in args.focus_body_sha:
+            specific=set()
             found=set(int(s) for s,item in old['summaries'].items() if item['sha256']==wanted)
+            if args.vtable_report:
+                specific=set()
+                for item in json.loads(args.vtable_report.read_text())['slots']:
+                    if item['sha256']==wanted and identity(item['start']) and identity(item['start'])['sha256']==wanted:
+                        specific.add(item['start'])
+                if specific:found=specific
             for item in old['summaries'].values():
                 for call in item['calls']:
-                    if isinstance(call['target'],dict) and call['target']['sha256']==wanted:
+                    if not specific and isinstance(call['target'],dict) and call['target']['sha256']==wanted:
                         pc=call['private_pc'];word=image.at('I',pc)[0]
                         if word&0x7c000000!=0x14000000:continue
                         delta=word&0x3ffffff
