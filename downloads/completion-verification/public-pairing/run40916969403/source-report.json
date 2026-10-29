@@ -1,0 +1,64 @@
+{
+  "source_commit": "24f2809c3001c474d0ea885afc1aef00aa388fd0",
+  "architecture": "arm64",
+  "rust_target": "aarch64-apple-ios-sim",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "simulator_sdk": "27.1",
+  "scope": "Genuine SDK27.1+. Actual simulator selection and pre-app health are recorded separately. No Apple login or phone use; geometry fixtures do not verify hardware folds.",
+  "pairing_public_new_test_counts": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "native": 2
+  },
+  "native_checks_requested": true,
+  "native_test_scope": "pairing-public",
+  "rust_test_scope": "pairing-public",
+  "physical_hardware_verified": false,
+  "pose_automation": "No undocumented fold CLI invoked; installed simctl help is captured for supported-control discovery.",
+  "simulator_frontend_mode": "headless-supported-simctl",
+  "simulator_frontend_bundle_available": false,
+  "simulator_preapp_attempts": [
+    {
+      "selection": "duo",
+      "device_type": {
+        "productFamily": "iPhone",
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/iPhone Duo.simdevicetype",
+        "maxRuntimeVersion": 4294967295,
+        "maxRuntimeVersionString": "65535.255.255",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.iPhone-Duo",
+        "modelIdentifier": "iPhone19,4",
+        "minRuntimeVersionString": "27.1.0",
+        "minRuntimeVersion": 1769728,
+        "name": "iPhone Duo"
+      },
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-1",
+      "preapp_only": true,
+      "physical_hardware_verified": false,
+      "simulator_id": "3E9B5700-2ECB-4A6C-A98F-BE1108B23552",
+      "status": "preapp-os-failed",
+      "error": "Command '['xcrun', 'simctl', 'ui', '3E9B5700-2ECB-4A6C-A98F-BE1108B23552', 'appearance']' timed out after 60 seconds"
+    },
+    {
+      "selection": "regular-iphone-fallback",
+      "device_type": {
+        "productFamily": "iPhone",
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/iPhone 18 Pro Max.simdevicetype",
+        "maxRuntimeVersion": 4294967295,
+        "maxRuntimeVersionString": "65535.255.255",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+        "modelIdentifier": "iPhone19,3",
+        "minRuntimeVersionString": "27.0.0",
+        "minRuntimeVersion": 1769472,
+        "name": "iPhone 18 Pro Max"
+      },
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-1",
+      "preapp_only": true,
+      "physical_hardware_verified": false,
+      "status": "preapp-os-failed",
+      "error": "xcrun exited 147; see create.log"
+    }
+  ],
+  "duo_os_verified": false,
+  "duo_native_tests_verified": false
+}

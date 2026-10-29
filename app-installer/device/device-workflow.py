@@ -5,16 +5,14 @@ Never run on Tin's Mac/personal connection before explicit approval. Apple crede
 stay in Xcode's UI/OS Keychain. Every private runtime product is ignored beneath private/.
 """
 from __future__ import annotations
-import argparse, datetime as dt, hashlib, json, os, pathlib, plistlib, re, shutil, subprocess, sys, tempfile
+import argparse, datetime as dt, hashlib, json, os, pathlib, plistlib, queue, re, shutil, stat, subprocess, sys, tempfile, threading, time
 
+sys.dont_write_bytecode=True
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 PRIVATE = HERE / "private"
 BUNDLE_PREFIX = "org.tin.appinstaller"
-PAIR_URL = "https://github.com/jkcoxson/idevice_pair/releases/download/v1.1.0/idevice_pair--macos-universal.dmg"
 DUO_MODELS = frozenset({"iPhone19,4"})  # Root verified current specs/hosted device enumeration.
-PAIR_BYTES = 57690695
-PAIR_SHA256 = "9ff54171dccdb0a9b0e72ec89e43a479823c53ee54c2121fe9f053cc2cb940ce"
 ALLOWED_ENTITLEMENTS = {"application-identifier", "com.apple.developer.team-identifier", "keychain-access-groups", "get-task-allow"}
 
 class WorkflowError(Exception): pass
@@ -37,10 +35,13 @@ def sha256(path: pathlib.Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""): digest.update(block)
     return digest.hexdigest()
 
-def command(argv: list[str], *, step: str) -> bytes:
+def command(argv: list[str], *, step: str, timeout: float | None = None) -> bytes:
     # Capture output instead of exposing identifiers, account labels, certificate names,
     # profiles or Xcode's raw diagnostics in chat/repo logs. No shell or trace mode.
-    result = subprocess.run(argv, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        result = subprocess.run(argv, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise WorkflowError(f"{step} exceeded its time limit; the outcome is unconfirmed. No raw private output was saved.") from None
     if result.returncode:
         raise WorkflowError(f"{step} did not finish. Review it in Xcode on the approved Mac; no raw account/device output was saved.")
     return result.stdout
@@ -52,7 +53,7 @@ def mac_only() -> None:
     if not shutil.which("xcrun") or not shutil.which("xcodebuild"):
         raise WorkflowError("Open the existing full Xcode app, then Xcode → Settings → Locations → Command Line Tools and select that Xcode. Command Line Tools alone cannot build this app. If full Xcode is missing, stop for separate approval before a large download.")
 
-def local_preflight() -> dict:
+def local_preflight(*, pairing_only: bool = False) -> dict:
     """Read-only tool/SDK checks, before any device or account discovery."""
     if sys.version_info < (3,9):
         raise WorkflowError("Python 3.9 or newer is required. Use a compatible existing local Python or install trusted Python within the already approved dependency setup scope.")
@@ -70,7 +71,7 @@ def local_preflight() -> dict:
     except (OSError,UnicodeError,WorkflowError) as error:
         if isinstance(error,WorkflowError) and str(error) in {full_xcode,blocked_xcode}:raise
         raise WorkflowError(blocked_xcode) from None
-    if (version(sdk)+(0,))[:2] < (27,1):
+    if not pairing_only and (version(sdk)+(0,))[:2] < (27,1):
         raise WorkflowError("This Duo setup needs an actual iPhoneOS SDK 27.1 or newer. In Xcode → Settings → Locations → Command Line Tools select an already installed compatible full Xcode. If none is installed, stop: a large Xcode/SDK download needs separate approval. Nothing was downloaded or changed.")
     try:
         for tool in ["devicectl","vtool","lipo"]:
@@ -91,13 +92,18 @@ def safe_relative(value: str) -> pathlib.PurePosixPath:
 def bootstrap_kit() -> dict | None:
     manifest_path=ROOT/"BootstrapKitManifest.json"
     if not manifest_path.exists(): return None
-    try: manifest=json.loads(checked_file(manifest_path).read_text())
+    try:
+        manifest_file=checked_file(manifest_path)
+        with manifest_file.open("rb") as stream:raw=stream.read(4*1024*1024+1)
+        if len(raw)>4*1024*1024:raise ValueError("oversize")
+        manifest=json.loads(raw)
     except (ValueError,OSError): raise WorkflowError("Bootstrap kit manifest is unreadable.") from None
     if (not isinstance(manifest,dict) or type(manifest.get("schema_version")) is not int or manifest["schema_version"]!=1 or manifest.get("test_fixture") is not False or manifest.get("project")!="dokkan-offline-public"
+        or manifest.get("source_repository")!="mcantua/dokkan-offline-public"
         or not re.fullmatch(r"[0-9a-f]{40}",str(manifest.get("source_commit","")))
         or not re.fullmatch(r"[0-9a-f]{40}",str(manifest.get("bootstrap_tool_commit","")))
         or not re.fullmatch(r"[0-9a-f]{64}",str(manifest.get("source_tree_sha256","")))
-        or not isinstance(manifest.get("files"),list) or not manifest["files"]):
+        or not isinstance(manifest.get("files"),list) or not 0<len(manifest["files"])<=10000):
         raise WorkflowError("Bootstrap kit source identity is incomplete.")
     seen=set()
     for entry in manifest["files"]:
@@ -110,7 +116,7 @@ def bootstrap_kit() -> dict | None:
         seen.add(relative);file=checked_file(ROOT/relative)
         if type(entry.get("bytes")) is not int or file.stat().st_size!=entry["bytes"] or sha256(file)!=entry.get("sha256"):
             raise WorkflowError("Bootstrap kit content changed from the reviewed cloud transfer.")
-    required={"README.md","app-installer/LICENSE","app-installer/licensing-signing.md","app-installer/device/.gitignore","app-installer/device/device-workflow.py","app-installer/ios/Info.plist","app-installer/core/app_installer.h","app-installer/core/secure_storage.h",manifest.get("rust_library"),manifest.get("library_manifest")}
+    required={"README.md","app-installer/LICENSE","app-installer/licensing-signing.md","app-installer/device/.gitignore","app-installer/device/device-workflow.py","app-installer/device/PUBLIC-CONTINUATION.md","app-installer/ios/Info.plist","app-installer/core/app_installer.h","app-installer/core/secure_storage.h",manifest.get("rust_library"),manifest.get("library_manifest")}
     if not required<=seen or not set(manifest.get("native_sources",[]))<=seen or not manifest.get("native_sources"):
         raise WorkflowError("Bootstrap kit omits a required native build input.")
     expected_ios={path for path in seen if path.startswith("app-installer/ios/")}
@@ -128,7 +134,177 @@ def bootstrap_kit() -> dict | None:
         or source.get("artifact")!="app-installer-cloud-ui-latest"
         or source.get("path")!="candidates/"+source["file"]):
         raise WorkflowError("Matching complete source/relink delivery is not identified alongside this minimal kit.")
+    validate_remote_pairing_tool(manifest, seen)
     return manifest
+
+RP_HELPER_PATHS = {
+    "binary":"app-installer/device/tools/app-installer-rp-bootstrap",
+    "manifest":"app-installer/device/tools/RPBootstrapBuildManifest.json",
+    "notices":"app-installer/device/tools/RPBootstrapThirdPartyNotices.txt",
+    "notice_report":"app-installer/device/tools/RPBootstrapThirdPartyNoticeReport.json",
+}
+RP_STAGES = frozenset({"STARTED","USB_SELECTED","USB_TRUST_VERIFIED","AUTHENTICATED_SETUP_PENDING",
+    "M6_AUTHENTICATED_FRESH_VERIFY_PENDING","FRESH_PINNED_VERIFICATION_SUCCEEDED","EXPORTED_PRIVATE_V2"})
+RP_ERRORS = frozenset({"ARGUMENTS","MAC_REQUIRED","ACTIVE_PUBLIC_PROJECT_REQUIRED","PRIVATE_DIRECTORY_UNSAFE",
+    "EXISTING_EXPORT_OR_LOCK_PRESERVED","USB_SERVICE","PHYSICAL_USB_SELECTION","EXISTING_USB_TRUST",
+    "AUTHENTICATED_USB_SESSION","REMOTE_PAIRING_SERVICE","REMOTE_PAIRING_HANDSHAKE",
+    "PAIR_TIMEOUT_OUTCOME_UNKNOWN","PAIR_AUTHENTICATION_NO_EXPORT","STRICT_V2_RECORD",
+    "FRESH_PINNED_VERIFICATION_NO_EXPORT","PUBLIC_STATUS_OUTPUT_UNAVAILABLE",
+    "EXPORT_OUTCOME_UNKNOWN_PRESERVE_PRIVATE_FILE","GLOBAL_TIMEOUT_OUTCOME_UNKNOWN_PRESERVE_PRIVATE_FILES",
+    "INTERRUPTED_OUTCOME_UNKNOWN_PRESERVE_PRIVATE_FILES"})
+
+def validate_remote_pairing_tool(kit: dict, payload_paths=None, *, base=None) -> pathlib.Path:
+    """Hash-bind the helper, notices and source receipt; execute nothing here."""
+    base=ROOT if base is None else contained(base)
+    error="The strict version-2 USB helper is missing, unsealed or differs from this public kit. No pairing action was started."
+    tool=kit.get("secure_rp_tool")
+    if (not isinstance(tool,dict) or any(tool.get(key)!=value for key,value in RP_HELPER_PATHS.items())
+        or tool.get("source_commit")!=kit.get("bootstrap_tool_commit")
+        or tool.get("source_tree_sha256")!=kit.get("source_tree_sha256")
+        or tool.get("version")!="0.1.68" or tool.get("format_key")!="format_version"
+        or type(tool.get("protocol_record_version")) is not int or tool["protocol_record_version"]!=2
+        or tool.get("peer_pin_required") is not True):raise WorkflowError(error)
+    entries={entry["path"]:entry for entry in kit.get("files",[]) if isinstance(entry,dict) and isinstance(entry.get("path"),str)}
+    for key,relative in RP_HELPER_PATHS.items():
+        if relative not in entries or (payload_paths is not None and relative not in payload_paths):raise WorkflowError(error)
+        file=checked_file(base/relative);entry=entries[relative]
+        bound=128*1024*1024 if key=="binary" else 16*1024*1024
+        if (type(entry.get("bytes")) is not int or not 0<entry["bytes"]<=bound
+            or file.stat().st_size!=entry["bytes"] or sha256(file)!=entry.get("sha256")):raise WorkflowError(error)
+        if key=="binary" and (entry.get("mode")!=0o755 or stat.S_IMODE(file.stat().st_mode)!=0o755):raise WorkflowError(error)
+    try:
+        receipt=json.loads((base/RP_HELPER_PATHS["manifest"]).read_text())
+        report=json.loads((base/RP_HELPER_PATHS["notice_report"]).read_text())
+    except (OSError,ValueError):raise WorkflowError(error) from None
+    if (not isinstance(receipt,dict) or type(receipt.get("schema_version")) is not int or receipt["schema_version"]!=1
+        or receipt.get("project")!="dokkan-offline-public" or receipt.get("test_fixture") is not False
+        or receipt.get("tool")!="app-installer-rp-bootstrap" or receipt.get("version")!="0.1.68"
+        or receipt.get("source_commit")!=tool["source_commit"] or receipt.get("source_tree_sha256")!=tool["source_tree_sha256"]
+        or receipt.get("targets")!=["aarch64-apple-darwin","x86_64-apple-darwin"]
+        or receipt.get("architectures")!=["arm64","x86_64"] or receipt.get("minimum_macos")!="12.0"
+        or receipt.get("ad_hoc_signed") is not True or receipt.get("notarized") is not False
+        or receipt.get("build_succeeded") is not True or receipt.get("version_output")!="app-installer-rp-bootstrap 0.1.68"
+        or receipt.get("version_only_executed") is not True or receipt.get("usb_or_pairing_executed") is not False
+        or receipt.get("personal_resources_used") is not False
+        or receipt.get("notice_delivery_pending") is not False or receipt.get("corresponding_source_delivery_pending") is not False):raise WorkflowError(error)
+    source=kit.get("corresponding_source",{});helper_source=receipt.get("corresponding_source")
+    if (not isinstance(helper_source,dict) or any(helper_source.get(key)!=source.get(key) for key in ["file","bytes","sha256"])):raise WorkflowError(error)
+    graphs=receipt.get("target_graph_hashes")
+    if (not isinstance(graphs,dict) or set(graphs)!={"aarch64-apple-darwin","x86_64-apple-darwin"}
+        or any(not re.fullmatch(r"[0-9a-f]{64}",str(value)) for value in graphs.values())
+        or not isinstance(report,dict) or report.get("notice_obligations_satisfied") is not True
+        or type(report.get("notice_gap_count")) is not int or report["notice_gap_count"]!=0
+        or report.get("target_graph_hashes")!=graphs):raise WorkflowError(error)
+    for key in ["binary","notices","notice_report"]:
+        record=receipt.get(key);entry=entries[RP_HELPER_PATHS[key]]
+        if (not isinstance(record,dict) or record.get("file")!=pathlib.PurePosixPath(RP_HELPER_PATHS[key]).name
+            or type(record.get("bytes")) is not int or record.get("bytes")!=entry["bytes"] or record.get("sha256")!=entry["sha256"]):raise WorkflowError(error)
+    if receipt["binary"].get("mode")!=0o755:raise WorkflowError(error)
+    return checked_file(base/RP_HELPER_PATHS["binary"])
+
+def public_pairing_line(raw: bytes, channel: str):
+    """Return only exact fixed tokens; never decode/forward arbitrary child text."""
+    if not isinstance(raw,bytes) or len(raw)>256 or not raw.endswith(b"\n"):return None
+    try:line=raw.rstrip(b"\r\n").decode("ascii")
+    except UnicodeError:return None
+    prefix,allowed=("RP_EXPORT_STAGE: ",RP_STAGES) if channel=="stdout" else ("RP_EXPORT_ERROR: ",RP_ERRORS)
+    if not line.startswith(prefix):return None
+    value=line[len(prefix):]
+    return (channel,value) if value in allowed else None
+
+def run_pairing_child(binary: pathlib.Path, physical_udid: str):
+    """Own one bounded child; stream only reviewed tokens, never raw captures."""
+    events=queue.Queue(maxsize=64)
+    child=subprocess.Popen([str(binary),"--execute","--repo-root",str(ROOT),"--device-udid",physical_udid],
+        cwd=ROOT,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    def reader(stream,channel):
+        total=0;discard=False
+        try:
+            while True:
+                raw=stream.readline(256)
+                if not raw:break
+                total+=len(raw)
+                if total>16384:events.put(("limit","OUTPUT_LIMIT_OUTCOME_UNKNOWN"));break
+                ended=raw.endswith(b"\n")
+                if not discard and ended:
+                    event=public_pairing_line(raw,channel)
+                    if event:events.put(event)
+                discard=not ended
+        except Exception:
+            events.put(("limit","CAPTURE_UNAVAILABLE_OUTCOME_UNKNOWN"))
+        finally:
+            stream.close();events.put(("eof",channel))
+    threads=[threading.Thread(target=reader,args=(child.stdout,"stdout"),daemon=True),
+             threading.Thread(target=reader,args=(child.stderr,"stderr"),daemon=True)]
+    for thread in threads:thread.start()
+    stage="NO_STAGE";reason="UNCLASSIFIED";ended=0;deadline=time.monotonic()+600
+    failure=None
+    try:
+        while ended<2:
+            remaining=deadline-time.monotonic()
+            if remaining<=0:failure="HELPER_WALL_TIMEOUT_OUTCOME_UNKNOWN";break
+            try:kind,value=events.get(timeout=min(0.25,remaining))
+            except queue.Empty:continue
+            if kind=="eof":ended+=1
+            elif kind=="limit":failure=value;break
+            elif kind=="stdout":stage=value;print("PAIRING_STAGE:",value,flush=True)
+            elif kind=="stderr":reason=value;print("PAIRING_REASON:",value,flush=True)
+        if failure is None:
+            try:code=child.wait(timeout=max(0.01,deadline-time.monotonic()))
+            except subprocess.TimeoutExpired:failure="HELPER_WALL_TIMEOUT_OUTCOME_UNKNOWN"
+    except KeyboardInterrupt:failure="OPERATOR_INTERRUPTED_OUTCOME_UNKNOWN"
+    finally:
+        if failure is not None and child.poll() is None:
+            # Stop only the child created above. Never kill by name or reset USB trust.
+            try:child.terminate()
+            except ProcessLookupError:pass
+            try:child.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                try:child.kill()
+                except ProcessLookupError:pass
+                try:child.wait(timeout=3)
+                except subprocess.TimeoutExpired:pass
+        for thread in threads:thread.join(timeout=1)
+    if failure is not None:
+        print("PAIRING_REASON:",failure,flush=True)
+        raise WorkflowError("The owned pairing process stopped with an unknown outcome. Preserve private files/lock and review the fixed code before retrying; no app reinstall is needed.")
+    print("PAIRING_EXIT:",code,flush=True)
+    if code!=0 or stage!="EXPORTED_PRIVATE_V2" or reason!="UNCLASSIFIED":
+        raise WorkflowError("Trusted USB pairing did not complete its verified export. Preserve existing private files and use only the fixed stage/reason above for review. Do not retry blindly or reinstall the app.")
+    return stage,reason
+
+def create_remote_pairing(args: argparse.Namespace) -> None:
+    kit=bootstrap_kit()
+    if not kit:raise WorkflowError("Use the new reviewed public kit containing its verified strict version-2 helper.")
+    binary=validate_remote_pairing_tool(kit)
+    command(["codesign","--verify","--strict","--all-architectures",str(binary)],step="Pairing helper signature integrity verification",timeout=30)
+    arches=command(["xcrun","lipo","-archs",str(binary)],step="Pairing helper universal architecture verification",timeout=30).decode().split()
+    if sorted(arches)!=["arm64","x86_64"]:raise WorkflowError("The source-bound Mac pairing helper has an unsupported architecture set.")
+    details=device_json(args,"device","info","details")
+    result=details.get("result") if isinstance(details,dict) else None
+    hardware=result.get("hardwareProperties") if isinstance(result,dict) else None
+    if not isinstance(hardware,dict):raise WorkflowError("The selected physical USB iPhone could not be rechecked.")
+    physical=hardware_udid(hardware)
+    model=hardware.get("productType") or hardware.get("model")
+    if not isinstance(model,str) or not re.fullmatch(r"iPhone[0-9]+,[0-9]+",model):raise WorkflowError("A real iPhone hardware model is required for pairing.")
+    run_pairing_child(binary,physical)
+    export=private_path(PRIVATE/"secure-rp/pairing.mobiledevicepairing")
+    descriptor=os.open(export,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+    with os.fdopen(descriptor,"rb") as stream:
+        meta=os.fstat(stream.fileno())
+        if (not stat.S_ISREG(meta.st_mode) or not 0<meta.st_size<=65536
+            or stat.S_IMODE(meta.st_mode)!=0o600 or meta.st_uid!=os.getuid() or meta.st_nlink!=1):
+            raise WorkflowError("The private export could not be confirmed safely. Preserve it for review.")
+        data=stream.read(65537)
+    if len(data)>65536:raise WorkflowError("The private export exceeded its bound. Preserve it for review.")
+    record=plistlib.loads(data)
+    fields={"format_version","identifier","public_key","private_key","peer_identifier","peer_public_key","alt_irk"}
+    if (not isinstance(record,dict) or set(record)!=fields or type(record.get("format_version")) is not int or record["format_version"]!=2
+        or any(not isinstance(record.get(key),str) or not 0<len(record[key])<=1024 for key in ["identifier","peer_identifier"])
+        or any(not isinstance(record.get(key),bytes) or len(record[key])!=32 for key in ["public_key","private_key","peer_public_key"])
+        or not isinstance(record.get("alt_irk"),bytes) or len(record["alt_irk"])!=16):
+        raise WorkflowError("The exported record did not contain the required format_version2 peer pin. Preserve it; nothing was marked connected.")
+    print("Private peer-pinned version-2 export verified locally. Transfer only through the approved direct import route; no on-phone connection success is claimed.",flush=True)
 
 def private_directory() -> None:
     if PRIVATE.is_symlink() or not PRIVATE.resolve().is_relative_to(ROOT.resolve()):
@@ -188,7 +364,7 @@ def device_json(args: argparse.Namespace, *pieces: str) -> dict:
         raise WorkflowError("Select this iPhone in Xcode Devices and Simulators and provide its identifier locally.")
     with tempfile.TemporaryDirectory(prefix="device-output-", dir=PRIVATE) as temporary:
         output = pathlib.Path(temporary) / "device.json"
-        command(["xcrun", "devicectl", *pieces, "--device", args.device, "--json-output", str(output)], step="Device query")
+        command(["xcrun", "devicectl", *pieces, "--device", args.device, "--json-output", str(output)], step="Device query", timeout=120 if pieces[:3]==("device","process","launch") else 60)
         try: return json.loads(output.read_text())
         except (OSError, ValueError): raise WorkflowError("Xcode returned an unsupported device response. Review the device in Xcode.") from None
 
@@ -573,7 +749,7 @@ def launch(args: argparse.Namespace) -> dict:
 
 def parser() -> argparse.ArgumentParser:
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("step",choices=["diagnose","prepare","build","export","install","launch","fetch-pairing-tool","remove-pairing-export"])
+    p.add_argument("step",choices=["diagnose","prepare","build","export","install","launch","create-remote-pairing","remove-pairing-export"])
     p.add_argument("--execute",action="store_true",help="Run only AFTER Tin explicitly approves the exact Mac/network/device scope. Omit for a dry-run.")
     p.add_argument("--device",help="Local Xcode device identifier; never paste it into chat or a repo file.")
     p.add_argument("--team",help="Local Xcode development-team ID (free or paid).")
@@ -588,7 +764,7 @@ def main(argv: list[str] | None = None) -> int:
     args=parser().parse_args(argv)
     if not args.execute:
         print("DRY RUN: no Mac, network, account, device or filesystem action performed.")
-        print({"diagnose":"Would inspect the selected phone's actual OS/model and installed Xcode SDK.","prepare":"Would verify the exact reviewed cloud Rust archive, inspect device compatibility, and generate a native automatic-signing Xcode project.","build":"Would let signed-in Xcode register/provision this device and build this app with the actual installed SDK; Apple account stays in Xcode/Keychain.","export":"Would export the actually verified signed app as one private IPA, preserving executable permissions and verifying every ZIP payload byte.","install":"Would verify signature/profile/device/identity and install this one app over USB.","launch":"Would launch this one installed app and save only sanitized non-secret evidence.","fetch-pairing-tool":f"Would download the official idevice_pair v1.1.0 DMG ({PAIR_BYTES:,} bytes), checking SHA-256 before use.","remove-pairing-export":"Would remove the single temporary pairing export after confirmed encrypted in-app import."}[args.step])
+        print({"diagnose":"Would inspect the selected phone's actual OS/model and installed Xcode SDK.","prepare":"Would verify the exact reviewed cloud Rust archive, inspect device compatibility, and generate a native automatic-signing Xcode project.","build":"Would let signed-in Xcode register/provision this device and build this app with the actual installed SDK; Apple account stays in Xcode/Keychain.","export":"Would export the actually verified signed app as one private IPA, preserving executable permissions and verifying every ZIP payload byte.","install":"Would verify signature/profile/device/identity and install this one app over USB.","launch":"Would launch this one installed app and save only sanitized non-secret evidence.","create-remote-pairing":"Would verify the source-bound Mac helper and selected physical USB iPhone, then create one private peer-pinned format_version2 export; no account/build/install action.","remove-pairing-export":"Would remove the single temporary pairing export after confirmed encrypted in-app import."}[args.step])
         print("Execution requires prior explicit Tin approval for the exact Mac/personal-network/device step, then --execute. No approval is inferred from this flag.")
         return 0
     os.umask(0o077)
@@ -605,27 +781,12 @@ def main(argv: list[str] | None = None) -> int:
         elif args.step=="export": export_signed_ipa(args,verify_app(args));print("Verified private signed IPA exported. No device install performed by this step.")
         elif args.step=="install": install(args);print("Install command succeeded for the verified app. Launch and in-app device checks remain.")
         elif args.step=="launch": launch(args);print("Launch command succeeded. Actual account, pairing, update and refresh behavior still require the in-app checks.")
-        elif args.step=="fetch-pairing-tool":
-            import urllib.request
-            tools=contained(ROOT/"downloads/idevice-pair-macos");tools.mkdir(parents=True,exist_ok=True)
-            dest=tools/"idevice_pair--macos-universal.dmg";temporary=tools/"idevice_pair--macos-universal.dmg.pending"
-            if temporary.is_symlink() or (temporary.exists() and not temporary.is_file()):
-                raise WorkflowError("Pairing-tool partial download path is not a safe owned file.")
-            if temporary.is_file(): temporary.unlink()
-            if dest.is_file() and not dest.is_symlink() and dest.stat().st_size==PAIR_BYTES and sha256(dest)==PAIR_SHA256:
-                print("Verified pairing tool is already present; no network download needed.");return 0
-            try:
-                with urllib.request.urlopen(PAIR_URL) as response, temporary.open("xb") as out:
-                    shutil.copyfileobj(response,out,1024*1024)
-                if temporary.stat().st_size != PAIR_BYTES or sha256(temporary) != PAIR_SHA256: raise WorkflowError("Pairing tool release checksum differs; file will not be opened.")
-                temporary.replace(dest)
-            finally:
-                temporary.unlink(missing_ok=True)
-            print("Verified idevice_pair DMG saved in downloads/idevice-pair-macos. Open it locally only within the approved setup scope.")
+        elif args.step=="create-remote-pairing": create_remote_pairing(args)
         else:
-            pairing=PRIVATE/"pairing.mobiledevicepairing"
+            pairing=private_path(PRIVATE/"secure-rp/pairing.mobiledevicepairing")
+            if pairing.exists() and not pairing.is_file():raise WorkflowError("The private export is not a regular file. It was preserved.")
             pairing.unlink(missing_ok=True)
-            print("The single temporary pairing export was removed. OS-managed pairing and the encrypted in-app backup remain.")
+            print("The designated temporary remote-pairing export was removed. OS USB trust and any old Lockdown export remain untouched.")
         return 0
     except (WorkflowError,OSError,ValueError,KeyError,TypeError,AttributeError,plistlib.InvalidFileException):
         # Exceptions can contain paths/identifiers; expose only reviewed WorkflowError text.

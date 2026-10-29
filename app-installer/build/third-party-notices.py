@@ -7,7 +7,7 @@ validator. It never downloads dependencies or guesses missing copyright notices.
 import argparse
 import sys
 sys.dont_write_bytecode = True
-from licensing import load_graph, assess
+from licensing import load_graph, assess, HELPER_MANIFEST
 import hashlib
 import json
 import os
@@ -129,9 +129,11 @@ def generate(output, report, require_licenses=False):
     if not {'LICENSE-APACHE','LICENSE-MIT','COPYRIGHT'}<=set(runtime_files):raise ValueError('Incomplete Rust runtime notices')
     summary={'schema_version':3,'target':'aarch64-apple-ios','locked_dependency_graph_hash':graph_hash,
              'distribution_graphs':metadata['distribution_graphs'],'local_components':local_components,
+             'target_graph_hashes':{entry['target']:hashlib.sha256(json.dumps(entry,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+                 for entry in metadata['distribution_graphs'] if entry['manifest']==HELPER_MANIFEST},
              'rust_runtime':{'version':'1.99.1','selected_license':'Apache-2.0','notice_files':runtime_files,'source_archive_sha256':runtime_info['source_archive_sha256']},
              'notice_obligations_satisfied':not missing,'distribution_requirements':distribution_requirements,
-             'distribution_requirements_satisfied':not distribution_requirements,'target':'aarch64-apple-ios','dependency_count':len(declarations),'notice_gap_count':len(missing),
+             'distribution_requirements_satisfied':not distribution_requirements,'dependency_count':len(declarations),'notice_gap_count':len(missing),
              'missing_notices':missing,'packages':declarations,
              'scope':'Union of exact locked iOS-core and universal macOS-helper feature closures. Distribution readiness additionally requires the matching corresponding-source/relink artifact; generic license text alone does not satisfy that delivery obligation.'}
     output.write_text(''.join(sections))

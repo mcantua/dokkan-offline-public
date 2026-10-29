@@ -59,7 +59,7 @@ def teams_with_signing_keys():
 def choose_device():
     with tempfile.TemporaryDirectory(prefix='device-selection-',dir=workflow.PRIVATE) as temporary:
         response=pathlib.Path(temporary)/'devices.json'
-        workflow.command(['xcrun','devicectl','list','devices','--json-output',str(response)],step='Local iPhone selection')
+        workflow.command(['xcrun','devicectl','list','devices','--json-output',str(response)],step='Local iPhone selection',timeout=60)
         try:devices=json.loads(response.read_text())['result']['devices']
         except (ValueError,KeyError,OSError):raise workflow.WorkflowError('Open Xcode Devices and Simulators to connect and trust the iPhone first.') from None
     if not isinstance(devices,list):
@@ -109,10 +109,10 @@ def choose_device():
 
 
 def main(argv=None):
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--execute',action='store_true');args=p.parse_args(argv)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--execute',action='store_true');p.add_argument('--pairing-only',action='store_true',help='Verify the new public kit/helper and export trusted USB pairing only; no Apple account/build/install/launch.');args=p.parse_args(argv)
     if not args.execute:
         print('PLAN ONLY — no account, Mac inspection, network, device query or installation was performed.')
-        print('After Tin approves the exact setup scope, this helper can verify the small cloud kit, use Xcode’s existing Keychain signing identity, check the real phone/SDK, build/sign/install/launch only App Installer, and fetch the verified pairing tool.')
+        print('After Tin approves the exact setup scope, this helper can verify the small cloud kit, use Xcode’s existing Keychain signing identity, check the real phone/SDK, build/sign/install/launch only App Installer, and create a private strict version-2 trusted USB pairing export. Pairing-only skips Apple identity/team discovery and app build/install/launch.')
         print('You handle Apple sign-in/Trust/Developer Mode and on-phone authentication. Passwords and codes are never requested here. Daily background refresh is not guaranteed.')
         return 0
     try:
@@ -120,8 +120,12 @@ def main(argv=None):
         workflow.mac_only();workflow.private_directory()
         kit=workflow.bootstrap_kit()
         if not kit:raise workflow.WorkflowError('Use the reviewed minimal native kit for one-click setup; the full source checkout does not provide its prepared archive handoff automatically.')
-        workflow.local_preflight()
+        workflow.local_preflight(pairing_only=args.pairing_only)
         device,variant=choose_device()
+        if args.pairing_only:
+            if workflow.main(['create-remote-pairing','--execute','--device',device,'--variant',variant])!=0:return 1
+            pairing_export_instructions()
+            return 0
         teams=teams_with_signing_keys()
         if not teams:
             raise workflow.WorkflowError('An existing Apple Development signing identity is not available. Stop before changing Apple account credentials or creating/replacing a certificate. Review Xcode → Settings → Accounts locally, then obtain separate approval for the exact needed account/certificate step; keep passwords and verification codes in Apple’s UI.')
@@ -135,18 +139,23 @@ def main(argv=None):
         bundle=choose('Choose the existing App Installer identity to update; no app will be removed.',existing) if existing else None
         base=['--execute','--device',device,'--team',team,'--variant',variant]
         if bundle:base+=['--bundle-id',bundle]
-        for step in ['prepare','build','install','launch']:
+        for step in ['prepare','build','install']:
             print({'prepare':'Checking actual iPhone/SDK and verified cloud files…','build':'Building/signing this one app with Xcode…','install':'Installing the verified App Installer over the approved connection…','launch':'Launching App Installer…'}[step])
             if workflow.main([step,*base])!=0:return 1
-        print('The install and launch commands finished. Actual account, pairing, update and refresh checks are still pending.')
-        if workflow.main(['fetch-pairing-tool','--execute'])!=0:return 1
-        dmg=workflow.ROOT/'downloads/idevice-pair-macos/idevice_pair--macos-universal.dmg'
-        workflow.command(['open',str(dmg)],step='Opening the verified pairing-tool distribution')
-        note('Open idevice_pair from the verified disk image; follow normal macOS verification. Select this iPhone, choose Lockdown, then Load/Create and Validate. Save one temporary pairing export in AI-Workspace/dokkan-offline-public/app-installer/device/private/pairing.mobiledevicepairing. It contains private keys—never upload it to chat or GitHub. Follow USER-ACTIONS.md to import it securely on the phone, then delete the export after validation. The helper has not marked those checks as passed.')
+        print('Launching the installed App Installer…',flush=True)
+        if workflow.main(['launch',*base])!=0:
+            print('The verified install succeeded, but automatic launch is unconfirmed. Open App Installer manually; continuing independent trusted USB pairing. No reinstall is needed for a launch timeout.',flush=True)
+        if workflow.main(['create-remote-pairing','--execute','--device',device,'--variant',variant])!=0:return 1
+        pairing_export_instructions()
         return 0
     except (workflow.WorkflowError,OSError,ValueError,KeyError,TypeError):
         error=sys.exc_info()[1]
         print(str(error) if isinstance(error,workflow.WorkflowError) else 'Setup could not finish safely. Review the current step locally; no raw private output was saved.',file=sys.stderr)
         return 1
+
+def pairing_export_instructions():
+    directory=workflow.private_path(workflow.PRIVATE/'secure-rp')
+    workflow.command(['open',str(directory)],step='Opening the private version-2 export folder',timeout=15)
+    note('The private version-2 pairing.mobiledevicepairing file is ready in this folder. Transfer it directly to this same iPhone and import/replace pairing in the new App Installer. Do not paste or upload it to chat, GitHub, email or shared storage. Keep old Lockdown exports, OS USB trust, signing outputs and this new private file until the actual on-phone connection succeeds. No connection, app update or refresh success is claimed by creating this export.')
 
 if __name__=='__main__':raise SystemExit(main())
