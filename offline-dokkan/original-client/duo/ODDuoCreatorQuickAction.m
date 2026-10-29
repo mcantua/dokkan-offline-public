@@ -25,7 +25,8 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
 
 @implementation ODDuoCreatorQuickActionOwner
 - (void)emit:(NSString *)outcome {
-    NSDictionary *state=@{@"entry":@"native-app-icon-quick-action",@"interimPlacement":@YES,
+    NSDictionary *state=@{@"entry":@"in-game-creator-menu",@"delivery":@"app-icon-shortcut",
+        @"cocosMenuHookInstalled":@NO,
         @"menuInstalled":@(self.menuInstalled),@"menuState":self.menuState?:@"not-installed",
         @"pending":@(self.pending),@"presenting":@(self.running),@"outcome":outcome};
     if([self.lastReport isEqual:state])return;
@@ -46,7 +47,7 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
     if(!existing){
         UIApplicationShortcutIcon *icon=[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
         [items addObject:[[UIApplicationShortcutItem alloc] initWithType:ODQuickActionType
-            localizedTitle:@"Unit Creator" localizedSubtitle:@"Open the integrated editor" icon:icon userInfo:nil]];
+            localizedTitle:@"Unit Creator" localizedSubtitle:@"Open from the game menu" icon:icon userInfo:nil]];
         app.shortcutItems=items;
     }
     self.menuInstalled=YES;self.menuState=@"registered-not-device-verified";[self emit:@"native-menu-registered"];
@@ -105,6 +106,12 @@ void ODDuoUpdateCreatorQuickAction(UIWindow *window,UIViewController *controller
     if(!NSThread.isMainThread||!owner)return;
     if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return;}
     owner.window=window;owner.controller=controller;owner.renderer=renderer;owner.sourceActive=sourceActive;
+    [owner installMenu];[owner scheduleDrain];
+}
+void ODDuoRefreshQueuedCreatorQuickAction(void) {
+    ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
+    if(!NSThread.isMainThread||!owner)return;
+    if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return;}
     [owner installMenu];[owner scheduleDrain];
 }
 void ODDuoDisconnectCreatorQuickAction(UIWindow *window) {

@@ -83,7 +83,9 @@ static NSString *FileSha256(NSURL *u) {
     UILabel *_title, *_note, *_overlayTitle, *_overlayText;
     UIActivityIndicatorView *_spinner;
     UIStackView *_overlayButtons;
-    UIButton *_sizeButton;
+    UIButton *_sizeButton, *_inGameMenuButton;
+    __weak id _inGameMenuTarget;
+    SEL _inGameMenuAction;
     NSString *_mode;           // closed | docked | full
     CGFloat _fraction;
     BOOL _barOn;
@@ -382,6 +384,7 @@ static NSString *const kSecurityHeaders[][2] = {
     [_grip addSubview:g];
     [_grip addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(drag:)]];
     [_panel addSubview:_grip];
+    if (_inGameMenuTarget && _inGameMenuAction) [self installInGameMenuButton];
 
     _note = [UILabel new];
     _note.backgroundColor = Hex(0xFFB15D);
@@ -485,9 +488,14 @@ static NSString *const kSecurityHeaders[][2] = {
     CGFloat w = b.size.width;
     UIView *close = [_bar viewWithTag:7];
     close.frame = CGRectMake(w - 100 - _insets.right, 0, 92, barH);
+    CGFloat menuW = 0;
+    if (_inGameMenuButton) {
+        menuW = 72;
+        _inGameMenuButton.frame = CGRectMake(8 + _insets.left, 0, 64, barH);
+    }
     _sizeButton.frame = CGRectMake(w - 210 - _insets.right, 0, 108, barH);
     [_sizeButton setTitle:full ? @"Smaller" : @"Full screen" forState:UIControlStateNormal];
-    _title.frame = CGRectMake(12 + _insets.left, 0, w - 230 - _insets.left - _insets.right, barH);
+    _title.frame = CGRectMake(12 + _insets.left + menuW, 0, w - 230 - menuW - _insets.left - _insets.right, barH);
     _grip.hidden = full;
     _grip.frame = CGRectMake(0, panelH - gripH, w, gripH);
     [_grip viewWithTag:9].frame = _grip.bounds;
@@ -524,6 +532,28 @@ static NSString *const kSecurityHeaders[][2] = {
     [self emit:@{ @"event": @"mode", @"mode": mode }];
 }
 
+- (void)installInGameMenuButton {
+    if (_inGameMenuButton || !_bar || !_inGameMenuTarget || !_inGameMenuAction) return;
+    _inGameMenuButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_inGameMenuButton setTitle:@"Menu" forState:UIControlStateNormal];
+    [_inGameMenuButton setTitleColor:Hex(0xFFB15D) forState:UIControlStateNormal];
+    _inGameMenuButton.accessibilityIdentifier = @"in-game-creator-menu";
+    [_inGameMenuButton addTarget:self action:@selector(inGameMenuTapped) forControlEvents:UIControlEventTouchUpInside];
+    [_bar addSubview:_inGameMenuButton];
+}
+- (void)useInGameCreatorMenuWithTarget:(id)target action:(SEL)action {
+    if (!self.storageContext.scoped || ![self.storageContext isCurrent] || !target || !action) return;
+    _inGameMenuTarget = target;
+    _inGameMenuAction = action;
+    [self installInGameMenuButton];
+    [self relayout];
+}
+- (void)inGameMenuTapped {
+    id target = _inGameMenuTarget;
+    if (!target || !_inGameMenuAction || ![target respondsToSelector:_inGameMenuAction]) return;
+    if (!self.storageContext.scoped || ![self.storageContext isCurrent]) return;
+    ((void (*)(id, SEL))objc_msgSend)(target, _inGameMenuAction);
+}
 - (void)toggleSize { [self emit:@{ @"event": @"button", @"button": @"size" }]; }
 - (void)closeTapped { [self emit:@{ @"event": @"button", @"button": @"close" }]; }
 - (void)hideNote { _note.hidden = YES; [self relayout]; }

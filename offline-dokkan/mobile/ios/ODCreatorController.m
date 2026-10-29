@@ -55,7 +55,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];self.view.backgroundColor=UIColor.systemBackgroundColor;
-    UIButton *close=[UIButton buttonWithType:UIButtonTypeSystem];[close setTitle:@"Back to Offline Dokkan" forState:UIControlStateNormal];[close addTarget:self action:@selector(closeCreator) forControlEvents:UIControlEventTouchUpInside];close.translatesAutoresizingMaskIntoConstraints=NO;
+    UIButton *close=[UIButton buttonWithType:UIButtonTypeSystem];
+    NSString *closeTitle=_session.originalClientMode?@"Menu":@"Back to Offline Dokkan";
+    [close setTitle:closeTitle forState:UIControlStateNormal];
+    close.accessibilityIdentifier=_session.originalClientMode?@"in-game-creator-menu":@"creator-close";
+    [close addTarget:self action:@selector(closeCreator) forControlEvents:UIControlEventTouchUpInside];close.translatesAutoresizingMaskIntoConstraints=NO;
     _status=[UILabel new];_status.text=@"Opening Unit Creator…";_status.numberOfLines=0;_status.font=[UIFont preferredFontForTextStyle:UIFontTextStyleBody];_status.translatesAutoresizingMaskIntoConstraints=NO;
     WKWebViewConfiguration *config=[WKWebViewConfiguration new];
     WKWebsiteDataStore *store=_session.originalClientMode?[self scopedWebsiteDataStore]:WKWebsiteDataStore.defaultDataStore;
@@ -73,6 +77,7 @@
     UIView *page=_toolsCanvas?:_webView;[(_toolsCanvas?:self.view) addSubview:_webView];[self.view addSubview:close];[self.view addSubview:_status];_status.backgroundColor=UIColor.systemBackgroundColor;UILayoutGuide *safe=self.view.safeAreaLayoutGuide;
     [NSLayoutConstraint activateConstraints:@[[close.topAnchor constraintEqualToAnchor:safe.topAnchor],[close.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:12],[close.heightAnchor constraintGreaterThanOrEqualToConstant:44],[page.topAnchor constraintEqualToAnchor:close.bottomAnchor],[page.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],[page.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],[page.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],[_status.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor],[_status.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],[_status.widthAnchor constraintLessThanOrEqualToAnchor:safe.widthAnchor constant:-40]]];
     [self.scopedTools attachWebView:_webView presenter:self];
+    if(_session.originalClientMode)[self.scopedTools useInGameCreatorMenuWithTarget:self action:@selector(closeCreator)];
     if(_editorUnavailable)_status.text=@"This WebKit runtime could not isolate this save's Creator drafts and gallery. Return to the game; your native saved units are kept.";
     else [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"app://local/index.html"]]];
 }

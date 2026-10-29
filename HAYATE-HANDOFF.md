@@ -1,7 +1,6 @@
-# Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
-
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
+# Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
 Updated: Thu Oct 29, 2026, 11:02 AM CT
 
 Repo: https://github.com/mcantua/dokkan-offline-public. Read context/TIN-RULES.md first.
@@ -16,6 +15,7 @@ Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says
 - Derived growth coefficients are stored as exact thousandth strings.
 - CI runs: 40886179478 FAIL (selected-master-read), 40890254683 PASS, 40891656259 PASS.
 - Saved app screenshots: creator_welcome_sheet_run_40891656259.png (also identical in 40890254683) and creator_card_builder_run_40886179478.png. The finish-only workflow now always uploads every simulator PNG it reaches as duo-creator-simulator-screenshots. No new CI run for that workflow edit.
+- 9:58 AM: merged that base tip into `cursor/engine-master-menu-641c`. The only conflict was STATUS.md. No compiled source changed, so CI was not run again. Draft PR #3 was not merged.
 
 ## Cloud agents (Cursor) running in parallel
 | Agent | Task | Branch |
@@ -32,9 +32,9 @@ Each agent writes its own log under messages/ in the repo.
 | Finish saves numbers exactly | 100% (diagnostic) |
 | Full custom-unit validation before save | 0% |
 | Bootstrap auth envelope + fresh-state policy | 0% |
-| Original-engine master attachment | 0% |
-| Late service binding in ODUnifiedDuoHost | 0% |
-| In-game Creator menu | 0% |
+| Original-engine master attachment | 80% |
+| Late service binding in ODUnifiedDuoHost | 85% |
+| In-game Creator menu | 75% |
 | Real battles/saves/summons with custom units | 0% |
 | Duo two-screen test on phone | 0% |
 

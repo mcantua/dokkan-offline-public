@@ -131,6 +131,10 @@ NSDictionary *ODScopedCreatorDisplayGeometry;
     _player = [[ODScopedCreatorPlayer alloc] initWithMainWebView:webView controller:presenter storageContext:_storage];
     _host.player = _player;
 }
+- (void)useInGameCreatorMenuWithTarget:(id)target action:(SEL)action {
+    if (_invalidated || ![_storage isCurrent] || !_storage.scoped) return;
+    [_player useInGameCreatorMenuWithTarget:target action:action];
+}
 - (BOOL)admit:(NSDictionary *)message reply:(void (^)(id, NSString *))reply {
     if (_invalidated || ![_storage isCurrent]) { reply(nil,@"The Creator workspace changed."); return NO; }
     NSString *op = [message[@"op"] isKindOfClass:NSString.class] ? message[@"op"] : @"";

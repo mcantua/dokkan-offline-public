@@ -1,5 +1,6 @@
 #import "ODUnifiedDuoHost.h"
 #import "ODDuoCreatorQuickAction.h"
+#import "../content/engine_master_attach.h"
 #import "../ios/ODOriginalClientBootstrap.h"
 #import "../loader/ODPreparedEngineLoader.h"
 #import "../creator/ODBoundOriginalCreatorServices.h"
@@ -31,6 +32,17 @@ static BOOL ODHostSameDirectory(NSString *path,int fd) {
     struct stat pinned,current;return !fstat(fd,&pinned)&&!lstat(path.fileSystemRepresentation,&current)&&
         S_ISDIR(current.st_mode)&&!S_ISLNK(current.st_mode)&&current.st_dev==pinned.st_dev&&current.st_ino==pinned.st_ino;
 }
+static BOOL ODHostHex(NSString *value) {
+    return [value isKindOfClass:NSString.class]&&value.length==64&&
+        [value rangeOfCharacterFromSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"] invertedSet]].location==NSNotFound;
+}
+static BOOL ODHostContentID(NSString *value) {
+    if(![value isKindOfClass:NSString.class])return NO;
+    NSString *body=value;
+    if([value hasPrefix:@"sparking:"])body=[value substringFromIndex:9];
+    else if([value hasPrefix:@"eclipse:"])body=[value substringFromIndex:8];
+    return [body hasPrefix:@"sha256:"]&&body.length==71&&ODHostHex([body substringFromIndex:7]);
+}
 static BOOL ODHostSourcePatcherAbsent(void) {
     NSURL *folder=NSBundle.mainBundle.privateFrameworksURL;
     if(folder){int fd=ODHostDirectory(folder.path);if(fd<0)return NO;
@@ -54,7 +66,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     BOOL (^_current)(void);
     ODUnifiedDuoReportHandler _report;
     BOOL _attempted,_environmentPrepared,_foundationInstalled,_engineLoaded,_imageAttached,_sceneObserved,_creatorAttached,_installed;
-    BOOL _requestObserverInstalled;
+    BOOL _requestObserverInstalled,_servicesPending,_lifecycleInstalled,_masterAttached;
+    NSString *_admittedContent,*_admittedScope,*_masterSourcePath,*_masterLanguage,*_masterSHA,*_masterRelative;
+    uint64_t _masterBytes;
     NSMutableArray<NSDictionary *> *_unsupportedRequests;
     NSDictionary *_creatorEntryReport;
     NSString *_stage;
@@ -72,7 +86,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if((purpose!=ODUnifiedDuoStartupDiagnostic&&purpose!=ODUnifiedDuoIntegratedTarget)||!baseline.isFileURL||!engine.isFileURL||
        !resourcePath||!statePath||[statePath isEqual:resourcePath]||[statePath hasPrefix:[resourcePath stringByAppendingString:@"/"]]||
        ![origins isKindOfClass:NSArray.class]||![routes isKindOfClass:NSArray.class]||!current||!report||
-       (purpose==ODUnifiedDuoIntegratedTarget&&(!services||!attach||!origins.count||!routes.count))){
+       (purpose==ODUnifiedDuoIntegratedTarget&&(!attach||!origins.count||!routes.count))){
         if(error)*error=ODHostFailure(1);return nil;
     }
     _purpose=purpose;_baseline=[baseline copy];_engine=[engine copy];_resources=resourcePath;_state=statePath;
@@ -90,6 +104,12 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"unsupportedRequestObserverInstalled":@(_requestObserverInstalled),
         @"unsupportedFoundationRequests":[_unsupportedRequests copy],
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
+        @"creatorServicesPending":@(_servicesPending&&_services==nil),
+        @"creatorServicesBound":@(_services!=nil),
+        @"originalEngineMasterAttached":@(_masterAttached),
+        @"originalEngineMasterRelativePath":_masterRelative?:@"",
+        @"sourceKeyApplied":@NO,@"cachedHandleRedirected":@NO,@"engineKeyedOpenObserved":@NO,
+        @"extensionLoadingEnabled":@NO,@"patcherContractUsed":@NO,
         @"nativeNetworkCoverage":@"Installed Foundation handling only; raw socket, SDK/system and WebKit activity require observation/configuration",
         @"kernelNetworkIsolationEstablished":@NO,@"routeContractsRuntimeVerified":@NO,
         @"gameplaySaveCustomUnitsVerified":@NO,@"bothDuoDisplaysAccepted":@NO};
@@ -110,6 +130,12 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if(fd>=0&&close(fd))valid=NO;
     if(created&&unlinkat(_stateFD,probe.fileSystemRepresentation,0))valid=NO;
     valid=valid&&ODHostSameDirectory(_resources,_resourceFD)&&ODHostSameDirectory(_state,_stateFD)&&_current();
+    if(valid&&_masterAttached){
+        int source=open(_masterSourcePath.fileSystemRepresentation,O_RDONLY|O_NOFOLLOW|O_CLOEXEC);
+        int confirmed=source<0?-2:od_engine_master_confirm(source,_stateFD,_state.UTF8String,_masterLanguage.UTF8String,_masterSHA.UTF8String,_masterBytes);
+        if(source>=0)close(source);
+        valid=confirmed==0;
+    }
     if(!valid){if(error)*error=ODHostFailure(4);return NO;}
     _environmentPrepared=YES;_stage=@"native-environment-prepared";[self emit];return YES;
 }
@@ -122,14 +148,17 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         if(host->_services){NSError *failure=nil;
             host->_creatorAttached=[host->_services attachToOriginalWindow:renderer.window controller:controller renderer:renderer error:&failure];
             host->_stage=host->_creatorAttached?@"original-scene-and-creator-bound":@"creator-binding-not-attached";
-        }else host->_stage=@"original-scene-observed-diagnostic-only";
+        }else host->_stage=host->_servicesPending?@"original-scene-observed-services-pending":@"original-scene-observed-diagnostic-only";
         [host emit];
     },^(NSError *failure){
         (void)failure;ODUnifiedDuoHost *host=weakSelf;if(!host)return;
         host->_creatorAttached=NO;host->_stage=@"original-scene-admission-failed";[host emit];
     },error))return NO;
-    if(_services&&![_services.coordinator installOriginalSceneLifecycleWithError:error])return NO;
-    if(_services&&!ODDuoConfigureCreatorQuickAction(^BOOL{
+    if(_services){
+        if(![_services.coordinator installOriginalSceneLifecycleWithError:error])return NO;
+        _lifecycleInstalled=YES;
+    }
+    if((_services||_servicesPending)&&!ODDuoConfigureCreatorQuickAction(^BOOL{
         ODUnifiedDuoHost *host=weakSelf;return host&&host->_current();
     },^ODDuoCreatorQuickActionReadiness(UIWindow *window,UIViewController *controller,UIView *renderer){
         ODUnifiedDuoHost *host=weakSelf;
@@ -148,8 +177,11 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     return YES;
 }
 - (BOOL)installBeforeApplicationMain:(NSError **)error {
+    BOOL integrated=_purpose==ODUnifiedDuoIntegratedTarget;
     if(!NSThread.isMainThread||_attempted||ODInstalledUnifiedHost||!_current()||
-       (_purpose==ODUnifiedDuoIntegratedTarget&&![_services creatorScopeIsCurrent])){
+       (integrated&&_services&&![_services creatorScopeIsCurrent])||
+       (integrated&&!_services&&!_servicesPending)||
+       (integrated&&!_masterAttached)){
         if(error)*error=ODHostFailure(5);return NO;
     }
     _attempted=YES;_stage=@"installing-genuine-shell-bootstrap";[self emit];
@@ -182,6 +214,55 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     },^BOOL(NSError **failure){return [weakSelf registerOriginalScene:failure];},error);
     _installed=ok;_stage=ok?@"waiting-for-actual-appcontroller-scene":@"bootstrap-installation-failed";
     if(ok)ODInstalledUnifiedHost=self;[self emit];return ok;
+}
+- (BOOL)stagePlaintextDerivedMasterAtURL:(NSURL *)derived byteCount:(uint64_t)bytes contentSHA256:(NSString *)sha256 language:(NSString *)language error:(NSError **)error {
+    unichar first=language.length? [language characterAtIndex:0]:0, second=language.length>1?[language characterAtIndex:1]:0;
+    if(!NSThread.isMainThread||_attempted||_masterAttached||!derived.isFileURL||!derived.path.isAbsolutePath||
+       bytes<100||bytes>256ull*1024ull*1024||![sha256 isKindOfClass:NSString.class]||!ODHostHex(sha256)||
+       language.length!=2||first<'a'||first>'z'||second<'a'||second>'z'||[_state containsString:@"/Documents/assets"]){
+        if(error)*error=ODHostFailure(9);return NO;
+    }
+    int source=open(derived.fileSystemRepresentation,O_RDONLY|O_NOFOLLOW|O_CLOEXEC);
+    int state=ODHostDirectory(_state);
+    struct stat info;
+    if(source<0||state<0||fstat(source,&info)||!S_ISREG(info.st_mode)||(uint64_t)info.st_size!=bytes){
+        if(source>=0)close(source);if(state>=0)close(state);if(error)*error=ODHostFailure(9);return NO;
+    }
+    od_engine_master_receipt receipt;
+    int result=od_engine_master_attach(source,state,_state.UTF8String,language.UTF8String,sha256.UTF8String,bytes,&receipt);
+    close(source);close(state);
+    if(result||!receipt.attached||!receipt.plaintext||!receipt.source_preserved||receipt.source_key_applied||
+       receipt.extension_loading_enabled||receipt.patcher_path_used||receipt.cached_handle_redirected||receipt.engine_keyed_open_observed){
+        if(error)*error=ODHostFailure(9);return NO;
+    }
+    _masterAttached=YES;_masterSourcePath=[derived.path copy];_masterLanguage=[language copy];_masterSHA=[sha256 copy];
+    _masterBytes=bytes;_masterRelative=[NSString stringWithUTF8String:receipt.relative_path];
+    _stage=@"plaintext-master-staged";[self emit];return YES;
+}
+- (BOOL)expectDeferredCreatorServicesForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope error:(NSError **)error {
+    if(!NSThread.isMainThread||_attempted||_services||_servicesPending||_purpose!=ODUnifiedDuoIntegratedTarget||
+       !ODHostContentID(contentID)||!ODHostHex(scope)){if(error)*error=ODHostFailure(10);return NO;}
+    _admittedContent=[contentID copy];_admittedScope=[scope copy];_servicesPending=YES;_stage=@"creator-services-pending";[self emit];return YES;
+}
+- (void)bindCreatorServicesWhenReady:(ODBoundOriginalCreatorServices *)services completion:(void (^)(NSError *))completion {
+    if(!completion)return;
+    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self bindCreatorServicesWhenReady:services completion:completion];});return;}
+    if(!_installed||!_servicesPending||_services||!services||!_current()||
+       ![services matchesAdmittedContentID:_admittedContent saveScopeSHA256:_admittedScope]||![services creatorScopeIsCurrent]){
+        completion(ODHostFailure(10));return;
+    }
+    NSError *failure=nil;
+    if(!_lifecycleInstalled){
+        if(![services.coordinator installOriginalSceneLifecycleWithError:&failure]){completion(failure?:ODHostFailure(10));return;}
+        _lifecycleInstalled=YES;
+    }
+    _services=services;_servicesPending=NO;
+    if(_sceneObserved&&_originalController&&_renderer&&
+       [services attachToOriginalWindow:_renderer.window controller:_originalController renderer:_renderer error:&failure]){
+        _creatorAttached=YES;_stage=@"original-scene-and-creator-bound";
+    }else _stage=@"creator-services-bound-waiting-for-renderer";
+    ODDuoRefreshQueuedCreatorQuickAction();
+    [self emit];completion(nil);
 }
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError *))completion {
     if(!completion)return;
