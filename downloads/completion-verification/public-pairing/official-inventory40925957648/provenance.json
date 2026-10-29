@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "workflow_run": {
+    "id": 40925957648,
+    "path": ".github/workflows/cloud-sdk-discovery.yml",
+    "head_sha": "f2ce1f714afac9b9dad0be2ef6872109b779de8f",
+    "head_branch": "chatgpt/app-installer-pairing-repair",
+    "status": "completed",
+    "conclusion": "success",
+    "workflow_id": 400819292,
+    "event": "workflow_dispatch",
+    "html_url": "https://github.com/mcantua/dokkan-offline-public/actions/runs/40925957648",
+    "repository": "mcantua/dokkan-offline-public",
+    "run_attempt": 1,
+    "created_at": "2026-10-29T17:55:41Z",
+    "updated_at": "2026-10-29T18:03:39Z"
+  },
+  "artifact": {
+    "id": 12920203506,
+    "name": "app-installer-macos-sdk-inventory",
+    "api_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/12920203506",
+    "bytes": 128834,
+    "sha256": "988455706527aa76f277704fd13f56267bd0796a92e425ca108f7e4b578a1f55"
+  },
+  "outer_zip_digest_and_bytes_verified": true,
+  "inventory_sha256": "ce53b7cbf514af895caa5fd53e2ae97f98c5ea9b1c636a792c37a3ee288d7622",
+  "scope": "Read-only official hosted SDK inventory; no compile, simulator boot/test, personal Mac/device/account action or dispatch performed by retrieval.",
+  "job": {
+    "id": 123631396349,
+    "name": "inventory",
+    "conclusion": "success",
+    "log_file": "workflow-job.log",
+    "log_sha256": "349efd15040ad8cc216431fcb2a703ec48651e7f46c308e8115623981df341db",
+    "log_source": "GitHub connected-tool decoded workflow job logs"
+  }
+}

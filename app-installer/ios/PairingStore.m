@@ -92,6 +92,31 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
     id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
     if (![plist isKindOfClass:NSDictionary.class]) return NO;
     NSDictionary *record = plist;
+    NSSet *remoteFields = [NSSet setWithArray:@[@"format_version", @"public_key", @"private_key", @"identifier",
+        @"peer_identifier", @"peer_public_key", @"alt_irk"]];
+    BOOL remote = NO;
+    for (id field in record) if ([remoteFields containsObject:field]) { remote = YES; break; }
+    if (remote) {
+        // Only the current peer-pinned wire format is allowed. Cryptographic
+        // host-key consistency and peer-key/signature verification remain Rust's
+        // responsibility; these bounds also guard decrypted backup recovery.
+        if (data.length > 1024 * 1024) return NO;
+        id version = record[@"format_version"];
+        if (![version isKindOfClass:NSNumber.class] ||
+            CFGetTypeID((__bridge CFTypeRef)version) != CFNumberGetTypeID() ||
+            CFNumberIsFloatType((__bridge CFNumberRef)version) || [version longLongValue] != 2) return NO;
+        for (id field in record) if (![remoteFields containsObject:field]) return NO;
+        for (NSString *field in @[@"identifier", @"peer_identifier"]) {
+            id value = record[field];
+            if (![value isKindOfClass:NSString.class]) return NO;
+            NSData *encoded = [value dataUsingEncoding:NSUTF8StringEncoding];
+            if (!encoded.length || encoded.length > 1024) return NO;
+        }
+        for (NSString *field in @[@"public_key", @"private_key", @"peer_public_key"])
+            if (![record[field] isKindOfClass:NSData.class] || [record[field] length] != 32) return NO;
+        id discoveryKey = record[@"alt_irk"];
+        return !discoveryKey || ([discoveryKey isKindOfClass:NSData.class] && [discoveryKey length] == 16);
+    }
     // Rust validates the complete format and device session. This check is only a local bound/type guard.
     for (NSString *key in @[@"HostID", @"SystemBUID"])
         if (![record[key] isKindOfClass:NSString.class] || ![record[key] length]) return NO;

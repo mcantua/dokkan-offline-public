@@ -6,6 +6,12 @@
 #import <UIKit/UIKit.h>
 #import <math.h>
 #import <sys/stat.h>
+#import <fcntl.h>
+#import <unistd.h>
+#import <errno.h>
+
+static const NSUInteger AIPairingReadLimit = 1024 * 1024;
+static NSString *const AIConnectionAddressPreference = @"org.tin.appinstaller.local-device-address";
 
 // Implemented by the Rust engine; declarations also live in app_installer.h.
 extern AIStatus ai_initialize(const char *work_dir);
@@ -17,7 +23,7 @@ extern char *ai_poll_event_json(void);
 extern char *ai_snapshot_json(void);
 extern void ai_free_string(char *value);
 
-@interface AIInstallerService ()
+@interface AIInstallerService () <NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (nonatomic, strong) NSURL *workDirectory;
 @property (nonatomic, strong) AIPairingStore *pairingStore;
 @property (nonatomic, strong) NSTimer *pollTimer;
@@ -37,6 +43,8 @@ extern void ai_free_string(char *value);
 @property (nonatomic, strong) NSURL *pendingIPA;
 @property (nonatomic, strong) NSNumber *pendingOperationId;
 @property (nonatomic, strong) NSNumber *backgroundOperationId;
+@property (nonatomic) BOOL refreshResultsPending;
+@property (nonatomic, strong) NSNumber *previousRefreshResultsOperation;
 @property (nonatomic) BOOL pendingIPASecurityScope;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property (nonatomic) NSUInteger backgroundExecutionGeneration;
@@ -47,6 +55,27 @@ extern void ai_free_string(char *value);
 @property (nonatomic) BOOL pairingVerified;
 @property (nonatomic) BOOL pairingCheckRequested;
 @property (nonatomic) BOOL pairingFileKnownPresent;
+@property (nonatomic, strong) NSFileCoordinator *pairingImportCoordinator;
+@property (nonatomic, strong) NSProgress *pairingImportCancellation;
+@property (nonatomic, strong) NSTimer *pairingImportTimeout;
+@property (nonatomic) BOOL connectionConfigured;
+@property (nonatomic) BOOL discoveringPairing;
+@property (nonatomic) BOOL clearPairingPortPending;
+@property (nonatomic) NSUInteger pairingDiscoveryGeneration;
+@property (nonatomic) NSUInteger pairingDiscoveryAuthGeneration;
+@property (nonatomic, strong) NSNetServiceBrowser *pairingBrowser;
+@property (nonatomic, strong) NSMutableArray<NSNetService *> *pairingServices;
+@property (nonatomic, strong) NSTimer *pairingDiscoveryDeadline;
+@property (nonatomic, copy) void (^pendingDeviceAction)(void);
+@property (nonatomic, strong) NSNumber *pairingVerificationOperation;
+- (void)stopPairingDiscoveryClearingPort:(BOOL)clear;
+- (void)clearDiscoveredPortIfPossible;
+- (void)requestDeviceList;
+- (void)beginRefreshResultsAttempt;
+- (void)withDeviceConnection:(void (^)(void))action;
++ (BOOL)remotePairingTXT:(NSData *)data identifier:(NSString **)identifier authTag:(NSString **)authTag;
+- (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation;
+- (void)cancelPairingDocumentRead;
 @end
 
 @implementation AIInstallerService
@@ -79,6 +108,7 @@ extern void ai_free_string(char *value);
             ai_lock(); [weakSelf readEngineState];
         }];
         [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
+            [weakSelf stopPairingDiscoveryClearingPort:YES];
             weakSelf.pairingVerified = NO; weakSelf.pairingCheckRequested = YES;
             weakSelf.pairingFileKnownPresent = weakSelf.pairingBackupReady || [weakSelf hasSavedMetadataForKey:@"engine.pairing"];
             weakSelf.foregroundRefreshNeedsCheck = YES;
@@ -88,6 +118,9 @@ extern void ai_free_string(char *value);
         [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
             AIInstallerService *self = weakSelf; if (!self) return;
             self.foregroundRefreshNeedsCheck = NO;
+            self.foregroundRefreshPending = NO;
+            [self stopPairingDiscoveryClearingPort:YES];
+            self.pairingVerified = NO;
             if (self.authorizing || self.biometricMigrationPending) {
                 [AISecureStore endSession]; [self cancel];
             } else if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid &&
@@ -100,12 +133,14 @@ extern void ai_free_string(char *value);
         refresh.canRefreshWithoutInteraction = ^BOOL {
             AIInstallerService *self = weakSelf;
             return self && !self.notificationsSuppressedForExplicitSignOut && [AISecureStore sessionAuthorized] && UIApplication.sharedApplication.protectedDataAvailable &&
-                [self.snapshot[@"loginStatus"] isEqual:@"signed_in"] && [self.snapshot[@"paired"] boolValue] && ![self.snapshot[@"busy"] boolValue];
+                [self.snapshot[@"loginStatus"] isEqual:@"signed_in"] && [self.snapshot[@"paired"] boolValue] && ![self.snapshot[@"busy"] boolValue] &&
+                (ai_pairing_kind() != 2 || [self.engineState[@"remotePairingPortConfigured"] boolValue]);
         };
         refresh.refreshHandler = ^(void (^completion)(BOOL)) {
             AIInstallerService *self = weakSelf;
             if (!self || self.backgroundCompletion) { completion(NO); return; }
             [self poll];
+            [self beginRefreshResultsAttempt];
             self.backgroundCompletion = completion;
             if (ai_refresh_all() != AI_OK) { [self finishBackground:NO]; return; }
             [self readEngineState];
@@ -155,6 +190,9 @@ extern void ai_free_string(char *value);
 }
 - (NSDictionary *)snapshot {
     NSMutableDictionary *s = [self.engineState mutableCopy] ?: [NSMutableDictionary new];
+    // Authentication/discovery can fail before a new core operation exists.
+    // Keep prior outcomes hidden until this attempt publishes fresh results.
+    if (self.refreshResultsPending) s[@"refreshResults"] = @[];
     if (!s[@"loginStatus"]) s[@"loginStatus"] = @"signed_out";
     BOOL pairingAuthorizationCurrent = [AISecureStore sessionAuthorized];
     BOOL verifiedPairing = self.pairingVerified && pairingAuthorizationCurrent;
@@ -162,7 +200,8 @@ extern void ai_free_string(char *value);
     s[@"pairingVerified"] = @(verifiedPairing);
     s[@"paired"] = @([s[@"paired"] boolValue] && self.pairingBackupReady && verifiedPairing);
     if (!s[@"busy"]) s[@"busy"] = @NO;
-    s[@"busy"] = @([s[@"busy"] boolValue] || self.authorizing || self.staging || self.signingForInstall || self.pendingIPA != nil);
+    s[@"busy"] = @([s[@"busy"] boolValue] || self.authorizing || self.staging || self.signingForInstall || self.pendingIPA != nil || self.discoveringPairing);
+    s[@"connectionConfigured"] = @(self.connectionConfigured);
     s[@"backendReady"] = @(self.initialized && ai_backend_ready());
     s[@"securitySetupRequired"] = @([AISecureStore initialSetupRequired]);
     s[@"biometricEnabled"] = @(![AISecureStore initialSetupRequired] && [AISecureStore biometricsEnabled]);
@@ -186,7 +225,13 @@ extern void ai_free_string(char *value);
     if (!NSThread.isMainThread) { dispatch_async(dispatch_get_main_queue(), ^{ [self resume]; }); return; }
     if (!self.initialized && self.pairingStore) {
         self.initialized = ai_initialize(self.workDirectory.path.fileSystemRepresentation) == AI_OK;
-        if (self.initialized) ai_register_self_bundle(NSBundle.mainBundle.bundlePath.fileSystemRepresentation);
+        if (self.initialized) {
+            id stored = [NSUserDefaults.standardUserDefaults objectForKey:AIConnectionAddressPreference];
+            id configured = [NSBundle.mainBundle objectForInfoDictionaryKey:@"AIDeviceHost"];
+            NSString *address = [stored isKindOfClass:NSString.class] ? stored : ([configured isKindOfClass:NSString.class] ? configured : nil);
+            if (address.length && ai_set_device_host(address.UTF8String) == AI_OK) self.connectionConfigured = YES;
+            ai_register_self_bundle(NSBundle.mainBundle.bundlePath.fileSystemRepresentation);
+        }
     }
     if (!self.pollTimer) {
         self.pollTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(poll) userInfo:nil repeats:YES];
@@ -207,11 +252,20 @@ extern void ai_free_string(char *value);
         NSNumber *eventId = event[@"operationId"];
         NSNumber *activeId = self.engineState[@"activeOperationId"];
         if (eventId && activeId && ![eventId isEqual:activeId]) continue;
+        if (self.refreshResultsPending && eventId &&
+            ![eventId isEqual:self.previousRefreshResultsOperation] &&
+            [event[@"operation"] isEqual:@"refresh_all"] &&
+            [event[@"refreshResults"] isKindOfClass:NSArray.class]) {
+            self.refreshResultsPending = NO;
+            self.previousRefreshResultsOperation = nil;
+        }
         BOOL matchesPending = eventId && [eventId isEqual:self.pendingOperationId];
         BOOL matchesBackground = eventId && [eventId isEqual:self.backgroundOperationId];
-        if ([event[@"operation"] isEqual:@"list"] && [type isEqual:@"done"]) {
+        BOOL currentPairingCheck = eventId && [eventId isEqual:self.pairingVerificationOperation];
+        if ([event[@"operation"] isEqual:@"list"] && [type isEqual:@"done"] && currentPairingCheck &&
+            UIApplication.sharedApplication.applicationState == UIApplicationStateActive && [AISecureStore sessionAuthorized]) {
             self.pairingVerified = YES; self.pairingFileKnownPresent = YES; self.pairingCheckRequested = NO;
-        } else if ([event[@"operation"] isEqual:@"list"] && ([type isEqual:@"error"] || [type isEqual:@"cancelled"])) {
+        } else if ([event[@"operation"] isEqual:@"list"] && currentPairingCheck && ([type isEqual:@"error"] || [type isEqual:@"cancelled"])) {
             self.pairingVerified = NO; self.pairingCheckRequested = NO;
         }
         if ([type isEqual:@"signed"] && matchesPending && self.signingForInstall && !self.cancelling) {
@@ -250,11 +304,7 @@ extern void ai_free_string(char *value);
         // Revalidate real device state before an open-app due-refresh can proceed.
         if ([type isEqual:@"done"] && [event[@"operation"] isEqual:@"login"]) {
             if ([self.engineState[@"paired"] boolValue] && self.pairingBackupReady) {
-                if (ai_list_installed() != AI_OK && self.foregroundRefreshPending) {
-                    self.foregroundRefreshPending = NO;
-                    [self emit:@"error" message:@"Open App Installer and check LocalDevVPN before refreshing."];
-                }
-                [self readEngineState];
+                [self requestDeviceList];
             } else if (self.foregroundRefreshPending) {
                 self.foregroundRefreshPending = NO;
                 [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing."];
@@ -270,6 +320,7 @@ extern void ai_free_string(char *value);
         }
     }
     [self readEngineState];
+    [self clearDiscoveredPortIfPossible];
     [self endBackgroundExecutionIfIdle];
     [self maybeStartForegroundDueRefresh]; [self maybeCheckPairing];
 }
@@ -311,6 +362,7 @@ extern void ai_free_string(char *value);
             }
             if (!success) { self.foregroundRefreshPending = NO; [self emit:@"error" message:@"Unlock was cancelled or unavailable. Your saved data was kept."]; return; }
             self.localMessage = nil; self.cancelling = NO;
+            [self stopPairingDiscoveryClearingPort:YES];
             self.pairingVerified = NO; self.pairingCheckRequested = YES;
             NSData *savedPairing = [self.pairingStore pairingDataWithError:nil];
             self.pairingBackupReady = NO;
@@ -358,27 +410,108 @@ extern void ai_free_string(char *value);
 - (void)importPairingFile:(NSURL *)url {
     [self authorize:@"Unlock secure pairing storage" action:^{
         self.pairingVerified = NO; self.pairingCheckRequested = NO;
-        BOOL scoped = [url startAccessingSecurityScopedResource];
-        NSNumber *size = nil; [url getResourceValue:&size forKey:NSURLFileSizeKey error:nil];
-        NSData *data = (size && size.unsignedLongLongValue <= 1024*1024) ? [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:nil] : nil;
-        if (scoped) [url stopAccessingSecurityScopedResource];
-        if (!data.length || ai_import_pairing(data.bytes, data.length) != AI_OK) {
-            [self emit:@"error" message:@"That pairing file could not be validated or saved. Please check it and try again."]; return;
-        }
-        NSError *error = nil;
-        self.pairingBackupReady = [self.pairingStore importValidatedPairingData:data error:&error];
-        if (!self.pairingBackupReady) {
-            [self emit:@"error" message:@"Pairing was validated, but its protected backup could not be saved. Import it again before continuing."]; return;
-        }
-        self.pairingFileKnownPresent = YES; self.pairingCheckRequested = YES;
-        [self readEngineState];
-        [self emit:@"state" message:@"Pairing file saved securely. Checking this iPhone through LocalDevVPN…"];
-        [self maybeCheckPairing];
+        if (!url.isFileURL) { [self emit:@"error" message:@"Choose a pairing file from Files."]; return; }
+        NSUInteger generation = self.operationGeneration;
+        NSProgress *cancellation = [NSProgress discreteProgressWithTotalUnitCount:1];
+        NSFileCoordinator *coordinator = [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+        self.pairingImportCancellation = cancellation;
+        self.pairingImportCoordinator = coordinator;
+        self.staging = YES;
+        [self emit:@"preparing" message:@"Opening the selected pairing file…"];
+        __weak typeof(self) weakSelf = self;
+        self.pairingImportTimeout = [NSTimer timerWithTimeInterval:30 repeats:NO block:^(NSTimer *timer) {
+            AIInstallerService *self = weakSelf;
+            if (!self || self.operationGeneration != generation || self.pairingImportCoordinator != coordinator) return;
+            [self cancel];
+            [self emit:@"error" message:@"The pairing file could not be opened in time. Download it in Files, then choose it again."];
+        }];
+        [NSRunLoop.mainRunLoop addTimer:self.pairingImportTimeout forMode:NSRunLoopCommonModes];
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            @autoreleasepool {
+                NSMutableData *bytes = [self coordinatedPairingBytesFromURL:url coordinator:coordinator cancellation:cancellation];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.operationGeneration != generation || self.pairingImportCoordinator != coordinator) {
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)]; return;
+                    }
+                    [self cancelPairingDocumentRead]; self.staging = NO;
+                    if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive ||
+                        !UIApplication.sharedApplication.protectedDataAvailable || ![AISecureStore sessionAuthorized]) {
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                        [self emit:@"error" message:@"Open and unlock App Installer, then choose the pairing file again."];
+                    } else if (!bytes.length) {
+                        [self emit:@"error" message:@"The pairing file could not be read safely. Choose a nonempty file up to 1 MB from Files."];
+                    } else if (ai_import_pairing(bytes.bytes, bytes.length) != AI_OK) {
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                        [self emit:@"error" message:@"That pairing file could not be validated or saved. Please check it and try again."];
+                    } else {
+                        self.pairingBackupReady = [self.pairingStore importValidatedPairingData:bytes error:nil];
+                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                        if (!self.pairingBackupReady) {
+                            [self emit:@"error" message:@"Pairing was validated, but its protected backup could not be saved. Import it again before continuing."];
+                        } else {
+                            self.pairingFileKnownPresent = YES; self.pairingCheckRequested = YES;
+                            [self readEngineState];
+                            [self emit:@"state" message:@"Pairing file saved securely. Checking this iPhone through LocalDevVPN…"];
+                            [self maybeCheckPairing];
+                        }
+                    }
+                    [self readEngineState]; [self endBackgroundExecutionIfIdle];
+                });
+            }
+        });
     }];
+}
+- (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation {
+    if (!url.isFileURL || cancellation.cancelled) return nil;
+    BOOL scoped = [url startAccessingSecurityScopedResource];
+    __block NSMutableData *result = nil;
+    NSError *coordinationError = nil;
+    @try {
+        [coordinator coordinateReadingItemAtURL:url options:NSFileCoordinatorReadingWithoutChanges error:&coordinationError byAccessor:^(NSURL *readURL) {
+            if (!readURL.isFileURL || cancellation.cancelled) return;
+            // Providers can supply the real readable URL only inside this
+            // accessor. Do not require pre-hydration NSURLFileSizeKey metadata.
+            const char *path = readURL.fileSystemRepresentation;
+            struct stat before, opened;
+            if (!path || lstat(path, &before) != 0 || !S_ISREG(before.st_mode)) return;
+            int descriptor = open(path, O_RDONLY | O_CLOEXEC | O_NOFOLLOW | O_NONBLOCK);
+            if (descriptor < 0) return;
+            if (fstat(descriptor, &opened) != 0 || !S_ISREG(opened.st_mode) ||
+                before.st_dev != opened.st_dev || before.st_ino != opened.st_ino ||
+                opened.st_size <= 0 || opened.st_size > AIPairingReadLimit) { close(descriptor); return; }
+            // Hardlinks are regular read-only inputs; no source attributes are
+            // changed. The size limit is also enforced against actual reads.
+            NSMutableData *data = [NSMutableData dataWithCapacity:(NSUInteger)opened.st_size];
+            uint8_t buffer[8192]; BOOL reachedEOF = NO;
+            while (!cancellation.cancelled) {
+                size_t wanted = MIN(sizeof(buffer), AIPairingReadLimit - data.length + 1);
+                ssize_t count = read(descriptor, buffer, wanted);
+                if (count < 0 && errno == EINTR) continue;
+                if (count <= 0) { reachedEOF = count == 0; break; }
+                if ((NSUInteger)count > AIPairingReadLimit - data.length) break;
+                [data appendBytes:buffer length:(NSUInteger)count];
+            }
+            close(descriptor);
+            if (reachedEOF && data.length && !cancellation.cancelled) result = data;
+            else [data resetBytesInRange:NSMakeRange(0, data.length)];
+        }];
+    } @finally {
+        if (scoped) [url stopAccessingSecurityScopedResource];
+    }
+    if (coordinationError || cancellation.cancelled) {
+        [result resetBytesInRange:NSMakeRange(0, result.length)]; return nil;
+    }
+    return result;
+}
+- (void)cancelPairingDocumentRead {
+    [self.pairingImportTimeout invalidate]; self.pairingImportTimeout = nil;
+    [self.pairingImportCancellation cancel]; self.pairingImportCancellation = nil;
+    [self.pairingImportCoordinator cancel]; self.pairingImportCoordinator = nil;
 }
 - (void)installIPA:(NSURL *)url {
     [self authorize:@"Approve signing and installing this app" action:^{
         if (!self.pairingBackupReady) { [self emit:@"error" message:@"Import a pairing file and save its protected backup before installing apps."]; return; }
+        [self withDeviceConnection:^{
         if (!url.isFileURL) { [self emit:@"error" message:@"Choose an IPA from Files."]; return; }
         self.staging = YES; [self emit:@"preparing" message:@"Preparing the IPA in protected storage…"];
         NSUInteger generation = self.operationGeneration;
@@ -425,6 +558,7 @@ extern void ai_free_string(char *value);
                 [self readEngineState]; self.pendingOperationId = self.engineState[@"activeOperationId"];
             });
         });
+        }];
     }];
 }
 - (void)releasePendingIPA {
@@ -433,16 +567,29 @@ extern void ai_free_string(char *value);
     if (self.pendingIPA) [NSFileManager.defaultManager removeItemAtURL:self.pendingIPA error:nil];
     self.pendingIPA = nil; self.pendingOperationId = nil;
 }
+- (void)beginRefreshResultsAttempt {
+    self.refreshResultsPending = YES;
+    id previous = self.engineState[@"activeOperationId"];
+    self.previousRefreshResultsOperation = [previous isKindOfClass:NSNumber.class] ? previous : nil;
+    NSMutableDictionary *state = [self.engineState mutableCopy] ?: [NSMutableDictionary new];
+    state[@"refreshResults"] = @[];
+    self.engineState = state;
+}
 - (void)refreshAll {
+    [self beginRefreshResultsAttempt];
     [self authorize:@"Approve refreshing your installed apps" action:^{
         if (!self.pairingBackupReady) { [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing apps."]; return; }
+        [self withDeviceConnection:^{
         if (ai_refresh_all() != AI_OK) {
             [self emit:@"error" message:@"Refresh could not start. Check sign-in, pairing and LocalDevVPN."];
             [AIRefreshCoordinator.shared recordRefreshFailure];
         }
+        }];
     }];
 }
 - (void)cancel {
+    [self stopPairingDiscoveryClearingPort:YES];
+    [self cancelPairingDocumentRead];
     // Invalidate the storage generation before clearing the pending-auth flags.
     // A late genuine LocalAuthentication reply must not unlock a cancelled task.
     BOOL authenticationPending = self.authorizing || self.biometricMigrationPending;
@@ -452,6 +599,7 @@ extern void ai_free_string(char *value);
     ++self.operationGeneration; self.authorizing = NO; self.staging = NO;
     self.biometricMigrationPending = NO;
     self.cancelling = YES; self.signingForInstall = NO; ai_cancel();
+    [self clearDiscoveredPortIfPossible];
     [self releasePendingIPA]; [self finishBackground:NO];
     [self readEngineState]; [self endBackgroundExecution];
     [self emit:@"cancelled" message:@"Task cancelled."];
@@ -533,11 +681,142 @@ extern void ai_free_string(char *value);
         self.pairingVerified = NO;
         [self emit:@"error" message:@"The protected pairing backup needs another import before device access."]; return;
     }
-    if (ai_list_installed() != AI_OK) {
-        self.pairingVerified = NO;
-        [self emit:@"error" message:@"Pairing could not be checked. Keep LocalDevVPN connected, then unlock saved sign-in to retry."]; return;
+    [self requestDeviceList];
+}
+- (BOOL)setConnectionAddress:(NSString *)address {
+    if (!NSThread.isMainThread || !self.initialized || [self.snapshot[@"busy"] boolValue] ||
+        ![address isKindOfClass:NSString.class]) return NO;
+    NSString *value = [address stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    NSData *utf8 = [value dataUsingEncoding:NSUTF8StringEncoding];
+    if (!utf8.length || utf8.length > 64 ||
+        [value rangeOfCharacterFromSet:NSCharacterSet.controlCharacterSet].location != NSNotFound ||
+        ai_set_device_host(value.UTF8String) != AI_OK) return NO;
+    [NSUserDefaults.standardUserDefaults setObject:value forKey:AIConnectionAddressPreference];
+    self.connectionConfigured = YES; self.pairingVerified = NO;
+    [self stopPairingDiscoveryClearingPort:YES];
+    self.pairingCheckRequested = YES;
+    [self readEngineState];
+    [self emit:@"state" message:@"Local connection address saved. Unlock and check the connection."];
+    [self maybeCheckPairing];
+    return YES;
+}
+- (void)clearDiscoveredPortIfPossible {
+    // Do not interrupt an already approved staged sign/install continuation.
+    // Its terminal/cancel path clears the endpoint before another task can use it.
+    if (self.staging || self.signingForInstall || self.pendingIPA) return;
+    if (self.clearPairingPortPending && self.initialized && ai_set_remote_pairing_port(0) == AI_OK)
+        self.clearPairingPortPending = NO;
+}
+- (void)stopPairingDiscoveryClearingPort:(BOOL)clear {
+    ++self.pairingDiscoveryGeneration;
+    self.discoveringPairing = NO; self.pendingDeviceAction = nil;
+    [self.pairingDiscoveryDeadline invalidate]; self.pairingDiscoveryDeadline = nil;
+    self.pairingBrowser.delegate = nil; [self.pairingBrowser stop]; self.pairingBrowser = nil;
+    for (NSNetService *service in self.pairingServices) { service.delegate = nil; [service stop]; }
+    self.pairingServices = nil;
+    if (clear) {
+        self.pairingVerificationOperation = nil;
+        self.clearPairingPortPending = YES; [self clearDiscoveredPortIfPossible];
     }
-    [self beginBackgroundExecution]; [self readEngineState];
+}
+- (BOOL)deviceActionAuthorized {
+    return NSThread.isMainThread && self.connectionConfigured && self.pairingBackupReady &&
+        UIApplication.sharedApplication.applicationState == UIApplicationStateActive &&
+        UIApplication.sharedApplication.protectedDataAvailable && [AISecureStore sessionAuthorized];
+}
+- (void)requestDeviceList {
+    [self withDeviceConnection:^{
+        if (ai_list_installed() != AI_OK) {
+            self.foregroundRefreshPending = NO; self.pairingVerified = NO;
+            [self emit:@"error" message:@"The device check could not start. Unlock and check the connection again."];
+        } else {
+            [self readEngineState]; self.pairingVerificationOperation = self.engineState[@"activeOperationId"];
+        }
+        [self readEngineState]; [self endBackgroundExecutionIfIdle];
+    }];
+}
+- (void)withDeviceConnection:(void (^)(void))action {
+    if (![self deviceActionAuthorized]) {
+        self.foregroundRefreshPending = NO;
+        [self emit:@"error" message:self.connectionConfigured ? @"Open and unlock App Installer to check the connection." :
+            @"Set the numeric local device or VPN address in Settings, then check the connection."];
+        return;
+    }
+    if (self.discoveringPairing || [self.engineState[@"busy"] boolValue]) {
+        [self emit:@"error" message:@"Wait for the current task to finish."]; return;
+    }
+    int32_t kind = ai_pairing_kind();
+    if (kind == 1) { [self beginBackgroundExecution]; action(); return; }
+    if (kind != 2) {
+        self.foregroundRefreshPending = NO;
+        [self emit:@"error" message:@"Import a valid pairing file, then unlock and check the connection."]; return;
+    }
+    [self stopPairingDiscoveryClearingPort:YES];
+    if (self.clearPairingPortPending) {
+        self.foregroundRefreshPending = NO;
+        [self emit:@"error" message:@"The previous connection is still closing. Try again when it finishes."]; return;
+    }
+    self.discoveringPairing = YES;
+    self.pairingDiscoveryAuthGeneration = self.operationGeneration;
+    NSUInteger generation = self.pairingDiscoveryGeneration;
+    self.pendingDeviceAction = action;
+    self.pairingServices = [NSMutableArray new];
+    self.pairingBrowser = [NSNetServiceBrowser new]; self.pairingBrowser.delegate = self;
+    __weak typeof(self) weakSelf = self;
+    self.pairingDiscoveryDeadline = [NSTimer timerWithTimeInterval:10 repeats:NO block:^(NSTimer *timer) {
+        AIInstallerService *self = weakSelf;
+        if (!self || !self.discoveringPairing || generation != self.pairingDiscoveryGeneration) return;
+        [self stopPairingDiscoveryClearingPort:YES]; self.foregroundRefreshPending = NO;
+        [self endBackgroundExecutionIfIdle];
+        [self emit:@"error" message:@"No trusted local pairing service was found. Keep LocalDevVPN connected and allow Local Network access, then retry."];
+    }];
+    [NSRunLoop.mainRunLoop addTimer:self.pairingDiscoveryDeadline forMode:NSRunLoopCommonModes];
+    [self beginBackgroundExecution];
+    [self emit:@"progress" message:@"Finding the trusted local pairing service…"];
+    [self.pairingBrowser searchForServicesOfType:@"_remotepairing._tcp." inDomain:@"local."];
+}
++ (BOOL)remotePairingTXT:(NSData *)data identifier:(NSString **)identifier authTag:(NSString **)authTag {
+    if (identifier) *identifier = nil; if (authTag) *authTag = nil;
+    if (![data isKindOfClass:NSData.class] || !data.length || data.length > 4096) return NO;
+    NSDictionary<NSString *,NSData *> *values = [NSNetService dictionaryFromTXTRecordData:data];
+    NSData *identifierBytes = values[@"identifier"], *tagBytes = values[@"authTag"];
+    if (!identifierBytes.length || identifierBytes.length > 255 || tagBytes.length != 8) return NO;
+    NSString *name = [[NSString alloc] initWithData:identifierBytes encoding:NSUTF8StringEncoding];
+    NSString *tag = [[NSString alloc] initWithData:tagBytes encoding:NSASCIIStringEncoding];
+    NSData *decoded = [[NSData alloc] initWithBase64EncodedData:tagBytes options:0];
+    if (!name.length || !tag.length || decoded.length != 6 ||
+        [name rangeOfCharacterFromSet:NSCharacterSet.controlCharacterSet].location != NSNotFound) return NO;
+    if (identifier) *identifier = name; if (authTag) *authTag = tag;
+    return YES;
+}
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+    if (!self.discoveringPairing || browser != self.pairingBrowser || ![self deviceActionAuthorized] ||
+        self.pairingDiscoveryAuthGeneration != self.operationGeneration || self.pairingServices.count >= 16 ||
+        ![service.type isEqualToString:@"_remotepairing._tcp."] || ![service.domain isEqualToString:@"local."] ||
+        [self.pairingServices containsObject:service]) return;
+    [self.pairingServices addObject:service]; service.delegate = self; [service resolveWithTimeout:3];
+}
+- (void)netServiceBrowser:(NSNetServiceBrowser *)browser didNotSearch:(NSDictionary<NSString *,NSNumber *> *)errorDict {
+    if (browser != self.pairingBrowser || !self.discoveringPairing) return;
+    [self stopPairingDiscoveryClearingPort:YES]; self.foregroundRefreshPending = NO;
+    [self endBackgroundExecutionIfIdle];
+    [self emit:@"error" message:@"Local pairing discovery is unavailable. Allow Local Network access and keep LocalDevVPN connected, then retry."];
+}
+- (void)netServiceDidResolveAddress:(NSNetService *)service {
+    if (!self.discoveringPairing || [self.pairingServices indexOfObjectIdenticalTo:service] == NSNotFound ||
+        self.pairingDiscoveryAuthGeneration != self.operationGeneration || ![self deviceActionAuthorized] ||
+        service.port < 1 || service.port > UINT16_MAX) return;
+    NSString *identifier = nil, *tag = nil;
+    if (![AIInstallerService remotePairingTXT:service.TXTRecordData identifier:&identifier authTag:&tag] ||
+        !ai_match_remote_pairing_service(identifier.UTF8String, tag.UTF8String) ||
+        ai_set_remote_pairing_port((uint16_t)service.port) != AI_OK) return;
+    void (^action)(void) = self.pendingDeviceAction;
+    NSUInteger authorization = self.pairingDiscoveryAuthGeneration;
+    [self stopPairingDiscoveryClearingPort:NO];
+    if (!action || authorization != self.operationGeneration || ![self deviceActionAuthorized]) {
+        self.clearPairingPortPending = YES; [self clearDiscoveredPortIfPossible]; return;
+    }
+    action(); [self readEngineState]; [self endBackgroundExecutionIfIdle];
 }
 - (void)maybeStartForegroundDueRefresh {
     if (self.notificationsSuppressedForExplicitSignOut) { self.foregroundRefreshNeedsCheck = NO; return; }
@@ -556,19 +835,20 @@ extern void ai_free_string(char *value);
     self.lastForegroundRefreshAttempt = now;
     [NSUserDefaults.standardUserDefaults setObject:now forKey:@"org.tin.appinstaller.last-foreground-refresh-attempt"];
     self.foregroundRefreshPending = YES;
+    [self beginRefreshResultsAttempt];
     [self authorize:@"Your apps are near expiry. Unlock to approve refreshing them." action:^{
         if (!self.pairingBackupReady) {
             self.foregroundRefreshPending = NO;
             [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing."]; return;
         }
-        AIStatus status = [self.engineState[@"loginStatus"] isEqual:@"signed_in"] ? ai_list_installed() : ai_restore_session();
-        if (status != AI_OK) {
+        if ([self.engineState[@"loginStatus"] isEqual:@"signed_in"]) { [self requestDeviceList]; return; }
+        if (ai_restore_session() != AI_OK) {
             self.foregroundRefreshPending = NO;
             [self emit:@"error" message:@"Unlock saved sign-in or sign in again, then tap Refresh all."];
         }
         [self readEngineState];
     }];
-    if (!self.authorizing && ![self.engineState[@"busy"] boolValue]) self.foregroundRefreshPending = NO;
+    if (!self.authorizing && !self.discoveringPairing && ![self.engineState[@"busy"] boolValue]) self.foregroundRefreshPending = NO;
 }
 - (void)beginBackgroundExecution {
     if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid || self.backgroundCompletion) return;
@@ -593,7 +873,7 @@ extern void ai_free_string(char *value);
 }
 - (void)endBackgroundExecutionIfIdle {
     if (![self.engineState[@"busy"] boolValue] && !self.authorizing && !self.staging &&
-        !self.signingForInstall && !self.pendingIPA && !self.foregroundRefreshPending) [self endBackgroundExecution];
+        !self.signingForInstall && !self.pendingIPA && !self.foregroundRefreshPending && !self.discoveringPairing) [self endBackgroundExecution];
 }
 
 - (void)pauseScheduledWorkForExplicitSignOut {

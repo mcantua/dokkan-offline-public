@@ -1,0 +1,34 @@
+{
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 40926780346,
+  "source_commit": "80f5e35efbefc7299fe1fd20b4e00b7a86a968ca",
+  "conclusion": "failure",
+  "artifacts": [
+    {
+      "kind": "proof",
+      "id": 12921386809,
+      "bytes": 55860,
+      "sha256": "d4158959dca5c9692fba274aebe1a5bc60a1b43ebaa656d41c38ecc5b149b648"
+    },
+    {
+      "kind": "diagnostics",
+      "id": 12921007375,
+      "bytes": 88683,
+      "sha256": "cef54ebb3c403af7563fc1b6113ad6a8deff004de0660fe07a0749ba72930948"
+    }
+  ],
+  "actual_checks": {
+    "vendor8": "reused40916969403",
+    "helper2": "reused40916969403",
+    "transport2": "passed2/0;0.27s;current80f5",
+    "recovery2": "passed2/0;0.06s;current80f5",
+    "native3": "not started; optional simctl help metadata query timed out30s before XcodeGen/simulator compilation"
+  },
+  "cleanup": {
+    "owned_shutdown": "timed out30s",
+    "owned_delete": "exit0 empty log"
+  },
+  "screenshots_available": false,
+  "app_launch_attempted": false,
+  "expanded_to": "run40926780346"
+}

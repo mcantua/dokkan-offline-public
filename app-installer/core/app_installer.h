@@ -15,6 +15,10 @@ AIStatus ai_select_team(const char *team_id);
 void ai_lock(void);
 AIStatus ai_import_pairing(const uint8_t *bytes, size_t length);
 AIStatus ai_set_device_host(const char *host);
+/* Local runtime configuration only; discovery data is never included in UI JSON. */
+AIStatus ai_set_remote_pairing_port(uint16_t port);
+int32_t ai_pairing_kind(void);
+bool ai_match_remote_pairing_service(const char *identifier, const char *auth_tag);
 void ai_cancel(void);
 AIStatus ai_sign_out(void);
 /* JSON buffers contain only safe UI state and app metadata; free each returned buffer. */

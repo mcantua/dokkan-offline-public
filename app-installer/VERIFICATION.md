@@ -1,5 +1,8 @@
 # Executed verification and remaining evidence
 
+**Current public revision (October29,2:10 PM Central):** Package40934237282/source4c09 and hosted Mac-signature/draft delivery40936908790 succeeded. Independent source/IPA/kit checks and all7 server hashes/sizes passed; notices408/zero gaps. Public pairing/recovery14, startup/TLS3 and native3 retain actual passing proof without repeated tests. Native SDK27.1/runtime27.0 component scope; Apple/phone/physical Duo acceptance remains0% for this revision. Exact download/next local step: [PUBLIC-DELIVERY.md](device/PUBLIC-DELIVERY.md). Historical entries keep their original scope; release_ready=false.
+
+
 These are measured checks, not an overall readiness percentage. Cloud compilation is not proof of Apple-account or iPhone behavior. Tin now reports manual Mac signing/export/install and physical launch of the old app; its sign-in crash and pending corrected-build retest are recorded separately below.
 
 ## Latest first-account startup fix — 2026-10-28, 5:10 PM US Central

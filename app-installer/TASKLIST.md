@@ -1,25 +1,20 @@
-# Completion task list
+# App Installer completion task list
 
-This list tracks the actual completion goal. No overall100% claim while any required item is blocked or unverified. Builds and documents are evidence/milestones, not completion.
+Current public revision: October29,2026,2:10 PM US Central. Tin authorized builds. Draft PR #7 remains unmerged. Historical private-repository artifacts are not proof for this revision. Exact evidence and delivery state are in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md).
 
-| Requirement | Current state | Required proof |
+| Requirement | Current verified state | Remaining acceptance |
 |---|---|---|
-| Licensing six named cases | Six cases audited; 307 target packages have notices, zero gaps. Matching unsigned-candidate source delivery passed | New7059c85 package40777027792 passed matching source/IPA/kit checks; new7asset draft delivery40778539399 passed; all9 server hashes/sizes and2 fixture IDs verified |
-| IPA capabilities | Required Installer/current Unit Creator source capabilities implemented; wider limits explicit in CAPABILITY-MATRIX.md | Live Apple profile grants, actual signed IPA and device behavior remain unverified |
-| Signed bundle verification | Independent cryptographic verifier and real in-memory signing/tamper checks pass | Genuine Apple-issued profile/certificate plus physical installation still required |
-| Apple authentication | Old8eaf reportedly crashes at sign-in after authorization. Missing Rust crypto-provider startup defect fixed in7059c85 | Fresh-process real HTTP constructor1passed/0fail/0.01seconds; actual corrected-build update/sign-in/2FA/team/session restore still required |
-| Physical installation, update, launch and refresh | Tin reports4ad helper signing/export/install, then manual8eaf launch and sign-in crash | New7059 kit35,149,949bytes packaged; draft transfer40778539399 passed; corrected physical update/retest pending. No duplicate old-build action requested |
-| Genuine SDK27.1/Duo simulator | Genuine Duo bare OS and production launch passed. Six earlier native methods retain passing evidence;2 new focused maximum-text/actual-keyboard methods passed40758076164 | Latest actual Duo/iOS27.1 run used no regular fallback or panel mutation; real software keyboard/guide geometry observed. Physical folds/touch/VoiceOver remain unverified |
-| Physical Duo display/fold/touch | Unverified | Real outer/inner geometry, native pixels, safe areas, input, folds and retained state |
-| Secure first-use/FaceID | Native biometric/Keychain review found no established separate crash cause; protection unchanged | Prior hosted checks retain original source scope; corrected-build physical passcode/biometric/session recovery still unverified |
-| Existing eight and additional offline checks | Prior22 checks remain8eaf-scoped. New7059 executed startup1 and relevantTLS2, all0fail/0.01seconds per group | Fresh process starts with no provider and constructs the real account HTTP client without requests/credentials. No19core/response/native rerun claimed |
-| Clean build / matching candidates | New7059c85/package40777027792 passed genuine-SDK compilation and candidate/source/kit gates | New7asset draft promotion40778539399 passed. Physical retest must establish whether the sign-in crash is resolved |
-| Truthful install and interrupted self-update | Error+Complete, expected build Lookup and pending self-transition fixes committed in8eafc23; helper receipt checks2passed/0.024seconds | Cloud core/vendor/new-native checks passed40764445110; live install/update/relaunch evidence remains required |
-| Final usable release | Not ready; release gate remains strict | Actual signing/install/refresh and physical acceptance, correct source delivery and no missing required functionality |
+| Authenticated pairing/export | Vendor8/helper2 passed; exact production/context reuse | Actual selected trusted-USB export/import and pinned phone session |
+| Device transport and recovery | Transport2/recovery2 passed including real loopback teardown, durable failed-first-install retention and self identity/team guards | Real installation/update/refresh/error/restart outcomes |
+| First-account/TLS startup | Fresh-process constructor1 and strict TLS2 passed without requests | Actual Apple sign-in/2FA/team/session recovery |
+| Native import/UI | Files/schema/responsive3 passed, SDK27.1 compilation and regular iOS27.0 component execution | Actual provider, biometrics, touch, keyboard and Duo device behavior |
+| Original eight offline requirements | Included in earlier19/19 baseline; exact older source scope retained | Do not claim a new complete-suite pass; use necessary focused final checks for affected requirements |
+| Notices/source obligations |408 union packages, zero notice gaps; exact siphasher terms/source retained | Passed: full corresponding-source/relink/helper/library/archive bindings and zero notice gaps |
+| Clean candidate/helper/kit | Package40934237282 succeeded: both unsigned IPAs, universal helper, complete source and44.1MB kit; exact artifact hashes match | Passed: independent source/IPA/kit review and hosted helper signature gate |
+| Public distribution | Strong seven-asset source/run/hash/signature contract implemented, negative2 passed | Passed: actual7asset draft delivery40936908790 and independent final server digest/size readback |
+| Personal-resource boundary | All current work cloud-only; no private backup, save or signing-key access | Give advance exact-step/connection/byte notice before approved Mac/network use; separate reserved approval for large Xcode/credential changes |
+| Apple signing/install/update/refresh |0% verified for this revision | Authorized local identity/account/device operations and actual results |
+| Physical Duo displays/folding |0% verified | Outer/inner resolution, safe areas, touchscreen, folding and retained state |
+| Final signed usable release |Not ready; release_ready=false | All required functional, security, source-delivery and physical acceptance; no missing critical capability |
 
-## Resource boundary
-All source, downloads, builds and records live in the one repo under AI-Workspace. No personal MacBook or home/cellular/hotspot project use without explaining the exact action and waiting for Tin’s approval. Cloud-hosted macOS is permitted cloud infrastructure; OS-managed simulator state is ephemeral and separately documented. No Apple password/token/private key or pairing material in GitHub or logs.
-
-Tin explicitly approved the specified MacBook, USB Duo, connection, kit/pairing and trusted dependencies on2026-10-28. Do not ask again for that scope. Tin resumed manual setup; direct computer control remains unavailable. Guide only the observed helper/UI flow, without asking again for the approved scope. Large Xcode installation and Apple-credential changes retain their separate approval boundary. User reports manual native signing/export/install and app launch before a sign-in crash. Those are reported bootstrap milestones, not verified in-app Apple/update/refresh acceptance.
-
-Latest7059 verification ran only the fresh-process first-account constructor and relevantTLS2, then one matching package. Earlier22-check proof remains8eaf-only. Corrected delivery40778539399 passed; physical crash retest remains pending; release_ready=false.
+No reliable overall percentage is inferred from builds, tests or source completion. Keep moving through independent work, normally1–2 meaningful test runs per task. Preserve only the newest verified distribution plus essential sources/configuration; no redundant backups. No base/main merge without Tin's OK.

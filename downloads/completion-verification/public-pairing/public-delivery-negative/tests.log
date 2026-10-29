@@ -1,0 +1,7 @@
+test_archive_guards_reject_escape_links_aliases_and_expansion (__main__.PublicDeliveryGuards.test_archive_guards_reject_escape_links_aliases_and_expansion) ... ok
+test_contract_rejects_wrong_destination_and_incomplete_review_pins (__main__.PublicDeliveryGuards.test_contract_rejects_wrong_destination_and_incomplete_review_pins) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.037s
+
+OK

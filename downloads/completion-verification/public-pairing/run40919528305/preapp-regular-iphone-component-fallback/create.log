@@ -1,0 +1,2 @@
+COMMAND xcrun simctl create App Installer Preapp 40919528305 regular-iphone-component-fallback com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max com.apple.CoreSimulator.SimRuntime.iOS-27-0
+88409B6F-F1DB-4C33-A5C5-915A966BAFDA

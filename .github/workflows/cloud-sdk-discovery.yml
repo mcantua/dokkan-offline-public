@@ -5,40 +5,56 @@ permissions:
   contents: read
 jobs:
   inventory:
-    runs-on: xcode-27
-    timeout-minutes: 5
+    runs-on: macos-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: AI-Workspace/dokkan-offline-public
     steps:
-      - name: Inspect installed hosted Apple tools
-        env:
-          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
-        run: |
-          set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/AI-Workspace/claude-chatg/downloads/sdk-discovery"
-          cd "$GITHUB_WORKSPACE/AI-Workspace/claude-chatg/downloads/sdk-discovery"
-          xcodebuild -version | tee xcode-version.txt
-          xcrun --sdk iphoneos --show-sdk-version | tee device-sdk.txt
-          xcrun --sdk iphonesimulator --show-sdk-version | tee simulator-sdk.txt
-          xcrun simctl list -j > simulator-inventory.json
-          xcrun simctl help > simctl-help.txt
-          xcrun simctl io help > simctl-io-help.txt 2>&1 || true
-          xcrun simctl ui help > simctl-ui-help.txt 2>&1 || true
-          owned_simulator=""
-          cleanup() {
-            if [[ -n "$owned_simulator" ]]; then
-              xcrun simctl shutdown "$owned_simulator" >/dev/null 2>&1 || true
-              xcrun simctl delete "$owned_simulator" >/dev/null 2>&1 || true
-            fi
-          }
-          trap cleanup EXIT
-          owned_simulator="$(xcrun simctl create "Installer display discovery $GITHUB_RUN_ID" com.apple.CoreSimulator.SimDeviceType.iPhone-Duo com.apple.CoreSimulator.SimRuntime.iOS-27-1)"
-          [[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]]
-          xcrun simctl boot "$owned_simulator"
-          xcrun simctl bootstatus "$owned_simulator" -b
-          xcrun simctl io "$owned_simulator" enumerate > duo-display-enumeration.txt
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          name: app-installer-sdk-inventory
-          path: AI-Workspace/claude-chatg/downloads/sdk-discovery/
+          persist-credentials: false
+          path: AI-Workspace/dokkan-offline-public
+      - name: Read installed official hosted Xcode SDK and simulator inventory
+        run: |
+          python3 - <<'PY'
+          import json,os,pathlib,platform,subprocess,sys
+          if sys.platform!='darwin' or os.environ.get('GITHUB_ACTIONS')!='true':
+              raise SystemExit('Hosted macOS inventory only')
+          if os.environ.get('GITHUB_REPOSITORY')!='mcantua/dokkan-offline-public':
+              raise SystemExit('Active public repository only')
+          out=pathlib.Path('downloads/hosted-sdk-inventory');out.mkdir(parents=True,exist_ok=True)
+          def query(args,env):
+              try:
+                  r=subprocess.run(args,env=env,capture_output=True,text=True,timeout=35)
+                  return {'command':args,'exit_code':r.returncode,'stdout':r.stdout[:1048576],'stderr':r.stderr[:8192]}
+              except subprocess.TimeoutExpired:
+                  return {'command':args,'timed_out':True}
+          probes=[]
+          for app in sorted(pathlib.Path('/Applications').glob('Xcode*.app')):
+              dev=app/'Contents/Developer'
+              if not dev.is_dir():continue
+              env=dict(os.environ,DEVELOPER_DIR=str(dev))
+              probe={'developer_dir':str(dev),'simulator_frontend_available':(dev/'Applications/Simulator.app').is_dir()}
+              probe['xcode']=query(['/usr/bin/xcodebuild','-version'],env)
+              for sdk in ('iphoneos','iphonesimulator','macosx'):
+                  probe[sdk]=query(['/usr/bin/xcrun','--sdk',sdk,'--show-sdk-version'],env)
+              probe['simulator_inventory']=query(['/usr/bin/xcrun','simctl','list','-j'],env)
+              probes.append(probe)
+          report={'schema_version':1,'repository':os.environ['GITHUB_REPOSITORY'],
+              'source_commit':os.environ['GITHUB_SHA'],'run_id':os.environ['GITHUB_RUN_ID'],
+              'runner_label':'macos-latest','host':platform.platform(),'probes':probes,
+              'scope':'Read-only inventory of official hosted installed tools. No downloads, license acceptance, '
+                       'simulator creation/boot, application compilation/test, Apple account, device or personal resource use.',
+              'native_tests_executed':False,'physical_hardware_verified':False}
+          (out/'inventory.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps([{k:v for k,v in p.items() if k!='simulator_inventory'} for p in probes],indent=2))
+          PY
+      - name: Preserve actual inventory
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-macos-sdk-inventory
+          path: AI-Workspace/dokkan-offline-public/downloads/hosted-sdk-inventory/
           retention-days: 7
           if-no-files-found: error

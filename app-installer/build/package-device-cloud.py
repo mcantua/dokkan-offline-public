@@ -12,7 +12,7 @@ import sys
 import tempfile
 import zipfile
 sys.dont_write_bytecode=True
-from licensing import ROOT,load_graph,sha
+from licensing import ROOT,load_graph,sha,HELPER_MANIFEST
 
 
 def load_module(name,file):
@@ -31,6 +31,69 @@ def verify_core_receipt(receipt,library,expected,allow_test_fixture=False):
         raise ValueError('Rust library content does not match completed build receipt')
     for field,value in expected.items():
         if receipt.get(field)!=value:raise ValueError('Rust library build receipt differs: '+field)
+
+
+def seal_remote_pairing_helper(notices,notice_report,source_archive,source_receipt,source_module,
+                               commit,fingerprint,graph_hash):
+    """Bind the built public helper to actual complete notices/source, last."""
+    stage=ROOT/'app-installer/cloud-ui/work/public-rp-helper'
+    if stage.is_symlink() or not stage.is_dir():raise ValueError('Built public RP helper stage is missing or unsafe')
+    receipt_path=stage/'RPBootstrapBuildManifest.json';binary=stage/'app-installer-rp-bootstrap'
+    for path in (receipt_path,binary,notices,notice_report,source_archive):
+        if path.is_symlink() or not path.is_file():raise ValueError('Helper/source seal input is missing or unsafe')
+    if receipt_path.stat().st_size>16*1024*1024:raise ValueError('Helper build receipt is oversized')
+    receipt=json.loads(receipt_path.read_text());report=json.loads(notice_report.read_text())
+    required={'schema_version':1,'project':'dokkan-offline-public','tool':'app-installer-rp-bootstrap',
+        'version':'0.1.68','test_fixture':False,'source_commit':commit,'source_tree_sha256':fingerprint,
+        'targets':['aarch64-apple-darwin','x86_64-apple-darwin'],'architectures':['arm64','x86_64'],
+        'minimum_macos':'12.0','ad_hoc_signed':True,'notarized':False,'build_succeeded':True,
+        'version_output':'app-installer-rp-bootstrap 0.1.68','version_only_executed':True,
+        'usb_or_pairing_executed':False,'personal_resources_used':False,
+        'locked_dependency_graph_hash':graph_hash}
+    for key,value in required.items():
+        if type(receipt.get(key)) is not type(value) or receipt[key]!=value:
+            raise ValueError('Public helper build receipt differs: '+key)
+    if any(type(receipt.get(key)) is not bool for key in ('notice_delivery_pending','corresponding_source_delivery_pending')):
+        raise ValueError('Helper delivery gate state is missing')
+    binary_record={'file':binary.name,'bytes':binary.stat().st_size,'sha256':sha(binary.read_bytes()),'mode':0o755}
+    if not 0<binary_record['bytes']<=128*1024*1024 or binary.stat().st_mode&0o777!=0o755 or receipt.get('binary')!=binary_record:
+        raise ValueError('Public helper binary differs from completed universal build')
+    if (report.get('notice_obligations_satisfied') is not True or type(report.get('notice_gap_count')) is not int
+        or report['notice_gap_count']!=0 or report.get('distribution_requirements_satisfied') is not True
+        or report.get('release_license_ready') is not True or report.get('locked_dependency_graph_hash')!=graph_hash):
+        raise ValueError('Helper complete-notice/source gate is unresolved')
+    graphs=[entry for entry in report.get('distribution_graphs',[]) if entry.get('manifest')==HELPER_MANIFEST]
+    target_hashes={entry['target']:sha(json.dumps(entry,sort_keys=True,separators=(',',':')).encode()) for entry in graphs}
+    if (set(target_hashes)!={'aarch64-apple-darwin','x86_64-apple-darwin'} or len(graphs)!=2
+        or receipt.get('target_graph_hashes')!=target_hashes or report.get('target_graph_hashes')!=target_hashes
+        or receipt.get('distribution_graphs')!=graphs):
+        raise ValueError('Helper target/feature graphs differ from sealed union notices')
+    actual_source={'file':source_archive.name,'bytes':source_archive.stat().st_size,'sha256':sha(source_archive.read_bytes())}
+    if any(source_receipt.get(key)!=value for key,value in actual_source.items()):
+        raise ValueError('Helper corresponding-source archive differs from verified delivery')
+    if report.get('corresponding_source')!=source_receipt:
+        raise ValueError('Helper notice report source receipt differs')
+    source_manifest=source_module.verify(source_archive,fingerprint,graph_hash)
+    if source_manifest.get('source_commit')!=commit or source_manifest.get('distribution_graphs')!=report.get('distribution_graphs'):
+        raise ValueError('Helper source archive commit/feature closure differs')
+    for key,source,name in [('notices',notices,'RPBootstrapThirdPartyNotices.txt'),
+                            ('notice_report',notice_report,'RPBootstrapThirdPartyNoticeReport.json')]:
+        destination=stage/name
+        if destination.is_symlink() or (destination.exists() and not destination.is_file()):
+            raise ValueError('Unsafe helper notice output location')
+        shutil.copy2(source,destination)
+        receipt[key]={'file':name,'bytes':destination.stat().st_size,'sha256':sha(destination.read_bytes())}
+    receipt['corresponding_source']=actual_source
+    receipt['notice_delivery_pending']=False;receipt['corresponding_source_delivery_pending']=False
+    receipt['scope']='Verified public-source universal helper build/version execution, complete union notices and matching source/relink delivery. No USB, pairing or personal-resource action was executed.'
+    # Public metadata only: publish the finalized receipt after every input check
+    # and both notice copies complete. Never include it in its own source archive.
+    with tempfile.NamedTemporaryFile(mode='w',prefix='rp-seal-',suffix='.json',dir=stage,delete=False) as stream:
+        temporary=Path(stream.name);stream.write(json.dumps(receipt,indent=2)+'\n')
+    try:os.replace(temporary,receipt_path)
+    finally:temporary.unlink(missing_ok=True)
+    return {'manifest':receipt_path.name,'bytes':receipt_path.stat().st_size,'sha256':sha(receipt_path.read_bytes()),
+            'corresponding_source':actual_source,'target_graph_hashes':target_hashes}
 
 
 def main():
@@ -122,6 +185,8 @@ def main():
             'source_bundle_bytes':source_receipt['bytes'],'source_bundle_location':'same-artifact/candidates/'+source_receipt['file'],
             'source_bundle':source_receipt,'compilation_sdk':sdk,'unsigned':True}
         (evidence/'cloud-device-library-manifest.json').write_text(json.dumps(core_manifest,indent=2)+'\n')
+        seal_remote_pairing_helper(notices,report_path,evidence/source_receipt['file'],source_receipt,
+                                   source_module,commit,fingerprint,graph_hash)
         for variant in ['iphone','duo']:(builds/f'AppInstaller-{variant}-preview.ipa').unlink(missing_ok=True)
         print(json.dumps(manifest,indent=2))
     try:work.rmdir()

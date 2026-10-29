@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "host": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "runner_label": "macos-latest",
+  "probed_developer_paths": 15,
+  "reported_unique_xcode_versions": 7,
+  "xcodes": [
+    {
+      "xcode": "Xcode 26.6\nBuild version 17F113",
+      "developer_paths": [
+        "/Applications/Xcode.app/Contents/Developer",
+        "/Applications/Xcode_26.6.0.app/Contents/Developer",
+        "/Applications/Xcode_26.6.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.5",
+      "iphonesimulator_sdk": "26.5",
+      "macos_sdk": "26.5"
+    },
+    {
+      "xcode": "Xcode 26.0.1\nBuild version 17A400",
+      "developer_paths": [
+        "/Applications/Xcode_26.0.1.app/Contents/Developer",
+        "/Applications/Xcode_26.0.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.0",
+      "iphonesimulator_sdk": "26.0",
+      "macos_sdk": "26.0"
+    },
+    {
+      "xcode": "Xcode 26.1.1\nBuild version 17B100",
+      "developer_paths": [
+        "/Applications/Xcode_26.1.1.app/Contents/Developer",
+        "/Applications/Xcode_26.1.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.1",
+      "iphonesimulator_sdk": "26.1",
+      "macos_sdk": "26.1"
+    },
+    {
+      "xcode": "Xcode 26.2\nBuild version 17C52",
+      "developer_paths": [
+        "/Applications/Xcode_26.2.0.app/Contents/Developer",
+        "/Applications/Xcode_26.2.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.2",
+      "iphonesimulator_sdk": "26.2",
+      "macos_sdk": "26.2"
+    },
+    {
+      "xcode": "Xcode 26.3\nBuild version 17C529",
+      "developer_paths": [
+        "/Applications/Xcode_26.3.0.app/Contents/Developer",
+        "/Applications/Xcode_26.3.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.2",
+      "iphonesimulator_sdk": "26.2",
+      "macos_sdk": "26.2"
+    },
+    {
+      "xcode": "Xcode 26.4.1\nBuild version 17E202",
+      "developer_paths": [
+        "/Applications/Xcode_26.4.1.app/Contents/Developer",
+        "/Applications/Xcode_26.4.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.4",
+      "iphonesimulator_sdk": "26.4",
+      "macos_sdk": "26.4"
+    },
+    {
+      "xcode": "Xcode 26.5\nBuild version 17F42",
+      "developer_paths": [
+        "/Applications/Xcode_26.5.0.app/Contents/Developer",
+        "/Applications/Xcode_26.5.app/Contents/Developer"
+      ],
+      "iphoneos_sdk": "26.5",
+      "iphonesimulator_sdk": "26.5",
+      "macos_sdk": "26.5"
+    }
+  ],
+  "all_probed_paths_have_simulator_app": true,
+  "runtimes": [
+    {
+      "name": "iOS 26.2",
+      "version": "26.2",
+      "buildversion": "23C54",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-26-2"
+    },
+    {
+      "name": "iOS 26.4",
+      "version": "26.4.1",
+      "buildversion": "23E254a",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-26-4"
+    },
+    {
+      "name": "iOS 26.5",
+      "version": "26.5",
+      "buildversion": "23F77",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.iOS-26-5"
+    },
+    {
+      "name": "tvOS 26.2",
+      "version": "26.2",
+      "buildversion": "23K51",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.tvOS-26-2"
+    },
+    {
+      "name": "tvOS 26.4",
+      "version": "26.4",
+      "buildversion": "23L243a",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.tvOS-26-4"
+    },
+    {
+      "name": "tvOS 26.5",
+      "version": "26.5",
+      "buildversion": "23L470",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.tvOS-26-5"
+    },
+    {
+      "name": "watchOS 26.2",
+      "version": "26.2",
+      "buildversion": "23S303",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.watchOS-26-2"
+    },
+    {
+      "name": "watchOS 26.4",
+      "version": "26.4",
+      "buildversion": "23T240b",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.watchOS-26-4"
+    },
+    {
+      "name": "watchOS 26.5",
+      "version": "26.5",
+      "buildversion": "23T570",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.watchOS-26-5"
+    },
+    {
+      "name": "visionOS 26.2",
+      "version": "26.2",
+      "buildversion": "23N301",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.xrOS-26-2"
+    },
+    {
+      "name": "visionOS 26.4",
+      "version": "26.4.1",
+      "buildversion": "23O249a",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.xrOS-26-4"
+    },
+    {
+      "name": "visionOS 26.5",
+      "version": "26.5",
+      "buildversion": "23O470",
+      "isAvailable": true,
+      "identifier": "com.apple.CoreSimulator.SimRuntime.xrOS-26-5"
+    }
+  ],
+  "simulator_inventory_timeouts": [
+    {
+      "developer_dir": "/Applications/Xcode.app/Contents/Developer",
+      "seconds": 35
+    }
+  ],
+  "duo_device_types": [],
+  "sdk27_1_or_newer_found": false,
+  "runtime27_1_found": false,
+  "scope_limit": "Inventory/availability only; no simulator boot, XCTest, app build, device acceptance or license action. Aliased developer paths are not claimed to be distinct Xcode installations. All Applications/Xcode*.app paths enumerated by the workflow."
+}

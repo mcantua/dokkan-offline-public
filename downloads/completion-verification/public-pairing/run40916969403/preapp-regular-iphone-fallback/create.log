@@ -1,0 +1,4 @@
+COMMAND xcrun simctl create App Installer Preapp 40916969403 regular-iphone-fallback com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max com.apple.CoreSimulator.SimRuntime.iOS-27-1
+An error was encountered processing the command (domain=com.apple.CoreSimulator.SimError, code=403):
+Incompatible device
+Unable to create a device for device type: iPhone 18 Pro Max (com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max), runtime: iOS 27.1 (27.1 - 24A94425) - com.apple.CoreSimulator.SimRuntime.iOS-27-1

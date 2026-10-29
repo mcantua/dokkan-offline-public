@@ -1,0 +1,124 @@
+{
+  "archive_sha256": "b2aa850e253778c88a04c3d7323b043aeda9d3e30d5971937c1855769763678e",
+  "published_file_count": 15,
+  "published_files": [
+    {
+      "path": ".cargo_vcs_info.json",
+      "sha256": "f0dca5ec37ad33a5d0705ed33ec30672947e6942c0beac3e9575152559a72176"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "9dc3030fc87139b49c283e6fafe1d1f46b2002659ab4eea26350f67d0367b491"
+    },
+    {
+      "path": ".github/workflows/issues.yml",
+      "sha256": "b7f30a2a870d09450e0111f7fb5b3cf08a2fb369ccbd8e97e95b2286e5b8aa9b"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "5c2a92fe12d983efa0cc4d439c1bab8fc5f6cbf40436748b213913d753035ca0"
+    },
+    {
+      "path": "COPYING",
+      "sha256": "c962ee4d1d05ddc138b202b2540219ebc57893fcf97b364852094a9a94ce1365"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "bb8e55f320d27bef4a42fc4040ef054210435cb1719bfb3ddc453b9c63e9f010"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "3a2533d229481b57cab0e16b3b8ce32fb0f0212842438f0f47d40dade278aa73"
+    },
+    {
+      "path": "Cargo.toml.orig",
+      "sha256": "ceec825424bd52d44fadd389b69006495659d6aa75581184d4fa499eeee66295"
+    },
+    {
+      "path": "README.md",
+      "sha256": "af6d54563bbcc675b002349cd883e44d607e45cbdd640ed452804533fef00bab"
+    },
+    {
+      "path": "src/common.rs",
+      "sha256": "7319d34054413c01a3740a1d349c487125c5ffc5a39cddf562702f3560e1525a"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "b58b7067ee6cad446233fbb17a30fb4828fa0c783a4d65c110374ecadc6e3e74"
+    },
+    {
+      "path": "src/sip.rs",
+      "sha256": "3bd13f4265b55e432d1f21702dd63c97552663ddd0ac838d2d468648c8659c7e"
+    },
+    {
+      "path": "src/sip128.rs",
+      "sha256": "3c562ba479afadcb0b6b99b66e9f67f8378f48eca774538a24f2e00653a34ba6"
+    },
+    {
+      "path": "src/tests.rs",
+      "sha256": "6658c1ac8c688ed90682a6dbc759ab569d43a5fc1405df84575374507ce79a6a"
+    },
+    {
+      "path": "src/tests128.rs",
+      "sha256": "ae4f63fcc9aa59614e87c53242dd8b533edfe28e55a76e6a6de13f3d51bf0b05"
+    }
+  ],
+  "copyright_matches": [
+    {
+      "path": "COPYING",
+      "line": 1,
+      "text": "Copyright 2012-2016 The Rust Project Developers."
+    },
+    {
+      "path": "COPYING",
+      "line": 2,
+      "text": "Copyright 2016-2026 Frank Denis."
+    },
+    {
+      "path": "src/sip.rs",
+      "line": 1,
+      "text": "// Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT"
+    },
+    {
+      "path": "src/sip.rs",
+      "line": 3,
+      "text": "// http://rust-lang.org/COPYRIGHT."
+    },
+    {
+      "path": "src/sip128.rs",
+      "line": 1,
+      "text": "// Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT"
+    },
+    {
+      "path": "src/sip128.rs",
+      "line": 3,
+      "text": "// http://rust-lang.org/COPYRIGHT."
+    },
+    {
+      "path": "src/tests.rs",
+      "line": 1,
+      "text": "// Copyright 2014 The Rust Project Developers. See the COPYRIGHT"
+    },
+    {
+      "path": "src/tests.rs",
+      "line": 3,
+      "text": "// http://rust-lang.org/COPYRIGHT."
+    },
+    {
+      "path": "src/tests128.rs",
+      "line": 1,
+      "text": "// Copyright 2014 The Rust Project Developers. See the COPYRIGHT"
+    },
+    {
+      "path": "src/tests128.rs",
+      "line": 3,
+      "text": "// http://rust-lang.org/COPYRIGHT."
+    }
+  ],
+  "upstream_commit": "db8172048a1c9bdef0dcec782d965c236161af13",
+  "upstream_copying": {
+    "url": "https://raw.githubusercontent.com/jedisct1/rust-siphash/db8172048a1c9bdef0dcec782d965c236161af13/COPYING",
+    "sha256": "c962ee4d1d05ddc138b202b2540219ebc57893fcf97b364852094a9a94ce1365",
+    "matches_published_bytes": true
+  }
+}

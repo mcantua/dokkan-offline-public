@@ -42,9 +42,13 @@ use tokio::{
 };
 use x509_cert::der::Encode;
 use zeroize::Zeroizing;
+#[path = "transport.rs"]
+mod transport;
+use transport::DeviceTransport;
 
 const ANISETTE_URL: &str = "https://ani.jkcoxson.com";
 const PAIRING_KEY: &str = "engine.pairing";
+static REMOTE_PAIRING_PORT: AtomicU64 = AtomicU64::new(0);
 tokio::task_local! { static OPERATION_SCOPE:(u64, &'static str); }
 static RUNTIME: OnceLock<Runtime> = OnceLock::new();
 static ENGINE: OnceLock<AsyncMutex<Engine>> = OnceLock::new();
@@ -88,6 +92,7 @@ struct Staged {
     original: PathBuf,
     record: Record,
     cancel_generation: u64,
+    initial_install: bool,
 }
 struct Engine {
     work: PathBuf,
@@ -99,6 +104,8 @@ struct Engine {
     records: Vec<Record>,
     device_host: String,
     self_bundle_id: Option<String>,
+    // Runtime metadata from this actual running bundle, never an imported IPA.
+    self_signing_identity: Option<plist::Dictionary>,
 }
 
 fn runtime() -> &'static Runtime {
@@ -112,30 +119,9 @@ fn runtime() -> &'static Runtime {
 }
 
 fn configured_device_host() -> String {
-    if let Ok(host) = std::env::var("OFFLINE_DEVICE_HOST") {
-        let host = host.trim().to_string();
-        if !host.is_empty() && host.len() <= 64 && !host.chars().any(|c| c.is_whitespace()) {
-            return host;
-        }
-    }
-    let candidates = [
-        std::path::PathBuf::from("config/private.local"),
-        std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../config/private.local"),
-    ];
-    for path in candidates {
-        if let Ok(text) = std::fs::read_to_string(path) {
-            for line in text.lines() {
-                let line = line.trim();
-                if let Some(value) = line.strip_prefix("OFFLINE_DEVICE_HOST=") {
-                    let value = value.trim().trim_matches(|c: char| c == '"' || c == '\u{0027}');
-                    if !value.is_empty() && value.len() <= 64 && !value.chars().any(|c| c.is_whitespace()) {
-                        return value.to_string();
-                    }
-                }
-            }
-        }
-    }
-    "device-host.invalid".to_string()
+    // Native code supplies an explicitly selected local tunnel address after
+    // initialization. Never substitute a guessed address or read cwd files.
+    String::new()
 }
 
 fn engine() -> &'static AsyncMutex<Engine> {
@@ -150,6 +136,7 @@ fn engine() -> &'static AsyncMutex<Engine> {
             records: vec![],
             device_host: configured_device_host(),
             self_bundle_id: None,
+            self_signing_identity: None,
         })
     })
 }
@@ -220,7 +207,22 @@ fn failure(message: &'static str) -> Report {
     Report::new(UserFacingError(message)).into()
 }
 fn safe_message(error: &Report) -> &'static str {
-    error.iter_reports().find_map(|node|node.downcast_current_context::<UserFacingError>()).map(|e|e.0).unwrap_or("The operation could not finish. Check your account, pairing file and LocalDevVPN, then try again.")
+    error.iter_reports().find_map(|node| {
+        node.downcast_current_context::<UserFacingError>().map(|error|error.0)
+            .or_else(||node.downcast_current_context::<IndependentAppFailure>().map(|error|error.0))
+    }).unwrap_or("The operation could not finish. Check your account, pairing file and LocalDevVPN, then try again.")
+}
+/// Only call before this app's provisioning/sign/install side effects. The
+/// refresh scheduler never guesses independence from strings or generic errors.
+#[derive(Debug)]
+struct IndependentAppFailure(&'static str);
+impl std::fmt::Display for IndependentAppFailure {
+    fn fmt(&self,formatter:&mut std::fmt::Formatter<'_>)->std::fmt::Result {formatter.write_str(self.0)}
+}
+impl std::error::Error for IndependentAppFailure {}
+fn independent_app_failure(message:&'static str)->Report {Report::new(IndependentAppFailure(message)).into()}
+fn independent_app_error(error:&Report)->bool {
+    error.iter_reports().any(|node|node.downcast_current_context::<IndependentAppFailure>().is_some())
 }
 fn c_string(ptr: *const c_char, max: usize) -> Result<Zeroizing<String>, Status> {
     if ptr.is_null() {
@@ -467,34 +469,18 @@ async fn finish_login(mut account: AppleAccount) -> Result<(&'static str, Value)
     SIGNED_IN.store(true, Ordering::Release);
     Ok(("Signed in.", json!({"loginStatus":"signed_in","teams":[]})))
 }
-fn provider(e: &Engine) -> Result<TcpProvider, Report> {
+async fn provider(e: &Engine) -> Result<DeviceTransport, Report> {
     let bytes =
         NativeStorage::raw_read(PAIRING_KEY)?.ok_or_else(|| failure("Pairing file required"))?;
-    let pairing = PairingFile::from_bytes(&bytes)?;
-    Ok(TcpProvider {
-        addr: e.device_host.parse()?,
-        scope_id: None,
-        pairing_file: pairing,
-        label: "AppInstaller".into(),
-    })
+    let credentials = transport::parse_credentials(&bytes)?;
+    let address = e.device_host.parse().map_err(|_|failure("The device tunnel address is not configured. Check the approved LocalDevVPN setup."))?;
+    DeviceTransport::connect(credentials, address, REMOTE_PAIRING_PORT.load(Ordering::Acquire) as u16).await
 }
 async fn device_apps(
-    provider: &TcpProvider,
+    provider: &mut DeviceTransport,
     work: &Path,
 ) -> Result<HashMap<String, plist::Value>, Report> {
-    crate::cleanup::retry(work, provider).await?;
-    let mut client = InstallationProxyClient::connect(provider).await?;
-    Ok(client
-        .get_apps_with_attributes(
-            Some("User"),
-            None,
-            Some(vec![
-                "CFBundleIdentifier".into(),
-                "CFBundleVersion".into(),
-                "CFBundleShortVersionString".into(),
-            ]),
-        )
-        .await?)
+    provider.apps(work).await
 }
 fn is_installed(apps: &HashMap<String, plist::Value>, id: &str) -> bool {
     apps.keys().any(|key| key.eq_ignore_ascii_case(id))
@@ -574,11 +560,10 @@ fn record_running_self(e: &mut Engine, record: Record) -> Result<(), Report> {
 }
 
 async fn development_app_count(
-    provider: &TcpProvider,
+    provider: &mut DeviceTransport,
     apps: &HashMap<String, plist::Value>,
 ) -> Result<u32, Report> {
-    let mut client = MisagentClient::connect(provider).await?;
-    let profiles = client.copy_all().await?;
+    let profiles = provider.profiles().await?;
     let mut ids = HashSet::new();
     for data in profiles {
         let p = ProvisioningProfile::parse(&data)?;
@@ -717,7 +702,8 @@ fn reconcile_confirmed_apps(
             .self_bundle_id
             .as_deref()
             .is_some_and(|id| id.eq_ignore_ascii_case(&pending.bundle_id));
-        if !is_installed(&apps, &pending.bundle_id) && !current_self {
+        let previously_managed=e.records.iter().any(|record|record.bundle_id.eq_ignore_ascii_case(&pending.bundle_id));
+        if !is_installed(&apps, &pending.bundle_id) && !current_self && !pending.initial_install && previously_managed {
             crate::install_journal::clear(&e.work, &pending)?;
         }
     }
@@ -868,15 +854,50 @@ fn membership_paid(team: &DeveloperTeam) -> Option<bool> {
     });
     active_ios.then_some(true)
 }
+fn installed_self_identity(entitlements:&plist::Dictionary,bundle_id:&str,team:&str)->Result<plist::Dictionary,Report>{
+    let invalid=||failure("App Installer's existing Keychain identity could not be verified. Keep its original developer team and signed installation.");
+    let app=entitlements.get("application-identifier").and_then(plist::Value::as_string).ok_or_else(invalid)?;
+    if !app.ends_with(&format!(".{bundle_id}")) || team.is_empty()
+        || entitlements.get("com.apple.developer.team-identifier").and_then(plist::Value::as_string).is_some_and(|value|value!=team) {return Err(invalid());}
+    let groups=entitlements.get("keychain-access-groups").and_then(plist::Value::as_array).filter(|groups|!groups.is_empty()).ok_or_else(invalid)?;
+    if groups.iter().any(|value|value.as_string().is_none_or(|value|value.is_empty()||value.len()>1024||value.chars().any(char::is_control))){return Err(invalid());}
+    let mut identity=plist::Dictionary::new();
+    identity.insert("application-identifier".into(),plist::Value::String(app.into()));
+    identity.insert("com.apple.developer.team-identifier".into(),plist::Value::String(team.into()));
+    identity.insert("keychain-access-groups".into(),plist::Value::Array(groups.clone()));
+    Ok(identity)
+}
+fn self_refresh_requirements(e:&Engine,input:&str,team:&str,requested:&mut plist::Dictionary)->Result<Option<plist::Dictionary>,Report>{
+    let own_source=e.self_bundle_id.as_deref().is_some_and(|own|own.eq_ignore_ascii_case(input)||input.eq_ignore_ascii_case(crate::identity::INSTALLER_ORIGINAL_ID))
+        || e.records.iter().any(|record|record.is_self&&(record.bundle_id.eq_ignore_ascii_case(input)||record.original_bundle_id.eq_ignore_ascii_case(input)));
+    if !own_source{return Ok(None);}
+    let own=e.self_bundle_id.as_deref().ok_or_else(||failure("The running installer identity is unavailable. Reopen App Installer before updating it."))?;
+    let record=e.records.iter().find(|record|record.is_self&&record.bundle_id.eq_ignore_ascii_case(own)).ok_or_else(||failure("The running installer's developer team is unavailable. Its saved data was kept."))?;
+    if record.team_id.is_empty()||record.team_id!=team{return Err(failure("Self-refresh requires the developer team that signed this installed App Installer. Select its original team; its Keychain identity was not changed."));}
+    let identity=e.self_signing_identity.as_ref().ok_or_else(||failure("The running installer's Keychain identity is unavailable. Reopen App Installer before updating it."))?;
+    if identity.get("com.apple.developer.team-identifier").and_then(plist::Value::as_string)!=Some(team){return Err(failure("Self-refresh requires the developer team of the actual running installer. Its Keychain identity was not changed."));}
+    let groups=identity.get("keychain-access-groups").ok_or_else(||failure("The running installer's Keychain access groups are unavailable."))?;
+    if requested.get("keychain-access-groups").is_some_and(|candidate|candidate!=groups){return Err(failure("This installer update requests different Keychain access groups. Its existing account and pairing data must keep the original groups."));}
+    // An unsigned new installer has no signing identity yet. Carry forward the
+    // actual installed groups instead of inventing them from a selected team.
+    requested.insert("keychain-access-groups".into(),groups.clone());
+    Ok(Some(identity.clone()))
+}
+fn verify_self_entitlements(expected:&plist::Dictionary,signed:&plist::Dictionary)->Result<(),Report>{
+    if expected.iter().any(|(key,value)|signed.get(key)!=Some(value)){
+        return Err(failure("Apple's profile would change this installer's existing signing or Keychain identity. Use its original team and a profile authorizing its existing access groups; saved data was kept."));
+    }
+    Ok(())
+}
 async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Result<(), Report> {
     if !SIGNED_IN.load(Ordering::Acquire) {
         return Err(failure("Sign in required"));
     }
     e.staged = None;
     let operation_cancel_generation = CANCEL_GENERATION.load(Ordering::Acquire);
-    checked_source(e, &path)?;
-    let provider = provider(e)?;
-    let apps = device_apps(&provider, &e.work).await?;
+    checked_source(e, &path).map_err(|_|independent_app_failure("This app's retained IPA is missing or could not be read safely. Import its latest IPA again."))?;
+    let mut provider = provider(e).await?;
+    let apps = device_apps(&mut provider, &e.work).await?;
     reconcile_confirmed_apps(e, Ok(apps.clone()))?;
     let destination = e.work.join("staging").join(format!(
         "app-{}-{}",
@@ -884,34 +905,35 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         STAGING_ID.fetch_add(1, Ordering::AcqRel)
     ));
     let validated = crate::archive::validate_and_extract(&path, &destination)
-        .map_err(|_| failure("Invalid IPA"))?;
-    let mut application = Application::new(validated.app_dir.clone())?;
-    let input_bundle_id = application.main_bundle_id()?;
-    let (bundle_version, short_version) = version_evidence(&application.bundle.app_info)?;
-    let name = application.main_app_name()?;
-    let main_requested =
+        .map_err(|_| independent_app_failure("This app's IPA failed validation. Import a valid latest IPA again."))?;
+    let mut application = Application::new(validated.app_dir.clone()).map_err(|_|independent_app_failure("This app's IPA bundle could not be opened safely."))?;
+    let input_bundle_id = application.main_bundle_id().map_err(|_|independent_app_failure("This app's IPA identity is invalid."))?;
+    let (bundle_version, short_version) = version_evidence(&application.bundle.app_info).map_err(|_|independent_app_failure("This app's IPA version metadata is invalid."))?;
+    let name = application.main_app_name().map_err(|_|independent_app_failure("This app's IPA name metadata is invalid."))?;
+    let mut main_requested =
         crate::capabilities::read_entitlements(&application.bundle.bundle_dir, &input_bundle_id)
             .map_err(|_| {
-                failure(
+                independent_app_failure(
             "The app's required entitlements could not be read safely. No capability was removed.",
         )
             })?;
     crate::entitlement_policy::validate_requested(&main_requested)
-        .map_err(|error| failure(error.user_message()))?;
+        .map_err(|error| independent_app_failure(error.user_message()))?;
     let mut extension_requests = HashMap::new();
     let mut verified_expiries = vec![];
     for extension in application.bundle.app_extensions() {
         let id = extension
             .bundle_identifier()
-            .ok_or_else(|| failure("Extension identity missing"))?;
+            .ok_or_else(|| independent_app_failure("This app's extension identity is missing."))?;
         let requested=crate::capabilities::read_entitlements(&extension.bundle_dir,id)
-            .map_err(|_|failure("An extension's required entitlements could not be read safely. No capability was removed."))?;
+            .map_err(|_|independent_app_failure("An extension's required entitlements could not be read safely. No capability was removed."))?;
         crate::entitlement_policy::validate_requested(&requested)
-            .map_err(|error| failure(error.user_message()))?;
+            .map_err(|error| independent_app_failure(error.user_message()))?;
         extension_requests.insert(id.to_owned(), requested);
     }
 
     let team = e.team.clone().ok_or_else(|| failure("Sign in required"))?;
+    let self_identity=self_refresh_requirements(e,&input_bundle_id,&team.team_id,&mut main_requested)?;
     let loaded_extension_ids = application
         .bundle
         .app_extensions()
@@ -1004,7 +1026,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     }
     let paid=paid.ok_or_else(||failure("Your account membership could not be confirmed. No new certificate or App ID was created."))?;
     if !paid && !is_installed(&apps, &bundle_id) {
-        let active = development_app_count(&provider, &apps).await?;
+        let active = development_app_count(&mut provider, &apps).await?;
         if active >= 3 {
             return Err(failure("Free Apple accounts allow 3 active apps, including this installer. Free an app slot before installing."));
         }
@@ -1024,7 +1046,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     if !paid && needed > 0 && quota.available_quantity.is_none() {
         return Err(failure("App ID usage unknown"));
     }
-    let info = isideload::util::device::IdeviceInfo::from_device(&provider).await?;
+    let info = provider.info().await?;
     dev.ensure_device_registered(&team, "App Installer iPhone", &info.udid, None)
         .await?;
     type CertCallback = fn(
@@ -1134,6 +1156,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         )
         .map_err(|error| failure(error.user_message()))?;
         if id == &bundle_id {
+            if let Some(expected)=&self_identity{verify_self_entitlements(expected,&entitlements)?;}
             main_profile = Some(profile);
             main_entitlements = Some(entitlements);
         } else {
@@ -1195,6 +1218,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         }),
     );
     let expiry = earliest_profile_expiry(verified.profile_expiry, verified_expiries);
+    let initial_install=!is_installed(&apps,&bundle_id);
     let record = Record {
         name,
         bundle_id,
@@ -1215,11 +1239,12 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         original: path,
         record,
         cancel_generation: operation_cancel_generation,
+        initial_install,
     });
     Ok(())
 }
 async fn install_staged(e: &mut Engine) -> Result<(), Report> {
-    let provider = provider(e)?;
+    let mut provider = provider(e).await?;
     let mut staged = e
         .staged
         .take()
@@ -1227,7 +1252,7 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
     if staged.cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire) {
         return Err(failure("Task cancelled"));
     }
-    crate::cleanup::retry(&e.work, &provider).await?;
+    provider.cleanup(&e.work).await?;
     // Bundle-directory names do not define its signed CFBundleIdentifier. Use a unique,
     // installer-owned basename so upstream PublicStaging never overlaps another installer's app.
     let basename = crate::cleanup::unique_basename(STAGING_ID.fetch_add(1, Ordering::AcqRel));
@@ -1243,24 +1268,17 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
         .join(source_filename(&staged.record.bundle_id));
     let mut intended_record = staged.record.clone();
     intended_record.source = source.to_string_lossy().into_owned();
-    crate::install_journal::prepare(&e.work,&staged.record.bundle_id,&intended_record,&staged.original)
+    crate::install_journal::prepare_with_state(&e.work,&staged.record.bundle_id,&intended_record,&staged.original,staged.initial_install)
         .map_err(|_|failure("An interrupted install needs its latest IPA confirmed before another app can be installed. Re-import that app's latest IPA; existing source files were kept."))?;
     crate::cleanup::remember(&e.work, &basename)?;
     if staged.cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire) {
         return Err(failure("Task cancelled"));
     }
-    let result = isideload::sideload::install::install_app(&provider, &app_path, |p| {
-        publish(
-            "progress",
-            "Installing…",
-            json!({"progress":p as f64/100.0}),
-        )
-    })
-    .await;
+    let result = provider.install(&app_path).await;
     // Cancellation/crash may interrupt this await. Durable intent remains for next connection.
-    let _ = crate::cleanup::retry(&e.work, &provider).await;
+    let _ = provider.cleanup(&e.work).await;
     result?;
-    let apps = device_apps(&provider, &e.work).await?;
+    let apps = device_apps(&mut provider, &e.work).await?;
     confirm_installed_version(&apps, &staged.record)?;
     let pending = pending_install(&e.work)?
         .ok_or_else(|| failure("Approved install source journal missing"))?;
@@ -1313,6 +1331,59 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
         }
     }
     Ok(())
+}
+
+#[derive(Clone, Debug, Serialize)]
+#[serde(rename_all="camelCase")]
+struct RefreshOutcome { bundle_id:String, name:String, status:&'static str, message:&'static str }
+trait RefreshOperations:Send {
+    fn sign(&mut self,record:&Record)->impl std::future::Future<Output=Result<(),Report>>+Send;
+    fn install(&mut self)->impl std::future::Future<Output=Result<(),Report>>+Send;
+    fn continuation_allowed(&self)->Result<bool,Report>;
+    fn report(&mut self,results:&[RefreshOutcome]);
+}
+struct EngineRefresh<'a>{engine:&'a mut Engine,cancellation:u64}
+impl RefreshOperations for EngineRefresh<'_>{
+    async fn sign(&mut self,record:&Record)->Result<(),Report>{
+        sign_path(self.engine,PathBuf::from(&record.source),true).await
+    }
+    async fn install(&mut self)->Result<(),Report>{install_staged(self.engine).await}
+    fn continuation_allowed(&self)->Result<bool,Report>{
+        Ok(self.cancellation==CANCEL_GENERATION.load(Ordering::Acquire)
+            && SIGNED_IN.load(Ordering::Acquire)
+            && self.engine.account.is_some() && self.engine.dev.is_some() && self.engine.team.is_some()
+            && pending_install(&self.engine.work)?.is_none() && !legacy_pending(self.engine))
+    }
+    fn report(&mut self,results:&[RefreshOutcome]){
+        let mut state=record_state(self.engine);state["refreshResults"]=json!(results);
+        publish("state","Refresh results updated.",state);
+    }
+}
+async fn refresh_records(operations:&mut impl RefreshOperations,mut records:Vec<Record>)->Result<Vec<RefreshOutcome>,Report>{
+    records.sort_by_key(|record|record.is_self);
+    let mut results=Vec::new();operations.report(&results);
+    for record in records {
+        if let Err(error)=operations.sign(&record).await{
+            let independent=independent_app_error(&error);
+            results.push(RefreshOutcome{bundle_id:record.bundle_id,name:record.name,status:"failed",message:safe_message(&error)});
+            operations.report(&results);
+            if independent && operations.continuation_allowed()? {continue;}
+            return Err(error);
+        }
+        if !operations.continuation_allowed()? {
+            let message="Refresh stopped because authorization changed or an interrupted installation needs confirmation. Sources were kept.";
+            results.push(RefreshOutcome{bundle_id:record.bundle_id,name:record.name,status:"failed",message});operations.report(&results);
+            return Err(failure(message));
+        }
+        // Every installation error is fatal: a lost response can hide a device
+        // success. Keep the exact pending source and never advance to another app.
+        if let Err(error)=operations.install().await{
+            results.push(RefreshOutcome{bundle_id:record.bundle_id,name:record.name,status:"failed",message:safe_message(&error)});operations.report(&results);
+            return Err(error);
+        }
+        results.push(RefreshOutcome{bundle_id:record.bundle_id,name:record.name,status:"refreshed",message:"Refreshed and confirmed by the device."});operations.report(&results);
+    }
+    Ok(results)
 }
 
 fn zip_own_bundle(bundle: &Path, output: &Path) -> Result<(), Report> {
@@ -1433,6 +1504,8 @@ pub fn register_self_bundle(ptr: *const c_char) -> Status {
                     json!({"selfRefreshReady":false}),
                 )),
             };
+        let own_entitlements=crate::capabilities::read_entitlements(&bundle,id).map_err(|_|failure("The running installer's signed Keychain identity could not be read safely."))?;
+        e.self_signing_identity=Some(installed_self_identity(&own_entitlements,id,profile.team_id())?);
         let expiry = profile
             .plist()
             .get("ExpirationDate")
@@ -1672,6 +1745,7 @@ pub fn resend() -> Status {
     }
 }
 pub fn import_pairing(data: *const u8, length: usize) -> Status {
+    let Ok(_control) = CONTROL.lock() else { return Status::NotReady };
     if BUSY.load(Ordering::Acquire) {
         return Status::Busy;
     }
@@ -1679,29 +1753,76 @@ pub fn import_pairing(data: *const u8, length: usize) -> Status {
         return Status::InvalidArgument;
     }
     let bytes = unsafe { std::slice::from_raw_parts(data, length) };
-    if PairingFile::from_bytes(bytes).is_err() {
-        return Status::InvalidArgument;
-    }
+    let credentials = match transport::parse_credentials(bytes) {
+        Ok(credentials) => credentials,
+        Err(_) => return Status::InvalidArgument,
+    };
+    let Ok(mut e) = engine().try_lock() else { return Status::Busy };
     if NativeStorage::raw_write(PAIRING_KEY, bytes).is_err() {
         return Status::StorageLocked;
     }
+    // A signed staging object/profile belonged to the previously paired device.
+    // Changing credentials must require signing again for the selected identity.
+    e.staged = None;
+    CANCEL_GENERATION.fetch_add(1, Ordering::AcqRel);
+    REMOTE_PAIRING_PORT.store(0, Ordering::Release);
     publish(
         "state",
         "Pairing file imported. Keep LocalDevVPN enabled.",
-        json!({"paired":true}),
+        json!({"paired":true,"pairingKind":credentials.kind(),"pairingVerified":false,"remotePairingPortConfigured":false}),
     );
     Status::Ok
 }
 pub fn set_host(ptr: *const c_char) -> Status {
-    let host = match c_string(ptr, 64) {
-        Ok(s) => s,
-        Err(s) => return s,
+    let host = match c_string(ptr, 64) { Ok(host) => host, Err(status) => return status };
+    let address: std::net::IpAddr = match host.parse() {
+        Ok(address) => address, Err(_) => return Status::InvalidArgument,
     };
-    if &*host != configured_device_host() {
+    if address.is_unspecified() || address.is_multicast()
+        || matches!(address, std::net::IpAddr::V4(ip) if ip.is_broadcast()) {
         return Status::InvalidArgument;
+    }
+    let Ok(_control) = CONTROL.lock() else { return Status::NotReady };
+    if BUSY.load(Ordering::Acquire) { return Status::Busy; }
+    let Ok(mut e) = engine().try_lock() else { return Status::Busy };
+    let canonical = address.to_string();
+    if e.device_host != canonical {
+        e.device_host = canonical;
+        e.staged = None;
+        CANCEL_GENERATION.fetch_add(1, Ordering::AcqRel);
+        REMOTE_PAIRING_PORT.store(0, Ordering::Release);
+        publish("state", "Device tunnel configuration updated. Check the connection again.",
+            json!({"deviceConfigured":true,"pairingVerified":false,"remotePairingPortConfigured":false}));
     }
     Status::Ok
 }
+pub fn set_remote_pairing_port(port: u16) -> Status {
+    let Ok(_control) = CONTROL.lock() else { return Status::NotReady };
+    if BUSY.load(Ordering::Acquire) { return Status::Busy; }
+    REMOTE_PAIRING_PORT.store(u64::from(port), Ordering::Release);
+    publish("state", "Remote Pairing discovery configuration updated.",
+        json!({"remotePairingPortConfigured":port!=0,"pairingVerified":false}));
+    Status::Ok
+}
+pub fn pairing_kind() -> i32 {
+    match NativeStorage::raw_read(PAIRING_KEY) {
+        Ok(None) | Err(_) => 0,
+        Ok(Some(bytes)) => match transport::parse_credentials(&bytes) {
+            Ok(transport::Credentials::Lockdown(_)) => 1,
+            Ok(transport::Credentials::Remote(_)) => 2,
+            Err(_) => -1,
+        },
+    }
+}
+pub fn match_remote_pairing_service(identifier: *const c_char, auth_tag: *const c_char) -> bool {
+    let identifier = match c_string(identifier, 255) { Ok(value) if !value.is_empty() && !value.chars().any(char::is_control) => value, _ => return false };
+    let auth_tag = match c_string(auth_tag, 128) { Ok(value) if !value.is_empty() => value, _ => return false };
+    let Ok(Some(bytes)) = NativeStorage::raw_read(PAIRING_KEY) else { return false };
+    let Ok(transport::Credentials::Remote(record)) = transport::parse_credentials(&bytes) else { return false };
+    let Some(key) = record.alt_irk() else { return false };
+    idevice::remote_pairing::PeerDevice::validate_auth_tag(key, &identifier, &auth_tag)
+}
+
 pub fn sign_ipa(ptr: *const c_char) -> Status {
     let path = match c_string(ptr, 4096) {
         Ok(s) => PathBuf::from(&*s),
@@ -1723,11 +1844,12 @@ pub fn install_ipa(_ptr: *const c_char) -> Status {
 pub fn list_installed() -> Status {
     enqueue("list", async {
         let mut e = engine().lock().await;
-        let provider = provider(&e)?;
-        let lookup = device_apps(&provider, &e.work).await;
+        let mut provider = provider(&e).await?;
+        let lookup = device_apps(&mut provider, &e.work).await;
         reconcile_confirmed_apps(&mut e, lookup)?;
         let mut state = record_state(&e);
         state["paired"] = json!(true);
+        state["pairingVerified"] = json!(true);
         let message = if state["recoveryNeeded"] == json!(true) {
             "An interrupted install is present. Re-import that app's latest IPA to confirm it; automatic refresh will not downgrade it."
         } else {
@@ -1738,28 +1860,32 @@ pub fn list_installed() -> Status {
 }
 pub fn refresh_all() -> Status {
     enqueue("refresh_all", async {
+        // A new accepted attempt must not display an earlier success if its
+        // provider, lookup or recovery preflight fails before the batch starts.
+        publish("state","Checking installed apps before refresh.",json!({"refreshResults":[]}));
         let mut e = engine().lock().await;
-        let provider = provider(&e)?;
-        let lookup = device_apps(&provider, &e.work).await;
+        let mut provider = provider(&e).await?;
+        let lookup = device_apps(&mut provider, &e.work).await;
         reconcile_confirmed_apps(&mut e, lookup)?;
+        drop(provider);
         if pending_install(&e.work)?.is_some() || legacy_pending(&e) {
             publish(
                 "state",
                 "Latest-source confirmation is required.",
                 record_state(&e),
             );
-            return Err(failure("An interrupted install needs its latest IPA confirmed. Re-import that app's latest IPA, or remove that app yourself. Automatic refresh will not reinstall a missing app or downgrade an uncertain update."));
+            return Err(failure("An interrupted install needs its latest IPA confirmed. Re-import that app's latest IPA and retry. Automatic refresh will keep an unconfirmed first-install source, never reinstall a missing app or downgrade an uncertain update."));
         }
-        let mut records = e.records.clone();
-        records.sort_by_key(|r| r.is_self);
+        let records = e.records.clone();
         if records.is_empty() {
             return Err(failure(
                 "No installed app with a retained source IPA is available to refresh",
             ));
         }
-        for record in records {
-            sign_path(&mut e, PathBuf::from(&record.source), true).await?;
-            install_staged(&mut e).await?;
+        let cancellation=CANCEL_GENERATION.load(Ordering::Acquire);
+        let results=refresh_records(&mut EngineRefresh{engine:&mut e,cancellation},records).await?;
+        if results.iter().any(|result|result.status=="failed") {
+            return Err(failure("Some apps could not be refreshed. Completed apps are marked refreshed; failed apps need attention."));
         }
         Ok(("Apps refreshed.", record_state(&e)))
     })
@@ -1770,6 +1896,7 @@ pub fn cancel() -> Status {
     };
     let generation = GENERATION.fetch_add(1, Ordering::AcqRel) + 1;
     CANCEL_GENERATION.fetch_add(1, Ordering::AcqRel);
+    REMOTE_PAIRING_PORT.store(0, Ordering::Release);
     if let Ok(mut active) = ACTIVE_OPERATION.lock() {
         *active = (generation, "cancel");
     }
@@ -1788,7 +1915,7 @@ pub fn cancel() -> Status {
         p.clear();
     }
     BUSY.store(false, Ordering::Release);
-    publish("cancelled", "Cancelled.", json!({}));
+    publish("cancelled", "Cancelled.", json!({"pairingVerified":false,"remotePairingPortConfigured":false}));
     Status::Ok
 }
 fn clear_session_memory() {
@@ -1952,6 +2079,7 @@ mod tests {
                     records: vec![],
                     device_host: configured_device_host(),
                     self_bundle_id: None,
+                    self_signing_identity: None,
                 },
             }
         }
@@ -1975,6 +2103,151 @@ mod tests {
     impl Drop for LifecycleFixture {
         fn drop(&mut self) {
             let _ = std::fs::remove_dir_all(&self.engine.work);
+        }
+    }
+    #[test]
+    fn recovery_failed_first_install_keeps_latest_input_after_empty_lookup_and_restart() {
+        let mut fixture=LifecycleFixture::new("first-install-recovery");
+        let work=fixture.engine.work.clone();
+        let record=fixture.record("org.example.first",b"placeholder");
+        std::fs::remove_file(&record.source).unwrap(); // No confirmed app or working source yet.
+        let input=work.join("imports/11111111-2222-3333-4444-555555555555.ipa");
+        std::fs::write(&input,b"exact approved first install").unwrap();
+        crate::install_journal::prepare_with_state(&work,&record.bundle_id,&record,&input,true).unwrap();
+        let pending=pending_install(&work).unwrap().unwrap();assert!(pending.initial_install);
+        let candidate=crate::install_journal::verified_candidate(&work,&pending).unwrap();
+        std::fs::remove_file(input).unwrap(); // Native terminal-error cleanup releases its import copy.
+        assert!(reconcile_confirmed_apps(&mut fixture.engine,Err(failure("fixture offline"))).is_err());
+        reconcile_confirmed_apps(&mut fixture.engine,Ok(HashMap::new())).unwrap();
+        cleanup_startup_transients(&work).unwrap();
+        reconcile_confirmed_apps(&mut fixture.engine,Ok(HashMap::new())).unwrap();
+        assert!(fixture.engine.records.is_empty());
+        assert_eq!(std::fs::read(&candidate).unwrap(),b"exact approved first install");
+        assert_eq!(record_state(&fixture.engine)["recoveryNeeded"],json!(true));
+        // A pre-upgrade journal lacking this field is also not evidence of user
+        // removal when no confirmed managed record ever existed.
+        let path=work.join("pending-install.json");
+        let mut legacy:Value=serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        legacy.as_object_mut().unwrap().remove("initialInstall");
+        std::fs::write(&path,serde_json::to_vec(&legacy).unwrap()).unwrap();
+        reconcile_confirmed_apps(&mut fixture.engine,Ok(HashMap::new())).unwrap();
+        assert!(candidate.exists());assert!(pending_install(&work).unwrap().is_some());
+        // A separately approved retry replaces only this intent after retaining
+        // and hashing the new input; absence never performs that retry itself.
+        let retry=work.join("imports/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee.ipa");
+        std::fs::write(&retry,b"new explicit retry input").unwrap();
+        crate::install_journal::prepare_with_state(&work,&record.bundle_id,&record,&retry,true).unwrap();
+        let next=pending_install(&work).unwrap().unwrap();assert!(!candidate.exists());
+        assert_eq!(std::fs::read(crate::install_journal::verified_candidate(&work,&next).unwrap()).unwrap(),b"new explicit retry input");
+        crate::install_journal::clear(&work,&next).unwrap(); // Explicit discard, not a lookup inference.
+        // Confirmed removal of a previously managed update retains its existing
+        // policy: clear intent/cache, never reinstall a removed app automatically.
+        let managed=fixture.record("org.example.managed",b"old working input");
+        fixture.engine.records.push(managed.clone());persist_records(&fixture.engine).unwrap();
+        crate::install_journal::prepare(&work,&managed.bundle_id,&managed,&retry).unwrap();
+        reconcile_confirmed_apps(&mut fixture.engine,Ok(HashMap::new())).unwrap();
+        assert!(fixture.engine.records.is_empty());assert!(!Path::new(&managed.source).exists());
+        assert!(pending_install(&work).unwrap().is_none());
+        // Self-update uses the actual running signing identity, including a
+        // legacy AppIdentifierPrefix distinct from the team's public identifier.
+        let mut own=fixture.record("org.tin.appinstaller.fixture",b"running signed installer");
+        own.is_self=true;own.original_bundle_id=crate::identity::INSTALLER_ORIGINAL_ID.into();
+        fixture.engine.self_bundle_id=Some(own.bundle_id.clone());fixture.engine.records.push(own.clone());
+        let old_group=format!("OLD.{}",own.bundle_id);
+        let mut actual=plist::Dictionary::new();
+        actual.insert("application-identifier".into(),plist::Value::String(old_group.clone()));
+        actual.insert("com.apple.developer.team-identifier".into(),plist::Value::String("TEAM".into()));
+        actual.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String(old_group.clone())]));
+        let identity=installed_self_identity(&actual,&own.bundle_id,"TEAM").unwrap();
+        fixture.engine.self_signing_identity=Some(identity.clone());
+        let mut unsigned=plist::Dictionary::new();
+        assert!(self_refresh_requirements(&fixture.engine,&own.bundle_id,"OTHER",&mut unsigned).is_err());
+        assert!(unsigned.is_empty()); // Wrong team is refused before identity/profile mutations.
+        let expected=self_refresh_requirements(&fixture.engine,crate::identity::INSTALLER_ORIGINAL_ID,"TEAM",&mut unsigned).unwrap().unwrap();
+        assert_eq!(unsigned.get("keychain-access-groups"),actual.get("keychain-access-groups"));
+        let mut profile=actual.clone();
+        profile.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("OLD.*".into())]));
+        let signed=crate::entitlement_policy::reconcile(&unsigned,crate::identity::INSTALLER_ORIGINAL_ID,&own.bundle_id,"TEAM",&profile).unwrap();
+        verify_self_entitlements(&expected,&signed).unwrap();
+        let mut changed_profile=profile.clone();
+        changed_profile.insert("application-identifier".into(),plist::Value::String(format!("NEW.{}",own.bundle_id)));
+        changed_profile.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("NEW.*".into()),plist::Value::String(old_group.clone())]));
+        let remapped=crate::entitlement_policy::reconcile(&actual,&own.bundle_id,&own.bundle_id,"TEAM",&changed_profile).unwrap();
+        assert_ne!(remapped.get("keychain-access-groups"),actual.get("keychain-access-groups"));
+        assert!(verify_self_entitlements(&expected,&remapped).is_err());
+        let mut conflicting=actual.clone();conflicting.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("OTHER.shared".into())]));
+        assert!(self_refresh_requirements(&fixture.engine,&own.bundle_id,"TEAM",&mut conflicting).is_err());
+        // The same self-specific guard must not prevent legitimate default-group
+        // remapping when a third-party source is installed under an owned ID.
+        let mut third_party=actual.clone();
+        third_party.insert("application-identifier".into(),plist::Value::String("OLD.org.example.source".into()));
+        third_party.insert("keychain-access-groups".into(),plist::Value::Array(vec![plist::Value::String("OLD.org.example.source".into())]));
+        assert!(self_refresh_requirements(&fixture.engine,"org.example.source","OTHER",&mut third_party).unwrap().is_none());
+        changed_profile.insert("application-identifier".into(),plist::Value::String("NEW.org.example.signed".into()));
+        let signed=crate::entitlement_policy::reconcile(&third_party,"org.example.source","org.example.signed","TEAM",&changed_profile).unwrap();
+        assert_eq!(signed.get("keychain-access-groups"),Some(&plist::Value::Array(vec![plist::Value::String("NEW.org.example.signed".into())])));
+    }
+    #[tokio::test]
+    async fn recovery_refresh_continues_local_failures_but_stops_auth_cancel_or_uncertain_install() {
+        #[derive(Clone,Copy,PartialEq,Eq)]
+        enum Fault { Local, Auth, NetworkLookingLocal, Unknown, Cancelled, Pending, Install }
+        struct Operations {
+            work:PathBuf,fault:Fault,current:Option<Record>,cancelled:bool,
+            signed:Vec<String>,installed:Vec<String>,results:Vec<RefreshOutcome>,
+        }
+        impl RefreshOperations for Operations {
+            async fn sign(&mut self,record:&Record)->Result<(),Report>{
+                self.signed.push(record.bundle_id.clone());self.current=Some(record.clone());
+                if record.bundle_id!="org.example.bad" {return Ok(());}
+                match self.fault {
+                    Fault::Local=>Err(independent_app_failure("This app's retained IPA failed local validation.")),
+                    Fault::Auth=>Err(failure("Sign in required")),
+                    // Matching human text does not make a network/auth error local.
+                    Fault::NetworkLookingLocal=>Err(failure("This app's retained IPA failed local validation.")),
+                    Fault::Unknown=>Err(report!("SYNTHETIC_PRIVATE_ERROR_DETAIL").into()),
+                    Fault::Cancelled=>{self.cancelled=true;Err(independent_app_failure("This app's retained IPA failed local validation."))},
+                    Fault::Pending=>{
+                        crate::install_journal::prepare_with_state(&self.work,&record.bundle_id,record,Path::new(&record.source),false)?;
+                        Err(independent_app_failure("This app's retained IPA failed local validation."))
+                    }
+                    Fault::Install=>Ok(()),
+                }
+            }
+            async fn install(&mut self)->Result<(),Report>{
+                let record=self.current.as_ref().unwrap();self.installed.push(record.bundle_id.clone());
+                if self.fault==Fault::Install {
+                    crate::install_journal::prepare_with_state(&self.work,&record.bundle_id,record,Path::new(&record.source),false)?;
+                    return Err(failure("The device did not confirm installation. Its approved source was kept."));
+                }
+                Ok(())
+            }
+            fn continuation_allowed(&self)->Result<bool,Report>{Ok(!self.cancelled&&pending_install(&self.work)?.is_none())}
+            fn report(&mut self,results:&[RefreshOutcome]){self.results=results.to_vec();}
+        }
+        for fault in [Fault::Local,Fault::Auth,Fault::NetworkLookingLocal,Fault::Unknown,Fault::Cancelled,Fault::Pending,Fault::Install] {
+            let fixture=LifecycleFixture::new("refresh-recovery");
+            let bad=fixture.record("org.example.bad",b"latest approved source");
+            let good=fixture.record("org.example.good",b"good source");
+            let mut own=fixture.record("org.tin.appinstaller.fixture",b"installer source");own.is_self=true;
+            let mut operations=Operations{work:fixture.engine.work.clone(),fault,current:None,cancelled:false,signed:vec![],installed:vec![],results:vec![]};
+            let result=refresh_records(&mut operations,vec![own.clone(),bad.clone(),good.clone()]).await;
+            if fault==Fault::Local {
+                let outcomes=result.unwrap();assert_eq!(outcomes.len(),3);
+                assert_eq!(operations.signed,vec![bad.bundle_id.clone(),good.bundle_id.clone(),own.bundle_id.clone()]);
+                assert_eq!(operations.installed,vec![good.bundle_id.clone(),own.bundle_id.clone()]);
+                assert_eq!(outcomes.iter().map(|outcome|outcome.status).collect::<Vec<_>>(),vec!["failed","refreshed","refreshed"]);
+            } else {
+                assert!(result.is_err());assert_eq!(operations.signed,vec![bad.bundle_id.clone()]);
+                if fault==Fault::Install {assert_eq!(operations.installed,vec![bad.bundle_id.clone()]);}
+                else {assert!(operations.installed.is_empty());}
+                assert_eq!(operations.results.len(),1);assert_eq!(operations.results[0].status,"failed");
+                assert!(!serde_json::to_string(&operations.results).unwrap().contains("SYNTHETIC_PRIVATE_ERROR_DETAIL"));
+                if matches!(fault,Fault::Install|Fault::Pending) {
+                    let pending=pending_install(&operations.work).unwrap().unwrap();
+                    assert_eq!(std::fs::read(crate::install_journal::verified_candidate(&operations.work,&pending).unwrap()).unwrap(),b"latest approved source");
+                }
+            }
+            for record in [&bad,&good,&own] {assert!(Path::new(&record.source).exists());}
         }
     }
     #[test]

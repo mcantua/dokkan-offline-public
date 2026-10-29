@@ -15,13 +15,16 @@ import tarfile
 import tempfile
 import tomllib
 import urllib.request
+import unicodedata
 sys.dont_write_bytecode=True
-from licensing import ROOT, load_graph, sha
+from licensing import ROOT, load_graph, sha, distribution_graph_specs, HELPER_MANIFEST, HELPER_SOURCE, HELPER_FEATURE
 
 BUNDLE_ROOT='AppInstaller-source'
 MANIFEST='SourceBundleManifest.json'
+MAX_VIRTUAL_ALIAS_BYTES=16*1024*1024
+MAX_VIRTUAL_ALIAS_MEMBER=2*1024*1024
 REQUIRED_COMPONENTS=['corresponding-application-source','complete-library-source','exact-locked-transitive-source',
-    'modified-path-dependency-source','build-relink-recipes','recipient-installation-information','complete-licenses-and-notices']
+    'modified-path-dependency-source','universal-macos-helper-source','build-relink-recipes','recipient-installation-information','complete-licenses-and-notices']
 
 
 def safe_relative(path):
@@ -43,9 +46,32 @@ def copy_sources(base,dest,exclude=()):
         out=dest/rel;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,out)
 
 
-def file_manifest(base):
-    return [{'path':str(p.relative_to(base)),'bytes':p.stat().st_size,'sha256':sha(p.read_bytes())}
-            for p in sorted(base.rglob('*')) if p.is_file() and p.name!=MANIFEST]
+def case_alias_key(name):
+    return unicodedata.normalize('NFC',name).casefold()
+
+
+def file_manifest(base,virtual_files=None):
+    virtual_files=virtual_files or {}
+    files=[{'path':str(p.relative_to(base)),'bytes':p.stat().st_size,'sha256':sha(p.read_bytes())}
+           for p in sorted(base.rglob('*')) if p.is_file() and p.name!=MANIFEST]
+    materialized={item['path'] for item in files}
+    if materialized & set(virtual_files):raise ValueError('Virtual source cannot replace a materialized file')
+    if sum(len(data) for data in virtual_files.values())>MAX_VIRTUAL_ALIAS_BYTES:raise ValueError('Virtual source alias memory limit exceeded')
+    files.extend({'path':safe_relative(name),'bytes':len(data),'sha256':sha(data)} for name,data in virtual_files.items())
+    # On case-insensitive extraction each exact published alias is delivered,
+    # then the physical Cargo-checksum spelling/content wins for offline builds.
+    return sorted(files,key=lambda item:(case_alias_key(item['path']),0 if item['path'] in virtual_files else 1,item['path']))
+
+
+def add_source_member(archive,base,entry,virtual_files):
+    name=entry['path']
+    if name in virtual_files:
+        data=virtual_files[name]
+        if len(data)!=entry['bytes'] or sha(data)!=entry['sha256']:raise ValueError('Virtual source alias changed before delivery')
+        member=tarfile.TarInfo(BUNDLE_ROOT+'/'+name);member.size=len(data);member.mode=0o644;member.mtime=0
+        archive.addfile(member,io.BytesIO(data))
+    else:
+        archive.add(base/name,arcname=BUNDLE_ROOT+'/'+name,recursive=False)
 
 
 def fingerprint_recipe():
@@ -77,8 +103,20 @@ def payload_fingerprint(payload,inputs):
     return h.hexdigest()
 
 
-def published_files(data,name,version,restore_missing_metadata=None):
-    files={};total=0
+def published_files(data,name,version,restore_missing_metadata=None,virtual_aliases=None):
+    files={};total=0;pending_aliases={};canonical_files={};materialized={}
+    if virtual_aliases is not None:
+        if restore_missing_metadata is None:raise ValueError('Virtual aliases require a materialized Cargo source directory')
+        # Enumerate exact entry spellings. Path.exists() aliases README.MD to
+        # README.md on APFS and cannot establish complete published delivery.
+        materialized={str(path.relative_to(restore_missing_metadata)):path
+                      for path in restore_missing_metadata.rglob('*') if path.is_file()}
+        checksum=json.loads((restore_missing_metadata/'.cargo-checksum.json').read_text())
+        if checksum.get('package')!=sha(data):raise ValueError('Published alias archive checksum differs from Cargo publication')
+        for relative,digest in checksum['files'].items():
+            relative=safe_relative(relative)
+            if relative in materialized:
+                canonical_files.setdefault(case_alias_key(relative),[]).append((relative,digest))
     prefix=name+'-'+version+'/'
     with tarfile.open(fileobj=io.BytesIO(data),mode='r|gz') as archive:
         for member in archive:
@@ -102,6 +140,20 @@ def published_files(data,name,version,restore_missing_metadata=None):
                 if not destination.exists():
                     destination.parent.mkdir(parents=True,exist_ok=True)
                     destination.write_bytes(content)
+                    materialized[relative]=destination
+            if virtual_aliases is not None and relative not in materialized:
+                aliases=canonical_files.get(case_alias_key(relative),[])
+                if len(aliases)==1:
+                    canonical,digest=aliases[0]
+                    if len(content)>MAX_VIRTUAL_ALIAS_MEMBER or sum(len(value[0]) for value in pending_aliases.values())+len(content)>MAX_VIRTUAL_ALIAS_BYTES:
+                        raise ValueError('Virtual source alias memory limit exceeded')
+                    pending_aliases[relative]=(content,canonical,digest)
+    for relative,(content,canonical,digest) in pending_aliases.items():
+        # A missing alias is legitimate only beside an independently verified
+        # canonical Cargo input. Do not repair ordinary omissions or tampering.
+        if files.get(canonical)!=digest or sha(materialized[canonical].read_bytes())!=digest:
+            raise ValueError('Canonical Cargo source alias differs from immutable publication')
+        virtual_aliases[relative]=content
     return files
 
 
@@ -142,12 +194,15 @@ def create(output,notice_text,notice_report):
         vendor=stage/'vendor'
         vendor_log=Path(temporary)/'vendor.log'
         with vendor_log.open('wb') as log:
-            result=subprocess.run([str(cargo),'vendor','--locked','--versioned-dirs','--manifest-path',str(ROOT/'app-installer/core/Cargo.toml'),str(vendor)],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=log)
+            result=subprocess.run([str(cargo),'vendor','--locked','--versioned-dirs',
+                '--manifest-path',str(ROOT/'app-installer/core/Cargo.toml'),
+                '--sync',str(ROOT/HELPER_MANIFEST),str(vendor)],
+                cwd=ROOT,stdout=subprocess.DEVNULL,stderr=log)
         if result.returncode:
             raise ValueError('Locked Cargo source vendoring failed: '+vendor_log.read_text(errors='replace')[-2000:])
         config=stage/'.cargo/config.toml';config.parent.mkdir()
         config.write_text('[source.crates-io]\nreplace-with = "vendored-sources"\n\n[source.vendored-sources]\ndirectory = "vendor"\n')
-        registry_sources=[]
+        registry_sources=[];virtual_files={}
         cache=Path(os.environ.get('CARGO_HOME',str(ROOT/'downloads/rust-toolchain/cargo')))/'registry/cache'
         for directory in sorted(vendor.iterdir()):
             if not directory.is_dir():continue
@@ -158,7 +213,13 @@ def create(output,notice_text,notice_report):
                 archives=list(cache.glob(f'*/{manifest["name"]}-{manifest["version"]}.crate'))
                 archive=next((a for a in archives if sha(a.read_bytes())==checksum),None)
                 if archive is None:raise ValueError('Exact published crate archive missing for source/test audit: '+manifest['name'])
-                published_files(archive.read_bytes(),manifest['name'],manifest['version'],restore_missing_metadata=directory)
+                aliases={}
+                published_files(archive.read_bytes(),manifest['name'],manifest['version'],restore_missing_metadata=directory,virtual_aliases=aliases)
+                for relative,data in aliases.items():
+                    name=str(directory.relative_to(stage))+'/'+relative
+                    virtual_files[name]=data
+                    if sum(map(len,virtual_files.values()))>MAX_VIRTUAL_ALIAS_BYTES:
+                        raise ValueError('Virtual source alias memory limit exceeded')
                 out=stage/'downloads/rust-toolchain/cargo/registry/cache/bundled-archives'/archive.name
                 out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(archive,out);record['archive_path']=str(out.relative_to(stage))
             registry_sources.append(record)
@@ -175,7 +236,7 @@ def create(output,notice_text,notice_report):
         (stage/'ThirdPartyNoticeReport.json').write_bytes(notice_report.read_bytes())
         (stage/'README.md').write_text('''# Matching App Installer source/relink distribution
 
-This artifact accompanies the unsigned IPA candidates. Application source is AGPL-3.0-only; the corresponding LGPL signing library and all exact Cargo sources/build recipes are included. Preserve each component’s licenses and notices.
+This artifact accompanies the unsigned IPA candidates and universal macOS RP-bootstrap helper. Application and project-written helper example source are AGPL-3.0-only; the enclosing idevice crate retains its upstream MIT license. The corresponding LGPL signing library and all exact Cargo sources/build recipes for the union of device-core and both macOS-helper feature closures are included, with both Cargo.lock files. Preserve each component’s licenses and notices.
 
 The archive intentionally omits the original `.git` history. Before using build scripts that record Git metadata, initialize your own local repository from this directory: `git init`, `git add .`, then `git -c user.name="Source recipient" -c user.email="recipient@localhost" commit -m "Imported corresponding source"`. The supplied root `.gitignore` excludes tools, caches and private material. After modifying a library or recipe, commit your changed source locally before packaging. These are your own commits; no original GitHub account, remote, token or original commit hash is needed.
 
@@ -187,13 +248,14 @@ Build tools are acquired by the supplied pinned Linux recipe or a compatible gen
 
 See SourceBundleManifest.json for exact source/file/lock/graph bindings. The external candidate manifest and IPA bind this archive’s SHA-256; no self-referential archive hash is claimed inside this archive. Unsigned candidates are not final release evidence and do not claim physical phone verification.
 ''')
-        manifest={'schema_version':1,'test_fixture':False,'source_commit':commit,
+        manifest={'schema_version':2,'test_fixture':False,'source_commit':commit,
           'source_has_uncommitted_changes':bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=normal','--','app-installer','downloads','.gitignore',':!app-installer/build/work',':!app-installer/cloud-ui/work'],cwd=ROOT)),'source_tree_sha256':fingerprint,
           'locked_dependency_graph_hash':graph_hash,'cargo_lock_sha256':sha((ROOT/'app-installer/core/Cargo.lock').read_bytes()),
+          'distribution_graphs':graph['distribution_graphs'],'local_components':graph['distribution_components'],
           'required_components':REQUIRED_COMPONENTS,'path_sources':path_sources,'registry_sources':registry_sources,
           'runtime_source':{'path':str(runtime_dest.relative_to(stage)),'sha256':runtime_info['source_archive_sha256']},
           'notice_obligations_satisfied':True,'notice_gap_count':0,'recipient_library_modifications_permitted':True,
-          'relink_instructions':'app-installer/licensing-signing.md','files':file_manifest(stage)}
+          'relink_instructions':'app-installer/licensing-signing.md','files':file_manifest(stage,virtual_files)}
         manifest['source_fingerprint_inputs']=[str(p.relative_to(ROOT)) for p in fingerprint_recipe().source_files()]
         if set(manifest['source_fingerprint_inputs'])-set(f['path'] for f in manifest['files']):raise ValueError('Compiled source fingerprint input missing from delivery')
         manifest_bytes=(json.dumps(manifest,indent=2)+'\n').encode()
@@ -202,7 +264,7 @@ See SourceBundleManifest.json for exact source/file/lock/graph bindings. The ext
         with tarfile.open(temporary_archive,'w:xz',preset=1) as archive:
             first=tarfile.TarInfo(BUNDLE_ROOT+'/'+MANIFEST);first.size=len(manifest_bytes);first.mode=0o644;first.mtime=0;archive.addfile(first,io.BytesIO(manifest_bytes))
             for entry in manifest['files']:
-                archive.add(stage/entry['path'],arcname=BUNDLE_ROOT+'/'+entry['path'],recursive=False)
+                add_source_member(archive,stage,entry,virtual_files)
         verify(temporary_archive,expected_fingerprint=fingerprint,expected_graph=graph_hash)
         after=subprocess.check_output([sys.executable,str(ROOT/'app-installer/build/source-fingerprint.py')],cwd=ROOT,text=True).strip()
         if after!=fingerprint:raise ValueError('Source changed while creating corresponding-source bundle')
@@ -245,7 +307,7 @@ def verify(archive_path,expected_fingerprint=None,expected_graph=None,allow_test
             if relative in manifest.get('source_fingerprint_inputs',[]):
                 fp_total+=member.size
                 if fp_total>256*1024*1024:raise ValueError('Source fingerprint payload size limit exceeded')
-            is_critical=(relative=='downloads/license-notices/rust-runtime-1.99.1/SOURCE.json' or relative.endswith(('Cargo.toml','Cargo.lock','.cargo-checksum.json')) or relative in {manifest.get('relink_instructions'),'.cargo/config.toml'})
+            is_critical=(relative in {'downloads/license-notices/rust-runtime-1.99.1/SOURCE.json',HELPER_SOURCE} or relative.endswith(('Cargo.toml','Cargo.lock','.cargo-checksum.json')) or relative in {manifest.get('relink_instructions'),'.cargo/config.toml'})
             if is_critical:
                 critical_total+=member.size
                 if critical_total>128*1024*1024:raise ValueError('Retained source metadata size limit exceeded')
@@ -258,7 +320,7 @@ def verify(archive_path,expected_fingerprint=None,expected_graph=None,allow_test
                 original=published_files(data,package['name'],package['version']);published_count+=len(original)
                 if published_count>250000:raise ValueError('Published source file-count limit exceeded')
                 published_sources[relative]=original
-            if relative=='downloads/license-notices/rust-runtime-1.99.1/SOURCE.json':critical[relative]=data
+            if relative in {'downloads/license-notices/rust-runtime-1.99.1/SOURCE.json',HELPER_SOURCE}:critical[relative]=data
             if relative.endswith(('Cargo.toml','Cargo.lock','.cargo-checksum.json')) or relative in {manifest.get('relink_instructions'),'.cargo/config.toml'}:
                 critical[relative]=data
     if manifest is None or set(actual)!=set(expected):raise ValueError('Incomplete corresponding-source payload')
@@ -271,10 +333,39 @@ def verify(archive_path,expected_fingerprint=None,expected_graph=None,allow_test
     if not set(REQUIRED_COMPONENTS)<=set(manifest.get('required_components',[])):raise ValueError('Source/relink delivery component missing')
     lock_path='app-installer/core/Cargo.lock';lock=tomllib.loads(critical[lock_path].decode())
     if sha(critical[lock_path])!=manifest['cargo_lock_sha256']:raise ValueError('Cargo.lock binding mismatch')
-    required_paths={(p['name'],p['version']) for p in lock['package'] if not p.get('source')}
+    locks={lock_path:lock}
+    if not manifest.get('test_fixture'):
+        graphs=manifest.get('distribution_graphs',[])
+        specs=[{key:item[key] for key in ('manifest','target','no_default_features','features')} for item in graphs]
+        if specs!=distribution_graph_specs():raise ValueError('Device/helper feature-closure declarations missing or changed')
+        if sha(json.dumps(graphs,sort_keys=True,separators=(',',':')).encode())!=manifest['locked_dependency_graph_hash']:
+            raise ValueError('Feature-closure graph binding mismatch')
+        for graph in graphs:
+            path=safe_relative(graph['lock_path'])
+            if path!=str(PurePosixPath(graph['manifest']).with_name('Cargo.lock')):
+                raise ValueError('Feature graph lock path does not match manifest')
+            if path not in critical or sha(critical[path])!=graph['lock_sha256']:
+                raise ValueError('Device/helper lockfile binding mismatch')
+            locks[path]=tomllib.loads(critical[path].decode())
+            identities={(p['name'],p['version'],p.get('source'),p.get('checksum')) for p in locks[path]['package']}
+            for package in graph['packages']:
+                if (package['name'],package['version'],package.get('source'),package.get('checksum')) not in identities:
+                    raise ValueError('Feature closure includes an unlocked package')
+        helper_manifest=tomllib.loads(critical[HELPER_MANIFEST].decode())
+        helper_license=helper_manifest['package'].get('metadata',{}).get(HELPER_FEATURE,{}).get('license')
+        if helper_manifest['package'].get('license')!='MIT' or helper_license!='AGPL-3.0-only':
+            raise ValueError('Helper/upstream license origin changed')
+        if not critical.get(HELPER_SOURCE,b'').startswith(b'// SPDX-License-Identifier: AGPL-3.0-only'):
+            raise ValueError('Project helper source/license origin missing')
+        components=manifest.get('local_components',[])
+        if not any(item.get('source')==HELPER_SOURCE and item.get('license')=='AGPL-3.0-only'
+                   and item.get('license_path')=='app-installer/LICENSE' and item.get('containing_package_license')=='MIT'
+                   for item in components):
+            raise ValueError('Project helper license/provenance declaration missing')
+    required_paths={(p['name'],p['version']) for value in locks.values() for p in value['package'] if not p.get('source')}
     delivered_paths={(p['name'],p['version']) for p in manifest.get('path_sources',[])}
     if not required_paths<=delivered_paths:raise ValueError('Locked application/path dependency source missing')
-    required_registry={(p['name'],p['version'],p.get('checksum')) for p in lock['package'] if p.get('source','').startswith('registry+')}
+    required_registry={(p['name'],p['version'],p.get('checksum')) for value in locks.values() for p in value['package'] if p.get('source','').startswith('registry+')}
     delivered_registry={(p['name'],p['version'],p['checksum']) for p in manifest['registry_sources']}
     if not required_registry<=delivered_registry:raise ValueError('Locked transitive registry source missing')
     for package in manifest['registry_sources']:

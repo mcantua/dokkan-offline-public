@@ -121,6 +121,14 @@ static UIStackView *AIStack(CGFloat spacing) {
 @property (nonatomic, strong) NSLayoutConstraint *scrollTrailing;
 @property (nonatomic, strong) NSLayoutConstraint *scrollTop;
 @property (nonatomic, strong) NSLayoutConstraint *scrollBottom;
+@property (nonatomic, strong) NSLayoutConstraint *scrollAboveTaskHUD;
+@property (nonatomic, strong) NSLayoutConstraint *taskHUDBottom;
+@property (nonatomic, strong) UIVisualEffectView *taskHUD;
+@property (nonatomic, strong) UILabel *taskHUDStatus;
+@property (nonatomic, strong) UIActivityIndicatorView *taskHUDSpinner;
+@property (nonatomic, strong) UIProgressView *taskHUDProgress;
+@property (nonatomic, strong) UILabel *taskHUDPercent;
+@property (nonatomic, strong) UIButton *taskHUDCancel;
 @property (nonatomic, strong) UIStackView *content;
 @property (nonatomic, strong) UIStackView *mainColumns;
 @property (nonatomic, strong) UIStackView *rail;
@@ -128,14 +136,10 @@ static UIStackView *AIStack(CGFloat spacing) {
 @property (nonatomic, strong) UITextField *password;
 @property (nonatomic, strong) UITextField *code;
 @property (nonatomic, strong) UILabel *statusLabel;
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) UILabel *progressPercent;
 @property (nonatomic, strong) NSNumber *progressOperationID;
 @property (nonatomic, strong) NSNumber *displayProgress;
 @property (nonatomic, copy) NSString *lastError;
 @property (nonatomic, strong) UIButton *submitButton;
-@property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) NSString *screen;
 @property (nonatomic) BOOL showBiometricOffer;
 @property (nonatomic) BOOL pendingFreshLogin;
@@ -147,6 +151,7 @@ static UIStackView *AIStack(CGFloat spacing) {
 @property (nonatomic, weak) UITextField *focusedField;
 @property (nonatomic) BOOL needsFocusedFieldReveal;
 @property (nonatomic) CGSize lastFocusViewportSize;
+@property (nonatomic, copy) NSDictionary *homeDisplayReportSnapshot;
 - (void)render;
 - (void)pickPairing;
 - (void)showSettings;
@@ -186,6 +191,7 @@ static UIStackView *AIStack(CGFloat spacing) {
         [self.content.bottomAnchor constraintEqualToAnchor:self.scroll.contentLayoutGuide.bottomAnchor constant:-24],
         [self.content.widthAnchor constraintEqualToAnchor:self.scroll.frameLayoutGuide.widthAnchor constant:-48]
     ]];
+    [self buildTaskHUD];
     self.rail = AIStack(18); self.rail.alignment = UIStackViewAlignmentCenter;
     self.rail.hidden = YES; [self.view addSubview:self.rail];
     UIButton *railRefresh = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -209,7 +215,78 @@ static UIStackView *AIStack(CGFloat spacing) {
     [self render];
 }
 - (void)viewWillAppear:(BOOL)animated { [super viewWillAppear:animated]; [self render]; }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    // Capture before navigation detaches Home; every rectangle and window field
+    // then describes one observation, even when the report is opened in Settings.
+    if (self.view.window) {
+        [self.view layoutIfNeeded];
+        NSDictionary *layout=@{@"observation":@"Home view captured before leaving; not live report-page geometry",@"coordinateSpace":@"Home view; content frame is in scroll content coordinates",@"rootView":[AIDisplayDiagnostics rect:self.view.bounds],@"scroll":[AIDisplayDiagnostics rect:self.scroll.frame],@"content":[AIDisplayDiagnostics rect:self.content.frame],@"railHidden":@(self.rail.hidden),@"rail":[AIDisplayDiagnostics rect:self.rail.frame],@"taskHUDHidden":@(self.taskHUD.hidden),@"taskHUD":[AIDisplayDiagnostics rect:self.taskHUD.frame],@"wideColumns":@(self.mainColumns.axis==UILayoutConstraintAxisHorizontal)};
+        NSMutableDictionary *state=[@{@"screen":self.screen ?: @"unknown",@"busy":@([self.service.snapshot[@"busy"] boolValue]),@"navigationDepth":@(self.navigationController.viewControllers.count)}mutableCopy];
+        if(self.displayProgress)state[@"progress"]=self.displayProgress;
+        self.homeDisplayReportSnapshot=[AIDisplayDiagnostics reportForView:self.view geometry:[self displayGeometry] layout:layout state:state];
+    }
+}
 - (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
+- (void)updateTaskHUDMaterial {
+    BOOL opaque = UIAccessibilityIsReduceTransparencyEnabled();
+    self.taskHUD.effect = opaque ? nil : [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemMaterial];
+    self.taskHUD.contentView.backgroundColor = opaque ? UIColor.secondarySystemGroupedBackgroundColor : UIColor.clearColor;
+}
+- (void)buildTaskHUD {
+    self.taskHUD = [[UIVisualEffectView alloc] initWithEffect:nil];
+    self.taskHUD.translatesAutoresizingMaskIntoConstraints = NO;
+    self.taskHUD.accessibilityIdentifier = @"Ongoing task";
+    self.taskHUD.layer.cornerRadius = 20;
+    self.taskHUD.layer.cornerCurve = kCACornerCurveContinuous;
+    self.taskHUD.clipsToBounds = YES;
+    self.taskHUD.hidden = YES;
+    [self.view addSubview:self.taskHUD];
+    self.taskHUDStatus = AILabel(@"", UIFontTextStyleSubheadline, UIColor.secondaryLabelColor);
+    self.taskHUDStatus.accessibilityTraits |= UIAccessibilityTraitUpdatesFrequently;
+    [self.taskHUDStatus setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    self.taskHUDSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+    UIStackView *status = [[UIStackView alloc] initWithArrangedSubviews:@[self.taskHUDSpinner, self.taskHUDStatus]];
+    status.axis = UILayoutConstraintAxisHorizontal; status.spacing = 10; status.alignment = UIStackViewAlignmentCenter;
+    status.translatesAutoresizingMaskIntoConstraints = NO;
+    // Only lengthy status text scrolls; numeric progress and Cancel stay visible.
+    UIScrollView *statusScroll = [UIScrollView new];
+    statusScroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    [statusScroll addSubview:status];
+    self.taskHUDProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    self.taskHUDProgress.accessibilityLabel = @"Task progress";
+    self.taskHUDPercent = AILabel(@"", UIFontTextStyleCaption1, UIColor.secondaryLabelColor);
+    UIStackView *fraction = [[UIStackView alloc] initWithArrangedSubviews:@[self.taskHUDProgress, self.taskHUDPercent]];
+    fraction.axis = UILayoutConstraintAxisHorizontal; fraction.spacing = 12; fraction.alignment = UIStackViewAlignmentCenter;
+    self.taskHUDCancel = AIButton(@"Cancel", NO, self, @selector(cancel));
+    UIStackView *body = [[UIStackView alloc] initWithArrangedSubviews:@[statusScroll, fraction, self.taskHUDCancel]];
+    body.axis = UILayoutConstraintAxisVertical; body.spacing = 12; body.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.taskHUD.contentView addSubview:body];
+    NSLayoutConstraint *statusHeight = [statusScroll.heightAnchor constraintEqualToAnchor:status.heightAnchor];
+    statusHeight.priority = UILayoutPriorityDefaultHigh - 1;
+    self.taskHUDBottom = [self.taskHUD.bottomAnchor constraintEqualToAnchor:self.view.keyboardLayoutGuide.topAnchor constant:-12];
+    self.scrollAboveTaskHUD = [self.scroll.bottomAnchor constraintEqualToAnchor:self.taskHUD.topAnchor constant:-12];
+    [NSLayoutConstraint activateConstraints:@[
+        [self.taskHUD.leadingAnchor constraintEqualToAnchor:self.scroll.leadingAnchor constant:12],
+        [self.taskHUD.trailingAnchor constraintEqualToAnchor:self.scroll.trailingAnchor constant:-12],
+        [self.taskHUD.topAnchor constraintGreaterThanOrEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:8],
+        self.taskHUDBottom,
+        [body.leadingAnchor constraintEqualToAnchor:self.taskHUD.contentView.leadingAnchor constant:16],
+        [body.trailingAnchor constraintEqualToAnchor:self.taskHUD.contentView.trailingAnchor constant:-16],
+        [body.topAnchor constraintEqualToAnchor:self.taskHUD.contentView.topAnchor constant:16],
+        [body.bottomAnchor constraintEqualToAnchor:self.taskHUD.contentView.bottomAnchor constant:-16],
+        [status.leadingAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.leadingAnchor],
+        [status.trailingAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.trailingAnchor],
+        [status.topAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.topAnchor],
+        [status.bottomAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.bottomAnchor],
+        [status.widthAnchor constraintEqualToAnchor:statusScroll.frameLayoutGuide.widthAnchor],
+        statusHeight,
+        [statusScroll.heightAnchor constraintLessThanOrEqualToAnchor:self.view.heightAnchor multiplier:0.22],
+        [statusScroll.heightAnchor constraintGreaterThanOrEqualToConstant:0]
+    ]];
+    [self updateTaskHUDMaterial];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTaskHUDMaterial) name:UIAccessibilityReduceTransparencyStatusDidChangeNotification object:nil];
+}
 - (void)handleEvent:(NSDictionary *)event {
     NSString *type = AIText(event[@"type"], @"");
     NSDictionary *state = self.service.snapshot;
@@ -262,26 +339,14 @@ static UIStackView *AIStack(CGFloat spacing) {
 - (void)clearContent {
     self.email.text = nil; self.password.text = nil; self.code.text = nil;
     self.email = nil; self.password = nil; self.code = nil;
-    self.submitButton = nil; self.cancelButton = nil;
+    self.submitButton = nil;
     for (UIView *view in self.content.arrangedSubviews.copy) { [self.content removeArrangedSubview:view]; [view removeFromSuperview]; }
-    self.mainColumns = nil; self.statusLabel = nil; self.spinner = nil; self.progressView = nil; self.progressPercent = nil; self.verificationSubmitted = NO; self.teamSelectionSubmitted = NO; self.teamButtons = nil; self.verificationButtons = nil;
+    self.mainColumns = nil; self.statusLabel = nil; self.verificationSubmitted = NO; self.teamSelectionSubmitted = NO; self.teamButtons = nil; self.verificationButtons = nil;
 }
 - (void)addStatusTo:(UIStackView *)stack {
     self.statusLabel = AILabel(@"", UIFontTextStyleSubheadline, UIColor.secondaryLabelColor);
     self.statusLabel.accessibilityTraits |= UIAccessibilityTraitUpdatesFrequently;
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-    self.spinner.hidesWhenStopped = YES;
-    UIStackView *progress = [[UIStackView alloc] initWithArrangedSubviews:@[self.spinner, self.statusLabel]];
-    progress.axis = UILayoutConstraintAxisHorizontal; progress.spacing = 10; progress.alignment = UIStackViewAlignmentCenter;
-    [stack addArrangedSubview:progress];
-    self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.progressView.accessibilityLabel = @"Task progress";
-    self.progressPercent = AILabel(@"", UIFontTextStyleCaption1, UIColor.secondaryLabelColor);
-    UIStackView *fraction = [[UIStackView alloc] initWithArrangedSubviews:@[self.progressView, self.progressPercent]];
-    fraction.axis = UILayoutConstraintAxisHorizontal; fraction.spacing = 12; fraction.alignment = UIStackViewAlignmentCenter;
-    [stack addArrangedSubview:fraction];
-    self.cancelButton = AIButton(@"Cancel", NO, self, @selector(cancel));
-    [stack addArrangedSubview:self.cancelButton];
+    [stack addArrangedSubview:self.statusLabel];
 }
 - (UITextField *)field:(NSString *)placeholder secure:(BOOL)secure {
     AIDynamicField *field = [AIDynamicField new];
@@ -312,15 +377,19 @@ static UIStackView *AIStack(CGFloat spacing) {
     BOOL busy = [self.service.snapshot[@"busy"] boolValue];
     NSString *message = self.lastError ?: AIText(self.service.snapshot[@"statusMessage"], @"");
     self.statusLabel.text = message;
-    self.statusLabel.hidden = !message.length && !busy;
-    if (busy) [self.spinner startAnimating]; else [self.spinner stopAnimating];
-    self.cancelButton.hidden = !busy;
+    self.statusLabel.hidden = busy || !message.length;
     BOOL numericProgress = busy && self.displayProgress != nil;
-    self.progressView.superview.hidden = !numericProgress;
+    self.taskHUD.hidden = !busy;
+    self.taskHUDStatus.text = message.length ? message : @"Working…";
+    self.taskHUDProgress.superview.hidden = !numericProgress;
+    if (busy) [self.taskHUDSpinner startAnimating]; else [self.taskHUDSpinner stopAnimating];
+    // Switch constraints without imposing both bottom anchors during keyboard changes.
+    if (busy) { self.scrollBottom.active = NO; self.scrollAboveTaskHUD.active = YES; }
+    else { self.scrollAboveTaskHUD.active = NO; self.scrollBottom.active = YES; }
     if (numericProgress) {
-        self.progressView.progress = self.displayProgress.floatValue;
-        self.progressPercent.text = [NSString stringWithFormat:@"%.0f%%", self.displayProgress.doubleValue * 100];
-        self.progressView.accessibilityValue = self.progressPercent.text;
+        self.taskHUDProgress.progress = self.displayProgress.floatValue;
+        self.taskHUDPercent.text = [NSString stringWithFormat:@"%.0f%%", self.displayProgress.doubleValue * 100];
+        self.taskHUDProgress.accessibilityValue = self.taskHUDPercent.text;
     }
     BOOL acceptingCode = [screen isEqualToString:@"code"] && !self.verificationSubmitted;
     self.submitButton.enabled = !busy || acceptingCode;
@@ -427,6 +496,10 @@ static UIStackView *AIStack(CGFloat spacing) {
 - (void)buildPairing {
     BOOL saved=[self.service.snapshot[@"pairingFilePresent"] boolValue];
     [self.content addArrangedSubview:AILabel(@"Connect this iPhone", UIFontTextStyleTitle1, nil)];
+    if (![self.service.snapshot[@"connectionConfigured"] boolValue]) {
+        [self.content addArrangedSubview:AILabel(@"Set the peer address shown in LocalDevVPN once in Settings. The address stays on this iPhone.", UIFontTextStyleBody, UIColor.secondaryLabelColor)];
+        [self.content addArrangedSubview:AIButton(@"Open connection settings", NO, self, @selector(showSettings))];
+    }
     if(saved) {
         [self.content addArrangedSubview:AILabel(@"Your pairing file is saved. Unlock your saved sign-in to check this iPhone’s connection before installing or refreshing apps.", UIFontTextStyleBody, UIColor.secondaryLabelColor)];
         self.submitButton=AIButton(@"Unlock and check connection",YES,self,@selector(unlockSaved));
@@ -463,6 +536,23 @@ static UIStackView *AIStack(CGFloat spacing) {
         NSString *bundle = AIText(record[@"bundleId"], @"");
         if (bundle.length) [card addArrangedSubview:AILabel(bundle, UIFontTextStyleCaption1, UIColor.tertiaryLabelColor)];
         [apps addArrangedSubview:card];
+    }
+    NSArray *results = [self.service.snapshot[@"refreshResults"] isKindOfClass:NSArray.class] ? self.service.snapshot[@"refreshResults"] : @[];
+    UIStackView *outcomes = AIStack(12);
+    for (id value in results) {
+        if (![value isKindOfClass:NSDictionary.class]) continue;
+        NSDictionary *result = value;
+        BOOL refreshed = [result[@"status"] isEqual:@"refreshed"];
+        if (!refreshed && ![result[@"status"] isEqual:@"failed"]) continue;
+        NSString *name = AIText(result[@"name"], @"App");
+        UIStackView *outcome = AIStack(4);
+        [outcome addArrangedSubview:AILabel([NSString stringWithFormat:@"%@ — %@", name, refreshed ? @"Refreshed" : @"Needs attention"], UIFontTextStyleHeadline, refreshed ? UIColor.labelColor : UIColor.systemOrangeColor)];
+        [outcome addArrangedSubview:AILabel(AIText(result[@"message"], refreshed ? @"Refreshed and confirmed by the device." : @"Refresh was not confirmed. Review this app’s status before trying again."), UIFontTextStyleSubheadline, UIColor.secondaryLabelColor)];
+        [outcomes addArrangedSubview:outcome];
+    }
+    if (outcomes.arrangedSubviews.count) {
+        [apps addArrangedSubview:AILabel(@"Refresh results", UIFontTextStyleTitle3, nil)];
+        [apps addArrangedSubview:outcomes];
     }
     UIButton *refresh = AIButton(@"Refresh all", NO, self, @selector(refresh));
     refresh.enabled = ![self.service.snapshot[@"busy"] boolValue]; [apps addArrangedSubview:refresh];
@@ -581,7 +671,10 @@ static UIStackView *AIStack(CGFloat spacing) {
 }
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    BOOL wide = self.view.bounds.size.width >= 600 && !UIContentSizeCategoryIsAccessibilityCategory(self.traitCollection.preferredContentSizeCategory);
+    NSDictionary *insets = [self displayGeometry][@"contentInsets"];
+    CGFloat contentWidth = MAX(0, self.view.bounds.size.width - [insets[@"left"] doubleValue] - [insets[@"right"] doubleValue] - 48);
+    // Two useful columns need 286 points each plus their 28-point gap.
+    BOOL wide = contentWidth >= 600 && !UIContentSizeCategoryIsAccessibilityCategory(self.traitCollection.preferredContentSizeCategory);
     self.mainColumns.axis = wide ? UILayoutConstraintAxisHorizontal : UILayoutConstraintAxisVertical;
     self.mainColumns.distribution = wide ? UIStackViewDistributionFillEqually : UIStackViewDistributionFill;
     [self layoutRail];
@@ -625,6 +718,7 @@ static UIStackView *AIStack(CGFloat spacing) {
     self.scrollTrailing.constant=-MAX(0,[insets[@"right"] doubleValue]-safe.right);
     self.scrollTop.constant=MAX(0,[insets[@"top"] doubleValue]-safe.top);
     self.scrollBottom.constant=-MAX(0,[insets[@"bottom"] doubleValue]-safe.bottom);
+    self.taskHUDBottom.constant=-12-MAX(0,[insets[@"bottom"] doubleValue]-safe.bottom);
     self.rail.hidden=YES;
     if(![self.screen isEqualToString:@"main"] || ![geometry[@"valid"] boolValue])return;
     NSDictionary *frame=geometry[@"rail"][@"frame"];
@@ -635,12 +729,9 @@ static UIStackView *AIStack(CGFloat spacing) {
 }
 - (void)showDisplayReport {
     __weak AIHome *weakSelf=self;
-    AIDisplayReportController *report=[[AIDisplayReportController alloc]initWithProvider:^NSDictionary *(UIView *view) {
+    AIDisplayReportController *report=[[AIDisplayReportController alloc]initWithProvider:^NSDictionary *(__unused UIView *view) {
         AIHome *home=weakSelf;
-        NSDictionary *layout=@{@"rootView":[AIDisplayDiagnostics rect:home.view.bounds],@"scroll":[AIDisplayDiagnostics rect:home.scroll.frame],@"content":[AIDisplayDiagnostics rect:home.content.frame],@"railHidden":@(home.rail.hidden),@"rail":[AIDisplayDiagnostics rect:home.rail.frame],@"wideColumns":@(home.mainColumns.axis==UILayoutConstraintAxisHorizontal)};
-        NSMutableDictionary *state=[@{@"screen":home.screen ?: @"unknown",@"busy":@([home.service.snapshot[@"busy"] boolValue]),@"navigationDepth":@(home.navigationController.viewControllers.count)}mutableCopy];
-        if(home.displayProgress)state[@"progress"]=home.displayProgress;
-        return [AIDisplayDiagnostics reportForView:view geometry:[AIDisplayDiagnostics geometryForView:view] layout:layout state:state];
+        return home.homeDisplayReportSnapshot ?: @{@"available":@NO,@"reason":@"Return to Home before opening a display report."};
     }];
     [self.navigationController pushViewController:report animated:YES];
 }
@@ -661,7 +752,7 @@ static UIStackView *AIStack(CGFloat spacing) {
 - (void)viewWillAppear:(BOOL)animated { [super viewWillAppear:animated]; [self updateState]; }
 - (void)updateState { [self.tableView reloadData]; }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView { return 4; }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { return section == 3 ? 1 : 2; }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { return section == 3 ? 1 : (section == 1 ? 3 : 2); }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { return @[@"Account", @"This iPhone", @"Refresh", @"Display"][(NSUInteger)section]; }
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 3) return @"View or share screen geometry without account data or unique device identifiers. A report does not prove physical touch or folding behavior.";
@@ -695,6 +786,10 @@ static UIStackView *AIStack(CGFloat spacing) {
         BOOL saved=[self.home.service.snapshot[@"pairingFilePresent"] boolValue];
         cell.detailTextLabel.text=verified ? @"Connection verified" : (saved ? @"Saved — unlock and check connection" : @"No pairing file saved");
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else if (path.section == 1 && path.row == 1) {
+        cell.textLabel.text = @"Connection address";
+        cell.detailTextLabel.text = [self.home.service.snapshot[@"connectionConfigured"] boolValue] ? @"Configured on this iPhone" : @"Set the peer address shown by LocalDevVPN";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (path.section == 1) {
         cell.textLabel.text = @"Installer expiry"; cell.detailTextLabel.text = AIExpiryText(self.home.service.snapshot[@"ownExpiry"]);
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -727,8 +822,37 @@ static UIStackView *AIStack(CGFloat spacing) {
         }]];
         [self presentViewController:alert animated:YES completion:nil];
     } else if (path.section == 1 && path.row == 0) [self.home pickPairing];
+    else if (path.section == 1 && path.row == 1) [self editConnectionAddress];
     else if (path.section == 2 && path.row == 0) [self.home alert:@"Daily refresh" text:@"In Shortcuts, open Automation → Time of Day → Daily. Add Open App and choose App Installer. Choose Run Immediately if your iPhone offers it. Open and unlock the app when prompted. Refresh should finish before the apps expire; iOS cannot guarantee an unattended daily run."];
     else if (path.section == 2 && path.row == 1) [self expiryAlerts];
+}
+- (void)editConnectionAddress {
+    if ([self.home.service.snapshot[@"busy"] boolValue]) {
+        [self.home alert:@"Task in progress" text:@"Finish or cancel the current task before changing the connection address."];
+        return;
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connection address" message:@"Enter the peer IP address shown in LocalDevVPN. It stays on this iPhone. Keep the VPN connected when checking or installing apps." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *field) {
+        field.placeholder = @"Peer IP address";
+        field.autocorrectionType = UITextAutocorrectionTypeNo;
+        field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        field.spellCheckingType = UITextSpellCheckingTypeNo;
+        field.textContentType = nil;
+        field.clearButtonMode = UITextFieldViewModeWhileEditing;
+        field.accessibilityLabel = @"LocalDevVPN peer IP address";
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    __weak AISettings *weakSelf = self;
+    __weak UIAlertController *weakAlert = alert;
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSString *address = weakAlert.textFields.firstObject.text ?: @"";
+        weakAlert.textFields.firstObject.text = nil;
+        if (![weakSelf.home.service setConnectionAddress:address]) {
+            [weakSelf.home alert:@"Address unchanged" text:@"Enter a valid IPv4 or IPv6 peer address and wait for any current task to finish."];
+        }
+        [weakSelf updateState];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)expiryAlerts {
     __weak AISettings *weakSelf = self;
