@@ -1,5 +1,6 @@
 #import "ODOriginalDuoStartupDiagnostic.h"
 #import "../duo/ODUnifiedDuoHost.h"
+#import "../ios/ODOriginalClientBootstrap.h"
 #import "../content/resource_preload.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <fcntl.h>
@@ -18,6 +19,7 @@
 
 static NSDictionary *ODDiagnosticReport;
 static NSDictionary *ODDiagnosticResourceReport;
+static NSString *ODDiagnosticFactoryStage;
 
 static NSError *ODDiagnosticFailure(void) {
     return [NSError errorWithDomain:@"OfflineDokkan.OriginalStartupDiagnostic" code:1
@@ -227,6 +229,7 @@ static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) 
 }
 
 ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
+    ODDiagnosticFactoryStage=@"factory-context";
     if (!NSThread.isMainThread) { if (error) *error = ODDiagnosticFailure(); return nil; }
     NSBundle *bundle = NSBundle.mainBundle;
     /* Never install/run this adapted engine under the supplied original game's
@@ -234,6 +237,7 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
      * tree; an Application Support probe does not isolate that Documents root.
      * The reviewed package must also select a fresh own diagnostic container. */
     NSString *identity = bundle.bundleIdentifier;
+    ODDiagnosticFactoryStage=@"own-app-identity";
     if (![identity isEqualToString:@"org.offlinedokkan.startupdiagnostic.duo"]) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
@@ -250,11 +254,16 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
     NSArray<NSURL *> *documents = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     NSURL *documentRoot = ODDiagnosticNativeRoot(documents.firstObject);
     NSURL *resources = [documentRoot URLByAppendingPathComponent:@"assets" isDirectory:YES];
+    ODDiagnosticFactoryStage=@"original-startup-inputs";
     if (!ODDiagnosticRegularFile(baseline) || !ODDiagnosticRegularFile(canonicalEngine) ||
-        !ODDiagnosticRegularFile(dependency) || !ODDiagnosticOriginalSeed(seed) ||
-        !ODDiagnosticPrepareWorkingResources(bundleRoot,documentRoot)) {
+        !ODDiagnosticRegularFile(dependency) || !ODDiagnosticOriginalSeed(seed)) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
+    ODDiagnosticFactoryStage=@"compatible-resource-preload";
+    if (!ODDiagnosticPrepareWorkingResources(bundleRoot,documentRoot)) {
+        if (error) *error = ODDiagnosticFailure(); return nil;
+    }
+    ODDiagnosticFactoryStage=@"fresh-working-assets";
     int resourceFD = ODDiagnosticDirectory(resources);
     BOOL ready = ODDiagnosticHasAssets(resourceFD) && ODDiagnosticNoExistingEngineWorkingTree(resourceFD);
     if (resourceFD >= 0) close(resourceFD);
@@ -262,6 +271,7 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
 
     /* Dedicated disposable diagnostic state, separate from Documents/assets and
      * existing save folders. Original seed/resource files are not modified. */
+    ODDiagnosticFactoryStage=@"diagnostic-state-directory";
     NSURL *support = ODDiagnosticNativeRoot([NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
         inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL]);
     int supportFD = ODDiagnosticDirectory(support);
@@ -273,6 +283,7 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
     close(stateFD);
     NSURL *state = [support URLByAppendingPathComponent:@"OriginalClientStartupDiagnostic" isDirectory:YES];
     NSError *failure = nil;
+    ODDiagnosticFactoryStage=@"native-host-configuration";
     ODUnifiedDuoHost *host = [[ODUnifiedDuoHost alloc] initWithPurpose:ODUnifiedDuoStartupDiagnostic
         genuineShellBaselineURL:baseline preparedEngineURL:engine resourcesRootURL:resources
         writableStateRootURL:state approvedOrigins:@[] routes:@[] creatorServices:nil attachPreparedImage:nil
@@ -287,7 +298,12 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
 }
 
 NSDictionary *ODCopyOriginalDuoStartupDiagnosticReport(void) {
-    return NSThread.isMainThread ? [ODDiagnosticReport copy] : nil;
+    if(!NSThread.isMainThread||(!ODDiagnosticReport&&!ODDiagnosticFactoryStage))return nil;
+    NSMutableDictionary *report=ODDiagnosticReport?[ODDiagnosticReport mutableCopy]:
+        [@{@"purpose":@"original-startup-diagnostic",@"stage":ODDiagnosticFactoryStage} mutableCopy];
+    NSDictionary *observation=ODCopyOriginalMasterLaunchObservation();
+    if(observation)report[@"originalMasterLaunchObservation"]=observation;
+    return [report copy];
 }
 
 /* Library/component reuse is inert by default. This explicit diagnostic entry
@@ -304,7 +320,17 @@ __attribute__((constructor)) static void ODStartOriginalDuoDiagnostic(void) {
                 return;
             }
         } @catch (NSException *exception) { (void)exception; }
-        fputs("Offline Dokkan: original-client startup diagnostic failed.\n",stderr);
+        // Only source-fixed stage labels enter stderr; never NSError details,
+        // filesystem paths, origins, request data or exception descriptions.
+        NSString *stage=ODCopyOriginalDuoStartupDiagnosticReport()[@"stage"];
+        NSArray<NSString *> *stages=@[@"factory-context",@"own-app-identity",@"original-startup-inputs",
+            @"compatible-resource-preload",@"fresh-working-assets",@"diagnostic-state-directory",
+            @"native-host-configuration",@"configured",@"installing-genuine-shell-bootstrap",
+            @"native-environment-prepared",@"request-observer-registration-failed",@"prepared-image-load-failed",
+            @"original-initializers-completed",@"native-image-attachment-failed",
+            @"waiting-for-actual-appcontroller-scene",@"bootstrap-installation-failed"];
+        if(![stages containsObject:stage?:@""])stage=@"unavailable";
+        fprintf(stderr,"Offline Dokkan: original-client startup diagnostic failed at %s.\n",stage.UTF8String);
         _exit(EXIT_FAILURE);
     }
 }

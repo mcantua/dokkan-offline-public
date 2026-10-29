@@ -11,7 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT ODUnifiedDuoHost * _Nullable ODCreateOriginalDuoStartupDiagnosticHost(
     NSError * _Nullable * _Nullable error);
 
-/** Latest native host report, main thread only. No file is written and no
- * request headers, bodies, account identifiers or network addresses are added. */
+/** Latest native host report plus the actual post-AppController-launch master
+ * observation when available, main thread only. Cache presence is not master
+ * selection/schema acceptance. No file is written and no request headers,
+ * bodies, account identifiers, pointers or network addresses are added. */
 FOUNDATION_EXPORT NSDictionary * _Nullable ODCopyOriginalDuoStartupDiagnosticReport(void);
 NS_ASSUME_NONNULL_END

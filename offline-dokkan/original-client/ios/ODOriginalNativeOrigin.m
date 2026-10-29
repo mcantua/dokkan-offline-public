@@ -2,12 +2,14 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <objc/runtime.h>
 #include <mach/mach.h>
-#include <mach/mach_vm.h>
 #include <mach-o/dyld.h>
 #include <mach-o/loader.h>
 #include <dlfcn.h>
 #include <stdint.h>
 #include <string.h>
+
+_Static_assert(sizeof(vm_address_t)==sizeof(uintptr_t),"Self-memory VM addresses must preserve native pointers");
+_Static_assert(sizeof(vm_size_t)>=sizeof(NSUInteger),"Self-memory VM sizes must preserve bounded lengths");
 
 static NSString *const ODGetterHash=@"2de88ff35a07d9771c8b17dc41955d0998b04d47fbe09f0da11ba4cc74550e97";
 static NSString *const ODConstructorHash=@"7b120b08aed81ff767330cd6b5cc6d1c7d5205f3a05074dae110d15a24aa105c";
@@ -23,9 +25,9 @@ static NSString *ODOriginHash(const void *bytes,NSUInteger count){
 }
 static NSData *ODOriginRead(uint64_t address,NSUInteger count){
     if(!address||!count||count>16384||address>UINT64_MAX-count)return nil;
-    NSMutableData *bytes=[NSMutableData dataWithLength:count];mach_vm_size_t copied=0;
-    kern_return_t rc=mach_vm_read_overwrite(mach_task_self(),(mach_vm_address_t)address,
-        (mach_vm_size_t)count,(mach_vm_address_t)(uintptr_t)bytes.mutableBytes,&copied);
+    NSMutableData *bytes=[NSMutableData dataWithLength:count];vm_size_t copied=0;
+    kern_return_t rc=vm_read_overwrite(mach_task_self(),(vm_address_t)(uintptr_t)address,
+        (vm_size_t)count,(vm_address_t)(uintptr_t)bytes.mutableBytes,&copied);
     return rc==KERN_SUCCESS&&copied==count?[bytes copy]:nil;
 }
 static BOOL ODOriginSlide(uint64_t value,intptr_t slide,uint64_t *result){

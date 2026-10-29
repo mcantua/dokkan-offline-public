@@ -21,6 +21,13 @@ typedef BOOL (^ODOriginalClientRegisterSceneBridge)(NSError **error);
  * needs to be embedded in the final app. Never supply this from JSON/JS. */
 typedef BOOL (^ODPreparedOriginalClientLoadImage)(NSError **error);
 
+/** Main-only immutable, value-free observation captured immediately after the
+ * actual original AppController launch returned. Nil before that call. No
+ * controller/pointer/key/path/request data escapes; a cached native handle
+ * does not establish schema acceptance or identify preferred versus fallback.
+ * The observation never changes the original launch return or enables routes. */
+FOUNDATION_EXPORT NSDictionary * _Nullable ODCopyOriginalMasterLaunchObservation(void);
+
 /** Real authored launcher entry for a genuine SDK27.1+ Duo target. It pins exact
  * supplied source files, installs local Foundation handling before image load,
  * verifies the now-loaded actual HTTP ABI, registers original-scene observation,

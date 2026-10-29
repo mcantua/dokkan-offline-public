@@ -2,15 +2,16 @@
 #import "../duo/ODDuoEngineState.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <mach/mach.h>
-#include <mach/mach_vm.h>
 #include <stdint.h>
 #include <string.h>
 
 static BOOL ODMasterRead(uintptr_t source,void *target,size_t bytes) {
     if(!source||!target||!bytes||bytes>512||source>UINTPTR_MAX-bytes)return NO;
-    mach_vm_size_t copied=0;
-    return mach_vm_read_overwrite(mach_task_self(),(mach_vm_address_t)source,
-        (mach_vm_size_t)bytes,(mach_vm_address_t)target,&copied)==KERN_SUCCESS&&copied==bytes;
+    _Static_assert(sizeof(vm_address_t)==sizeof(uintptr_t),"Requires native arm64 VM addresses");
+    _Static_assert(sizeof(vm_size_t)>=sizeof(size_t),"Requires native VM size width");
+    vm_size_t copied=0;
+    return vm_read_overwrite(mach_task_self(),(vm_address_t)source,
+        (vm_size_t)bytes,(vm_address_t)target,&copied)==KERN_SUCCESS&&copied==bytes;
 }
 static BOOL ODMasterCode(uintptr_t image,uintptr_t rva,size_t bytes,const char *expected) {
     unsigned char body[340],digest[CC_SHA256_DIGEST_LENGTH];
