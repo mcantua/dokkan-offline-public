@@ -71,11 +71,18 @@ static BOOL ODColdCopy(int source,int target,uint64_t bytes) {
     return fchmod(target,0600)==0&&fsync(target)==0;
 }
 
+@interface ODNativeMasterColdStage ()
++ (nullable instancetype)stageInternalOpaqueMasterAtURL:(NSURL *)source byteCount:(uint64_t)bytes
+    contentSHA256:(NSString *)sha256 language:(NSString *)language sourceExportCandidate:(BOOL)candidate
+    contextIsCurrent:(BOOL (^)(void))current error:(NSError **)error;
+@end
+
 @implementation ODNativeMasterColdStage {
     NSURL *_assetsRootURL,*_documentsURL;NSString *_language,*_sha256;uint64_t _bytes;
     BOOL (^_current)(void);
     int _documents,_assets,_sqlite,_working;
     struct stat _documentsIdentity,_assetsIdentity,_sqliteIdentity,_workingIdentity;
+    BOOL _sourceExportCandidate;
 }
 - (instancetype)initPrivate { if((self=[super init]))_documents=_assets=_sqlite=_working=-1;return self; }
 - (void)dealloc { if(_working>=0)close(_working);if(_sqlite>=0)close(_sqlite);if(_assets>=0)close(_assets);if(_documents>=0)close(_documents); }
@@ -83,7 +90,10 @@ static BOOL ODColdCopy(int source,int target,uint64_t bytes) {
 - (NSDictionary *)stagingReport {
     return @{@"schema":@1,@"workingCopyStaged":@(_working>=0),@"separateWritableCopy":@YES,
         @"sourcePreserved":@YES,@"defaultNativeAssetRootOnly":@YES,@"nativeConfiguredPrefixObserved":@NO,
-        @"languageSuppliedByNativeCaller":@YES,@"nativeLanguageSelectionObserved":@NO,
+        @"languageSuppliedByNativeCaller":@(!_sourceExportCandidate),
+        @"sourceAssetLanguageEnglishCandidate":@(_sourceExportCandidate),
+        @"candidateLanguageBasis":_sourceExportCandidate?@"supplied-source-export-asset-path":@"native-caller-contract",
+        @"nativeLanguageSelectionObserved":@NO,@"selectedMasterFileObserved":@NO,
         @"originalSeedUsedAsPreferredMaster":@NO,@"plaintextUsedAsNativeCipherMaster":@NO,
         @"sourceKeyReadOrAppliedByHost":@NO,@"foreignSQLiteHandleUsed":@NO,
         @"engineCachedHandleChanged":@NO,@"nativeFlags6Executed":@NO,
@@ -92,6 +102,22 @@ static BOOL ODColdCopy(int source,int target,uint64_t bytes) {
 }
 + (instancetype)stageImmutableOpaqueMasterAtURL:(NSURL *)source byteCount:(uint64_t)bytes
         contentSHA256:(NSString *)sha256 observedNativeLanguage:(NSString *)language
+        contextIsCurrent:(BOOL (^)(void))current error:(NSError **)error {
+    return [self stageInternalOpaqueMasterAtURL:source byteCount:bytes contentSHA256:sha256 language:language
+        sourceExportCandidate:NO contextIsCurrent:current error:error];
+}
++ (instancetype)stagePinnedSourceExportCandidateAtURL:(NSURL *)source
+        contextIsCurrent:(BOOL (^)(void))current error:(NSError **)error {
+    // A pinned source asset label is a compatibility attempt, never a claim
+    // that engine language configuration was observed or rewritten.
+    if(![NSBundle.mainBundle.bundleIdentifier isEqualToString:@"org.offlinedokkan.duo"]){
+        ODColdFail(error,@"OWN_INTEGRATED_SOURCE_CANDIDATE_REQUIRED");return nil;}
+    return [self stageInternalOpaqueMasterAtURL:source byteCount:114827264
+        contentSHA256:@"f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d"
+        language:@"en" sourceExportCandidate:YES contextIsCurrent:current error:error];
+}
++ (instancetype)stageInternalOpaqueMasterAtURL:(NSURL *)source byteCount:(uint64_t)bytes
+        contentSHA256:(NSString *)sha256 language:(NSString *)language sourceExportCandidate:(BOOL)candidate
         contextIsCurrent:(BOOL (^)(void))current error:(NSError **)error {
     BOOL spelling=[language isKindOfClass:NSString.class]&&language.length==2;
     if(spelling)for(NSUInteger i=0;i<2;i++){unichar c=[language characterAtIndex:i];if(c<'a'||c>'z')spelling=NO;}
@@ -159,6 +185,7 @@ static BOOL ODColdCopy(int source,int target,uint64_t bytes) {
     if(!valid){ODColdFail(error,published?@"NATIVE_MASTER_COPY_PUBLISHED_RECOVERY_REQUIRED":@"NATIVE_MASTER_FRESH_WORKING_TREE_REQUIRED");return nil;}
     stage->_assetsRootURL=[documents URLByAppendingPathComponent:@"assets" isDirectory:YES];
     stage->_documentsURL=[documents copy];
+    stage->_sourceExportCandidate=candidate;
     stage->_language=[language copy];stage->_sha256=[sha256 copy];stage->_bytes=bytes;stage->_current=[current copy];
     int currentFD=openat(stage->_sqlite,"current",O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
     int languageFD=currentFD>=0?openat(currentFD,language.UTF8String,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC):-1;

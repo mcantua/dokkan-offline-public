@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "task": "own-integrated-startup-provenance",
+  "result": "passed",
+  "check_runs": 1,
+  "portable_c_compiled": true,
+  "checks": [
+    "absent receipt has no resume authority",
+    "pre-existing pending file is preserved",
+    "first trusted publication succeeds",
+    "exclusive publication has exact private permissions",
+    "same own tree can relaunch without receipt replacement",
+    "synthetic native data is unchanged",
+    "receipt cannot admit another assets root",
+    "copied receipt cannot admit another state root",
+    "truncated receipt is refused",
+    "modified fixed contract is refused",
+    "permissive receipt is refused",
+    "unknown additional hard link is refused",
+    "symlink receipt is refused",
+    "valid receipt remains usable"
+  ],
+  "scope": "Synthetic temporary directories only; actual C marker implementation. Loader integration source-reviewed, not executed.",
+  "ios_compiled": false,
+  "actual_User_or_current_contents_read": false,
+  "native_game_or_device_execution": false,
+  "native_master_acceptance": false
+}

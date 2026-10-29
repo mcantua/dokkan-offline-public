@@ -32,23 +32,29 @@ builder constructs `/` plus that suffix through the imported standard string
 concatenation function, then appends it to the configured prefix/port.
 Thus the reviewed relative suffix is `/tutorial`, optionally with a query.
 The configured host/port value and complete runtime URL were not read or
-verified; query absence for this request is not established. No handler for a
-guessed full path was registered.
+verified. A later source pass closed this request's query boundary: the common
+constructor initializes it empty, the actual ancestor/game constructors leave
+it unchanged, and the preparation path changes only headers before the known
+materializer (or retains the same request for deferred dispatch). No query is
+added on this reviewed tutorial path. No global route was registered.
 
 ## Body before serialization
 
 The constructor converts its caller's signed32 progress input into a native
 JSON numeric value and writes member `progress` through the mutable JSON
 member helper. The240-byte body setter copies the supplied JSON object and
-adds member `timewarp` from the request's raw64-bit native field16. It then
+adds member `timewarp` from the request's raw64-bit native field16 **only when
+that field is nonzero**. A zero field omits it. It then
 stores the serialized result in the request string at112, used by the
 existing materializer.
 
 These are field/value-origin facts. No current progress, timewarp value,
 server clock offset, account data or source key was read or adopted. The
-meaning/lifecycle of timewarp and complete on-wire serialization remain
-unverified. Do not invent `timewarp=0`, starting progress or a complete request
-fixture from this evidence.
+meaning/lifecycle of timewarp remains unverified. The source FastWriter and its
+recursive writer now establish ordinary JSON object serialization, signed/
+unsigned base10 integer text and optional trailing line feed. The known
+materializer/Foundation bridge forwards that body unchanged. Do not invent
+`timewarp=0`, starting progress or clock behavior from this evidence.
 
 The source-derived name `timewarp` was admitted only after reviewing the
 actual static JSON member-name argument in the pinned setter. Unknown source
@@ -58,7 +64,10 @@ auth trace.
 
 ## Response and starting-policy limits
 
-A tutorial response callback has not yet been tied to this request. Other
+The actual tutorial final success closure is now tied to this request and is
+`void()` with no response fields. Ordinary plain-response and optional-common-
+update proofs establish an empty object candidate after durable checkpoint
+commit. See [the native checkpoint adapter](../tutorial/README.md). Other
 unbound native readers mention `progress`; their fields cannot be declared
 this endpoint's response merely because the names match. Virtual slot20 was
 checked and reaches request preparation/materialization, so it is not being

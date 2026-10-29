@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-@class ODOriginalNativeOrigin;
+@class ODOriginalNativeOrigin, ODDuoOriginalPracticeBattle;
 NS_ASSUME_NONNULL_BEGIN
 /** Establish concrete native pre-load state before original initialization:
  * installed local transport, native-owned paths and excluded source patcher.
@@ -24,5 +24,13 @@ FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngine(NSURL *preparedImageURL,
 FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeOrigin(NSURL *preparedImageURL,
     ODPreparedEngineEnvironment configureReviewedEnvironment,
     ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
+    NSError * _Nullable * _Nullable error);
+/** Integrated native capabilities from the SAME verified image snapshot.
+ * Native origin remains required. A missing optional practice capability keeps
+ * only manual practice unavailable and does not fabricate native acceptance. */
+FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeCapabilities(NSURL *preparedImageURL,
+    ODPreparedEngineEnvironment configureReviewedEnvironment,
+    ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
+    ODDuoOriginalPracticeBattle * _Nullable * _Nonnull practiceBattle,
     NSError * _Nullable * _Nullable error);
 NS_ASSUME_NONNULL_END

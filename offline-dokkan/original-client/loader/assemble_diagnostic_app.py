@@ -52,7 +52,7 @@ def admit_current_component_sources(component, integrated=False):
     # user trees, saves, signing material or a receipt-provided path.
     scopes = ("offline-dokkan/core","offline-dokkan/adapter","offline-dokkan/content",
         "offline-dokkan/mobile/ios","offline-dokkan/original-client")
-    relevant = [f":(glob){scope}/**/*.{suffix}" for scope in scopes for suffix in ("c","m","h")]
+    relevant = [f":(glob){scope}/**/*.{suffix}" for scope in scopes for suffix in ("c","m","mm","h")]
     relevant += ["offline-dokkan/original-client/build-components.sh",
         "offline-dokkan/original-client/creator-tools/build-source.json",
         "offline-dokkan/original-client/loader/startup-diagnostic-source.json",
@@ -73,6 +73,8 @@ def admit_current_component_sources(component, integrated=False):
     critical = CRITICAL_COMPONENT_SOURCES + ((
         "offline-dokkan/original-client/loader/ODUnifiedDuoStartup.m",
         "offline-dokkan/original-client/loader/ODUnifiedDuoNativeFactory.m",
+        "offline-dokkan/original-client/duo/ODDuoPracticeBattle.mm",
+        "offline-dokkan/original-client/ios/ODOriginalPracticePhaseProvider.m",
     ) if integrated else ())
     for fixed in critical:
         # Only this literal allowlist reaches file I/O. No source path from
@@ -160,11 +162,12 @@ def assemble(args):
     for name in ("staged", "manifest", "shell", "engine", "component", "component_receipt", "output"):
         setattr(args, name, admit_argument(getattr(args, name)))
     if integrated:
-        if args.core_reference is None:
-            raise ValueError("Integrated development requires the exact canonical Core reference")
+        if args.core_reference is None or args.native_candidate is None:
+            raise ValueError("Integrated development requires exact canonical Core and opaque source candidate inputs")
         args.core_reference = admit_argument(args.core_reference)
-    elif args.core_reference is not None:
-        raise ValueError("Diagnostic packaging cannot include the canonical Core reference")
+        args.native_candidate = admit_argument(args.native_candidate)
+    elif args.core_reference is not None or args.native_candidate is not None:
+        raise ValueError("Diagnostic packaging cannot include canonical Core or native source candidate inputs")
     if (sys.platform != "linux" or
             args.output.suffix != ".app" or
             not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", args.version) or
@@ -230,6 +233,8 @@ def assemble(args):
     if integrated:
         core = extension["core_reference"]
         additions[core["destination"]] = (args.core_reference,(core["bytes"],core["sha256"]))
+        candidate = extension["native_source_candidate"]
+        additions[candidate["destination"]] = (args.native_candidate,(candidate["bytes"],candidate["sha256"]))
         for item in extension["authored_protocol_resources"]:
             # Fixed authored contract paths, never receipt-selected input paths.
             additions[item["destination"]] = (resource.ROOT/item["source"],(item["bytes"],item["sha256"]))
@@ -249,8 +254,9 @@ def assemble(args):
         for target,(path,pin) in additions.items():
             fd = resource.readonly(path)
             opened.append((fd,path,os.fstat(fd),target,pin))
-            if integrated and target == "OriginalClient/Core/reference.db" and os.fstat(fd).st_mode & 0o222:
-                raise ValueError("Canonical Core reference input must be immutable")
+            if (integrated and target in ("OriginalClient/Core/reference.db", "OriginalClient/NativeCandidate/en/database.db")
+                    and os.fstat(fd).st_mode & 0o222):
+                raise ValueError("Canonical Core and opaque native source candidate inputs must be immutable")
             if os.fstat(fd).st_size != pin[0] or resource.hash_fd(fd,pin[0]) != pin[1]:
                 raise ValueError("Exact original/component source pin mismatch")
         parent = resource.directory(args.output.parent)
@@ -327,6 +333,10 @@ def assemble(args):
             "bundle_identifier":contract["bundle_identifier"],"version":args.version,"build":args.build,
             "resource_members":len(expected),"additional_members":len(additions),
             "core_reference_sha256":(extension["core_reference"]["sha256"] if integrated else None),
+            "native_source_candidate_sha256":(extension["native_source_candidate"]["sha256"] if integrated else None),
+            "native_source_asset_language_label":("en" if integrated else None),
+            "native_runtime_language_observed":False,"native_candidate_compatibility_observed":False,
+            "native_working_master_written_by_assembler":False,
             "native_master_accepted":False,"gameplay_verified":False,
             "active_shell_sha256_before_signing":ACTIVE_SHA,
             "original_bundle_aliases_preserved":True,"code_signed":False,"device_installed":False,
@@ -367,6 +377,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile",choices=("diagnostic","integrated-development"),default="diagnostic")
     parser.add_argument("--core-reference",type=Path)
+    parser.add_argument("--native-candidate",type=Path)
     for name in ("staged","manifest","shell","engine","component","component-receipt","output"):
         parser.add_argument("--"+name,required=True,type=Path)
     for name in ("manifest-sha256","staging-receipt-sha256","component-receipt-sha256","version","build"):

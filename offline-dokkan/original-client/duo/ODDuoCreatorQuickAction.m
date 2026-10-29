@@ -5,6 +5,11 @@ static NSString *ODQuickActionType(void) {
     return [NSString stringWithUTF8String:od_creator_shortcut_type()];
 }
 @interface ODDuoCreatorQuickActionOwner : NSObject
+@property(nonatomic,copy) NSString *type;
+@property(nonatomic,copy) NSString *title;
+@property(nonatomic,copy) NSString *subtitle;
+@property(nonatomic,copy) NSString *entry;
+@property(nonatomic) UIApplicationShortcutIconType icon;
 @property(nonatomic,copy) BOOL (^current)(void);
 @property(nonatomic,copy) ODDuoCreatorQuickActionAdmission admission;
 @property(nonatomic,copy) ODDuoCreatorQuickActionInvocation invoke;
@@ -25,10 +30,16 @@ static NSString *ODQuickActionType(void) {
 - (void)installMenu;
 @end
 static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
+static ODDuoCreatorQuickActionOwner *ODPracticeActionOwner;
+static NSArray<ODDuoCreatorQuickActionOwner *> *ODQuickActionOwners(void) {
+    if(ODQuickActionOwner&&ODPracticeActionOwner)return @[ODQuickActionOwner,ODPracticeActionOwner];
+    if(ODQuickActionOwner)return @[ODQuickActionOwner];
+    return ODPracticeActionOwner?@[ODPracticeActionOwner]:@[];
+}
 
 @implementation ODDuoCreatorQuickActionOwner
 - (void)emit:(NSString *)outcome {
-    NSDictionary *state=@{@"entry":@"in-game-creator-menu",@"delivery":@"app-icon-shortcut",
+    NSDictionary *state=@{@"entry":self.entry,@"delivery":@"app-icon-shortcut",
         @"cocosMenuHookInstalled":@(od_creator_menu_cocos_hook_installed()),
         @"menuInstalled":@(self.menuInstalled),@"menuState":self.menuState?:@"not-installed",
         @"pending":@(self.pending),@"presenting":@(self.running),@"outcome":outcome};
@@ -40,7 +51,7 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
     UIApplication *app=UIApplication.sharedApplication;
     NSMutableArray<UIApplicationShortcutItem *> *items=app?([app.shortcutItems mutableCopy]?:[NSMutableArray array]):nil;
     NSArray *staticItems=NSBundle.mainBundle.infoDictionary[@"UIApplicationShortcutItems"];
-    NSString *type=ODQuickActionType();
+    NSString *type=self.type;
     BOOL dynamicHas=NO,staticHas=NO;
     for(UIApplicationShortcutItem *item in items)if([item.type isEqual:type])dynamicHas=YES;
     if([staticItems isKindOfClass:NSArray.class])for(id value in staticItems)
@@ -56,10 +67,10 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
     if(decision.report_unavailable){self.menuState=@"existing-shortcuts-fill-menu";[self emit:@"menu-registration-unavailable"];return;}
     if(!decision.mark_installed||decision.cocos_hook_installed||decision.user_info_grants_access)return;
     if(decision.add_dynamic_item){
-        UIApplicationShortcutIcon *icon=[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
+        UIApplicationShortcutIcon *icon=[UIApplicationShortcutIcon iconWithType:self.icon];
         [items addObject:[[UIApplicationShortcutItem alloc] initWithType:type
-            localizedTitle:[NSString stringWithUTF8String:od_creator_shortcut_title()]
-            localizedSubtitle:[NSString stringWithUTF8String:od_creator_shortcut_subtitle()] icon:icon userInfo:nil]];
+            localizedTitle:self.title
+            localizedSubtitle:self.subtitle icon:icon userInfo:nil]];
         app.shortcutItems=items;
     }
     self.menuInstalled=YES;self.menuState=@"registered-not-device-verified";[self emit:@"native-menu-registered"];
@@ -71,10 +82,13 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
         self.drainScheduled=NO;
         if(!self.pending||self.running)return;
         if(!self.current()){self.pending=NO;[self emit:@"native-context-unavailable"];return;}
+        for(ODDuoCreatorQuickActionOwner *other in ODQuickActionOwners()) {
+            if(other!=self&&other.running){[self emit:@"waiting-for-other-native-action"];return;}
+        }
         UIWindow *window=self.window;UIViewController *controller=self.controller;UIView *renderer=self.renderer;
         if(!window||!controller||!renderer){[self emit:@"waiting-for-original-scene"];return;}
         ODDuoCreatorQuickActionReadiness readiness=self.admission(window,controller,renderer);
-        if(readiness==ODDuoCreatorEntryAlreadyOpen){self.pending=NO;[self emit:@"editor-already-open"];return;}
+        if(readiness==ODDuoCreatorEntryAlreadyOpen){self.pending=NO;[self emit:self==ODQuickActionOwner?@"editor-already-open":@"practice-already-running"];return;}
         if(readiness==ODDuoCreatorEntryRejected){self.pending=NO;[self emit:@"native-binding-unavailable"];return;}
         if(readiness!=ODDuoCreatorEntryReady||!self.sourceActive||window.hidden||!window.isKeyWindow||
            window.windowScene.activationState!=UISceneActivationStateForegroundActive||
@@ -88,6 +102,7 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
             dispatch_async(dispatch_get_main_queue(),^{
                 if(!self.running||generation!=self.invocationGeneration)return;
                 self.running=NO;
+                for(ODDuoCreatorQuickActionOwner *other in ODQuickActionOwners())if(other!=self)[other scheduleDrain];
                 [self emit:failure?@"native-presentation-rejected":@"native-presentation-request-accepted"];
             });
         });
@@ -95,40 +110,61 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
 }
 @end
 
-BOOL ODDuoConfigureCreatorQuickAction(BOOL (^current)(void),ODDuoCreatorQuickActionAdmission admission,
+static BOOL ODConfigureQuickAction(BOOL practice,BOOL (^current)(void),ODDuoCreatorQuickActionAdmission admission,
     ODDuoCreatorQuickActionInvocation invoke,void (^report)(NSDictionary *),NSError **error) {
-    if(!NSThread.isMainThread||ODQuickActionOwner||!current||!admission||!invoke||!report){
-        if(error)*error=[NSError errorWithDomain:@"OfflineDokkan.CreatorQuickAction" code:1
-            userInfo:@{NSLocalizedDescriptionKey:@"The native Creator entry could not be configured. Existing game and editor data were preserved."}];
+    if(!NSThread.isMainThread||(practice?ODPracticeActionOwner:ODQuickActionOwner)||!current||!admission||!invoke||!report){
+        if(error)*error=[NSError errorWithDomain:@"OfflineDokkan.NativeQuickAction" code:1
+            userInfo:@{NSLocalizedDescriptionKey:@"The native action could not be configured. Existing game and editor data were preserved."}];
         return NO;
     }
     ODDuoCreatorQuickActionOwner *owner=[ODDuoCreatorQuickActionOwner new];
     owner.current=current;owner.admission=admission;owner.invoke=invoke;owner.report=report;
-    ODQuickActionOwner=owner;[owner emit:@"configured"];return YES;
+    owner.type=practice?@"org.offlinedokkan.practice-battle":ODQuickActionType();
+    owner.title=practice?@"Practice Battle":[NSString stringWithUTF8String:od_creator_shortcut_title()];
+    owner.subtitle=practice?@"No rewards":[NSString stringWithUTF8String:od_creator_shortcut_subtitle()];
+    owner.entry=practice?@"native-practice-battle":@"in-game-creator-menu";
+    owner.icon=practice?UIApplicationShortcutIconTypePlay:UIApplicationShortcutIconTypeCompose;
+    if(practice)ODPracticeActionOwner=owner;else ODQuickActionOwner=owner;
+    [owner emit:@"configured"];return YES;
+}
+BOOL ODDuoConfigureCreatorQuickAction(BOOL (^current)(void),ODDuoCreatorQuickActionAdmission admission,
+    ODDuoCreatorQuickActionInvocation invoke,void (^report)(NSDictionary *),NSError **error) {
+    return ODConfigureQuickAction(NO,current,admission,invoke,report,error);
+}
+BOOL ODDuoConfigurePracticeQuickAction(BOOL (^current)(void),ODDuoCreatorQuickActionAdmission admission,
+    ODDuoCreatorQuickActionInvocation invoke,void (^report)(NSDictionary *),NSError **error) {
+    return ODConfigureQuickAction(YES,current,admission,invoke,report,error);
 }
 BOOL ODDuoHandleCreatorQuickAction(UIApplicationShortcutItem *item) {
-    ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
-    if(!NSThread.isMainThread||!owner||![item.type isEqual:ODQuickActionType()])return NO;
-    if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return NO;}
-    if(owner.running||owner.pending)return YES;
-    owner.pending=YES;[owner emit:@"queued-user-action"];[owner scheduleDrain];return YES;
+    if(!NSThread.isMainThread)return NO;
+    for(ODDuoCreatorQuickActionOwner *owner in ODQuickActionOwners()) {
+        if(![item.type isEqual:owner.type])continue;
+        if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return NO;}
+        if(owner.running||owner.pending)return YES;
+        owner.pending=YES;[owner emit:@"queued-user-action"];[owner scheduleDrain];return YES;
+    }
+    return NO;
 }
 void ODDuoUpdateCreatorQuickAction(UIWindow *window,UIViewController *controller,UIView *renderer,BOOL sourceActive) {
-    ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
-    if(!NSThread.isMainThread||!owner)return;
-    if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return;}
-    owner.window=window;owner.controller=controller;owner.renderer=renderer;owner.sourceActive=sourceActive;
-    [owner installMenu];[owner scheduleDrain];
+    if(!NSThread.isMainThread)return;
+    for(ODDuoCreatorQuickActionOwner *owner in ODQuickActionOwners()) {
+        if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];continue;}
+        owner.window=window;owner.controller=controller;owner.renderer=renderer;owner.sourceActive=sourceActive;
+        [owner installMenu];[owner scheduleDrain];
+    }
 }
 void ODDuoRefreshQueuedCreatorQuickAction(void) {
-    ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
-    if(!NSThread.isMainThread||!owner)return;
-    if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return;}
-    [owner installMenu];[owner scheduleDrain];
+    if(!NSThread.isMainThread)return;
+    for(ODDuoCreatorQuickActionOwner *owner in ODQuickActionOwners()) {
+        if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];continue;}
+        [owner installMenu];[owner scheduleDrain];
+    }
 }
 void ODDuoDisconnectCreatorQuickAction(UIWindow *window) {
-    ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
-    if(!NSThread.isMainThread||!owner||owner.window!=window)return;
-    owner.window=nil;owner.controller=nil;owner.renderer=nil;owner.sourceActive=NO;
-    if(owner.pending)[owner emit:@"waiting-for-original-scene"];
+    if(!NSThread.isMainThread)return;
+    for(ODDuoCreatorQuickActionOwner *owner in ODQuickActionOwners()) {
+        if(owner.window!=window)continue;
+        owner.window=nil;owner.controller=nil;owner.renderer=nil;owner.sourceActive=NO;
+        if(owner.pending)[owner emit:@"waiting-for-original-scene"];
+    }
 }

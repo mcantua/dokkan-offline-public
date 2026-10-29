@@ -17,13 +17,19 @@ typedef NS_ENUM(NSUInteger, ODOriginalDuoInputPurpose) {
 @property(nonatomic,readonly,copy) NSURL *resourcesRootURL;
 @property(nonatomic,readonly,copy) NSURL *writableStateRootURL;
 @property(nonatomic,readonly,copy) NSDictionary *compatibleResourceReport;
+/** Actual provenance admission, not a caller flag. True only when this own
+ * integrated root already had the exact trusted startup receipt. Native state
+ * is preserved and fresh-only candidate staging must be skipped. */
+@property(nonatomic,readonly) BOOL knownIntegratedRelaunch;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 /** On main before UIApplicationMain/dlopen, reuse the SAME exact original seed,
  * framework/resource admission and off-main FD publication used by diagnostic.
  * Only org.offlinedokkan.startupdiagnostic.duo / Diagnostic or
- * org.offlinedokkan.duo / Integrated is accepted. Existing User/current reject
- * without reading/replacing them. Returned URL capabilities stay native-only. */
+ * org.offlinedokkan.duo / Integrated is accepted. Diagnostic is always fresh.
+ * Integrated relaunch preserves User/current only with its exact previously
+ * published own resource/root provenance. Unknown existing trees reject;
+ * neither path reads their contents. Returned capabilities stay native-only. */
 FOUNDATION_EXPORT ODOriginalDuoStartupInputs * _Nullable ODPrepareOriginalDuoStartupInputs(
     ODOriginalDuoInputPurpose purpose,NSError * _Nullable * _Nullable error);
 

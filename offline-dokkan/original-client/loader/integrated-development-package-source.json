@@ -16,7 +16,9 @@
     "original_startup_diagnostic_entry_enabled": false,
     "device_sdk": "27.1",
     "architecture": "arm64",
-    "deployment_target": "16.4"
+    "deployment_target": "16.4",
+    "objective_cxx_standard": "c++17",
+    "cxx_runtime": "Apple libc++"
   },
   "core_reference": {
     "destination": "OriginalClient/Core/reference.db",
@@ -49,5 +51,17 @@
   "offline_login_verified": false,
   "native_master_accepted": false,
   "gameplay_verified": false,
-  "playable_build": false
+  "playable_build": false,
+  "native_source_candidate": {
+    "destination": "OriginalClient/NativeCandidate/en/database.db",
+    "bytes": 114827264,
+    "sha256": "f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d",
+    "role": "Immutable opaque Android export source candidate; actual original iPhone engine decides selection and compatibility",
+    "source_asset_language_label": "en",
+    "source_language_provenance": "Existing Android current export; not an observed original iPhone runtime selection",
+    "native_runtime_language_observed": false,
+    "native_compatibility_observed": false,
+    "immutable_bundle_copy_only": true,
+    "existing_native_working_state_replaced": false
+  }
 }

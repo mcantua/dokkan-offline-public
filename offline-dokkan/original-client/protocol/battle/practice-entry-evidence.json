@@ -1,0 +1,359 @@
+{
+  "kind": "original-manual-practice-native-entry-source",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "manual_practice_authorized": true,
+  "intro_sequence_runs": false,
+  "ordinary_quest_progress_or_reward_admission": false,
+  "core_owned_teams_mutated": false,
+  "native_bridge_source_implemented": true,
+  "native_compilation_verified": false,
+  "original_client_gameplay_verified": false,
+  "focused_check": {
+    "original_callable_unique_pins_verified_once": 14,
+    "new_owned_lookup_unique_pins_verified_once": 3,
+    "additional_getter_bound_via_actual_class_vtable": true,
+    "old_callable_checks_repeated": false,
+    "native_compilation": false
+  },
+  "scopes": [
+    {
+      "label": "practice_battle_scene_factory",
+      "requested_bytes": 144,
+      "requested_sha256": "d93ab602c2a6fdf106a85eb72b5da0a292e84387ce9e610e5c731bed282a5cf1",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 144,
+          "sha256": "d93ab602c2a6fdf106a85eb72b5da0a292e84387ce9e610e5c731bed282a5cf1",
+          "declared": true,
+          "high_pcode_sites": 18
+        }
+      ]
+    },
+    {
+      "label": "practice_battle_finish_setter",
+      "requested_bytes": 8,
+      "requested_sha256": "46ca8a34d292d76981a515bd6a9ef337c1d99651b47921f1a95400937c377074",
+      "high_pcode_sites_outside_requested_body": 22,
+      "observed_bodies": [
+        {
+          "bytes": 8,
+          "sha256": "46ca8a34d292d76981a515bd6a9ef337c1d99651b47921f1a95400937c377074",
+          "declared": true,
+          "high_pcode_sites": 1
+        },
+        {
+          "bytes": 148,
+          "sha256": "f7fb09a86c085f28ec3339ac81803ece5e6bad226d01a35a9e00312dfcb8a4f1",
+          "declared": false,
+          "high_pcode_sites": 22
+        }
+      ]
+    },
+    {
+      "label": "practice_original_finish_callback",
+      "requested_bytes": 204,
+      "requested_sha256": "b6da7d82ed483e1e9fc189ad453719c15ffd3c5af0085cf508ee2bbb1aa3e6b9",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 204,
+          "sha256": "b6da7d82ed483e1e9fc189ad453719c15ffd3c5af0085cf508ee2bbb1aa3e6b9",
+          "declared": true,
+          "high_pcode_sites": 29
+        }
+      ]
+    },
+    {
+      "label": "practice_scene_transition_factory",
+      "requested_bytes": 12,
+      "requested_sha256": "568798f7e38a5a232237d00a307de5a8c975f9c6c2ce09c8599d27524675afa3",
+      "high_pcode_sites_outside_requested_body": 15,
+      "observed_bodies": [
+        {
+          "bytes": 168,
+          "sha256": "29bb684b0cc322e4a08c5195a097f262e1924a767f7891c18a58c41b91a22a86",
+          "declared": false,
+          "high_pcode_sites": 15
+        }
+      ]
+    },
+    {
+      "label": "practice_native_json_reader_ctor",
+      "requested_bytes": 48,
+      "requested_sha256": "6b1fa73f45040cabe9bce4d4f5c436084eaeaa4824238f2704d1541941fbbbbd",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 48,
+          "sha256": "6b1fa73f45040cabe9bce4d4f5c436084eaeaa4824238f2704d1541941fbbbbd",
+          "declared": true,
+          "high_pcode_sites": 10
+        }
+      ]
+    },
+    {
+      "label": "practice_native_json_string_ctor",
+      "requested_bytes": 156,
+      "requested_sha256": "5c6208023fac9a0e101a036f495074f8e2fd21103ebd7ba600ea4b2d47ebbef1",
+      "high_pcode_sites_outside_requested_body": 17,
+      "observed_bodies": [
+        {
+          "bytes": 156,
+          "sha256": "5c6208023fac9a0e101a036f495074f8e2fd21103ebd7ba600ea4b2d47ebbef1",
+          "declared": true,
+          "high_pcode_sites": 18
+        },
+        {
+          "bytes": 144,
+          "sha256": "edcd23e98c67376d2cf6abfdbaee226f28f9015886f46f7679a173d306125505",
+          "declared": false,
+          "high_pcode_sites": 16
+        },
+        {
+          "bytes": 4,
+          "sha256": "2b798d1a08498a524656d1bbcd61f9f48ed90752a381f5b251c4be9720acfc00",
+          "declared": false,
+          "source_text": false,
+          "high_pcode_sites": 1
+        }
+      ]
+    },
+    {
+      "label": "practice_native_json_value_ctor",
+      "requested_bytes": 248,
+      "requested_sha256": "15f0ef2ee10319485a4ad2e9c018d80662145a9230ac99c0daa53bc1c101101d",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 248,
+          "sha256": "15f0ef2ee10319485a4ad2e9c018d80662145a9230ac99c0daa53bc1c101101d",
+          "declared": true,
+          "high_pcode_sites": 35
+        }
+      ]
+    },
+    {
+      "label": "practice_native_json_value_dtor",
+      "requested_bytes": 64,
+      "requested_sha256": "970e0945e2513d8ac7ba9838443451fac57560f506d1968f751b8769aece3c47",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 64,
+          "sha256": "970e0945e2513d8ac7ba9838443451fac57560f506d1968f751b8769aece3c47",
+          "declared": true,
+          "high_pcode_sites": 8
+        }
+      ]
+    },
+    {
+      "label": "practice_native_finish_callback_assignment",
+      "requested_bytes": 148,
+      "requested_sha256": "f7fb09a86c085f28ec3339ac81803ece5e6bad226d01a35a9e00312dfcb8a4f1",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 148,
+          "sha256": "f7fb09a86c085f28ec3339ac81803ece5e6bad226d01a35a9e00312dfcb8a4f1",
+          "declared": true,
+          "high_pcode_sites": 22
+        }
+      ]
+    },
+    {
+      "label": "practice_native_reader_errors_dtor",
+      "requested_bytes": 336,
+      "requested_sha256": "fded41f2bc864f55a786522284d7dbad3940a3f4c8f0f0d3238cc7963c208f63",
+      "high_pcode_sites_outside_requested_body": 13,
+      "observed_bodies": [
+        {
+          "bytes": 336,
+          "sha256": "fded41f2bc864f55a786522284d7dbad3940a3f4c8f0f0d3238cc7963c208f63",
+          "declared": true,
+          "high_pcode_sites": 56
+        },
+        {
+          "bytes": 76,
+          "sha256": "9df693484c0be616c8ca30a33d281aa70ec71299fc8160309329dbf6b7623ba0",
+          "declared": false,
+          "high_pcode_sites": 13
+        }
+      ]
+    },
+    {
+      "label": "practice_native_reader_nodes_dtor",
+      "requested_bytes": 152,
+      "requested_sha256": "ee23d47a2c1946ec918a46abef75ed03a815c859e016459feb0a7776d967f5ee",
+      "high_pcode_sites_outside_requested_body": 13,
+      "observed_bodies": [
+        {
+          "bytes": 76,
+          "sha256": "9df693484c0be616c8ca30a33d281aa70ec71299fc8160309329dbf6b7623ba0",
+          "declared": false,
+          "high_pcode_sites": 13
+        },
+        {
+          "bytes": 152,
+          "sha256": "ee23d47a2c1946ec918a46abef75ed03a815c859e016459feb0a7776d967f5ee",
+          "declared": true,
+          "high_pcode_sites": 25
+        }
+      ]
+    },
+    {
+      "label": "practice_native_battle_scene_init",
+      "requested_bytes": 84,
+      "requested_sha256": "06ac387fd2b2fbf56e86d40d725bbf48ea3e959eb2802fb822fb5509e5683fd6",
+      "high_pcode_sites_outside_requested_body": 125,
+      "observed_bodies": [
+        {
+          "bytes": 952,
+          "sha256": "5e26e8b92ec3fbd2e67f3a03e75819a99044f76bb11e16ce3930f27e137e3e72",
+          "declared": false,
+          "high_pcode_sites": 125
+        },
+        {
+          "bytes": 84,
+          "sha256": "06ac387fd2b2fbf56e86d40d725bbf48ea3e959eb2802fb822fb5509e5683fd6",
+          "declared": true,
+          "high_pcode_sites": 11
+        }
+      ]
+    },
+    {
+      "label": "practice_director_replace_scene",
+      "requested_bytes": 244,
+      "requested_sha256": "b73e54769fe0d07e0a9c921e4949a43a687ff42d183760fc5143d46a3f0ca192",
+      "high_pcode_sites_outside_requested_body": 39,
+      "observed_bodies": [
+        {
+          "bytes": 244,
+          "sha256": "b73e54769fe0d07e0a9c921e4949a43a687ff42d183760fc5143d46a3f0ca192",
+          "declared": true,
+          "high_pcode_sites": 36
+        },
+        {
+          "bytes": 272,
+          "sha256": "c288ae136b8828ecc1dbddcd2c5b7067e39cb7bea18910b76f8edcac84723aa9",
+          "declared": false,
+          "high_pcode_sites": 39
+        }
+      ]
+    },
+    {
+      "label": "practice_finish_data_cleanup",
+      "requested_bytes": 156,
+      "requested_sha256": "d00748ed6e214c33d49328c4df89662b8e6629d549a699f669dbb31d1a9b369b",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 156,
+          "sha256": "d00748ed6e214c33d49328c4df89662b8e6629d549a699f669dbb31d1a9b369b",
+          "declared": true,
+          "high_pcode_sites": 17
+        }
+      ]
+    },
+    {
+      "label": "practice_finish_cleanup_first",
+      "requested_bytes": 80,
+      "requested_sha256": "b76c2260cc846fa3efb6ecb1f18af99bc9efa8da8da3c3b8bb74f517aa511a70",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 80,
+          "sha256": "b76c2260cc846fa3efb6ecb1f18af99bc9efa8da8da3c3b8bb74f517aa511a70",
+          "declared": true,
+          "high_pcode_sites": 7
+        }
+      ]
+    },
+    {
+      "label": "practice_finish_cleanup_second",
+      "requested_bytes": 20,
+      "requested_sha256": "4f7b256bbf522b31f4fcfbd160498c4882630130fa1d29c87c1b2b1e0302d7cb",
+      "high_pcode_sites_outside_requested_body": 13,
+      "observed_bodies": [
+        {
+          "bytes": 144,
+          "sha256": "259309a91809060f4913f07b42455c7a7352672528c9c6121318fcf3e2614015",
+          "declared": false,
+          "high_pcode_sites": 13
+        },
+        {
+          "bytes": 20,
+          "sha256": "4f7b256bbf522b31f4fcfbd160498c4882630130fa1d29c87c1b2b1e0302d7cb",
+          "declared": true,
+          "high_pcode_sites": 1
+        }
+      ]
+    },
+    {
+      "label": "practice_owned_model_accessor",
+      "requested_bytes": 112,
+      "requested_sha256": "80d26d5832b2f1a08fad5854bb745c87b0652247b14629952d6d9133bda2f6c1",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 112,
+          "sha256": "80d26d5832b2f1a08fad5854bb745c87b0652247b14629952d6d9133bda2f6c1",
+          "declared": true,
+          "high_pcode_sites": 10
+        }
+      ]
+    },
+    {
+      "label": "practice_owned_model_container",
+      "requested_bytes": 8,
+      "requested_sha256": "f637e07b3820a82a5634a0174c92391b8ec5194fafa5b124fa3a73d3007ae512",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 8,
+          "sha256": "f637e07b3820a82a5634a0174c92391b8ec5194fafa5b124fa3a73d3007ae512",
+          "declared": true,
+          "high_pcode_sites": 2
+        }
+      ]
+    },
+    {
+      "label": "practice_owned_card_lookup",
+      "requested_bytes": 8,
+      "requested_sha256": "ac7ecc2a6e252a8c7b91e3254f38dd6da7f30a2c4259bdc96b2c78cc39924a6b",
+      "high_pcode_sites_outside_requested_body": 14,
+      "observed_bodies": [
+        {
+          "bytes": 96,
+          "sha256": "38aad106783a5341f017d38ba6dbd4deeb90687e6aebbdb5abafa6d176834528",
+          "declared": true,
+          "high_pcode_sites": 14
+        }
+      ]
+    },
+    {
+      "label": "practice_owned_card_lookup_body",
+      "requested_bytes": 96,
+      "requested_sha256": "38aad106783a5341f017d38ba6dbd4deeb90687e6aebbdb5abafa6d176834528",
+      "high_pcode_sites_outside_requested_body": 0,
+      "observed_bodies": [
+        {
+          "bytes": 96,
+          "sha256": "38aad106783a5341f017d38ba6dbd4deeb90687e6aebbdb5abafa6d176834528",
+          "declared": true,
+          "high_pcode_sites": 14
+        }
+      ]
+    }
+  ],
+  "actual_native_owned_lookup_miss_required_before_setup": true,
+  "native_return_ownership_abi": {
+    "return_bytes": 16,
+    "return_storage": "AArch64 indirect-result register",
+    "library": "Apple libc++ std::__1",
+    "release": "returned original control block",
+    "new_deleter_created": false,
+    "compile_time_layout_and_ABI_gates": true,
+    "runtime_release_verified": false
+  }
+}

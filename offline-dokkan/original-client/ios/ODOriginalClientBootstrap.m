@@ -206,6 +206,11 @@ static id ODActualOriginalAppController;
 static IMP ODShellOriginalLaunch;
 static BOOL ODShellLaunchAttempted;
 static NSDictionary *ODOriginalMasterLaunchObservation;
+static BOOL ODActualOriginalLaunchSucceeded;
+
+id ODCurrentOriginalAppController(void) {
+    return NSThread.isMainThread&&ODActualOriginalLaunchSucceeded?ODActualOriginalAppController:nil;
+}
 
 NSDictionary *ODCopyOriginalMasterLaunchObservation(void) {
     return NSThread.isMainThread?[ODOriginalMasterLaunchObservation copy]:nil;
@@ -222,6 +227,7 @@ static BOOL ODShellLaunch(id shell, SEL selector, UIApplication *application, NS
     if (!ODActualOriginalAppController) return NO;
     BOOL originalResult=((BOOL(*)(id,SEL,UIApplication *,NSDictionary *))objc_msgSend)(
         ODActualOriginalAppController,@selector(application:didFinishLaunchingWithOptions:),application,options);
+    ODActualOriginalLaunchSucceeded=originalResult;
     // Observe the actual original controller, never the preserved shell or its
     // RootViewController. Failure of this optional read cannot alter launch.
     NSDictionary *native=nil;

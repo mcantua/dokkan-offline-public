@@ -51,9 +51,10 @@ The real issuer is
 `Tutorial::TutorialModel::putTutorialProgress(int, function<void()> const&)`,
 808bytes. It creates the actual `Tutorial::TutorialAPI` request using an80-byte
 factory and the already-reviewed264-byte request constructor. The established
-method is `PUT`, relative suffix `/tutorial` with query behavior still to be
-bound. Its body contains the caller's signed32 `progress` and the previously
-reviewed opaque native `timewarp` value. See `TUTORIAL-UPDATE-CONTRACT.md`.
+method is `PUT`, relative suffix `/tutorial`. The reviewed constructor/pre-send
+chain now proves an empty query and ordinary JSON body with signed32 `progress`
+plus optional nonzero unsigned64 `timewarp`. A native raw0 omits that key;
+no zero/default timewarp or clock is adopted. See `TUTORIAL-UPDATE-CONTRACT.md`.
 
 The issuer's only direct396-byte caller gets the next process's composite
 progress and tests the native resume/step boundary before issuing the write.
@@ -72,20 +73,25 @@ be disguised as a successful committed checkpoint just to advance the UI.
 ## What the offline implementation can reuse
 
 Preserve native tutorial selection, scripted combat, temporary characters,
-animations and checkpoint timing. For a genuinely new canonical profile,
-the approved start-at-the-beginning policy can be expressed through the
-observed false/0 control flow after native state authority is provided.
+animations and checkpoint timing for existing unfinished profiles. Tin's
+later request removes the tutorial intro sequence for new players. Schema14
+therefore supplies the new-only canonical skip tuple progress0/finished=true,
+which takes the actual172-byte gate's normal continuation. That is a source
+bypass of the tutorial, not proof that ordinary login movies or full Home
+are complete.
 Existing profiles must not be silently reset or migrated to that state.
 `contents_lv`, starting storage limits, grants and completion behavior remain
 independent contracts; this trace supplies no invented values for them.
 
-Schema13 now implements native-owned partial tutorial storage and the
+Schema13 implemented native-owned partial tutorial storage and the
 `od_original_client_apply` progress operation under the same canonical scope.
 It stores actual positive signed32 checkpoints, commits before success and
-retains identical command results. New-profile start state is an authored
-source-compatible policy, not a claimed Sparking server default. Older profiles
-receive no invented tutorial row. No grant, completion, phase ID or clock
-change is inferred. The HTTP route remains unadmitted. The combined scenario
+retains identical command results for unfinished profiles. Schema14 preserves
+those rows unchanged and rejects checkpoint writes for new skip-policy rows.
+The new-only skip is Tin's explicit own policy, not a Sparking server default.
+Older missing profiles receive no invented tutorial row. No reward, phase ID
+or clock change is inferred. The checkpoint HTTP adapter remains paused and
+unregistered under this latest instruction. The combined scenario
 in `../../core/original-player-state-evidence.json` verifies SQL/JavaScript;
 native C command flow, Objective-C and original gameplay remain unexecuted.
 
@@ -97,13 +103,18 @@ authored task system. The ordinary `WebAPIBase::send`1276-byte success wrapper
 and `WebAPICaller::call`180-byte success callback were recovered next. A policy
 predicate selects either the plain document-root branch, or a `sign` field
 followed by source decoding/parsing before common model updates and delivery.
-That predicate and codec ownership still need proof. Auth's separate NonAuth
-plain-JSON proof cannot establish the ordinary API response contract.
+The predicate is now proved to select the encoded branch only for an object
+containing `sign`; a plain object without that member takes the ordinary plain
+branch. The four common root processors skip absent optional fields. These are
+separate source proofs, beyond Auth's earlier NonAuth response contract.
 
 The common1284-byte materializer is already bound to this actual TutorialAPI
 vtable. Its reviewed HTTP completion gives the parsed document root to the
-success callback. That reusable fact does not prove that WebAPILayer accepts
-an empty object. No `{}` response, route or working tutorial battle is claimed.
+success callback. Together with the actual final `void()` tutorial consumer,
+these source facts support a plain `{}` response candidate after a successful
+canonical checkpoint commit. The native adapter implements that boundary;
+global registration, native execution and a working tutorial battle remain
+unverified. See `../tutorial/README.md` and its source contract receipt.
 
 ## Reproduce the exact continuation
 

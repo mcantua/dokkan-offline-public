@@ -165,7 +165,13 @@
         "optional_timewarp": "added from existing raw64 member16 only when nonzero; transport metadata only",
         "percent_encoding_in_this_body": false,
         "sign_base64_json_wrapper_in_this_body": false,
-        "key_provider_or_unknown_key_values_inspected": false
+        "key_provider_or_unknown_key_values_inspected": false,
+        "array_predicate": {
+          "bytes": 16,
+          "sha256": "35ae228e59fc176e2e066716fc3bcd2d0f8a0138ea65e62aa9bfe88655518a6c",
+          "actual_arm64": "LDRB type tag at8; CMP6; CSET W0 eq; RET",
+          "array_query_transport_admitted": false
+        }
       }
     },
     "actual_item_request_writer": {
@@ -252,6 +258,76 @@
     "full_home_projection": false,
     "http_route_admitted": false,
     "normal_home_runtime_verified": false,
-    "targeted_evidence": "new-profile-skip-projection-evidence.json"
+    "targeted_evidence": "new-profile-skip-projection-evidence.json",
+    "title_finished_branch_source": {
+      "gate_bytes": 172,
+      "checked_field": "User byte145 bit0 is_finished; true uses normal continuation, no progress/contents_lv gate in this body",
+      "normal_continuation_bytes": 872,
+      "normal_continuation_sha256": "7b16b891f1136aae0a16b2a913bd38b7bee15821c1e093b24df49555d824a2ab",
+      "actual_tail_bytes": 2304,
+      "actual_tail_sha256": "17628802cd09df5856459c2998ee4d90ff3fe07aa8620aed408a316c2eb3037c",
+      "direct_branch_and_tail_hash_verified": true,
+      "tail_decompilation_reused": true,
+      "scope_limit": "872 body high-Pcode includes306 sites in known2304 tail; whole output not attributed to872 alone",
+      "actual_fallback_scene_factory": {
+        "bytes": 160,
+        "sha256": "03a51e1fb7ef83553158cafab49ba1f7f749a7bd873dd9d9614101d37c9e746d",
+        "high_pcode_sites_outside_declared_body": 0,
+        "actual_arg": 1,
+        "scene_type_and_empty_collection_acceptance": "HomeMenuScene type, constructor and init proven; actual native launch/emptycollection acceptance pending client diagnostic run",
+        "scene_type": "HomeMenuScene",
+        "scene_type_proof": "actual156-byte lookup passes RTTI13HomeMenuScene as __dynamic_cast destination in X2",
+        "scene_lookup_bytes": 156,
+        "scene_lookup_sha256": "d4c9eedfcfcdc64590e14b4078aa9ef9aeebf0efc743428655528340cfb184b5",
+        "allocation_bytes": 104,
+        "allocation_sha256": "8efeb2368000791db5122049db0a1076832f20d894f4141e8f4e47bdad8ac9b6",
+        "allocated_object_bytes": 1256,
+        "open_initialize_bytes": 640,
+        "open_initialize_sha256": "f43fbebb4445b11109b13c436bbab1f32451afa0bda82c3dbabd0b95d88906e2",
+        "source_constructor": {
+          "bytes": 232,
+          "sha256": "75fc92e08ed61d1a59240153309d6573264bfb0584fc1c80dc1a175357510031",
+          "high_pcode_sites_outside_declared_body": 0
+        },
+        "source_init": {
+          "bytes": 300,
+          "sha256": "66ffc140793db4b4ba42a613d50b4a61c15be32badc08ffee756fbfc2f13d141",
+          "high_pcode_sites_outside_declared_body": 0,
+          "source": "base init, original native child layout initialization, positioning/control registration; helper dependencies not fully classified"
+        }
+      },
+      "known112_singleton_or_generic48_transition_claimed_as_home": false
+    }
+  },
+  "native_bootstrap_resources_adapter": {
+    "header": "../../ios/ODOriginalPlayerResourcesAdapter.h",
+    "source": "../../ios/ODOriginalPlayerResourcesAdapter.m",
+    "route_objects": [
+      "GET /resources/login",
+      "GET /resources/home",
+      "GET /teams"
+    ],
+    "query_policy": "pure lexical source-known user/cards/teams/battle_status true flags; user required, login battle_status required; optional card-updated timestamp requires cards flag; UInt64 unsigned decimal transport subset only; unknown/array/form/encoded forms denied",
+    "get_body": "must be empty, matching actual method0 materializer",
+    "deferred_owner": "MAIN-only native provider returns actual issued scoped projector after same Core admission, or nil; no guessed scope/second Core",
+    "lifecycle": "checks active request +current native context before snapshot and delivery; compares same issued projector pointer again",
+    "response": "actual new-profile skip User candidate through native plain-object/no-sign response constructor",
+    "new_profile_body_creates_no_fields_for_other_models": true,
+    "existing_profiles_or_owned_collection_not_downgraded": true,
+    "host_registration": "coordinated with actual host factory owner, no arbitrary genericroute install",
+    "native_compilation_or_running_client_verified": false,
+    "teams_route": {
+      "projector_method": "projectCurrentTeams:",
+      "source_request": "team-reader-contract.json actual TeamsIndex GET family",
+      "request_policy": "default reject all queries; empty GET body; no additional metadata accepted",
+      "response_policy": "same actual issued Core projector; only complete nonnull body_json own-player-team-projection can become plain200",
+      "missing_or_unverified_team_metadata": "NOT_READY; no invented empty-team selection, number, BGM or references",
+      "post_signed_body_support_added": false
+    },
+    "separate_admission_gates": {
+      "resources_user_only": "same actual Core/user scope, independent of unproved native-master observer; known requested cards/teams flags do not invent or serve those fields",
+      "get_teams": "same Core/user scope plus genuine native-master currentness before and after projection",
+      "query_validator_calls_main_predicates": false
+    }
   }
 }

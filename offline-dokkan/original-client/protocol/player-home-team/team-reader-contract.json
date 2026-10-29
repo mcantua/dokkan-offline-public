@@ -200,5 +200,15 @@
     "second_changed_metadata_only_scenario": "native-team-metadata-evidence.json",
     "each_scenario_runs": 1,
     "c_objc_or_original_game_execution": false
+  },
+  "native_get_route_adapter": {
+    "source": "../../ios/ODOriginalPlayerResourcesAdapter.m",
+    "route": "GET /teams",
+    "same_deferred_native_core_projector_as_resources": true,
+    "actual_projection_method": "projectCurrentTeams:",
+    "empty_get_body_and_default_query_rejection": true,
+    "incomplete_team_projection_returned_as_success": false,
+    "new_empty_or_selected_team_defaults_created": false,
+    "native_compile_and_original_client_execution_verified": false
   }
 }

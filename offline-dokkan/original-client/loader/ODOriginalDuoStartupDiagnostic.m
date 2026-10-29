@@ -2,6 +2,7 @@
 #import "../duo/ODUnifiedDuoHost.h"
 #import "../ios/ODOriginalClientBootstrap.h"
 #import "../content/resource_preload.h"
+#import "../content/startup_provenance.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <fcntl.h>
 #include <dirent.h>
@@ -23,14 +24,16 @@ static NSString *ODDiagnosticFactoryStage;
 
 @interface ODOriginalDuoStartupInputs ()
 - (instancetype)initWithBundle:(NSURL *)bundle baseline:(NSURL *)baseline engine:(NSURL *)engine
-    resources:(NSURL *)resources state:(NSURL *)state compatible:(NSDictionary *)report;
+    resources:(NSURL *)resources state:(NSURL *)state compatible:(NSDictionary *)report
+    knownIntegratedRelaunch:(BOOL)resumed;
 @end
 @implementation ODOriginalDuoStartupInputs
 - (instancetype)initWithBundle:(NSURL *)bundle baseline:(NSURL *)baseline engine:(NSURL *)engine
-        resources:(NSURL *)resources state:(NSURL *)state compatible:(NSDictionary *)report {
+        resources:(NSURL *)resources state:(NSURL *)state compatible:(NSDictionary *)report
+        knownIntegratedRelaunch:(BOOL)resumed {
     if((self=[super init])){_bundleRootURL=[bundle copy];_genuineShellBaselineURL=[baseline copy];
         _preparedEngineURL=[engine copy];_resourcesRootURL=[resources copy];
-        _writableStateRootURL=[state copy];_compatibleResourceReport=[report copy];}
+        _writableStateRootURL=[state copy];_compatibleResourceReport=[report copy];_knownIntegratedRelaunch=resumed;}
     return self;
 }
 @end
@@ -134,6 +137,30 @@ static BOOL ODDiagnosticNoExistingEngineWorkingTree(int assets) {
     return found < 0 && result == ENOENT;
 }
 
+/* Only a previously admitted OWN integrated tree may use this check. Inspect
+ * boundary types, never User/current contents, and never follow their links. */
+static BOOL ODIntegratedExistingWorkingTreeSafe(int assets) {
+    struct stat info;
+    if(!fstatat(assets,"User",&info,AT_SYMLINK_NOFOLLOW)){
+        if(!S_ISREG(info.st_mode)&&!S_ISDIR(info.st_mode))return NO;
+    }else if(errno!=ENOENT)return NO;
+    int sqlite=openat(assets,"sqlite",O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+    if(sqlite<0)return errno==ENOENT;
+    int found=fstatat(sqlite,"current",&info,AT_SYMLINK_NOFOLLOW),result=errno;
+    close(sqlite);return found==0?S_ISDIR(info.st_mode):(result==ENOENT);
+}
+
+static NSURL *ODStartupStateRoot(ODOriginalDuoInputPurpose purpose) {
+    NSURL *support=ODDiagnosticNativeRoot([NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
+        inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL]);
+    int supportFD=ODDiagnosticDirectory(support);if(supportFD<0)return nil;
+    NSString *name=purpose==ODOriginalDuoInputsDiagnostic?@"OriginalClientStartupDiagnostic":@"OriginalClientStartup";
+    (void)mkdirat(supportFD,name.UTF8String,0700);
+    int stateFD=openat(supportFD,name.UTF8String,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+    close(supportFD);if(stateFD<0)return nil;close(stateFD);
+    return [support URLByAppendingPathComponent:name isDirectory:YES];
+}
+
 enum { ODDiagnosticCompatibleCount = 27 };
 typedef struct {
     char *paths[ODDiagnosticCompatibleCount];
@@ -154,10 +181,10 @@ static int ODDiagnosticCollectAlias(const char *original,const od_asset_referenc
 }
 
 typedef struct {
-    int assets,documents;
-    struct stat assetsIdentity,documentsIdentity;
-    const char *assetsPath,*documentsPath;
-    int active;
+    int assets,documents,state;
+    struct stat assetsIdentity,documentsIdentity,stateIdentity;
+    const char *assetsPath,*documentsPath,*statePath;
+    int active,resuming;
 } ODDiagnosticPreparationContext;
 
 static int ODDiagnosticPreparationCurrent(void *opaque) {
@@ -170,10 +197,14 @@ static int ODDiagnosticPreparationCurrent(void *opaque) {
         assetsPath.st_dev == assets.st_dev && assetsPath.st_ino == assets.st_ino &&
         !lstat(context->documentsPath,&documentsPath) && S_ISDIR(documentsPath.st_mode) && !S_ISLNK(documentsPath.st_mode) &&
         documentsPath.st_dev == documents.st_dev && documentsPath.st_ino == documents.st_ino &&
-        ODDiagnosticNoExistingEngineWorkingTree(context->assets);
+        (context->state<0||(!lstat(context->statePath,&assetsPath)&&S_ISDIR(assetsPath.st_mode)&&
+            !S_ISLNK(assetsPath.st_mode)&&assetsPath.st_dev==context->stateIdentity.st_dev&&
+            assetsPath.st_ino==context->stateIdentity.st_ino))&&
+        (context->resuming?(od_startup_provenance_read(context->state,context->documents,context->assets)==1&&
+            ODIntegratedExistingWorkingTreeSafe(context->assets)):ODDiagnosticNoExistingEngineWorkingTree(context->assets));
 }
 
-static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) {
+static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents,NSURL *integratedState,BOOL *resumed) {
     /* Only the trusted native bundle and actual own Documents root enter here.
      * The existing catalog selects exact admitted aliases; a page or generic
      * "ready" JSON flag cannot supply this list or grant publication. */
@@ -181,13 +212,16 @@ static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) 
     NSURL *cache = [originalClient URLByAppendingPathComponent:@"CompatibleResourceCache" isDirectory:YES];
     int source = ODDiagnosticDirectory(originalClient),cacheFD = ODDiagnosticDirectory(cache);
     int boundary = ODDiagnosticDirectory(documents),assets = -1,catalog = -1;
+    int state=integratedState?ODDiagnosticDirectory(integratedState):-1;
     if (source >= 0) catalog = openat(source,"byte-identical-assets.sqlite3",O_RDONLY|O_NOFOLLOW|O_CLOEXEC|O_NONBLOCK);
     if (source >= 0 && cacheFD >= 0 && catalog >= 0 && boundary >= 0) {
         (void)mkdirat(boundary,"assets",0700);
         assets = openat(boundary,"assets",O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
     }
+    int provenance=integratedState?(state>=0?od_startup_provenance_read(state,boundary,assets):-1):0;
+    BOOL known=provenance==1;
     __block BOOL success = source >= 0 && cacheFD >= 0 && boundary >= 0 && assets >= 0 && catalog >= 0 &&
-        ODDiagnosticNoExistingEngineWorkingTree(assets);
+        provenance>=0&&(known?ODIntegratedExistingWorkingTreeSafe(assets):ODDiagnosticNoExistingEngineWorkingTree(assets));
     __block NSDictionary *report = nil;
     if (success) {
         /* Bulk hashing/copying stays on one preparation queue. This wait is
@@ -204,9 +238,11 @@ static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) 
                 od_iphone_resources *resources = NULL;
                 od_iphone_resource_preload *preload = NULL;
                 NSURL *assetsURL = [documents URLByAppendingPathComponent:@"assets" isDirectory:YES];
-                ODDiagnosticPreparationContext context = {.assets=assets,.documents=boundary,
-                    .assetsPath=assetsURL.fileSystemRepresentation,.documentsPath=documents.fileSystemRepresentation,.active=1};
+                ODDiagnosticPreparationContext context = {.assets=assets,.documents=boundary,.state=state,
+                    .assetsPath=assetsURL.fileSystemRepresentation,.documentsPath=documents.fileSystemRepresentation,
+                    .statePath=integratedState.fileSystemRepresentation,.active=1,.resuming=known};
                 success = !fstat(assets,&context.assetsIdentity) && !fstat(boundary,&context.documentsIdentity) &&
+                    (state<0||!fstat(state,&context.stateIdentity))&&
                     !od_iphone_resources_open_catalog_fd(catalog,36864,catalogSHA,manifestSHA,ipaSHA,sourceBundle,
                         bundle.fileSystemRepresentation,cache.fileSystemRepresentation,&resources) &&
                     !od_iphone_resources_visit_aliases(resources,ODDiagnosticCollectAlias,&required) &&
@@ -225,10 +261,12 @@ static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) 
                         !od_iphone_resource_preload_run(preload,&receipt) && receipt.configured_paths_complete &&
                         receipt.successful_publications == ODDiagnosticCompatibleCount &&
                         ODDiagnosticPreparationCurrent(&context);
+                    if(success&&state>=0)success=!od_startup_provenance_publish(state,boundary,assets);
                     if (success) report = @{@"configuredCompatibleAliases":@(receipt.configured_required_count),
                         @"verifiedCompatibleAliases":@(receipt.successful_publications),
                         @"newlyPublishedAliases":@(receipt.newly_published_files),
                         @"existingVerifiedAliases":@(receipt.existing_verified_files),
+                        @"resumedKnownOwnIntegratedTree":@(known),
                         @"originalBundleResourceCompletenessRuntimeVerified":@NO,@"gameplayVerified":@NO};
                 }
                 context.active = 0;
@@ -242,6 +280,8 @@ static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) 
     if (boundary >= 0) close(boundary);
     if (cacheFD >= 0) close(cacheFD);
     if (source >= 0) close(source);
+    if (state >= 0) close(state);
+    if(success&&resumed)*resumed=known;
     if (success) ODDiagnosticResourceReport = [report copy];
     return success;
 }
@@ -255,8 +295,9 @@ ODOriginalDuoStartupInputs *ODPrepareOriginalDuoStartupInputs(ODOriginalDuoInput
     /* Never install/run this adapted engine under the supplied original game's
      * identity. Native failure cleanup can delete its working sqlite/current
      * tree; an Application Support probe does not isolate that Documents root.
-     * The selected purpose must have its exact own app identity and a fresh
-     * native working tree. Shared preparation never converts host purposes. */
+     * The selected purpose must have its exact own app identity; existing
+     * integrated trees also require the previously published own provenance.
+     * Shared preparation never converts host purposes. */
     NSString *identity = bundle.bundleIdentifier;
     ODInputStage(purpose,@"own-app-identity");
     NSString *expected=purpose==ODOriginalDuoInputsDiagnostic?@"org.offlinedokkan.startupdiagnostic.duo":@"org.offlinedokkan.duo";
@@ -281,32 +322,28 @@ ODOriginalDuoStartupInputs *ODPrepareOriginalDuoStartupInputs(ODOriginalDuoInput
         !ODDiagnosticRegularFile(dependency) || !ODDiagnosticOriginalSeed(seed)) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
+    NSURL *state=nil;
+    if(purpose==ODOriginalDuoInputsIntegrated){state=ODStartupStateRoot(purpose);if(!state){
+        if(error)*error=ODDiagnosticFailure();return nil;}}
+    BOOL resumed=NO;
     ODInputStage(purpose,@"compatible-resource-preload");
-    if (!ODDiagnosticPrepareWorkingResources(bundleRoot,documentRoot)) {
+    if (!ODDiagnosticPrepareWorkingResources(bundleRoot,documentRoot,state,&resumed)) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
     ODInputStage(purpose,@"fresh-working-assets");
     int resourceFD = ODDiagnosticDirectory(resources);
-    BOOL ready = ODDiagnosticHasAssets(resourceFD) && ODDiagnosticNoExistingEngineWorkingTree(resourceFD);
+    BOOL ready = ODDiagnosticHasAssets(resourceFD) && (resumed?ODIntegratedExistingWorkingTreeSafe(resourceFD):
+        ODDiagnosticNoExistingEngineWorkingTree(resourceFD));
     if (resourceFD >= 0) close(resourceFD);
     if (!ready) { if (error) *error = ODDiagnosticFailure(); return nil; }
 
     /* Purpose-specific own startup state, separate from Documents/assets and
      * existing save folders. Original seed/resource files are not modified. */
     ODInputStage(purpose,@"diagnostic-state-directory");
-    NSURL *support = ODDiagnosticNativeRoot([NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
-        inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL]);
-    int supportFD = ODDiagnosticDirectory(support);
-    if (supportFD < 0) { if (error) *error = ODDiagnosticFailure(); return nil; }
-    NSString *stateName=purpose==ODOriginalDuoInputsDiagnostic?@"OriginalClientStartupDiagnostic":@"OriginalClientStartup";
-    (void)mkdirat(supportFD,stateName.UTF8String,0700);
-    int stateFD = openat(supportFD,stateName.UTF8String,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
-    close(supportFD);
-    if (stateFD < 0) { if (error) *error = ODDiagnosticFailure(); return nil; }
-    close(stateFD);
-    NSURL *state = [support URLByAppendingPathComponent:stateName isDirectory:YES];
+    if(!state)state=ODStartupStateRoot(purpose);
+    if(!state){if(error)*error=ODDiagnosticFailure();return nil;}
     return [[ODOriginalDuoStartupInputs alloc] initWithBundle:bundleRoot baseline:baseline engine:engine
-        resources:resources state:state compatible:ODDiagnosticResourceReport?:@{}];
+        resources:resources state:state compatible:ODDiagnosticResourceReport?:@{} knownIntegratedRelaunch:resumed];
 }
 
 ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {

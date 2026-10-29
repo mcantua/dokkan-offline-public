@@ -3,6 +3,11 @@
 This folder follows the real supplied client. It does not implement another
 home screen, collection, battle engine or account fixture.
 
+Active new-profile policy: skip the intro using the persisted
+`offline-new-player-skip-v1` record. Existing profiles keep their state. The
+older unfinished-tutorial milestone below is retained evidence, not the
+current new-player flow. Actual normal Home acceptance remains pending.
+
 The existing `resources-projector.js` remains the reusable data projection.
 It takes an atomic own-player snapshot and trusted policy, preserves ledger
 balances and owned instance identities, and rejects stale scope or invented
@@ -249,3 +254,65 @@ and runtime acceptance. No full-home, HTTP or gameplay completion is claimed.
 including preservation of an existing unfinished checkpoint. See
 `new-profile-skip-projection-evidence.json`. Earlier unrelated scenarios were
 not repeated; no native compilation or app build was performed.
+
+The completed Title branch now reaches an identified original
+`HomeMenuScene` statically: 172-byte finished gate → 872-byte normal
+continuation → its already retained 2,304-byte tail → 160-byte factory. The
+156-byte lookup passes actual `HomeMenuScene` RTTI as the dynamic-cast
+destination. Its 104-byte allocator and 640-byte opener are distinct from
+the original first `NoticeScene`. The next exact constructor/init scopes
+will establish layout/model requirements; this is not a running Home screen
+or proof that an empty collection works in it.
+
+## Native resources adapter for the first client run
+
+`ODOriginalPlayerResourcesAdapter` now supplies concrete native GET
+`/resources/login` and `/resources/home` route objects. Its pure query policy
+admits only known scalar flags and bounded decimal transport metadata. The
+login flag `battle_status=true` is required, and its response can omit that
+update through the proven native null guard. Unknown query shapes fail
+closed; no network fallback, page authority or clock adoption exists.
+
+The host installs static routes and supplies a main-only provider for its
+actual scoped Core-backed projector after admission. Requests fail while it
+is unavailable, check current context/activity before and after projection,
+and retain the same issued projector identity through completion. The
+response is the source-specific new-profile User DTO, with no root `sign`,
+not a fabricated full Home response. The host owner is wiring these routes;
+actual native compile/client launch results will determine the next required
+fix. No additional duplicate source checks were run for this adapter.
+
+The final Home constructor and 300-byte init scopes are now retained, both
+own-body only. They initialize original native child layouts and controls.
+Further speculative Home analysis is paused in favor of the actual client
+run; empty-collection and Home runtime acceptance remain unverified.
+
+The same native adapter now includes GET `/teams`, using the same deferred
+Core-backed projector. The route returns the existing complete own-team DTO
+only when `projectCurrentTeams:` supplies a nonnull serialized candidate.
+Missing bindings, unknown reference metadata, unverified empty-team flow or
+pending custom-unit projection remain an explicit failure. It introduces no
+team/selection defaults and no POST codec, and retains default query denial.
+No older team checks were rerun for this native wiring.
+
+Minimal User delivery uses the actual Core/user context independently of the
+native-master observer. Requested card/team flags do not create extra data
+in this User-only response. GET `/teams` additionally requires genuine
+native-master currentness before and after projection. The factory supplies
+the separate main-only predicates; the transport validator remains pure.
+
+## Read-only practice input provider
+
+`ODOriginalPracticePhaseProvider` reads the exact pinned selected-master
+phase 3 parameters on a private readonly queue and returns unchanged UTF-8
+JSON bytes to the original native parser. It checks current same-Core scope
+before and after loading, verifies the original scene URI and shape, and
+rejects known numeric owned-ID collisions. It creates no unit, team or
+progression record. A clean Core snapshot does not prove a foreign native
+cache is empty; the battle bridge owns that separate runtime guard.
+
+This is input data for an explicit manual practice action. It does not restore
+the skipped new-player intro or claim native-engine acceptance. Source
+receipt: `practice-phase-provider-source.json`. Its factory/bridge integration
+and native compilation belong to the next meaningful combined batch; no
+extra isolated check was run.

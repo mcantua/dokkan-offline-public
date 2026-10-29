@@ -1,6 +1,7 @@
 #import "ODUnifiedDuoHost.h"
 #import "ODDuoCreatorQuickAction.h"
 #import "ODDeferredOriginalPlayerAdmission.h"
+#import "ODDuoPracticeBattle.h"
 #import "../ios/ODFreshStatePolicy.h"
 #import "../ios/ODOfflineBootstrapAuth.h"
 #import "../ios/ODOriginalNativeOrigin.h"
@@ -80,6 +81,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 
 @interface ODUnifiedDuoHost ()
+- (void)beginPracticeFromUserActionWithCompletion:(void (^)(NSError * _Nullable error))completion;
 - (BOOL)configureOfflineAuthForContentID:(NSString *)contentID saveScopeSHA256:(nullable NSString *)scope
     deferredPlayer:(nullable ODDeferredOriginalPlayerAdmission *)player expiresIn:(int32_t)expiresIn error:(NSError **)error;
 @end
@@ -94,6 +96,10 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     ODDeferredOriginalPlayerAdmission *_deferredPlayer;
     BOOL _deferredPlayerPreparationRequested;
     ODUnifiedDuoImageAttachment _attach;
+    ODDuoOriginalPracticeBattle *_practice;
+    ODUnifiedDuoPracticeParametersProvider _practiceParameters;
+    BOOL _practiceLoading;
+    NSDictionary *_practiceReport,*_practiceEntryReport;
     BOOL (^_current)(void);
     ODUnifiedDuoReportHandler _report;
     BOOL _attempted,_environmentPrepared,_foundationInstalled,_engineLoaded,_imageAttached,_sceneObserved,_creatorAttached,_installed;
@@ -150,6 +156,11 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"nativeImageAttachmentConfigured":@(_imageAttached),@"originalRendererObserved":@(_sceneObserved),
         @"boundCreatorAttached":@(_creatorAttached),@"registeredRouteCount":@(_routes.count),
         @"originalGameDataAdmitted":@(self.originalGameDataAdmitted),
+        @"originalPracticeCapabilityResolved":@(_practice!=nil),
+        @"originalPracticeParametersConfigured":@(_practiceParameters!=nil),
+        @"originalPracticeRunning":@(_practice.running),
+        @"originalPractice":_practiceReport?:@{@"outcome":@"not-started"},
+        @"originalPracticeEntry":_practiceEntryReport?:@{@"outcome":@"not-configured"},
         @"unsupportedRequestObserverInstalled":@(_requestObserverInstalled),
         @"unsupportedFoundationRequests":[_unsupportedRequests copy],
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
@@ -236,6 +247,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         ODUnifiedDuoHost *host=weakSelf;return host&&host->_current();
     },^ODDuoCreatorQuickActionReadiness(UIWindow *window,UIViewController *controller,UIView *renderer){
         ODUnifiedDuoHost *host=weakSelf;
+        if(host&&(host->_practice.running||host->_practiceLoading))return ODDuoCreatorEntryWaiting;
         if(host&&host->_current()&&!host.originalGameDataAdmitted)return ODDuoCreatorEntryWaiting;
         od_creator_menu_admission admission={0};
         if(host){
@@ -258,6 +270,21 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     },^(NSDictionary *state){
         ODUnifiedDuoHost *host=weakSelf;if(!host)return;host->_creatorEntryReport=[state copy];[host emit];
     },error))return NO;
+    if(_practiceParameters&&!ODDuoConfigurePracticeQuickAction(^BOOL{
+        ODUnifiedDuoHost *host=weakSelf;return host&&host->_current();
+    },^ODDuoCreatorQuickActionReadiness(UIWindow *window,UIViewController *controller,UIView *renderer){
+        ODUnifiedDuoHost *host=weakSelf;
+        if(!host||!host->_current()||!host->_practice)return ODDuoCreatorEntryRejected;
+        if(host->_practice.running||host->_practiceLoading)return ODDuoCreatorEntryAlreadyOpen;
+        if(host->_servicesPending)return ODDuoCreatorEntryWaiting;
+        if(!host->_installed||!host->_sceneObserved||!host->_services||host->_services.coordinator.creatorIsOpen||
+           ![host->_services creatorScopeIsCurrent]||controller!=host->_originalController||
+           renderer!=host->_renderer||renderer.window!=window||!ODCurrentOriginalAppController())return ODDuoCreatorEntryRejected;
+        return ODDuoCreatorEntryReady;
+    },^(void (^completion)(NSError *)){
+        ODUnifiedDuoHost *host=weakSelf;if(!host){completion(ODHostFailure(12));return;}
+        [host beginPracticeFromUserActionWithCompletion:completion];
+    },^(NSDictionary *state){ODUnifiedDuoHost *host=weakSelf;if(host){host->_practiceEntryReport=[state copy];[host emit];}},error))return NO;
     return YES;
 }
 - (BOOL)installBeforeApplicationMain:(NSError **)error {
@@ -298,10 +325,13 @@ static BOOL ODHostSourcePatcherAbsent(void) {
             return [host prepareNativeEnvironment:preparationError];
         };
         ODOriginalNativeOrigin *origin=nil;
-        BOOL loaded=integrated?ODLoadPreparedOriginalEngineWithNativeOrigin(host->_engine,prepare,&origin,failure):
+        ODDuoOriginalPracticeBattle *practice=nil;
+        BOOL loaded=integrated?ODLoadPreparedOriginalEngineWithNativeCapabilities(host->_engine,prepare,&origin,&practice,failure):
             ODLoadPreparedOriginalEngine(host->_engine,prepare,failure);
         host->_engineLoaded=loaded;if(!loaded){host->_stage=@"prepared-image-load-failed";[host emit];return NO;}
         if(integrated){
+            host->_practice=practice;
+            practice.report=^(NSDictionary *state){ODUnifiedDuoHost *active=weakSelf;if(active){active->_practiceReport=[state copy];[active emit];}};
             host->_nativeOriginArmed=ODRearmLocalTransportForLoadedOriginalOrigin(origin,host->_routes,failure);
             if(!host->_nativeOriginArmed){host->_stage=@"native-origin-route-binding-failed";[host emit];return NO;}
         }
@@ -309,7 +339,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         if(host->_attach){host->_imageAttached=host->_attach(failure);if(!host->_imageAttached){host->_stage=@"native-image-attachment-failed";[host emit];return NO;}}
         [host emit];return host->_current();
     },^BOOL(NSError **failure){return [weakSelf registerOriginalScene:failure];},error);
-    _installed=ok;_stage=ok?@"waiting-for-actual-appcontroller-scene":@"bootstrap-installation-failed";
+    _installed=ok;
+    if(ok)_stage=@"waiting-for-actual-appcontroller-scene";
+    else if(![_stage hasSuffix:@"-failed"])_stage=@"bootstrap-installation-failed";
     if(ok)ODInstalledUnifiedHost=self;[self emit];return ok;
 }
 - (BOOL)authContextIsCurrent {
@@ -491,6 +523,39 @@ static BOOL ODHostSourcePatcherAbsent(void) {
        !ODHostContentID(contentID)||!ODHostHex(scope)){if(error)*error=ODHostFailure(10);return NO;}
     _admittedContent=[contentID copy];_admittedScope=[scope copy];_servicesPending=YES;_stage=@"creator-services-pending";[self emit];return YES;
 }
+- (BOOL)configurePracticeBattleParametersProvider:(ODUnifiedDuoPracticeParametersProvider)provider error:(NSError **)error {
+    if(!NSThread.isMainThread||_attempted||_purpose!=ODUnifiedDuoIntegratedTarget||_practiceParameters||!provider||!_current()){
+        if(error)*error=ODHostFailure(12);return NO;
+    }
+    _practiceParameters=[provider copy];return YES;
+}
+- (void)beginPracticeFromUserActionWithCompletion:(void (^)(NSError *))completion {
+    if(!completion)return;
+    if(!NSThread.isMainThread||!_installed||!_current()||!_practice||_practice.running||_practiceLoading||
+       !_practiceParameters||!_services||_servicesPending||_services.coordinator.creatorIsOpen||
+       ![_services creatorScopeIsCurrent]||!_originalController||!_renderer){completion(ODHostFailure(12));return;}
+    id original=ODCurrentOriginalAppController();
+    if(!original){completion(ODHostFailure(12));return;}
+    ODBoundOriginalCreatorServices *services=_services;
+    UIViewController *controller=_originalController;UIView *renderer=_renderer;
+    _practiceLoading=YES;__weak ODUnifiedDuoHost *weakSelf=self;
+    _practiceParameters(^(NSData *parameters,NSError *failure){
+        dispatch_async(dispatch_get_main_queue(),^{
+            ODUnifiedDuoHost *host=weakSelf;if(!host){completion(ODHostFailure(12));return;}
+            host->_practiceLoading=NO;
+            if(failure||!parameters||!host->_current()||host->_services!=services||
+               ![services creatorScopeIsCurrent]||services.coordinator.creatorIsOpen||
+               ODCurrentOriginalAppController()!=original||host->_originalController!=controller||host->_renderer!=renderer||
+               !renderer.window||renderer.window.rootViewController!=controller||
+               renderer.window.windowScene.activationState!=UISceneActivationStateForegroundActive){
+                completion(ODHostFailure(12));return;
+            }
+            NSError *nativeFailure=nil;
+            BOOL begun=[host->_practice beginWithAppController:original parametersJSON:parameters error:&nativeFailure];
+            [host emit];completion(begun?nil:ODHostFailure(12));
+        });
+    });
+}
 - (BOOL)expectDeferredCreatorServicesForPlayerAdmission:(ODDeferredOriginalPlayerAdmission *)player error:(NSError **)error {
     if(!NSThread.isMainThread||_purpose!=ODUnifiedDuoIntegratedTarget||_attempted||_services||_servicesPending||
        ![player isMemberOfClass:ODDeferredOriginalPlayerAdmission.class]||!ODHostContentID(player.contentID)||!_current()){
@@ -578,7 +643,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError *))completion {
     if(!completion)return;
     if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self presentCreatorFromUserActionWithCompletion:completion];});return;}
-    if(!_installed||!self.originalGameDataAdmitted||!_services||!_creatorAttached||!_current()||!_originalController||!_renderer||![_services creatorScopeIsCurrent]){
+    if(!_installed||!self.originalGameDataAdmitted||_practice.running||_practiceLoading||!_services||!_creatorAttached||!_current()||!_originalController||!_renderer||![_services creatorScopeIsCurrent]){
         completion(ODHostFailure(7));return;
     }
     [_services presentCreatorFromUserActionWithCompletion:completion];

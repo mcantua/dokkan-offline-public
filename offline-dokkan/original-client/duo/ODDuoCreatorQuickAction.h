@@ -17,6 +17,11 @@ typedef void (^ODDuoCreatorQuickActionInvocation)(void (^completion)(NSError * _
 BOOL ODDuoConfigureCreatorQuickAction(BOOL (^contextIsCurrent)(void),
     ODDuoCreatorQuickActionAdmission admission, ODDuoCreatorQuickActionInvocation invoke,
     void (^report)(NSDictionary *state), NSError * _Nullable * _Nullable error);
+/* Manual native practice entry. Uses the same original-scene delivery and
+   readiness checks; configuring it never starts a battle automatically. */
+BOOL ODDuoConfigurePracticeQuickAction(BOOL (^contextIsCurrent)(void),
+    ODDuoCreatorQuickActionAdmission admission, ODDuoCreatorQuickActionInvocation invoke,
+    void (^report)(NSDictionary *state), NSError * _Nullable * _Nullable error);
 /* YES means this known native action was accepted/coalesced, not that an editor
    appeared. Final asynchronous outcome is reported separately. Unknown actions
    return NO. Safe for actual UIScene cold and warm shortcut delivery. */

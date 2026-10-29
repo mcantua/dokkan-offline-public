@@ -22,16 +22,36 @@
       "relative_path": "OriginalClient/Protocol/cached-resource-response-schema.json",
       "source": "offline-dokkan/research/cached-resource-response-schema.json",
       "sha256": "0db95aef3ea8d86a6fbab4c886aee6c4fc55f16d2f32f5ff370557d73e0c4feb"
+    },
+    {
+      "relative_path": "OriginalClient/NativeCandidate/en/database.db",
+      "bytes": 114827264,
+      "sha256": "f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d",
+      "role": "opaque source-export fresh-only native compatibility candidate",
+      "language_basis": "supplied source export asset path; native selection unobserved"
     }
   ],
   "source_hashes": {
     "loader/ODUnifiedDuoNativeFactory.h": "fa5f061015865dc202d88131ea6271ecc961a8da747e72b162940f8d781b0a7c",
-    "loader/ODUnifiedDuoNativeFactory.m": "842d7db47d767147122aa4154611e39e4091992595670027f6759617c868e027",
+    "loader/ODUnifiedDuoNativeFactory.m": "15a5e4326d71d6d632688375726d69eeae7042d7b28489f4e69dca4592ee21d0",
     "loader/ODUnifiedDuoStartup.h": "aa3871e2b54955ac02b971bb43a35727caa51ee97ecd1e7ca9b2547636871e1e",
-    "duo/ODUnifiedDuoHost.h": "b2dafaa3871e2216841ac38b4bd103e7b59d0ae72f58c172e7f396cfe50f23eb",
-    "duo/ODUnifiedDuoHost.m": "294b4fe7ad254b6511d5dbdbc39963165e0cb7a91876bfb802d187cec969ebc8",
+    "duo/ODUnifiedDuoHost.h": "0aa8c0286062038b8eec854149e7d2ee9bf98e4d284d9fb5aa683465bac850a2",
+    "duo/ODUnifiedDuoHost.m": "f6e90bac90e6b258b78feadd940d0c5dcbb43155ac74ed33bbd6a8e7c0b27ca1",
     "ios/ODOriginalPlayerResourcesAdapter.h": "66c4f3ebf1f5cf2b2fbbb275df374abc7f6f703cac2750d38477014505003917",
-    "ios/ODOriginalPlayerResourcesAdapter.m": "e4872a4c708ee2b50af704c240d22874aca582d9172ed9bdf2f2b560090ecccf"
+    "ios/ODOriginalPlayerResourcesAdapter.m": "e4872a4c708ee2b50af704c240d22874aca582d9172ed9bdf2f2b560090ecccf",
+    "loader/ODUnifiedDuoStartup.m": "17a8029eb40e2f11c102277e8d1a0d664cda09498a040bec92d923ad67059850",
+    "loader/ODPreparedEngineLoader.h": "faab1f4633c2430855d6255e74bbe172c37c3d09d344ce10d1a2a01da8c4df40",
+    "loader/ODPreparedEngineLoader.m": "e9896c230a8273d380dd30ef667332fc66e3b2adc2bb0dd7d1b1db4094f03488",
+    "ios/ODOriginalClientBootstrap.h": "f44e72dccfdfd15fe506a1d92ec2dbb4be92e0878c48e0d7119355f0d5ce2e9e",
+    "ios/ODOriginalClientBootstrap.m": "66baefcc295c81a7610d7bab3d96868567165b63f24041a00c1b118990553199",
+    "ios/ODOriginalPracticePhaseProvider.h": "54a58dda631c400dd866153759d76904ea083edd329b5d76cab7f0b4c5181b19",
+    "ios/ODOriginalPracticePhaseProvider.m": "56e52619e5b26f7cc82f802e76bb8ac2767e3c8db6d5859ccca68035d3375120",
+    "duo/ODDuoPracticeBattle.h": "2e82f484f0832e872a9b473b1d734584fde3dca0a756be01bbd2839f9a8e82c0",
+    "duo/ODDuoPracticeBattle.mm": "8d6a24262c8b41b2990dc782ea7bb56128b1b7e50b8cc422ba0c4d0e1ac7fb8c",
+    "loader/ODOriginalDuoStartupDiagnostic.h": "92bd34b73032f3e0bfa87f41df2905707687bf190460eef8a0e5e15df256e662",
+    "loader/ODOriginalDuoStartupDiagnostic.m": "a8f9a0cf040146e2c93ad27127598390e43e3f4fd1f8aee5f582e52335d74de6",
+    "content/ODNativeMasterColdStage.h": "c914918feba3ac65685c2509295c6eec299ddf27980a44d0315cfb0229ec740a",
+    "content/ODNativeMasterColdStage.m": "84d38c07093bde3a7a101ae77c6d92d8e547748f1e2928aded3232f8552cbc51"
   },
   "same_core_player_scope": "actual owner queue preparation, receipt returned asynchronously on main; never guessed",
   "same_core_services_binding": "native IO construction then actual Host binding on main",
@@ -52,10 +72,55 @@
   "native_resume_verified": false,
   "test_runs_added": 0,
   "limits": [
-    "Shared native User/current preparation is fresh-only and preserves/rejects existing native state.",
+    "Shared native provenance admits fresh own state or preserves exact known own resource/root state on relaunch; unknown prior trees remain refused and native User/current contents are not opened.",
     "Plaintext Core reference identity is not original native key/open/schema acceptance.",
     "Actual iPhone original-client requests, login, Home, battle, save and both Duo displays still require runtime evidence."
   ],
   "minimal_user_projection": "same-Core User-only root, including when known cards/teams flags are requested; no card/team payload served",
-  "teams_gate": "separate main-only Host originalGameDataAdmitted predicate; remains closed until genuine native-master acceptance"
+  "teams_gate": "separate main-only Host originalGameDataAdmitted predicate; remains closed until genuine native-master acceptance",
+  "prior_factory_native_compile": {
+    "commit": "e625d787fad552597f3502692fe94e4149e82ed0",
+    "github_actions_run": 40956206387,
+    "authored_translation_units": 68,
+    "sdk": "iPhoneOS27.1",
+    "architecture": "arm64",
+    "compiled_and_linked": true,
+    "runtime_verified": false,
+    "current_failure_diagnostic_changes_included": false
+  },
+  "failure_diagnostics": {
+    "factory_report_retained_for_early_failure": true,
+    "entry_logs_fixed_allowlisted_stage_only": true,
+    "asynchronous_core_services_projector_binding_failure_stages": true,
+    "arbitrary_error_text_or_paths_logged": false,
+    "existing_host_failure_stage_preserved": true
+  },
+  "manual_practice_composition": {
+    "capability_issuer": "existing whole-image-verified loader, same verified NSData after ordinary dlopen",
+    "optional_capability_unavailable_blocks_initial_user_auth": false,
+    "parameter_owner": "same canonical Core/profile/save-scope, same pinned readonly plaintext reference",
+    "phase_parameters_modified": false,
+    "source_receipt_logged": false,
+    "intent": "explicit native Practice Battle app-icon action only; never startup or tutorial sequence",
+    "actual_original_controller": "main-only successfully launched AppController retained by the original bootstrap",
+    "guards": [
+      "same current owner/scope before and after async phase load",
+      "actual source renderer/window/active scene",
+      "no open editor or other practice action",
+      "bridge source Home/no nextScene/no stopped or paused Director guard"
+    ],
+    "ordinary_checkpoint_unlink_invoked": false,
+    "tutorial_completion_event_emitted": false,
+    "core_collection_team_progress_reward_mutation": false,
+    "actual_original_combat_completed_verified": false,
+    "normal_quest_rewards_verified": false
+  },
+  "fresh_candidate_composition": {
+    "source_language_is_observed_native_language": false,
+    "fresh_only_from_typed_capability": "!inputs.knownIntegratedRelaunch",
+    "known_relaunch_restage_or_replace": false,
+    "staging_queue": "native pure IO preparation queue before dlopen; no Core/main/UI callback",
+    "context": "immutable exact Core/master FD/path/bundle identity",
+    "actual_native_key_open_schema_codec_accepted": false
+  }
 }

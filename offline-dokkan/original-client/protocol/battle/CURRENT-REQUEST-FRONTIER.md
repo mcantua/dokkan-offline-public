@@ -22,8 +22,9 @@ finish body builder. These are actual current-client builders, rather than
 historical public-server examples. Both construct a local JSON object, serialize
 it, invoke the existing native signing interface and assign the resulting string
 to an outer object under `sign`. The body is then handed to the existing shared
-request path. The signing implementation and its private inputs were not read,
-recreated or exported. An offline handler must establish a legitimate semantic
+request path. Bounded original encoder/decoder wrappers are reviewed in
+`SIGNING-BOUNDARY.md`; cipher/derivation implementations and private input
+values were not read, recreated or exported. An offline handler must establish a legitimate semantic
 boundary for these requests; it cannot assume raw transport bytes contain the
 unwrapped options/statistics object.
 
@@ -50,8 +51,8 @@ results and requiredness still need their exact source/dataflow evidence.
 
 The shared 960-byte slot 26 candidate was inspected and is a **request header
 builder**, not a response parser. Its early candidate filename does not confer
-a response contract. Two exact direct callers of the start/finish constructors
-are retained for the next callback-consumer step.
+a response contract. The exact start/finish constructor callers and original
+response consumers are bound separately below.
 
 ## Evidence and limits
 
@@ -87,8 +88,21 @@ The start lambda passes the entire `sugoroku` JSON value to a 92-byte original
 state method that resets caches and copies/swaps that value. This establishes
 reuse of the original map-state path, but supplies no map schema or valid enemy
 payload. Downstream original map/encounter readers remain the next requirement.
+The callback also iterates `sugoroku.events`, then event `content.enemies`
+nested groups, reading `card_id` and `ai_type`. The embedded object's actual
+RTTI is `InGameSugorokuData`; its original checkpoint serialize/restore methods
+are documented in `NATIVE-CHECKPOINT.md`. Checkpoint structure does not supply
+a valid fresh map layout.
+The actual `QuestSugorokuLayer` constructor, factory, initializer and inherited
+map-view initializer are now pinned. They preserve original event handlers,
+retain the supplied native map object and construct the existing board UI.
+Its actual `QuestSugorokuMap` producer now proves `sugoroku.map` is a string
+resolved to an original processed TMX resource. `sugoroku.events` supplies
+decimal cell-index keys with `type` and `content`; native TMX `PathAttributes`
+objects define the valid cells. Original Android metadata contains 714 TMX
+CPKs. The exact stage-to-map-name and encounter association is still missing.
 The finish lambda forwards the result to the original result-model factory;
-its constructor/reader must establish rewards and progression requirements.
+its constructor/readers establish partial rewards and progression requirements.
 No fabricated response/default values are admitted from these observations.
 
 
@@ -105,3 +119,18 @@ server starting values. It iterates `quest_clear_rewards`,
 `cleared_difficulties` and `dragonballs`, with further original nested/reward
 readers. Thus a complete finish response is still unverified, and no reward or
 persistent save is claimed from this DTO evidence.
+
+The exact quest-clear reward row reads `item_type` as a native string and
+`amount` as a signed 32-bit integer. Dragon Ball rows read `id`, `ball_type`
+and `num` as signed 32-bit integers. The further result reader consumes
+`user_items` and `items`. Its item iterator treats `Card` specially, reading
+`item_id` and a supplied-default-zero `quantity`; other items are forwarded to
+the original callback. Owned-card resolution, grants and persistence are still
+unverified; these rows alone are insufficient to complete a battle response.
+
+The original `EnemyCharacter` reader explicitly defaults absent HP, ATK, DEF
+and several other encounter fields to zero. It does not fill those stats from
+the master display-only enemy information. An ID-only enemy response would
+therefore create zero-stat opponents. A complete original encounter source is
+required before admitting an ordinary battle-start response; neither a generic
+validator nor fabricated stats closes this input gap.

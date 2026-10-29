@@ -1,6 +1,7 @@
 #import "ODPreparedEngineLoader.h"
 #import "../ios/ODOriginalNativeOrigin.h"
 #import "../ios/ODGameHTTPABI.h"
+#import "../duo/ODDuoPracticeBattle.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <mach-o/loader.h>
 #include <dlfcn.h>
@@ -62,8 +63,9 @@ static BOOL ODEngineCandidate(NSData *file) {
     return [ODLoaderHash(normalized) isEqualToString:@"efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222"];
 }
 static BOOL ODLoadPreparedEngine(NSURL *url,ODPreparedEngineEnvironment configure,
-        ODOriginalNativeOrigin **nativeOrigin,NSError **error) {
+        ODOriginalNativeOrigin **nativeOrigin,ODDuoOriginalPracticeBattle **practiceBattle,NSError **error) {
     if(nativeOrigin)*nativeOrigin=nil;
+    if(practiceBattle)*practiceBattle=nil;
     if(!NSThread.isMainThread||!url.isFileURL||!configure)return ODLoaderFail(error,@"INVALID_ENGINE_LOAD_CONTEXT");
     NSURL *expected=[NSBundle.mainBundle.privateFrameworksURL URLByAppendingPathComponent:@"OriginalDokkanEngine.dylib"];
     if(!expected||![url.URLByResolvingSymlinksInPath.path isEqualToString:expected.URLByResolvingSymlinksInPath.path]||
@@ -101,13 +103,19 @@ static BOOL ODLoadPreparedEngine(NSURL *url,ODPreparedEngineEnvironment configur
         *nativeOrigin=ODCreateOriginalNativeOriginForAdmittedImage(url,data,NULL);
         if(!*nativeOrigin)return ODLoaderFail(error,@"PREPARED_ENGINE_NATIVE_ORIGIN_UNAVAILABLE");
     }
+    if(practiceBattle)*practiceBattle=ODCreateOriginalPracticeBattleForAdmittedImage(url,data,NULL);
     return YES;
 }
 BOOL ODLoadPreparedOriginalEngine(NSURL *url,ODPreparedEngineEnvironment configure,NSError **error) {
-    return ODLoadPreparedEngine(url,configure,NULL,error);
+    return ODLoadPreparedEngine(url,configure,NULL,NULL,error);
 }
 BOOL ODLoadPreparedOriginalEngineWithNativeOrigin(NSURL *url,ODPreparedEngineEnvironment configure,
         ODOriginalNativeOrigin **nativeOrigin,NSError **error) {
     if(!nativeOrigin)return ODLoaderFail(error,@"INVALID_ENGINE_LOAD_CONTEXT");
-    return ODLoadPreparedEngine(url,configure,nativeOrigin,error);
+    return ODLoadPreparedEngine(url,configure,nativeOrigin,NULL,error);
+}
+BOOL ODLoadPreparedOriginalEngineWithNativeCapabilities(NSURL *url,ODPreparedEngineEnvironment configure,
+        ODOriginalNativeOrigin **nativeOrigin,ODDuoOriginalPracticeBattle **practiceBattle,NSError **error) {
+    if(!nativeOrigin||!practiceBattle)return ODLoaderFail(error,@"INVALID_ENGINE_LOAD_CONTEXT");
+    return ODLoadPreparedEngine(url,configure,nativeOrigin,practiceBattle,error);
 }

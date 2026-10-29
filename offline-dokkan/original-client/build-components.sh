@@ -44,7 +44,7 @@ sources=[p for p in sources if p.name!='od_cli.c' and not p.name.startswith(('te
 sources += [offline/'adapter/od_bridge.c',offline/'adapter/ios/ODNativeCore.m']
 sources += [offline/'content'/p for p in ('content.c','master_archive.c','asset_catalog.c')]
 sources += [offline/'mobile/ios'/p for p in ('ODCreatorController.m','ODCreatorSession.m','ODBattleStore.m','ODBattleCoordinator.m')]
-sources += sorted(p for p in own.rglob('*') if p.suffix in ('.c','.m'))
+sources += sorted(p for p in own.rglob('*') if p.suffix in ('.c','.m','.mm'))
 extra=[];defines=[];frameworks=['UIKit','Foundation','WebKit','JavaScriptCore','Security','Metal','CoreGraphics','QuartzCore']
 manifest_path=own/'creator-tools/build-source.json'
 if manifest_path.exists():
@@ -78,7 +78,12 @@ if diagnostic_entry:
 objects=[];manifest=[];failed=[]
 for index,source in enumerate(sources):
     obj=work/'objects'/('%03d.o'%index)
-    flags=['-fobjc-arc','-Wall','-Wextra','-Werror'] if source.suffix=='.m' else ['-std=c11','-Wall','-Wextra','-Werror']
+    if source.suffix=='.mm':
+        # Original callback ABI requires the actual Apple C++ standard library.
+        # Keep this language selection local to Objective-C++ sources.
+        flags=['-std=c++17','-stdlib=libc++','-fobjc-arc','-Wall','-Wextra','-Werror']
+    else:
+        flags=['-fobjc-arc','-Wall','-Wextra','-Werror'] if source.suffix=='.m' else ['-std=c11','-Wall','-Wextra','-Werror']
     if source in extra:
         # Retained editor engines use required callback signatures with unused
         # parameters. Match their existing Xcode baseline only for these two
@@ -97,8 +102,10 @@ if failed:
     raise SystemExit('Native compilation failed in: '+', '.join(failed))
 output=work/'OfflineDokkanHost.dylib'
 framework_args=[arg for f in frameworks for arg in ('-framework',f)]
-subprocess.run(common+['-dynamiclib','-install_name','@rpath/OfflineDokkanHost.dylib','-Wl,-dead_strip']+objects+framework_args+['-lz','-o',str(output)],check=True)
-report={'scope':'Authored Duo component library only; no original engine, assets, master, signing or app package','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'device_sdk':'27.1','architecture':'arm64','deployment_target':'16.4','sources':manifest,'scoped_legacy_class_defines':defines,'frameworks':frameworks,'original_startup_entry_enabled':startup_entry,'original_startup_diagnostic_entry_enabled':diagnostic_entry,'native_factory_implementation_required':startup_entry,'dylib_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'dylib_bytes':output.stat().st_size,'original_game_launch_verified':False}
+cxx=any(source.suffix=='.mm' for source in sources)
+cxx_link=['-lc++'] if cxx else []
+subprocess.run(common+['-dynamiclib','-install_name','@rpath/OfflineDokkanHost.dylib','-Wl,-dead_strip']+objects+framework_args+cxx_link+['-lz','-o',str(output)],check=True)
+report={'scope':'Authored Duo component library only; no original engine, assets, master, signing or app package','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'device_sdk':'27.1','architecture':'arm64','deployment_target':'16.4','objective_cxx_standard':('c++17' if cxx else None),'cxx_runtime':('Apple libc++' if cxx else None),'sources':manifest,'scoped_legacy_class_defines':defines,'frameworks':frameworks,'original_startup_entry_enabled':startup_entry,'original_startup_diagnostic_entry_enabled':diagnostic_entry,'native_factory_implementation_required':startup_entry,'dylib_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'dylib_bytes':output.stat().st_size,'original_game_launch_verified':False}
 (work/'evidence/component-build.json').write_text(json.dumps(report,indent=2)+'\n')
 print('Authored Duo component library compiled with genuine device SDK27.1; no app/runtime completion claimed.')
 PY

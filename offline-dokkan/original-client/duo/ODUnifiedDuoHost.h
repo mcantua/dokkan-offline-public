@@ -13,6 +13,8 @@ typedef NS_ENUM(NSUInteger, ODUnifiedDuoPurpose) {
    browser-supplied callable/configuration is accepted. */
 typedef BOOL (^ODUnifiedDuoImageAttachment)(NSError * _Nullable * _Nullable error);
 typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
+typedef void (^ODUnifiedDuoPracticeParametersProvider)(
+    void (^completion)(NSData * _Nullable parameters,NSError * _Nullable error));
 
 /** Native composition owner for the preserved genuine27.1 shell, prepared
  * original engine, actual Duo scene and same-save Creator services. Services
@@ -70,6 +72,11 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
  * Pending requests issue no token until admission and same-Core services bind.
  * Main only, before install; expiresIn remains explicit offline policy. */
 - (BOOL)configureOfflineAuthForDeferredPlayerWithExpiresIn:(int32_t)expiresIn
+    error:(NSError * _Nullable * _Nullable)error;
+/** Native factory only, main before install. The provider reads unchanged
+ * practice parameters from its same-Core scoped readonly selected master.
+ * Configuring it never starts a battle or grants normal gameplay admission. */
+- (BOOL)configurePracticeBattleParametersProvider:(ODUnifiedDuoPracticeParametersProvider)provider
     error:(NSError * _Nullable * _Nullable)error;
 /** Integrated target only, on main before install. Builds the proved local
  * ping/nonce/sign-in routes internally; caller-supplied auth routes remain

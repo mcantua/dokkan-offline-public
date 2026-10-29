@@ -24,6 +24,18 @@ NS_ASSUME_NONNULL_BEGIN
     byteCount:(uint64_t)bytes contentSHA256:(NSString *)sha256
     observedNativeLanguage:(NSString *)language contextIsCurrent:(BOOL (^)(void))current
     error:(NSError * _Nullable * _Nullable)error;
+/** Explicit compatibility candidate for the supplied opaque Android export.
+ * Exact source: 114827264 bytes, SHA256 f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d.
+ * The export's asset language is en; this does NOT claim that the running
+ * original client selected en. Only the fresh own org.offlinedokkan.duo app
+ * may publish an independent copy under assets/sqlite/current/en/database.db.
+ * Existing User/current is refused, never inspected or replaced. The original
+ * engine alone chooses whether to open this candidate or its bundle fallback.
+ * Caller must also admit fresh startup provenance; never stage on resume.
+ * Native key/open/schema/codec acceptance remains unobserved. */
++ (nullable instancetype)stagePinnedSourceExportCandidateAtURL:(NSURL *)source
+    contextIsCurrent:(BOOL (^)(void))current
+    error:(NSError * _Nullable * _Nullable)error;
 /** Main/host may call before dlopen. Checks the pinned working inode/hash and
  * fresh tree again. No acceptance of later native writes/cache/codec implied.
  */
