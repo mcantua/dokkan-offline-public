@@ -1,4 +1,4 @@
-name: Original-client Duo diagnostic authored components
+name: Original-client Duo authored components
 
 # Tin's latest standing instruction authorizes ongoing Duo builds. Keep the
 # exact reviewed-source gate and manual dispatch; no push/PR/schedule builds.
@@ -9,10 +9,22 @@ on:
         description: 'Full reviewed 40-character commit, identical to the selected workflow ref SHA'
         required: true
         type: string
+      entry_mode:
+        description: 'Explicit original client entry; both outputs remain unverified development components'
+        required: true
+        default: diagnostic
+        type: choice
+        options:
+          - diagnostic
+          - integrated-development
   workflow_call:
     inputs:
       approved_source_commit:
         required: true
+        type: string
+      entry_mode:
+        required: false
+        default: diagnostic
         type: string
 
 permissions:
@@ -27,6 +39,7 @@ jobs:
       - name: Require manual entry and the exact reviewed source
         env:
           APPROVED_SOURCE_COMMIT: ${{ inputs.approved_source_commit }}
+          ENTRY_MODE: ${{ inputs.entry_mode }}
         run: |
           python3 - <<'PY'
           import os,re
@@ -34,6 +47,8 @@ jobs:
               raise SystemExit('This manual recipe belongs only to the active public source repository.')
           if os.environ.get('GITHUB_EVENT_NAME')!='workflow_dispatch':
               raise SystemExit('This standing-authorized Duo recipe must have a manual workflow entry.')
+          if os.environ.get('ENTRY_MODE') not in ('diagnostic','integrated-development'):
+              raise SystemExit('An explicit supported original-client entry mode is required.')
           approved=os.environ.get('APPROVED_SOURCE_COMMIT','')
           if not re.fullmatch(r'[0-9a-f]{40}',approved) or approved!=os.environ.get('GITHUB_SHA'):
               raise SystemExit('The selected ref must identify exactly the reviewed source commit.')
@@ -59,6 +74,7 @@ jobs:
       - name: Verify exact clean source and genuine device SDK before compilation
         env:
           APPROVED_SOURCE_COMMIT: ${{ inputs.approved_source_commit }}
+          ENTRY_MODE: ${{ inputs.entry_mode }}
         run: |
           set -euo pipefail
           test "$(uname -s)" = Darwin
@@ -76,11 +92,19 @@ jobs:
               raise SystemExit('Actual iPhoneOS27.1 device SDK is unavailable.')
           print('Exact clean source and genuine Xcode/device SDK admitted; no simulator or Apple account is used.')
           PY
-      - name: Compile only the authored diagnostic library once
-        run: bash offline-dokkan/original-client/build-components.sh --original-startup-diagnostic-entry
-      - name: Admit only this diagnostic library and its exact source receipt
+      - name: Compile only the selected authored entry library once
+        env:
+          ENTRY_MODE: ${{ inputs.entry_mode }}
+        run: |
+          case "$ENTRY_MODE" in
+            diagnostic) bash offline-dokkan/original-client/build-components.sh --original-startup-diagnostic-entry ;;
+            integrated-development) bash offline-dokkan/original-client/build-components.sh --original-startup-entry ;;
+            *) exit 1 ;;
+          esac
+      - name: Admit only this selected entry library and its exact source receipt
         env:
           APPROVED_SOURCE_COMMIT: ${{ inputs.approved_source_commit }}
+          ENTRY_MODE: ${{ inputs.entry_mode }}
         run: |
           python3 - <<'PY'
           import hashlib,json,os,pathlib
@@ -92,22 +116,23 @@ jobs:
           if not 0<library.stat().st_size<=128*1024*1024 or not 0<receipt.stat().st_size<=2*1024*1024:
               raise SystemExit('Unexpected authored component output size.')
           info=json.loads(receipt.read_bytes())
+          integrated=os.environ['ENTRY_MODE']=='integrated-development'
           required={'source_commit':os.environ['APPROVED_SOURCE_COMMIT'],'device_sdk':'27.1',
               'architecture':'arm64','deployment_target':'16.4',
-              'original_startup_entry_enabled':False,'original_startup_diagnostic_entry_enabled':True,
+              'original_startup_entry_enabled':integrated,'original_startup_diagnostic_entry_enabled':not integrated,
               'original_game_launch_verified':False}
           for key,value in required.items():
               if type(info.get(key)) is not type(value) or info.get(key)!=value:
-                  raise SystemExit('Component receipt does not identify this authorized diagnostic build.')
+                  raise SystemExit('Component receipt does not identify the selected authorized original-client entry.')
           if (info.get('dylib_bytes')!=library.stat().st_size or
                   info.get('dylib_sha256')!=hashlib.sha256(library.read_bytes()).hexdigest()):
               raise SystemExit('Authored library bytes do not match their source receipt.')
           print('Two authored-only outputs admitted. No original game launch or playable build is claimed.')
           PY
-      - name: Retain only the authored diagnostic library and source receipt
+      - name: Retain only the authored entry library and source receipt
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: original-client-duo-diagnostic-components-latest
+          name: original-client-duo-${{ inputs.entry_mode }}-components-latest
           path: |
             offline-dokkan/private/component-build/OfflineDokkanHost.dylib
             offline-dokkan/private/component-build/evidence/component-build.json

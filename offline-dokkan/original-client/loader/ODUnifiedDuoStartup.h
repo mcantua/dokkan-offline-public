@@ -14,10 +14,10 @@ typedef ODUnifiedDuoHost * _Nullable (*ODUnifiedDuoStartupFactory)(NSError * _Nu
 FOUNDATION_EXPORT BOOL ODInstallUnifiedDuoStartupFromFactory(
     ODUnifiedDuoStartupFactory factory, NSError * _Nullable * _Nullable error);
 
-/* The production entry's factory is supplied by trusted compiled composition.
- * It is intentionally not invented by this module while the current-client
- * response and master-open contracts remain unresolved. A missing factory
- * makes the explicitly enabled production entry stop before shell main. */
+/* The production entry resolves the trusted compiled native composition in
+ * ODUnifiedDuoNativeFactory.m. A missing factory still stops before shell main.
+ * Its original initialization/user gates are separate from native master and
+ * actual gameplay acceptance; linking the factory does not prove either. */
 #if defined(OD_UNIFIED_DUO_STARTUP_ENTRY) && OD_UNIFIED_DUO_STARTUP_ENTRY
 FOUNDATION_EXPORT ODUnifiedDuoHost * _Nullable ODCreateUnifiedDuoStartupHost(
     NSError * _Nullable * _Nullable error) __attribute__((weak_import));

@@ -1,8 +1,11 @@
-# Manual cloud diagnostic component build
+# Manual cloud original-client component build
 
 `.github/workflows/original-client-diagnostic-components.yml` is prepared source
-for one authored-library build. It has not been dispatched, compiled or used
-to produce an artifact. Tin's latest standing instruction authorizes ongoing
+for one authored-library build. The diagnostic entry compiled successfully on
+October 29 from source `5b695bd18613e7cafaea5588ce8bf324eb2c3d5e` in
+[run 40953446345](https://github.com/mcantua/dokkan-offline-public/actions/runs/40953446345)
+(67 native translation units). Earlier compiler failures were corrected before
+that successful run. The new integrated-development selector has not run. Tin's latest standing instruction authorizes ongoing
 Duo builds and removes the old repeated **“make the builds”** permission gate.
 No additional build permission question is required. Diagnostic artifacts
 still must never be labeled playable without actual original-game acceptance.
@@ -38,8 +41,12 @@ Xcode, changing SDK fields or substituting a simulator SDK. A runtime
 cannot authorize using Tin's Mac. This recipe selects the verified official
 cloud label instead, and does not use his Mac, phone, Wi-Fi or hotspot.
 
-The sole compile invokes the existing
-`build-components.sh --original-startup-diagnostic-entry`. That recipe fetches
+The default `entry_mode=diagnostic` compile invokes the existing
+`build-components.sh --original-startup-diagnostic-entry`.
+`entry_mode=integrated-development` selects `--original-startup-entry`; the
+factory must be source-complete and the integrated constructor enabled. The
+native master gate remains intact. Both profiles are explicitly unverified;
+see [INTEGRATED-DEVELOPMENT-PACKAGE.md](INTEGRATED-DEVELOPMENT-PACKAGE.md). That recipe fetches
 the pinned public SQLite dependency if needed and compiles authored source to
 an arm64 library. The workflow does not retrieve Drive, original game data,
 APKs/IPAs, extraction parts, resource caches, account configuration, saves,
@@ -53,7 +60,7 @@ The exact output allowlist is:
 - `component-build.json`
 
 The build receipt must identify the reviewed commit, genuine device SDK27.1,
-arm64/16.4 target, diagnostic entry enabled and integrated entry disabled. The
+arm64/16.4 target and the selected mutually exclusive entry flags. The
 library's size/SHA must match that receipt before upload. No failed/partial
 build is uploaded. No compiler log, database, original executable, app, IPA,
 directory wildcard or private environment/config file enters the artifact.
@@ -77,8 +84,8 @@ branch `main` and existing active workflow ID `400826915` for the registered
 wrapper path. The concrete intended dispatch uses that existing workflow ID
 with the reviewed topic ref, loading the wrapper and its local reusable recipe
 from the same frozen source. No base/default-branch merge is needed for that
-route. Dispatch and exact returned run SHA still need confirmation; no workflow
-has been started by this source work.
+route. The successful diagnostic run above confirmed this registered wrapper
+and exact frozen source dispatch without a base/default-branch merge.
 
 The integration lead will use the existing authenticated cloud GitHub CLI;
 no credential value, signing file, Mac or private original input is involved:
@@ -94,8 +101,7 @@ problem, not permission to merge a protected branch, run an old test or select
 another runner.
 Download the resulting two files into ignored private cloud inputs, verify the
 library against its receipt, and record the exact receipt SHA before using the
-reviewed `assemble_diagnostic_app.py` source. Its separate no-build gate and
-input/resource checks still apply.
+reviewed `assemble_diagnostic_app.py` source. Its exact profile, component freshness and input/resource checks still apply.
 
 Keep compilation and assembly on the same frozen reviewed HEAD. The assembler
 intentionally rejects a component from a different commit, even if intervening
@@ -105,6 +111,7 @@ repeat compile. An old artifact can be removed only after its replacement is
 downloaded and verified. This workflow does not delete prior artifacts or
 publish releases, and no automatic synchronization is claimed.
 
-Native linking, actual original-client dyld startup, the original first frame,
-offline login, game/save/Creator behavior and both Duo displays remain
-unverified. A successful component workflow would establish compilation only.
+Diagnostic native compilation/linking is verified by the run above. Actual
+original-client dyld startup, the original first frame, offline login,
+game/save/Creator behavior and both Duo displays remain unverified.
+Compilation establishes source/toolchain compatibility only.

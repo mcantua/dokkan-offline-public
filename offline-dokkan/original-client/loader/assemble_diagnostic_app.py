@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cloud-only unsigned original-client diagnostic assembler source.
+"""Cloud-only unsigned original-client diagnostic/development assembler source.
 
 Tin's standing Duo build instruction supplies authorization. No compiler,
 network, signing material, existing app/container, or save data is used.
@@ -21,6 +21,7 @@ import inject_shell
 import stage_original_resources as resource
 
 CONTRACT = Path(__file__).with_name("diagnostic-package-source.json")
+INTEGRATED_CONTRACT = Path(__file__).with_name("integrated-development-package-source.json")
 ENGINE = (55697728, "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222")
 SHELL = (332320, inject_shell.SOURCE_SHA256)
 ACTIVE_SHA = "2c72eb794389e994fe3b793445c56678a1b8670198282518597a96ec0f5ef0ec"
@@ -38,7 +39,7 @@ CRITICAL_COMPONENT_SOURCES = (
 )
 
 
-def admit_current_component_sources(component):
+def admit_current_component_sources(component, integrated=False):
     """Compare fixed public source paths, never open receipt-controlled paths."""
     environment = dict(os.environ, GIT_OPTIONAL_LOCKS="0")
     def git(*arguments):
@@ -55,6 +56,7 @@ def admit_current_component_sources(component):
     relevant += ["offline-dokkan/original-client/build-components.sh",
         "offline-dokkan/original-client/creator-tools/build-source.json",
         "offline-dokkan/original-client/loader/startup-diagnostic-source.json",
+        "offline-dokkan/original-client/loader/startup-source.json",
         "unit-creator/ios-objc/Host.m","unit-creator/ios-objc/Host.h",
         "unit-creator/ios-objc/Player.m","unit-creator/ios-objc/Player.h"]
     if git("status","--porcelain=v1","-z","--untracked-files=all","--",*relevant):
@@ -68,12 +70,16 @@ def admit_current_component_sources(component):
                 item["source"] in declared or not resource.digest(item.get("sha256"))):
             raise ValueError("Malformed component source manifest")
         declared[item["source"]] = item["sha256"]
-    for fixed in CRITICAL_COMPONENT_SOURCES:
+    critical = CRITICAL_COMPONENT_SOURCES + ((
+        "offline-dokkan/original-client/loader/ODUnifiedDuoStartup.m",
+        "offline-dokkan/original-client/loader/ODUnifiedDuoNativeFactory.m",
+    ) if integrated else ())
+    for fixed in critical:
         # Only this literal allowlist reaches file I/O. No source path from
         # the receipt is ever resolved or opened.
         actual = hashlib.sha256((resource.ROOT/fixed).read_bytes()).hexdigest()
         if declared.get(fixed) != actual:
-            raise ValueError("Critical diagnostic component source is stale or missing")
+            raise ValueError("Critical component source is stale or missing")
     return head
 
 
@@ -149,9 +155,16 @@ def copy_member(source_root, source_path, target_root, target_path, expected, cu
 
 
 def assemble(args):
+    integrated = args.profile == "integrated-development"
     # Reject protected/signing arguments before any input or output I/O.
     for name in ("staged", "manifest", "shell", "engine", "component", "component_receipt", "output"):
         setattr(args, name, admit_argument(getattr(args, name)))
+    if integrated:
+        if args.core_reference is None:
+            raise ValueError("Integrated development requires the exact canonical Core reference")
+        args.core_reference = admit_argument(args.core_reference)
+    elif args.core_reference is not None:
+        raise ValueError("Diagnostic packaging cannot include the canonical Core reference")
     if (sys.platform != "linux" or
             args.output.suffix != ".app" or
             not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", args.version) or
@@ -166,6 +179,20 @@ def assemble(args):
     if (contract["purpose"] != "original-startup-diagnostic" or
             contract["bundle_identifier"] != "org.offlinedokkan.startupdiagnostic.duo"):
         raise ValueError("Wrong diagnostic package contract")
+    if integrated:
+        extension = json.loads(INTEGRATED_CONTRACT.read_bytes())
+        if (extension.get("format") != "od-original-duo-integrated-development-package-source-v1" or
+                extension.get("extends") != CONTRACT.name or
+                extension.get("purpose") != "integrated-duo-development" or
+                extension.get("bundle_identifier") != "org.offlinedokkan.duo"):
+            raise ValueError("Wrong integrated development package contract")
+        contract.update({key:extension[key] for key in ("purpose","bundle_identifier")})
+        contract["authored_app_info"].update(extension["authored_app_info_overrides"])
+        contract["additional_inputs"][3]["required_receipt_flags"] = extension["required_receipt_flags"]
+    executable = contract["authored_app_info"]["CFBundleExecutable"]
+    if (contract["authored_app_info"]["CFBundleIdentifier"] != contract["bundle_identifier"] or
+            executable not in ("OfflineDokkanStartupDiagnostic","OfflineDokkanDuoDevelopment")):
+        raise ValueError("Own package identity/executable mismatch")
     manifest, members = resource.admit_manifest(resource.read_pinned(args.manifest, 4*1024*1024, args.manifest_sha256))
     receipt = bounded_json(args.staged/"staging-receipt.json", args.staging_receipt_sha256)
     catalog = args.staged/"bundle/OriginalClient/byte-identical-assets.sqlite3"
@@ -180,10 +207,10 @@ def assemble(args):
             receipt.get("actual_app_documents_written") is not False):
         raise ValueError("Wrong reviewed source staging receipt")
     component = bounded_json(args.component_receipt, args.component_receipt_sha256)
-    component_commit = admit_current_component_sources(component)
+    component_commit = admit_current_component_sources(component, integrated)
     for key, expected in contract["additional_inputs"][3]["required_receipt_flags"].items():
         if type(component.get(key)) is not type(expected) or component.get(key) != expected:
-            raise ValueError("The library must have the diagnostic entry, not integrated or inert entry")
+            raise ValueError("The library entry flags must match the selected explicit package profile")
     component_size, component_sha = component.get("dylib_bytes"), component.get("dylib_sha256")
     if (type(component_size) is not int or not 0 < component_size <= 128*1024*1024 or
             not resource.digest(component_sha) or component.get("original_game_launch_verified") is not False):
@@ -200,7 +227,13 @@ def assemble(args):
         "OriginalClient/OriginalGenuineDuoShell": (args.shell,SHELL),
         "Frameworks/OriginalDokkanEngine.dylib": (args.engine,ENGINE),
         "Frameworks/OfflineDokkanHost.dylib": (args.component,(component_size,component_sha))}
-    reserved = set(additions)|{"OfflineDokkanStartupDiagnostic","Info.plist","package-receipt.json"}
+    if integrated:
+        core = extension["core_reference"]
+        additions[core["destination"]] = (args.core_reference,(core["bytes"],core["sha256"]))
+        for item in extension["authored_protocol_resources"]:
+            # Fixed authored contract paths, never receipt-selected input paths.
+            additions[item["destination"]] = (resource.ROOT/item["source"],(item["bytes"],item["sha256"]))
+    reserved = set(additions)|{executable,"Info.plist","package-receipt.json"}
     if reserved.intersection(expected):
         raise ValueError("Original resource collides with authored app member")
     source = parent = stage = -1
@@ -216,6 +249,8 @@ def assemble(args):
         for target,(path,pin) in additions.items():
             fd = resource.readonly(path)
             opened.append((fd,path,os.fstat(fd),target,pin))
+            if integrated and target == "OriginalClient/Core/reference.db" and os.fstat(fd).st_mode & 0o222:
+                raise ValueError("Canonical Core reference input must be immutable")
             if os.fstat(fd).st_size != pin[0] or resource.hash_fd(fd,pin[0]) != pin[1]:
                 raise ValueError("Exact original/component source pin mismatch")
         parent = resource.directory(args.output.parent)
@@ -237,7 +272,7 @@ def assemble(args):
             pass
         else:
             raise ValueError("Existing app output preserved")
-        stage_name = ".original-diagnostic-app-"+uuid.uuid4().hex
+        stage_name = ".original-duo-app-"+uuid.uuid4().hex
         os.mkdir(stage_name,mode=0o700,dir_fd=parent)
         stage = os.open(stage_name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW|os.O_CLOEXEC,dir_fd=parent)
         stage_identity = os.fstat(stage)
@@ -263,7 +298,7 @@ def assemble(args):
         baseline_parent,name = resource.relative_parent(stage,"OriginalClient/OriginalGenuineDuoShell")
         try:
             injected = inject_shell.inject(Path(f"/proc/self/fd/{baseline_parent}")/name,
-                Path(f"/proc/self/fd/{stage}")/"OfflineDokkanStartupDiagnostic")
+                Path(f"/proc/self/fd/{stage}")/executable)
         finally:
             os.close(baseline_parent)
         current()
@@ -271,7 +306,7 @@ def assemble(args):
             raise ValueError("Unexpected active genuine shell")
         # Only active embedded executable images need execute permission. The
         # unchanged baseline/opaque seed remain read-only resource data.
-        for target in ("OfflineDokkanStartupDiagnostic","Frameworks/OriginalDokkanEngine.dylib",
+        for target in (executable,"Frameworks/OriginalDokkanEngine.dylib",
                 "Frameworks/OfflineDokkanHost.dylib","Frameworks/AdjustSigSdk.framework/AdjustSigSdk"):
             fd = resource.relative_readonly(stage,target)
             try:
@@ -282,13 +317,18 @@ def assemble(args):
         info.update(CFBundleShortVersionString=args.version,CFBundleVersion=args.build)
         raw = plistlib.dumps(info,sort_keys=True)
         resource.write_member(stage,"Info.plist",(raw,),len(raw),hashlib.sha256(raw).hexdigest())
-        result = {"format":"od-original-duo-unsigned-diagnostic-app-v1","purpose":contract["purpose"],
+        result = {"format":("od-original-duo-unsigned-development-app-v1" if integrated else
+            "od-original-duo-unsigned-diagnostic-app-v1"),"purpose":contract["purpose"],
+            "label":("Diagnostic (integrated development)" if integrated else "Diagnostic"),"entry_mode":args.profile,
             "source_ipa_sha256":resource.SOURCE_SHA256,"extraction_manifest_sha256":args.manifest_sha256,
             "source_staging_receipt_sha256":args.staging_receipt_sha256,
             "component_receipt_sha256":args.component_receipt_sha256,
             "component_source_commit":component_commit,
             "bundle_identifier":contract["bundle_identifier"],"version":args.version,"build":args.build,
-            "resource_members":len(expected),"active_shell_sha256_before_signing":ACTIVE_SHA,
+            "resource_members":len(expected),"additional_members":len(additions),
+            "core_reference_sha256":(extension["core_reference"]["sha256"] if integrated else None),
+            "native_master_accepted":False,"gameplay_verified":False,
+            "active_shell_sha256_before_signing":ACTIVE_SHA,
             "original_bundle_aliases_preserved":True,"code_signed":False,"device_installed":False,
             "original_client_rendering_verified":False,"offline_login_verified":False,"playable_build":False}
         raw = (json.dumps(result,indent=2,sort_keys=True)+"\n").encode()
@@ -325,6 +365,8 @@ def assemble(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile",choices=("diagnostic","integrated-development"),default="diagnostic")
+    parser.add_argument("--core-reference",type=Path)
     for name in ("staged","manifest","shell","engine","component","component-receipt","output"):
         parser.add_argument("--"+name,required=True,type=Path)
     for name in ("manifest-sha256","staging-receipt-sha256","component-receipt-sha256","version","build"):
@@ -333,8 +375,9 @@ def main():
     try:
         result = assemble(args)
     except (OSError,ValueError,KeyError,TypeError,AttributeError,json.JSONDecodeError,subprocess.SubprocessError):
-        raise SystemExit("Diagnostic assembly stopped; original inputs and existing outputs preserved.")
-    print(json.dumps({"scope":"Unsigned original-client diagnostic app only; not playable",
+        raise SystemExit("Original-client assembly stopped; original inputs and existing outputs preserved.")
+    print(json.dumps({"scope":"Unsigned original-client app; not playable",
+        "label":result["label"],
         "resource_members":result["resource_members"],"code_signed":False,"playable_build":False}))
 
 

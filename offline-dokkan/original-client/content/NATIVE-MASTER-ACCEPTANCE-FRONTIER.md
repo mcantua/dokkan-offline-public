@@ -1,10 +1,10 @@
 # Actual native master acceptance boundary
 
 The new cold-copy adapter is preparation, not native acceptance. Independent
-source review found no blocking I/O defect; native compilation/execution and
-cipher compatibility remain unverified. Integrated startup remains closed.
-An AppController scene or the original asynchronous worker completion cannot
-open this gate.
+source review found no blocking I/O defect; native cipher compatibility and
+execution remain unverified. Integrated startup may run before acceptance;
+game-data serving remains gated. An AppController scene or the original
+asynchronous worker completion cannot establish acceptance.
 
 Three new exact source bodies were reviewed in their own scopes: selected
 language36bytes, first schema check340bytes and compatibility retry232bytes.
@@ -15,10 +15,21 @@ the ignored private research folder. No key provider or key value was examined.
 
 The actual language getter calls a12-byte accessor returning the address of a
 native libc++ string, then returns its short/long-string data pointer. It does
-not choose a host language. That global's initialized/current value, its
-initialization order and native resource-prefix setting remain unobserved.
-Reading a guessed default before loading the engine would not establish the
-selected language. The cold-stage API therefore has no admitted caller yet.
+not choose a host language. Two more exact scopes,1240-byte configuration and
+752-byte global initialization, establish the immutable source default `en`.
+The original registered dyld initializer copies that actual two-byte source
+string into the current-language global (entry151 of5259, zero based).
+
+That source default still does not prove the selected runtime language. The
+configuration method can replace it through native `CurrentUsingLanguage`,
+`NextUseLanguage` and platform-language selection. Its sole direct caller is
+the actual original application-launch virtual slot2, already reviewed by
+another worker and reused by exact SHA without a new decompilation. Language
+configuration occurs early in that method before later scene setup. No actual
+preferences, platform locale, configured asset prefix or User records were
+read. The cold-stage API therefore still has no admitted language caller;
+neither defaulting to `en` nor writing guessed platform preference storage
+establishes the original client's selected language.
 
 The actual native first schema checker operates on the database manager's own
 cached handle. It constructs the source query wrapper, executes the original
@@ -27,6 +38,15 @@ setup statements and returns the result of the source's
 source compatibility3 statement; a zero result returns0, otherwise it returns
 the original first checker result. These are observations of unchanged native
 code, not settings copied into our host.
+
+The two success-path helpers were also checked in their exact3912-byte and
+212-byte scopes, both with no out-of-body instruction sites. The first builds
+the original attached in-memory cache tables/indexes through the native query
+wrapper. Its wrapper byte write is not a manager acceptance flag. The second
+retains existing listener entries and invokes their stored native function
+wrappers with a manager reference. Neither exposes a durable acceptance bit.
+No safe external listener-registration ABI or lifetime contract is established
+by that iteration alone; the host does not insert a fabricated callback.
 
 The316-byte cached-open wrapper is the useful result boundary, with important
 qualifications. An already-present cached handle returns1 without a fresh open.
@@ -65,5 +85,13 @@ before it can report acceptance. It must preserve the original asynchronous
 execution/cleanup ownership and never invoke the unsafe close/reopen wrapper
 from the host. If native validation deletes the working copy, preserve the
 immutable source and report failure rather than retrying over existing state.
-A native build/run requires Tin's existing explicit build instruction; none was
-performed here. No master acceptance, first home or real battle is claimed.
+Meaningful Duo builds are now standing-authorized. The diagnostic package built
+from `5b695bd` includes the read-only master observer and its actual caller
+immediately after original AppController launch. It preserves the original
+launch return and records only fixed value observations: pinned image,
+singleton/cache presence and stability, and whether an inline native language
+matches the source default. It never follows the cached database handle or
+calls a database/key function. The report getter exposes that actual capture;
+no device execution receipt is available here. Cache presence does not identify
+the selected file or prove schema success. No master acceptance, first Home or
+real battle is claimed.

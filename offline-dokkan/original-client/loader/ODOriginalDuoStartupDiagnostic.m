@@ -21,6 +21,24 @@ static NSDictionary *ODDiagnosticReport;
 static NSDictionary *ODDiagnosticResourceReport;
 static NSString *ODDiagnosticFactoryStage;
 
+@interface ODOriginalDuoStartupInputs ()
+- (instancetype)initWithBundle:(NSURL *)bundle baseline:(NSURL *)baseline engine:(NSURL *)engine
+    resources:(NSURL *)resources state:(NSURL *)state compatible:(NSDictionary *)report;
+@end
+@implementation ODOriginalDuoStartupInputs
+- (instancetype)initWithBundle:(NSURL *)bundle baseline:(NSURL *)baseline engine:(NSURL *)engine
+        resources:(NSURL *)resources state:(NSURL *)state compatible:(NSDictionary *)report {
+    if((self=[super init])){_bundleRootURL=[bundle copy];_genuineShellBaselineURL=[baseline copy];
+        _preparedEngineURL=[engine copy];_resourcesRootURL=[resources copy];
+        _writableStateRootURL=[state copy];_compatibleResourceReport=[report copy];}
+    return self;
+}
+@end
+
+static void ODInputStage(ODOriginalDuoInputPurpose purpose,NSString *stage) {
+    if(purpose==ODOriginalDuoInputsDiagnostic)ODDiagnosticFactoryStage=stage;
+}
+
 static NSError *ODDiagnosticFailure(void) {
     return [NSError errorWithDomain:@"OfflineDokkan.OriginalStartupDiagnostic" code:1
         userInfo:@{NSLocalizedDescriptionKey:@"The original-client startup inputs are unavailable. No replacement game was opened."}];
@@ -228,17 +246,21 @@ static BOOL ODDiagnosticPrepareWorkingResources(NSURL *bundle,NSURL *documents) 
     return success;
 }
 
-ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
-    ODDiagnosticFactoryStage=@"factory-context";
+ODOriginalDuoStartupInputs *ODPrepareOriginalDuoStartupInputs(ODOriginalDuoInputPurpose purpose,NSError **error) {
+    ODInputStage(purpose,@"factory-context");
     if (!NSThread.isMainThread) { if (error) *error = ODDiagnosticFailure(); return nil; }
+    if(purpose!=ODOriginalDuoInputsDiagnostic&&purpose!=ODOriginalDuoInputsIntegrated){
+        if(error)*error=ODDiagnosticFailure();return nil;}
     NSBundle *bundle = NSBundle.mainBundle;
     /* Never install/run this adapted engine under the supplied original game's
      * identity. Native failure cleanup can delete its working sqlite/current
      * tree; an Application Support probe does not isolate that Documents root.
-     * The reviewed package must also select a fresh own diagnostic container. */
+     * The selected purpose must have its exact own app identity and a fresh
+     * native working tree. Shared preparation never converts host purposes. */
     NSString *identity = bundle.bundleIdentifier;
-    ODDiagnosticFactoryStage=@"own-app-identity";
-    if (![identity isEqualToString:@"org.offlinedokkan.startupdiagnostic.duo"]) {
+    ODInputStage(purpose,@"own-app-identity");
+    NSString *expected=purpose==ODOriginalDuoInputsDiagnostic?@"org.offlinedokkan.startupdiagnostic.duo":@"org.offlinedokkan.duo";
+    if (![identity isEqualToString:expected]) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
     NSURL *bundleRoot = ODDiagnosticNativeRoot(bundle.resourceURL);
@@ -254,39 +276,47 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
     NSArray<NSURL *> *documents = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     NSURL *documentRoot = ODDiagnosticNativeRoot(documents.firstObject);
     NSURL *resources = [documentRoot URLByAppendingPathComponent:@"assets" isDirectory:YES];
-    ODDiagnosticFactoryStage=@"original-startup-inputs";
+    ODInputStage(purpose,@"original-startup-inputs");
     if (!ODDiagnosticRegularFile(baseline) || !ODDiagnosticRegularFile(canonicalEngine) ||
         !ODDiagnosticRegularFile(dependency) || !ODDiagnosticOriginalSeed(seed)) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
-    ODDiagnosticFactoryStage=@"compatible-resource-preload";
+    ODInputStage(purpose,@"compatible-resource-preload");
     if (!ODDiagnosticPrepareWorkingResources(bundleRoot,documentRoot)) {
         if (error) *error = ODDiagnosticFailure(); return nil;
     }
-    ODDiagnosticFactoryStage=@"fresh-working-assets";
+    ODInputStage(purpose,@"fresh-working-assets");
     int resourceFD = ODDiagnosticDirectory(resources);
     BOOL ready = ODDiagnosticHasAssets(resourceFD) && ODDiagnosticNoExistingEngineWorkingTree(resourceFD);
     if (resourceFD >= 0) close(resourceFD);
     if (!ready) { if (error) *error = ODDiagnosticFailure(); return nil; }
 
-    /* Dedicated disposable diagnostic state, separate from Documents/assets and
+    /* Purpose-specific own startup state, separate from Documents/assets and
      * existing save folders. Original seed/resource files are not modified. */
-    ODDiagnosticFactoryStage=@"diagnostic-state-directory";
+    ODInputStage(purpose,@"diagnostic-state-directory");
     NSURL *support = ODDiagnosticNativeRoot([NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
         inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL]);
     int supportFD = ODDiagnosticDirectory(support);
     if (supportFD < 0) { if (error) *error = ODDiagnosticFailure(); return nil; }
-    (void)mkdirat(supportFD,"OriginalClientStartupDiagnostic",0700);
-    int stateFD = openat(supportFD,"OriginalClientStartupDiagnostic",O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+    NSString *stateName=purpose==ODOriginalDuoInputsDiagnostic?@"OriginalClientStartupDiagnostic":@"OriginalClientStartup";
+    (void)mkdirat(supportFD,stateName.UTF8String,0700);
+    int stateFD = openat(supportFD,stateName.UTF8String,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
     close(supportFD);
     if (stateFD < 0) { if (error) *error = ODDiagnosticFailure(); return nil; }
     close(stateFD);
-    NSURL *state = [support URLByAppendingPathComponent:@"OriginalClientStartupDiagnostic" isDirectory:YES];
+    NSURL *state = [support URLByAppendingPathComponent:stateName isDirectory:YES];
+    return [[ODOriginalDuoStartupInputs alloc] initWithBundle:bundleRoot baseline:baseline engine:engine
+        resources:resources state:state compatible:ODDiagnosticResourceReport?:@{}];
+}
+
+ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
+    ODOriginalDuoStartupInputs *inputs=ODPrepareOriginalDuoStartupInputs(ODOriginalDuoInputsDiagnostic,error);
+    if(!inputs)return nil;
     NSError *failure = nil;
     ODDiagnosticFactoryStage=@"native-host-configuration";
     ODUnifiedDuoHost *host = [[ODUnifiedDuoHost alloc] initWithPurpose:ODUnifiedDuoStartupDiagnostic
-        genuineShellBaselineURL:baseline preparedEngineURL:engine resourcesRootURL:resources
-        writableStateRootURL:state approvedOrigins:@[] routes:@[] creatorServices:nil attachPreparedImage:nil
+        genuineShellBaselineURL:inputs.genuineShellBaselineURL preparedEngineURL:inputs.preparedEngineURL resourcesRootURL:inputs.resourcesRootURL
+        writableStateRootURL:inputs.writableStateRootURL approvedOrigins:@[] routes:@[] creatorServices:nil attachPreparedImage:nil
         contextIsCurrent:^BOOL { return NSThread.isMainThread; }
         reportHandler:^(NSDictionary *report) {
             NSMutableDictionary *snapshot = [report mutableCopy];

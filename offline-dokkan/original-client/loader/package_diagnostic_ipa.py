@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Package the assembled own diagnostic for normal external signing/install.
+"""Package the assembled own diagnostic/development app for external signing/install.
 
 This does not sign the app or establish launch/playability. Original game bytes
 and the resulting IPA stay in the ignored private cloud workspace.
@@ -25,8 +25,18 @@ def package(app, output):
         raise ValueError("An assembled diagnostic and absent IPA output are required")
     info = plistlib.loads((app / "Info.plist").read_bytes())
     receipt = json.loads((app / "package-receipt.json").read_bytes())
-    if info.get("CFBundleIdentifier") != "org.offlinedokkan.startupdiagnostic.duo":
-        raise ValueError("Only the own original-client diagnostic can be packaged")
+    profiles = {
+        "org.offlinedokkan.startupdiagnostic.duo": ("original-startup-diagnostic", "od-original-duo-unsigned-diagnostic-app-v1", "Diagnostic"),
+        "org.offlinedokkan.duo": ("integrated-duo-development", "od-original-duo-unsigned-development-app-v1", "Diagnostic (integrated development)"),
+    }
+    profile = profiles.get(info.get("CFBundleIdentifier"))
+    if (profile is None or receipt.get("bundle_identifier") != info.get("CFBundleIdentifier") or
+            receipt.get("purpose") != profile[0] or receipt.get("format") != profile[1]):
+        raise ValueError("Only an explicitly admitted own original-client diagnostic/development app can be packaged")
+    if profile[2] == "Diagnostic (integrated development)" and (receipt.get("label") != "Diagnostic (integrated development)" or
+            receipt.get("entry_mode") != "integrated-development" or
+            receipt.get("native_master_accepted") is not False or receipt.get("gameplay_verified") is not False):
+        raise ValueError("Integrated development must preserve its explicit unverified status")
     # The assembler receipt is retained in the archive, including its source
     # hashes and explicit unsigned/unverified status.
     if receipt.get("playable_build") is not False or receipt.get("code_signed") is not False:
@@ -43,7 +53,7 @@ def package(app, output):
             archive.write(item, str(Path("Payload") / app.name / item.relative_to(app)))
     with output.open("rb") as source:
         digest = hashlib.file_digest(source, "sha256").hexdigest()
-    return {"label": "Diagnostic", "signed": False, "installation_verified": False,
+    return {"label": profile[2], "signed": False, "installation_verified": False,
             "playable": False, "bytes": output.stat().st_size, "sha256": digest,
             "version": info.get("CFBundleShortVersionString"),
             "build": info.get("CFBundleVersion"), "files": len(members)}

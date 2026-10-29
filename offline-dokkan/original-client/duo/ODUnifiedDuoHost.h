@@ -46,8 +46,9 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
 /** Adopt an independently cold-staged disposable opaque working copy on main
  * before install. Its actual own Documents/assets root must match this host's
  * resources root. This records preparation only; native language/prefix,
- * original key/open/schema acceptance remain unobserved and integrated startup
- * stays closed. No arbitrary native acceptance boolean/callback is exposed. */
+ * original key/open/schema acceptance remain unobserved and game-data serving
+ * stays closed. Original startup/auth/UI may run to collect real evidence.
+ * No arbitrary native acceptance boolean/callback is exposed. */
 - (BOOL)adoptColdStagedOriginalMaster:(ODNativeMasterColdStage *)stage
     error:(NSError * _Nullable * _Nullable)error;
 /** Integrated startup may reach UIApplicationMain before the async core
@@ -109,5 +110,8 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
    the transport. No origin, query, headers, body or raw-socket observation is
    included. Reading startupReport is also main-thread only. */
 @property(nonatomic,readonly,copy) NSDictionary *startupReport;
+/** Main-only game-data/mutation gate, distinct from original image/auth/UI
+ * startup. A cached handle or caller-supplied boolean cannot open this gate. */
+@property(nonatomic,readonly) BOOL originalGameDataAdmitted;
 @end
 NS_ASSUME_NONNULL_END

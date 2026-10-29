@@ -13,8 +13,17 @@
   "legacy_account_or_battle_harness_fallback": false,
   "auth_success_routes_invented": false,
   "master_cipher_or_resource_root_invented": false,
-  "native_factory_implemented": false,
+  "native_factory_implemented": true,
   "native_compile_verified": false,
   "original_game_launch_verified": false,
-  "gameplay_verified": false
+  "gameplay_verified": false,
+  "native_factory_source": "offline-dokkan/original-client/loader/ODUnifiedDuoNativeFactory.m",
+  "native_factory_header": "offline-dokkan/original-client/loader/ODUnifiedDuoNativeFactory.h",
+  "integrated_bundle_identifier": "org.offlinedokkan.duo",
+  "canonical_player_scope_source": "asynchronous preparation on the exact one native Core owner",
+  "original_initialization_requires_native_master_acceptance": false,
+  "game_data_and_creator_mutations_require_native_master_acceptance": true,
+  "minimal_new_profile_user_requires_native_master_acceptance": false,
+  "native_master_accepted": false,
+  "native_save_resume_verified": false
 }

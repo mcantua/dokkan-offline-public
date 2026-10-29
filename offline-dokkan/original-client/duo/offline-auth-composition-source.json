@@ -8,8 +8,8 @@
     "../../research/ordinary-root-optional-updates.json"
   ],
   "source_hashes": {
-    "duo/ODUnifiedDuoHost.h": "cd39af0f7d1df8d36cce6f8f30bad90c43d68750598a8536e9851524e3c28e3a",
-    "duo/ODUnifiedDuoHost.m": "bc5462997741117c47a72e18ca53bc659450a746c3bf6365d2f85a9fab91193e",
+    "duo/ODUnifiedDuoHost.h": "b2dafaa3871e2216841ac38b4bd103e7b59d0ae72f58c172e7f396cfe50f23eb",
+    "duo/ODUnifiedDuoHost.m": "294b4fe7ad254b6511d5dbdbc39963165e0cb7a91876bfb802d187cec969ebc8",
     "creator/ODBoundOriginalCreatorServices.h": "bf6e218b5a0643b644808a708b044fab7cdb12a36e3d2d5e381eaf2fed3bacf5",
     "creator/ODBoundOriginalCreatorServices.m": "4f8a2d9ea40115084c728505d5ffd4336df7e3e8135884fe15d87ec5ddd6cc75"
   },
@@ -32,12 +32,13 @@
   "original_client_executed": false,
   "tests_rerun": false,
   "game_builds_created": false,
-  "actual_integrated_startup_factory_present": false,
+  "actual_integrated_startup_factory_present": true,
   "limits": [
     "These are source changes, not proof that original startup/login/home or gameplay works.",
-    "The only current concrete startup factory is diagnostic. A concrete integrated factory still must admit the actual native resources/master, canonical player/service owner and this configuration before UIApplicationMain.",
+    "The concrete integrated factory now admits typed original startup inputs, a pinned plaintext canonical-data reference and one deferred canonical Core/player scope, and binds its same-Core services/projector. Actual original request, login and gameplay acceptance remain unverified.",
     "Resource response/first-home DTO, master cold-stage, actual request/runtime acceptance, persistent gameplay and Duo device acceptance remain independent requirements.",
     "Cancelled private in-memory issues may remain until expiry or the next nonce; cancellation drops request delivery and does not poison the owner. No atomic rollback is promised.",
-    "The independent native master admission runtime gate remains closed. This source cannot open it or claim real login by installing auth handlers."
+    "The independent native master admission runtime gate remains closed. This source cannot open it or claim real login by installing auth handlers.",
+    "Original image/auth/UI initialization can run before native master acceptance. Minimal new-profile User data depends on its own canonical persisted admission; teams/card/gameplay/Creator mutations retain their distinct native-master gate."
   ]
 }

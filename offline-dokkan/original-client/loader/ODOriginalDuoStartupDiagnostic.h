@@ -2,6 +2,31 @@
 @class ODUnifiedDuoHost;
 
 NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSUInteger, ODOriginalDuoInputPurpose) {
+    ODOriginalDuoInputsDiagnostic,
+    ODOriginalDuoInputsIntegrated
+};
+/** Native-only cold-preparation capabilities from the actual own app bundle/
+ * sandbox. No page/request/configuration chooses these paths. Diagnostic and
+ * integrated identities/purposes stay distinct. This does not create a Host,
+ * Core, account, auth response or native-master acceptance receipt. */
+@interface ODOriginalDuoStartupInputs : NSObject
+@property(nonatomic,readonly,copy) NSURL *bundleRootURL;
+@property(nonatomic,readonly,copy) NSURL *genuineShellBaselineURL;
+@property(nonatomic,readonly,copy) NSURL *preparedEngineURL;
+@property(nonatomic,readonly,copy) NSURL *resourcesRootURL;
+@property(nonatomic,readonly,copy) NSURL *writableStateRootURL;
+@property(nonatomic,readonly,copy) NSDictionary *compatibleResourceReport;
+- (instancetype)init NS_UNAVAILABLE;
+@end
+/** On main before UIApplicationMain/dlopen, reuse the SAME exact original seed,
+ * framework/resource admission and off-main FD publication used by diagnostic.
+ * Only org.offlinedokkan.startupdiagnostic.duo / Diagnostic or
+ * org.offlinedokkan.duo / Integrated is accepted. Existing User/current reject
+ * without reading/replacing them. Returned URL capabilities stay native-only. */
+FOUNDATION_EXPORT ODOriginalDuoStartupInputs * _Nullable ODPrepareOriginalDuoStartupInputs(
+    ODOriginalDuoInputPurpose purpose,NSError * _Nullable * _Nullable error);
+
 /** Native original-client startup only. This factory does not install auth
  * responses, fabricate a player, activate a derived master or enable Creator.
  * The original bundle paths stay intact. The existing FD preloader publishes

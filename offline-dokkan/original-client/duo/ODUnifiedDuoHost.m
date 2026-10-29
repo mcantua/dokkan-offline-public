@@ -124,7 +124,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if((purpose!=ODUnifiedDuoStartupDiagnostic&&purpose!=ODUnifiedDuoIntegratedTarget)||!baseline.isFileURL||!engine.isFileURL||
        !resourcePath||!statePath||[statePath isEqual:resourcePath]||[statePath hasPrefix:[resourcePath stringByAppendingString:@"/"]]||
        ![origins isKindOfClass:NSArray.class]||![routes isKindOfClass:NSArray.class]||!current||!report||
-       (purpose==ODUnifiedDuoIntegratedTarget&&(!attach||origins.count))){
+       (purpose==ODUnifiedDuoIntegratedTarget&&origins.count)){
         if(error)*error=ODHostFailure(1);return nil;
     }
     for (id route in routes) {
@@ -137,6 +137,11 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     return self;
 }
 - (void)dealloc{if(_resourceFD>=0)close(_resourceFD);if(_stateFD>=0)close(_stateFD);}
+- (BOOL)originalGameDataAdmitted {
+    // No native schema/selected-master acceptance capability exists yet.
+    // Original initialization must run before its real outcome can be observed.
+    return NO;
+}
 - (NSDictionary *)startupReport {
     return @{@"schema":@1,@"purpose":_purpose==ODUnifiedDuoStartupDiagnostic?@"original-startup-diagnostic":@"integrated-duo-target",
         @"stage":_stage?:@"unconfigured",@"bootstrapInstalled":@(_installed),@"nativeEnvironmentPrepared":@(_environmentPrepared),
@@ -144,6 +149,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"nativeOriginArmed":@(_nativeOriginArmed),
         @"nativeImageAttachmentConfigured":@(_imageAttached),@"originalRendererObserved":@(_sceneObserved),
         @"boundCreatorAttached":@(_creatorAttached),@"registeredRouteCount":@(_routes.count),
+        @"originalGameDataAdmitted":@(self.originalGameDataAdmitted),
         @"unsupportedRequestObserverInstalled":@(_requestObserverInstalled),
         @"unsupportedFoundationRequests":[_unsupportedRequests copy],
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
@@ -230,6 +236,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         ODUnifiedDuoHost *host=weakSelf;return host&&host->_current();
     },^ODDuoCreatorQuickActionReadiness(UIWindow *window,UIViewController *controller,UIView *renderer){
         ODUnifiedDuoHost *host=weakSelf;
+        if(host&&host->_current()&&!host.originalGameDataAdmitted)return ODDuoCreatorEntryWaiting;
         od_creator_menu_admission admission={0};
         if(host){
             admission.context_current=host->_current()?1:0;
@@ -255,13 +262,11 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 - (BOOL)installBeforeApplicationMain:(NSError **)error {
     BOOL integrated=_purpose==ODUnifiedDuoIntegratedTarget;
-    // No original native key/open/schema acceptance observation ABI has been
-    // admitted. A staged file or caller-supplied report cannot open this gate.
-    BOOL nativeMasterAccepted=NO;
+    // Actual original initialization precedes native master acceptance. Data
+    // providers keep their separate gate closed; no dummy attachment is needed.
     if(!NSThread.isMainThread||_attempted||ODInstalledUnifiedHost||!_current()||
        (integrated&&_services&&![_services creatorScopeIsCurrent])||
-       (integrated&&!_services&&!_servicesPending)||
-       (integrated&&(!nativeMasterAccepted||!_originalMasterStage))){
+       (integrated&&!_services&&!_servicesPending)){
         if(error)*error=ODHostFailure(5);return NO;
     }
     if(integrated&&!_authConfigured){if(error)*error=ODHostFailure(11);return NO;}
@@ -573,7 +578,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError *))completion {
     if(!completion)return;
     if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self presentCreatorFromUserActionWithCompletion:completion];});return;}
-    if(!_installed||!_services||!_creatorAttached||!_current()||!_originalController||!_renderer||![_services creatorScopeIsCurrent]){
+    if(!_installed||!self.originalGameDataAdmitted||!_services||!_creatorAttached||!_current()||!_originalController||!_renderer||![_services creatorScopeIsCurrent]){
         completion(ODHostFailure(7));return;
     }
     [_services presentCreatorFromUserActionWithCompletion:completion];

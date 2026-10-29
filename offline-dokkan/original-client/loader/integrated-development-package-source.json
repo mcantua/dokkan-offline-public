@@ -1,0 +1,53 @@
+{
+  "format": "od-original-duo-integrated-development-package-source-v1",
+  "extends": "diagnostic-package-source.json",
+  "purpose": "integrated-duo-development",
+  "bundle_identifier": "org.offlinedokkan.duo",
+  "platform": "iPhone Duo only",
+  "recipe_status": "source only; integrated package not yet built or executed",
+  "authored_app_info_overrides": {
+    "CFBundleExecutable": "OfflineDokkanDuoDevelopment",
+    "CFBundleIdentifier": "org.offlinedokkan.duo",
+    "CFBundleName": "Offline Dokkan Duo Diagnostic",
+    "CFBundleDisplayName": "Dokkan Duo Diagnostic"
+  },
+  "required_receipt_flags": {
+    "original_startup_entry_enabled": true,
+    "original_startup_diagnostic_entry_enabled": false,
+    "device_sdk": "27.1",
+    "architecture": "arm64",
+    "deployment_target": "16.4"
+  },
+  "core_reference": {
+    "destination": "OriginalClient/Core/reference.db",
+    "bytes": 114827264,
+    "sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+    "role": "Immutable plaintext canonical Core database only; never an engine preferred-master file"
+  },
+  "authored_protocol_resources": [
+    {
+      "source": "offline-dokkan/original-client/protocol/resources-projector.js",
+      "destination": "OriginalClient/Protocol/resources-projector.js",
+      "bytes": 26421,
+      "sha256": "94472e085540c5502e928e629cb5b153fbbbc8c05a87f859eaa9f0459cb4881c"
+    },
+    {
+      "source": "offline-dokkan/research/cached-resource-response-schema.json",
+      "destination": "OriginalClient/Protocol/cached-resource-response-schema.json",
+      "bytes": 106195,
+      "sha256": "0db95aef3ea8d86a6fbab4c886aee6c4fc55f16d2f32f5ff370557d73e0c4feb"
+    }
+  ],
+  "original_resources_framework_seed_and_genuine_shell": "Inherited unchanged, exact original paths and pins",
+  "native_preferred_master_staged": false,
+  "native_master_acceptance_bypassed": false,
+  "new_or_existing_player_state_packaged": false,
+  "signing_material_packaged": false,
+  "label": "Diagnostic (integrated development)",
+  "code_signed": false,
+  "original_client_rendering_verified": false,
+  "offline_login_verified": false,
+  "native_master_accepted": false,
+  "gameplay_verified": false,
+  "playable_build": false
+}

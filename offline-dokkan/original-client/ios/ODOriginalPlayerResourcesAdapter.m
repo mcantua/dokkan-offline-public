@@ -35,9 +35,13 @@ static BOOL ODResourceBootstrapQuery(NSDictionary<NSString *,NSString *> *fields
     return [self initWithProjectorProvider:^ODResourceResponseProjector *(void){return projector;} contextCurrent:current];
 }
 - (instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider contextCurrent:(ODResourceContextCurrent)current {
-    if(!provider||!current)return nil;
+    return [self initWithProjectorProvider:provider contextCurrent:current masterContextCurrent:current];
+}
+- (instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider contextCurrent:(ODResourceContextCurrent)current masterContextCurrent:(ODResourceContextCurrent)masterCurrent {
+    if(!provider||!current||!masterCurrent)return nil;
     if((self=[super init])){
         ODResourceContextCurrent live=[current copy];
+        ODResourceContextCurrent masterLive=[masterCurrent copy];
         ODOriginalPlayerResourcesProjectorProvider issuedProjector=[provider copy];
         NSMutableArray<ODLocalTransportRoute *> *routes=[NSMutableArray array];
         for(NSString *path in @[@"/resources/login",@"/resources/home"]){
@@ -73,6 +77,37 @@ static BOOL ODResourceBootstrapQuery(NSDictionary<NSString *,NSString *> *fields
             if(!route)return nil;
             [routes addObject:route];
         }
+        /* Actual TeamsIndexAPI inherits method0 and initializes an empty
+         * query; no JSON-parameter setter is proven on that fetch path.
+         * Preserve the transport's default rejection of every query. */
+        ODLocalTransportRoute *teams=[[ODLocalTransportRoute alloc] initWithMethod:@"GET" path:@"/teams"
+            handler:^(ODLocalTransportRequest *request,ODLocalTransportCompletion completion){
+                if(![request.method isEqual:@"GET"]||![request.path isEqual:@"/teams"]||request.body.length||request.queryFields.count){
+                    completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_REQUEST_UNSUPPORTED"));return;
+                }
+                dispatch_async(dispatch_get_main_queue(),^{
+                    if(!request.isActive||!live()||!masterLive()){
+                        completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_CONTEXT_CHANGED"));return;
+                    }
+                    ODResourceResponseProjector *projector=issuedProjector();
+                    if(!projector){completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_NOT_READY"));return;}
+                    [projector projectCurrentTeams:^(id candidate,NSError *error){
+                        if(!request.isActive||!live()||!masterLive()||issuedProjector()!=projector){
+                            completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_CONTEXT_CHANGED"));return;
+                        }
+                        NSDictionary *result=[candidate isKindOfClass:NSDictionary.class]?candidate:nil;
+                        NSDictionary *body=[result[@"response"] isKindOfClass:NSDictionary.class]?result[@"response"]:nil;
+                        NSString *json=[result[@"body_json"] isKindOfClass:NSString.class]?result[@"body_json"]:nil;
+                        if(error||!body||!json.length||![result[@"kind"] isEqual:@"own-player-team-projection"]){
+                            completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_NOT_READY"));return;
+                        }
+                        ODLocalTransportResponse *response=[ODLocalTransportResponse plainJSONResponseWithObject:body];
+                        completion(response,response?nil:ODPlayerResourcesError(@"ORIGINAL_TEAMS_ENCODING_FAILED"));
+                    }];
+                });
+            }];
+        if(!teams)return nil;
+        [routes addObject:teams];
         _routes=[routes copy];
     }
     return self;

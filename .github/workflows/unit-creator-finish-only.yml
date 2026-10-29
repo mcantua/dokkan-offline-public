@@ -1,4 +1,4 @@
-name: Original-client Duo diagnostic authored build entry
+name: Original-client Duo authored build entry
 
 # Registered manual entry on the reviewed topic; no old WK/push/private inputs.
 on:
@@ -8,12 +8,20 @@ on:
         description: 'Exact full reviewed source commit for this Duo component build'
         required: true
         type: string
+      entry_mode:
+        description: 'Original client component entry (not a playability claim)'
+        required: true
+        default: diagnostic
+        type: choice
+        options:
+          - diagnostic
+          - integrated-development
 
 permissions:
   contents: read
 
 concurrency:
-  group: original-client-duo-diagnostic-components
+  group: original-client-duo-authored-components
   cancel-in-progress: false
 
 jobs:
@@ -23,3 +31,4 @@ jobs:
     uses: ./.github/workflows/original-client-diagnostic-components.yml
     with:
       approved_source_commit: ${{ inputs.approved_source_commit }}
+      entry_mode: ${{ inputs.entry_mode }}
