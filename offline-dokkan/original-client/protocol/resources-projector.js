@@ -307,8 +307,12 @@
     }
     if(snapshot.profile_id!==expected.profile_id||snapshot.content_id!==expected.content_id)throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
     if(admission.clean!==true)throw Error('NATIVE_PROJECTION_PENDING');
-    if(!Array.isArray(snapshot.cards)||!Array.isArray(snapshot.teams)||snapshot.cards.length||snapshot.teams.length)
-      throw Error(skipIntro?'NEW_PROFILE_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION':'INITIAL_TUTORIAL_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION');
+    if(!Array.isArray(snapshot.cards)||!Array.isArray(snapshot.teams))throw Error('INVALID_OWN_COLLECTION');
+    // This User-only skip-policy DTO does not read or replace collection
+    // models. Keep it available after the owner creates a card/formation.
+    // Existing unfinished tutorial projection retains its empty-state rule.
+    if(!skipIntro&&(snapshot.cards.length||snapshot.teams.length))
+      throw Error('INITIAL_TUTORIAL_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION');
     const tutorial=snapshot.original_client_tutorial;
     if(!object(tutorial)||Object.keys(tutorial).length!==4||tutorial.schema!==1||
        tutorial.policy!==(skipIntro?'offline-new-player-skip-v1':'original-tutorial-entry-v1')||!integer(tutorial.progress)||
@@ -346,8 +350,12 @@
     if(snapshot.profile_id!==expected.profile_id||snapshot.content_id!==expected.content_id||!Array.isArray(snapshot.cards))throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
     const issues=[],response=teams(snapshot,undefined,issues);
     if(response){
-      if(!response.user_card_teams.length)issue(issues,'$.user_card_teams','ORIGINAL_EMPTY_TEAM_RUNTIME_UNVERIFIED');
-      if(!own(response,'selected_team_num'))issue(issues,'$.selected_team_num','NATIVE_TEAM_SELECTION_REQUIRED');
+      // A genuinely empty canonical collection has no selected formation to
+      // emit. The original reader iterates zero rows and converts its absent
+      // selection through the known null->Int zero sentinel. No team or
+      // selection is invented; actual empty-state UI remains runtime-unverified.
+      if(response.user_card_teams.length&&!own(response,'selected_team_num'))
+        issue(issues,'$.selected_team_num','NATIVE_TEAM_SELECTION_REQUIRED');
       const used=new Set(response.user_card_teams.flatMap(row=>row.user_card_ids.filter(id=>id!==0)));
       if(admission.clean!==true&&snapshot.cards.some(card=>used.has(card.instance_id)&&
           (card.created_definition||card.tournament_definition||card.official_upgrade)))
@@ -366,7 +374,6 @@
     const current=projectTeams(envelope,expected),snapshot=envelope.player_snapshot;
     if(envelope.admission.clean!==true)throw Error('NATIVE_PROJECTION_PENDING');
     if(!current.response)throw Error('NATIVE_TEAM_BINDING_REQUIRED');
-    if(!snapshot.teams.length)throw Error('ORIGINAL_EMPTY_TEAM_RUNTIME_UNVERIFIED');
     if(!object(body))throw Error('INVALID_NATIVE_TEAM_REQUEST');
     const keys=new Set(['selected_team_num','selected_kobetu_team_num','user_card_teams','timewarp',...teamContextKeys]);
     if(Object.keys(body).some(key=>!keys.has(key)))throw Error('UNSUPPORTED_NATIVE_TEAM_FIELD');
@@ -381,8 +388,8 @@
          !signed32(row.num)||row.num<1||seen.has(row.num)||!nativeMetadata(row.name)||
          !Array.isArray(row.user_card_ids)||row.user_card_ids.length!==6)throw Error('INVALID_NATIVE_TEAM_REQUEST');
       const binding=bindings.get(row.num);
-      if(!binding||!own(binding,'team_bgm_filename')||
-         !(binding.team_bgm_filename===null||nativeMetadata(binding.team_bgm_filename)))throw Error('NATIVE_TEAM_METADATA_REQUIRED');
+      if(binding&&(!own(binding,'team_bgm_filename')||
+         !(binding.team_bgm_filename===null||nativeMetadata(binding.team_bgm_filename))))throw Error('NATIVE_TEAM_METADATA_REQUIRED');
       const members=[];
       for(const id of row.user_card_ids){
         if(!integer(id)||id<0||id!==0&&!owned.has(id))throw Error('NATIVE_TEAM_MEMBER_NOT_OWNED');
@@ -392,11 +399,15 @@
       const references=Object.fromEntries(teamReferenceKeys.map(key=>[key,row[key]]));
       if(!nativeTeamReferences(references))throw Error('INVALID_NATIVE_TEAM_REFERENCES');
       seen.add(row.num);
-      mutation.teams.push({native_num:row.num,name:row.name,team_bgm_filename:binding.team_bgm_filename,
+      // NEW user-submitted rows have no BGM field in the proven original
+      // writer. Our explicit policy is no custom formation music (empty
+      // string), not a recovered server default or asset grant. Existing
+      // bindings keep their exact saved BGM, including null.
+      mutation.teams.push({native_num:row.num,name:row.name,team_bgm_filename:binding?binding.team_bgm_filename:'',
         card_slots:row.user_card_ids.slice(),references:clone(references)});
     }
     for(const key of ['selected_team_num','selected_kobetu_team_num'])if(own(body,key)){
-      if(!signed32(body[key])||body[key]<1||!bindings.has(body[key]))throw Error('NATIVE_TEAM_SELECTION_NOT_OWNED');
+      if(!signed32(body[key])||body[key]<1||!bindings.has(body[key])&&!seen.has(body[key]))throw Error('NATIVE_TEAM_SELECTION_NOT_OWNED');
       mutation[key]=body[key];
     }
     for(const key of teamContextKeys)if(own(body,key)){

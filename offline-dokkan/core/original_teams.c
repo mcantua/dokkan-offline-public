@@ -113,7 +113,8 @@ int od_original_teams_validate(sqlite3 *db) {
 }
 
 int od_original_teams_snapshot(sqlite3 *db,const char *profile,char **json,char **error) {
- if(json)*json=NULL;if(error)*error=NULL;
+ if(json)*json=NULL;
+ if(error)*error=NULL;
  if(!db||!profile||!json)return fail(error,"INVALID_ORIGINAL_TEAM_ARGUMENT");
  const char *sql=
  "SELECT json_object('schema',1,'bindings',json(COALESCE((SELECT json_group_array(json_object("

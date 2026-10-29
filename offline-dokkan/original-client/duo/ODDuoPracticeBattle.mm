@@ -240,20 +240,30 @@ static bool ClearVolatileSingleton(uintptr_t image,uintptr_t gotRVA) {
 @interface ODDuoOriginalPracticeBattle ()
 - (instancetype)initPrivateWithPath:(NSString *)path image:(const mach_header *)image entries:(const uintptr_t *)entries;
 - (void)finishedOriginalBattle;
+- (void)receiveNativeFinishForScene:(uintptr_t)scene generation:(NSUInteger)generation;
+- (BOOL)beginOriginalPractice:(id)original parameters:(NSData *)parameters finishSaver:(nullable ODDuoPracticeNativeFinishSaver)saver error:(NSError **)error;
+- (void)persistNativeFinishWithCompletion:(void (^)(NSError * _Nullable error))completion;
+- (nullable NSError *)returnOriginalPracticeToHome;
 - (BOOL)current;
 @end
 @implementation ODDuoOriginalPracticeBattle {
     NSString *_imagePath;const mach_header *_image;uintptr_t _entries[ODFunctionCount];
     __weak id _original;uintptr_t _battleScene;BOOL _running,_finishing;
+    ODDuoPracticeNativeFinishSaver _finishSaver;BOOL _finishObserved,_savingFinish,_finishSaved,_returnFailed;
+    NSUInteger _practiceGeneration;
 }
 - (instancetype)initPrivateWithPath:(NSString *)path image:(const mach_header *)image entries:(const uintptr_t *)entries {
     if((self=[super init])){_imagePath=[path copy];_image=image;memcpy(_entries,entries,sizeof(_entries));}return self;
 }
 - (BOOL)isRunning{return _running;}
+- (BOOL)finishPersistenceRetryAvailable {return NSThread.isMainThread&&_running&&_finishing&&_finishObserved&&!_savingFinish&&_returnFailed;}
 - (void)emit:(NSString *)outcome {
     if(self.report)self.report(@{@"entry":@"original-fixed-loadout-practice",@"outcome":outcome,
         @"running":@(_running),@"ordinaryQuest":@NO,@"rewardsGranted":@NO,
-        @"ownedTeamsChanged":@NO,@"runtimeCombatVerified":@NO});
+        @"ownedTeamsChanged":@NO,@"runtimeCombatVerified":@NO,
+        @"nativeFinishObserved":@(_finishObserved),@"finishPersistenceConfigured":@(_finishSaver!=nil),
+        @"finishPersistencePending":@(_savingFinish),@"nativeFinishSaved":@(_finishSaved),
+        @"finishRetryAvailable":@(self.finishPersistenceRetryAvailable)});
 }
 - (BOOL)current {
     const mach_header *image=nullptr;intptr_t slide=0;
@@ -261,6 +271,15 @@ static bool ClearVolatileSingleton(uintptr_t image,uintptr_t gotRVA) {
         Loaded(_imagePath,image,slide)&&image==_image&&ReadonlyPins(_entries);
 }
 - (BOOL)beginWithAppController:(id)original parametersJSON:(NSData *)parameters error:(NSError **)error {
+    return [self beginOriginalPractice:original parameters:parameters finishSaver:nil error:error];
+}
+- (BOOL)beginWithAppController:(id)original parametersJSON:(NSData *)parameters
+        finishSaver:(ODDuoPracticeNativeFinishSaver)saver error:(NSError **)error {
+    if(!saver){if(error)*error=Failure(7);return NO;}
+    return [self beginOriginalPractice:original parameters:parameters finishSaver:saver error:error];
+}
+- (BOOL)beginOriginalPractice:(id)original parameters:(NSData *)parameters
+        finishSaver:(ODDuoPracticeNativeFinishSaver)saver error:(NSError **)error {
     ODDuoEngineState state={};uintptr_t scene=0,pending=0,table=0;
     if(_running||![self current]||![parameters isKindOfClass:NSData.class]||!parameters.length||parameters.length>65536||
        !ODDuoInspectPinnedEngine(original,&state)||state.image!=(uintptr_t)_image||state.paused||state.stopped||
@@ -280,36 +299,73 @@ static bool ClearVolatileSingleton(uintptr_t image,uintptr_t gotRVA) {
         if(!battle||!Pointer(reinterpret_cast<uintptr_t>(battle)+0x2d8,layer)||!layer){
             if(error)*error=Failure(3);[self emit:@"original-scene-creation-failed"];return NO;}
         ODDuoOriginalPracticeBattle *owner=self;
-        Finish completion=[owner](cocos2d::Node *){
+        NSUInteger generation=_practiceGeneration+1;uintptr_t sourceScene=reinterpret_cast<uintptr_t>(battle);
+        Finish completion=[owner,generation,sourceScene](cocos2d::Node *){
             // Finish is delivered by the original engine. Defer replacement
             // until its callback stack unwinds; never invoke tutorial's event.
-            dispatch_async(dispatch_get_main_queue(),^{[owner finishedOriginalBattle];});
+            dispatch_async(dispatch_get_main_queue(),^{[owner receiveNativeFinishForScene:sourceScene generation:generation];});
         };
         reinterpret_cast<SetFinish>(_entries[ODFinishCallback])(reinterpret_cast<void *>(layer),completion);
         _original=original;_battleScene=reinterpret_cast<uintptr_t>(battle);_running=YES;_finishing=NO;
+        _finishSaver=[saver copy];_finishObserved=NO;_savingFinish=NO;_finishSaved=NO;_returnFailed=NO;_practiceGeneration=generation;
         reinterpret_cast<ReplaceScene>(_entries[ODReplaceScene])(reinterpret_cast<void *>(state.director),battle);
         [self emit:@"original-practice-scene-requested"];return YES;
     }catch(...){if(error)*error=Failure(4);[self emit:@"native-practice-entry-failed"];return NO;}
 }
+- (void)receiveNativeFinishForScene:(uintptr_t)scene generation:(NSUInteger)generation {
+    // A late callback retained by an older native layer cannot settle a newer
+    // session. This event records only the actual bound callback, not a win.
+    if(!NSThread.isMainThread||!_running||scene!=_battleScene||generation!=_practiceGeneration||![self current])return;
+    [self finishedOriginalBattle];
+}
 - (void)finishedOriginalBattle {
     if(!_running||_finishing)return;
-    _finishing=YES;ODDuoEngineState state={};uintptr_t scene=0,pending=0;
+    _finishing=YES;_finishObserved=YES;
+    [self persistNativeFinishWithCompletion:^(NSError *failure){(void)failure;}];
+}
+- (void)retryNativeFinishPersistenceWithCompletion:(void (^)(NSError *))completion {
+    if(!completion)return;
+    if(!NSThread.isMainThread||!self.finishPersistenceRetryAvailable){completion(Failure(8));return;}
+    [self persistNativeFinishWithCompletion:completion];
+}
+- (void)persistNativeFinishWithCompletion:(void (^)(NSError *))completion {
+    if(!_running||!_finishing||!_finishObserved||_savingFinish){completion(Failure(8));return;}
+    if(!_finishSaver||_finishSaved){
+        NSError *failure=[self returnOriginalPracticeToHome];_returnFailed=failure!=nil;
+        if(failure)[self emit:@"native-practice-return-retry-available"];completion(failure);return;
+    }
+    _savingFinish=YES;_returnFailed=NO;NSUInteger generation=_practiceGeneration;
+    [self emit:@"native-practice-finish-persistence-requested"];
+    _finishSaver(^(NSError *failure){
+        dispatch_async(dispatch_get_main_queue(),^{
+            if(generation!=self->_practiceGeneration||!self->_running||!self->_finishing||!self->_savingFinish){completion(Failure(8));return;}
+            self->_savingFinish=NO;
+            if(failure){self->_returnFailed=YES;[self emit:@"native-practice-finish-save-failed-retry-available"];completion(failure);return;}
+            self->_finishSaved=YES;
+            NSError *returnFailure=[self returnOriginalPracticeToHome];self->_returnFailed=returnFailure!=nil;
+            if(returnFailure)[self emit:@"native-practice-return-retry-available"];completion(returnFailure);
+        });
+    });
+}
+- (NSError *)returnOriginalPracticeToHome {
+    ODDuoEngineState state={};uintptr_t scene=0,pending=0;
     if(![self current]||!ODDuoInspectPinnedEngine(_original,&state)||state.image!=(uintptr_t)_image||
        state.paused||state.stopped||!Pointer(state.director+0x170,scene)||scene!=_battleScene||
-       !Pointer(state.director+0x178,pending)||pending){[self emit:@"practice-return-unavailable"];return;}
+       !Pointer(state.director+0x178,pending)||pending){[self emit:@"practice-return-unavailable"];return Failure(9);}
     try {
         // The original callback destroys these same volatile managers. Its
         // checkpoint unlink and FINISHED_BATTLE tutorial event are omitted.
         if(!ClearVolatileSingleton(state.image,0x2a2bf98)||!ClearVolatileSingleton(state.image,0x2a2bf48)){
-            [self emit:@"practice-cleanup-unavailable"];return;}
+            [self emit:@"practice-cleanup-unavailable"];return Failure(10);}
         void *audio=reinterpret_cast<AudioOwner>(_entries[ODAudioOwner])();
         reinterpret_cast<VoidObject>(_entries[ODAudioStop])(audio);
         void *home=reinterpret_cast<HomeFactory>(_entries[ODHomeScene])(0);
-        if(!home){[self emit:@"original-home-unavailable"];return;}
+        if(!home){[self emit:@"original-home-unavailable"];return Failure(11);}
         reinterpret_cast<ReplaceScene>(_entries[ODReplaceScene])(reinterpret_cast<void *>(state.director),home);
-        _battleScene=0;_running=NO;_finishing=NO;_original=nil;
+        _battleScene=0;_running=NO;_finishing=NO;_original=nil;_returnFailed=NO;
         [self emit:@"original-practice-finish-callback-returned-to-home-request"];
-    }catch(...){[self emit:@"native-practice-return-failed"];}
+        _finishSaver=nil;return nil;
+    }catch(...){[self emit:@"native-practice-return-failed"];return Failure(12);}
 }
 @end
 

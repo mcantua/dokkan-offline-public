@@ -48,7 +48,7 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 - (void)originalClientPlayerSnapshotForProfile:(NSString *)profile
     expectedSaveScopeSHA256:(NSString *)scope reply:(ODCoreReply)reply;
 /** Admitted original-client adapter only. operation is tutorial.progress or
- * teams.apply with normalized payload; never expose through editor operations.
+ * teams.apply or practice.begin/finish with normalized payload; never expose through editor operations.
  * Rejects while a Creator lease is held. Scope/revision/command admission and
  * durable write use this owner queue and the canonical transaction. Reply is
  * a fresh after-commit {admission,player_snapshot,mutation_receipt}; the receipt

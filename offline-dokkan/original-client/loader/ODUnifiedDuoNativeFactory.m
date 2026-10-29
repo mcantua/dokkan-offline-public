@@ -9,6 +9,9 @@
 #import "../content/ODNativeMasterColdStage.h"
 #import "../content/ODNativeMasterObservation.h"
 #import "../ios/ODOriginalClientBootstrap.h"
+#import "../duo/ODDuoCreatorQuickAction.h"
+#import "../duo/ODDuoDiagnosticExport.h"
+#import "../duo/ODOriginalPracticeSession.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -20,7 +23,7 @@
 static NSString * const ODFactoryBundleID=@"org.offlinedokkan.duo";
 static NSString * const ODFactoryMasterHash=@"1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4";
 static const uint64_t ODFactoryMasterBytes=114827264;
-static NSString * const ODFactoryModuleHash=@"1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac";
+static NSString * const ODFactoryModuleHash=@"272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602";
 static NSString * const ODFactorySchemaHash=@"0db95aef3ea8d86a6fbab4c886aee6c4fc55f16d2f32f5ff370557d73e0c4feb";
 // Explicit local issuer policy; not a recovered original server duration.
 static const int32_t ODFactoryOfflineTokenSeconds=3600;
@@ -79,6 +82,7 @@ static int ODFactoryOpenMaster(NSURL *url,struct stat *identity) {
 @property(nonatomic,strong) ODBoundOriginalCreatorServices *services;
 @property(nonatomic,strong) ODResourceResponseProjector *projector;
 @property(nonatomic,strong) ODOriginalPracticePhaseProvider *practicePhase;
+@property(nonatomic,strong) ODOriginalPracticeSession *practiceSession;
 @property(nonatomic,copy) NSURL *masterURL;
 @property(nonatomic,copy) NSURL *saveURL;
 @property(nonatomic,copy) NSString *contentID;
@@ -119,6 +123,8 @@ static int ODFactoryOpenMaster(NSURL *url,struct stat *identity) {
         @"canonicalPlayerAdmitted":@(_player.preparedAdmission!=nil),
         @"sameCoreCreatorServicesIssued":@(_services!=nil),@"scopedPlayerProjectorIssued":@(_projector!=nil),
         @"scopedPracticePhaseProviderIssued":@(_practicePhase!=nil),
+        @"canonicalPracticeSessionState":_practiceSession.state?:@"not-created",
+        @"canonicalPracticeNativeFinishPersisted":@(_practiceSession.nativeFinishPersisted),
         @"knownIntegratedRelaunch":@(_inputs.knownIntegratedRelaunch),@"nativeSaveResumeVerified":@NO,
         @"sourceAccountUsed":@NO,@"plaintextReferenceIsNativeMasterAdmission":@NO,
         @"nativeMasterAccepted":@NO,@"actualOfflineLoginVerified":@NO,
@@ -130,6 +136,7 @@ static int ODFactoryOpenMaster(NSURL *url,struct stat *identity) {
     // Core/player/request values. Main owns the state and fixed failure log.
     if(!NSThread.isMainThread)return;
     _failed=YES;_stage=[stage copy];
+    [_host rejectPendingCanonicalPlayerServicesForInvalidContext];
     fprintf(stderr,"Offline Dokkan: integrated startup failed at %s.\n",stage.UTF8String);
 }
 - (void)preparePlayer {
@@ -207,6 +214,10 @@ ODUnifiedDuoHost *ODCreateUnifiedDuoStartupHost(NSError **error) {
     } requestDecoderProvider:^ODOriginalRequestDecoder *{
         ODUnifiedNativeComposition *active=weakOwner;
         return active&&[active isCurrent]?[active.host currentOriginalRequestDecoder]:nil;
+    } preparationWaiter:^(ODResourceContextCurrent requestActive,void (^completion)(NSError *)){
+        ODUnifiedNativeComposition *active=weakOwner;
+        if(!active||![active isCurrent]){completion(ODFactoryFailure(@"canonical-player-context-changed"));return;}
+        [active.host waitForCanonicalPlayerServicesWhileActive:requestActive completion:completion];
     }];
     if(!owner.resources){[owner failAtStage:@"native-resource-routes-unavailable"];if(error)*error=ODFactoryFailure(owner.stage);return nil;}
     owner.host=[[ODUnifiedDuoHost alloc] initWithPurpose:ODUnifiedDuoIntegratedTarget
@@ -234,8 +245,21 @@ ODUnifiedDuoHost *ODCreateUnifiedDuoStartupHost(NSError **error) {
         [owner failAtStage:@"deferred-player-configuration-unavailable"];if(error)*error=ODFactoryFailure(owner.stage);return nil;}
     if(![owner.host configureOfflineAuthForDeferredPlayerWithExpiresIn:ODFactoryOfflineTokenSeconds error:NULL]){
         [owner failAtStage:@"offline-auth-route-configuration-unavailable"];if(error)*error=ODFactoryFailure(owner.stage);return nil;}
+    ODDuoConfigureInGameDiagnosticAction(^BOOL{
+        ODUnifiedNativeComposition *active=weakOwner;
+        // Read-only failure evidence remains available when Core preparation
+        // failed. Original window/renderer/activity is separately admitted by
+        // the action owner; no data or game-operation authority is granted.
+        return NSThread.isMainThread&&active.host&&
+            [NSBundle.mainBundle.bundleIdentifier isEqual:ODFactoryBundleID]&&
+            [active.host.startupReport[@"purpose"] isEqual:@"integrated-duo-target"];
+    },^(UIViewController *presenter,UIView *sourceView,dispatch_block_t completion){
+        NSDictionary *report=ODCopyUnifiedDuoNativeFactoryReport();
+        if(!report){completion();return;}
+        ODDuoPresentDiagnosticReport(report,presenter,sourceView,completion);
+    },NULL);
     // Manual practice is optional and never a startup/master acceptance gate.
-    [owner.host configurePracticeBattleParametersProvider:^(void (^completion)(NSData *,NSError *)){
+    [owner.host configurePracticeBattleParametersProvider:^(void (^completion)(ODOriginalPracticeSession *,NSError *)){
         ODUnifiedNativeComposition *active=weakOwner;
         if(!active||![active isCurrent]||!active.practicePhase){
             completion(nil,ODFactoryFailure(@"original-practice-parameters-unavailable"));return;}
@@ -244,7 +268,23 @@ ODUnifiedDuoHost *ODCreateUnifiedDuoStartupHost(NSError **error) {
             (void)source;ODUnifiedNativeComposition *currentOwner=weakOwner;
             if(!currentOwner||![currentOwner isCurrent]||currentOwner.practicePhase!=issued){
                 completion(nil,ODFactoryFailure(@"original-practice-parameters-unavailable"));return;}
-            completion(parameters,failure);
+            if(failure||!parameters||!source){completion(nil,ODFactoryFailure(@"original-practice-parameters-unavailable"));return;}
+            ODOriginalPracticeSession *session=currentOwner.practiceSession;
+            if(!session||session.nativeFinishPersisted){
+                BOOL (^sessionCurrent)(void)=^BOOL{ODUnifiedNativeComposition *live=weakOwner;return live&&[live isCurrent];};
+                session=[[ODOriginalPracticeSession alloc] initWithCore:currentOwner.core contentID:currentOwner.contentID
+                    profileID:@"local-player" saveScopeSHA256:currentOwner.player.preparedAdmission[@"save_scope_sha256"]
+                    parametersJSON:parameters sourceReceipt:source contextIsCurrent:sessionCurrent];
+                currentOwner.practiceSession=session;
+            }
+            if(!session||![session.parametersJSON isEqualToData:parameters]){
+                completion(nil,ODFactoryFailure(@"original-practice-parameters-unavailable"));return;}
+            [session prepareWithCompletion:^(NSError *prepareFailure){
+                ODUnifiedNativeComposition *latest=weakOwner;
+                if(prepareFailure||!latest||![latest isCurrent]||latest.practiceSession!=session){
+                    completion(nil,ODFactoryFailure(@"original-practice-parameters-unavailable"));return;}
+                completion(session,nil);
+            }];
         }];
     } error:NULL];
     owner.stage=@"waiting-for-main-loop-player-admission";

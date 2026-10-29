@@ -18,10 +18,10 @@ for(const [value,code] of [
 }
 assert(api.projectInitialTutorialPlayer(old,expected).response.user.tutorial.progress===2,'Existing unfinished checkpoint reset');
 const collection=copy(envelope);collection.player_snapshot.cards=[{instance_id:1}];
-let rejected=false;try{api.projectNewProfilePlayer(collection,expected);}catch(e){assert(e.message==='NEW_PROFILE_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION',e.message);rejected=true;}assert(rejected,'Existing collection dropped');
+assert(JSON.stringify(api.projectNewProfilePlayer(collection,expected).response)===JSON.stringify(result.response),'User-only DTO changed or emitted collection');
 const receipt={kind:'new-profile-original-player-skip-intro-projection',runs:1,
   exact_persisted_new_policy_tuple_emitted:true,existing_unfinished_profile_not_rewritten:true,
-  constructor_capacities_and_contents_not_invented:true,existing_collection_not_silently_dropped:true,
+  constructor_capacities_and_contents_not_invented:true,user_only_dto_does_not_replace_collection_models:true,
   earlier_core_team_and_tutorial_evidence_reused:true,http_route_admitted:false,
   complete_home_or_native_runtime_verified:false,
   module_sha256:crypto.createHash('sha256').update(fs.readFileSync(require.resolve('../resources-projector'))).digest('hex')};

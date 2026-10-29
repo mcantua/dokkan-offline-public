@@ -34,7 +34,7 @@ SDK="$(xcrun --sdk iphoneos --show-sdk-path)"
 CLANG="$(xcrun --find clang)"
 python3 - "$ROOT" "$CLANG" "$SDK" "$WORK" "$STARTUP_ENTRY" "$DIAGNOSTIC_ENTRY" <<'PY'
 from pathlib import Path
-import hashlib,json,subprocess,sys
+import hashlib,json,re,subprocess,sys
 root,clang,sdk,work=Path(sys.argv[1]),sys.argv[2],sys.argv[3],Path(sys.argv[4])
 startup_entry=sys.argv[5]=='1'
 diagnostic_entry=sys.argv[6]=='1'
@@ -61,7 +61,9 @@ if manifest_path.exists():
     sources += extra
 sources += [root/'downloads/sqlite-amalgamation/source/sqlite3.c']
 if len(sources)!=len(set(sources)) or not all(p.is_file() for p in sources):raise SystemExit('Component source inventory invalid')
-common=[clang,'-target','arm64-apple-ios16.4','-isysroot',sdk,'-O2','-fblocks','-D_DARWIN_C_SOURCE=1','-DSQLITE_THREADSAFE=1','-DSQLITE_OMIT_LOAD_EXTENSION','-DSQLITE_DQS=0','-I'+str(root/'downloads/sqlite-amalgamation/source')]
+source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
+if not re.fullmatch(r'[0-9a-f]{40}',source_commit):raise SystemExit('Invalid build source identity')
+common=[clang,'-target','arm64-apple-ios16.4','-isysroot',sdk,'-O2','-fblocks','-D_DARWIN_C_SOURCE=1','-DOD_BUILD_SOURCE_SHA="'+source_commit+'"','-DSQLITE_THREADSAFE=1','-DSQLITE_OMIT_LOAD_EXTENSION','-DSQLITE_DQS=0','-I'+str(root/'downloads/sqlite-amalgamation/source')]
 if startup_entry:
     entry=json.loads((own/'loader/startup-source.json').read_text())
     if entry.get('schema')!=1 or entry.get('production_compile_define')!='OD_UNIFIED_DUO_STARTUP_ENTRY=1' or root/entry.get('entry_source','') not in sources:

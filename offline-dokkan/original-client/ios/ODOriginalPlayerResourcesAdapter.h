@@ -11,6 +11,12 @@ typedef ODResourceResponseProjector *_Nullable (^ODOriginalPlayerResourcesProjec
 /** MAIN-only actual original-image decoder, nil until issued. Successful
  * native own-JSON self-check is enforced by the capability itself. */
 typedef ODOriginalRequestDecoder *_Nullable (^ODOriginalPlayerRequestDecoderProvider)(void);
+/** MAIN-only initial owner-preparation wait. The host owns its bounded pending
+ * queue and wakes it on actual services bind/failure. requestActive preserves
+ * the original transport deadline/cancellation; completion must run once on
+ * main. No timer, polling, replacement Core or master admission is supplied. */
+typedef void (^ODOriginalPlayerResourcesPreparationWaiter)(ODResourceContextCurrent requestActive,
+    void (^completion)(NSError *_Nullable error));
 /** Native bootstrap resources and saved-team routes for the actual client.
  * The trusted host must supply its SAME scoped Core-backed projector and
  * current-context block. No page, source account, or second Core owns this.
@@ -37,6 +43,13 @@ typedef ODOriginalRequestDecoder *_Nullable (^ODOriginalPlayerRequestDecoderProv
                                   contextCurrent:(ODResourceContextCurrent)current
                             masterContextCurrent:(ODResourceContextCurrent)masterCurrent
                          requestDecoderProvider:(nullable ODOriginalPlayerRequestDecoderProvider)decoderProvider;
+/** Login/home may arrive while the SAME owner's initial Core/services are
+ * preparing. A nil waiter retains immediate readiness failure behavior. */
+- (nullable instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider
+                                  contextCurrent:(ODResourceContextCurrent)current
+                            masterContextCurrent:(ODResourceContextCurrent)masterCurrent
+                         requestDecoderProvider:(nullable ODOriginalPlayerRequestDecoderProvider)decoderProvider
+                              preparationWaiter:(nullable ODOriginalPlayerResourcesPreparationWaiter)waiter;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 NS_ASSUME_NONNULL_END

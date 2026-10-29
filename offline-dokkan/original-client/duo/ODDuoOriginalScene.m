@@ -302,6 +302,7 @@ rejected:
     if (!_sourceBackground) [self forward:@selector(applicationDidEnterBackground:)];
     _sourceBackground=YES; _foregroundDeferred=NO; _activeDeferred=NO;
     ODSourceInBackground=YES;
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,NO);
 }
 - (BOOL)resumeDeferred {
     if (ODActiveScene!=self || !_active || _background || ODCreatorLease) return NO;
@@ -317,6 +318,8 @@ rejected:
     }
     _activeDeferred=NO;
     [_renderer setNeedsLayout]; [self.window layoutIfNeeded];
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,
+        _active&&_sourceActive&&!_sourceBackground&&!ODCreatorLease);
     return YES;
 }
 - (ODDuoOriginalGamePauseLease *)beginCreatorWindow:(UIWindow *)window
@@ -337,6 +340,7 @@ rejected:
     /* Retain first: even a failed postcondition must not implicitly permit a
        resume or a second editor against unknown source state. */
     ODCreatorLease=lease;
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,NO);
     if (!_sourceBackground) [self forward:@selector(applicationDidEnterBackground:)];
     _sourceBackground=YES; ODSourceInBackground=YES; _foregroundDeferred=YES;
     ODDuoEngineState after;
@@ -377,6 +381,8 @@ rejected:
            deferred until a later trusted resume or lifecycle transition. */
         _foregroundDeferred=_active; _activeDeferred=_active;
     }
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,
+        _active&&_sourceActive&&!_sourceBackground&&!ODCreatorLease);
     return YES;
 }
 - (void)sceneDidDisconnect:(UIScene *)scene {

@@ -67,8 +67,9 @@ For an already known `native_num`, retain its Core slot. For a new number
 actually received through the admitted own-client path, allocating a free
 Core slot is our explicit persistent adapter policy, not a recovered source
 server default. The existing twenty-slot Core capacity must reject exhaustion
-without silently replacing another team. Initial approved fresh-player policy
-is a separate owner of any first-team creation.
+without silently replacing another team. New profiles still start with no
+team. The first team is created only from an explicit formation submission,
+as described below.
 
 The snapshot must come from the actual Core owner, not a caller-supplied JSON
 claim of native authority or an optional projection-only policy. No WebView
@@ -139,13 +140,17 @@ retained layouts before commit.
 `normalizeTeamUpdate(envelope, expected, decodedBody)`. The native wrapper
 exposes `projectCurrentTeams:` and `normalizeOriginalTeamUpdate:reply:` using
 the same Core owner. GET projection is independent of unresolved full-user
-capacity policy. POST accepts only an already decoded object and previously
-bound teams; new-account team/BGM initialization remains unresolved. The
-normalizer returns a revision-bound mutation, not a committed write.
+capacity policy. POST accepts only an already decoded object. Existing
+bindings preserve their BGM; new user-submitted bindings use the explicit
+no-custom-music policy below. The normalizer returns a revision-bound
+mutation, not a committed write.
 
-No HTTP route or signed/compressed request decoder is registered by this
-module. C/Objective-C remains uncompiled and the actual original-client team
-screen, empty-team flow and write/read round trip remain unverified.
+The native route adapter now registers GET/POST `/teams`, separately from
+this data-only module. POST requires the actual same-image original decoder
+capability and current engine verification before invoking the same Core
+owner transaction. Historical SQL/JS receipts do not prove native runtime.
+The actual original-client team screen, empty-team flow and write/read round
+trip remain unverified.
 
 The first combined Core13 SQL snapshot/projection check and the second
 changed-metadata-only SQL→GET/POST normalizer→SQL check each passed once.
@@ -153,3 +158,47 @@ Receipts: `core-team-projection-evidence.json`,
 `native-team-metadata-evidence.json` and Core
 `original-team-metadata-evidence.json`. These execute actual extracted SQL
 and JavaScript, not C transaction/replay control flow or Objective-C.
+
+## First user-created formation
+
+A genuinely empty canonical team list projects as `{"user_card_teams":[]}`.
+No selection is emitted. The retained 488-byte reader iterates no rows; its
+absent selection goes through the already-proven signed32 null-to-zero
+conversion, retaining the native zero/unselected state. This is a source
+contract for the response, not proof that the running empty-team UI offers
+a creation control. Nonempty teams still require an actual saved selection
+before their GET response is considered complete.
+
+An explicit decoded original formation POST may contain a new positive
+`num`. Its actual supplied name, complete reference fields and exactly six
+owned-ID positions become the new binding. Core allocates a free slot in its
+existing atomic transaction. A supplied selection may point to this new row
+in the same transaction. Omitted selection remains omitted; the adapter
+does not pick the first team. No unit, currency, reward or music asset is
+granted. Existing bindings and their saved BGM are preserved.
+
+The actual original writer has no BGM field. For a **new user-submitted
+formation only**, our explicit app policy is **no custom formation music**,
+stored and projected as the empty string. This is not a recovered original
+server starting value or a music resource path. Names and numbers remain
+the user's received values. Historical null/string BGM remains exact. The
+actual 412-byte native string converter's bounded null-tag branch also
+targets a proven NUL empty-string constant, so preserved null is not an
+invented filename. The broad decompiler's 278 outside-body instruction sites
+are not attributed to this proof. The
+trusted native owner's existing `applyDecodedOriginalTeamUpdate` method may
+also serve a concrete user formation action; ordinary WebView JSON cannot
+obtain this authority. Legacy canonical teams without any native binding
+remain unresolved rather than being silently renumbered.
+
+The exact skip-policy User-only DTO stays available after cards or teams are
+created. Its response still contains only `user`: it does not replace or
+claim synchronization of the collection model. Existing unfinished tutorial
+projection retains its previous empty-collection restriction.
+
+`first-formation-evidence.json` records one focused JS scenario for this
+changed flow, preserving BGM and positions and rejecting invalid ownership,
+duplicate members, extra fields, dirty projection and an unowned selection.
+The prior actual extracted Core SQL new-row allocation/ownership evidence
+is reused. No new native compilation or game execution was performed by
+this scenario.

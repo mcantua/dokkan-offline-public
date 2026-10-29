@@ -16,7 +16,7 @@
     {
       "relative_path": "OriginalClient/Protocol/resources-projector.js",
       "source": "offline-dokkan/original-client/protocol/resources-projector.js",
-      "sha256": "1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac"
+      "sha256": "272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602"
     },
     {
       "relative_path": "OriginalClient/Protocol/cached-resource-response-schema.json",
@@ -33,12 +33,12 @@
   ],
   "source_hashes": {
     "loader/ODUnifiedDuoNativeFactory.h": "fa5f061015865dc202d88131ea6271ecc961a8da747e72b162940f8d781b0a7c",
-    "loader/ODUnifiedDuoNativeFactory.m": "11cc7ab17815e1ca01f190c17b4a673bd4017bcaacc4c29fce1c38dd4e51376a",
+    "loader/ODUnifiedDuoNativeFactory.m": "a2548a0a841fbe92cac862cc8f4113666498d1cdd28bb4ba1ec190981fc7041b",
     "loader/ODUnifiedDuoStartup.h": "aa3871e2b54955ac02b971bb43a35727caa51ee97ecd1e7ca9b2547636871e1e",
-    "duo/ODUnifiedDuoHost.h": "a6f4983ce44f44f75b393a6640080defa62483857f793d286316d77bf9b332d7",
-    "duo/ODUnifiedDuoHost.m": "640f26d683a1c385468eea5efcc16cccb169bc059fbddc048c5b85eefcc4f3d7",
-    "ios/ODOriginalPlayerResourcesAdapter.h": "76f5494a44ae92e2068e29fe263b569e2580b75478bddd752e1cc7cd0909df5f",
-    "ios/ODOriginalPlayerResourcesAdapter.m": "e62d241238e44d1bb741cd3ed8128631d3355d47815b8cd9a067598e6a5ea87d",
+    "duo/ODUnifiedDuoHost.h": "463975867dd3f2993b4bdf5f17beeffd062d96e3672c06658df098e828597396",
+    "duo/ODUnifiedDuoHost.m": "7c5ab4bec344f8cfd503fe75e84f170d18bbdd53b1d32fb3e84a2393fcb3e6d1",
+    "ios/ODOriginalPlayerResourcesAdapter.h": "c36ee27d925dbc76466e4ba866eacf9b0d9816c8327b2d650a0a86dfc98bd628",
+    "ios/ODOriginalPlayerResourcesAdapter.m": "9e5f8f2c4a0470e48b57f08dacabcace4e561dc1b6b32d1009c897b7d3be4270",
     "loader/ODUnifiedDuoStartup.m": "17a8029eb40e2f11c102277e8d1a0d664cda09498a040bec92d923ad67059850",
     "loader/ODPreparedEngineLoader.h": "b0701fc0a6717d4d2f88103f94b437d1a71faf2f72ab8480a3c1f0f05f36f51b",
     "loader/ODPreparedEngineLoader.m": "fb3f1dcfecbb9bc3a1b85fd826ba2aaf29d00bea4876312e301124276cfdfb8a",
@@ -46,8 +46,8 @@
     "ios/ODOriginalClientBootstrap.m": "66baefcc295c81a7610d7bab3d96868567165b63f24041a00c1b118990553199",
     "ios/ODOriginalPracticePhaseProvider.h": "54a58dda631c400dd866153759d76904ea083edd329b5d76cab7f0b4c5181b19",
     "ios/ODOriginalPracticePhaseProvider.m": "56e52619e5b26f7cc82f802e76bb8ac2767e3c8db6d5859ccca68035d3375120",
-    "duo/ODDuoPracticeBattle.h": "2e82f484f0832e872a9b473b1d734584fde3dca0a756be01bbd2839f9a8e82c0",
-    "duo/ODDuoPracticeBattle.mm": "b32135823b417ae1069308bbff3fa4b6e7bbe7db3ca66d9b47f153b79ebbeed2",
+    "duo/ODDuoPracticeBattle.h": "f914ac6bf72e176066302119c00af684c960ae3c4d18669da9a2716d9e4357a8",
+    "duo/ODDuoPracticeBattle.mm": "9ececc8ba389e9a94f6122059212ff2eb835820f347be4337e9adca05f3bbd5a",
     "loader/ODOriginalDuoStartupDiagnostic.h": "30a16c9042525e7be7573e336057f3feb9ebda30424b0fc91145d0e6cf6aa1d9",
     "loader/ODOriginalDuoStartupDiagnostic.m": "aed2ac9243a2b7c48558a6b92a9101e78a35dd85c3929df45ef610560b423907",
     "content/ODNativeMasterColdStage.h": "c914918feba3ac65685c2509295c6eec299ddf27980a44d0315cfb0229ec740a",
@@ -55,7 +55,9 @@
     "ios/ODOriginalRequestDecoder.h": "3312a09b621b3035d877900fc02522d906702f7913d4703d03b6a51ec7c33769",
     "ios/ODOriginalRequestDecoder.mm": "c1cf71e041928b27fd615f11768eca76c2a3c2a18971825156c0131fa20b9d84",
     "ios/ODResourceResponseProjector.h": "b155bb80a642fa4c9fffe7c43ce113e5603f9ea0c35251164c8009fc61100722",
-    "ios/ODResourceResponseProjector.m": "d2171ba43e3de3ec1c7f54ed1e2b774f52346e8ae6f6e94600757c9ca6d8136b"
+    "ios/ODResourceResponseProjector.m": "d2171ba43e3de3ec1c7f54ed1e2b774f52346e8ae6f6e94600757c9ca6d8136b",
+    "duo/ODOriginalPracticeSession.h": "6395d6d884229c70f5b1c494e359694a73d1d23ef2d1e517faaff5b2b25f8fb4",
+    "duo/ODOriginalPracticeSession.m": "baf9848e31a1ac97e3a781af2e37b3bb74175d563ead5ee61fbd42cdc4f5b4ff"
   },
   "same_core_player_scope": "actual owner queue preparation, receipt returned asynchronously on main; never guessed",
   "same_core_services_binding": "native IO construction then actual Host binding on main",
@@ -115,9 +117,10 @@
     ],
     "ordinary_checkpoint_unlink_invoked": false,
     "tutorial_completion_event_emitted": false,
-    "core_collection_team_progress_reward_mutation": false,
     "actual_original_combat_completed_verified": false,
-    "normal_quest_rewards_verified": false
+    "normal_quest_rewards_verified": false,
+    "normal_quest_act_reward_collection_team_tutorial_mutation": false,
+    "same_core_practice_ledger_mutation": true
   },
   "fresh_candidate_composition": {
     "source_language_is_observed_native_language": false,
@@ -159,5 +162,43 @@
     "bounded_existing_observer": true,
     "automatic_polling": false,
     "cached_handle_is_master_acceptance": false
+  },
+  "prior_decoder_creator_compile": {
+    "commit": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6",
+    "github_actions_run": 40963117227,
+    "authored_translation_units": 72,
+    "compiled_and_linked": true,
+    "current_inapp_actions_waiter_practice_session_changes_included": false,
+    "runtime_verified": false
+  },
+  "initial_resources_preparation": {
+    "waiter": "native factory to same Host initial-services pending queue",
+    "bound": 8,
+    "activity_and_deadline": "original request isActive and transport timeout/cancellation",
+    "wakes": "actual same-Core service bind or terminal initial preparation failure",
+    "polling": false,
+    "scope_or_read_grant_from_waiter": false
+  },
+  "native_session_lifecycle_review": {
+    "authentication_transaction_run": {
+      "bytes": 568,
+      "sha256": "49740a5b9ca2feda622f5cef773ac91837abf610e9f36f1a89b69236d6e1220a",
+      "nonce_retrieval_unconditional": true,
+      "pre_auth_ping_conditional": true
+    },
+    "expired_or_missing_nonce_invalidates_whole_owner": false,
+    "cancelled_request_invalidates_whole_owner": false,
+    "token_written_by_authored_issuer": false,
+    "renewal_endpoint_invented": false,
+    "native_foreground_renewal_runtime_verified": false
+  },
+  "practice_session_persistence": "duo/practice-session-source.json",
+  "diagnostic_share": {
+    "explicit_user_action": true,
+    "read_only_allowlisted_report": true,
+    "can_run_after_core_preparation_failure": true,
+    "original_window_and_activity_gate": true,
+    "file_or_upload_created": false,
+    "completion_after_dismissal_or_failure": true
   }
 }

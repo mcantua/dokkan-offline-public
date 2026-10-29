@@ -36,7 +36,14 @@
         "user_card_teams",
         "user_card_teams[].num",
         "user_card_teams[].team_bgm_filename"
-      ]
+      ],
+      "string_conversion": {
+        "bytes": 412,
+        "sha256": "9bada54a2aae2b2969d02446559ada7309c784d4e0393fdac3835fc3f44cb0dd",
+        "bounded_peer_checked": "declared-body null tag branch targets exact generic empty-string constant whose first byte is NUL",
+        "null_filename_conversion": "native empty string",
+        "limits": "Does not attribute the 278 outside-body high-pcode sites to this helper, infer server defaults, or grant a BGM asset."
+      }
     }
   },
   "response_consumer_candidates": [
@@ -101,9 +108,9 @@
   "runtime_execution_verified": false,
   "http_route_admitted": false,
   "next_steps": [
-    "Reuse both passing SQL-to-JS receipts; do not repeat unchanged migration/ownership/layout or metadata checks.",
-    "Bind actual request-body decoding and native-only owner transaction to original transport without admitting an incomplete HTTP success.",
-    "Resolve original empty-account/first-team and home/collection consumers; verify original-client runtime when builds are authorized."
+    "Run actual original-client empty formation UI and original codec-backed POST, same-Core persistence and GET refresh.",
+    "Integrate actual collection model/custom-unit engine identity; User-only continuity does not synchronize collection.",
+    "Preserve unresolved legacy bindings rather than silently renumbering or inventing metadata."
   ],
   "retained_rtti_reused_without_rescan": true,
   "known_team_request_setup_frontier": [
@@ -194,7 +201,7 @@
     "limits": "Current original constructors + exact inherited method/path materialization; no inference from Index/Update names and no live host/account data."
   },
   "own_persistent_adapter_mapping_implemented": true,
-  "limits": "Static direct team request/response binding is established. No HTTP route is registered and no original-client runtime, home or full collection contract is claimed.",
+  "limits": "Static original team request/response binding and native route source are implemented; no actual original-client empty UI, encoded write, Home or full collection runtime acceptance is claimed.",
   "verification": {
     "first_combined_core13_scenario": "core-team-projection-evidence.json",
     "second_changed_metadata_only_scenario": "native-team-metadata-evidence.json",
@@ -209,19 +216,22 @@
     "empty_get_body_and_default_query_rejection": true,
     "incomplete_team_projection_returned_as_success": false,
     "new_empty_or_selected_team_defaults_created": false,
-    "native_compile_and_original_client_execution_verified": false
+    "native_compile_and_original_client_execution_verified": false,
+    "empty_team_response": "exact empty canonical/binding list emits user_card_teams:[]; no selection emitted; actual native UI remains unverified"
   },
   "native_post_route_adapter": {
     "decoder": "optional same-image ODOriginalRequestDecoder; exact original wire NSData only, actual fixed own-JSON native roundtrip/current-engine verification required",
     "no_decoder_or_unverified_behavior": "specific native decoder unavailable/verification/context failure; no Core write, no plain replacement or base64-as-JSON fallback",
     "native_mutation_method": "ODResourceResponseProjector applyDecodedOriginalTeamUpdate:command:mutationCurrent:reply:",
-    "normalization": "fresh actual same-Core snapshot, clean projection, strict complete proven writer fields and real owned-ID bindings",
+    "normalization": "fresh actual same-Core snapshot; clean projection; complete proven writer fields; real owned-ID positions; existing or explicitly user-submitted new positive native numbers",
     "atomic_write": "existing native-only Core teams.apply with exact snapshot revision/save scope; creator lease and stale revision reject in owner operation",
     "async_authority": "same current native decoder and projector pointers, current request/Core/master before normalization/write/delivery",
     "success": "fresh current persisted GET-team projection, never echoed request or stale command receipt",
     "retry_policy": "new native UUID for each admitted adapter invocation; no alleged original wire intent ID and no permanent request-body hash cache; later same formation remains allowed",
     "cancellation_after_commit": "accepted Core commit is not rolled back; currentness/response failures report specifically and do not invent success",
     "encoded_requests_decoded_or_native_writes_verified": false,
-    "new_targeted_check": "team-post-clean-admission-evidence.json; prior migration/team metadata checks reused"
+    "new_targeted_check": "team-post-clean-admission-evidence.json; prior migration/team metadata checks reused",
+    "first_formation_policy": "new user-submitted formation only: empty-string no-custom-music app policy; supplied name/num/references/positions; selection only when supplied; no starter team/cards/rewards",
+    "first_formation_evidence": "first-formation-evidence.json; one changed-flow scenario; unchanged actual Core new-row SQL evidence reused"
   }
 }

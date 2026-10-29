@@ -290,8 +290,9 @@ run; empty-collection and Home runtime acceptance remain unverified.
 The same native adapter now includes GET `/teams`, using the same deferred
 Core-backed projector. The route returns the existing complete own-team DTO
 only when `projectCurrentTeams:` supplies a nonnull serialized candidate.
-Missing bindings, unknown reference metadata, unverified empty-team flow or
-pending custom-unit projection remain an explicit failure. It introduces no
+Missing legacy bindings, unknown reference metadata or pending custom-unit
+projection remain an explicit failure. A genuinely empty list now returns
+`user_card_teams:[]` without creating a selection or team. It introduces no
 team/selection defaults and no POST codec, and retains default query denial.
 No older team checks were rerun for this native wiring.
 
@@ -343,3 +344,31 @@ One new clean-admission normalization check passed; see
 `team-post-clean-admission-evidence.json`. Old Core/team scenarios were not
 repeated. Native codec self-check, an actual encoded save request, and the
 real Core-to-client response round trip remain runtime verification work.
+
+## First formation after creating a unit
+
+An original decoded user formation submission can now create a new binding.
+Its positive native number, name, six ordered owned-ID positions and complete
+reference fields are retained. Existing atomic Core code allocates a free
+slot; the request's actual selection can refer to the new row in that same
+transaction. Omitted selection is not guessed. New formations use our
+explicit no-custom-music policy (empty string), because the native POST
+writer has no BGM field; all existing BGM values remain exact. This creates
+no starter unit, reward, asset or automatic first team.
+
+The skip-policy User-only response continues after cards/teams exist, so a
+creation does not break later User refreshes. It emits no collection fields
+and does not claim those models were synchronized. Existing unfinished
+tutorial behavior is preserved. One focused changed-flow JS scenario passed
+in `first-formation-evidence.json`; unchanged Core SQL evidence was reused.
+Actual empty-team UI creation, original encoded POST, persistence and real
+gameplay still need native execution.
+
+Login/home now accept an optional native preparation waiter before their
+first scope/projector admission. The actual Host shares its bounded initial
+services queue and wakes requests only on real services binding or failure.
+The adapter keeps each original request's activity/deadline, resumes once,
+and rechecks the actual scoped projector and current context before use and
+response delivery. A nil waiter retains immediate failure; no timer, polling
+or native-master admission change is introduced. This is source integration
+for the next combined native compile, not an additional runtime check.

@@ -2,7 +2,7 @@
 #include <stdint.h>
 #import "ODDuoOriginalScene.h"
 #import "../ios/ODLocalURLProtocol.h"
-@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage, ODDeferredOriginalPlayerAdmission, ODOriginalRequestDecoder;
+@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage, ODDeferredOriginalPlayerAdmission, ODOriginalRequestDecoder, ODOriginalPracticeSession;
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, ODUnifiedDuoPurpose) {
     ODUnifiedDuoStartupDiagnostic,
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, ODUnifiedDuoPurpose) {
 typedef BOOL (^ODUnifiedDuoImageAttachment)(NSError * _Nullable * _Nullable error);
 typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
 typedef void (^ODUnifiedDuoPracticeParametersProvider)(
-    void (^completion)(NSData * _Nullable parameters,NSError * _Nullable error));
+    void (^completion)(ODOriginalPracticeSession * _Nullable preparedSession,NSError * _Nullable error));
 
 /** Native composition owner for the preserved genuine27.1 shell, prepared
  * original engine, actual Duo scene and same-save Creator services. Services
@@ -68,6 +68,16 @@ typedef void (^ODUnifiedDuoPracticeParametersProvider)(
  * This neither replaces original UI nor opens master/runtime acceptance. */
 - (void)prepareDeferredPlayerAdmissionOnQueue:(dispatch_queue_t)queue
     completion:(void (^)(NSError * _Nullable error))completion;
+/** Main-only initial-preparation wait for a native route's existing request.
+ * Shares the bounded pending owner queue and wakes once on actual same-Core
+ * service bind or failure. active observes that request's existing deadline/
+ * cancellation. No timer, polling, second Core or scope/read grant is issued. */
+- (void)waitForCanonicalPlayerServicesWhileActive:(BOOL (^)(void))active
+    completion:(void (^)(NSError * _Nullable error))completion;
+/** Main-only terminal initial-preparation failure. Acts only while no services
+ * were bound and this Host's own current-context predicate is already false.
+ * Drains pending requests; does not reset/import a profile or mint an issue. */
+- (void)rejectPendingCanonicalPlayerServicesForInvalidContext;
 /** Configure internal auth while the captured Core waits for its actual scope.
  * Pending requests issue no token until admission and same-Core services bind.
  * Main only, before install; expiresIn remains explicit offline policy. */

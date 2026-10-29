@@ -1,0 +1,42 @@
+{
+  "format": "od-duo-original-in-game-actions-source-v1",
+  "sources": [
+    "offline-dokkan/original-client/duo/ODDuoInGameActions.h",
+    "offline-dokkan/original-client/duo/ODDuoInGameActions.m",
+    "offline-dokkan/original-client/duo/ODDuoCreatorQuickAction.h",
+    "offline-dokkan/original-client/duo/ODDuoCreatorQuickAction.m",
+    "offline-dokkan/original-client/duo/ODDuoOriginalScene.m"
+  ],
+  "delivery": "One compact authored UIKit entry with native UIMenu over actual admitted original scene; optional app-icon shortcuts retained",
+  "labels": [
+    "Unit Creator",
+    "Practice Battle",
+    "Share diagnostic report",
+    "Retry Save"
+  ],
+  "shared_native_admission_and_invocation_owners": true,
+  "original_controller_renderer_and_game_touch_methods_replaced": false,
+  "outside_button_hit_targets_pass_to_original_game": true,
+  "new_render_surface_created": false,
+  "creator_master_acceptance_bypassed": false,
+  "editor_background_disconnect_hidden": true,
+  "source_pause_resume_updates_explicit": true,
+  "practice_refresh_uses_existing_host_callback": true,
+  "timer_or_automatic_gameplay": false,
+  "diagnostic_action": "Optional host callback; no report collection, network or private data read in UI",
+  "source_implemented": true,
+  "native_compile_verified": false,
+  "runtime_verified": false,
+  "inner_outer_display_verified": false,
+  "actual_original_client_screenshot_available": false,
+  "playable_build": false,
+  "pending_game_actions_disabled": true,
+  "active_invocation_hidden": true,
+  "diagnostic_available_while_game_action_waits": true,
+  "persistent_three_button_panel": false,
+  "entry_minimum_touch_points": 44,
+  "entry_maximum_width_points": 160,
+  "menu_waits_for_actual_dismissal_animator": true,
+  "hidden_or_disconnected_menu_selection_cancelled": true,
+  "practice_save_retry": "Practice-only native readiness and same action owner; no new battle/save grant by UI"
+}

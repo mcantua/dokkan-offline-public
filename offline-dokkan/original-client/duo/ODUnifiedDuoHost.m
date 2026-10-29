@@ -2,6 +2,7 @@
 #import "ODDuoCreatorQuickAction.h"
 #import "ODDeferredOriginalPlayerAdmission.h"
 #import "ODDuoPracticeBattle.h"
+#import "ODOriginalPracticeSession.h"
 #import "../ios/ODOriginalRequestDecoder.h"
 #import "../ios/ODFreshStatePolicy.h"
 #import "../ios/ODOfflineBootstrapAuth.h"
@@ -25,8 +26,9 @@
 static ODUnifiedDuoHost *ODInstalledUnifiedHost;
 static NSError *ODHostFailure(NSInteger code) {
     NSString *message = code == 11
-        ? @"Offline login is not ready. The complete sign-in response and native login path still need verification."
-        : @"The native original-game startup or same-save binding is unavailable. Existing files were preserved.";
+        ? @"Offline login could not finish. Reopen the game or share Diagnostics."
+        : code == 12 ? @"Practice Battle is unavailable. Use Retry Save if it appears, or share Diagnostics."
+        : @"This action is unavailable right now. Please try again or share Diagnostics.";
     return [NSError errorWithDomain:@"OfflineDokkan.UnifiedDuoHost" code:code
         userInfo:@{NSLocalizedDescriptionKey:message}];
 }
@@ -161,6 +163,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"originalPracticeCapabilityResolved":@(_practice!=nil),
         @"originalPracticeParametersConfigured":@(_practiceParameters!=nil),
         @"originalPracticeRunning":@(_practice.running),
+        @"originalPracticeFinishSaveRetryAvailable":@(_practice.finishPersistenceRetryAvailable),
         @"originalPractice":_practiceReport?:@{@"outcome":@"not-started"},
         @"originalPracticeEntry":_practiceEntryReport?:@{@"outcome":@"not-configured"},
         @"originalRequestDecoderResolved":@(_requestDecoder!=nil),
@@ -280,12 +283,12 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     },^ODDuoCreatorQuickActionReadiness(UIWindow *window,UIViewController *controller,UIView *renderer){
         ODUnifiedDuoHost *host=weakSelf;
         if(!host||!host->_current()||!host->_practice)return ODDuoCreatorEntryRejected;
-        if(host->_practice.running||host->_practiceLoading)return ODDuoCreatorEntryAlreadyOpen;
+        if((host->_practice.running&&!host->_practice.finishPersistenceRetryAvailable)||host->_practiceLoading)return ODDuoCreatorEntryAlreadyOpen;
         if(host->_servicesPending)return ODDuoCreatorEntryWaiting;
         if(!host->_installed||!host->_sceneObserved||!host->_services||host->_services.coordinator.creatorIsOpen||
            ![host->_services creatorScopeIsCurrent]||controller!=host->_originalController||
            renderer!=host->_renderer||renderer.window!=window||!ODCurrentOriginalAppController())return ODDuoCreatorEntryRejected;
-        return ODDuoCreatorEntryReady;
+        return host->_practice.finishPersistenceRetryAvailable?ODDuoCreatorEntryRetrySave:ODDuoCreatorEntryReady;
     },^(void (^completion)(NSError *)){
         ODUnifiedDuoHost *host=weakSelf;if(!host){completion(ODHostFailure(12));return;}
         [host beginPracticeFromUserActionWithCompletion:completion];
@@ -338,7 +341,8 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         if(integrated){
             host->_practice=practice;
             host->_requestDecoder=decoder;
-            practice.report=^(NSDictionary *state){ODUnifiedDuoHost *active=weakSelf;if(active){active->_practiceReport=[state copy];[active emit];}};
+            practice.report=^(NSDictionary *state){ODUnifiedDuoHost *active=weakSelf;if(active){
+                active->_practiceReport=[state copy];[active emit];ODDuoRefreshQueuedCreatorQuickAction();}};
             host->_nativeOriginArmed=ODRearmLocalTransportForLoadedOriginalOrigin(origin,host->_routes,failure);
             if(!host->_nativeOriginArmed){host->_stage=@"native-origin-route-binding-failed";[host emit];return NO;}
         }
@@ -438,6 +442,27 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 - (BOOL)configureOfflineAuthForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope
         expiresIn:(int32_t)expiresIn error:(NSError **)error {
     return [self configureOfflineAuthForContentID:contentID saveScopeSHA256:scope deferredPlayer:nil expiresIn:expiresIn error:error];
+}
+- (void)waitForCanonicalPlayerServicesWhileActive:(BOOL (^)(void))active completion:(void (^)(NSError *))completion {
+    if(!completion)return;
+    if(!NSThread.isMainThread){
+        dispatch_async(dispatch_get_main_queue(),^{[self waitForCanonicalPlayerServicesWhileActive:active completion:completion];});return;
+    }
+    if(!active||!active()||!_authConfigured||_authInvalidated||!_current()){completion(ODHostFailure(11));return;}
+    if(_services){completion([self authContextIsCurrent]?nil:ODHostFailure(11));return;}
+    if(!_servicesPending||_pendingAuthRequests.count>=8){completion(ODHostFailure(11));return;}
+    __weak ODUnifiedDuoHost *weakSelf=self;
+    [_pendingAuthRequests addObject:^{
+        ODUnifiedDuoHost *host=weakSelf;
+        if(!host){completion(ODHostFailure(11));return;}
+        [host waitForCanonicalPlayerServicesWhileActive:active completion:completion];
+    }];
+}
+- (void)rejectPendingCanonicalPlayerServicesForInvalidContext {
+    if(!NSThread.isMainThread||_services||!_servicesPending||_current())return;
+    _authInvalidated=YES;++_authGeneration;
+    NSArray<dispatch_block_t> *pending=[_pendingAuthRequests copy];[_pendingAuthRequests removeAllObjects];
+    for(dispatch_block_t request in pending)request();
 }
 - (BOOL)configureOfflineAuthForDeferredPlayerWithExpiresIn:(int32_t)expiresIn error:(NSError **)error {
     if(!NSThread.isMainThread||!_deferredPlayer){if(error)*error=ODHostFailure(11);return NO;}
@@ -556,19 +581,27 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 - (void)beginPracticeFromUserActionWithCompletion:(void (^)(NSError *))completion {
     if(!completion)return;
-    if(!NSThread.isMainThread||!_installed||!_current()||!_practice||_practice.running||_practiceLoading||
+    if(!NSThread.isMainThread||!_installed||!_current()||!_practice||_practiceLoading||
        !_practiceParameters||!_services||_servicesPending||_services.coordinator.creatorIsOpen||
        ![_services creatorScopeIsCurrent]||!_originalController||!_renderer){completion(ODHostFailure(12));return;}
     id original=ODCurrentOriginalAppController();
-    if(!original){completion(ODHostFailure(12));return;}
+    UIWindow *window=_renderer.window;
+    if(!original||!window||window.rootViewController!=_originalController||_originalController.view!=_renderer||
+       window.windowScene.activationState!=UISceneActivationStateForegroundActive||
+       _originalController.transitionCoordinator||_originalController.presentedViewController){completion(ODHostFailure(12));return;}
+    if(_practice.finishPersistenceRetryAvailable){
+        [_practice retryNativeFinishPersistenceWithCompletion:^(NSError *failure){[self emit];completion(failure?ODHostFailure(12):nil);}];return;
+    }
+    if(_practice.running){completion(ODHostFailure(12));return;}
     ODBoundOriginalCreatorServices *services=_services;
     UIViewController *controller=_originalController;UIView *renderer=_renderer;
     _practiceLoading=YES;__weak ODUnifiedDuoHost *weakSelf=self;
-    _practiceParameters(^(NSData *parameters,NSError *failure){
+    _practiceParameters(^(ODOriginalPracticeSession *session,NSError *failure){
         dispatch_async(dispatch_get_main_queue(),^{
             ODUnifiedDuoHost *host=weakSelf;if(!host){completion(ODHostFailure(12));return;}
             host->_practiceLoading=NO;
-            if(failure||!parameters||!host->_current()||host->_services!=services||
+            if(failure||![session isKindOfClass:ODOriginalPracticeSession.class]||!session.prepared||
+               session.nativeFinishPersisted||!host->_current()||host->_services!=services||
                ![services creatorScopeIsCurrent]||services.coordinator.creatorIsOpen||
                ODCurrentOriginalAppController()!=original||host->_originalController!=controller||host->_renderer!=renderer||
                !renderer.window||renderer.window.rootViewController!=controller||
@@ -579,7 +612,10 @@ static BOOL ODHostSourcePatcherAbsent(void) {
             // Optional own-data codec check in the active engine; its absence or
             // failure must never prevent this independent manual practice.
             (void)[host currentOriginalRequestDecoder];
-            BOOL begun=[host->_practice beginWithAppController:original parametersJSON:parameters error:&nativeFailure];
+            BOOL begun=[host->_practice beginWithAppController:original parametersJSON:session.parametersJSON
+                finishSaver:^(void (^saved)(NSError *)){
+                    [session persistNativeFinishWithCompletion:saved];
+                } error:&nativeFailure];
             [host emit];completion(begun?nil:ODHostFailure(12));
         });
     });

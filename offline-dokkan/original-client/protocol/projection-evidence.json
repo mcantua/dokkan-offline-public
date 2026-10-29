@@ -14,7 +14,7 @@
   "raw_source_player_values_used": false,
   "original_iphone_runtime_verified": false,
   "tested_module_sha256": "8956c46a32b7fbd3eb979253611c2972d027e3d0751ad11f3241dd2aa0fb6414",
-  "current_module_sha256": "1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac",
+  "current_module_sha256": "272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602",
   "evidence_reuse": "Prior actual fresh-player identity/ACT/rank/EXP/ledger/empty-owned-card/scope paths remain unchanged and reuse their passing scenario. One additional actual Core11 fixture check covers new source-rank facts and the custom engine-ID/pending projection guards; actual engine bindings and iPhone runtime remain unverified.",
   "additional_changed_boundary_check": {
     "tested_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
@@ -66,5 +66,11 @@
     "status": "one new clean-admission scenario passed; previous unrelated checks not rerun",
     "atomic_owner": "same existing Core native teams.apply scope/revision/Creator checks",
     "original_codec_selfcheck_or_real_native_write_executed": false
+  },
+  "first_user_submitted_formation": {
+    "evidence": "player-home-team/first-formation-evidence.json",
+    "status": "one changed-flow JS scenario passed; unchanged Core allocation and ownership SQL evidence reused",
+    "new_team_creation_policy": "received user formation; no custom music; no precreated team/grants/selection",
+    "native_empty_team_ui_encoded_post_and_core_execution_verified": false
   }
 }

@@ -222,7 +222,7 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
     dispatch_async(_queue,^{
         NSError *error=nil;NSDictionary *result=nil;
         NSString *identifiers=@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.:";
-        if(!kind||![@[@"tutorial.progress",@"teams.apply"] containsObject:kind]||
+        if(!kind||![@[@"tutorial.progress",@"teams.apply",@"practice.begin",@"practice.finish"] containsObject:kind]||
            !ODProjectionCharacters(owner,identifiers,127)||!ODProjectionCharacters(intent,identifiers,127)||
            !ODProjectionCharacters(expected,@"0123456789abcdef",64)||expected.length!=64||
            !serialized||revision<0||revision>INT64_C(9007199254740991))error=CoreError("INVALID_ORIGINAL_PLAYER_ARGUMENT");

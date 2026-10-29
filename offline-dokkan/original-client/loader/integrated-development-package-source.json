@@ -30,8 +30,8 @@
     {
       "source": "offline-dokkan/original-client/protocol/resources-projector.js",
       "destination": "OriginalClient/Protocol/resources-projector.js",
-      "bytes": 26502,
-      "sha256": "1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac"
+      "bytes": 27184,
+      "sha256": "272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602"
     },
     {
       "source": "offline-dokkan/research/cached-resource-response-schema.json",

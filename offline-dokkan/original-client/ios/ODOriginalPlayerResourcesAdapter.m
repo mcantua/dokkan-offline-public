@@ -42,12 +42,16 @@ static BOOL ODResourceBootstrapQuery(NSDictionary<NSString *,NSString *> *fields
     return [self initWithProjectorProvider:provider contextCurrent:current masterContextCurrent:masterCurrent requestDecoderProvider:nil];
 }
 - (instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider contextCurrent:(ODResourceContextCurrent)current masterContextCurrent:(ODResourceContextCurrent)masterCurrent requestDecoderProvider:(ODOriginalPlayerRequestDecoderProvider)decoderProvider {
+    return [self initWithProjectorProvider:provider contextCurrent:current masterContextCurrent:masterCurrent requestDecoderProvider:decoderProvider preparationWaiter:nil];
+}
+- (instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider contextCurrent:(ODResourceContextCurrent)current masterContextCurrent:(ODResourceContextCurrent)masterCurrent requestDecoderProvider:(ODOriginalPlayerRequestDecoderProvider)decoderProvider preparationWaiter:(ODOriginalPlayerResourcesPreparationWaiter)waiter {
     if(!provider||!current||!masterCurrent)return nil;
     if((self=[super init])){
         ODResourceContextCurrent live=[current copy];
         ODResourceContextCurrent masterLive=[masterCurrent copy];
         ODOriginalPlayerResourcesProjectorProvider issuedProjector=[provider copy];
         ODOriginalPlayerRequestDecoderProvider issuedDecoder=[decoderProvider copy];
+        ODOriginalPlayerResourcesPreparationWaiter preparation=[waiter copy];
         NSMutableArray<ODLocalTransportRoute *> *routes=[NSMutableArray array];
         for(NSString *path in @[@"/resources/login",@"/resources/home"]){
             BOOL login=[path isEqualToString:@"/resources/login"];
@@ -60,23 +64,38 @@ static BOOL ODResourceBootstrapQuery(NSDictionary<NSString *,NSString *> *fields
                         completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_REQUEST_UNSUPPORTED"));return;
                     }
                     dispatch_async(dispatch_get_main_queue(),^{
-                        if(!request.isActive||!live()){
+                        if(!request.isActive){
                             completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_CONTEXT_CHANGED"));return;
                         }
-                        ODResourceResponseProjector *projector=issuedProjector();
-                        if(!projector){completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_NOT_READY"));return;}
-                        [projector projectNewProfilePlayer:^(id candidate,NSError *error){
-                            if(!request.isActive||!live()||issuedProjector()!=projector){
+                        __block BOOL resumed=NO;
+                        void (^preparedOnMain)(NSError *)=^(NSError *preparationFailure){
+                            if(resumed)return;
+                            resumed=YES;
+                            if(preparationFailure){completion(nil,preparationFailure);return;}
+                            if(!request.isActive||!live()){
                                 completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_CONTEXT_CHANGED"));return;
                             }
-                            NSDictionary *result=[candidate isKindOfClass:NSDictionary.class]?candidate:nil;
-                            NSDictionary *body=[result[@"response"] isKindOfClass:NSDictionary.class]?result[@"response"]:nil;
-                            if(error||!body||![result[@"kind"] isEqual:@"new-original-player-skip-intro-projection"]){
-                                completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_NOT_READY"));return;
-                            }
-                            ODLocalTransportResponse *response=[ODLocalTransportResponse plainJSONResponseWithObject:body];
-                            completion(response,response?nil:ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_ENCODING_FAILED"));
-                        }];
+                            ODResourceResponseProjector *projector=issuedProjector();
+                            if(!projector){completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_NOT_READY"));return;}
+                            [projector projectNewProfilePlayer:^(id candidate,NSError *error){
+                                if(!request.isActive||!live()||issuedProjector()!=projector){
+                                    completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_CONTEXT_CHANGED"));return;
+                                }
+                                NSDictionary *result=[candidate isKindOfClass:NSDictionary.class]?candidate:nil;
+                                NSDictionary *body=[result[@"response"] isKindOfClass:NSDictionary.class]?result[@"response"]:nil;
+                                if(error||!body||![result[@"kind"] isEqual:@"new-original-player-skip-intro-projection"]){
+                                    completion(nil,ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_NOT_READY"));return;
+                                }
+                                ODLocalTransportResponse *response=[ODLocalTransportResponse plainJSONResponseWithObject:body];
+                                completion(response,response?nil:ODPlayerResourcesError(@"ORIGINAL_PLAYER_RESOURCES_ENCODING_FAILED"));
+                            }];
+                        };
+                        if(preparation){
+                            preparation(^BOOL{return request.isActive;},^(NSError *failure){
+                                if(NSThread.isMainThread)preparedOnMain(failure);
+                                else dispatch_async(dispatch_get_main_queue(),^{preparedOnMain(failure);});
+                            });
+                        }else preparedOnMain(nil);
                     });
                 }];
             if(!route)return nil;

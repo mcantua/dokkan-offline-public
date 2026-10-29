@@ -96,3 +96,43 @@ codec absence/failure does not block that action or original auth/User startup.
 Actual self-check success, POST team mutation/response and relaunch persistence
 remain runtime requirements. The report can refresh the existing bounded
 native master observation on demand; cache presence does not open acceptance.
+
+The subsequent cohort compiled 72 native units in run `40963117227` from
+`20fd1d0`, including the original request decoder, POST teams and embedded
+Creator files. The following changes are newer source and are not covered by
+that compilation:
+
+- Compact in-app actions reuse the existing original-scene readiness/invocation
+  owners. Creator and practice still exclude each other. Actual practice state
+  updates refresh the controls; a retained failed finish save exposes Retry Save.
+- Read-only diagnostic sharing is configured separately from Core readiness, so
+  a real active original window can export the allowlisted fixed failure state
+  even when Core preparation failed. No file, upload or raw error is produced.
+- Resources may wait once for actual initial same-Core service binding instead
+  of failing because the asynchronous projector was not issued yet. This uses
+  the existing bounded pending queue and the request's own timeout/cancellation,
+  with no polling. Terminal preparation failure drains those requests. This
+  covers a resources request independently of whether native auth ran first.
+- A native practice session recomputes the unchanged phase bytes' hash, verifies
+  their scoped source receipt, and durably records `prepared` before entry. The
+  original finish callback alone invokes its same-Core saver. Native cleanup and
+  Home return wait for `native-finish-observed` to commit. No win, reward, ACT,
+  normal quest or tutorial completion is inferred. A failed/abandoned entry keeps
+  its honest prepared record.
+
+Unknown-commit practice retries retain their exact command, payload and first
+revision. Core checks retained command/tombstone replay before checking revision.
+Only its explicit `ORIGINAL_PLAYER_REVISION_CHANGED` rejection permits a new
+intent on the next user retry after scope/revision revalidation. A pruned receipt
+is a different error and never silently replays the operation. The one focused
+Core ledger scenario covered migration, replay/lost response, stale revision,
+scope, unchanged projection/gameplay data and reopen persistence. That verifies
+the canonical ledger, not actual native combat or finish-callback delivery.
+
+The retained 568-byte authentication transaction run unconditionally queues
+nonce retrieval; only pre-auth ping is conditional. Local token expiry or a new
+process therefore has a fresh-nonce path through that native transaction. The
+authored issuer keeps tokens only in memory and never rejects canonical resources
+because an old local issue expired. Actual foreground/client renewal ordering,
+long-session login, native combat/finish save and device relaunch remain runtime
+requirements; no new token persistence or invented renewal endpoint is added.

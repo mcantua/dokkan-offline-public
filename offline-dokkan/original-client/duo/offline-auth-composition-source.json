@@ -8,8 +8,8 @@
     "../../research/ordinary-root-optional-updates.json"
   ],
   "source_hashes": {
-    "duo/ODUnifiedDuoHost.h": "a6f4983ce44f44f75b393a6640080defa62483857f793d286316d77bf9b332d7",
-    "duo/ODUnifiedDuoHost.m": "640f26d683a1c385468eea5efcc16cccb169bc059fbddc048c5b85eefcc4f3d7",
+    "duo/ODUnifiedDuoHost.h": "463975867dd3f2993b4bdf5f17beeffd062d96e3672c06658df098e828597396",
+    "duo/ODUnifiedDuoHost.m": "7c5ab4bec344f8cfd503fe75e84f170d18bbdd53b1d32fb3e84a2393fcb3e6d1",
     "creator/ODBoundOriginalCreatorServices.h": "bf6e218b5a0643b644808a708b044fab7cdb12a36e3d2d5e381eaf2fed3bacf5",
     "creator/ODBoundOriginalCreatorServices.m": "4f8a2d9ea40115084c728505d5ffd4336df7e3e8135884fe15d87ec5ddd6cc75"
   },
@@ -40,5 +40,7 @@
     "Cancelled private in-memory issues may remain until expiry or the next nonce; cancellation drops request delivery and does not poison the owner. No atomic rollback is promised.",
     "The independent native master admission runtime gate remains closed. This source cannot open it or claim real login by installing auth handlers.",
     "Original image/auth/UI initialization can run before native master acceptance. Minimal new-profile User data depends on its own canonical persisted admission; teams/card/gameplay/Creator mutations retain their distinct native-master gate."
-  ]
+  ],
+  "initial_resources_wait_for_actual_same_core_bind": true,
+  "token_renewal_runtime_verified": false
 }
