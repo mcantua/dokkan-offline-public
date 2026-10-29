@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "kind": "offline-bootstrap-auth-and-fresh-state-policy-check",
+  "assertions": 17,
+  "failures": 0,
+  "auth_http_body_admitted": false,
+  "auth_route_admitted": false,
+  "wire_body_envelope_verified": false,
+  "string_expires_in_rejected": true,
+  "secret_and_captcha_rejected": true,
+  "guessed_data_wrapper_rejected": true,
+  "fresh_sentinels_adopted": false,
+  "tutorial_and_capacity_left_unresolved": true,
+  "starting_stats_invented": false,
+  "master_numbers_hardcoded": false,
+  "played_cache_values_used": false,
+  "original_iphone_runtime_verified": false,
+  "native_host_compiled": false,
+  "modules": {
+    "bootstrap-auth.js": "22f8e8cd34f346d8fa6fcefca57cc4306ba0cab2d19eae9636058cb1ef7148d3",
+    "fresh-state-policy.js": "0b6ad53f153e4e6501d43727989172927097e51fa7a83c58e9b06b3b6d3e8ff1",
+    "resources-projector.js": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1"
+  }
+}

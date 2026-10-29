@@ -92,7 +92,10 @@ static BOOL ODSaveHasContent(NSURL *file,NSString *identity) {
     _collection.enabled = !_busy && self.snapshot != nil; _teams.enabled = _collection.enabled;
     _creatorImport.enabled = !_busy && self.snapshot != nil; _creatorExport.enabled = _creatorImport.enabled;
     _creatorOpen.enabled = _creatorImport.enabled && _selectedMaster != nil;
+    void (^changed)(void) = self.savedAccountChanged;
+    if (changed) changed();
 }
+- (BOOL)savedAccountBusy { return _busy; }
 - (void)openPlayer {
     [_core close]; _core = nil; _selectedMaster=nil; _selectedIdentity=nil; _selectedGame=nil; _generation++; self.snapshot = nil; self.lastError = nil;
     NSError *error = nil;

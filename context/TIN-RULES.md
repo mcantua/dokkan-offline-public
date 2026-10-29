@@ -1,5 +1,16 @@
 # Tin's standing rules (his own words in quotes)
 
+## Latest active repository instruction (October 29)
+- Offline Dokkan + embedded Unit Creator now uses `mcantua/dokkan-offline-public`. The previous private repository is an untouched backup: no edits, pushes, builds or development there.
+- Base: `chatgpt/ios-eclipse-database-reuse`. Use topic branches and draft PRs; never merge into the base without Tin's OK. Preserve the existing draft workstreams and coordinate through `STATUS.md`.
+- No builds until Tin says "make the builds"; historical development-package authorization does not override this. Keep verification to one or two meaningful runs per task.
+- Never touch `save/` folders or the signing key. Personal details, including email/device/network identifiers, come only from ignored local configuration or environment selectors; do not read, print or commit their values. No secrets in files.
+- Read README, HANDOFF, HAYATE-HANDOFF, STATUS and these rules on takeover. Log actions and actual verification limits in `STATUS.md` and the existing shared Drive folder. This repository move supersedes conflicting old repository/pause directions; other project/platform limits persist.
+
+## Latest resumption and foundation confirmation (October 29)
+- Tin's "take over" resumes ChatGPT development in the public repository. The older stop below is historical. No-build, protected-base, Duo-only and privacy limits still apply.
+- Tin reconfirmed that Offline Dokkan is the supplied Sparking/original Dokkan client adapted for offline play with the agreed changes and built-in Unit Creator. Preserve its real presentation and mechanics. The account launcher and authored battle harness are internal components, never a replacement game or completion evidence.
+
 ## Latest stop / takeover instruction (October 29)
 - Tin asked ChatGPT to stop development to conserve usage and save/upload everything Grok Bot needs. All development agents stopped; perform only preservation/documentation/uploads for the handoff. Do not automatically resume ChatGPT development based on older sustained-work directions. Grok takeover state and exact WIP/blockers: [../GROK-TAKEOVER.md](../GROK-TAKEOVER.md). Duo-only and all privacy/storage/testing/platform gates remain in force.
 

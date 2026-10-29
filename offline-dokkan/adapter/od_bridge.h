@@ -33,6 +33,11 @@ int od_bridge_offline_player_snapshot(od_bridge *,const char *profile,char **res
 /* Read-only exact prior Finish intent receipt. No execute/replay fallback. */
 int od_bridge_creator_finish_receipt(od_bridge *,const char *profile,const char *command,
                                      const char *expected_definition_json,char **result,char **error);
+/* Native full-bundle save. Not an operation name. Public creator.finish still
+ * rejects a full_bundle descriptor. The bundle bytes are the validator packet. */
+int od_bridge_creator_finish_bundle(od_bridge *,const char *profile,const char *command,
+                                     const char *definition_json,const void *bundle,size_t bundle_length,
+                                     char **result,char **error);
 void od_bridge_close(od_bridge *);
 void od_bridge_free(void *);
 #ifdef __cplusplus

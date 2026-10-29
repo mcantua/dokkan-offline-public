@@ -169,6 +169,15 @@ int od_bridge_creator_finish_receipt(od_bridge *b,const char *profile,const char
  int rc=od_creator_finish_receipt(b->core,profile,command,expected,result);
  rc=projection_reply(b,rc,result,error);pthread_mutex_unlock(&b->lock);return rc;
 }
+int od_bridge_creator_finish_bundle(od_bridge *b,const char *profile,const char *command,
+ const char *definition,const void *bundle,size_t bundle_len,char **result,char **error) {
+ if(error)*error=NULL;
+ if(result)*result=NULL;
+ if(!b||!profile||!*profile||!command||!*command||!definition||!bundle||!bundle_len||!result)return fail(error,"INVALID_ARGUMENT");
+ pthread_mutex_lock(&b->lock);
+ int rc=od_creator_finish_bundle(b->core,profile,command,definition,bundle,bundle_len,result);
+ rc=projection_reply(b,rc,result,error);pthread_mutex_unlock(&b->lock);return rc;
+}
 static int save_io(od_bridge *b,const char *path,char **error,int importing) {
  if(error)*error=NULL;
  if(!b||!path)return fail(error,"INVALID_HOST_CONFIGURATION");

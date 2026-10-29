@@ -48,11 +48,13 @@ int od_offline_player_snapshot(od_core *core,const char *profile,char **result_j
 int od_creator_finish_receipt(od_core *core,const char *profile,const char *command,
                               const char *expected_definition_json,char **result_json);
 /* Native-only full Creator acceptance after complete scoped bundle validation.
- * The canonical definition is progression-root-v1 with an immutable v2 bundle
- * hash binding; every engine table/link/resource stays in the accepted packet.
- * Same ownership/progression/receipt transaction; no new WebView operation. */
+ * bundle_bytes is the exact validator packet. Its SHA-256 must match the
+ * definition's full_bundle binding before the save transaction starts.
+ * Public creator.import and creator.finish still reject that descriptor.
+ * No WebView operation and no original-engine attachment are added here. */
 int od_creator_finish_bundle(od_core *core,const char *profile,const char *command,
-                              const char *definition_json,char **result_json);
+                              const char *definition_json,const void *bundle_bytes,
+                              size_t bundle_length,char **result_json);
 void od_free(void *memory);
 #ifdef __cplusplus
 }

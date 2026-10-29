@@ -10,9 +10,10 @@ typedef ODDuoCreatorQuickActionReadiness (^ODDuoCreatorQuickActionAdmission)(
     UIWindow *window, UIViewController *controller, UIView *renderer);
 typedef void (^ODDuoCreatorQuickActionInvocation)(void (^completion)(NSError * _Nullable error));
 
-/* Interim native app-icon entry, not final placement inside the source game.
-   Configure once on main before UIApplicationMain. No shortcut userInfo, URL,
-   page data or filesystem path grants a Creator capability. */
+/* Reviewed in-game Creator menu entry. Delivery is the system app-icon
+   shortcut because no original menu callback ABI is verified. Configure once
+   on main before UIApplicationMain. No shortcut userInfo, URL, page data or
+   filesystem path grants a Creator capability. */
 BOOL ODDuoConfigureCreatorQuickAction(BOOL (^contextIsCurrent)(void),
     ODDuoCreatorQuickActionAdmission admission, ODDuoCreatorQuickActionInvocation invoke,
     void (^report)(NSDictionary *state), NSError * _Nullable * _Nullable error);
@@ -25,4 +26,6 @@ BOOL ODDuoHandleCreatorQuickAction(UIApplicationShortcutItem *item);
 void ODDuoUpdateCreatorQuickAction(UIWindow *window, UIViewController *controller,
     UIView *renderer, BOOL sourceActive);
 void ODDuoDisconnectCreatorQuickAction(UIWindow *window);
+/* Re-check a queued shortcut after late service binding. Does not block. */
+void ODDuoRefreshQueuedCreatorQuickAction(void);
 NS_ASSUME_NONNULL_END

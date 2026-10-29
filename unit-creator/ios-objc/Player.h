@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// ForgeHost ops starting with "player…" / "server…"
 - (void)handle:(NSString *)op message:(NSDictionary *)m reply:(void (^)(id _Nullable, NSString *_Nullable))reply;
 - (void)layoutInBounds:(CGRect)bounds safeArea:(UIEdgeInsets)insets;
+/// Scoped original-client preview only. The Menu control sends action to target.
+- (void)useInGameCreatorMenuWithTarget:(id)target action:(SEL)action;
 - (void)invalidate;
 /// Native-only access to the same scoped user-granted folder bookmark.
 - (nullable NSURL *)folderURLForGame:(NSString *)game;

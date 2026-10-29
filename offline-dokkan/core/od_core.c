@@ -1145,13 +1145,58 @@ bad:{char saved[192];memcpy(saved,c->error,sizeof(saved));sqlite3_exec(c->db,"RO
 int od_execute(od_core *c,const char *op,const char *p,const char *command,const char *a,char **out){return execute_internal(c,op,p,command,a,0,0,0,out);}
 int od_execute_clocked(od_core *c,const char *op,const char *p,const char *command,const char *a,int64_t host_now,char **out){return execute_internal(c,op,p,command,a,1,host_now,0,out);}
 
-int od_creator_finish_bundle(od_core *c,const char *p,const char *command,const char *definition,char **out) {
+typedef struct { uint32_t h[8]; uint64_t bits; unsigned char block[64]; unsigned n; } od_sha256_state;
+static uint32_t od_rotr(uint32_t x,unsigned n){return (x>>n)|(x<<(32-n));}
+static void od_sha256_block(od_sha256_state *s,const unsigned char p[64]){
+ static const uint32_t k[64]={
+  0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+  0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+  0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+  0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+  0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+  0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+  0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+  0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2};
+ uint32_t w[64],a=s->h[0],b=s->h[1],c=s->h[2],d=s->h[3],e=s->h[4],f=s->h[5],g=s->h[6],hh=s->h[7];
+ for(int i=0;i<16;i++)w[i]=((uint32_t)p[i*4]<<24)|((uint32_t)p[i*4+1]<<16)|((uint32_t)p[i*4+2]<<8)|p[i*4+3];
+ for(int i=16;i<64;i++){uint32_t s0=od_rotr(w[i-15],7)^od_rotr(w[i-15],18)^(w[i-15]>>3),s1=od_rotr(w[i-2],17)^od_rotr(w[i-2],19)^(w[i-2]>>10);w[i]=w[i-16]+s0+w[i-7]+s1;}
+ for(int i=0;i<64;i++){uint32_t s1=od_rotr(e,6)^od_rotr(e,11)^od_rotr(e,25),ch=(e&f)^(~e&g),t1=hh+s1+ch+k[i]+w[i],s0=od_rotr(a,2)^od_rotr(a,13)^od_rotr(a,22),maj=(a&b)^(a&c)^(b&c),t2=s0+maj;hh=g;g=f;f=e;e=d+t1;d=c;c=b;b=a;a=t1+t2;}
+ s->h[0]+=a;s->h[1]+=b;s->h[2]+=c;s->h[3]+=d;s->h[4]+=e;s->h[5]+=f;s->h[6]+=g;s->h[7]+=hh;
+}
+static void od_sha256_hex(const void *data,size_t len,char out[65]){
+ od_sha256_state s; memset(&s,0,sizeof s);
+ s.h[0]=0x6a09e667;s.h[1]=0xbb67ae85;s.h[2]=0x3c6ef372;s.h[3]=0xa54ff53a;s.h[4]=0x510e527f;s.h[5]=0x9b05688c;s.h[6]=0x1f83d9ab;s.h[7]=0x5be0cd19;
+ const unsigned char *p=data; s.bits=(uint64_t)len*8u;
+ while(len){size_t space=64u-s.n,take=len<space?len:space;memcpy(s.block+s.n,p,take);s.n+=(unsigned)take;p+=take;len-=take;if(s.n==64){od_sha256_block(&s,s.block);s.n=0;}}
+ unsigned char block[64]={0};memcpy(block,s.block,s.n);block[s.n]=0x80;if(s.n>=56){od_sha256_block(&s,block);memset(block,0,sizeof block);}
+ for(int i=0;i<8;i++)block[63-i]=(unsigned char)(s.bits>>(8*i));od_sha256_block(&s,block);
+ unsigned char raw[32];for(int i=0;i<8;i++){raw[i*4]=(unsigned char)(s.h[i]>>24);raw[i*4+1]=(unsigned char)(s.h[i]>>16);raw[i*4+2]=(unsigned char)(s.h[i]>>8);raw[i*4+3]=(unsigned char)s.h[i];}
+ for(int i=0;i<32;i++)sprintf(out+i*2,"%02x",raw[i]);out[64]=0;
+}
+static int bundle_packet_matches(od_core *c,const char *profile,const char *definition,const void *bundle,size_t bundle_len){
+ const char *text="SELECT json_valid(:a)=1 AND json_extract(:a,'$.format')='od-native-creator-full-bundle-v2' AND json_extract(:a,'$.engine_admission')='pending-master-cipher-resource-and-form-progression-binding' AND json_type(:a,'$.original_client_attached') IS NULL AND json_type(:a,'$.source_sha256')='text' AND length(json_extract(:a,'$.source_sha256'))=64 AND json_extract(:a,'$.source_sha256') NOT GLOB '*[^0-9a-f]*' AND ('sha256:'||json_extract(:a,'$.source_sha256'))=CASE WHEN json_extract(:id,'$.source.content_id') LIKE 'sparking:%' THEN substr(json_extract(:id,'$.source.content_id'),10) WHEN json_extract(:id,'$.source.content_id') LIKE 'eclipse:%' THEN substr(json_extract(:id,'$.source.content_id'),9) ELSE json_extract(:id,'$.source.content_id') END AND json_extract(:a,'$.content_id')=json_extract(:id,'$.source.content_id') AND json_extract(:a,'$.content_id')=(SELECT v FROM meta WHERE k='content') AND json_extract(:a,'$.profile_id')=:p AND json_extract(:a,'$.profile_id')=json_extract(:id,'$.full_bundle.profile_id') AND json_extract(:a,'$.save_scope')=json_extract(:id,'$.full_bundle.save_scope') AND json_extract(:a,'$.definition_id')=json_extract(:id,'$.definition_id') AND json_type(:a,'$.version')='integer' AND json_extract(:a,'$.version')=json_extract(:id,'$.version') AND json_extract(:a,'$.project_sha256')=json_extract(:id,'$.full_bundle.project_sha256') AND json_type(:a,'$.member_count')='integer' AND json_extract(:a,'$.member_count')=json_extract(:id,'$.full_bundle.member_count') AND json_type(:a,'$.members')='array' AND json_array_length(:a,'$.members')=json_extract(:id,'$.full_bundle.member_count') AND json_type(:a,'$.tables')='object' AND json_type(:a,'$.resources')='array' AND json_type(:a,'$.transform_links')='array' AND json_type(:a,'$.source_dependencies')='array' AND json_type(:a,'$.shared_actions')='array'";
+ sqlite3_stmt *s=NULL;if(sqlite3_prepare_v2(c->db,text,-1,&s,NULL)!=SQLITE_OK)return fail(c,"DATABASE_ERROR");
+ int ip=sqlite3_bind_parameter_index(s,":p"),ia=sqlite3_bind_parameter_index(s,":a"),iid=sqlite3_bind_parameter_index(s,":id"),step,ok;
+ if(!ip||!ia||!iid||sqlite3_bind_text(s,ip,profile,-1,SQLITE_TRANSIENT)!=SQLITE_OK||sqlite3_bind_text(s,iid,definition,-1,SQLITE_TRANSIENT)!=SQLITE_OK||sqlite3_bind_text(s,ia,bundle,(int)bundle_len,SQLITE_STATIC)!=SQLITE_OK){sqlite3_finalize(s);return fail(c,"DATABASE_ERROR");}
+ step=sqlite3_step(s);ok=step==SQLITE_ROW&&sqlite3_column_int(s,0);sqlite3_finalize(s);
+ if(step!=SQLITE_ROW)return fail(c,"DATABASE_ERROR");
+ return ok?0:fail(c,"FULL_BUNDLE_BINDING_INVALID");
+}
+int od_creator_finish_bundle(od_core *c,const char *p,const char *command,const char *definition,const void *bundle,size_t bundle_len,char **out) {
  if(!c||!out)return -1;
  *out=NULL;
- if(!identifier(p)||!identifier(command)||!definition)return fail(c,"INVALID_ARGUMENT");
- if(strlen(definition)>OD_MAX_BANNER_INPUT-32)return fail(c,"INPUT_TOO_LARGE");
+ if(!identifier(p)||!identifier(command)||!definition||!bundle)return fail(c,"INVALID_ARGUMENT");
+ if(strlen(definition)>OD_MAX_BANNER_INPUT-32||bundle_len>64u*1024u*1024u)return fail(c,"INPUT_TOO_LARGE");
+ if(!bundle_len||memchr(bundle,0,bundle_len))return fail(c,"FULL_BUNDLE_BINDING_INVALID");
  int64_t valid=0;
  if(scalar(c,"SELECT CASE WHEN json_valid(:a) THEN json_type(:a)='object' AND od_json_equal(:a,:a) ELSE 0 END",p,definition,NULL,&valid)<0||!valid)return fail(c,"INVALID_JSON");
+ if(scalar(c,"SELECT json_type(:a,'$.full_bundle.full_bundle_sha256')='text' AND length(json_extract(:a,'$.full_bundle.full_bundle_sha256'))=64 AND json_extract(:a,'$.full_bundle.full_bundle_sha256') NOT GLOB '*[^0-9a-f]*'",p,definition,NULL,&valid)<0)return -1;
+ if(!valid)return fail(c,"FULL_BUNDLE_BINDING_REQUIRED");
+ char actual[65];od_sha256_hex(bundle,bundle_len,actual);
+ char *expected=query(c,"SELECT json_extract(:a,'$.full_bundle.full_bundle_sha256')",p,definition,NULL);
+ int hashed=expected&&!strcmp(expected,actual);sqlite3_free(expected);
+ if(!hashed)return fail(c,"FULL_BUNDLE_HASH_MISMATCH");
+ if(bundle_packet_matches(c,p,definition,bundle,bundle_len)<0)return -1;
  char *args=query(c,"SELECT json_object('definition',json(:a))",p,definition,NULL);
  if(!args)return -1;
  int rc=execute_internal(c,"creator.finish",p,command,args,0,0,1,out);

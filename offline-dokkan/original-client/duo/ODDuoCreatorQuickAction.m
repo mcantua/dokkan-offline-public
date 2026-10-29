@@ -1,6 +1,9 @@
 #import "ODDuoCreatorQuickAction.h"
+#import "creator_menu_policy.h"
 
-static NSString *const ODQuickActionType=@"org.offlinedokkan.integrated-creator";
+static NSString *ODQuickActionType(void) {
+    return [NSString stringWithUTF8String:od_creator_shortcut_type()];
+}
 @interface ODDuoCreatorQuickActionOwner : NSObject
 @property(nonatomic,copy) BOOL (^current)(void);
 @property(nonatomic,copy) ODDuoCreatorQuickActionAdmission admission;
@@ -25,28 +28,38 @@ static ODDuoCreatorQuickActionOwner *ODQuickActionOwner;
 
 @implementation ODDuoCreatorQuickActionOwner
 - (void)emit:(NSString *)outcome {
-    NSDictionary *state=@{@"entry":@"native-app-icon-quick-action",@"interimPlacement":@YES,
+    NSDictionary *state=@{@"entry":@"in-game-creator-menu",@"delivery":@"app-icon-shortcut",
+        @"cocosMenuHookInstalled":@(od_creator_menu_cocos_hook_installed()),
         @"menuInstalled":@(self.menuInstalled),@"menuState":self.menuState?:@"not-installed",
         @"pending":@(self.pending),@"presenting":@(self.running),@"outcome":outcome};
     if([self.lastReport isEqual:state])return;
     self.lastReport=state;self.report(state);
 }
 - (void)installMenu {
-    if(self.menuInstalled||!self.current())return;
+    if(self.menuInstalled)return;
     UIApplication *app=UIApplication.sharedApplication;
-    if(!app)return;
-    NSMutableArray<UIApplicationShortcutItem *> *items=[app.shortcutItems mutableCopy]?:[NSMutableArray array];
-    BOOL existing=NO;
-    for(UIApplicationShortcutItem *item in items)if([item.type isEqual:ODQuickActionType])existing=YES;
+    NSMutableArray<UIApplicationShortcutItem *> *items=app?([app.shortcutItems mutableCopy]?:[NSMutableArray array]):nil;
     NSArray *staticItems=NSBundle.mainBundle.infoDictionary[@"UIApplicationShortcutItems"];
-    NSUInteger staticCount=[staticItems isKindOfClass:NSArray.class]?staticItems.count:0;
+    NSString *type=ODQuickActionType();
+    BOOL dynamicHas=NO,staticHas=NO;
+    for(UIApplicationShortcutItem *item in items)if([item.type isEqual:type])dynamicHas=YES;
     if([staticItems isKindOfClass:NSArray.class])for(id value in staticItems)
-        if([value isKindOfClass:NSDictionary.class]&&[value[@"UIApplicationShortcutItemType"] isEqual:ODQuickActionType])existing=YES;
-    if(!existing&&staticCount+items.count>=4){self.menuState=@"existing-shortcuts-fill-menu";[self emit:@"menu-registration-unavailable"];return;}
-    if(!existing){
+        if([value isKindOfClass:NSDictionary.class]&&[value[@"UIApplicationShortcutItemType"] isEqual:type])staticHas=YES;
+    od_creator_shortcut_input input={0};
+    input.context_current=self.current&&self.current();
+    input.application_available=app!=nil;
+    input.dynamic_has_type=dynamicHas;input.static_has_type=staticHas;
+    input.static_count=[staticItems isKindOfClass:NSArray.class]?(int)staticItems.count:0;
+    input.dynamic_count=items?(int)items.count:0;
+    od_creator_shortcut_decision decision;
+    if(od_creator_shortcut_decide(&input,NULL,&decision))return;
+    if(decision.report_unavailable){self.menuState=@"existing-shortcuts-fill-menu";[self emit:@"menu-registration-unavailable"];return;}
+    if(!decision.mark_installed||decision.cocos_hook_installed||decision.user_info_grants_access)return;
+    if(decision.add_dynamic_item){
         UIApplicationShortcutIcon *icon=[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
-        [items addObject:[[UIApplicationShortcutItem alloc] initWithType:ODQuickActionType
-            localizedTitle:@"Unit Creator" localizedSubtitle:@"Open the integrated editor" icon:icon userInfo:nil]];
+        [items addObject:[[UIApplicationShortcutItem alloc] initWithType:type
+            localizedTitle:[NSString stringWithUTF8String:od_creator_shortcut_title()]
+            localizedSubtitle:[NSString stringWithUTF8String:od_creator_shortcut_subtitle()] icon:icon userInfo:nil]];
         app.shortcutItems=items;
     }
     self.menuInstalled=YES;self.menuState=@"registered-not-device-verified";[self emit:@"native-menu-registered"];
@@ -95,7 +108,7 @@ BOOL ODDuoConfigureCreatorQuickAction(BOOL (^current)(void),ODDuoCreatorQuickAct
 }
 BOOL ODDuoHandleCreatorQuickAction(UIApplicationShortcutItem *item) {
     ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
-    if(!NSThread.isMainThread||!owner||![item.type isEqual:ODQuickActionType])return NO;
+    if(!NSThread.isMainThread||!owner||![item.type isEqual:ODQuickActionType()])return NO;
     if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return NO;}
     if(owner.running||owner.pending)return YES;
     owner.pending=YES;[owner emit:@"queued-user-action"];[owner scheduleDrain];return YES;
@@ -105,6 +118,12 @@ void ODDuoUpdateCreatorQuickAction(UIWindow *window,UIViewController *controller
     if(!NSThread.isMainThread||!owner)return;
     if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return;}
     owner.window=window;owner.controller=controller;owner.renderer=renderer;owner.sourceActive=sourceActive;
+    [owner installMenu];[owner scheduleDrain];
+}
+void ODDuoRefreshQueuedCreatorQuickAction(void) {
+    ODDuoCreatorQuickActionOwner *owner=ODQuickActionOwner;
+    if(!NSThread.isMainThread||!owner)return;
+    if(!owner.current()){owner.pending=NO;[owner emit:@"native-context-unavailable"];return;}
     [owner installMenu];[owner scheduleDrain];
 }
 void ODDuoDisconnectCreatorQuickAction(UIWindow *window) {

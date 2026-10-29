@@ -76,6 +76,9 @@ invalid:if(error)*error=ODBindingError(1);return nil;
 }
 - (ODOriginalCreatorCoordinator *)coordinator{return _coordinator;}
 - (NSError *)lastBindingError{return _lastBindingError;}
+- (BOOL)matchesAdmittedContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope {
+    return [contentID isEqual:_content]&&[scope isEqual:_scope];
+}
 - (BOOL)creatorScopeIsCurrent {
     struct stat master,path,workspace,save;
     return NSThread.isMainThread&&_current()&&[_core matchesSaveURL:_save masterURL:_master contentID:_content]&&
@@ -121,6 +124,7 @@ invalid:if(error)*error=ODBindingError(1);return nil;
                 // failure after commit, which could roll back referenced media.
                 [issuedSession restoreArchiveDocuments:documents reply:callback];
             }];
+            [self installBundledFullBundleValidation];
             NSError *presentError=nil;
             if(!self->_session||!self->_tools||![self creatorScopeIsCurrent]||![self->_coordinator presentCreatorFromUserActionWithError:&presentError]){[self->_tools invalidate];self->_lastBindingError=ODBindingError(6);completion(self->_lastBindingError);return;}
             self->_closePrepared=NO;self->_lastBindingError=nil;completion(nil);
@@ -128,6 +132,18 @@ invalid:if(error)*error=ODBindingError(1);return nil;
         if(self->_coreLease)issued(self->_coreLease,nil);
         else[self->_core acquireOriginalCreatorLeaseForProfile:@"local-player" expectedSaveScopeSHA256:self->_scope reply:issued];
     }];
+}
+- (BOOL)installFullBundleValidationWithCreatorCoreURL:(NSURL *)core dependenciesURL:(NSURL *)dependencies error:(NSError **)error {
+    if(!NSThread.isMainThread||!_session||!_tools||!_coreLease||!core.isFileURL||!dependencies.isFileURL||![self creatorScopeIsCurrent]){if(error)*error=ODBindingError(15);return NO;}
+    NSURL *root=[_workspace URLByAppendingPathComponent:@"full-bundle-captures" isDirectory:YES];
+    ODScopedCreatorTools *tools=_tools;ODCreatorSession *session=_session;
+    return [session installSavedAccountFullBundleValidationWithCreatorCoreURL:core sparkingDependenciesURL:dependencies resourceRoot:root saveScope:_scope openAsset:^int(NSString *key,NSError **assetError){return [tools openAssetKey:key error:assetError];} error:error];
+}
+- (void)installBundledFullBundleValidation {
+    NSURL *site=[NSBundle.mainBundle.resourceURL URLByAppendingPathComponent:@"site" isDirectory:YES];
+    NSURL *core=[site URLByAppendingPathComponent:@"core.js"],*dependencies=[site URLByAppendingPathComponent:@"sparking-dependencies.js"];
+    if(![NSFileManager.defaultManager fileExistsAtPath:core.path]||![NSFileManager.defaultManager fileExistsAtPath:dependencies.path])return;
+    [self installFullBundleValidationWithCreatorCoreURL:core dependenciesURL:dependencies error:nil];
 }
 - (BOOL)beginCreatorPresentationWithError:(NSError **)error {
     BOOL ok=[self creatorScopeIsCurrent]&&_coreLease&&_pauseLease&&[_coreLease.profileID isEqual:@"local-player"]&&[_coreLease.contentID isEqual:_content]&&[_coreLease.saveScopeSHA256 isEqual:_scope];

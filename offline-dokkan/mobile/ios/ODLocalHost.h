@@ -16,5 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)openCreator;
 - (void)openCollection;
 - (void)openTeams;
+- (BOOL)savedAccountBusy;
+/** Launcher-only. Called after the saved account snapshot or error changes. */
+@property (nonatomic, copy, nullable) void (^savedAccountChanged)(void);
 @end
 NS_ASSUME_NONNULL_END
