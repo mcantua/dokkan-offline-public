@@ -63,6 +63,13 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 - (void)creatorFinishReceiptForProfile:(NSString *)profile command:(NSString *)command
     expectedDefinitionBytes:(NSData *)definition expectedSaveScopeSHA256:(NSString *)scope
     lease:(nullable ODNativeCreatorLease *)lease reply:(ODCoreReply)reply;
+/** Native-only save of one validator packet into this owner's saved account.
+ * The profile is the local player. A held lease must be the current one.
+ * No WebView operation is added. Public creator.finish still rejects the descriptor. */
+- (void)creatorFinishValidatedBundleForProfile:(NSString *)profile command:(NSString *)command
+    definition:(NSDictionary *)definition bundleBytes:(NSData *)bundle
+    expectedSaveScopeSHA256:(NSString *)scope lease:(nullable ODNativeCreatorLease *)lease
+    reply:(ODCoreReply)reply;
 - (void)execute:(NSString *)operation profile:(NSString *)profile command:(nullable NSString *)command
       arguments:(NSDictionary *)arguments reply:(ODCoreReply)reply;
 /** Native policy/evaluator only; no user-supplied switch to this authority level. */

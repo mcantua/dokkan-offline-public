@@ -83,6 +83,17 @@
         }
         throw error;
       }
+      if (prepared.fullBundle === true) {
+        if (state.project !== current) throw Error('CREATOR_IMPORT_DRAFT_REPLACED');
+        if (stable(current) !== before) throw Error('CREATOR_IMPORT_DRAFT_CHANGED');
+        const result = await host.call('offlineCreatorFinish', { key, snapshot: prepared.snapshot });
+        if (result?.imported !== true || result.account !== 'local-player' || typeof result.definitionId !== 'string' || !Number.isSafeInteger(result.version) || result.version < 1 || !Number.isSafeInteger(result.instanceId) || result.instanceId < 1 || typeof result.available !== 'boolean') throw Error('Offline import was not confirmed. Your saved project is kept; retry this same unit.');
+        const main = result.library?.main_id === result.definitionId;
+        status.textContent = (result.available ? 'Saved to your character collection. You can add this unit to a team.' : 'Design updated. Its original collection copy has already been used as training material; finishing again does not create another copy.') + (main ? ' This is your newest created unit.' : '') + ' Your editable project stays here.' + (result.banner?.drawable === true ? ' Its summon banner is ready.' : ' Summon availability is not configured yet.') + ' Battle integration must support this unit’s abilities and resources before it can fight.';
+        status.setAttribute('role', 'status'); toast('Unit saved in Offline Dokkan.');
+        window.dispatchEvent(new CustomEvent('offline-creator-finished', { detail: { definitionId: result.definitionId, version: result.version, instanceId: result.instanceId, available: result.available, newest: main } }));
+        return result;
+      }
       const proven = new Set(prepared.unchangedTables);
       const context = { ...prepared.context, isUnchangedMasterRows: async table => proven.has(table) };
       const definition = await OfflineDokkanCreator.projectToDefinition(prepared.project, context);
@@ -115,9 +126,14 @@
       CUSTOM_RUNTIME_INTEGRATION_REQUIRED: 'This saved unit has custom gameplay animation bindings. Offline battle playback integration is not ready. Your full editable unit is kept.',
       MULTIFORM_INTEGRATION_REQUIRED: 'This saved unit has linked forms. Their Offline gameplay integration is not ready. Your full editable unit is kept.',
       OFFICIAL_AWAKENING_NOT_SHAREABLE: 'EZA and Super EZA edits use the separate owned-card upgrade flow. They cannot be added as new created units.',
-      UNSUPPORTED_MODIFIED_TABLE: 'This unit changes a setting that Offline Dokkan cannot apply yet. Nothing was discarded; your full project remains saved.'
+      UNSUPPORTED_MODIFIED_TABLE: 'This unit changes a setting that Offline Dokkan cannot apply yet. Nothing was discarded; your full project remains saved.',
+      UNSUPPORTED_CREATOR_PROJECT: 'This unit still needs the full check before it can join your collection. Your design is still saved.',
+      FULL_BUNDLE_PAGE_DESCRIPTOR_REJECTED: 'The editor cannot supply its own finished packet. Finish again so the saved account can check the unit.',
+      FULL_BUNDLE_SAVE_SCOPE_MISMATCH: 'This unit does not belong to the open saved account. Nothing was added.'
     };
-    return messages[code] || code;
+    if (messages[code]) return messages[code];
+    if (typeof code === 'string' && code.startsWith('FULL_BUNDLE_')) return 'This unit did not pass the full check, so it was not added to your collection. Your design is still saved.';
+    return code;
   }
   const bar = document.createElement('section'); bar.className = 'offline-creator-completion'; bar.setAttribute('aria-label', 'Offline Dokkan unit completion');
   const heading = document.createElement('strong'); heading.textContent = 'Unit Creator · Offline Dokkan';

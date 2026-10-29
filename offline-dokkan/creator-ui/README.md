@@ -39,8 +39,8 @@ The fixed `OfflineCreator` capability uses:
 
 1. Pin the actual current project to its selected source, run the existing `Forge.hydrateStatGrowth` against that read-only master to capture any changed high-level stat policy, then confirm it saved.
 2. Call `offlineCreatorPrepare({key})`. Native returns an opaque persisted intent, its durable project snapshot, pinned context and table names whose complete baseline rows were proven unchanged against that master.
-3. Pass this snapshot through `OfflineDokkanCreator.projectToDefinition`, the existing strict projector. Unsupported forms/assets/runtime/settings remain explicit errors.
-4. Call `offlineCreatorFinish({key,snapshot,definition})`. Native independently rechecks the saved project, complete projected settings, context, identity and revision before its fixed idempotent `creator.import` operation.
+3. Pass a settings-only snapshot through `OfflineDokkanCreator.projectToDefinition`. When native prepare returns `fullBundle:true`, skip that projector. The page does not build the full packet.
+4. Call `offlineCreatorFinish({key,snapshot,definition})` for settings. A full unit calls `offlineCreatorFinish({key,snapshot})`. Native rechecks the saved project. A full unit is validated, then imported once into the saved `local-player` account. Public `creator.finish` still rejects a full-bundle descriptor.
 5. Require explicit `{imported:true,definitionId,version,library,banner}` confirmation. Display newest creation only when the actual library names it. A `not_configured` banner reports that trusted catalog allocation remains required; registration alone never claims it is drawable.
 
 The native master is always read only. No file export/move is needed to finish, and projects remain editable in their own native store. The native implementations and their own-file lifecycle checks are owned by the mobile host modules.

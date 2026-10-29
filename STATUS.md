@@ -4,13 +4,13 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; claude-chatg is the frozen private backup)_
+_Last updated: 2026-10-29 11:49 AM US Central (Grok; full-bundle save into the saved account is in source; no CI)_
 
 ## Right now
 | Project | Who | State |
 |---|---|---|
 | App Installer | **ChatGPT + cloud agents** | Old8eaf app reportedly installed and opened manually, then crashed at sign-in after authorization/Touch ID. Concrete missing Rust crypto-provider startup defect fixed in7059c85; actual fresh-process constructor1 and relevantTLS2 passed40777027792 (0failures,0.01seconds per group), plus one genuine-SDK package. No19core/response/native repeats; earlier22-check proof is8eaf-only. New local kit35,149,949bytes and matching source78,336,612bytes identify7059c85. Private draft transfer40778539399 passed; physical corrected-build update/retest pending; crash resolution unconfirmed. Native biometric/Keychain review found no separate cause; security unchanged. Broader capability limits persist, release_ready=false. Approved manual setup scope persists; no direct Mac-control tool is attached. |
-| Dokkan Unit Creator | **Grok, parallel branches** | Hosted Finish on `chatgpt/ios-eclipse-database-reuse` saved exact growth thousandths on run 40891656259. Full custom-unit validation on `cursor/full-bundle-validation-3bda` compiled on genuine Xcode 27.1 in run 40895935918. Session guards stay closed. Auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
+| Dokkan Unit Creator | **Grok, parallel branches** | On `cursor/full-bundle-validation-3bda`, a validated full unit now imports once into the saved `local-player` account. Public Finish still rejects that packet. The Session source was not compiled here: this VM has no Xcode 27.1. No CI. Auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
@@ -20,6 +20,19 @@ _Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; clau
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:49 AM — Grok: Full custom-unit validation now runs inside the Session before a full unit can be saved. Public `creator.import` and `creator.finish` still reject a `full_bundle` descriptor. `od_creator_finish_bundle` grants one owned copy on the saved `local-player` account. The same command keeps that copy. A page that sends its own packet is rejected with `FULL_BUNDLE_PAGE_DESCRIPTOR_REJECTED`. Finish in the editor skips the settings projector when prepare returns `fullBundle:true` and does not ask the player to pick a file. `ODBoundOriginalCreatorServices` installs the validator from `site/core.js` and `site/sparking-dependencies.js` after the editor lease exists. The launcher can call `installFullBundleValidationWithCreatorCoreURL:dependenciesURL:error:` if those files live somewhere else. One local check, `python3 offline-dokkan/core/check_full_bundle_account.py`, passed: public Finish and import rejected the descriptor, a bad hash created no card, the native finish imported one copy, the retry kept it, the team kept it, and reopen kept it. The core library compiled with warnings as errors. `od_bridge.c` compiled the same way. This Linux VM has no Xcode 27.1, so `ODCreatorSession.m` and the validator were not compiled here and the app was not launched. No CI. Extension loading stays off. Draft PR was not merged. No release build.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Full custom-unit validation before save | 95% | The save gate is in source and the account check passed. This VM cannot compile the Objective-C session. No app launch. |
+| Finished unit imports into the saved account | 95% | One owned copy lands on `local-player` after validation. Same command does not mint another. No phone check. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Do not invent an unverified success body or starting stats. |
+| Original-engine master attachment | 0% | Plaintext derived master is not attached. Do not ship Sparking keys. |
+| Late service binding in ODUnifiedDuoHost | 0% | Spec is known. Not implemented on this branch. |
+| In-game Creator menu | 0% | Final menu insertion is still unresolved. |
+| Real battles, saves, and summons with custom units | 0% | The owned card is saved. It is not playable yet. |
+| Duo two-screen test on a phone | 0% | No physical device check. |
+
 - 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.
 
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.

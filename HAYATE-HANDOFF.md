@@ -1,7 +1,7 @@
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:11 AM CT, https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 # Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
-Updated: Thu Oct 29, 2026, 11:11 AM CT
+Updated: Thu Oct 29, 2026, 11:49 AM CT
 
 Repo: https://github.com/mcantua/dokkan-offline-public. Read context/TIN-RULES.md first.
 Base branch: chatgpt/ios-eclipse-database-reuse (draft PR #1, DO NOT MERGE)
@@ -13,7 +13,8 @@ Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says
 - 1a24cfc and earlier: guarded the omitted sqlite3_enable_load_extension call. Extension loading stays OFF.
 - Selected-master read now denies SQL printf/format.
 - Derived growth coefficients are stored as exact thousandth strings.
-- CI runs: 40886179478 FAIL (selected-master-read), 40890254683 PASS, 40891656259 PASS.
+- CI runs: 40886179478 FAIL (selected-master-read), 40890254683 PASS, 40891656259 PASS. No new CI runs from this session.
+- 11:49 AM CT: full-bundle save stays off public `creator.import` and `creator.finish`. The Session screen runs `ODNativeFullCreatorValidator` on the saved project, then `od_creator_finish_bundle` writes one owned copy into the saved `local-player` account. Same command keeps that copy. A page-supplied `full_bundle` packet is rejected. `ODBoundOriginalCreatorServices` installs the validator from `site/core.js` and `site/sparking-dependencies.js` when those files are in the app. The launcher can also call `installFullBundleValidationWithCreatorCoreURL:dependenciesURL:error:` on main after the editor lease exists. Local check `offline-dokkan/core/check_full_bundle_account.py` passed once. This Linux VM has no Xcode 27.1, so the Objective-C session files were not compiled here. No app launch. Extension loading stays off.
 
 ## Cloud agents (Cursor) running in parallel
 | Agent | Task | Branch |
@@ -28,7 +29,8 @@ Each agent writes its own log under messages/ in the repo.
 | Item | % |
 |---|---|
 | Finish saves numbers exactly | 100% (diagnostic) |
-| Full custom-unit validation before save | 0% |
+| Full custom-unit validation before save | 95% |
+| Finished unit imports into the saved account | 95% |
 | Bootstrap auth envelope + fresh-state policy | 0% |
 | Original-engine master attachment | 0% |
 | Late service binding in ODUnifiedDuoHost | 0% |

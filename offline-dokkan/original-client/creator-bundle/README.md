@@ -112,8 +112,15 @@ same hash is kept only when the stored bytes and size match and the stored file
 is not writable. `od_creator_finish_bundle` hashes that packet and refuses the
 save unless the hash and packet fields match the definition binding. Public
 `creator.import` and `creator.finish` still reject a full-bundle descriptor.
-Session and WebView guards stay closed. Nothing here attaches the original
-engine or makes a custom unit playable.
+No WebView operation was added.
+
+The Session screen can save a full unit only after the host installs
+`ODNativeFullCreatorValidator` for the saved `local-player` account. Prepare
+then returns `fullBundle:true`. Finish ignores a page-supplied packet, runs
+that validator on the saved project, and imports one owned copy into the open
+account. The same Finish command keeps that copy. A page that sends
+`full_bundle` is rejected. Nothing here attaches the original engine or makes
+a custom unit playable.
 
 ## Focused evidence
 

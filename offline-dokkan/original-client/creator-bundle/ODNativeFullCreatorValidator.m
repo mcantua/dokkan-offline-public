@@ -34,6 +34,9 @@ static BOOL ODFBSameField(id left,id right){if(left==right)return YES; if(left==
     JSContext *_js;NSURL *_master,*_root;NSString *_content,*_profile,*_scope,*_sourceSHA;ODFullCreatorOpenAsset _openAsset;
     dev_t _sourceDev;ino_t _sourceIno;off_t _sourceSize;time_t _sourceMtimeSec;long _sourceMtimeNsec;
 }
+- (NSString *)profileID { return _profile; }
+- (NSString *)contentID { return _content; }
+- (NSString *)saveScope { return _scope; }
 - (instancetype)initWithCreatorCoreURL:(NSURL *)core sparkingDependenciesURL:(NSURL *)dependencies masterURL:(NSURL *)master immutableResourceRoot:(NSURL *)resourceRoot contentID:(NSString *)content profileID:(NSString *)profile saveScope:(NSString *)scope openAsset:(ODFullCreatorOpenAsset)openAsset error:(NSError **)error {
     if(!(self=[super init]))return nil;
     NSString *hash=[content isKindOfClass:NSString.class]?[[content componentsSeparatedByString:@":"] lastObject]:nil;

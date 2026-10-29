@@ -287,6 +287,39 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
         dispatch_async(dispatch_get_main_queue(),^{reply(receipt,error);});
     });
 }
+- (void)creatorFinishValidatedBundleForProfile:(NSString *)profile command:(NSString *)command
+    definition:(NSDictionary *)definition bundleBytes:(NSData *)bundle
+    expectedSaveScopeSHA256:(NSString *)scope lease:(ODNativeCreatorLease *)lease reply:(ODCoreReply)reply {
+    NSString *owner=[profile copy],*intent=[command copy],*expected=[scope copy];
+    NSData *packet=[bundle copy];
+    NSError *encodingError=nil;
+    NSData *document=[definition isKindOfClass:NSDictionary.class]&&[NSJSONSerialization isValidJSONObject:definition]?
+        [NSJSONSerialization dataWithJSONObject:definition options:NSJSONWritingSortedKeys error:&encodingError]:nil;
+    NSString *definitionJSON=document.length&&document.length<=16u*1024u*1024u&&!memchr(document.bytes,0,document.length)?
+        [[NSString alloc] initWithData:document encoding:NSUTF8StringEncoding]:nil;
+    if(!definitionJSON||![packet isKindOfClass:NSData.class]||!packet.length||packet.length>64u*1024u*1024u||memchr(packet.bytes,0,packet.length)){
+        dispatch_async(dispatch_get_main_queue(),^{reply(nil,CoreError("INVALID_ARGUMENT"));});return;
+    }
+    dispatch_async(_queue,^{
+        NSError *error=nil;id result=nil;
+        if(![owner isEqualToString:@"local-player"]||![intent isKindOfClass:NSString.class]||![expected isKindOfClass:NSString.class])error=CoreError("INVALID_ARGUMENT");
+        else if((lease&&lease!=self->_creatorLease)||(!lease&&self->_creatorLease)||
+            (lease&&(![lease.profileID isEqualToString:owner]||![lease.contentID isEqualToString:self->_content]||
+                ![lease.saveScopeSHA256 isEqualToString:expected])))error=CoreError("CREATOR_LEASE_NOT_CURRENT");
+        else if([self ensureOpen:&error]) {
+            NSDictionary *admission=ODProjectionAdmission(self->_bridge,owner,self->_content);
+            if(!admission||![expected isEqualToString:admission[@"save_scope_sha256"]])error=CoreError("CREATOR_SAVE_SCOPE_CHANGED");
+            else {
+                char *out=NULL,*failure=NULL;
+                int rc=od_bridge_creator_finish_bundle(self->_bridge,owner.UTF8String,intent.UTF8String,definitionJSON.UTF8String,packet.bytes,packet.length,&out,&failure);
+                if(rc<0)error=CoreError(failure);
+                else {result=ODProjectionJSON(out);if(!result)error=CoreError("INVALID_CORE_REPLY");}
+                od_bridge_free(out);od_bridge_free(failure);
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(),^{reply(result,error);});
+    });
+}
 - (void)synchronizeOriginalCreatorProjectionForProfile:(NSString *)profile overlayURL:(NSURL *)overlayURL reply:(ODCoreReply)reply {
     NSString *owner=[profile copy]; NSURL *overlay=[overlayURL copy];
     dispatch_async(_queue,^{

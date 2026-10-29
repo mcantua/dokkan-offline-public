@@ -22,5 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 /** Acquire verified original pause, sync the same save's projection and issue
  * its exact native core capability asynchronously before opening the editor. */
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError * _Nullable error))completion;
+/** Native host only. Installs full-unit validation for the saved local-player
+ * account. Call on main after the editor lease exists. A page cannot pass these
+ * URLs. Missing code leaves the full-unit Finish closed. */
+- (BOOL)installFullBundleValidationWithCreatorCoreURL:(NSURL *)core
+    dependenciesURL:(NSURL *)dependencies error:(NSError * _Nullable * _Nullable)error;
 @end
 NS_ASSUME_NONNULL_END

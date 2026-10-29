@@ -5,6 +5,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef int (^ODFullCreatorOpenAsset)(NSString *assetKey,NSError * _Nullable * _Nullable error);
 @interface ODNativeFullCreatorValidator : NSObject
+@property(nonatomic, readonly, copy) NSString *profileID;
+@property(nonatomic, readonly, copy) NSString *contentID;
+@property(nonatomic, readonly, copy) NSString *saveScope;
 - (nullable instancetype)initWithCreatorCoreURL:(NSURL *)core
                        sparkingDependenciesURL:(NSURL *)dependencies
                                      masterURL:(NSURL *)master
