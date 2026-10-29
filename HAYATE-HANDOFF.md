@@ -19,6 +19,25 @@ Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
 Tin's go-ahead: "continue everything" (9:14 AM). The former build gate is revoked by the latest directive above.
 
+## Latest checkpoint — October 29, 5:14 PM CT
+
+Use source20fd1d0 and the latest STATUS entries before older sections below.
+Genuine SDK27.1 compile72units passed first try in run40963117227. Current
+unsigned original-client diagnostic includes actual native codec/team-save
+wiring and retained same-Core Creator screens; no original-game execution or
+playability is verified. The945MB package is in cloud integrated-current;
+Drive retains full8be baseline plus16.6MB current delta and the reviewed update
+notebook. GitHub topic/base rules unchanged. Current source and private research
+archives use existing Drive IDs; no Mac access or bulk personal transfer.
+
+Continue with actual signed-device launch evidence. Native master admission
+requires source open/schema outcome plus selected-file identity, not cached
+pointer presence. The original engine exposes no proved SQLite public API or
+handle-lifetime barrier, so never pass its opaque handle to Core/system SQLite.
+Unknown initial-team metadata remains blocked rather than invented. Original
+Home/battle/save/custom units and both displays remain unverified. No screenshots
+exist. All workers completed their current tasks; no background work is running.
+
 ## Current source/input checkpoint — October 29, 3:13 PM CT
 
 Tin completed the full-resource notebook. Drive now contains the final manifest
