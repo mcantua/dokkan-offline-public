@@ -100,7 +100,11 @@ NSDictionary *ODScopedCreatorDisplayGeometry;
             close(descriptor); descriptor = next;
         }
         struct stat state;
-        if (descriptor >= 0 && (fstat(descriptor,&state) || !S_ISREG(state.st_mode) ||
+        int flags = descriptor >= 0 ? fcntl(descriptor, F_GETFL) : -1;
+        /* The full-bundle validator captures this FD only when it is a fresh
+         * readonly regular file. A writable or replaced descriptor is denied. */
+        if (descriptor >= 0 && (flags < 0 || (flags & O_ACCMODE) != O_RDONLY ||
+            fstat(descriptor,&state) || !S_ISREG(state.st_mode) ||
             state.st_size < 0 || state.st_size > 160LL*1024*1024 || ![_storage isCurrent])) {
             close(descriptor); descriptor = -1;
         }
