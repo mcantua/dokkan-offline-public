@@ -14,7 +14,7 @@
   "raw_source_player_values_used": false,
   "original_iphone_runtime_verified": false,
   "tested_module_sha256": "8956c46a32b7fbd3eb979253611c2972d027e3d0751ad11f3241dd2aa0fb6414",
-  "current_module_sha256": "730f43dc22598e78e0200e3e5c7a6cde99b320d85db1845c92318f54badbab54",
+  "current_module_sha256": "aa886abae9a1e334a5567bba154bf1c3c8934d9f2e379d8740a4ff4e3740829e",
   "evidence_reuse": "Prior actual fresh-player identity/ACT/rank/EXP/ledger/empty-owned-card/scope paths remain unchanged and reuse their passing scenario. One additional actual Core11 fixture check covers new source-rank facts and the custom engine-ID/pending projection guards; actual engine bindings and iPhone runtime remain unverified.",
   "additional_changed_boundary_check": {
     "tested_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
@@ -32,5 +32,16 @@
     "scope": "One focused synthetic projection scenario for source-proven unsigned32 User fields and exact JS integer representation of native64 fields. Prior unrelated evidence not rerun.",
     "http_route_admitted": false,
     "native_runtime_execution_verified": false
+  },
+  "persisted_team_projection": {
+    "evidence": "player-home-team/core-team-projection-evidence.json",
+    "status": "first combined Core13 SQL-to-projector scenario passed once; unchanged evidence reused",
+    "source_snapshot_property": "player_snapshot.original_client_teams",
+    "http_route_admitted": false,
+    "native_runtime_execution_verified": false,
+    "changed_metadata_evidence": "player-home-team/native-team-metadata-evidence.json",
+    "changed_metadata_status": "second changed-metadata-only SQL-to-GET/POST-normalizer-to-SQL scenario passed once",
+    "native_c_objc_compiled_or_executed": false,
+    "core_snapshot_schema": 13
   }
 }

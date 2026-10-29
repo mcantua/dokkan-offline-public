@@ -25,15 +25,27 @@ All these local files were accessible. No old repository, account cache,
 personal configuration, save folder or signing material was read. No app
 build, database rescan or repeated completed-feature check was needed.
 
-## Exact unresolved state
+## Native-owned partial tutorial state
+
+The later source consumer trace establishes false `is_finished` entering the
+original tutorial, with progress0 selecting its first native sequence.
+Schema13 persists this authored, source-compatible start policy only for newly
+inserted canonical profiles. It is not a claim about Sparking server defaults.
+Native checkpoints update that persisted progress without inferring a finish
+flag, reward or clock. The fresh-state gate accepts these two fields only
+from the native-owned snapshot. Old profiles receive no tutorial migration
+row. See `../protocol-inspection/TUTORIAL-RUNTIME-CONSUMERS.md` and
+`../../core/README.md`.
+
+## Remaining state and authority
 
 The real iPhone User decoder places these fields as follows:
 
 | Field | Native representation | Missing authority |
 |---|---|---|
-| `user.tutorial.progress` | unsigned32 | Initial tutorial progress and its consumer mapping |
+| `user.tutorial.progress` | unsigned32 | Canonical Schema13 state; unresolved for older profiles without it |
 | `user.tutorial.contents_lv` | unsigned32 | Initial tutorial content level and its consumer mapping |
-| `user.tutorial.is_finished` | boolean | Original first-run tutorial state; do not adopt the constructor's finished sentinel |
+| `user.tutorial.is_finished` | boolean | New canonical policy is false; completion and older missing state remain unresolved |
 | `user.card_capacity` | unsigned32 | Initial owned-card capacity |
 | `user.total_card_capacity` | unsigned32 | Relationship to the initial card capacity; do not assume equality |
 | `user.support_item_capacity` | unsigned32 | Initial support-item capacity |
@@ -41,8 +53,8 @@ The real iPhone User decoder places these fields as follows:
 
 Missing/null scalar members preserve the native object's prior value. This is
 decoder behavior, not proof of a valid fresh-account server default. The
-existing fresh policy deliberately keeps these fields unresolved. It must not
-be unlocked by treating pre-server capacity0 or finished=true as authoritative.
+fresh policy keeps remaining fields unresolved. It must not be unlocked by
+treating pre-server capacity0 or finished=true as authoritative.
 
 The master has tutorial definitions but no column establishing these seven
 initial user values. Its first phase is not automatically wire `progress` or
@@ -52,15 +64,14 @@ initial user values. Its first phase is not automatically wire `progress` or
 
 There are two policy groups, not seven unrelated feature requests:
 
-1. **First-run tutorial:** recover the original fresh-state entry and its
-   progress/content-level mapping from the actual native consumer or genuine
-   fresh-state contract. The existing approval says to preserve that flow;
-   it does not authorize guessing enum values or skipping it.
+1. **First-run tutorial:** complete the contents-level and response/persistence
+   contracts around the recovered entry. Preserve that flow without skipping
+   it or granting invented units.
 2. **Starting storage limits:** establish the four card/support capacity
    fields from a verified fresh-state source, or obtain one explicit approved
    local capacity policy. Do not use a played account's expanded limits.
 
-These inputs are not yet configured. `initial-player-policy-requirements.json`
+Remaining inputs are not yet configured. `initial-player-policy-requirements.json`
 is a gap audit, **not a runtime configuration or default response**. Existing
 gates remain closed. Auth, startup, resource and original combat work can
 continue independently while this evidence is recovered.

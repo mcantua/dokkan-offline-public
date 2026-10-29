@@ -7,6 +7,7 @@
 #include "training.h"
 #include "kai_training.h"
 #include "json_values.h"
+#include "original_teams.h"
 #include "sqlite3.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +35,8 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version);
 static int validate_banners(od_core *c,sqlite3 *db);
 static int validate_progress(od_core *c,sqlite3 *db);
 static int seed_new_owned_progress(od_core *c);
+static int full_bundle_scope(od_core *c,const char *profile,char out[65]);
+static int full_bundle_hex(const char *text);
 static const char *SCHEMA =
  "CREATE TABLE meta(k TEXT PRIMARY KEY,v TEXT NOT NULL) STRICT;"
  "CREATE TABLE profiles(id TEXT PRIMARY KEY,revision INTEGER NOT NULL DEFAULT 0 CHECK(revision>=0),stamina INTEGER NOT NULL DEFAULT 0 CHECK(stamina BETWEEN 0 AND 9007199254740991)) STRICT;"
@@ -118,6 +121,13 @@ static const char *SCHEMA_V12=
 static int retain_full_bundle(od_core *c,const char *profile,const char *args,const void *bundle,size_t bytes,int allow_insert);
 static int validate_full_bundle_rows(od_core *c,sqlite3 *db);
 
+/* Only a genuinely inserted own profile receives the original client's
+ * start-tutorial control state. Migration never fabricates this for an old
+ * profile. Contents level, capacities and completion remain unimplemented. */
+static const char *SCHEMA_V13=
+ "CREATE TABLE od_original_tutorial(profile TEXT PRIMARY KEY REFERENCES profiles(id),progress INTEGER NOT NULL CHECK(progress BETWEEN 0 AND 2147483647),is_finished INTEGER NOT NULL CHECK(is_finished=0),policy TEXT NOT NULL CHECK(policy='original-tutorial-entry-v1')) STRICT;"
+ "PRAGMA user_version=13;";
+
 
 void od_free(void *p) { sqlite3_free(p); }
 static int fail(od_core *c,const char *message) { snprintf(c->error,sizeof(c->error),"%s",message);return -1; }
@@ -149,6 +159,19 @@ static char *snapshot(od_core *c,const char *p) {
  return query(c,"SELECT json_object('profile_id',id,'wire_identity',json((SELECT json_object('id',local_id,'name',display_name) FROM offline_identity WHERE profile=:p)),'revision',revision,'stamina',stamina,'rank',(SELECT rank FROM player_progress WHERE profile=:p),'rank_experience',(SELECT rank_experience FROM player_progress WHERE profile=:p),'stamina_max',(SELECT act_max FROM player_progress WHERE profile=:p),'stamina_recovery',(SELECT json_object('policy',policy,'seconds_per_point',recovery_seconds,'anchor_utc',recovery_anchor) FROM player_progress WHERE profile=:p),'content_id',(SELECT v FROM meta WHERE k='content'),'inventory',json(COALESCE((SELECT json_group_array(json_object('kind',kind,'id',item_id,'quantity',quantity)) FROM (SELECT * FROM inventory WHERE profile=:p ORDER BY kind,item_id)),'[]')),'cards',json(COALESCE((SELECT json_group_array(json_object('instance_id',id,'master_id',master_id,'level',level,'sa_level',sa_level,'potential',json(potential),'experience',(SELECT experience FROM owned_progress WHERE instance_id=owned_cards.id),'locked',COALESCE((SELECT locked FROM owned_progress WHERE instance_id=owned_cards.id),0),'official_upgrade',(SELECT json_object('version',v.version,'kind',v.kind,'custom_eza',v.custom_eza,'custom_super_eza',v.custom_super_eza,'enhanced_policy_version',v.enhanced_policy_version,'manual_edits_allowed',v.enhanced_policy_version=0,'label',CASE v.kind WHEN 1 THEN 'Custom EZA' WHEN 2 THEN 'Custom Super EZA' ELSE 'Enhanced' END) FROM official_upgrade_active a JOIN official_upgrade_versions v USING(profile,master_id,version) WHERE a.profile=owned_cards.profile AND a.master_id=owned_cards.master_id AND NOT EXISTS(SELECT 1 FROM owned_definitions WHERE instance_id=owned_cards.id) AND NOT EXISTS(SELECT 1 FROM tournament_exclusive_owned WHERE instance_id=owned_cards.id)),'tournament_definition',(SELECT json_object('definition_id',d.definition_id,'version',d.version,'tournament_id',d.tournament_id,'weekend_id',d.weekend_id,'potential_locked',d.potential_locked,'addons',json(d.addons),'exclusive_kind',d.exclusive_kind,'exclusive_always_on',d.exclusive_always_on) FROM tournament_exclusive_owned d WHERE d.instance_id=owned_cards.id),'created_definition',(SELECT json_object('definition_id',d.definition_id,'version',d.version,'origin_version',d.origin_version,'potential_locked',d.potential_locked,'addons',json(d.addons),'exclusive_kind',d.exclusive_kind,'exclusive_always_on',d.exclusive_always_on) FROM owned_definitions d JOIN created_definitions v USING(profile,definition_id,version) WHERE d.instance_id=owned_cards.id))) FROM (SELECT * FROM owned_cards WHERE profile=:p AND NOT EXISTS(SELECT 1 FROM owned_consumptions x WHERE x.instance_id=owned_cards.id) ORDER BY id) AS owned_cards),'[]')),'official_upgrades',json(COALESCE((SELECT json_group_array(json_object('master_id',v.master_id,'version',v.version,'document',json(v.document))) FROM official_upgrade_active a JOIN official_upgrade_versions v USING(profile,master_id,version) WHERE a.profile=:p),'[]')),'tournament_definitions',json(COALESCE((SELECT json_group_array(json_object('definition_id',v.definition_id,'version',v.version,'document',json(v.document))) FROM tournament_exclusive_definitions v WHERE v.profile=:p AND EXISTS(SELECT 1 FROM tournament_exclusive_owned d WHERE d.profile=v.profile AND d.definition_id=v.definition_id AND d.version=v.version AND NOT EXISTS(SELECT 1 FROM owned_consumptions x WHERE x.instance_id=d.instance_id))),'[]')),'created_definitions',json(COALESCE((SELECT json_group_array(json_object('definition_id',v.definition_id,'version',v.version,'document',json(v.document))) FROM (SELECT * FROM created_definitions v WHERE v.profile=:p AND EXISTS(SELECT 1 FROM owned_definitions d WHERE d.profile=v.profile AND d.definition_id=v.definition_id AND d.version=v.version AND NOT EXISTS(SELECT 1 FROM owned_consumptions x WHERE x.instance_id=d.instance_id)) ORDER BY definition_id,version) AS v),'[]')),'teams',json(COALESCE((SELECT json_group_array(json_object('slot',slot,'members',json(members))) FROM (SELECT * FROM teams WHERE profile=:p ORDER BY slot)),'[]')),'runs',json(COALESCE((SELECT json_group_array(json_object('id',id,'map_id',map_id,'state',state)) FROM (SELECT * FROM runs WHERE profile=:p ORDER BY id)),'[]'))) FROM profiles WHERE id=:p",p,NULL,NULL);
 }
 
+/* Called only inside the existing canonical read/write transaction. These
+ * native properties are never taken from a projection policy or source cache. */
+static char *original_player_fields(od_core *c,const char *profile,const char *base) {
+ char *teams=NULL,*error=NULL;
+ if(od_original_teams_snapshot(c->db,profile,&teams,&error)<0){fail(c,error?error:"ORIGINAL_TEAM_SNAPSHOT_UNAVAILABLE");sqlite3_free(error);sqlite3_free(teams);return NULL;}
+ char *tutorial=query(c,"SELECT COALESCE((SELECT json_object('schema',1,'policy',policy,'progress',progress,'is_finished',json('false')) FROM od_original_tutorial WHERE profile=:p),'null')",profile,NULL,NULL);
+ sqlite3_stmt *statement=tutorial?prepare(c,"SELECT json_set(:a,'$.original_client_teams',json(?4),'$.original_client_tutorial',json(?5))",profile,base,NULL):NULL;
+ char *result=NULL;
+ if(statement){sqlite3_bind_text(statement,4,teams,-1,SQLITE_TRANSIENT);sqlite3_bind_text(statement,5,tutorial,-1,SQLITE_TRANSIENT);if(sqlite3_step(statement)==SQLITE_ROW)result=sqlite3_mprintf("%s",sqlite3_column_text(statement,0));}
+ sqlite3_finalize(statement);sqlite3_free(teams);sqlite3_free(tutorial);
+ if(!result){fail(c,"ORIGINAL_PLAYER_SNAPSHOT_UNAVAILABLE");}return result;
+}
+
 int od_open(const char *save,const char *master,const char *content,od_core **out) {
  if(!out){return -1;}
  *out=NULL;if(!save||!master||!identifier(content))return -1;
@@ -158,10 +181,10 @@ int od_open(const char *save,const char *master,const char *content,od_core **ou
  sqlite3_busy_timeout(c->db,3000);if(sql(c,"PRAGMA foreign_keys=ON;PRAGMA journal_mode=DELETE;PRAGMA synchronous=FULL;")<0)goto bad;
  int64_t version=0;if(scalar(c,"PRAGMA user_version",NULL,NULL,NULL,&version)<0)goto bad;
  if(version==0){int64_t n=0;if(scalar(c,"SELECT count(*) FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%'",NULL,NULL,NULL,&n)<0||n)goto bad;
-  if(sql(c,"BEGIN IMMEDIATE")<0||sql(c,SCHEMA)<0||sql(c,SCHEMA_V2)<0||sql(c,SCHEMA_V3)<0||sql(c,SCHEMA_V4)<0||sql(c,od_schedule_store_schema())<0||sql(c,SCHEMA_V5)<0||sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0||sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0||sql(c,SCHEMA_V8)<0||sql(c,SCHEMA_V9)<0||sql(c,SCHEMA_V10)<0||sql(c,SCHEMA_V11)<0||sql(c,SCHEMA_V12)<0||writeq(c,"INSERT INTO meta VALUES('content',:a)",NULL,content,NULL)<0||sql(c,"COMMIT")<0)goto bad;
- }else if(version>=1&&version<=11){
-  if(!validate_save_version(c,c->db,(int)version)||sql(c,"BEGIN IMMEDIATE")<0||(version==1&&sql(c,SCHEMA_V2)<0)||(version<=2&&sql(c,SCHEMA_V3)<0)||(version<=3&&sql(c,SCHEMA_V4)<0)||(version<=4&&sql(c,od_schedule_store_schema())<0)||(version<=5&&(sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0))||(version<=6&&(sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0))||(version<=7&&sql(c,SCHEMA_V8)<0)||(version<=8&&sql(c,SCHEMA_V9)<0)||(version<=9&&sql(c,SCHEMA_V10)<0)||(version<=10&&sql(c,SCHEMA_V11)<0)||sql(c,SCHEMA_V12)<0||sql(c,"COMMIT")<0)goto bad;
- }else if(version!=12)goto bad;
+  if(sql(c,"BEGIN IMMEDIATE")<0||sql(c,SCHEMA)<0||sql(c,SCHEMA_V2)<0||sql(c,SCHEMA_V3)<0||sql(c,SCHEMA_V4)<0||sql(c,od_schedule_store_schema())<0||sql(c,SCHEMA_V5)<0||sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0||sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0||sql(c,SCHEMA_V8)<0||sql(c,SCHEMA_V9)<0||sql(c,SCHEMA_V10)<0||sql(c,SCHEMA_V11)<0||sql(c,SCHEMA_V12)<0||sql(c,od_original_teams_schema_sql())<0||sql(c,SCHEMA_V13)<0||writeq(c,"INSERT INTO meta VALUES('content',:a)",NULL,content,NULL)<0||sql(c,"COMMIT")<0)goto bad;
+ }else if(version>=1&&version<=12){
+  if(!validate_save_version(c,c->db,(int)version)||sql(c,"BEGIN IMMEDIATE")<0||(version==1&&sql(c,SCHEMA_V2)<0)||(version<=2&&sql(c,SCHEMA_V3)<0)||(version<=3&&sql(c,SCHEMA_V4)<0)||(version<=4&&sql(c,od_schedule_store_schema())<0)||(version<=5&&(sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0))||(version<=6&&(sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0))||(version<=7&&sql(c,SCHEMA_V8)<0)||(version<=8&&sql(c,SCHEMA_V9)<0)||(version<=9&&sql(c,SCHEMA_V10)<0)||(version<=10&&sql(c,SCHEMA_V11)<0)||(version<=11&&sql(c,SCHEMA_V12)<0)||sql(c,od_original_teams_schema_sql())<0||sql(c,SCHEMA_V13)<0||sql(c,"COMMIT")<0)goto bad;
+ }else if(version!=13)goto bad;
  char *saved=query(c,"SELECT v FROM meta WHERE k='content'",NULL,NULL,NULL);int same=saved&&!strcmp(saved,content);sqlite3_free(saved);if(!same)goto bad;
  sqlite3_stmt *s=NULL;if(sqlite3_prepare_v2(c->master,"SELECT id FROM cards LIMIT 1",-1,&s,NULL)!=SQLITE_OK)goto bad;sqlite3_finalize(s);
  if(!validate_save(c,c->db))goto bad;
@@ -873,6 +896,7 @@ static int profile_create(od_core *c,const char *p,const char *a,char **out) {
  sqlite3_bind_int64(s,4,stamina);int rc=sqlite3_step(s);sqlite3_finalize(s);if(rc!=SQLITE_DONE)return fail(c,"DATABASE_ERROR");
  int replay=sqlite3_changes(c->db)==0;
  if(!replay&&supported&&player_progress_attach(c,p,capacity,clock_present?&now:NULL)<0)return -1;
+ if(!replay&&writeq(c,"INSERT INTO od_original_tutorial VALUES(:p,0,0,'original-tutorial-entry-v1')",p,NULL,NULL)<0)return -1;
  *out=snapshot(c,p);return *out?replay:-1;
 }
 /* Called inside the same mutation transaction as a clocked refresh/run entry.
@@ -1033,10 +1057,43 @@ static int training_preview(od_core *c,const char *p,const char *a,char **out){
  sqlite3_bind_int64(s,4,instance);sqlite3_bind_int64(s,5,sa);sqlite3_bind_int64(s,6,field);sqlite3_bind_int64(s,7,cap);if(sqlite3_step(s)==SQLITE_ROW)*out=sqlite3_mprintf("%s",sqlite3_column_text(s,0));sqlite3_finalize(s);if(!*out){error="NO_MEMORY";goto done;}result=0;
  done:free(requests);free(inventory);sqlite3_free(doc);sqlite3_free(preview);sqlite3_free(catalog);return result<0?fail(c,error?error:"TRAINING_PREVIEW_FAILED"):0;
 }
-static int execute_internal(od_core *c,const char *op,const char *p,const char *command,const char *a,int clocked,int64_t host_now,int native_full,const void *full_bundle,size_t full_bundle_len,char **out) {
+static int original_scope_current(od_core *c,const char *profile,const char *args) {
+ char actual[65];char *expected=query(c,"SELECT json_extract(:a,'$.expected_scope')",profile,args,NULL);
+ int good=full_bundle_hex(expected)&&full_bundle_scope(c,profile,actual)==0&&!strcmp(expected,actual);
+ sqlite3_free(expected);return good?0:fail(c,"ORIGINAL_PLAYER_SCOPE_CHANGED");
+}
+static int original_client_mutation(od_core *c,const char *operation,const char *profile,const char *args,char **out) {
+ int64_t revision=0,current=0,valid=0;
+ if(integer_arg(c,args,"$.expected_revision",0,OD_LIMIT,&revision)<0||
+    scalar(c,"SELECT revision FROM profiles WHERE id=:p",profile,NULL,NULL,&current)<0)return -1;
+ if(revision!=current)return fail(c,"ORIGINAL_PLAYER_REVISION_CHANGED");
+ if(scalar(c,"SELECT json_type(:a,'$.payload')='object'",profile,args,NULL,&valid)<0||!valid)return fail(c,"INVALID_ORIGINAL_PLAYER_PAYLOAD");
+ char *payload=query(c,"SELECT json_extract(:a,'$.payload')",profile,args,NULL);if(!payload)return -1;
+ int replay=0;
+ if(!strcmp(operation,"native.tutorial.progress")){
+  int64_t progress=0,prior=0;
+  if(integer_arg(c,payload,"$.progress",1,INT32_MAX,&progress)<0||
+     scalar(c,"SELECT count(*)=1 AND NOT EXISTS(SELECT 1 FROM json_each(:a) WHERE key!='progress') FROM json_each(:a)",profile,payload,NULL,&valid)<0||!valid){sqlite3_free(payload);return fail(c,"INVALID_TUTORIAL_CHECKPOINT");}
+  if(scalar(c,"SELECT count(*) FROM od_original_tutorial WHERE profile=:p",profile,NULL,NULL,&valid)<0||valid!=1){sqlite3_free(payload);return fail(c,"TUTORIAL_STATE_RECOVERY_REQUIRED");}
+  if(scalar(c,"SELECT progress FROM od_original_tutorial WHERE profile=:p AND is_finished=0 AND policy='original-tutorial-entry-v1'",profile,NULL,NULL,&prior)<0){sqlite3_free(payload);return -1;}
+  replay=prior==progress;
+  if(!replay&&writeq(c,"UPDATE od_original_tutorial SET progress=json_extract(:a,'$.progress') WHERE profile=:p AND is_finished=0",profile,payload,NULL)<0){sqlite3_free(payload);return -1;}
+ }else{
+  char *error=NULL;int rc=od_original_teams_apply(c->db,profile,revision,payload,&error);
+  if(rc<0){fail(c,error?error:"ORIGINAL_TEAM_UPDATE_FAILED");sqlite3_free(error);sqlite3_free(payload);return -1;}
+  sqlite3_free(error);
+ }
+ sqlite3_free(payload);
+ char *base=snapshot(c,profile);if(!base)return -1;
+ *out=original_player_fields(c,profile,base);sqlite3_free(base);return *out?replay:-1;
+}
+static int execute_internal(od_core *c,const char *op,const char *p,const char *command,const char *a,int clocked,int64_t host_now,int native_mode,const void *full_bundle,size_t full_bundle_len,char **out) {
  if(!c||!out){return -1;}
  *out=NULL;c->error[0]=0;
  if(!op||!identifier(p)||!a)return fail(c,"INVALID_ARGUMENT");
+ int native_full=native_mode==1,native_original=native_mode==2;
+ int original_operation=!strcmp(op,"native.tutorial.progress")||!strcmp(op,"native.teams.apply");
+ if(native_mode<0||native_mode>2||native_original!=original_operation)return fail(c,"ORIGINAL_PLAYER_NATIVE_AUTHORITY_REQUIRED");
  size_t limit=(!strcmp(op,"banner.configure")||!strcmp(op,"creator.import")||!strcmp(op,"creator.finish")||!strcmp(op,"upgrade.apply")||!strcmp(op,"upgrade.edit")||!strcmp(op,"upgrade.policy.install"))?OD_MAX_BANNER_INPUT:OD_MAX_INPUT;
  if(strlen(a)>limit)return fail(c,"INPUT_TOO_LARGE");
  int64_t valid=0;if(scalar(c,"SELECT CASE WHEN json_valid(:a) THEN json_type(:a)='object' ELSE 0 END",p,a,NULL,&valid)<0||!valid)return fail(c,"INVALID_JSON");
@@ -1110,6 +1167,9 @@ static int execute_internal(od_core *c,const char *op,const char *p,const char *
  if(!identifier(command))return fail(c,"COMMAND_ID_REQUIRED");
  if(sql(c,"BEGIN IMMEDIATE")<0)return -1;
  if(strcmp(op,"profile.create")&&!profile_exists(c,p)){fail(c,"PROFILE_NOT_FOUND");goto bad;}
+ /* A changed save scope rejects before cached replay. Restoring the same
+  * original save retains its stable scope and may replay its retained command. */
+ if(native_original&&original_scope_current(c,p,a)<0)goto bad;
  sqlite3_stmt *s=prepare(c,"SELECT operation=:a,od_json_equal(input,?4),result FROM commands WHERE profile=:p AND id=:id",p,op,command);if(!s)goto bad;sqlite3_bind_text(s,4,a,-1,SQLITE_TRANSIENT);int rc=sqlite3_step(s);
  if(rc==SQLITE_ROW){int same=sqlite3_column_int(s,0)&&sqlite3_column_int(s,1);if(same)*out=sqlite3_mprintf("%s",sqlite3_column_text(s,2));sqlite3_finalize(s);if(!same){fail(c,"COMMAND_CONFLICT");goto bad;}if(*out&&!strcmp(*out,"null")){fail(c,"COMMAND_RESULT_EXPIRED");goto bad;}if(!*out){fail(c,"NO_MEMORY");goto bad;}if(native_full&&retain_full_bundle(c,p,a,full_bundle,full_bundle_len,0)<0)goto bad;if(sql(c,"COMMIT")<0){goto bad;}
  return 0;}sqlite3_finalize(s);
@@ -1121,9 +1181,12 @@ static int execute_internal(od_core *c,const char *op,const char *p,const char *
  int64_t full_definition_existed=0;
  if(native_full&&scalar(c,"SELECT EXISTS(SELECT 1 FROM created_definitions WHERE profile=:p AND definition_id=json_extract(:a,'$.definition.definition_id') AND version=json_extract(:a,'$.definition.version'))",p,a,NULL,&full_definition_existed)<0){sqlite3_free(execution);goto bad;}
  if(native_full&&full_definition_existed&&retain_full_bundle(c,p,a,full_bundle,full_bundle_len,0)<0){sqlite3_free(execution);goto bad;}
- int replay=native_full?creator_finish(c,p,a,out,1):mutation(c,op,p,command,execution?execution:a,out);sqlite3_free(execution);if(replay<0)goto bad;
+ int replay=native_full?creator_finish(c,p,a,out,1):native_original?original_client_mutation(c,op,p,a,out):mutation(c,op,p,command,execution?execution:a,out);sqlite3_free(execution);if(replay<0)goto bad;
  if(native_full&&!full_definition_existed&&retain_full_bundle(c,p,a,full_bundle,full_bundle_len,1)<0)goto bad;
  int seeded=seed_new_owned_progress(c);if(seeded<0)goto bad;
+ /* Generic compact team edits must not leave a retained six-position native
+  * layout invalid or turn an otherwise openable save into an invalid save. */
+ if(!od_original_teams_validate(c->db)){fail(c,"ORIGINAL_TEAM_LAYOUT_CONFLICT");goto bad;}
  /* A mutation may have built its response before the fresh-row EXP seed. Keep
   * its cached cards snapshot coherent with the same committed transaction. */
  int64_t has_cards=0;if(seeded&&scalar(c,"SELECT json_type(:a,'$.cards')='array'",p,*out,NULL,&has_cards)<0)goto bad;
@@ -1158,6 +1221,23 @@ bad:{char saved[192];memcpy(saved,c->error,sizeof(saved));sqlite3_exec(c->db,"RO
 
 int od_execute(od_core *c,const char *op,const char *p,const char *command,const char *a,char **out){return execute_internal(c,op,p,command,a,0,0,0,NULL,0,out);}
 int od_execute_clocked(od_core *c,const char *op,const char *p,const char *command,const char *a,int64_t host_now,char **out){return execute_internal(c,op,p,command,a,1,host_now,0,NULL,0,out);}
+
+int od_original_client_apply(od_core *c,const char *operation,const char *profile,const char *command,
+ const char *expected_scope,int64_t expected_revision,const char *payload,char **out) {
+ if(!c||!out)return -1;
+ *out=NULL;
+ if(!operation||(strcmp(operation,"tutorial.progress")&&strcmp(operation,"teams.apply"))||
+    !identifier(profile)||!identifier(command)||!full_bundle_hex(expected_scope)||
+    expected_revision<0||expected_revision>OD_LIMIT||!payload||strlen(payload)>OD_MAX_INPUT)return fail(c,"INVALID_ORIGINAL_PLAYER_ARGUMENT");
+ int64_t valid=0;
+ if(scalar(c,"SELECT CASE WHEN json_valid(:a) THEN json_type(:a)='object' ELSE 0 END",profile,payload,NULL,&valid)<0||!valid)return fail(c,"INVALID_JSON");
+ sqlite3_stmt *s=prepare(c,"SELECT json_object('expected_scope',:id,'expected_revision',?4,'payload',json(:a))",profile,payload,expected_scope);
+ if(!s)return -1;
+ sqlite3_bind_int64(s,4,expected_revision);char *args=sqlite3_step(s)==SQLITE_ROW?sqlite3_mprintf("%s",sqlite3_column_text(s,0)):NULL;sqlite3_finalize(s);
+ if(!args)return fail(c,"NO_MEMORY");
+ const char *internal=!strcmp(operation,"tutorial.progress")?"native.tutorial.progress":"native.teams.apply";
+ int rc=execute_internal(c,internal,profile,command,args,0,0,2,NULL,0,out);sqlite3_free(args);return rc;
+}
 
 typedef struct { uint32_t h[8]; uint64_t bits; unsigned char block[64]; unsigned n; } od_sha256_state;
 static uint32_t od_rotr(uint32_t x,unsigned n){return (x>>n)|(x<<(32-n));}
@@ -1421,6 +1501,7 @@ static int offline_player_read(od_core *c,const char *p,int identity_only,char *
    od_free(*out);*out=combined;
   }
   sqlite3_free(source_rank);
+  if(*out){char *native=original_player_fields(c,p,*out);od_free(*out);*out=native;}
  }
  if(!*out||sql(c,"COMMIT")<0){sqlite3_exec(c->db,"ROLLBACK",0,0,0);od_free(*out);*out=NULL;return -1;}
  return 0;
@@ -1567,7 +1648,7 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version) {
  sqlite3_finalize(s);if(!ok)return 0;
  sqlite3 *expected=NULL;
  if(sqlite3_open(":memory:",&expected)!=SQLITE_OK){if(expected)sqlite3_close(expected);return 0;}
- if(sqlite3_exec(expected,SCHEMA,0,0,0)!=SQLITE_OK||(version>=2&&sqlite3_exec(expected,SCHEMA_V2,0,0,0)!=SQLITE_OK)||(version>=3&&sqlite3_exec(expected,SCHEMA_V3,0,0,0)!=SQLITE_OK)||(version>=4&&sqlite3_exec(expected,SCHEMA_V4,0,0,0)!=SQLITE_OK)||(version>=5&&(sqlite3_exec(expected,od_schedule_store_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V5,0,0,0)!=SQLITE_OK))||(version>=6&&(sqlite3_exec(expected,od_schedule_store_schema_v2(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V6,0,0,0)!=SQLITE_OK))||(version>=7&&(sqlite3_exec(expected,od_kai_training_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V7,0,0,0)!=SQLITE_OK))||(version>=8&&sqlite3_exec(expected,SCHEMA_V8,0,0,0)!=SQLITE_OK)||(version>=9&&sqlite3_exec(expected,SCHEMA_V9,0,0,0)!=SQLITE_OK)||(version>=10&&sqlite3_exec(expected,SCHEMA_V10,0,0,0)!=SQLITE_OK)||(version>=11&&sqlite3_exec(expected,SCHEMA_V11,0,0,0)!=SQLITE_OK)||(version>=12&&sqlite3_exec(expected,SCHEMA_V12,0,0,0)!=SQLITE_OK)){sqlite3_close(expected);return 0;}
+ if(sqlite3_exec(expected,SCHEMA,0,0,0)!=SQLITE_OK||(version>=2&&sqlite3_exec(expected,SCHEMA_V2,0,0,0)!=SQLITE_OK)||(version>=3&&sqlite3_exec(expected,SCHEMA_V3,0,0,0)!=SQLITE_OK)||(version>=4&&sqlite3_exec(expected,SCHEMA_V4,0,0,0)!=SQLITE_OK)||(version>=5&&(sqlite3_exec(expected,od_schedule_store_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V5,0,0,0)!=SQLITE_OK))||(version>=6&&(sqlite3_exec(expected,od_schedule_store_schema_v2(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V6,0,0,0)!=SQLITE_OK))||(version>=7&&(sqlite3_exec(expected,od_kai_training_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V7,0,0,0)!=SQLITE_OK))||(version>=8&&sqlite3_exec(expected,SCHEMA_V8,0,0,0)!=SQLITE_OK)||(version>=9&&sqlite3_exec(expected,SCHEMA_V9,0,0,0)!=SQLITE_OK)||(version>=10&&sqlite3_exec(expected,SCHEMA_V10,0,0,0)!=SQLITE_OK)||(version>=11&&sqlite3_exec(expected,SCHEMA_V11,0,0,0)!=SQLITE_OK)||(version>=12&&sqlite3_exec(expected,SCHEMA_V12,0,0,0)!=SQLITE_OK)||(version>=13&&(sqlite3_exec(expected,od_original_teams_schema_sql(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V13,0,0,0)!=SQLITE_OK))){sqlite3_close(expected);return 0;}
  char *a=schema(expected),*b=schema(db);ok=a&&b&&!strcmp(a,b);sqlite3_free(a);sqlite3_free(b);sqlite3_close(expected);if(!ok)return 0;
  if(sqlite3_prepare_v2(db,"SELECT count(*)=1 AND max(v)=?1 FROM meta WHERE k='content'",-1,&s,NULL)!=SQLITE_OK)return 0;
  sqlite3_bind_text(s,1,c->content,-1,SQLITE_TRANSIENT);ok=sqlite3_step(s)==SQLITE_ROW&&sqlite3_column_int(s,0);sqlite3_finalize(s);if(!ok)return 0;
@@ -1595,6 +1676,11 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version) {
   ok=sqlite3_step(s)==SQLITE_DONE;sqlite3_finalize(s);if(!ok)return 0;
  }
  if(version>=12&&!validate_full_bundle_rows(c,db))return 0;
+ if(version>=13){
+  const char *tutorial_invalid="SELECT 1 FROM od_original_tutorial WHERE progress NOT BETWEEN 0 AND 2147483647 OR is_finished!=0 OR policy!='original-tutorial-entry-v1' LIMIT 1";
+  if(sqlite3_prepare_v2(db,tutorial_invalid,-1,&s,NULL)!=SQLITE_OK)return 0;
+  ok=sqlite3_step(s)==SQLITE_DONE;sqlite3_finalize(s);if(!ok||!od_original_teams_validate(db))return 0;
+ }
  if(version>=6&&!validate_official(c,db))return 0;
  if(version>=7&&!od_kai_training_validate(db,kai_target_binding,c))return 0;
  if(version>=4&&!validate_progress(c,db))return 0;
@@ -1619,7 +1705,7 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version) {
  if(rc!=SQLITE_DONE){ok=0;}
  sqlite3_finalize(s);return ok&&(version==1||validate_banners(c,db));
 }
-static int validate_save(od_core *c,sqlite3 *db){return validate_save_version(c,db,12);}
+static int validate_save(od_core *c,sqlite3 *db){return validate_save_version(c,db,13);}
 int od_export_save(od_core *c,const char *dest) {
  if(!c||!dest||!*dest)return -1;
  struct stat st;if(lstat(dest,&st)==0)return fail(c,"DESTINATION_EXISTS");
@@ -1688,7 +1774,7 @@ int od_import_save(od_core *c,const char *source) {
  int valid=0;
  /* Always stage imports privately. Requeue projection before replacing the active
   * save: a restored backup may carry an ack for a sidecar absent on this device. */
- if(version>=1&&version<=12&&validate_save_version(c,db,version)){
+ if(version>=1&&version<=13&&validate_save_version(c,db,version)){
   if(sqlite3_open(":memory:",&candidate)==SQLITE_OK&&backup(candidate,db)==0&&
      (version>=2||sqlite3_exec(candidate,SCHEMA_V2,0,0,0)==SQLITE_OK)&&
      (version>=3||sqlite3_exec(candidate,SCHEMA_V3,0,0,0)==SQLITE_OK)&&
@@ -1701,6 +1787,7 @@ int od_import_save(od_core *c,const char *source) {
      (version>=10||sqlite3_exec(candidate,SCHEMA_V10,0,0,0)==SQLITE_OK)&&
      (version>=11||sqlite3_exec(candidate,SCHEMA_V11,0,0,0)==SQLITE_OK)&&
      (version>=12||sqlite3_exec(candidate,SCHEMA_V12,0,0,0)==SQLITE_OK)&&
+     (version>=13||(sqlite3_exec(candidate,od_original_teams_schema_sql(),0,0,0)==SQLITE_OK&&sqlite3_exec(candidate,SCHEMA_V13,0,0,0)==SQLITE_OK))&&
      sqlite3_exec(candidate,"UPDATE creator_projection SET generation=generation+1,applied_generation=0",0,0,0)==SQLITE_OK&&projection_import_epoch(c,candidate))
    valid=validate_save(c,candidate);
  }

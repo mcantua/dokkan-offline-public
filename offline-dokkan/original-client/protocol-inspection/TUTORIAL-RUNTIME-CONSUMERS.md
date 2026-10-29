@@ -79,19 +79,26 @@ Existing profiles must not be silently reset or migrated to that state.
 `contents_lv`, starting storage limits, grants and completion behavior remain
 independent contracts; this trace supplies no invented values for them.
 
-A durable local checkpoint operation should retain the actual received
-progress under the same native-owned profile/save/content scope. It must
-commit before returning success and preserve the same value on a retry.
-It must not infer grants, completion, phase IDs or clock changes from the
-opaque request fields. This document alone does not add that operation.
+Schema13 now implements native-owned partial tutorial storage and the
+`od_original_client_apply` progress operation under the same canonical scope.
+It stores actual positive signed32 checkpoints, commits before success and
+retains identical command results. New-profile start state is an authored
+source-compatible policy, not a claimed Sparking server default. Older profiles
+receive no invented tutorial row. No grant, completion, phase ID or clock
+change is inferred. The HTTP route remains unadmitted. The combined scenario
+in `../../core/original-player-state-evidence.json` verifies SQL/JavaScript;
+native C command flow, Objective-C and original gameplay remain unexecuted.
 
 ## Exact remaining response bridge
 
 The issuer wraps the API in the real `WebAPILayer` through a164-byte factory
 and464-byte constructor. These are actual original-client objects, not an
-authored task system. The ordinary `WebAPIBase::send` success wrapper and
-`WebAPICaller::call` success callback still need their required JSON/status
-behavior tied to this request before a complete response is admitted.
+authored task system. The ordinary `WebAPIBase::send`1276-byte success wrapper
+and `WebAPICaller::call`180-byte success callback were recovered next. A policy
+predicate selects either the plain document-root branch, or a `sign` field
+followed by source decoding/parsing before common model updates and delivery.
+That predicate and codec ownership still need proof. Auth's separate NonAuth
+plain-JSON proof cannot establish the ordinary API response contract.
 
 The common1284-byte materializer is already bound to this actual TutorialAPI
 vtable. Its reviewed HTTP completion gives the parsed document root to the

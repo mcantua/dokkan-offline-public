@@ -1,6 +1,6 @@
 # Original client: first playable path
 
-Updated October 29, 2026, 1:44 PM US Central.
+Updated October 29, 2026, 2:58 PM US Central.
 
 The real supplied Sparking iPhone client is the production foundation. Its
 compiled engine, original screens, combat and animation systems are retained.
@@ -36,10 +36,9 @@ C/Objective-C changes have not been compiled or executed in this cohort.
 
 For progress reports, the startup diagnostic source checklist is four steps:
 pinned binary inputs, reviewed entry source, compatible startup asset staging,
-and actual native launch. The first two are done (2/4); the last two remain.
+and actual native launch. The first two are done (2/4); resource verification/staging is active and actual native launch remains unverified.
 The login source checklist is parsed-root proof, candidate encoders, complete
-sign-in contract, and native handler integration. Its first two are done
-(2/4). These equal-count source checklists are not weighted readiness estimates
+sign-in contract, and native handler integration. The root/encoders/preauth source contract are established (3/4); trusted native handler integration remains in progress. These equal-count source checklists are not weighted readiness estimates
 or a percentage of the whole game. Original-client battle/save and Creator-in-
 battle runtime acceptance have not been reached.
 
@@ -88,9 +87,7 @@ To avoid reconstructing minimum resource lists one file at a time, the reviewed
 cloud recovery helper now selects the complete existing 1,067-candidate original
 iPhone resource inventory plus exact framework metadata. It verifies the whole
 IPA in temporary Google-cloud scratch, preserves original bundle/tutorial
-paths, and writes one current set of parts below32MiB. The existing notebook
-was updated and byte-readback verified; Tin's Run-all step is pending. No full
-game copy through the Mac, app build or resource-staging completion is claimed.
+paths, and writes one current set of parts below32MiB. The existing notebook was updated and byte-readback verified. Tin reported Finished; the final 428,858-byte manifest and all25parts are present in Drive. The manifest matches source selection (1,067resources plus framework metadata), and cloud part verification/staging is underway. No full game copy through the Mac or app build is claimed. Resource staging is not complete until its real-input receipt verifies.
 
 Master lifecycle analysis also found the original invalid-key/schema cleanup
 can remove its working `sqlite/current` tree. Stage only separate disposable
@@ -102,3 +99,32 @@ Tin says “make the builds”. No playable download or new in-app screenshot ex
 Continue independent contract/native source work while missing inputs are
 blocked. Keep the protected base and private backup untouched; save code on
 the integration topic/draft #8 and overwrite existing Drive snapshot IDs.
+
+
+## Current canonical state and protocol source integration
+
+Core13 now retains original team identity, six exact owned-card positions,
+BGM/reference metadata and optional native selection/context in canonical SQL.
+Only new own profiles receive progress0/is_finishedfalse under the documented
+start-tutorial policy; existing profiles are not reset. Native-only writes check
+scope before command replay and revision for new commands, share one Core
+transaction, reject a live Creator lease, and return a fresh committed snapshot.
+One combined SQL-to-JS scenario and one changed-metadata-only scenario passed;
+C control flow, replay, Objective-C and real game behavior remain unexecuted.
+Independent GET teams and decoded POST normalization use the same owned state.
+Encoded HTTP request intake and actual route registration are still pending.
+
+The current original ping wrapper accepts skip_device_token:true, making native
+GenerateToken skip the platform token routine. Original ordinary WebAPI response
+selection requires root sign presence for its encoded branch; an object without
+that member follows the existing plain-document path. The shared native plain
+response factory rejects even sign:null and emits application/json. These are
+actual source contracts, not completed offline login or endpoint DTO proof.
+Host-owned auth composition must asynchronously validate the selected canonical
+Core/profile/content/scope, including response-time currentness; a main-thread
+predicate cannot run on the serial transport queue. This composition is next.
+
+Native master staging must preserve opaque bytes in a separate writable working
+copy under the actual native language path. Plaintext derived staging cannot
+establish original MAIN key compatibility. That acceptance stays false until
+observed in the real original client. Never expose or extract the opaque key.

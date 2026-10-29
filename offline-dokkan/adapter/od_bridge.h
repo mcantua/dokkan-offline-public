@@ -30,6 +30,12 @@ int od_bridge_projection_ack(od_bridge *,const char *profile,int64_t generation,
 /* Native original-client protocol snapshot, including persistent own offline
  * identity. No new Creator/WebView-selectable operation is added. */
 int od_bridge_offline_player_snapshot(od_bridge *,const char *profile,char **result,char **error);
+/* Native original-client writes only. No execution-table/WebView entry. The
+ * canonical Core owns scope, expected revision, command retry and transaction. */
+int od_bridge_original_client_apply(od_bridge *,const char *operation,const char *profile,
+                                    const char *command,const char *expected_save_scope,
+                                    int64_t expected_revision,const char *payload_json,
+                                    char **result,char **error);
 /* Read-only exact prior Finish intent receipt. No execute/replay fallback. */
 int od_bridge_creator_finish_receipt(od_bridge *,const char *profile,const char *command,
                                      const char *expected_definition_json,char **result,char **error);

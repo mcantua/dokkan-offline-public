@@ -66,8 +66,8 @@ selects `selected_team_num` and `selected_kobetu_team_num` through the known
 40-byte member selector, then the same signed32 conversion used by the auth
 TTL reader. It also selects `user_card_teams` for collection decoding. The
 2,112- and 1,436-byte candidates instead use a different mutable-member/assign
-path and must not be mistaken for response DTO consumers. Team-member rows,
-model ownership and request binding remain under investigation.
+path and must not be mistaken for response DTO consumers. The later work below closes writer ownership and the direct team request
+bindings; home/collection and native runtime acceptance remain open.
 
 The exact scoped decompilation of the 488-byte reader and 1,436-byte writer
 stayed inside each declared body. The 2,112-byte candidate's high-Pcode
@@ -79,7 +79,8 @@ from the nominal 412-byte entry alone.
 `team-reader-contract.json` now records three concrete callback paths: one
 passes callback JSON directly into the collection reader, another selects
 its `teams` child first, and an update callback also passes JSON directly.
-Their request registrations and routes are still unresolved. The reader
+The direct fetch/update registrations now bind to the original GET/POST
+`/teams` family below; the ResourcesModel request route remains separate. The reader
 reaches the actual 796-byte row decoder and separate 320-byte team-BGM
 decoder, matching the previously sanitized resource nesting. This does not
 authorize mapping Core slots to native team numbers or copying cached teams.
@@ -101,11 +102,10 @@ as the owned-card IDs.
 
 Core currently stores compact `teams[{slot,members}]` arrays without zero
 entries. A real native formation can have empty positions, so importing it
-by merely removing zero IDs would lose formation layout. Before a working
-team projection is admitted, native numbers and the six positions need an
-explicit, persistent own-player binding. No `slot + 1` mapping, missing team,
-name or BGM default has been introduced. Two exact UI callers of the actual
-`postTeams` setup are retained privately for the next number-mapping step.
+by merely removing zero IDs would lose formation layout. Core13 now adds an explicit own-player binding for native numbers and
+the six positions, while preserving canonical compact members. No `slot + 1` mapping, missing team,
+name or BGM default has been introduced. The original number is opaque; our persisted association is an explicit
+adapter identity choice, not an alleged recovered server default.
 
 ## Exact team request method and relative path
 
@@ -123,7 +123,49 @@ The formation-save UI caller passes zero for the selection argument and an
 explicit deck map, which means that write preserves the selection under the
 positive-only writer rule. It does not establish `Core.slot + 1`.
 
-Concrete own-team projection will use the atomic persisted binding contract
-in `CORE-TEAM-BINDING.md`; it will not add a second optional JSON policy that
-claims native authority without actual persistence. HTTP admission and native
-playtest status remain false until the owner-backed flow is connected.
+Concrete own-team projection now reads the atomic persisted binding contract
+in `CORE-TEAM-BINDING.md`. The new Core `original_teams.c` module owns schema,
+normalized native updates, snapshot serialization and ownership/layout
+validation. The existing projector consumes that real snapshot property,
+preserves all six positions, and rejects missing bindings, stale formations,
+foreign cards or policy overrides. It adds no second optional JSON policy
+that claims native authority without actual persistence. Core13/native-owner
+hooks are implemented and the first combined SQL-to-projector scenario
+passed; native code remains uncompiled. HTTP admission and native playtest status remain
+false until the actual route and original client are connected.
+
+## Verification boundary for the persistent team implementation
+
+`check_core_team_projection.js` accepts the actual synthetic Core SQL snapshot
+from the combined migration/ownership scenario on standard input. It checks
+that the existing projector retains an opaque native number independently of
+Core slot, exact six-position gaps and saved name/BGM, while rejecting stale
+layouts, unowned IDs and policy replacement. The empty-account case creates
+no team or selection. The Core worker owns the combined run; this worker does
+not duplicate it or compile a native app. Its receipt is separate from the
+older numeric-boundary scenario, whose unchanged source facts are reused.
+
+## Complete POST metadata and independent teams adapter
+
+The full known field-write set of the actual 2,112-byte writer has been
+reviewed. Row reference IDs are signed32; owned formation IDs remain64-bit.
+The three optional top-level quest-context IDs are unsigned32. The Core
+module now retains references and advisory context without granting cards or
+advancing quest progress. Unknown historical references remain null and keep
+projection pending. No fresh team/name/BGM/selection is manufactured.
+
+The same existing native projector exposes dedicated GET teams projection
+and decoded POST normalization, independent of unresolved full-user policy.
+The normalizer preserves saved BGM, six positions and omitted selection or
+context; it separates `timewarp` from gameplay clocks. It never decodes a
+signed/compressed transport body or executes an HTTP request.
+
+The second, changed-metadata-only combined check passed on its first run:
+`python3 offline-dokkan/core/check_original_client_state.py --metadata-only`.
+`check_native_team_metadata.js` consumed its actual synthetic SQL snapshot
+and returned the normalized mutation for the same SQL round trip. See
+`native-team-metadata-evidence.json` and Core
+`original-team-metadata-evidence.json`. The earlier migration, ownership and
+layout evidence was reused without rerunning that scenario.
+C/Objective-C compilation, original-client execution, home/collection route
+contracts and first-team initialization remain outside these receipts.

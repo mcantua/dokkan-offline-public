@@ -41,8 +41,9 @@ declared 212-byte source body. Its direct 144-byte factory creates an object
 with exact RTTI `20LayoutQuestQuestTips`. The source records that factory's
 124-byte initializer as SHA-256
 `dc72c232a7c9b910b6e4aace0c5f1106621ca26688a6dec4e535432764b85aca`.
-This is the next resource-loading frontier; a direct literal scan has not
-established any filename or complete dependency set. Common scene constructor
+That 124-byte initializer has now been analyzed within its exact declared
+body; it calls a native base initializer and sets geometry, with no direct
+resource filename proven. Common scene constructor
 and ownership helpers remain private pins rather than additional analysis
 targets without a specific need.
 
@@ -53,13 +54,16 @@ not a proven boot dependency set. The restored Adjust framework binary and
 original opaque app-root seed therefore do not establish a complete startup
 resource package. The framework's original bundle metadata remains missing.
 
-Continue from `notice_layer_factory_callee_2` in
-`private/ghidra/startup-notice-layer.private.json`, then follow the actual
-LayoutQuestQuestTips resource-consuming path. Reuse the existing FD catalog/preloader once
-the required paths and original bundle aliases are established. Do not create
-a generic manifest containing guessed filenames, mark a nonempty directory
-complete, copy an unproven Android database into the preferred iPhone path,
-or run a native close/reopen as a substitute for correct cold startup.
+The full existing safe original resource candidate set is now the restoration
+target, preserving exact bundle/tutorial paths; do not trace a thousand minimum
+filenames unnecessarily. `ORIGINAL-RESOURCE-STAGING.md` records that source
+preparation and the diagnostic's connected native compatible-alias preloader.
+The precise narrower frontier remains in
+`private/ghidra/startup-notice-layer.private.json` and the saved decompiler
+output if a specific outside-selector resource dependency is later found.
+Do not invent filenames, mark a nonempty directory complete, copy an unproven
+Android database into the preferred iPhone path, or run native close/reopen as
+a substitute for correct cold startup.
 
 All raw code, addresses, pcode and detailed source spans stay in the ignored
 private analysis workspace. No original game, new native component or app

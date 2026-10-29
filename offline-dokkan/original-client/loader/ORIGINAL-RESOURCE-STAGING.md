@@ -28,7 +28,9 @@ The output contains two distinct source-staging trees:
   `tutorial0/...`. Different original/root/tutorial bytes remain distinct.
   This tree also contains the original framework metadata/binary and app-root
   seed. It does not contain the genuine shell or prepared engine; their
-  existing pinned loader recipe is separate.
+  existing pinned loader recipe is separate. It additionally includes the
+  exact compatible catalog and 27 immutable SHA-named compatible-cache blobs
+  under `OriginalClient/` for the existing native FD preloader.
 - `documents/assets/...` contains only the 27 canonical references already
   admitted by the existing byte-identical iPhone compatibility catalog. The
   tool requires that exact 36,864-byte catalog SHA-256, original IPA/export
@@ -40,9 +42,15 @@ The output contains two distinct source-staging trees:
 Both trees contain working copies. They never point the original engine at
 the only immutable source/cache. Resource files are read-only. Output must be
 absent and remain below this repository's ignored `offline-dokkan/private`
-directory. Linux `renameat2(RENAME_NOREPLACE)` publishes the completed tree
-without replacing even an empty existing directory. A late failure removes
-only this invocation's private staging tree. Existing outputs are refused.
+directory. The original parent and staging directory FDs remain open; generated
+reads/writes use relative `O_NOFOLLOW` traversal. Parent/stage identity is checked
+before publication. FD-relative Linux `renameat2(RENAME_NOREPLACE)` never
+replaces an existing directory or follows a replacement parent symlink. A
+pre-publication failure removes only this invocation's owned tree through the
+held parent FD. If the parent changes at publication, success is refused and
+the verified new tree in the original held namespace is preserved for review;
+no unrelated redirected tree is touched. Literal `User`, `save/`, `saves/` and
+signing-file arguments are refused before input I/O.
 
 The generated `staging-receipt.json` records the original/manifest/catalog
 pins, bundle count and exact compatible aliases. It explicitly records no
@@ -66,17 +74,25 @@ python3 offline-dokkan/original-client/loader/stage_original_resources.py \
 The resource extraction and this real-input staging command have not run.
 When builds are explicitly authorized, the package recipe must merge
 `bundle/` into a fresh own diagnostic bundle, preserve the genuine shell and
-prepared original engine, and cold-stage the admitted working aliases into
-the actual own Documents root before `dlopen`. Reuse the existing FD catalog,
-resource preloader and no-overwrite publisher for the native phase. Never copy
+prepared original engine. The diagnostic's source now composes the existing
+FD catalog/resource preloader/no-overwrite publisher to cold-stage the admitted
+working aliases into actual own Documents before `dlopen`, on one serial
+preparation queue before `UIApplicationMain`. It enumerates requirements from
+the exact pinned catalog and checks actual path/FD identities. This native
+composition has not been compiled or executed. Never copy
 the opaque seed into the preferred downloaded-master path. Existing native
 User/current-master trees remain refused by the diagnostic factory. No
 complete native composition or gameplay proof follows from this source tool.
 
-One combined synthetic scenario passed: a member crossing part boundaries;
+The first combined synthetic scenario passed: a member crossing part boundaries;
 different root/tutorial bytes preserved; only the catalog-admitted root bytes
 copied to the canonical Documents alias; existing output refused; corrupt
 member rollback; and corrupt part refusal. The synthetic constants were
-scoped to that fixture, not exposed as CLI overrides. No original game input
-or native build was executed. The final lexical `save/` path refusal was
-source-reviewed after that run; the unchanged scenario was not repeated.
+scoped to that fixture, not exposed as CLI overrides. A second focused run
+passed the new native-cache/catalog payload, parent replacement during writes
+with FD-relative cleanup, parent replacement at publication with refusal of
+success and preservation of an external existing tree, `User` refusal before
+reads, and FD cleanup. Earlier unchanged cases were not repeated. The final
+signing-suffix and exceptional-parent-FD cleanup guards were source-reviewed
+afterward; no third run was made. No original game input or native build was
+executed in either scenario.

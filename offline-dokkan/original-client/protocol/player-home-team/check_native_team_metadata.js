@@ -1,0 +1,33 @@
+'use strict';
+// Changed metadata only. The earlier migration/ownership/layout scenario is
+// reused, not rerun. Input is the actual new SQL snapshot from that worker.
+const fs=require('fs'),crypto=require('crypto'),projector=require('../resources-projector');
+const fixture=JSON.parse(fs.readFileSync(0,'utf8')),copy=x=>JSON.parse(JSON.stringify(x));
+const assert=(yes,code)=>{if(!yes)throw Error(code);};
+const fails=(fn,code)=>{try{fn();}catch(error){if(error.message===code)return;throw error;}throw Error('Expected '+code);};
+const record=fixture.original_client_teams,binding=record.bindings[0];
+assert(binding.references!==null&&binding.references!==undefined,'Actual persisted reference metadata required');
+const ids=[...new Set(record.bindings.flatMap(row=>row.card_slots.filter(id=>id!==0)))];
+const expected={profile_id:'synthetic-owner',content_id:'synthetic-master',save_scope_sha256:'ab'.repeat(32)};
+const envelope={admission:Object.assign({clean:true},expected),player_snapshot:{profile_id:expected.profile_id,content_id:expected.content_id,revision:fixture.revision||1,cards:ids.map(id=>({instance_id:id})),teams:fixture.teams,original_client_teams:record}};
+const get=projector.projectTeams(envelope,expected);
+assert(get.body_json!==null&&!get.http_route_admitted&&!get.original_iphone_runtime_verified,'Dedicated GET teams candidate failed or admitted HTTP');
+const row=get.response.user_card_teams.find(row=>row.num===binding.native_num);
+for(const key of ['referenced_sugoroku_map_id','referenced_z_battle_stage_id','referenced_card_ids'])assert(JSON.stringify(row[key])===JSON.stringify(binding.references[key]),'Saved reference metadata changed');
+const unknown=copy(envelope);unknown.player_snapshot.original_client_teams.bindings[0].references=null;
+const pending=projector.projectTeams(unknown,expected);
+assert(pending.body_json===null&&pending.issues.some(issue=>issue.code==='NATIVE_TEAM_REFERENCE_METADATA_REQUIRED'),'Unknown historical references defaulted');
+const raw={selected_team_num:binding.native_num,sugoroku_map_id:123,z_battle_stage_id:456,origin_battle_id:789,timewarp:1234,user_card_teams:[{num:binding.native_num,name:'Updated native team',user_card_ids:binding.card_slots.slice(),referenced_sugoroku_map_id:-2147483648,referenced_z_battle_stage_id:2147483647,referenced_card_ids:[-2147483648,2147483647]}]};
+const normalized=projector.normalizeTeamUpdate(envelope,expected,raw),saved=normalized.mutation.teams[0];
+assert(saved.team_bgm_filename===binding.team_bgm_filename&&saved.name===raw.user_card_teams[0].name,'POST invented BGM or lost submitted name');
+assert(saved.references.referenced_sugoroku_map_id===-2147483648&&saved.references.referenced_card_ids[1]===2147483647,'Signed reference metadata lost');
+assert(normalized.mutation.advisory_context.origin_battle_id===789&&!Object.prototype.hasOwnProperty.call(normalized.mutation,'timewarp')&&normalized.transport_metadata.timewarp===1234,'Context/transport lifecycle mixed with saved game effects');
+const noContext=copy(raw);for(const key of ['sugoroku_map_id','z_battle_stage_id','origin_battle_id'])delete noContext[key];
+assert(!Object.prototype.hasOwnProperty.call(projector.normalizeTeamUpdate(envelope,expected,noContext).mutation,'advisory_context'),'Omitted advisory metadata was cleared');
+fails(()=>projector.normalizeTeamUpdate(envelope,expected,'not decoded JSON'),'INVALID_NATIVE_TEAM_REQUEST');
+const bad=copy(raw);bad.user_card_teams[0].referenced_z_battle_stage_id=2147483648;
+fails(()=>projector.normalizeTeamUpdate(envelope,expected,bad),'INVALID_NATIVE_TEAM_REFERENCES');
+fails(()=>projector.normalizeTeamUpdate(envelope,expected,Object.assign({},raw,{grant_stones:1})),'UNSUPPORTED_NATIVE_TEAM_FIELD');
+const output={kind:'native-team-reference-metadata-and-decoded-request-normalization',verification:'second targeted changed-metadata SQL-to-JS scenario only; prior migration/ownership checks reused',saved_signed32_references_preserved:true,unknown_historical_references_not_defaulted:true,independent_get_teams_projection:true,decoded_post_only_and_persisted_bgm_preserved:true,advisory_context_no_quest_or_inventory_effects:true,timewarp_not_adopted_as_game_clock:true,http_route_admitted:false,native_runtime_execution_verified:false,module_sha256:crypto.createHash('sha256').update(fs.readFileSync(require.resolve('../resources-projector'))).digest('hex')};
+fs.writeFileSync(__dirname+'/native-team-metadata-evidence.json',JSON.stringify(output,null,2)+'\n');
+process.stdout.write(JSON.stringify({mutation:normalized.mutation,transport_metadata:normalized.transport_metadata})+'\n');

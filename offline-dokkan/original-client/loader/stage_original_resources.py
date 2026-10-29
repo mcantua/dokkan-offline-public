@@ -17,7 +17,7 @@ import shutil
 import sqlite3
 import stat
 import sys
-import tempfile
+import uuid
 
 ROOT = Path(__file__).resolve().parents[3]
 PRIVATE = ROOT / "offline-dokkan/private"
@@ -122,7 +122,8 @@ def admit_manifest(raw):
         manifest.get("framework_metadata_members") != 1):
         raise ValueError("Wrong reviewed extraction source")
     parts, members = manifest.get("parts"), manifest.get("members")
-    if not isinstance(parts, list) or not 1 <= len(parts) <= 128 or not isinstance(members, list) or len(members) != EXPECTED_RESOURCES+1:
+    maximum_parts = (MAX_TOTAL+PART_BYTES-1)//PART_BYTES
+    if not isinstance(parts, list) or not 1 <= len(parts) <= maximum_parts or not isinstance(members, list) or len(members) != EXPECTED_RESOURCES+1:
         raise ValueError("Unexpected resource part/member inventory")
     position = 0
     for index, part in enumerate(parts, 1):
@@ -191,30 +192,67 @@ def compatible_aliases(catalog_path, members):
                 raise ValueError("Preferred original alias was not admitted")
             output.append({"canonical_path": canonical, "bundle_relative_path": relative,
                            "size": size, "sha256": sha})
-        return output
+        return output,raw
     finally:
         db.close()
 
 
-def write_member(path, chunks, expected_size, expected_sha):
-    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+def relative_parent(root, relative, create=False):
+    parts = relative.split("/")
+    if not parts or any(not x or x in (".","..") for x in parts):
+        raise ValueError("Invalid staging-relative path")
+    current = os.dup(root)
+    try:
+        for part in parts[:-1]:
+            if create:
+                try:
+                    os.mkdir(part,mode=0o700,dir_fd=current)
+                except FileExistsError:
+                    pass
+            child = os.open(part,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW|os.O_CLOEXEC,dir_fd=current)
+            os.close(current)
+            current = child
+        return current,parts[-1]
+    except BaseException:
+        os.close(current)
+        raise
+
+
+def relative_readonly(root, relative):
+    parent,name = relative_parent(root,relative)
+    try:
+        fd = os.open(name,os.O_RDONLY|os.O_NOFOLLOW|os.O_CLOEXEC|os.O_NONBLOCK,dir_fd=parent)
+    finally:
+        os.close(parent)
+    if not stat.S_ISREG(os.fstat(fd).st_mode):
+        os.close(fd)
+        raise ValueError("Regular staged resource required")
+    return fd
+
+
+def write_member(root, relative, chunks, expected_size, expected_sha):
+    parent,name = relative_parent(root,relative,create=True)
     result = hashlib.sha256()
     total = 0
-    with path.open("xb") as output:
-        for chunk in chunks:
-            total += len(chunk)
-            if total > expected_size:
-                raise ValueError("Resource exceeds exact member size")
-            output.write(chunk)
-            result.update(chunk)
-        output.flush()
-        os.fsync(output.fileno())
+    try:
+        fd = os.open(name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW|os.O_CLOEXEC,0o600,dir_fd=parent)
+        with os.fdopen(fd,"wb") as output:
+            for chunk in chunks:
+                total += len(chunk)
+                if total > expected_size:
+                    raise ValueError("Resource exceeds exact member size")
+                output.write(chunk)
+                result.update(chunk)
+            output.flush()
+            os.fsync(output.fileno())
+            os.fchmod(output.fileno(),0o400)
+    finally:
+        os.close(parent)
     if total != expected_size or result.hexdigest() != expected_sha:
         raise ValueError("Resource member SHA-256 mismatch")
-    os.chmod(path, 0o400)
 
 
-def publish_new_directory(stage, output):
+def publish_new_directory(parent, stage_name, output_name):
     # This is an explicitly cloud-Linux source tool, not a Mac/device helper.
     # renameat2 NOREPLACE never replaces even an empty concurrently-created tree.
     if not sys.platform.startswith("linux"):
@@ -223,14 +261,16 @@ def publish_new_directory(stage, output):
     rename = libc.renameat2
     rename.argtypes = [ctypes.c_int,ctypes.c_char_p,ctypes.c_int,ctypes.c_char_p,ctypes.c_uint]
     rename.restype = ctypes.c_int
-    if rename(-100,os.fsencode(stage),-100,os.fsencode(output),1):
+    if rename(parent,os.fsencode(stage_name),parent,os.fsencode(output_name),1):
         raise OSError(ctypes.get_errno(), "New source staging tree could not be published")
 
 
 def stage_resources(manifest_path, expected_manifest_sha256, parts_root, catalog_path, startup_root, output):
     for location in (manifest_path,parts_root,catalog_path,startup_root,output):
-        if any(part.casefold() in {"save","saves"} for part in Path(location).parts):
-            raise ValueError("Save directories are outside source staging scope")
+        if any(part.casefold() in {"save","saves","user"} for part in Path(location).parts):
+            raise ValueError("Protected state directories are outside source staging scope")
+        if Path(location).suffix.casefold() in {".p12",".p8",".pem",".key",".keystore",".jks",".mobileprovision",".provisionprofile"}:
+            raise ValueError("Signing material is outside source staging scope")
     output = Path(output).absolute()
     private = PRIVATE.resolve(strict=True)
     parent = output.parent.resolve(strict=True)
@@ -239,11 +279,9 @@ def stage_resources(manifest_path, expected_manifest_sha256, parts_root, catalog
     output = parent/output.name
     if os.path.lexists(output):
         raise ValueError("Existing canonical output preserved")
-    parent_fd = directory(parent)
-    os.close(parent_fd)
     raw = read_pinned(Path(manifest_path).absolute(), 8*1024*1024, expected_manifest_sha256)
     manifest, members = admit_manifest(raw)
-    aliases = compatible_aliases(Path(catalog_path).absolute(), members)
+    aliases,catalog_bytes = compatible_aliases(Path(catalog_path).absolute(), members)
     required = {x["path"]:(x["size"],x["sha256"]) for x in manifest.get("existing_startup_inputs_required",[])}
     if required != STARTUP_INPUTS or len(manifest["existing_startup_inputs_required"]) != len(STARTUP_INPUTS):
         raise ValueError("Original startup binary pins changed")
@@ -254,9 +292,18 @@ def stage_resources(manifest_path, expected_manifest_sha256, parts_root, catalog
             raise ValueError("Original startup input size/path mismatch")
     part_directory = directory(Path(parts_root).absolute())
     opened = []
-    stage = None
+    parent_fd = stage_fd = -1
+    stage_name = None
     stage_identity = None
     try:
+        parent_fd = directory(parent)
+        parent_identity = os.fstat(parent_fd)
+        def parent_current():
+            now = os.lstat(parent)
+            if (not stat.S_ISDIR(now.st_mode) or stat.S_ISLNK(now.st_mode) or
+                (now.st_dev,now.st_ino) != (parent_identity.st_dev,parent_identity.st_ino)):
+                raise ValueError("Private staging parent changed")
+        parent_current()
         for part in manifest["parts"]:
             fd = os.open(part["name"],os.O_RDONLY|os.O_NOFOLLOW|os.O_CLOEXEC|os.O_NONBLOCK,dir_fd=part_directory)
             opened.append((fd,os.fstat(fd),part))
@@ -279,17 +326,25 @@ def stage_resources(manifest_path, expected_manifest_sha256, parts_root, catalog
                 yield data
                 at += count
                 remaining -= count
-        stage = Path(tempfile.mkdtemp(prefix=".original-resource-staging-",dir=parent))
-        stage_identity = os.lstat(stage)
+        stage_name = ".original-resource-staging-"+uuid.uuid4().hex
+        os.mkdir(stage_name,mode=0o700,dir_fd=parent_fd)
+        stage_fd = os.open(stage_name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW|os.O_CLOEXEC,dir_fd=parent_fd)
+        stage_identity = os.fstat(stage_fd)
         for relative,member in members.items():
-            write_member(stage/"bundle"/relative,slices(member),member["size"],member["sha256"])
+            parent_current()
+            write_member(stage_fd,"bundle/"+relative,slices(member),member["size"],member["sha256"])
         for relative,data in startup.items():
             size,sha = STARTUP_INPUTS[relative]
-            write_member(stage/"bundle"/relative,(data,),size,sha)
+            parent_current()
+            write_member(stage_fd,"bundle/"+relative,(data,),size,sha)
         for alias in aliases:
-            source = stage/"bundle"/alias["bundle_relative_path"]
-            with source.open("rb") as input_file:
-                write_member(stage/"documents"/alias["canonical_path"],iter(lambda:input_file.read(1024*1024),b""),alias["size"],alias["sha256"])
+            for relative in ("documents/"+alias["canonical_path"],"bundle/OriginalClient/CompatibleResourceCache/"+alias["sha256"]):
+                parent_current()
+                source = relative_readonly(stage_fd,"bundle/"+alias["bundle_relative_path"])
+                with os.fdopen(source,"rb") as input_file:
+                    write_member(stage_fd,relative,iter(lambda:input_file.read(1024*1024),b""),alias["size"],alias["sha256"])
+        parent_current()
+        write_member(stage_fd,"bundle/OriginalClient/byte-identical-assets.sqlite3",(catalog_bytes,),len(catalog_bytes),CATALOG_SHA256)
         for fd,before,part in opened:
             after = os.stat(part["name"],dir_fd=part_directory,follow_symlinks=False)
             if identity(before) != identity(os.fstat(fd)) or identity(before) != identity(after):
@@ -298,24 +353,41 @@ def stage_resources(manifest_path, expected_manifest_sha256, parts_root, catalog
                    "extraction_manifest_sha256":expected_manifest_sha256,"compatible_catalog_sha256":CATALOG_SHA256,
                    "original_bundle_members":len(members)+len(startup),"original_resource_candidates":EXPECTED_RESOURCES,
                    "canonical_documents_aliases":aliases,"all_original_aliases_preserved":True,
+                   "native_compatible_cache_members":len(aliases),
                    "canonical_aliases_derived_from_structural_candidates_only":False,
                    "preferred_master_or_user_state_staged":False,"original_opaque_bundle_seed_staged":True,
                    "actual_app_documents_written":False,
                    "genuine_shell_and_prepared_engine_included":False,
                    "native_execution_verified":False,"playable_build":False}
-        (stage/"staging-receipt.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
-        os.chmod(stage/"staging-receipt.json",0o400)
-        publish_new_directory(stage,output)
-        stage = None
+        receipt_bytes = (json.dumps(receipt,indent=2,sort_keys=True)+"\n").encode()
+        write_member(stage_fd,"staging-receipt.json",(receipt_bytes,),len(receipt_bytes),hashlib.sha256(receipt_bytes).hexdigest())
+        parent_current()
+        current_stage = os.stat(stage_name,dir_fd=parent_fd,follow_symlinks=False)
+        if (current_stage.st_dev,current_stage.st_ino) != (stage_identity.st_dev,stage_identity.st_ino):
+            raise ValueError("Owned staging directory changed")
+        publish_new_directory(parent_fd,stage_name,output.name)
+        stage_name = None
+        os.fsync(parent_fd)
+        parent_current()
         return receipt
     finally:
-        for fd,_,_ in opened:
-            os.close(fd)
-        os.close(part_directory)
-        if stage is not None:
-            info = os.lstat(stage)
-            if (info.st_dev,info.st_ino) == (stage_identity.st_dev,stage_identity.st_ino) and shutil.rmtree.avoids_symlink_attacks:
-                shutil.rmtree(stage)
+        try:
+            for fd,_,_ in opened:
+                os.close(fd)
+            os.close(part_directory)
+            if stage_fd >= 0:
+                os.close(stage_fd)
+            if stage_name is not None and stage_identity is not None:
+                try:
+                    info = os.stat(stage_name,dir_fd=parent_fd,follow_symlinks=False)
+                except FileNotFoundError:
+                    info = None
+                if (info is not None and (info.st_dev,info.st_ino) == (stage_identity.st_dev,stage_identity.st_ino)
+                    and shutil.rmtree.avoids_symlink_attacks):
+                    shutil.rmtree(stage_name,dir_fd=parent_fd)
+        finally:
+            if parent_fd >= 0:
+                os.close(parent_fd)
 
 
 def main():

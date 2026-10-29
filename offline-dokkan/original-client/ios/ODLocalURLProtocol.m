@@ -50,6 +50,22 @@ static NSString *ODOrigin(NSURLComponents *url) {
 @end
 
 @implementation ODLocalTransportResponse
++ (instancetype)plainJSONResponseWithObject:(NSDictionary *)object {
+    @try {
+        if (![object isKindOfClass:NSDictionary.class] || [object objectForKey:@"sign"] != nil ||
+            ![NSJSONSerialization isValidJSONObject:object]) return nil;
+        NSData *body = [NSJSONSerialization dataWithJSONObject:object options:0 error:NULL];
+        if (!body || body.length > ODResponseLimit) return nil;
+        // Check the frozen bytes too: a caller's mutable dictionary must not
+        // add `sign` between the initial guard and serialization.
+        id frozen = [NSJSONSerialization JSONObjectWithData:body options:0 error:NULL];
+        if (![frozen isKindOfClass:NSDictionary.class] || [frozen objectForKey:@"sign"] != nil) return nil;
+        return [[self alloc] initWithStatusCode:200 contentType:@"application/json" body:body];
+    } @catch (NSException *exception) {
+        (void)exception;
+        return nil;
+    }
+}
 - (instancetype)initWithStatusCode:(NSInteger)statusCode contentType:(NSString *)type body:(NSData *)body {
     if (statusCode < 200 || statusCode > 599 || (statusCode >= 300 && statusCode <= 399) ||
         ![body isKindOfClass:NSData.class] || body.length > ODResponseLimit ||

@@ -46,9 +46,10 @@
       "high_pcode_sites_outside_declared_body": 0,
       "reader_input_selection": "callback JSON argument passed directly",
       "completion_event": "team fetch success",
-      "http_request_binding_verified": false,
+      "http_request_binding_verified": true,
       "retained_rtti_method": "TeamModel::forceFetchTeams(bool)",
-      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)"
+      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)",
+      "runtime_execution_verified": false
     },
     {
       "bytes": 188,
@@ -58,7 +59,8 @@
       "completion_event": "team fetch success",
       "http_request_binding_verified": false,
       "retained_rtti_method": "TeamModel::fetchTeamsViaResourcesModel(bool)",
-      "retained_rtti_callback_signature": "bool(Json::Value const&)"
+      "retained_rtti_callback_signature": "bool(Json::Value const&)",
+      "runtime_execution_verified": false
     },
     {
       "bytes": 124,
@@ -66,9 +68,10 @@
       "high_pcode_sites_outside_declared_body": 0,
       "reader_input_selection": "callback JSON argument passed directly",
       "completion_event": "team update success",
-      "http_request_binding_verified": false,
+      "http_request_binding_verified": true,
       "retained_rtti_method": "TeamModel::postTeams(int, map<int, UserDeck> const&)",
-      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)"
+      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)",
+      "runtime_execution_verified": false
     }
   ],
   "important_distinctions": [
@@ -92,15 +95,15 @@
     }
   ],
   "matches_existing_sanitized_android_resources_teams_nesting": true,
-  "exact_http_body_root_or_route_binding_verified": false,
+  "exact_http_body_root_or_route_binding_verified": true,
   "core_slot_to_native_num_mapping_verified": false,
   "fresh_selected_team_or_name_bgm_policy_verified": false,
   "runtime_execution_verified": false,
   "http_route_admitted": false,
   "next_steps": [
-    "Follow exact three callback registrations to current request family/route.",
-    "Resolve remaining team-row card-ID conversion/model ownership and native num mapping before projecting Core teams.",
-    "Use own canonical cards and savedteams; no played source-account teams or invented names/BGM values."
+    "Reuse both passing SQL-to-JS receipts; do not repeat unchanged migration/ownership/layout or metadata checks.",
+    "Bind actual request-body decoding and native-only owner transaction to original transport without admitting an incomplete HTTP success.",
+    "Resolve original empty-account/first-team and home/collection consumers; verify original-client runtime when builds are authorized."
   ],
   "retained_rtti_reused_without_rescan": true,
   "known_team_request_setup_frontier": [
@@ -137,12 +140,26 @@
     "user_card_teams_row_num": "signed32 std::map<int, UserDeck> node key, not array enumeration index",
     "user_card_ids": "six ordered positions; each reads64-bit owned-card object ID, absent object emits0",
     "later_four_byte_array_is_user_card_ids": false,
-    "scope_limit": "DecompilerhighPcodeincludes7sitesoutside2112body; mappingfactspeercheckedagainstboundedactualwriterinstructions."
+    "scope_limit": "DecompilerhighPcodeincludes7sitesoutside2112body; mappingfactspeercheckedagainstboundedactualwriterinstructions.",
+    "complete_known_mutable_field_set_reviewed": true,
+    "unreviewed_known_mutable_field_writes": 0,
+    "row_fields": [
+      "num",
+      "name",
+      "user_card_ids",
+      "referenced_sugoroku_map_id",
+      "referenced_z_battle_stage_id",
+      "referenced_card_ids"
+    ],
+    "reference_fields_native_conversion": "signed32 scalars and signed32 vector; separate from owned64 user_card_ids",
+    "optional_top_context_native_conversion": "unsigned32 sugoroku_map_id, z_battle_stage_id, origin_battle_id",
+    "bgm_in_post_row": false,
+    "timewarp_added_separately": "raw64 transport metadata; lifecycle/signedness not inferred and never adopted as gameplay clock"
   },
   "canonical_core_team_limit": {
     "shape": "teams[{slot,members}] with compact owned-ID arrays(max6), nozero IDs",
-    "native_six_slot_empty_positions_preserved_by_core": false,
-    "required_before_projection": "Verified native number binding and persistent six-position layout; never silently choose slot+1 or compact away native empty positions."
+    "native_six_slot_empty_positions_preserved_by_core": true,
+    "required_before_projection": "Core13 original_client_teams persistent binding preserves native key, six positions and saved metadata; missing historical reference metadata remains unresolved, never defaulted."
   },
   "actual_team_request_contract": {
     "index": {
@@ -175,5 +192,13 @@
     "optional_query_absence_verified": false,
     "http_route_admitted": false,
     "limits": "Current original constructors + exact inherited method/path materialization; no inference from Index/Update names and no live host/account data."
+  },
+  "own_persistent_adapter_mapping_implemented": true,
+  "limits": "Static direct team request/response binding is established. No HTTP route is registered and no original-client runtime, home or full collection contract is claimed.",
+  "verification": {
+    "first_combined_core13_scenario": "core-team-projection-evidence.json",
+    "second_changed_metadata_only_scenario": "native-team-metadata-evidence.json",
+    "each_scenario_runs": 1,
+    "c_objc_or_original_game_execution": false
   }
 }

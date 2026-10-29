@@ -78,9 +78,11 @@ The native factory selects these actual app-owned inputs:
   against its recovered source pin. It is not decoded, replaced with an Android
   database, or assigned a guessed encryption key.
 - The real first `NSDocumentDirectory` result plus `assets`, matching the
-  recovered native path getter. It must already exist and contain entries.
-  No `_resources` path, empty fallback tree or guessed master-language path is
-  created. Presence of entries alone does not attest complete resource staging.
+  recovered native path getter. The actual own assets directory may be created
+  for cold publication from the pinned compatible catalog/cache. The existing
+  FD preloader verifies/publishes all 27 configured aliases before `dlopen`.
+  No `_resources` path, empty-directory success or guessed master-language path
+  is used. This configured set does not attest every scene dependency.
 - A separate own Application Support `OriginalClientStartupDiagnostic`
   directory, created with descriptor-relative/no-symlink checks. No existing
   `save/` directory is read, copied, changed or deleted.
@@ -128,4 +130,20 @@ An existing native `assets/User` or `assets/sqlite/current` tree is refused
 without reading or deleting its contents. No reviewed copied-working-tree
 receipt has been implemented, so an existing tree cannot be admitted by a
 boolean or an invented receipt. The package's reviewed resource-copy staging
-still needs to establish the exact required first-start resource set.
+now preserves the complete existing safe original resource candidate set,
+without guessing a minimum first-screen dependency list. Real extraction,
+staging and native consumption are still unverified. See
+`ORIGINAL-RESOURCE-STAGING.md` for the concrete source tool and its two focused
+synthetic checks.
+
+The diagnostic now composes the existing resource FD preloader before loading
+the original image. It opens the exact 36,864-byte compatible catalog from
+`OriginalClient/byte-identical-assets.sqlite3`, enumerates its 29 original
+aliases into 27 unique admitted canonical paths, and uses the immutable
+`OriginalClient/CompatibleResourceCache` as the verified source. Bulk hashing
+and no-overwrite working publication run on a serial preparation queue before
+`UIApplicationMain`; actual Documents/assets path/FD identities and protected
+native trees remain checked. Original bundle/tutorial resource aliases remain
+in their original positions. The host report adds configured/published working
+counts while scene-completeness and gameplay flags stay false. This is native
+source integration only; it has not been compiled or executed.

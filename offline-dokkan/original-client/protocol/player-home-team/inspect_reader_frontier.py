@@ -19,7 +19,8 @@ import trace_tutorial_state as bounded
 FIELDS=frozenset(('user','cards','teams','user_card_teams','selected_team_num','selected_kobetu_team_num',
  'user_card_ids','num','name','team_bgm_filename','id','card_id','exp','skill_lv','rank','act','act_max',
  'zeni','stone','gasha_point','friends_capacity','support_leaders','tutorial','progress','contents_lv',
- 'is_finished','card_capacity','total_card_capacity','support_item_capacity','is_support_item_capacity_extended'))
+ 'is_finished','card_capacity','total_card_capacity','support_item_capacity','is_support_item_capacity_extended',
+ 'referenced_sugoroku_map_id','referenced_z_battle_stage_id','referenced_card_ids','sugoroku_map_id','z_battle_stage_id','origin_battle_id','timewarp'))
 CALLER_PINS={
  'profile_direct_caller_4':'8b541923621d6330cf64149520d29798b7282fa332168c54a560372340e60800',
  'profile_direct_caller_5':'c9c7c7e178f14787f392fd7f14c72f6261a6dfb3c83004a4737197f523e4a521',

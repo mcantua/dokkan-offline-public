@@ -96,6 +96,13 @@ with tempfile.TemporaryDirectory(prefix='player-act-', dir=ROOT/'build') as temp
     lib.od_close(core)
     # A schema8 save imports without granting or resetting any legacy ACT.
     with sqlite3.connect(exported) as old:
+        for name, in old.execute("SELECT name FROM sqlite_schema WHERE type='trigger' AND name LIKE '_od_projection_%'").fetchall():
+            old.execute('DROP TRIGGER "' + name + '"')
+        old.execute('DROP TRIGGER _od_identity_profile')
+        for table in ('od_original_team_selection','od_original_team_bindings','od_original_tutorial',
+                      'created_full_bundles','offline_identity','creator_projection'):
+            old.execute('DROP TABLE ' + table)
+        old.execute("DELETE FROM meta WHERE k='projection_identity'")
         old.execute('DROP TABLE player_progress')
         old.execute('PRAGMA user_version=8')
         old.execute('UPDATE profiles SET stamina=0')

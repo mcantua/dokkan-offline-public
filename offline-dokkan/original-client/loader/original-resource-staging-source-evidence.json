@@ -1,18 +1,40 @@
 {
   "format": "od-original-resource-staging-source-evidence-v1",
   "source": "offline-dokkan/original-client/loader/stage_original_resources.py",
-  "source_sha256": "67c665b3d85504a76d1a8f2209b6a955e9a28fad39794c23adaf7f828904fccd",
+  "source_sha256": "973a4a8c4cc708157e07d1607dd62f4abd888e89e487e105fd5d9d7bd346117b",
   "verification": {
-    "combined_synthetic_runs": 1,
+    "combined_synthetic_runs": 2,
     "passed": true,
-    "cross_part_member_reconstruction": true,
-    "different_original_tutorial_aliases_preserved": true,
-    "only_catalog_admitted_documents_alias_copied": true,
-    "existing_output_refused": true,
-    "member_corruption_rolled_back": true,
-    "part_corruption_refused": true,
-    "original_inputs_preserved": true,
-    "final_lexical_save_path_guard_source_review_only": true
+    "first_run": [
+      "cross-part member reconstruction",
+      "different original/tutorial aliases preserved",
+      "catalog-only Documents alias copy",
+      "existing output refusal",
+      "corrupt-member rollback",
+      "corrupt-part refusal"
+    ],
+    "second_run": [
+      "native catalog/hash-cache payload",
+      "FD-relative write rollback after parent replacement",
+      "FD-relative publication with parent replacement and refusal of success",
+      "unrelated external existing tree preserved",
+      "User path refused before reads",
+      "descriptor count restored"
+    ],
+    "post_run_source_only_changes": [
+      "signing-file suffix pre-read refusal",
+      "parent FD closed even if exceptional staging cleanup fails"
+    ],
+    "final_python_ast_and_json_source_check": true
+  },
+  "native_composition": {
+    "source": "offline-dokkan/original-client/loader/ODOriginalDuoStartupDiagnostic.m",
+    "source_sha256": "a6f06f9ab52c125eaf8bb9b2b671752effe9f1479e3cd420bf660c00404176e1",
+    "existing_fd_preloader_connected": true,
+    "configured_compatible_references": 27,
+    "bulk_io_before_application_main_on_serial_queue": true,
+    "compiled": false,
+    "executed": false
   },
   "real_resource_parts_restored": false,
   "real_resource_staging_executed": false,

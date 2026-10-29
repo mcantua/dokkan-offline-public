@@ -91,11 +91,12 @@
     "client_executed": false,
     "database_rescanned": false,
     "played_player_values_read": false,
-    "fresh_state_mutation_implemented": false,
+    "fresh_state_mutation_implemented": true,
     "finish_or_reward_policy_inferred": false,
     "tutorial_http_route_admitted": false,
     "original_tutorial_battle_verified": false,
-    "public_addresses_or_code_emitted": false
+    "public_addresses_or_code_emitted": false,
+    "http_response_codec_and_route_pending": true
   },
   "verification": {
     "runtime_pin_recovery_runs": 2,
@@ -103,5 +104,15 @@
     "second_run_reviewed_bodies": 14,
     "native_app_builds": 0,
     "native_or_gameplay_tests": 0
+  },
+  "native_storage_implementation": {
+    "core_schema": 13,
+    "new_profile_only_start_policy": "authored source-compatible 0/false; not claimed Sparking server defaults",
+    "legacy_profiles_reset": false,
+    "positive_checkpoint_native_api": true,
+    "tutorial_finished_grant": false,
+    "contents_lv_default_supplied": false,
+    "sql_js_evidence": "offline-dokkan/core/original-player-state-evidence.json",
+    "native_c_objc_execution_verified": false
   }
 }

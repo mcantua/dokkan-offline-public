@@ -1,6 +1,7 @@
 #import "ODFreshStatePolicy.h"
 #import <CoreFoundation/CoreFoundation.h>
 #include <math.h>
+#include <stdint.h>
 
 static NSError *ODFreshError(NSString *code) {
     return [NSError errorWithDomain:@"OfflineDokkan.FreshState" code:1
@@ -79,13 +80,36 @@ static int ODScanPolicy(id value, NSInteger depth) {
             return nil;
         }
     }
+    NSMutableDictionary *configured=[sections mutableCopy];
+    NSMutableArray *unresolved=[@[@"tutorial.progress",@"tutorial.contents_lv",@"tutorial.is_finished",@"card_capacity",
+        @"total_card_capacity",@"support_item_capacity",@"is_support_item_capacity_extended"] mutableCopy];
+    NSMutableArray *admitted=[NSMutableArray array];
+    id tutorial=snapshot[@"original_client_tutorial"];
+    if(tutorial&&tutorial!=NSNull.null) {
+        long long schema=0,progress=0;
+        id finished=[tutorial isKindOfClass:NSDictionary.class]?tutorial[@"is_finished"]:nil;
+        BOOL canonical=[tutorial isKindOfClass:NSDictionary.class]&&[(NSDictionary *)tutorial count]==4&&
+            ODJSONInteger(tutorial[@"schema"],&schema)&&schema==1&&
+            [tutorial[@"policy"] isEqual:@"original-tutorial-entry-v1"]&&
+            ODJSONInteger(tutorial[@"progress"],&progress)&&progress>=0&&progress<=INT32_MAX&&
+            [finished isKindOfClass:NSNumber.class]&&CFGetTypeID((__bridge CFTypeRef)finished)==CFBooleanGetTypeID()&&![finished boolValue];
+        id priorUser=configured[@"user"];
+        if(!canonical||(priorUser&&![priorUser isKindOfClass:NSDictionary.class])) {
+            if(error)*error=ODFreshError(canonical?@"INVALID_FRESH_POLICY":@"INVALID_CANONICAL_TUTORIAL");
+            return nil;
+        }
+        NSMutableDictionary *user=priorUser?[priorUser mutableCopy]:[NSMutableDictionary dictionary];
+        user[@"tutorial"]=@{@"progress":@(progress),@"is_finished":@NO};configured[@"user"]=user;
+        [admitted addObjectsFromArray:@[@"tutorial.progress",@"tutorial.is_finished"]];
+        [unresolved removeObjectsInArray:admitted];
+    }
     return @{
         @"schema": @1,
         @"kind": @"fresh-state-policy",
-        @"sections": sections,
+        @"sections": configured,
         @"admitted_source_facts": @[@"rank",@"exp_total",@"act_max",@"friends_capacity"],
-        @"unresolved": @[@"tutorial.progress",@"tutorial.contents_lv",@"tutorial.is_finished",@"card_capacity",
-            @"total_card_capacity",@"support_item_capacity",@"is_support_item_capacity_extended"],
+        @"admitted_canonical_tutorial_fields": admitted,
+        @"unresolved": unresolved,
         @"pre_server_sentinels_adopted": @NO,
         @"played_cache_values_adopted": @NO,
         @"starting_stats_invented": @NO,

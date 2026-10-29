@@ -11,7 +11,8 @@
   "already_implemented_authorities": {
     "owned_collection": "canonical Core persisted owned-card rows, initially empty",
     "currency": "canonical ledger, no fabricated initial holdings",
-    "rank_exp_act_friends": "selected-master source_rank, matching canonical snapshot"
+    "rank_exp_act_friends": "selected-master source_rank, matching canonical snapshot",
+    "partial_tutorial": "Schema13 native-owned own-profile state: authored source-compatible new-profile 0/false, durable native checkpoints; never asserted as Sparking server defaults"
   },
   "required_policy_groups": [
     {
@@ -19,20 +20,51 @@
       "authority": "actual native consumer/fresh-state contract or explicit approved local policy",
       "configured": false,
       "fields": [
-        {"path": "user.tutorial.progress", "native_type": "uint32", "value_admitted": false},
-        {"path": "user.tutorial.contents_lv", "native_type": "uint32", "value_admitted": false},
-        {"path": "user.tutorial.is_finished", "native_type": "boolean", "value_admitted": false}
-      ]
+        {
+          "path": "user.tutorial.progress",
+          "native_type": "uint32",
+          "value_admitted": true,
+          "authority": "actual canonical original_client_tutorial only; old missing profile state remains unresolved"
+        },
+        {
+          "path": "user.tutorial.contents_lv",
+          "native_type": "uint32",
+          "value_admitted": false
+        },
+        {
+          "path": "user.tutorial.is_finished",
+          "native_type": "boolean",
+          "value_admitted": true,
+          "authority": "actual canonical original_client_tutorial only; old missing profile state remains unresolved"
+        }
+      ],
+      "native_owned_partial_support": true
     },
     {
       "group": "starting-storage-limits",
       "authority": "verified fresh-state limits or explicit approved local capacity policy",
       "configured": false,
       "fields": [
-        {"path": "user.card_capacity", "native_type": "uint32", "value_admitted": false},
-        {"path": "user.total_card_capacity", "native_type": "uint32", "value_admitted": false},
-        {"path": "user.support_item_capacity", "native_type": "uint32", "value_admitted": false},
-        {"path": "user.is_support_item_capacity_extended", "native_type": "boolean", "value_admitted": false}
+        {
+          "path": "user.card_capacity",
+          "native_type": "uint32",
+          "value_admitted": false
+        },
+        {
+          "path": "user.total_card_capacity",
+          "native_type": "uint32",
+          "value_admitted": false
+        },
+        {
+          "path": "user.support_item_capacity",
+          "native_type": "uint32",
+          "value_admitted": false
+        },
+        {
+          "path": "user.is_support_item_capacity_extended",
+          "native_type": "boolean",
+          "value_admitted": false
+        }
       ]
     }
   ],
@@ -41,6 +73,7 @@
     "http_route_admitted": false,
     "played_account_values_used": false,
     "master_definition_order_used_as_wire_default": false,
-    "gameplay_or_native_execution_verified": false
+    "gameplay_or_native_execution_verified": false,
+    "native_owned_tutorial_policy_added": true
   }
 }

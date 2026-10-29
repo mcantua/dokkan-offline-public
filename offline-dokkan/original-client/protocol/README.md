@@ -14,14 +14,38 @@ Initial own-player policy follows the approved start-empty/nothing-unlocked dire
 
 `bootstrap-auth.js` keeps the legacy reader-relative `issue` and adds `issuePlainJSON`. `GET /auth/nonce` carries `auth_transaction_id` and `nonce` strings. `POST /auth/sign_in` carries `access_token` and a signed32 `expires_in` added to native time. A string duration, a `secret` or `captcha_session_key`, and any extra field including a guessed `data` wrapper are rejected. The current non-zstd JSON response path is now proved to deliver the document root directly; `issuePlainJSON` supplies both encoded root-shaped body candidates and the `application/json` content type. Native `ODOfflineBootstrapAuth` has the matching candidate method. `http_body_json` stays null and no auth route is admitted: complete success fields, native interception and actual login remain unverified. The local issuer supplies the token text. Candidate token strings remain private in memory. No source or server key is embedded. Exact proof and scope accounting are in `research/bootstrap-plain-json-root.json`; one targeted JavaScript scenario is recorded in `plain-json-auth-evidence.json`, with no native compilation/execution claim.
 
-Native `candidateRoutesWithExpiresIn:contextIsCurrent:error:` creates the two
-handler candidates with nonce-before-sign-in state, expiry and current-owner
-checks. It never installs routes, reads source credentials or writes tokens.
-The unified host's auth prohibition remains. Pre-auth transaction stages,
-query handling, native delivery/invalidation and real login are still pending.
+`pingPlainJSON` and native `pingPlainJSONCandidate` encode the actual `/ping`
+response shape: `ping_info` with boolean `skip_device_token:true`. This selects
+our offline policy while omitted address fields retain existing native defaults
+through the actual default-get path. No source host, port or CDN address is
+invented or copied into the response. Exact proof is in
+`research/bootstrap-ping-contract.json`. This flag alone does not prove that all
+system/device network requests are suppressed.
 
-`fresh-state-policy.js` admits rank, rank EXP, max ACT and friends capacity only when the canonical snapshot already matches `source_rank`. It does not hard-code 20 or 50 and does not invent them when the master row is missing. Tutorial `is_finished=true` and zero card/support capacities are rejected as pre-server sentinels. Those fields stay unresolved and are omitted. No played-cache value is read and no resource success body is produced. Pass `evaluate(...).sections` to the projector only after that gate succeeds. The projector module itself is unchanged.
+Native `candidateRoutesWithExpiresIn:contextIsCurrent:error:` creates the ping,
+nonce and sign-in handler candidates with nonce-before-sign-in state, expiry and current-owner
+checks. It never installs routes, reads source credentials or writes tokens.
+Sign-in retries keep the same token and original issuer deadline by emitting its
+remaining positive TTL; clock rollback invalidates the issue. The unified host's
+auth prohibition remains. The constructor-installed GenerateToken controller
+now has a proved skip branch: ping's skip_device_token:true makes it advance
+without invoking the platform-token branch. Native delivery/invalidation and
+real login are still pending.
+
+`fresh-state-policy.js` admits rank, rank EXP, max ACT and friends capacity only when the canonical snapshot already matches `source_rank`. It does not hard-code 20 or 50 and does not invent them when the master row is missing. Schema13's actual native-owned `original_client_tutorial` may supply persisted progress and false `is_finished`: only a newly inserted profile starts at0/false, which the original TitleLoadingLayer routes to the first original tutorial sequence. Old profiles receive no invented migration row. Caller-proposed tutorial state, `is_finished=true` and card/support capacities remain rejected; `contents_lv` and storage limits stay unresolved. No played-cache value is read and no resource success body is produced. Pass `evaluate(...).sections` to the projector only after that gate succeeds. See `protocol-inspection/TUTORIAL-RUNTIME-CONSUMERS.md` and `core/original-player-state-evidence.json` for exact static/runtime limits.
 
 `ODUnifiedDuoHost` refuses caller routes for `/auth/nonce` and `/auth/sign_in`, reports those limits, and exposes the same two gates. It does not retain the local token. One Node check, `check_offline_bootstrap.js`, passed 17 assertions and wrote `offline-bootstrap-evidence.json`. It includes one projector call that leaves tutorial unresolved. The older projector scenario was not repeated. That check did not compile the native host.
 
 One focused scenario ran the recorded module revision on the actual fresh Core11 snapshot and projection identity emitted by the native bootstrap scenario, with the observed sanitized schema. It verified real persisted identity/ACT/rank/EXP/ledger values and the actual empty collection, rejected a forged balance override and changed scope, and confirmed incomplete policy has no serialized response or admitted route. It reused the existing Core fixture rather than rebuilding/retesting unrelated Core features. Those fresh-player paths remain unchanged; their evidence is reused after the later custom engine-ID guard, whose real engine binding remains unverified. Exact tested/current hashes and scope are in `projection-evidence.json`. Affected Objective-C/JSC and typed C bridge source compiled with warnings treated as errors. Neither check is an original iPhone request, complete resource payload or gameplay proof.
+
+`plain-response.js` encodes plain JSON objects for actual source-bound ordinary
+WebAPI consumers. Root `sign` is reserved even when null: the native selector
+checks membership, not truthiness. The helper rechecks the serialized object
+to reject a `toJSON` result that adds the reserved key. Nested members are
+allowed. Native `ODLocalTransportResponse +plainJSONResponseWithObject:` applies
+the same root policy and the transport's32MiB byte budget; callers retain DTO,
+route and owner admission. Auth handlers use this native factory. The new
+helper passed one focused scenario; the existing auth/ping checks were reused
+unchanged. No native compile or original-client execution occurred. See
+`research/ordinary-webapi-plain-response-contract.json`. Its common model
+updates and endpoint DTOs are separate from the proved envelope policy.

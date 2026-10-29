@@ -4,9 +4,10 @@
 NS_ASSUME_NONNULL_BEGIN
 /** Native original-client startup only. This factory does not install auth
  * responses, fabricate a player, activate a derived master or enable Creator.
- * It requires the original resources to have been staged in this app's real
- * Documents/assets directory. Missing inputs fail; no empty substitute tree is
- * created. The caller must retain/install the result before shell main. */
+ * The original bundle paths stay intact. The existing FD preloader publishes
+ * only the pinned compatible aliases into this app's actual Documents/assets
+ * before engine loading. Missing sources fail; an empty directory cannot
+ * substitute for verified bytes. Retain/install the result before shell main. */
 FOUNDATION_EXPORT ODUnifiedDuoHost * _Nullable ODCreateOriginalDuoStartupDiagnosticHost(
     NSError * _Nullable * _Nullable error);
 

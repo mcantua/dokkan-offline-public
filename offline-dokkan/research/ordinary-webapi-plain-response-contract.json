@@ -1,0 +1,63 @@
+{
+  "kind": "current-original-ordinary-webapi-plain-response-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_bodies": [
+    {
+      "label": "ordinary_webapi_response_wrapper",
+      "bytes": 1276,
+      "sha256": "785d933d26d9474b66b0075a6fc10a2c1e06f343cd2ba528e01fc3940dd5627d"
+    },
+    {
+      "label": "plain_or_encoded_selector",
+      "bytes": 160,
+      "sha256": "925ede63daaa452d4df2a653ac089b5168ced4528c86f98069ad72d7c380819a"
+    },
+    {
+      "label": "json_object_predicate",
+      "bytes": 16,
+      "sha256": "61e2d3b3632ab7c3f03ff011ab94d636e1b7d8105de7a3fcf031782345e1db1a"
+    },
+    {
+      "label": "json_member_presence",
+      "bytes": 32,
+      "sha256": "26cab18a8cad0d11968780f8cc326c44a6cc7c938acd6659002cdaac9dec2251"
+    },
+    {
+      "label": "json_member_lookup",
+      "bytes": 284,
+      "sha256": "c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6"
+    }
+  ],
+  "source_facts": [
+    "The actual 160-byte selector takes the parsed JSON value, tests object type, then tests presence of the root member sign.",
+    "The 16-byte predicate compares the native JSON type tag with object type7. The 32-byte presence helper returns whether the previously reviewed 284-byte member lookup is non-null.",
+    "An object containing root sign selects the original encoded branch regardless of the field value; sign:null is not plain mode.",
+    "Without root sign, the actual 1276-byte success wrapper keeps the document root, applies its existing response codec handling, then calls four common model updates and the endpoint callback.",
+    "The actual regular battle start/finish callback resolves to this exact same pinned 1276-byte wrapper; other families require their own source binding.",
+    "An absent HTTP date header skips the optional master-clock update; no server clock value is manufactured."
+  ],
+  "plain_response_policy": {
+    "root": "JSON object",
+    "reserved_root_members": [
+      "sign"
+    ],
+    "nested_sign_allowed": true,
+    "content_type": "application/json",
+    "body_wrapper": null,
+    "status_code": 200
+  },
+  "implemented_source": {
+    "javascript": "original-client/protocol/plain-response.js encode",
+    "native": "ODLocalTransportResponse +plainJSONResponseWithObject:",
+    "native_validation": "NSDictionary; reject root sign including NSNull; serialize and reparse then reject root sign again; existing 32MiB response budget"
+  },
+  "scope_limits": [
+    "This proves a response envelope branch, not endpoint DTO requiredness or four common model-update contracts.",
+    "Only actual source-bound consumers may use this policy. No route is installed or automatically admitted.",
+    "The existing encoded branch and request encoder remain intact. No opaque provider/key body or value was read or reimplemented.",
+    "No original-client or native runtime execution, game compilation, signing or build occurred."
+  ],
+  "plain_response_selector_verified_statically": true,
+  "http_route_admitted": false,
+  "original_iphone_runtime_verified": false
+}

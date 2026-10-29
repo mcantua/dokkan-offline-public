@@ -346,3 +346,27 @@ Tin completed the selective Google-cloud extractor. Its114,827,264byte output ex
 Current response research found the user's `resources_login_response.json` cache with51root fields; only field names/types and provenance are retained, not player values. Review/promotion binds field labels to verified source literals; complete actual method/response/auth/battle contracts remain unfinished. Source/key/settings values are not imported as our player. The local response builder continues against the canonical own-player core.
 
 The corrected focused WK helper and newly combined authored SDK27.1 component library will run together under explicit intent revision3. First run40860320010's main-dispatch setup failure is not an application success/failure result. No full old suite, Android target, ordinary iPhone target or obsolete package is requested. After this check, fix only actual failures and continue the next unfinished task; do not end because this cohort is saved.
+
+
+### October 29, 2:53 PM CT — complete original-resource recovery received
+
+Tin reported Finished for the reviewed existing notebook. Drive confirms the
+final resource manifest and25parts (790,413,610bytes of raw selected resources).
+Cloud-only verification and source staging are in progress; preserve original
+IPA and all admitted immutable inputs. This is not native launch/gameplay proof.
+Core13 source integration binds original six-position teams and tutorial
+checkpoints to the canonical Core with native-only scoped mutation authority;
+new profiles alone receive the documented start-tutorial policy. Existing
+profiles are not reset. Original plain JSON response handling and ping/token
+startup contracts are source-proven and being composed, with routes still
+closed until a trusted owner is bound. Ordinary encoded requests and actual
+original-engine master admission remain separate work.
+
+**Pending:** finish verified resource staging and this cohesive source commit;
+compose proven native startup/auth/state handlers; reuse the original codec for
+requests only at a verified ABI; complete actual first battle/start/finish/save
+contracts, then admit Creator units into the real engine. No native builds until
+Tin says "make the builds"; no playable link, original-game execution or new
+in-app image is claimed. Both other platforms remain paused. Continue the
+first-playable path immediately after integration, updating STATUS and the
+existing Drive snapshot IDs. [Current detail](context/DUO-FIRST-PLAYABLE.md).

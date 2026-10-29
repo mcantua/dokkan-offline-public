@@ -10,6 +10,20 @@ Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
 Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says "make the builds".
 
+## Current source/input checkpoint — October 29, 2:53 PM CT
+
+Tin completed the full-resource notebook. Drive now contains the final manifest
+and all25 resource parts; cloud hash verification and safe original-path staging
+are active. Do not repeat the account request or claim a native launch from
+these files. Core13 tutorial/team persistence, complete native team metadata,
+original ping/auth and plain-response handling are being integrated. Reuse the
+existing focused SQL/JS evidence; native C/Objective-C remains uncompiled/unrun.
+The first actual original-client battle is still pending, and further Creator
+expansion stays paused. No playable build or new in-app screenshot exists.
+Current owners, exact limits and next work are in STATUS and
+[context/DUO-FIRST-PLAYABLE.md](context/DUO-FIRST-PLAYABLE.md). Earlier missing
+binary/input, pause and source-discard statements below are historical.
+
 ## Current first-playable priority — October 29, 1:38 PM CT
 
 Update at 1:49 PM: the two pinned original binary inputs were restored after

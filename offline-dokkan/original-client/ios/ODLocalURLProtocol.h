@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSInteger statusCode;
 @property (nonatomic, copy, readonly) NSString *contentType;
 @property (nonatomic, copy, readonly) NSData *body;
+/** Owned native DTO only: encode a plain HTTP200 JSON object. The reviewed
+ * ordinary client path treats the presence of root `sign` as the signed path,
+ * including JSON null, so that key is refused. This adds no DTO fields, endpoint
+ * schema, route registration or network admission. */
++ (nullable instancetype)plainJSONResponseWithObject:(NSDictionary *)object;
 - (nullable instancetype)initWithStatusCode:(NSInteger)statusCode
                               contentType:(NSString *)contentType body:(NSData *)body;
 - (instancetype)init NS_UNAVAILABLE;

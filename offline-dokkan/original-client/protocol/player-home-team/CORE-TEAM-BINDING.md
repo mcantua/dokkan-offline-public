@@ -6,7 +6,7 @@ BGM, unit or selection merely because this adapter exists.
 
 ## Atomic snapshot
 
-The existing native owner should include this property in the same canonical
+The existing native owner includes this property in the same canonical
 player snapshot and profile revision, after checking the same persisted save,
 profile and content scope:
 
@@ -20,10 +20,12 @@ profile and content scope:
         "native_num": 7,
         "name": "Received own team name",
         "team_bgm_filename": null,
-        "card_slots": [11, 0, 12, 0, 0, 0]
+        "card_slots": [11, 0, 12, 0, 0, 0],
+        "references": null
       }
     ],
-    "selection": {"selected_team_num": 7}
+    "selection": {"selected_team_num": 7},
+    "advisory_context": {}
   }
 }
 ```
@@ -81,8 +83,73 @@ unbound legacy teams remain editable. No invalid binding may be committed.
 Use the existing `resources-projector.js` and its native wrapper. Read the
 persisted binding only from the atomic own-player snapshot, confirm every
 binding against canonical teams/cards, and emit original rows as
-`{num, name, user_card_ids, team_bgm_filename}` with all six positions retained.
+`{num, name, user_card_ids, team_bgm_filename}` plus the three persisted
+reference fields described below, with all six positions retained.
 Guard signed32 numbers and exact JS integer representations of owned64 IDs.
 Configured resource policy may not override own teams or selections. Missing
 bindings/selection are explicit unresolved issues; no HTTP readiness or native
 runtime acceptance follows merely from producing a matching JSON candidate.
+
+## Complete writer metadata
+
+The actual 2,112-byte `postTeamsAPI` writer has now been reviewed through all
+known mutable JSON field writes. Its row is exactly `num`, `name`,
+`user_card_ids`, `referenced_sugoroku_map_id`, `referenced_z_battle_stage_id`
+and `referenced_card_ids`. The last three use actual signed32 JSON
+constructors; the vector contains signed32 reference IDs, not owned64 IDs.
+BGM is read by a separate response decoder and is absent from this POST row.
+The decoded POST normalizer therefore preserves the saved BGM.
+
+`bindings[].references` is null when historical metadata is unconfigured, or:
+
+```json
+{"referenced_sugoroku_map_id": 0, "referenced_z_battle_stage_id": 0, "referenced_card_ids": []}
+```
+
+This example illustrates types only; these values are never granted as
+fresh-player defaults. A nonnull object requires all three keys. Projection
+stays pending while references are unknown. An omitted/null normalized update
+preserves existing references; a complete received object replaces them.
+
+The three optional top-level writer fields `sugoroku_map_id`,
+`z_battle_stage_id`, and `origin_battle_id` use actual unsigned32 constructors.
+They are stored only in `advisory_context`. They grant no progression, quest,
+card, currency or reward. Omission preserves the existing context; a provided
+object replaces it. The request's separately added `timewarp` is retained
+only as transport metadata when its integer is exactly representable. Its
+signedness/lifecycle is not established here and it never becomes the game
+clock.
+
+The implementation's own budgets are 4,096 UTF-8 bytes per name/BGM,
+256 KiB per normalized batch, 32 KiB per reference object, and 1,024 reference
+IDs. These are storage limits, not recovered official UI limits.
+
+## Concrete owner and methods
+
+`core/original_teams.c` supplies schema, validation, snapshots and savepoint
+updates on the existing canonical SQLite connection. Core13 calls these
+inside its own transactions; the module never advances a revision, commits
+the owner's transaction, creates a second connection or owns command replay.
+The native-only owner entrypoint checks persisted scope, command identity and
+revision and rejects a held Creator lease. Ordinary JSON/WebView commands
+cannot invoke native team writes. Canonical mutations and imports validate
+retained layouts before commit.
+
+`resources-projector.js` exports `projectTeams(envelope, expected)` and
+`normalizeTeamUpdate(envelope, expected, decodedBody)`. The native wrapper
+exposes `projectCurrentTeams:` and `normalizeOriginalTeamUpdate:reply:` using
+the same Core owner. GET projection is independent of unresolved full-user
+capacity policy. POST accepts only an already decoded object and previously
+bound teams; new-account team/BGM initialization remains unresolved. The
+normalizer returns a revision-bound mutation, not a committed write.
+
+No HTTP route or signed/compressed request decoder is registered by this
+module. C/Objective-C remains uncompiled and the actual original-client team
+screen, empty-team flow and write/read round trip remain unverified.
+
+The first combined Core13 SQL snapshot/projection check and the second
+changed-metadata-only SQL→GET/POST normalizer→SQL check each passed once.
+Receipts: `core-team-projection-evidence.json`,
+`native-team-metadata-evidence.json` and Core
+`original-team-metadata-evidence.json`. These execute actual extracted SQL
+and JavaScript, not C transaction/replay control flow or Objective-C.

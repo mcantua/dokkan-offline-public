@@ -1,0 +1,13 @@
+{
+  "kind": "native-team-reference-metadata-and-decoded-request-normalization",
+  "verification": "second targeted changed-metadata SQL-to-JS scenario only; prior migration/ownership checks reused",
+  "saved_signed32_references_preserved": true,
+  "unknown_historical_references_not_defaulted": true,
+  "independent_get_teams_projection": true,
+  "decoded_post_only_and_persisted_bgm_preserved": true,
+  "advisory_context_no_quest_or_inventory_effects": true,
+  "timewarp_not_adopted_as_game_clock": true,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "module_sha256": "aa886abae9a1e334a5567bba154bf1c3c8934d9f2e379d8740a4ff4e3740829e"
+}

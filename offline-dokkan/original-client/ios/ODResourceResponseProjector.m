@@ -33,6 +33,10 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
     return [expected isEqualToString:[NSString stringWithUTF8String:hex]]?[data copy]:nil;
 }
 
+@interface ODResourceResponseProjector ()
+- (void)evaluateOriginalPlayerMode:(NSInteger)mode decodedTeamBody:(nullable NSDictionary *)body reply:(ODCoreReply)reply;
+@end
+
 @implementation ODResourceResponseProjector {
     ODNativeCore *_core;
     NSString *_profile,*_scope,*_content,*_script;
@@ -47,7 +51,7 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
     schemaURL:(NSURL *)schemaURL schemaSHA256:(NSString *)schemaHash moduleURL:(NSURL *)moduleURL
     moduleSHA256:(NSString *)moduleHash nativePolicy:(ODResourceNativePolicy)policy contextCurrent:(ODResourceContextCurrent)current {
     if(!core||![core matchesSaveURL:saveURL masterURL:masterURL contentID:content]||
-        ![profile isKindOfClass:NSString.class]||!profile.length||![scope isKindOfClass:NSString.class]||scope.length!=64||!policy||!current)return nil;
+        ![profile isKindOfClass:NSString.class]||!profile.length||![scope isKindOfClass:NSString.class]||scope.length!=64||!current)return nil;
     NSData *schema=ODResourcePinnedFile(schemaURL,schemaHash),*module=ODResourcePinnedFile(moduleURL,moduleHash);
     if(!schema||!module)return nil;
     id parsed=[NSJSONSerialization JSONObjectWithData:schema options:0 error:NULL];
@@ -55,15 +59,33 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
     if(![parsed isKindOfClass:NSDictionary.class]||!script.length)return nil;
     if((self=[super init])){
         _core=core;_profile=[profile copy];_scope=[scope copy];_content=[content copy];_schema=parsed;_script=script;
-        _policy=[policy copy];_current=[current copy];
+        _policy=policy?[policy copy]:nil;_current=[current copy];
         _queue=dispatch_queue_create("personal.offlinedokkan.original-resource-projection",DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 - (void)projectCurrentPlayer:(ODCoreReply)reply {
-    // Host context predicate is main-owned, like its canonical owner selection.
-    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self projectCurrentPlayer:reply];});return;}
+    [self evaluateOriginalPlayerMode:0 decodedTeamBody:nil reply:reply];
+}
+- (void)projectCurrentTeams:(ODCoreReply)reply {
+    [self evaluateOriginalPlayerMode:1 decodedTeamBody:nil reply:reply];
+}
+- (void)normalizeOriginalTeamUpdate:(NSDictionary *)decodedBody reply:(ODCoreReply)reply {
+    if(![decodedBody isKindOfClass:NSDictionary.class]||![NSJSONSerialization isValidJSONObject:decodedBody]){
+        reply(nil,ODResourceError(@"INVALID_ORIGINAL_TEAM_DECODED_BODY"));return;
+    }
+    NSData *bytes=[NSJSONSerialization dataWithJSONObject:decodedBody options:0 error:NULL];
+    if(!bytes||bytes.length>256*1024){reply(nil,ODResourceError(@"ORIGINAL_TEAM_UPDATE_TOO_LARGE"));return;}
+    NSDictionary *stable=[NSJSONSerialization JSONObjectWithData:bytes options:0 error:NULL];
+    if(![stable isKindOfClass:NSDictionary.class]){reply(nil,ODResourceError(@"INVALID_ORIGINAL_TEAM_DECODED_BODY"));return;}
+    [self evaluateOriginalPlayerMode:2 decodedTeamBody:stable reply:reply];
+}
+- (void)evaluateOriginalPlayerMode:(NSInteger)mode decodedTeamBody:(NSDictionary *)body reply:(ODCoreReply)reply {
+    // These modes are private native entrypoints, not caller-selected WebView
+    // operations. The only team authority is the actual canonical Core snapshot.
+    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self evaluateOriginalPlayerMode:mode decodedTeamBody:body reply:reply];});return;}
     if(!_current()){reply(nil,ODResourceError(@"ORIGINAL_RESOURCE_CONTEXT_CHANGED"));return;}
+    if(mode==0&&!_policy){reply(nil,ODResourceError(@"ORIGINAL_RESOURCE_NATIVE_POLICY_UNAVAILABLE"));return;}
     [_core originalClientPlayerSnapshotForProfile:_profile expectedSaveScopeSHA256:_scope reply:^(id envelope,NSError *failure){
         if(failure||![envelope isKindOfClass:NSDictionary.class]||!self->_current()){
             reply(nil,ODResourceError(@"ORIGINAL_RESOURCE_PLAYER_UNAVAILABLE"));return;
@@ -71,12 +93,15 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
         dispatch_async(self->_queue,^{
             NSError *error=nil;id result=nil;
             @try {
-                NSDictionary *sections=self->_policy(envelope,&error);
-                NSData *policyJSON=sections&&[NSJSONSerialization isValidJSONObject:sections]?
-                    [NSJSONSerialization dataWithJSONObject:sections options:0 error:NULL]:nil;
-                if(error||!policyJSON)error=ODResourceError(@"ORIGINAL_RESOURCE_NATIVE_POLICY_UNAVAILABLE");
-                else {
-                    NSDictionary *safeSections=[NSJSONSerialization JSONObjectWithData:policyJSON options:0 error:NULL];
+                NSDictionary *safeSections=nil;
+                if(mode==0){
+                    NSDictionary *sections=self->_policy(envelope,&error);
+                    NSData *policyJSON=sections&&[NSJSONSerialization isValidJSONObject:sections]?
+                        [NSJSONSerialization dataWithJSONObject:sections options:0 error:NULL]:nil;
+                    if(error||!policyJSON)error=ODResourceError(@"ORIGINAL_RESOURCE_NATIVE_POLICY_UNAVAILABLE");
+                    else safeSections=[NSJSONSerialization JSONObjectWithData:policyJSON options:0 error:NULL];
+                }
+                if(!error){
                     if(!self->_context){
                         self->_context=[JSContext new];
                         [self->_context evaluateScript:self->_script withSourceURL:[NSURL URLWithString:@"offline-authored:resources-projector"]];
@@ -86,10 +111,12 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
                     else {
                         NSDictionary *expected=@{@"profile_id":self->_profile,@"content_id":self->_content,@"save_scope_sha256":self->_scope};
                         JSValue *module=context[@"ODResourcesProjector"];
-                        JSValue *value=[module[@"project"] callWithArguments:@[self->_schema,envelope,expected,safeSections]];
+                        NSString *method=mode==1?@"projectTeams":mode==2?@"normalizeTeamUpdate":@"project";
+                        NSArray *arguments=mode==1?@[envelope,expected]:mode==2?@[envelope,expected,body]:@[self->_schema,envelope,expected,safeSections];
+                        JSValue *value=[module[method] callWithArguments:arguments];
                         id candidate=context.exception?nil:value.toObject;
                         if(![candidate isKindOfClass:NSDictionary.class]||![NSJSONSerialization isValidJSONObject:candidate])
-                            error=ODResourceError(@"ORIGINAL_RESOURCE_PROJECTION_FAILED");
+                            error=ODResourceError(mode==2?@"ORIGINAL_TEAM_NORMALIZATION_FAILED":@"ORIGINAL_RESOURCE_PROJECTION_FAILED");
                         else result=candidate;
                     }
                     context.exception=nil;

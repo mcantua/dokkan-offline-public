@@ -94,6 +94,18 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
     candidate[@"original_iphone_runtime_verified"] = @NO;
     return [candidate copy];
 }
++ (NSDictionary *)pingPlainJSONCandidate {
+    NSData *data = [NSJSONSerialization dataWithJSONObject:@{@"ping_info":@{@"skip_device_token":@YES}}
+        options:0 error:NULL];
+    NSString *body = data ? [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] : nil;
+    if (!body) return nil;
+    return @{@"kind":@"offline-bootstrap-ping-plain-json-candidate",
+        @"plain_json_body_candidate":body, @"response_content_type":@"application/json",
+        @"native_configuration_defaults_preserved":@YES,
+        @"skip_device_token_is_local_offline_policy":@YES,
+        @"plain_json_body_envelope_verified":@YES,
+        @"http_route_admitted":@NO, @"original_iphone_runtime_verified":@NO};
+}
 + (NSArray<ODLocalTransportRoute *> *)candidateRoutesWithExpiresIn:(int32_t)expiresIn
         contextIsCurrent:(BOOL (^)(void))contextIsCurrent error:(NSError **)error {
     if (expiresIn <= 0 || !contextIsCurrent) {
@@ -101,10 +113,32 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
         return nil;
     }
     BOOL (^current)(void) = [contextIsCurrent copy];
-    // Both handlers run on ODLocalURLProtocol's serial queue. No disk state or
+    // All handlers run on ODLocalURLProtocol's serial queue. No disk state or
     // request headers/body values become part of the locally issued identity.
     __block NSDictionary *issued = nil;
     __block time_t issuedAt = 0;
+    ODLocalTransportResponse *pingResponse = [ODLocalTransportResponse plainJSONResponseWithObject:
+        @{@"ping_info":@{@"skip_device_token":@YES}}];
+    if (!pingResponse) {
+        if (error) *error = ODAuthError(@"OFFLINE_AUTH_JSON_ENCODING_FAILED");
+        return nil;
+    }
+    ODLocalTransportRoute *ping = [[ODLocalTransportRoute alloc] initWithMethod:@"GET" path:@"/ping"
+        handler:^(ODLocalTransportRequest *request, ODLocalTransportCompletion complete) {
+            (void)request;
+            if (!current()) {
+                issued = nil;
+                complete(nil, ODAuthError(@"OFFLINE_AUTH_SCOPE_CHANGED"));
+                return;
+            }
+            ODLocalTransportResponse *response = pingResponse;
+            if (!current()) {
+                issued = nil;
+                complete(nil, ODAuthError(@"OFFLINE_AUTH_SCOPE_CHANGED"));
+                return;
+            }
+            complete(response, response ? nil : ODAuthError(@"OFFLINE_AUTH_JSON_ENCODING_FAILED"));
+        }];
     ODLocalTransportRoute *nonce = [[ODLocalTransportRoute alloc] initWithMethod:@"GET" path:@"/auth/nonce"
         handler:^(ODLocalTransportRequest *request, ODLocalTransportCompletion complete) {
             (void)request;
@@ -125,9 +159,8 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
                 complete(nil, failure ?: ODAuthError(@"OFFLINE_AUTH_SCOPE_CHANGED"));
                 return;
             }
-            NSData *body = [next[@"plain_json_body_candidates"][@"nonce"] dataUsingEncoding:NSUTF8StringEncoding];
-            ODLocalTransportResponse *response = [[ODLocalTransportResponse alloc] initWithStatusCode:200
-                contentType:@"application/json" body:body];
+            ODLocalTransportResponse *response = [ODLocalTransportResponse
+                plainJSONResponseWithObject:next[@"reader_relative"][@"nonce"]];
             if (!response) {
                 complete(nil, ODAuthError(@"OFFLINE_AUTH_JSON_ENCODING_FAILED"));
                 return;
@@ -159,9 +192,7 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
             int64_t remaining = [issued[@"expiry_unix"] longLongValue] - (int64_t)now;
             NSDictionary *fields = @{@"access_token":issued[@"reader_relative"][@"sign_in"][@"access_token"],
                 @"expires_in":@((int32_t)remaining)};
-            NSData *body = [NSJSONSerialization dataWithJSONObject:fields options:0 error:NULL];
-            ODLocalTransportResponse *response = [[ODLocalTransportResponse alloc] initWithStatusCode:200
-                contentType:@"application/json" body:body];
+            ODLocalTransportResponse *response = [ODLocalTransportResponse plainJSONResponseWithObject:fields];
             if (!current()) {
                 issued = nil;
                 complete(nil, ODAuthError(@"OFFLINE_AUTH_SCOPE_CHANGED"));
@@ -169,10 +200,10 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
             }
             complete(response, response ? nil : ODAuthError(@"OFFLINE_AUTH_JSON_ENCODING_FAILED"));
         }];
-    if (!nonce || !signIn) {
+    if (!ping || !nonce || !signIn) {
         if (error) *error = ODAuthError(@"OFFLINE_AUTH_ROUTE_CANDIDATE_FAILED");
         return nil;
     }
-    return @[nonce, signIn];
+    return @[ping, nonce, signIn];
 }
 @end

@@ -36,8 +36,22 @@
       "verification": "native factory reads and hashes exact opaque original seed; no database decoding or key access"
     }
   ],
-  "resource_root": "actual own NSDocumentDirectory first result plus assets; pre-staged before original dlopen",
-  "missing_or_empty_resource_root_behavior": "reject; never create a substitute assets tree",
+  "resource_root": "actual own NSDocumentDirectory first result plus assets; admitted cold publication before original dlopen",
+  "missing_or_empty_resource_root_behavior": "may create only the actual own assets root for verified cold publication; no empty-directory readiness",
+  "compatible_catalog": {
+    "bundle_relative_path": "OriginalClient/byte-identical-assets.sqlite3",
+    "bytes": 36864,
+    "sha256": "a45b7c9f308e6d07452fd07ac2eeea28981be034554a73e35094552ba9163384",
+    "cache_bundle_relative_path": "OriginalClient/CompatibleResourceCache",
+    "configured_unique_references": 27,
+    "required_paths_source": "native enumeration from the exact pinned readonly catalog",
+    "publication": "existing resource preloader and no-overwrite publisher; actual own Documents boundary",
+    "bulk_io_queue": "serial preparation queue before UIApplicationMain and before original dlopen"
+  },
+  "source_resource_staging_tool_implemented": true,
+  "native_compatible_resource_preloader_connected_in_source": true,
+  "native_compatible_resource_preloader_compiled": false,
+  "original_bundle_completeness_runtime_verified": false,
   "diagnostic_state_root": "own NSApplicationSupportDirectory/OriginalClientStartupDiagnostic",
   "response_routes_registered": 0,
   "derived_plaintext_master_staged": false,

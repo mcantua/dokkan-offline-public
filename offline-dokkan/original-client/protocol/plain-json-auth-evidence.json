@@ -16,26 +16,51 @@
   "original_client_executed": false,
   "http_route_enabled": false,
   "source_hashes": {
-    "protocol/bootstrap-auth.js": "6d82238295acaeb99054aa5426a2459575ac12078fbea7f77d13861e84dd2ae7",
-    "ios/ODOfflineBootstrapAuth.h": "ece576ec74fd84d45e61f19b50489b4cc062cdac1701f0bdef727f9ee2df98a4",
-    "ios/ODOfflineBootstrapAuth.m": "1816e48043619b0b5bb1691896f512181a55a90d47927d4274b442ebfac57b09"
+    "protocol/bootstrap-auth.js": "bacffdaf14ed2e378a345a75de1369021fdbba4f418f4efdaf414afcd97088b1",
+    "protocol/plain-response.js": "77a2db1f087404ed205c173de706323c18d4a8343d6a098a87c07a73e372a461",
+    "ios/ODOfflineBootstrapAuth.h": "7a537341638871fd17ad6e9693131b872560c83c42509e36d622baf8a0d4ef53",
+    "ios/ODOfflineBootstrapAuth.m": "fafc339597b23cec1990ed91a28ba7cbc5ace64f0156d9ab93a2e591aead94ec"
   },
   "native_candidate_route_factory": {
     "implemented_in_source": true,
     "installed": false,
     "host_auth_gate_opened": false,
     "source_review": [
-      "Only GET /auth/nonce and POST /auth/sign_in candidate routes",
+      "Only GET /ping, GET /auth/nonce and POST /auth/sign_in candidate routes",
       "Fresh local issue on nonce, same in-memory issue on sign-in retry",
       "Positive caller-supplied TTL, signed32 time/sum guard and expiry rejection",
       "Trusted current-owner predicate checked before responding; no source credential-body access",
       "No remote calls, source/server keys, disk writes or persistence",
-      "Sign-in emits only remaining positive TTL for the same original issue deadline; clock rollback invalidates the issue"
+      "Sign-in emits only remaining positive TTL for the same original issue deadline; clock rollback invalidates the issue",
+      "All three responses use the shared native plain-object factory; root sign is rejected even if null, with the existing32MiB byte budget"
     ],
     "remaining": [
       "Native compile/execution",
-      "Owner invalidation and transport-delivery lifecycle acceptance",
-      "Actual pre-auth ordering, current request/query and original-client startup acceptance"
+      "Trusted canonical owner/scope composition and transport delivery/invalidation acceptance",
+      "Original-client startup/login acceptance"
     ]
-  }
+  },
+  "javascript_ping_scenario": {
+    "invocations": 1,
+    "passed": true,
+    "checks": [
+      "Object-valued ping_info with actual boolean skip_device_token",
+      "Existing address defaults omitted rather than invented",
+      "Source/native admission flags stay false"
+    ],
+    "source_contract": "../../research/bootstrap-ping-contract.json"
+  },
+  "javascript_plain_response_scenario": {
+    "invocations": 1,
+    "passed": true,
+    "checks": [
+      "Valid plain object round-trip including nested sign and Unicode",
+      "Reject root sign including null or empty string",
+      "Reject toJSON changing root to signed object or array, root arrays/null and circular JSON",
+      "Keep route/DTO/runtime flags false"
+    ],
+    "existing_auth_and_ping_scenarios_repeated": false,
+    "source_contract": "../../research/ordinary-webapi-plain-response-contract.json"
+  },
+  "source_hash_scope": "Hashes identify current authored sources. Earlier auth and ping scenario evidence is reused for their unchanged JS methods; only the new plain-response helper scenario was executed for this cohort."
 }

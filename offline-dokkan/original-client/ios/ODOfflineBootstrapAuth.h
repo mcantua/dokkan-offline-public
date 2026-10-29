@@ -18,7 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSDictionary *)issuePlainJSONWithNativeTime:(int32_t)nativeTime
                                               expiresIn:(int32_t)expiresIn
                                                   error:(NSError * _Nullable * _Nullable)error;
-/** Creates two candidate handlers; does not install or admit them.
+/** Known PingAPI response shape. Omitted address fields retain existing native
+ * configuration through its actual default-get path. skip_device_token=true
+ * is an explicit local offline policy; no device identifier is supplied. */
++ (nullable NSDictionary *)pingPlainJSONCandidate;
+/** Creates ping, nonce and sign-in candidate handlers; does not install them.
  * The unified host still rejects auth routes until the remaining startup and
  * request contracts are verified. Only for a trusted native offline owner.
  * contextIsCurrent runs on the local transport serial queue and must be safe

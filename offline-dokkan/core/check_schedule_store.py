@@ -114,5 +114,5 @@ with tempfile.TemporaryDirectory(prefix='schedule-',dir=ROOT/'build') as temp:
     assert lib.od_import_save(core,str(old).encode())==0 and hashlib.sha256(old.read_bytes()).hexdigest()==digest
     assert call('profile.snapshot')['cards'][0]['locked']==1
     lib.od_close(core);core=opened(old);lib.od_close(core)
-    with sqlite3.connect(old) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==12
+    with sqlite3.connect(old) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==13
 print('PASS persisted rotation/replay, enrolled clear points/AI catchup, Kai debit/grants, once-only 3/6/10 claims, hostile state rejection and v4 migration')

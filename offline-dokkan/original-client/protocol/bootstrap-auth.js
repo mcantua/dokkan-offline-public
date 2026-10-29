@@ -75,5 +75,17 @@
       original_iphone_runtime_verified:false
     });
   }
-  return Object.freeze({issue,issuePlainJSON,SIGNED32_MIN,SIGNED32_MAX,LOCAL_TOKEN_MAX});
+  function pingPlainJSON(){
+    return {
+      kind:'offline-bootstrap-ping-plain-json-candidate',
+      plain_json_body_candidate:JSON.stringify({ping_info:{skip_device_token:true}}),
+      response_content_type:'application/json',
+      native_configuration_defaults_preserved:true,
+      skip_device_token_is_local_offline_policy:true,
+      plain_json_body_envelope_verified:true,
+      http_route_admitted:false,
+      original_iphone_runtime_verified:false
+    };
+  }
+  return Object.freeze({issue,issuePlainJSON,pingPlainJSON,SIGNED32_MIN,SIGNED32_MAX,LOCAL_TOKEN_MAX});
 });

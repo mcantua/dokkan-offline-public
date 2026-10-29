@@ -160,6 +160,15 @@ int od_bridge_offline_player_snapshot(od_bridge *b,const char *profile,char **re
  int rc=od_offline_player_snapshot(b->core,profile,result);
  rc=projection_reply(b,rc,result,error);pthread_mutex_unlock(&b->lock);return rc;
 }
+int od_bridge_original_client_apply(od_bridge *b,const char *operation,const char *profile,
+ const char *command,const char *scope,int64_t revision,const char *payload,char **result,char **error) {
+ if(error)*error=NULL;
+ if(result)*result=NULL;
+ if(!b||!operation||!profile||!command||!scope||!payload||!result)return fail(error,"INVALID_ARGUMENT");
+ pthread_mutex_lock(&b->lock);
+ int rc=od_original_client_apply(b->core,operation,profile,command,scope,revision,payload,result);
+ rc=projection_reply(b,rc,result,error);pthread_mutex_unlock(&b->lock);return rc;
+}
 int od_bridge_creator_finish_receipt(od_bridge *b,const char *profile,const char *command,
  const char *expected,char **result,char **error) {
  if(error)*error=NULL;

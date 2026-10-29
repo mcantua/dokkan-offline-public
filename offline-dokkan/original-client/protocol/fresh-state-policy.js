@@ -4,8 +4,10 @@
  * This module does not hard-code those numbers and does not invent them when
  * the master row is missing. Tutorial finished=true and zero capacities are
  * pre-server model sentinels. They are rejected, never copied into sections.
- * Missing tutorial and capacity fields stay omitted so a later decoder can
- * keep its current values. No played cache value is read. No resource success
+ * Native-owned original_client_tutorial is separate from proposed sections:
+ * only an actually new persisted profile has the admitted start/ checkpoint
+ * state. Migrated profiles remain unresolved. Missing contents/capacity fields
+ * stay omitted. No played cache value is read. No resource success
  * body or HTTP route is produced. */
 (function(root,factory){
   const api=factory();
@@ -57,12 +59,28 @@
       if(!object(proposed))throw Error('INVALID_FRESH_POLICY');
       sentinel(proposed,0);
     }
+    const sections=proposed===undefined||proposed===null?{}:jsonCopy(proposed);
+    const unresolved=UNRESOLVED.slice(),admitted=[];
+    const tutorial=snapshot.original_client_tutorial;
+    if(tutorial!==undefined&&tutorial!==null){
+      if(!object(tutorial)||Object.keys(tutorial).length!==4||tutorial.schema!==1||
+         tutorial.policy!=='original-tutorial-entry-v1'||!integer(tutorial.progress)||
+         tutorial.progress<0||tutorial.progress>2147483647||tutorial.is_finished!==false)
+        throw Error('INVALID_CANONICAL_TUTORIAL');
+      if(own(sections,'user')&&!object(sections.user))throw Error('INVALID_FRESH_POLICY');
+      const user=sections.user||{};
+      user.tutorial={progress:tutorial.progress,is_finished:false};sections.user=user;
+      for(const field of ['tutorial.progress','tutorial.is_finished']){
+        unresolved.splice(unresolved.indexOf(field),1);admitted.push(field);
+      }
+    }
     return {
       schema:1,
       kind:'fresh-state-policy',
-      sections:proposed===undefined||proposed===null?{}:jsonCopy(proposed),
+      sections,
       admitted_source_facts:['rank','exp_total','act_max','friends_capacity'],
-      unresolved:UNRESOLVED.slice(),
+      admitted_canonical_tutorial_fields:admitted,
+      unresolved,
       pre_server_sentinels_adopted:false,
       played_cache_values_adopted:false,
       starting_stats_invented:false,

@@ -126,5 +126,5 @@ with tempfile.TemporaryDirectory(prefix='creator-',dir=ROOT/'build') as tmp:
         assert call('profile.snapshot')['stamina']==7 and call('creator.library')['featured']==[]
         assert hashlib.sha256(legacy.read_bytes()).hexdigest()==digest
         lib.od_close(core);core=opened(legacy);lib.od_close(core)
-        with sqlite3.connect(legacy) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==12
+        with sqlite3.connect(legacy) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==13
 print('PASS created settings/share/update/provenance, typed/master rejection, FIFO/main epoch, pinned summons/defaults/replay, hostile save rejection, v1/v2 migration')

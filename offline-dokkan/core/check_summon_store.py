@@ -134,7 +134,7 @@ with tempfile.TemporaryDirectory(prefix="summon-store-", dir=ROOT / "build") as 
     core = opened(legacy)
     assert call("profile.snapshot", profile="legacy")["inventory"] == [{"kind":"stone","id":0,"quantity":10}]
     assert call("profile.snapshot", profile="legacy")["stamina"] == 7
-    with sqlite3.connect(legacy) as db: assert db.execute("PRAGMA user_version").fetchone()[0] == 12
+    with sqlite3.connect(legacy) as db: assert db.execute("PRAGMA user_version").fetchone()[0] == 13
     digest = hashlib.sha256(oldbackup.read_bytes()).hexdigest()
     assert lib.od_import_save(core, str(oldbackup).encode()) == 0
     assert call("profile.snapshot", profile="legacy")["inventory"] == [{"kind":"stone","id":0,"quantity":10}]

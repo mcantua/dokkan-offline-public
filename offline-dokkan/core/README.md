@@ -10,7 +10,7 @@ Runtime requires SQLite **3.38 or newer with JSON support** (`STRICT` tables and
 od-cli SAVE MASTER CONTENT PROFILE OPERATION COMMAND JSON
 ```
 
-`CONTENT` identifies the exact imported master snapshot (the importer should supply its verified SHA-256). Masters open read-only and cannot be the same physical file as the mutable save. Player data binds to this content ID, schema version 12 and the exact save schema. Valid version1–11 saves migrate transactionally; importing an older save upgrades a transient candidate without modifying its source. The frozen migration fixture is our own schema, not game data. New profiles have zero inventory/cards. With a supported source `rank_statuses` table, our explicit `offline-rank1-act-v1` bootstrap initializes rank1/EXP0 and its exact ACT capacity (20 in both supplied masters). This is our own start policy, not a claimed verified original login. Older balances are preserved; masters without rank data retain the legacy trusted bootstrap behavior.
+`CONTENT` identifies the exact imported master snapshot (the importer should supply its verified SHA-256). Masters open read-only and cannot be the same physical file as the mutable save. Player data binds to this content ID, schema version 13 and the exact save schema. Valid version1–12 saves migrate transactionally; importing an older save upgrades a transient candidate without modifying its source. The frozen migration fixture is our own schema, not game data. New profiles have zero inventory/cards. With a supported source `rank_statuses` table, our explicit `offline-rank1-act-v1` bootstrap initializes rank1/EXP0 and its exact ACT capacity (20 in both supplied masters). This is our own start policy, not a claimed verified original login. Older balances are preserved; masters without rank data retain the legacy trusted bootstrap behavior.
 
 Internal operations:
 
@@ -36,6 +36,55 @@ Internal operations:
 Reward categories are our own strings: `stone` uses ID 0; `medal`, `training`, `support`, `equipment`, `act` and `potential` validate IDs against their corresponding imported master tables. The policy module applies 10× Dragon Stones, 6× medals and 3× other supported items exactly once. Unsupported categories fail explicitly; XP/Zeni semantics are not guessed. Positive integer base quantities and checked totals are required; JSON booleans do not count as integers.
 
 Mutations require a stable per-intent command ID. Identical command retries return the stored response; changing arguments for the same ID rejects the command. Reward-source IDs prevent a second grant under another command. Run settlements have a separate namespace, retain the original committed result and cannot advance revision or award twice. Profile state, entry debit, rewards, quest clear state and command results commit in one transaction with `synchronous=FULL`. This API must be called serially per core instance.
+
+## Original-client tutorial and team storage
+
+Schema13 adds native tutorial checkpoints and persistent original-team metadata.
+Only an actually inserted new profile receives tutorial progress0 and
+is_finished=false, matching the original TitleLoadingLayer's start-sequence
+control flow. This is our source-compatible fresh policy, not a claim about
+the original Sparking server's exact defaults. Older profiles migrate without a tutorial row and remain an
+explicit recovery/policy gap. No unit, item, capacity, contents level, reward or
+tutorial-finished grant is created. The original tutorial remains responsible
+for its actual scripted scenes and temporary combat.
+
+`od_original_client_apply` is a separate native-only entry. Its normalized
+operations are `tutorial.progress` and `teams.apply`; their internal command
+names are refused by ordinary `od_execute`/WebView paths. It checks the current
+save/profile/content scope inside the same transaction before any command
+replay, then checks the expected profile revision for a new command. Identical
+command retries retain their committed result. Tutorial writes store a positive
+signed32 checkpoint, without interpreting it as a raw master ID, completion,
+reward or clock. A repeated unchanged checkpoint need not advance revision.
+
+Original team numbers are opaque positive keys with an explicit persistent
+Core-slot association. Exact names/BGM and all six card positions are retained;
+every nonzero member must be owned and unconsumed. A new observed number takes
+the lowest free Core slot; an existing number retains its slot. Unlisted teams
+and omitted selections are preserved. No initial team/selection is invented.
+Complete observed team references retain signed32 map/stage/card fields;
+unknown references remain null. The three observed UInt32 advisory context
+fields are metadata only and never grant quest progress, items or units.
+Omitted/null references and omitted context retain prior metadata.
+Generic compact `team.set` edits that conflict with a bound formation roll
+back, preserving an openable save and its original six positions.
+
+`od_offline_player_snapshot` adds `original_client_tutorial` and
+`original_client_teams` from the actual canonical transaction. Native bridge
+writes reject while Creator holds its lease; they return a current after-commit
+player snapshot/admission separately from the retained command receipt. The
+fresh-state gate uses only this native tutorial record and keeps contents level
+and storage limits unresolved. HTTP response/codec gates remain closed.
+
+One combined extracted-SQL/actual-JavaScript scenario is recorded in
+`original-player-state-evidence.json`. It verifies migration rollback, preserved
+legacy state, checkpoint SQL and actual projection of gapped formations. It
+does **not** execute C command/scope control flow, Objective-C, an original game
+or a build. Existing unrelated suites were not repeated.
+The one subsequent changed-metadata-only SQL-to-JavaScript-to-SQL check is in
+`original-team-metadata-evidence.json`; it reuses the first migration evidence
+and verifies typed references/context, preservation and the actual GET/POST
+candidate normalizer. Both receipts pin their source at verification time.
 
 Keep at most the last 128 full command responses and 128 full run responses per profile. Older results become a JSON-null tombstone, while command IDs, original inputs, settled outcome and reward ledger remain. An old command retry returns `COMMAND_RESULT_EXPIRED`; an old run retry returns `RUN_RESULT_EXPIRED`. Neither re-executes, rolls RNG, grants, debits or advances revision. The caller can query the current snapshot. This bounds historical full-snapshot growth while preserving exactly-once behavior; original command input history is retained.
 

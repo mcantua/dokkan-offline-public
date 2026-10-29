@@ -82,13 +82,12 @@
     "The concrete model sign-in setup passes that event callable into signInWithCallback.",
     "The callback variant creates an authentication transaction and installs a typed authentication-request factory before running it.",
     "The typed request factory invokes the current 236-byte sign-in request builder, passing native provider-derived arguments and the saved nonce object; provider bodies and values were not inspected.",
-    "Transaction run queues an optional pre-auth command, nonce retrieval, an intermediate authentication command and the final auth request. The intermediate commands still need their concrete contracts.",
+    "Transaction run queues an optional pre-auth command, nonce retrieval, an intermediate authentication command and the final auth request. The pre-auth command is current PingAPI; its supported skip_device_token flag disables the following GenerateToken platform-token branch. Exact source pins and scope are in bootstrap-ping-contract.json.",
     "The callback success forwarder retains response/JSON arguments for queued delivery. No complete startup success is claimed from that forwarding alone."
   ],
   "pending": [
-    "Prove the pre-auth and intermediate transaction command contracts and whether they require additional local routes or native provider adaptation.",
-    "Finish current request/query and native Foundation interception proof.",
-    "Verify queued success delivery and complete offline login inside the original client before opening the host auth gate."
+    "Integrate internally constructed ping/nonce/sign-in handlers with trusted native owner/scope and approved origins before install, retaining closed unsupported-request behavior.",
+    "Verify queued success delivery, owner invalidation and complete offline login inside the original client."
   ],
   "plain_json_body_envelope_verified": true,
   "complete_auth_success_verified": false,
@@ -107,5 +106,6 @@
     "normal_path_prior_calls": 0,
     "normal_path_x2_writes": 0,
     "incorrect_interpretation_rejected": "Ghidra pseudoC omits third parameter, therefore no JSON is forwarded"
-  }
+  },
+  "pre_auth_and_intermediate_skip_contract_verified_statically": true
 }

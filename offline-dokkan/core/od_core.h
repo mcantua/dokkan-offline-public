@@ -9,7 +9,7 @@ typedef struct od_core od_core;
 /* Internal trusted domain API, not the game's HTTP protocol. Master is always read-only.
  * content_id must identify the exact imported master version (normally its SHA-256).
  * All returned strings use od_free. A core instance must be called serially.
- * Current save schema is v12; validated v1..v11 saves migrate transactionally. */
+ * Current save schema is v13; validated v1..v12 saves migrate transactionally. */
 int od_open(const char *save_path, const char *master_path, const char *content_id, od_core **out);
 void od_close(od_core *core);
 const char *od_last_error(od_core *core);
@@ -41,6 +41,17 @@ int od_projection_ack(od_core *core,const char *profile,int64_t generation,
  * operation or second SQLite connection; all JSON uses od_free. */
 int od_offline_identity(od_core *core,const char *profile,char **result_json);
 int od_offline_player_snapshot(od_core *core,const char *profile,char **result_json);
+/* Original-client native authority only, never od_execute/WebView operation
+ * names. operation is tutorial.progress or teams.apply; payload is normalized
+ * by the admitted own-client adapter, not raw arbitrary HTTP/policy JSON.
+ * Scope is checked inside the same write transaction before command replay;
+ * expected_revision is required for a new command. Exact command retries
+ * preserve their retained result. No starter units, rewards, finished tutorial
+ * flag, contents-level default or HTTP response is created by this API. */
+int od_original_client_apply(od_core *core,const char *operation,const char *profile,
+                              const char *command,const char *expected_save_scope,
+                              int64_t expected_revision,const char *payload_json,
+                              char **result_json);
 /* Read-only interrupted native accepted-project recovery. Exact profile/command
  * must already cache creator.finish with input {definition:expected}; returns
  * that existing result unchanged. Missing/pruned receipts remain unresolved.

@@ -36,6 +36,16 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
  * {admission,player_snapshot}; expected scope must be native-pinned. */
 - (void)originalClientPlayerSnapshotForProfile:(NSString *)profile
     expectedSaveScopeSHA256:(NSString *)scope reply:(ODCoreReply)reply;
+/** Admitted original-client adapter only. operation is tutorial.progress or
+ * teams.apply with normalized payload; never expose through editor operations.
+ * Rejects while a Creator lease is held. Scope/revision/command admission and
+ * durable write use this owner queue and the canonical transaction. Reply is
+ * a fresh after-commit {admission,player_snapshot,mutation_receipt}; the receipt
+ * may be the earlier identical command result, while player_snapshot is current.
+ * No HTTP route or original response envelope is implied by this native API. */
+- (void)applyOriginalClientOperation:(NSString *)operation profile:(NSString *)profile
+    command:(NSString *)command payload:(NSDictionary *)payload
+    expectedSaveScopeSHA256:(NSString *)scope expectedRevision:(int64_t)revision reply:(ODCoreReply)reply;
 /** Acquire after initial successful projection sync. Same-queue save imports
  * reject until this exact lease is cleanly released. No synchronous main/owner
  * dispatch and no lease grant through a WebView operation. */

@@ -163,6 +163,49 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
         dispatch_async(dispatch_get_main_queue(),^{reply(result,error);});
     });
 }
+- (void)applyOriginalClientOperation:(NSString *)operation profile:(NSString *)profile command:(NSString *)command
+    payload:(NSDictionary *)payload expectedSaveScopeSHA256:(NSString *)scope expectedRevision:(int64_t)revision reply:(ODCoreReply)reply {
+    NSString *kind=[operation isKindOfClass:NSString.class]?[operation copy]:nil;
+    NSString *owner=[profile isKindOfClass:NSString.class]?[profile copy]:nil;
+    NSString *intent=[command isKindOfClass:NSString.class]?[command copy]:nil;
+    NSString *expected=[scope isKindOfClass:NSString.class]?[scope copy]:nil;
+    /* Freeze the caller's JSON intent before queuing; a later mutation of its
+     * nested arrays must not change the meaning of this retained command. */
+    NSData *data=nil;
+    @try {
+        if([payload isKindOfClass:NSDictionary.class])data=[NSJSONSerialization dataWithJSONObject:payload options:0 error:NULL];
+    } @catch(NSException *exception) { (void)exception; }
+    NSString *serialized=data.length>0&&data.length<=1024u*1024u?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
+    dispatch_async(_queue,^{
+        NSError *error=nil;NSDictionary *result=nil;
+        NSString *identifiers=@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.:";
+        if(!kind||![@[@"tutorial.progress",@"teams.apply"] containsObject:kind]||
+           !ODProjectionCharacters(owner,identifiers,127)||!ODProjectionCharacters(intent,identifiers,127)||
+           !ODProjectionCharacters(expected,@"0123456789abcdef",64)||expected.length!=64||
+           !serialized||revision<0||revision>INT64_C(9007199254740991))error=CoreError("INVALID_ORIGINAL_PLAYER_ARGUMENT");
+        else if(self->_creatorLease)error=CoreError("ORIGINAL_PLAYER_CREATOR_ACTIVE");
+        else if([self ensureOpen:&error]) {
+            char *json=NULL,*failure=NULL;
+            int rc=od_bridge_original_client_apply(self->_bridge,kind.UTF8String,owner.UTF8String,intent.UTF8String,
+                expected.UTF8String,revision,serialized.UTF8String,&json,&failure);
+            NSDictionary *receipt=rc>=0?ODProjectionJSON(json):nil;
+            if(rc<0)error=CoreError(failure);
+            od_bridge_free(json);od_bridge_free(failure);
+            if(rc>=0) {
+                NSDictionary *admission=ODProjectionAdmission(self->_bridge,owner,self->_content);
+                json=NULL;failure=NULL;
+                int read=od_bridge_offline_player_snapshot(self->_bridge,owner.UTF8String,&json,&failure);
+                NSDictionary *player=read>=0?ODProjectionJSON(json):nil;
+                if(!receipt||!player||![player[@"profile_id"] isEqualToString:owner]||
+                   ![player[@"content_id"] isEqualToString:self->_content]||
+                   ![expected isEqualToString:admission[@"save_scope_sha256"]])error=CoreError("ORIGINAL_PLAYER_COMMITTED_SNAPSHOT_UNAVAILABLE");
+                else result=@{@"admission":admission,@"player_snapshot":player,@"mutation_receipt":receipt};
+                od_bridge_free(json);od_bridge_free(failure);
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(),^{reply(result,error);});
+    });
+}
 - (void)acquireOriginalCreatorLeaseForProfile:(NSString *)profile expectedSaveScopeSHA256:(NSString *)scope
     reply:(ODCoreCreatorLeaseReply)reply {
     NSString *owner=[profile copy],*expected=[scope copy];

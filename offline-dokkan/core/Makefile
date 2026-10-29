@@ -11,10 +11,10 @@ BUILD = build
 all: $(BUILD)/od-cli $(BUILD)/libodcore.so
 $(BUILD):
 	mkdir -p $@
-$(BUILD)/od-cli: od_core.c od_core.h summons.c summons.h progression.c progression.h schedules.c schedules.h schedules_store.c schedules_store.h card_stats.c card_stats.h potential.c potential.h training.c training.h kai_training.c kai_training.h json_values.c json_values.h od_cli.c | $(BUILD)
-	$(CC) $(CFLAGS) $(SQLITE_CFLAGS) od_core.c summons.c progression.c schedules.c schedules_store.c card_stats.c potential.c training.c kai_training.c json_values.c od_cli.c $(SQLITE_LIBS) -o $@
-$(BUILD)/libodcore.so: od_core.c od_core.h summons.c summons.h progression.c progression.h schedules.c schedules.h schedules_store.c schedules_store.h card_stats.c card_stats.h potential.c potential.h training.c training.h kai_training.c kai_training.h json_values.c json_values.h | $(BUILD)
-	$(CC) $(CFLAGS) $(SQLITE_CFLAGS) -fPIC -shared od_core.c summons.c progression.c schedules.c schedules_store.c card_stats.c potential.c training.c kai_training.c json_values.c $(SQLITE_LIBS) -o $@
+$(BUILD)/od-cli: od_core.c od_core.h summons.c summons.h progression.c progression.h schedules.c schedules.h schedules_store.c schedules_store.h card_stats.c card_stats.h potential.c potential.h training.c training.h kai_training.c kai_training.h json_values.c json_values.h original_teams.c original_teams.h od_cli.c | $(BUILD)
+	$(CC) $(CFLAGS) $(SQLITE_CFLAGS) od_core.c summons.c progression.c schedules.c schedules_store.c card_stats.c potential.c training.c kai_training.c json_values.c original_teams.c od_cli.c $(SQLITE_LIBS) -o $@
+$(BUILD)/libodcore.so: od_core.c od_core.h summons.c summons.h progression.c progression.h schedules.c schedules.h schedules_store.c schedules_store.h card_stats.c card_stats.h potential.c potential.h training.c training.h kai_training.c kai_training.h json_values.c json_values.h original_teams.c original_teams.h | $(BUILD)
+	$(CC) $(CFLAGS) $(SQLITE_CFLAGS) -fPIC -shared od_core.c summons.c progression.c schedules.c schedules_store.c card_stats.c potential.c training.c kai_training.c json_values.c original_teams.c $(SQLITE_LIBS) -o $@
 check: $(BUILD)/libodcore.so
 	python3 check_core.py
 check-summons: $(BUILD)/libodcore.so
