@@ -4,7 +4,7 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:36 AM US Central (Grok; launcher diagnostic compiled, profile create failed, no screenshots)_
+_Last updated: 2026-10-29 11:38 AM US Central (Grok; exit 65 was the test, not the linker; cards table added to the minimal master)_
 
 ## Right now
 | Project | Who | State |
@@ -21,6 +21,8 @@ _Last updated: 2026-10-29 11:36 AM US Central (Grok; launcher diagnostic compile
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:38 AM — Grok: Run [40911276790](https://github.com/mcantua/dokkan-offline-public/actions/runs/40911276790) linked. There was no compile or undefined-symbol error. `xcodebuild` exited 65 because `testSavedDraftPrepareAndFinishOnDuo` failed with `CORE_CREATE_FAILED`. `od_open` prepares `SELECT id FROM cards LIMIT 1` and the minimal master had no `cards` table, so profile create never ran and no PNG was written. The minimal master now includes `cards(id)`. No new dispatch. No release build.
+
 - 2026-10-29 11:36 AM — Grok: Run [40911276790](https://github.com/mcantua/dokkan-offline-public/actions/runs/40911276790) on `cursor/iphone-duo-launcher-ef58` (`6f709d2`) failed after 11m9s. The app compiled and the Duo test ran. `testSavedDraftPrepareAndFinishOnDuo` failed with `CORE_CREATE_FAILED` at profile create, before any launcher screenshot. `xcodebuild` exited 65. The job step `Keep compiler and native outcomes explicit` then exited 1 because that build outcome was failure. Artifact `duo-creator-simulator-screenshots` was not uploaded. No PNGs. No new dispatch. No release build.
 
 - 2026-10-29 11:20 AM — Grok: Run [40910229847](https://github.com/mcantua/dokkan-offline-public/actions/runs/40910229847) on `cursor/iphone-duo-launcher-ef58` failed in 23 seconds. Xcode 27.1 and the Duo runtime were present. `finish-only-run.sh` exited 1 because gitignored `test-page/UnitCreator-test.html` is not in the checkout. No PNGs were uploaded. The script now writes a minimal rank master when that page is absent and continues. No new dispatch. No release build.

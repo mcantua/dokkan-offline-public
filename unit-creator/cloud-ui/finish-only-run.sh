@@ -35,10 +35,12 @@ else:
     con=sqlite3.connect(db)
     con.execute('CREATE TABLE rank_statuses(rank INTEGER PRIMARY KEY, act_max INTEGER NOT NULL, exp_total INTEGER NOT NULL)')
     con.execute('INSERT INTO rank_statuses(rank,act_max,exp_total) VALUES (1,1,0)')
+    # od_open prepares "SELECT id FROM cards LIMIT 1" before profile.create.
+    con.execute('CREATE TABLE cards(id INTEGER PRIMARY KEY)')
     con.commit();con.close()
-    eclipse={'tables':1,'cards':0,'rank':1,'act_max':1}
-    source='test-page/UnitCreator-test.html is not in this public checkout. Minimal rank master for the launcher diagnostic.'
-    limitations=['The generated test page is gitignored and was not checked out','No card snapshot is embedded','Not release game content']
+    eclipse={'tables':2,'cards':0,'rank':1,'act_max':1}
+    source='test-page/UnitCreator-test.html is not in this public checkout. Minimal rank and cards master for the launcher diagnostic.'
+    limitations=['The generated test page is gitignored and was not checked out','No card rows are embedded','Not release game content']
     print('test-page/UnitCreator-test.html is absent; wrote a minimal rank master',flush=True)
 provenance={'source':source,'limitations':limitations,'eclipse':eclipse}
 (work/'evidence/data-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
