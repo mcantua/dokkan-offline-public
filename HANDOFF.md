@@ -2,6 +2,9 @@
 
 # FULL HANDOFF: everything Claude (cloud chat) was doing
 
+**LATEST — October 29, 11:02 AM US Central: https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. mcantua/claude-chatg is the private backup. No personal data may be committed. No release build.**
+
+
 _Written Wed Oct 28, 2026, 11:15 AM US Central by Claude, before running out of usage._
 _For: ChatGPT, and Tin's second Claude account. Read README.md ("Tin's rules") first, then this file._
 
