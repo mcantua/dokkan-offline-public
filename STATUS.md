@@ -1,10 +1,10 @@
-> **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
+> **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:11 AM CT, https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 # Status
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active Offline Dokkan copy)_
+_Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; claude-chatg is the frozen private backup)_
 
 ## Right now
 | Project | Who | State |
@@ -20,6 +20,8 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.
+
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.
 
 - 2026-10-29 9:48 AM — Grok: Run [40894918354](https://github.com/mcantua/claude-chatg/actions/runs/40894918354) succeeded on source `76a4f94c6a5a8cd846e1c7cb05e15d5e602974ad`, about 9:46–9:48 AM CT. One branch-only workflow compiled the authored Duo host library with genuine Xcode 27.1 / device SDK 27.1, arm64, deployment target 16.4. `ODUnifiedDuoHost.m`, `ODOfflineBootstrapAuth.m`, and `ODFreshStatePolicy.m` were in that library. The library is 2,249,480 bytes, SHA256 `8c0468e261f7808e961166a7d3b33d09cb599bfd2b5c84176a17396d79c91d9a`. The shared Finish workflow was not changed. No app package was made. The job did not boot a simulator, so no screenshot was saved. The pinned SQLite file printed its existing `gethostuuid()` warning and was not treated as a failure. Draft PR #2 was not merged.
