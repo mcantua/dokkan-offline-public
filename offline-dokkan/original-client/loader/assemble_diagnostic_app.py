@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Future authorized cloud-only unsigned original-client diagnostic assembler.
+"""Cloud-only unsigned original-client diagnostic assembler source.
 
-Source is intentionally not executed during no-build development. No compiler,
+Tin's standing Duo build instruction supplies authorization. No compiler,
 network, signing material, existing app/container, or save data is used.
 """
 import argparse
@@ -28,6 +28,7 @@ CRITICAL_COMPONENT_SOURCES = (
     "offline-dokkan/original-client/loader/ODOriginalDuoStartupDiagnostic.m",
     "offline-dokkan/original-client/loader/ODPreparedEngineLoader.m",
     "offline-dokkan/original-client/ios/ODOriginalClientBootstrap.m",
+    "offline-dokkan/original-client/ios/ODOriginalNativeOrigin.m",
     "offline-dokkan/original-client/ios/ODLocalURLProtocol.m",
     "offline-dokkan/original-client/ios/ODOfflineBootstrapAuth.m",
     "offline-dokkan/original-client/duo/ODUnifiedDuoHost.m",
@@ -151,7 +152,7 @@ def assemble(args):
     # Reject protected/signing arguments before any input or output I/O.
     for name in ("staged", "manifest", "shell", "engine", "component", "component_receipt", "output"):
         setattr(args, name, admit_argument(getattr(args, name)))
-    if (sys.platform != "linux" or args.make_the_builds is not True or
+    if (sys.platform != "linux" or
             args.output.suffix != ".app" or
             not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", args.version) or
             not re.fullmatch(r"[1-9][0-9]*", args.build)):
@@ -328,7 +329,6 @@ def main():
         parser.add_argument("--"+name,required=True,type=Path)
     for name in ("manifest-sha256","staging-receipt-sha256","component-receipt-sha256","version","build"):
         parser.add_argument("--"+name,required=True)
-    parser.add_argument("--make-the-builds",action="store_true",help="Operator records explicit current build authorization")
     args = parser.parse_args()
     try:
         result = assemble(args)

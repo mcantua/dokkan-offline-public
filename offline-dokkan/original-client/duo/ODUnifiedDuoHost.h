@@ -22,6 +22,9 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
  * The resource/state URLs are native-owned capabilities, never page arguments.
  * This module does not establish kernel/raw-socket/WK network isolation. */
 @interface ODUnifiedDuoHost : NSObject
+/** Integrated targets pass empty approvedOrigins: local transport starts
+ * deny-all and can be armed once only from the admitted loaded engine's own
+ * current native-origin capability before AppDelegate requests. */
 - (nullable instancetype)initWithPurpose:(ODUnifiedDuoPurpose)purpose
     genuineShellBaselineURL:(NSURL *)baseline preparedEngineURL:(NSURL *)engine
     resourcesRootURL:(NSURL *)resources writableStateRootURL:(NSURL *)state

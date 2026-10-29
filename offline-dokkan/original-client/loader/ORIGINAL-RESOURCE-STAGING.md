@@ -82,7 +82,7 @@ aliases and 27 native immutable cache members. The stager code hash matched
 the source evidence. No synthetic scenario was rerun, and no native app
 Documents, package, engine execution or build was involved.
 
-When builds are explicitly authorized, the package recipe must merge
+Under Tin's standing Duo build authorization, the package recipe must merge
 `bundle/` into a fresh own diagnostic bundle, preserve the genuine shell and
 prepared original engine. The diagnostic's source now composes the existing
 FD catalog/resource preloader/no-overwrite publisher to cold-stage the admitted

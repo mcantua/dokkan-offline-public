@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+@class ODOriginalNativeOrigin;
 NS_ASSUME_NONNULL_BEGIN
 /** Establish concrete native pre-load state before original initialization:
  * installed local transport, native-owned paths and excluded source patcher.
@@ -14,5 +15,14 @@ typedef BOOL (^ODPreparedEngineEnvironment)(NSError * _Nullable * _Nullable erro
  * This API does not make a prepared candidate a verified runnable game. */
 FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngine(NSURL *preparedImageURL,
     ODPreparedEngineEnvironment configureReviewedEnvironment,
+    NSError * _Nullable * _Nullable error);
+/** Same exact load/whole-image checks, for the integrated target only. After
+ * successful ordinary dlopen, creates a native cold-origin capability from the
+ * SAME verified image snapshot and the actual loaded code/configuration.
+ * No value is printed/saved. Diagnostic callers keep the original API above.
+ * Missing origin fails startup; this does not grant route/master acceptance. */
+FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeOrigin(NSURL *preparedImageURL,
+    ODPreparedEngineEnvironment configureReviewedEnvironment,
+    ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
     NSError * _Nullable * _Nullable error);
 NS_ASSUME_NONNULL_END

@@ -8,8 +8,8 @@
     "../../research/ordinary-root-optional-updates.json"
   ],
   "source_hashes": {
-    "duo/ODUnifiedDuoHost.h": "d4b1656b57161dfa2780de22c9a73d596082027c2a3e69c7ba168aacd2868df6",
-    "duo/ODUnifiedDuoHost.m": "617c378ac74b63bda37bf2c460fb153fe5b43edc3b0e0ca657dc9fc157ad53bd",
+    "duo/ODUnifiedDuoHost.h": "cd39af0f7d1df8d36cce6f8f30bad90c43d68750598a8536e9851524e3c28e3a",
+    "duo/ODUnifiedDuoHost.m": "bc5462997741117c47a72e18ca53bc659450a746c3bf6365d2f85a9fab91193e",
     "creator/ODBoundOriginalCreatorServices.h": "bf6e218b5a0643b644808a708b044fab7cdb12a36e3d2d5e381eaf2fed3bacf5",
     "creator/ODBoundOriginalCreatorServices.m": "4f8a2d9ea40115084c728505d5ffd4336df7e3e8135884fe15d87ec5ddd6cc75"
   },
@@ -24,7 +24,8 @@
     "A cancelled/inactive request, queue overflow, temporary Core read error or ordinary expired/missing-nonce failure rejects only that request, allowing a later fresh nonce.",
     "Native request isActive is a synchronized snapshot, not atomic cancellation rollback. The transport separately drops stopped, completed or late responses. No response timing is claimed to revoke already-delivered bytes.",
     "Nonce rotates local random issue; sign-in uses its same token and remaining positive signed32 lifetime. Tokens are never written, logged or populated from source credentials.",
-    "The patcher-absence probe canonicalizes the trusted native bundle Frameworks root before the strict nofollow walk; it verifies the same directory identity against both native and canonical paths before/after the filename probe, avoiding rejection solely from the OS /var alias."
+    "The patcher-absence probe canonicalizes the trusted native bundle Frameworks root before the strict nofollow walk; it verifies the same directory identity against both native and canonical paths before/after the filename probe, avoiding rejection solely from the OS /var alias.",
+    "Integrated transport is initially deny-all, then after ordinary verified engine load and actual HTTP ABI preflight, the source-bound current native-origin capability permits one same-queue rearm before AppDelegate. Diagnostic does not use this capability."
   ],
   "native_compiled": false,
   "native_executed": false,

@@ -2,6 +2,8 @@
 #import "ODDuoCreatorQuickAction.h"
 #import "../ios/ODFreshStatePolicy.h"
 #import "../ios/ODOfflineBootstrapAuth.h"
+#import "../ios/ODOriginalNativeOrigin.h"
+#import "../ios/ODLocalURLProtocolBootstrap.h"
 #import "creator_late_bind.h"
 #import "creator_menu_policy.h"
 #import "../content/engine_master_attach.h"
@@ -89,6 +91,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     BOOL _attempted,_environmentPrepared,_foundationInstalled,_engineLoaded,_imageAttached,_sceneObserved,_creatorAttached,_installed;
     BOOL _requestObserverInstalled,_servicesPending,_lifecycleInstalled,_masterAttached,_masterReadonlyReady,_assetRootHasMaster;
     BOOL _authConfigured,_authInvalidated;
+    BOOL _nativeOriginArmed;
     NSUInteger _authGeneration;
     NSString *_authContent,*_authScope;
     NSArray<ODLocalTransportRoute *> *_authIssuerRoutes;
@@ -113,7 +116,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if((purpose!=ODUnifiedDuoStartupDiagnostic&&purpose!=ODUnifiedDuoIntegratedTarget)||!baseline.isFileURL||!engine.isFileURL||
        !resourcePath||!statePath||[statePath isEqual:resourcePath]||[statePath hasPrefix:[resourcePath stringByAppendingString:@"/"]]||
        ![origins isKindOfClass:NSArray.class]||![routes isKindOfClass:NSArray.class]||!current||!report||
-       (purpose==ODUnifiedDuoIntegratedTarget&&(!attach||!origins.count))){
+       (purpose==ODUnifiedDuoIntegratedTarget&&(!attach||origins.count))){
         if(error)*error=ODHostFailure(1);return nil;
     }
     for (id route in routes) {
@@ -130,6 +133,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     return @{@"schema":@1,@"purpose":_purpose==ODUnifiedDuoStartupDiagnostic?@"original-startup-diagnostic":@"integrated-duo-target",
         @"stage":_stage?:@"unconfigured",@"bootstrapInstalled":@(_installed),@"nativeEnvironmentPrepared":@(_environmentPrepared),
         @"localFoundationTransportInstalled":@(_foundationInstalled),@"preparedEngineLoaded":@(_engineLoaded),
+        @"nativeOriginArmed":@(_nativeOriginArmed),
         @"nativeImageAttachmentConfigured":@(_imageAttached),@"originalRendererObserved":@(_sceneObserved),
         @"boundCreatorAttached":@(_creatorAttached),@"registeredRouteCount":@(_routes.count),
         @"unsupportedRequestObserverInstalled":@(_requestObserverInstalled),
@@ -151,7 +155,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"kernelNetworkIsolationEstablished":@NO,@"routeContractsRuntimeVerified":@NO,
         @"offlineAuthReaderRelativeOnly":@YES,@"offlineAuthWireEnvelopeVerified":@YES,
         @"offlineAuthHandlersConfigured":@(_authConfigured),@"offlineAuthOwnerInvalidated":@(_authInvalidated),
-        @"offlineAuthHttpRouteAdmitted":@(_authConfigured&&_foundationInstalled),
+        @"offlineAuthHttpRouteAdmitted":@(_authConfigured&&_foundationInstalled&&_nativeOriginArmed),
         @"offlineAuthOriginalClientRuntimeVerified":@NO,@"freshStateSentinelsAdopted":@NO,
         @"freshStateTutorialAndCapacityUnresolved":@YES,@"freshStateStartingStatsInvented":@NO,
         @"gameplaySaveCustomUnitsVerified":@NO,@"bothDuoDisplaysAccepted":@NO};
@@ -267,15 +271,26 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         });
     },error);
     if(!_requestObserverInstalled){_stage=@"request-observer-registration-failed";[self emit];return NO;}
-    BOOL ok=ODInstallPreparedDuoShellBootstrap(_baseline,_origins,_routes,^BOOL(NSError **failure){
+    // Integrated loading begins with deny-all. The actual admitted native
+    // configuration supplies its origin only AFTER ordinary engine loading.
+    NSArray<NSURL *> *bootstrapOrigins=integrated?@[]:_origins;
+    NSArray<ODLocalTransportRoute *> *bootstrapRoutes=integrated?@[]:_routes;
+    BOOL ok=ODInstallPreparedDuoShellBootstrap(_baseline,bootstrapOrigins,bootstrapRoutes,^BOOL(NSError **failure){
         ODUnifiedDuoHost *host=weakSelf;if(!host){if(failure)*failure=ODHostFailure(6);return NO;}
         /* This callback is reached only after the bootstrap has successfully
            installed its actual local Foundation protocol. */
         host->_foundationInstalled=YES;
-        BOOL loaded=ODLoadPreparedOriginalEngine(host->_engine,^BOOL(NSError **preparationError){
+        ODPreparedEngineEnvironment prepare=^BOOL(NSError **preparationError){
             return [host prepareNativeEnvironment:preparationError];
-        },failure);
+        };
+        ODOriginalNativeOrigin *origin=nil;
+        BOOL loaded=integrated?ODLoadPreparedOriginalEngineWithNativeOrigin(host->_engine,prepare,&origin,failure):
+            ODLoadPreparedOriginalEngine(host->_engine,prepare,failure);
         host->_engineLoaded=loaded;if(!loaded){host->_stage=@"prepared-image-load-failed";[host emit];return NO;}
+        if(integrated){
+            host->_nativeOriginArmed=ODRearmLocalTransportForLoadedOriginalOrigin(origin,host->_routes,failure);
+            if(!host->_nativeOriginArmed){host->_stage=@"native-origin-route-binding-failed";[host emit];return NO;}
+        }
         host->_stage=@"original-initializers-completed";
         if(host->_attach){host->_imageAttached=host->_attach(failure);if(!host->_imageAttached){host->_stage=@"native-image-attachment-failed";[host emit];return NO;}}
         [host emit];return host->_current();

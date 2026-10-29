@@ -3,10 +3,11 @@
 `diagnostic-package-source.json` describes one eventual original-client
 diagnostic app. `assemble_diagnostic_app.py` implements its unsigned Linux
 cloud assembler source. It has not been executed or tested; no app, IPA,
-native compile, signing or device run was made for this contract. Tin's
-**“make the builds”** instruction is required before using the compile/package
-steps. This target has no offline auth success routes and cannot be offered
-as a playable build.
+native compile, signing or device run was made for this contract. Tin's latest
+standing instruction authorizes ongoing Duo builds and removes the old repeated
+**“make the builds”** permission gate. The integration lead still freezes the
+reviewed source and exact input receipts before execution. This target has no
+offline auth success routes and cannot be offered as a playable build.
 
 The existing `build-components.sh` produces an authored library only;
 `inject_shell.py` prepares an active shell only. Neither creates a complete
@@ -14,8 +15,7 @@ app. `unit-creator/cloud-ui/package-device.sh` builds older, separate products
 and must not be used as an original-client package or modified into one by
 substituting its version/SDK metadata. The cohesive assembler reuses the
 existing resource admission, FD-relative staging/publication and shell
-injection APIs. It takes an explicit `--make-the-builds` operator flag; that
-flag does not itself grant authorization.
+injection APIs. No repeated build-permission flag is required.
 
 The future assembler must take the verified private resource staging output,
 its exact extraction manifest and reviewed SHA receipts. Reverify every
@@ -82,7 +82,7 @@ as the preferred downloaded master. No plaintext master, player data,
 signing file, full IPA/APK, resource part archive or internal harness belongs
 in this diagnostic payload.
 
-When builds are explicitly authorized, first obtain the genuine diagnostic
+On the reviewed frozen source, first obtain the genuine diagnostic
 component library through the existing component recipe. Then provide these
 assembler arguments, all as private cloud paths and reviewed exact hashes:
 
@@ -99,7 +99,6 @@ assembler arguments, all as private cloud paths and reviewed exact hashes:
 --version                 explicitly approved three-part version
 --build                   explicitly approved positive build number
 --output                  absent own diagnostic .app below ignored private/
---make-the-builds          record the current explicit build authorization
 ```
 
 The assembler re-hashes the full admitted original resource layer and checks

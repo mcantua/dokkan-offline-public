@@ -1,5 +1,8 @@
 # Tin's recent requests, in order, and what happened (Oct 26–28, 2026)
 
+**Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
+
+
 Latest storage directive: Google Drive is the central workspace for everything related to Offline Dokkan + Unit Creator, including all future meaningful changes. Use `AI-Workspace/Offline Dokkan + Unit Creator`, reuse existing IDs, verify transfers before disposable-copy cleanup, minimize Mac storage and preserve active tools/only working copies. No direct Mac access or background sync exists. See `DRIVE-WORKSPACE.md` and its registry for actual transfer state.
 
 | # | Tin asked | Result |

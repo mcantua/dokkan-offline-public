@@ -1,4 +1,6 @@
 #import "ODPreparedEngineLoader.h"
+#import "../ios/ODOriginalNativeOrigin.h"
+#import "../ios/ODGameHTTPABI.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <mach-o/loader.h>
 #include <dlfcn.h>
@@ -59,7 +61,9 @@ static BOOL ODEngineCandidate(NSData *file) {
     [normalized replaceBytesInRange:NSMakeRange(sizeof(header),commands.length) withBytes:commands.bytes];
     return [ODLoaderHash(normalized) isEqualToString:@"efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222"];
 }
-BOOL ODLoadPreparedOriginalEngine(NSURL *url,ODPreparedEngineEnvironment configure,NSError **error) {
+static BOOL ODLoadPreparedEngine(NSURL *url,ODPreparedEngineEnvironment configure,
+        ODOriginalNativeOrigin **nativeOrigin,NSError **error) {
+    if(nativeOrigin)*nativeOrigin=nil;
     if(!NSThread.isMainThread||!url.isFileURL||!configure)return ODLoaderFail(error,@"INVALID_ENGINE_LOAD_CONTEXT");
     NSURL *expected=[NSBundle.mainBundle.privateFrameworksURL URLByAppendingPathComponent:@"OriginalDokkanEngine.dylib"];
     if(!expected||![url.URLByResolvingSymlinksInPath.path isEqualToString:expected.URLByResolvingSymlinksInPath.path]||
@@ -92,5 +96,18 @@ BOOL ODLoadPreparedOriginalEngine(NSURL *url,ODPreparedEngineEnvironment configu
     ODResidentEngine=dlopen(url.fileSystemRepresentation,RTLD_NOW|RTLD_LOCAL);
     close(fd);
     if(!ODResidentEngine)return ODLoaderFail(error,@"PREPARED_ENGINE_DYLD_LOAD_FAILED");
+    if(nativeOrigin){
+        if(!ODVerifySuppliedGameHTTPABI(NULL))return ODLoaderFail(error,@"PREPARED_ENGINE_HTTP_ABI_MISMATCH");
+        *nativeOrigin=ODCreateOriginalNativeOriginForAdmittedImage(url,data,NULL);
+        if(!*nativeOrigin)return ODLoaderFail(error,@"PREPARED_ENGINE_NATIVE_ORIGIN_UNAVAILABLE");
+    }
     return YES;
+}
+BOOL ODLoadPreparedOriginalEngine(NSURL *url,ODPreparedEngineEnvironment configure,NSError **error) {
+    return ODLoadPreparedEngine(url,configure,NULL,error);
+}
+BOOL ODLoadPreparedOriginalEngineWithNativeOrigin(NSURL *url,ODPreparedEngineEnvironment configure,
+        ODOriginalNativeOrigin **nativeOrigin,NSError **error) {
+    if(!nativeOrigin)return ODLoaderFail(error,@"INVALID_ENGINE_LOAD_CONTEXT");
+    return ODLoadPreparedEngine(url,configure,nativeOrigin,error);
 }

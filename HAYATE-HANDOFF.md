@@ -1,5 +1,8 @@
 # Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
 
+**Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
+
+
 **Latest user change (October29): skip the new-player Dokkan intro tutorial.**
 Core14 source seeds only new profiles with a persistent skip policy; existing
 progress is preserved. Two targeted SQL/JS checks passed. Native execution and
@@ -14,7 +17,7 @@ Repo: https://github.com/mcantua/dokkan-offline-public. Read context/TIN-RULES.m
 Base branch: chatgpt/ios-eclipse-database-reuse (draft PR #1, DO NOT MERGE)
 Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
-Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says "make the builds".
+Tin's go-ahead: "continue everything" (9:14 AM). The former build gate is revoked by the latest directive above.
 
 ## Current source/input checkpoint — October 29, 3:13 PM CT
 

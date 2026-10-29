@@ -1,5 +1,8 @@
 # Original client: first playable path
 
+**Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
+
+
 **Latest user override:** new players must skip the original intro tutorial. The first-playable target is now original normal startup/Home and an ordinary battle. Preserve the older tutorial source research below as reference, but do not select it as the product's new-player flow. New-profile skip policy and corresponding native response projection are being implemented; existing profiles are not reset.
 
 Updated October 29, 2026, 3:05 PM US Central.

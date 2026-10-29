@@ -1,0 +1,46 @@
+{
+  "format": "od-authored-component-cloud-runner-reference-v1",
+  "read_date": "2026-10-29",
+  "read_mechanism": "GitHub connector; official public repository source only",
+  "runner_repository": "actions/runner-images",
+  "reviewed_reference_commit": "9329c776c4a38d3dcb31fc78b8180005041c07fb",
+  "documents": [
+    {
+      "path": "README.md",
+      "url": "https://github.com/actions/runner-images/blob/9329c776c4a38d3dcb31fc78b8180005041c07fb/README.md",
+      "git_blob_sha": "8de90fd8b3b5bf9aeec88151e87a3469973bbecd",
+      "observed": "The Available Images table lists Xcode27 arm64 preview with GitHub-hosted labels xcode-27 and xcode-27-xlarge."
+    },
+    {
+      "path": "images/macos/xcode-27-arm64-Readme.md",
+      "url": "https://github.com/actions/runner-images/blob/9329c776c4a38d3dcb31fc78b8180005041c07fb/images/macos/xcode-27-arm64-Readme.md",
+      "git_blob_sha": "aeff77bad8944f8eec9516ecdb463a5af0cd6fd5",
+      "image_version": "20261026.0314.1",
+      "os": "macOS27.0.1",
+      "xcode_version": "27.1",
+      "xcode_build": "27A9275",
+      "xcode_path": "/Applications/Xcode_27.1.app",
+      "device_sdk": "iphoneos27.1",
+      "observed": "The image inventory lists this exact Xcode path and device SDK."
+    },
+    {
+      "repository": "github/docs",
+      "path": "data/reusables/actions/workflow-dispatch.md",
+      "url": "https://github.com/github/docs/blob/2251b1ed734802304c8df15fc529742fae4d762a/data/reusables/actions/workflow-dispatch.md",
+      "reference_commit": "2251b1ed734802304c8df15fc529742fae4d762a",
+      "git_blob_sha": "682b9ab6b83987a010ab6c9475a927547823fc22",
+      "retrieved_url": "https://github.com/github/docs/blob/main/data/reusables/actions/workflow-dispatch.md",
+      "observed": "The workflow_dispatch trigger only receives events when the workflow file is on the default branch."
+    }
+  ],
+  "selected_official_hosted_label": "xcode-27",
+  "official_label_and_toolchain_listing_verified": true,
+  "repository_workflow_default_branch_registration_verified": false,
+  "repository_runner_administration_changed": false,
+  "runtime_environment_variable_used_as_pre_execution_mac_guard": false,
+  "future_runner_availability_guaranteed": false,
+  "fresh_official_source_review_required_before_future_dispatch": true,
+  "workflow_dispatched": false,
+  "native_compilation_executed": false,
+  "private_game_data_accessed_by_workflow": false
+}

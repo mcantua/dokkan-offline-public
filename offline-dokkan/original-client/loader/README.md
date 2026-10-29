@@ -61,8 +61,8 @@ remain unverified.
 factory. It is deliberately separate from `ODCreateUnifiedDuoStartupHost`:
 the integrated production factory remains unfinished, and its entry still
 rejects diagnostics. Both entry defines together are a compile error.
-Component libraries retain inert startup by default. When builds are explicitly
-authorized, `--original-startup-diagnostic-entry` selects only this diagnostic
+Component libraries retain inert startup by default. Under Tin's standing
+Duo build authorization, `--original-startup-diagnostic-entry` selects only this diagnostic
 constructor; it is not a playable/release target or an app-packaging command.
 
 The native factory selects these actual app-owned inputs:
@@ -155,6 +155,8 @@ source integration only; it has not been compiled or executed.
 cohesive original-client diagnostic app. `assemble_diagnostic_app.py` implements
 that future unsigned assembler source by reusing the existing resource and
 shell-preparation APIs. It has not been run or tested and no `.app` was created.
-Tin's explicit build instruction is still required. No old Creator/save-manager
+Tin has now authorized ongoing Duo builds without a repeated permission gate.
+The integration lead still freezes source and exact inputs before execution.
+No old Creator/save-manager
 package, guessed framework metadata or inert component library can stand in
 for this original-client composition.

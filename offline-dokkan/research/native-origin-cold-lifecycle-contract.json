@@ -1,0 +1,80 @@
+{
+  "kind": "current-original-native-origin-cold-lifecycle-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_bodies": [
+    {
+      "label": "native_configuration_getter",
+      "bytes": 80,
+      "sha256": "2de88ff35a07d9771c8b17dc41955d0998b04d47fbe09f0da11ba4cc74550e97"
+    },
+    {
+      "label": "native_configuration_constructor",
+      "bytes": 504,
+      "sha256": "7b120b08aed81ff767330cd6b5cc6d1c7d5205f3a05074dae110d15a24aa105c"
+    },
+    {
+      "label": "nonce_constructor",
+      "bytes": 228,
+      "sha256": "a4ab39956604b70ed4f0812fdbafb22b2b6b82470b0ed7b53ffa50f530730386"
+    },
+    {
+      "label": "common_request_constructor",
+      "bytes": 420,
+      "sha256": "9d8e134af30873e345b61ff3542d2e85399c549c0b1f1331843c9807c5865910"
+    },
+    {
+      "label": "request_url_builder",
+      "bytes": 664,
+      "sha256": "4192af9cd1485f8a3402f6497c6f92669b60a55d006ff99e0ebfb5e2112df663"
+    }
+  ],
+  "facts": [
+    "The actual 80-byte getter takes no arguments and returns the native configuration object pointer. When absent it allocates216 bytes, calls its constructor and stores the singleton pointer.",
+    "The getter has no synchronization. A future native cold caller must serialize its first access before requests; no generic concurrent accessor safety is claimed.",
+    "The actual504-byte constructor copies its host string and port sources from immutable __TEXT,__const mappings, with Mach-O maximum and initial protection5(RX). Only source metadata/instructions were read, not those data values.",
+    "The current nonce constructor calls that getter, copies the native host string at configuration offset8 and reads the uint16 port at32. The common420-byte constructor copies them to request host160 and port184.",
+    "The actual nonce-copy instructions distinguish long form by the signed tag at config31; long data/length come from8/16, short inline bytes begin8. These are exact current-source layout facts, not an assumed SDK string ABI.",
+    "The664-byte URL builder selects HTTPS for port443 and HTTP otherwise; it appends an explicit port unless80. The existing URI path/query builder supplies the remaining URL parts.",
+    "The supplied prepared image is loaded only after local transport installation. Therefore immutable origins required before dlopen cannot directly be populated by calling this engine getter at that earlier point.",
+    "Focused instruction binding in the already-retained664-byte builder proves raw unsigned short tag length, not a shifted tag: long mode selects pointer/length; short mode selects inline buffer/tag length. No literal data was read."
+  ],
+  "scope_accounting": {
+    "getter80_high_pcode_sites": 8,
+    "getter80_outside_sites": 0,
+    "constructor504_instruction_count": 126,
+    "constructor_literal_or_data_values_read": false,
+    "constructor_decompiled_again": false
+  },
+  "candidate_integration": {
+    "sequence": [
+      "Install existing local Foundation transport with empty origins/routes before dlopen; all game HTTP remains denied.",
+      "After the admitted engine loads and ABI checks pass, a reviewed native-only capability may resolve/call this exact getter, copy its current origin privately, then rearm the same transport once before AppDelegate requests.",
+      "A later changed origin remains rejected; never trust the first observed URL and never fall back to a remote service."
+    ],
+    "implemented": true,
+    "real_call_site": "ODUnifiedDuoHost existing post-ODLoadPreparedOriginalEngine callback before image attachment/AppDelegate",
+    "required_before_source_implementation": [],
+    "source_implementation": [
+      "original-client/ios/ODOriginalNativeOrigin.h",
+      "original-client/ios/ODOriginalNativeOrigin.m",
+      "original-client/loader/ODPreparedEngineLoader.h",
+      "original-client/loader/ODPreparedEngineLoader.m",
+      "original-client/duo/ODUnifiedDuoHost.m",
+      "original-client/ios/ODLocalURLProtocolBootstrap.h",
+      "original-client/ios/ODLocalURLProtocol.m"
+    ],
+    "runtime_verified": false
+  },
+  "origin_values_read_or_emitted": false,
+  "keys_or_provider_values_read": false,
+  "native_executed": false,
+  "game_built": false,
+  "runtime_offline_login_verified": false,
+  "limits": [
+    "Cold source-owned defaults are established; no claim that every later native configuration setter is absent or the origin remains unchanged for the entire app lifetime.",
+    "The source-specific field facts apply only to the exact admitted engine; no cross-version/native ABI compatibility is implied.",
+    "The native capability/rearm is implemented in source but has not been compiled, installed or executed; diagnostic remains deny-all.",
+    "This is source analysis, not successful initialization, login, home, gameplay or device evidence.",
+    "There is still no concrete integrated startup factory, and native master acceptance remains independently closed. Source wiring is not actual login."
+  ]
+}
