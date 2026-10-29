@@ -123,5 +123,64 @@
     "cleared_difficulties",
     "dragonballs"
   ],
-  "finish_result_further_reader_present": true
+  "finish_result_further_reader_present": true,
+  "start_nested_map_observations": {
+    "path": "sugoroku.events",
+    "event_member": "content",
+    "content_member": "enemies",
+    "enemy_member_fields": [
+      "card_id",
+      "ai_type"
+    ],
+    "nested_enemy_group_iteration_observed": true,
+    "full_map_schema_verified": false,
+    "omitted_pseudocode_selector_resolved_from_exact_ARM64_call": true
+  },
+  "finish_result_further_reader": {
+    "bytes": 344,
+    "sha256": "5fa85df3c2efed9e4c5d2bf80225370f0df3b8f536c93bbe7a351186a45771dc",
+    "direct_fields": [
+      "user_items",
+      "items"
+    ],
+    "item_aggregate_schema_verified": false
+  },
+  "finish_reward_row_readers": [
+    {
+      "collection": "quest_clear_rewards",
+      "bytes": 172,
+      "sha256": "46d41178ca2b9309c37a6160a52ba63451dccfab6dbca0535281276721b85c20",
+      "fields": {
+        "item_type": "native_string",
+        "amount": "signed32"
+      }
+    },
+    {
+      "collection": "dragonballs",
+      "bytes": 120,
+      "sha256": "16f0d720694703fa58f20b089be1c3bd37cb85527597f385c255a6fe8a9d0531",
+      "fields": {
+        "id": "signed32",
+        "ball_type": "signed32",
+        "num": "signed32"
+      }
+    }
+  ],
+  "shared_signed32_reader": {
+    "bytes": 512,
+    "sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c",
+    "null_conversion": 0,
+    "out_of_range_conversion_error_path": true
+  },
+  "finish_items_collection_reader": {
+    "bytes": 1080,
+    "sha256": "e83eebfff814af9a11c4a0f63c388f7bf46f9882f8630a19d3e099911baf3074",
+    "item_type_default": "",
+    "special_case_item_type": "Card",
+    "card_item_id_conversion": "signed32",
+    "card_quantity_default": 0,
+    "card_quantity_conversion": "signed32",
+    "non_card_item_forwarded_to_original_callback": true,
+    "card_mapping_and_persistence_fully_verified": false
+  }
 }

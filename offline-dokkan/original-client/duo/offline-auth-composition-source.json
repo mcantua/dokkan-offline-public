@@ -1,0 +1,42 @@
+{
+  "kind": "native-host-owned-original-offline-auth-source-review",
+  "source_contracts": [
+    "../../research/bootstrap-plain-json-root.json",
+    "../../research/bootstrap-ping-contract.json",
+    "../../research/bootstrap-upstream-success-frontier.json",
+    "../../research/ordinary-webapi-plain-response-contract.json",
+    "../../research/ordinary-root-optional-updates.json"
+  ],
+  "source_hashes": {
+    "duo/ODUnifiedDuoHost.h": "d4b1656b57161dfa2780de22c9a73d596082027c2a3e69c7ba168aacd2868df6",
+    "duo/ODUnifiedDuoHost.m": "617c378ac74b63bda37bf2c460fb153fe5b43edc3b0e0ca657dc9fc157ad53bd",
+    "creator/ODBoundOriginalCreatorServices.h": "bf6e218b5a0643b644808a708b044fab7cdb12a36e3d2d5e381eaf2fed3bacf5",
+    "creator/ODBoundOriginalCreatorServices.m": "4f8a2d9ea40115084c728505d5ffd4336df7e3e8135884fe15d87ec5ddd6cc75"
+  },
+  "composition": [
+    "Integrated host reserves ping, auth/nonce and auth/sign_in against caller-supplied routes; it constructs the three proved local handlers itself with explicit caller policy TTL.",
+    "Configuration requires either current bound services matching the content/scope, or exactly the existing deferred service admission. Startup diagnostic does not configure these handlers.",
+    "A narrow main-thread bound-service method returns only its own current Core for the admitted content/save scope. No caller-provided unrelated Core is accepted.",
+    "Transport callbacks hop asynchronously to main; all mutable auth issue state and main-only owner predicates run there. No synchronous main/owner queue wait is introduced.",
+    "Before each issuer handler and before its successful response delivery, a fresh atomic canonical Core local-player snapshot validates profile/content/save scope, the same bound-service/Core object and the owner generation/current guard.",
+    "If services are still being bound, at most8 pending native auth requests wait for the existing service bind. The existing transport timeout and request activity signal remain authoritative.",
+    "Returned scope/content/profile mismatch, lost current owner or changed issuer object invalidates the issuer and clears the shared private issue through its false-current guard.",
+    "A cancelled/inactive request, queue overflow, temporary Core read error or ordinary expired/missing-nonce failure rejects only that request, allowing a later fresh nonce.",
+    "Native request isActive is a synchronized snapshot, not atomic cancellation rollback. The transport separately drops stopped, completed or late responses. No response timing is claimed to revoke already-delivered bytes.",
+    "Nonce rotates local random issue; sign-in uses its same token and remaining positive signed32 lifetime. Tokens are never written, logged or populated from source credentials.",
+    "The patcher-absence probe canonicalizes the trusted native bundle Frameworks root before the strict nofollow walk; it verifies the same directory identity against both native and canonical paths before/after the filename probe, avoiding rejection solely from the OS /var alias."
+  ],
+  "native_compiled": false,
+  "native_executed": false,
+  "original_client_executed": false,
+  "tests_rerun": false,
+  "game_builds_created": false,
+  "actual_integrated_startup_factory_present": false,
+  "limits": [
+    "These are source changes, not proof that original startup/login/home or gameplay works.",
+    "The only current concrete startup factory is diagnostic. A concrete integrated factory still must admit the actual native resources/master, canonical player/service owner and this configuration before UIApplicationMain.",
+    "Resource response/first-home DTO, master cold-stage, actual request/runtime acceptance, persistent gameplay and Duo device acceptance remain independent requirements.",
+    "Cancelled private in-memory issues may remain until expiry or the next nonce; cancellation drops request delivery and does not poison the owner. No atomic rollback is promised.",
+    "The independent native master admission runtime gate remains closed. This source cannot open it or claim real login by installing auth handlers."
+  ]
+}

@@ -23,10 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
  * is an explicit local offline policy; no device identifier is supplied. */
 + (nullable NSDictionary *)pingPlainJSONCandidate;
 /** Creates ping, nonce and sign-in candidate handlers; does not install them.
- * The unified host still rejects auth routes until the remaining startup and
- * request contracts are verified. Only for a trusted native offline owner.
- * contextIsCurrent runs on the local transport serial queue and must be safe
- * there. Tokens stay in memory, rotate on nonce requests and expire. The local
+ * The unified host reserves these paths and wraps only its internally created
+ * handlers with canonical owner/scope checks. Only for a trusted native owner.
+ * A caller must serialize every handler and contextIsCurrent on the SAME queue;
+ * the host wrapper uses main, not the transport queue. Tokens stay in memory,
+ * rotate on nonce requests and expire. The local
  * identity does not forward or validate source-server credentials. */
 + (nullable NSArray<ODLocalTransportRoute *> *)candidateRoutesWithExpiresIn:(int32_t)expiresIn
                                                         contextIsCurrent:(BOOL (^)(void))contextIsCurrent

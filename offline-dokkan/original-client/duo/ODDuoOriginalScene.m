@@ -150,9 +150,13 @@ rejected:
 }
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session
         options:(UISceneConnectionOptions *)options {
-    (void)session; (void)options;
+    (void)options;
+    /* Other roles and a second scene must not take the single renderer or
+       fault the already admitted primary host/Creator attachment. */
+    if (![session.role isEqualToString:UIWindowSceneSessionRoleApplication]) return;
+    if (NSThread.isMainThread && ODActiveScene) return;
     if (!NSThread.isMainThread || !ODSceneDisplay ||
-        ![scene isKindOfClass:UIWindowScene.class] || ODActiveScene) {
+        ![scene isKindOfClass:UIWindowScene.class] || scene.session!=session) {
         [self reportFailure:2]; return;
     }
     id delegate=ODAppControllerProvider ? ODAppControllerProvider() : UIApplication.sharedApplication.delegate;

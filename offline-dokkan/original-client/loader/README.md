@@ -105,10 +105,13 @@ isolation, and loaded dependencies/SDK network behavior still needs observation.
 
 The real dependency binary and seed were absent from both retained resource and
 client-analysis caches, then restored through the targeted cloud-only IPA
-extractor with their exact pins. The framework's original bundle metadata has
-not been restored; the two binaries do not establish a complete framework or
-complete startup resources. A complete compatible pre-staged asset
-tree, source pin verification before signing, native compile, original dyld
+extractor with their exact pins. The subsequent whole-IPA-hash-verified resource
+extraction restored the exact original framework metadata and 1,067 selected
+safe resource candidates. One real source-staging invocation verified and
+preserved 1,070 original bundle members, plus the catalog and 27 immutable cache
+members. This verifies private source preparation, not an assembled app or
+complete runtime startup dependencies. Source pin verification before signing,
+native compile, original dyld
 loading, actual AppController rendering and offline login/battle/save remain
 unverified. This factory is source progress toward startup, not evidence that
 the original game launched. No app/library build was run for this change.
@@ -131,8 +134,8 @@ without reading or deleting its contents. No reviewed copied-working-tree
 receipt has been implemented, so an existing tree cannot be admitted by a
 boolean or an invented receipt. The package's reviewed resource-copy staging
 now preserves the complete existing safe original resource candidate set,
-without guessing a minimum first-screen dependency list. Real extraction,
-staging and native consumption are still unverified. See
+without guessing a minimum first-screen dependency list. Real extraction and
+private source staging are verified; native consumption remains unverified. See
 `ORIGINAL-RESOURCE-STAGING.md` for the concrete source tool and its two focused
 synthetic checks.
 
@@ -147,3 +150,11 @@ native trees remain checked. Original bundle/tutorial resource aliases remain
 in their original positions. The host report adds configured/published working
 counts while scene-completeness and gameplay flags stay false. This is native
 source integration only; it has not been compiled or executed.
+
+`DIAGNOSTIC-PACKAGE-RECIPE.md` and `diagnostic-package-source.json` describe the
+cohesive original-client diagnostic app. `assemble_diagnostic_app.py` implements
+that future unsigned assembler source by reusing the existing resource and
+shell-preparation APIs. It has not been run or tested and no `.app` was created.
+Tin's explicit build instruction is still required. No old Creator/save-manager
+package, guessed framework metadata or inert component library can stand in
+for this original-client composition.

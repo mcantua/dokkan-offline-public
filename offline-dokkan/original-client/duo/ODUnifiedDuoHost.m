@@ -5,9 +5,11 @@
 #import "creator_late_bind.h"
 #import "creator_menu_policy.h"
 #import "../content/engine_master_attach.h"
+#import "../content/ODNativeMasterColdStage.h"
 #import "../ios/ODOriginalClientBootstrap.h"
 #import "../loader/ODPreparedEngineLoader.h"
 #import "../creator/ODBoundOriginalCreatorServices.h"
+#import "../../adapter/ios/ODNativeCore.h"
 #include <mach-o/dyld.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -24,7 +26,13 @@ static NSError *ODHostFailure(NSInteger code) {
         userInfo:@{NSLocalizedDescriptionKey:message}];
 }
 static BOOL ODHostClosedAuthPath(NSString *path) {
-    return [path isEqualToString:@"/auth/nonce"] || [path isEqualToString:@"/auth/sign_in"];
+    return [path isEqualToString:@"/ping"] || [path isEqualToString:@"/auth/nonce"] || [path isEqualToString:@"/auth/sign_in"];
+}
+static BOOL ODHostAuthScopeChanged(NSError *error) {
+    // Core emits this fixed code when its atomic admission no longer matches.
+    // Never log or forward an arbitrary native error description.
+    return [error.domain isEqualToString:@"OfflineDokkanCore"]&&
+        [error.userInfo[NSLocalizedDescriptionKey] isEqual:@"ORIGINAL_PLAYER_SCOPE_CHANGED"];
 }
 static NSString *ODHostCanonicalURL(NSURL *url) {
     if(!url.isFileURL||!url.path.isAbsolutePath)return nil;
@@ -55,9 +63,12 @@ static BOOL ODHostContentID(NSString *value) {
 }
 static BOOL ODHostSourcePatcherAbsent(void) {
     NSURL *folder=NSBundle.mainBundle.privateFrameworksURL;
-    if(folder){int fd=ODHostDirectory(folder.path);if(fd<0)return NO;
-        struct stat st;int present=fstatat(fd,"DokkanSparkingPatcher.dylib",&st,AT_SYMLINK_NOFOLLOW);int code=errno;close(fd);
-        if(!present||code!=ENOENT)return NO;
+    if(folder){NSString *canonical=ODHostCanonicalURL(folder);int fd=canonical?ODHostDirectory(canonical):-1;
+        if(fd<0)return NO;
+        BOOL same=ODHostSameDirectory(canonical,fd)&&ODHostSameDirectory(folder.path,fd);
+        struct stat st;int present=fstatat(fd,"DokkanSparkingPatcher.dylib",&st,AT_SYMLINK_NOFOLLOW);int code=errno;
+        same=same&&ODHostSameDirectory(canonical,fd)&&ODHostSameDirectory(folder.path,fd);close(fd);
+        if(!same||!present||code!=ENOENT)return NO;
     }
     uint32_t images=_dyld_image_count();
     for(uint32_t i=0;i<images;++i){const char *name=_dyld_get_image_name(i);if(!name)return NO;
@@ -77,8 +88,14 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     ODUnifiedDuoReportHandler _report;
     BOOL _attempted,_environmentPrepared,_foundationInstalled,_engineLoaded,_imageAttached,_sceneObserved,_creatorAttached,_installed;
     BOOL _requestObserverInstalled,_servicesPending,_lifecycleInstalled,_masterAttached,_masterReadonlyReady,_assetRootHasMaster;
+    BOOL _authConfigured,_authInvalidated;
+    NSUInteger _authGeneration;
+    NSString *_authContent,*_authScope;
+    NSArray<ODLocalTransportRoute *> *_authIssuerRoutes;
+    NSMutableArray<dispatch_block_t> *_pendingAuthRequests;
     NSString *_admittedContent,*_admittedScope,*_masterSourcePath,*_masterLanguage,*_masterSHA,*_masterRelative;
     uint64_t _masterBytes;
+    ODNativeMasterColdStage *_originalMasterStage;
     NSMutableArray<NSDictionary *> *_unsupportedRequests;
     NSDictionary *_creatorEntryReport;
     NSString *_stage;
@@ -96,7 +113,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if((purpose!=ODUnifiedDuoStartupDiagnostic&&purpose!=ODUnifiedDuoIntegratedTarget)||!baseline.isFileURL||!engine.isFileURL||
        !resourcePath||!statePath||[statePath isEqual:resourcePath]||[statePath hasPrefix:[resourcePath stringByAppendingString:@"/"]]||
        ![origins isKindOfClass:NSArray.class]||![routes isKindOfClass:NSArray.class]||!current||!report||
-       (purpose==ODUnifiedDuoIntegratedTarget&&(!attach||!origins.count||!routes.count))){
+       (purpose==ODUnifiedDuoIntegratedTarget&&(!attach||!origins.count))){
         if(error)*error=ODHostFailure(1);return nil;
     }
     for (id route in routes) {
@@ -122,16 +139,20 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"creatorServicesBound":@(_services!=nil),
         // Staging a file is not observation of the original engine opening it.
         @"derivedMasterStaged":@(_masterAttached),
+        @"originalMasterColdStage":_originalMasterStage.stagingReport?:@{@"workingCopyStaged":@NO,@"originalMasterReady":@NO},
         @"originalEngineMasterAttached":@NO,
         @"originalEngineMasterRelativePath":_masterRelative?:@"",
         @"sourceKeyApplied":@NO,@"cachedHandleRedirected":@NO,@"engineKeyedOpenObserved":@NO,
-        @"keyedOpenRefused":@YES,@"flags6Applied":@NO,@"readonlyMasterReady":@(_masterReadonlyReady),
+        @"hostKeyedOpenAttempted":@NO,@"keyedOpenRefused":@YES,@"flags6Applied":@NO,@"readonlyMasterReady":@(_masterReadonlyReady),
+        @"readonlyPlaintextIsOriginalMasterAdmission":@NO,
         @"engineAssetRootContainsPublishedMaster":@(_assetRootHasMaster),
         @"extensionLoadingEnabled":@NO,@"patcherContractUsed":@NO,
         @"nativeNetworkCoverage":@"Installed Foundation handling only; raw socket, SDK/system and WebKit activity require observation/configuration",
         @"kernelNetworkIsolationEstablished":@NO,@"routeContractsRuntimeVerified":@NO,
-        @"offlineAuthReaderRelativeOnly":@YES,@"offlineAuthWireEnvelopeVerified":@NO,
-        @"offlineAuthHttpRouteAdmitted":@NO,@"freshStateSentinelsAdopted":@NO,
+        @"offlineAuthReaderRelativeOnly":@YES,@"offlineAuthWireEnvelopeVerified":@YES,
+        @"offlineAuthHandlersConfigured":@(_authConfigured),@"offlineAuthOwnerInvalidated":@(_authInvalidated),
+        @"offlineAuthHttpRouteAdmitted":@(_authConfigured&&_foundationInstalled),
+        @"offlineAuthOriginalClientRuntimeVerified":@NO,@"freshStateSentinelsAdopted":@NO,
         @"freshStateTutorialAndCapacityUnresolved":@YES,@"freshStateStartingStatsInvented":@NO,
         @"gameplaySaveCustomUnitsVerified":@NO,@"bothDuoDisplaysAccepted":@NO};
 }
@@ -151,7 +172,12 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if(fd>=0&&close(fd))valid=NO;
     if(created&&unlinkat(_stateFD,probe.fileSystemRepresentation,0))valid=NO;
     valid=valid&&ODHostSameDirectory(_resources,_resourceFD)&&ODHostSameDirectory(_state,_stateFD)&&_current();
-    if(valid&&_masterAttached){
+    if(valid&&_originalMasterStage){
+        valid=[_originalMasterStage confirmBeforeOriginalImageLoad:error]&&
+            [_originalMasterStage.assetsRootURL.path isEqualToString:_resources];
+        // The original engine owns flags6, opaque native key, validation and
+        // cached handle. Byte staging must not manufacture acceptance of them.
+    }else if(valid&&_masterAttached){
         int source=open(_masterSourcePath.fileSystemRepresentation,O_RDONLY|O_NOFOLLOW|O_CLOEXEC);
         int confirmed=source<0?-2:od_engine_master_confirm(source,_stateFD,_state.UTF8String,_masterLanguage.UTF8String,_masterSHA.UTF8String,_masterBytes);
         int readonly=-1;od_engine_master_receipt gate;memset(&gate,0,sizeof gate);
@@ -216,12 +242,16 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 - (BOOL)installBeforeApplicationMain:(NSError **)error {
     BOOL integrated=_purpose==ODUnifiedDuoIntegratedTarget;
+    // No original native key/open/schema acceptance observation ABI has been
+    // admitted. A staged file or caller-supplied report cannot open this gate.
+    BOOL nativeMasterAccepted=NO;
     if(!NSThread.isMainThread||_attempted||ODInstalledUnifiedHost||!_current()||
        (integrated&&_services&&![_services creatorScopeIsCurrent])||
        (integrated&&!_services&&!_servicesPending)||
-       (integrated&&!_masterAttached)){
+       (integrated&&(!nativeMasterAccepted||!_originalMasterStage))){
         if(error)*error=ODHostFailure(5);return NO;
     }
+    if(integrated&&!_authConfigured){if(error)*error=ODHostFailure(11);return NO;}
     _attempted=YES;_stage=@"installing-genuine-shell-bootstrap";[self emit];
     __weak ODUnifiedDuoHost *weakSelf=self;
     /* The transport supplies only its reviewed method/static-path vocabulary,
@@ -253,6 +283,123 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     _installed=ok;_stage=ok?@"waiting-for-actual-appcontroller-scene":@"bootstrap-installation-failed";
     if(ok)ODInstalledUnifiedHost=self;[self emit];return ok;
 }
+- (BOOL)authContextIsCurrent {
+    return NSThread.isMainThread&&_authConfigured&&!_authInvalidated&&_current()&&
+        _services&&[_services originalClientCoreForContentID:_authContent saveScopeSHA256:_authScope]!=nil;
+}
+- (BOOL)authSnapshot:(id)result matchesCore:(ODNativeCore *)core issuer:(ODBoundOriginalCreatorServices *)services
+        generation:(NSUInteger)generation {
+    if(![self authContextIsCurrent]||generation!=_authGeneration||services!=_services||
+       [_services originalClientCoreForContentID:_authContent saveScopeSHA256:_authScope]!=core||
+       ![result isKindOfClass:NSDictionary.class])return NO;
+    NSDictionary *admission=result[@"admission"],*snapshot=result[@"player_snapshot"];
+    return [admission isKindOfClass:NSDictionary.class]&&[snapshot isKindOfClass:NSDictionary.class]&&
+        [admission[@"profile_id"] isEqual:@"local-player"]&&[admission[@"content_id"] isEqual:_authContent]&&
+        [admission[@"save_scope_sha256"] isEqual:_authScope]&&
+        [snapshot[@"profile_id"] isEqual:@"local-player"]&&[snapshot[@"content_id"] isEqual:_authContent];
+}
+- (void)invalidateOfflineAuthForRequest:(ODLocalTransportRequest *)request {
+    if(!NSThread.isMainThread)return;
+    _authInvalidated=YES;++_authGeneration;
+    // The issuer's current predicate is now false. Its ordinary guard clears
+    // the private in-memory issue without inspecting a request or writing it.
+    [_authIssuerRoutes.firstObject handleRequest:request
+        completion:^(ODLocalTransportResponse *response,NSError *failure){(void)response;(void)failure;}];
+    NSArray<dispatch_block_t> *pending=[_pendingAuthRequests copy];[_pendingAuthRequests removeAllObjects];
+    for(dispatch_block_t request in pending)request();
+}
+- (void)runOfflineAuthRoute:(ODLocalTransportRoute *)route request:(ODLocalTransportRequest *)request
+        completion:(ODLocalTransportCompletion)complete {
+    if(!NSThread.isMainThread){
+        dispatch_async(dispatch_get_main_queue(),^{[self runOfflineAuthRoute:route request:request completion:complete];});return;
+    }
+    if(_authInvalidated||!_current()){
+        [self invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;
+    }
+    if(![request isActive]){complete(nil,ODHostFailure(11));return;}
+    if(!_services&&_servicesPending){
+        // The original request's own transport deadline/cancellation remains
+        // authoritative; pending native work is bounded and never blocks main.
+        if(_pendingAuthRequests.count>=8){complete(nil,ODHostFailure(11));return;}
+        __weak ODUnifiedDuoHost *weakSelf=self;
+        [_pendingAuthRequests addObject:^{
+            ODUnifiedDuoHost *host=weakSelf;
+            if(host)[host runOfflineAuthRoute:route request:request completion:complete];
+            else complete(nil,ODHostFailure(11));
+        }];return;
+    }
+    ODBoundOriginalCreatorServices *services=_services;
+    ODNativeCore *core=[services originalClientCoreForContentID:_authContent saveScopeSHA256:_authScope];
+    if(!core||![self authContextIsCurrent]){[self invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;}
+    NSUInteger generation=_authGeneration;
+    __weak ODUnifiedDuoHost *weakSelf=self;
+    [core originalClientPlayerSnapshotForProfile:@"local-player" expectedSaveScopeSHA256:_authScope
+        reply:^(id result,NSError *failure){
+            ODUnifiedDuoHost *host=weakSelf;
+            if(!host){complete(nil,ODHostFailure(11));return;}
+            if(ODHostAuthScopeChanged(failure)){
+                [host invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;
+            }
+            if(failure||![request isActive]){complete(nil,ODHostFailure(11));return;}
+            if(![host authSnapshot:result matchesCore:core issuer:services generation:generation]){
+                [host invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;
+            }
+            // Every issuer handler runs on main. No main-only scope predicate
+            // is called by the Foundation transport's serial queue.
+            [route handleRequest:request completion:^(ODLocalTransportResponse *response,NSError *issuerFailure){
+                if(![host authContextIsCurrent]){
+                    [host invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;
+                }
+                if(issuerFailure||!response||![request isActive]){complete(nil,ODHostFailure(11));return;}
+                [core originalClientPlayerSnapshotForProfile:@"local-player" expectedSaveScopeSHA256:host->_authScope
+                    reply:^(id finalResult,NSError *finalFailure){
+                        ODUnifiedDuoHost *owner=weakSelf;
+                        if(!owner){complete(nil,ODHostFailure(11));return;}
+                        if(ODHostAuthScopeChanged(finalFailure)){
+                            [owner invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;
+                        }
+                        if(finalFailure||![request isActive]){complete(nil,ODHostFailure(11));return;}
+                        if(![owner authSnapshot:finalResult matchesCore:core issuer:services generation:generation]){
+                            [owner invalidateOfflineAuthForRequest:request];complete(nil,ODHostFailure(11));return;
+                        }
+                        complete(response,nil);
+                    }];
+            }];
+        }];
+}
+- (BOOL)configureOfflineAuthForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope
+        expiresIn:(int32_t)expiresIn error:(NSError **)error {
+    if(!NSThread.isMainThread){if(error)*error=ODHostFailure(11);return NO;}
+    BOOL admitted=(_services&&[_services matchesAdmittedContentID:contentID saveScopeSHA256:scope])||
+        (!_services&&_servicesPending&&[_admittedContent isEqual:contentID]&&[_admittedScope isEqual:scope]);
+    if(!NSThread.isMainThread||_purpose!=ODUnifiedDuoIntegratedTarget||_attempted||_authConfigured||
+       !ODHostContentID(contentID)||!ODHostHex(scope)||expiresIn<=0||!_current()||!admitted||
+       (_services&&![_services originalClientCoreForContentID:contentID saveScopeSHA256:scope])){
+        if(error)*error=ODHostFailure(11);return NO;
+    }
+    for(ODLocalTransportRoute *route in _routes)
+        if(ODHostClosedAuthPath(route.path)){if(error)*error=ODHostFailure(11);return NO;}
+    _authContent=[contentID copy];_authScope=[scope copy];_authGeneration=1;
+    _pendingAuthRequests=[NSMutableArray array];
+    __weak ODUnifiedDuoHost *weakSelf=self;
+    NSArray<ODLocalTransportRoute *> *issuer=[ODOfflineBootstrapAuth candidateRoutesWithExpiresIn:expiresIn
+        contextIsCurrent:^BOOL{return [weakSelf authContextIsCurrent];} error:error];
+    if(issuer.count!=3)return NO;
+    NSMutableArray<ODLocalTransportRoute *> *routes=[_routes mutableCopy];
+    for(ODLocalTransportRoute *route in issuer){
+        ODLocalTransportRoute *wrapped=[[ODLocalTransportRoute alloc] initWithMethod:route.method path:route.path
+            handler:^(ODLocalTransportRequest *request,ODLocalTransportCompletion complete){
+                dispatch_async(dispatch_get_main_queue(),^{
+                    ODUnifiedDuoHost *host=weakSelf;
+                    if(host)[host runOfflineAuthRoute:route request:request completion:complete];
+                    else complete(nil,ODHostFailure(11));
+                });
+            }];
+        if(!wrapped){if(error)*error=ODHostFailure(11);return NO;}[routes addObject:wrapped];
+    }
+    _authIssuerRoutes=issuer;_routes=[routes copy];_authConfigured=YES;
+    _stage=@"offline-auth-handlers-configured";[self emit];return YES;
+}
 - (NSDictionary *)issueOfflineAuthEnvelopeWithNativeTime:(int32_t)nativeTime expiresIn:(int32_t)expiresIn error:(NSError **)error {
     if (!NSThread.isMainThread || !_current()) { if (error) *error = ODHostFailure(2); return nil; }
     return [ODOfflineBootstrapAuth issueWithNativeTime:nativeTime expiresIn:expiresIn error:error];
@@ -263,7 +410,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 - (BOOL)stagePlaintextDerivedMasterAtURL:(NSURL *)derived byteCount:(uint64_t)bytes contentSHA256:(NSString *)sha256 language:(NSString *)language error:(NSError **)error {
     unichar first=language.length? [language characterAtIndex:0]:0, second=language.length>1?[language characterAtIndex:1]:0;
-    if(!NSThread.isMainThread||_attempted||_masterAttached||!derived.isFileURL||!derived.path.isAbsolutePath||
+    if(!NSThread.isMainThread||_attempted||_masterAttached||_originalMasterStage||!derived.isFileURL||!derived.path.isAbsolutePath||
        bytes<100||bytes>256ull*1024ull*1024||![sha256 isKindOfClass:NSString.class]||!ODHostHex(sha256)||
        language.length!=2||first<'a'||first>'z'||second<'a'||second>'z'||[_state containsString:@"/Documents/assets"]){
         if(error)*error=ODHostFailure(9);return NO;
@@ -288,6 +435,16 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     _masterAttached=YES;_masterReadonlyReady=YES;_masterSourcePath=[derived.path copy];_masterLanguage=[language copy];_masterSHA=[sha256 copy];
     _masterBytes=bytes;_masterRelative=[NSString stringWithUTF8String:receipt.relative_path];
     _stage=@"plaintext-master-staged";[self emit];return YES;
+}
+- (BOOL)adoptColdStagedOriginalMaster:(ODNativeMasterColdStage *)stage error:(NSError **)error {
+    if(!NSThread.isMainThread||_attempted||_masterAttached||_originalMasterStage||
+       ![stage isKindOfClass:ODNativeMasterColdStage.class]||!_current()||
+       ![stage.assetsRootURL.path isEqualToString:_resources]||
+       ![stage confirmBeforeOriginalImageLoad:error]){
+        if(error)*error=ODHostFailure(9);return NO;
+    }
+    _originalMasterStage=stage;
+    _stage=@"original-master-cold-copy-staged-native-acceptance-pending";[self emit];return YES;
 }
 - (BOOL)expectDeferredCreatorServicesForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope error:(NSError **)error {
     if(!NSThread.isMainThread||_attempted||_services||_servicesPending||_purpose!=ODUnifiedDuoIntegratedTarget||
@@ -330,6 +487,8 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         _lifecycleInstalled=YES;
     }
     _services=services;if(decision.clear_pending)_servicesPending=NO;
+    NSArray<dispatch_block_t> *pending=[_pendingAuthRequests copy];[_pendingAuthRequests removeAllObjects];
+    for(dispatch_block_t request in pending)request();
     _creatorAttached=attached;
     _stage=attached?@"original-scene-and-creator-bound":@"creator-services-bound-waiting-for-renderer";
     if(decision.refresh_shortcut)ODDuoRefreshQueuedCreatorQuickAction();

@@ -34,6 +34,12 @@
       "bytes": 535552,
       "source_sha256": "667e554a9cfb8c4765f05a1d85f0fdf707ade61562b50e3e5cd98ac52f997ba3",
       "verification": "native factory reads and hashes exact opaque original seed; no database decoding or key access"
+    },
+    {
+      "relative_path": "Frameworks/AdjustSigSdk.framework/Info.plist",
+      "bytes": 886,
+      "source_sha256": "8d3c83e4fb61b074d89a26457fb29337468751eee01ae4140d5288fa751d13d7",
+      "verification": "exact original metadata restored and source-staged from whole-IPA-hash-verified extraction; no generated substitute"
     }
   ],
   "resource_root": "actual own NSDocumentDirectory first result plus assets; admitted cold publication before original dlopen",
@@ -63,9 +69,11 @@
   "existing_working_tree_staging_receipt_implemented": false,
   "legacy_harness_fallback": false,
   "native_compile_verified": false,
-  "private_inputs_restored": false,
+  "private_inputs_restored": true,
   "two_pinned_binary_inputs_restored": true,
-  "framework_bundle_metadata_restored": false,
+  "framework_bundle_metadata_restored": true,
+  "original_safe_resource_source_staging_verified": true,
+  "native_app_resource_staging_verified": false,
   "complete_resource_staging_implemented": false,
   "original_game_launch_verified": false,
   "offline_login_verified": false,

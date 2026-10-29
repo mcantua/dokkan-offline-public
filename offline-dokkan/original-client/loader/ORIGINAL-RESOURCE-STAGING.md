@@ -71,7 +71,17 @@ python3 offline-dokkan/original-client/loader/stage_original_resources.py \
   --manifest-sha256 "$REVIEWED_RESOURCE_MANIFEST_SHA256"
 ```
 
-The resource extraction and this real-input staging command have not run.
+The complete extraction and one real-input staging invocation have now
+succeeded. The reviewed manifest is 428,858 bytes, SHA-256
+`d0a887ef235f35aa54f5ac35de9c0cd867bcbfb7026ef214232fd635e0b48f2f`.
+All 25 parts were SHA-verified, totaling 790,413,610 bytes. The resulting
+source-staging receipt SHA-256 is
+`c7b5e675ab320977de0abddf9ecc44151bffc8092d550f9a546a1cb441e23c4f`.
+It records 1,070 original bundle members, 27 canonical Documents preparation
+aliases and 27 native immutable cache members. The stager code hash matched
+the source evidence. No synthetic scenario was rerun, and no native app
+Documents, package, engine execution or build was involved.
+
 When builds are explicitly authorized, the package recipe must merge
 `bundle/` into a fresh own diagnostic bundle, preserve the genuine shell and
 prepared original engine. The diagnostic's source now composes the existing

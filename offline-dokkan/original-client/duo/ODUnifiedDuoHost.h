@@ -2,7 +2,7 @@
 #include <stdint.h>
 #import "ODDuoOriginalScene.h"
 #import "../ios/ODLocalURLProtocol.h"
-@class ODBoundOriginalCreatorServices;
+@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage;
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, ODUnifiedDuoPurpose) {
     ODUnifiedDuoStartupDiagnostic,
@@ -35,15 +35,33 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
 /** Copy the plaintext derived master into this host's writable state directory
  * at the reviewed MAIN relative path. Call on main before install. The only
  * source file stays read-only. No key is applied and the engine cache is not
- * redirected. Integrated startup requires this call. */
+ * redirected. This detached tool does NOT satisfy original-client integrated
+ * startup: its readonly plaintext file is not native opaque-key admission. */
 - (BOOL)stagePlaintextDerivedMasterAtURL:(NSURL *)derived byteCount:(uint64_t)bytes
     contentSHA256:(NSString *)sha256 language:(NSString *)language
+    error:(NSError * _Nullable * _Nullable)error;
+/** Adopt an independently cold-staged disposable opaque working copy on main
+ * before install. Its actual own Documents/assets root must match this host's
+ * resources root. This records preparation only; native language/prefix,
+ * original key/open/schema acceptance remain unobserved and integrated startup
+ * stays closed. No arbitrary native acceptance boolean/callback is exposed. */
+- (BOOL)adoptColdStagedOriginalMaster:(ODNativeMasterColdStage *)stage
     error:(NSError * _Nullable * _Nullable)error;
 /** Integrated startup may reach UIApplicationMain before the async core
  * profile/scope reply. Record that reply's exact content id and save scope,
  * then pass the services built from it to bindCreatorServicesWhenReady:. */
 - (BOOL)expectDeferredCreatorServicesForContentID:(NSString *)contentID
     saveScopeSHA256:(NSString *)scope error:(NSError * _Nullable * _Nullable)error;
+/** Integrated target only, on main before install. Builds the proved local
+ * ping/nonce/sign-in routes internally; caller-supplied auth routes remain
+ * refused. Identity must match already bound services or their exact deferred
+ * admission. Every request obtains the bound issuer's own canonical Core and
+ * verifies the local-player/content/save scope asynchronously. expiresIn is
+ * explicit offline policy, not a recovered server lifetime. No token is saved.
+ * Actual native login remains unverified. Diagnostic behavior is unchanged. */
+- (BOOL)configureOfflineAuthForContentID:(NSString *)contentID
+    saveScopeSHA256:(NSString *)scope expiresIn:(int32_t)expiresIn
+    error:(NSError * _Nullable * _Nullable)error;
 /** NO is a fatal startup result to the plugin caller: do not show the old
  * standalone shell as if it were the unified original game. */
 - (BOOL)installBeforeApplicationMain:(NSError * _Nullable * _Nullable)error;

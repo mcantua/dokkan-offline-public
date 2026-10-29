@@ -3,7 +3,8 @@
 `extract_original_resources.py` prepares the original client's bundled game
 resources, rather than treating nonmatching Android files as iPhone bytes. The
 startup owner agreed this is preferable to recovering a thousand filenames one
-at a time. This is a prepared input-recovery option, not an executed transfer or
+at a time. The reviewed cloud step has now run and its exact source outputs
+were materialized and staged once. This is recovered original input, not a
 working game.
 
 The self-contained private Colab notebook embeds the repository's existing
@@ -67,10 +68,21 @@ The notebook is retained privately under
 `offline-dokkan/private/startup-input-recovery/`; runtime Drive IDs are outside
 Git. Root reviewed the helper, replaced the existing Drive notebook in place,
 verified its exact uploaded bytes, and requested the necessary Google-account
-Run-all step. Actual resource extraction is still pending confirmation and
-output verification. No original file or sharing permission was changed.
+Run-all step. The owner completed that step; all resulting parts were retrieved
+and verified. No additional account step is needed for this output set. No
+original file or sharing permission was changed.
 
 One combined synthetic check passed: existing-selector filtering, distinct
 root/tutorial aliases, member reconstruction across part boundaries, hashes,
-private-path refusal, and source preservation. No real full-resource transfer,
-native staging, build, launch, or gameplay check ran.
+private-path refusal, and source preservation. The actual cloud extraction
+produced 25 parts containing 790,413,610 selected bytes: 1,067 approved resources
+and one framework Info.plist. Every materialized part passed SHA-256 and was
+published read-only. The source stager then completed its first and only real
+run: 1,070 original bundle members including the two earlier startup inputs,
+27 catalog-verified Documents aliases, and the corresponding native compatible
+cache/catalog. Manifest SHA-256 is
+`d0a887ef235f35aa54f5ac35de9c0cd867bcbfb7026ef214232fd635e0b48f2f`;
+staging receipt SHA-256 is
+`c7b5e675ab320977de0abddf9ecc44151bffc8092d550f9a546a1cb441e23c4f`.
+This was cloud filesystem source staging only. No actual app Documents tree,
+native engine, build, launch, or gameplay was executed.

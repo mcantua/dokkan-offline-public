@@ -1,0 +1,52 @@
+{
+  "kind": "current-original-ordinary-root-optional-update-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "wrapper_contract": "ordinary-webapi-plain-response-contract.json",
+  "reviewed_bodies": [
+    {
+      "label": "ordinary_root_processor_1",
+      "bytes": 444,
+      "sha256": "9fc6612663c8687f18cd0b44a9795f5991cd20432d67586f01fc0207d4c638c0",
+      "guarded_root_field": "popups",
+      "missing_field_effect": "Skip that root-field update"
+    },
+    {
+      "label": "ordinary_root_processor_2",
+      "bytes": 508,
+      "sha256": "27ea94c00c6fa035650d5610392a2cf22dd3cc2d357d7f19503cbf2083cdf3b8",
+      "guarded_root_field": "missions",
+      "missing_field_effect": "Skip that root-field update"
+    },
+    {
+      "label": "ordinary_root_processor_3",
+      "bytes": 412,
+      "sha256": "2a3ecaacf237c1403a075c3b2dcd7f51f91cb061c91b590ca68e2dc899314ca2",
+      "guarded_root_field": "support_memory_enhancements",
+      "missing_field_effect": "Skip that root-field update"
+    },
+    {
+      "label": "ordinary_root_processor_4",
+      "bytes": 100,
+      "sha256": "bdf311ad24b54872a072fc28b4306fb3752254e38063ca4bf01948c640ce755a",
+      "guarded_root_field": "is_score_benefits_unlocked",
+      "missing_field_effect": "Skip that root-field update"
+    }
+  ],
+  "facts": [
+    "Each of the actual four common root processors first checks object type and presence of its own named root member before selecting that child.",
+    "The popup processor also has an existing request-path exclusion; the mission processor performs its existing path/regex setup and exclusion before its guarded JSON update. No new routes are inferred from those exclusions.",
+    "An empty object contains none of these four keys, so their child parsers and corresponding model mutations are not entered.",
+    "The support-memory update reads current/prev only if support_memory_enhancements exists. The score-benefit boolean conversion is only reached if is_score_benefits_unlocked exists.",
+    "All four decompilation instruction footprints stay within their declared bodies. No new body or test was needed for the already-reviewed common member-presence helper."
+  ],
+  "minimal_object_common_updates_safe_statically": true,
+  "child_field_types_fully_reviewed": false,
+  "endpoint_response_contract_verified": false,
+  "http_route_admitted": false,
+  "original_iphone_runtime_verified": false,
+  "limits": [
+    "This is static optional-field behavior, not proof that an arbitrary endpoint accepts an empty object. Each endpoint success consumer must be proved separately.",
+    "Missing optional updates preserve model state; this proof does not grant mission, popup, support-memory or score-benefit state.",
+    "The ordinary wrapper still runs its existing generic processing and endpoint callback. No UI, gameplay, native execution or package build is claimed."
+  ]
+}

@@ -40,13 +40,20 @@ static NSString *ODOrigin(NSURLComponents *url) {
 }
 
 @interface ODLocalTransportRequest ()
-- (instancetype)initWithMethod:(NSString *)method path:(NSString *)path body:(NSData *)body;
+@property (nonatomic, copy) BOOL (^activePredicate)(void);
+- (instancetype)initWithMethod:(NSString *)method path:(NSString *)path body:(NSData *)body
+                        active:(BOOL (^)(void))active;
 @end
 @implementation ODLocalTransportRequest
-- (instancetype)initWithMethod:(NSString *)method path:(NSString *)path body:(NSData *)body {
-    if ((self = [super init])) { _method = [method copy]; _path = [path copy]; _body = [body copy]; }
+- (instancetype)initWithMethod:(NSString *)method path:(NSString *)path body:(NSData *)body
+                        active:(BOOL (^)(void))active {
+    if ((self = [super init])) {
+        _method = [method copy]; _path = [path copy]; _body = [body copy];
+        _activePredicate = [active copy];
+    }
     return self;
 }
+- (BOOL)isActive { return _activePredicate ? _activePredicate() : NO; }
 @end
 
 @implementation ODLocalTransportResponse
@@ -83,6 +90,9 @@ static NSString *ODOrigin(NSURLComponents *url) {
     if (!ODMethod(method) || !ODCanonicalPath(path) || !handler) return nil;
     if ((self = [super init])) { _method = [method copy]; _path = [path copy]; _handler = [handler copy]; }
     return self;
+}
+- (void)handleRequest:(ODLocalTransportRequest *)request completion:(ODLocalTransportCompletion)completion {
+    _handler(request, completion);
 }
 @end
 
@@ -253,7 +263,12 @@ NSURLSessionConfiguration *ODLocalTransportSessionConfiguration(NSURLSessionConf
         }
         ODLocalTransportRoute *route = configuration.routes[[NSString stringWithFormat:@"%@ %@",method,path]];
         if (!route) { [owner finishResponse:nil failure:ODTransportError(4,@"UNVERIFIED_OFFLINE_ROUTE")]; return; }
-        ODLocalTransportRequest *local = [[ODLocalTransportRequest alloc] initWithMethod:method path:path body:request.HTTPBody ?: NSData.data];
+        ODLocalTransportRequest *local = [[ODLocalTransportRequest alloc]
+            initWithMethod:method path:path body:request.HTTPBody ?: NSData.data active:^BOOL {
+                ODLocalURLProtocol *current = weakSelf;
+                if (!current) return NO;
+                @synchronized(current) { return current.started && !current.stopped && !current.completed; }
+            }];
         NSTimeInterval seconds = request.timeoutInterval;
         if (!isfinite(seconds) || seconds <= 0) seconds = 60;
         seconds = fmin(120,fmax(1,seconds));
@@ -261,12 +276,12 @@ NSURLSessionConfiguration *ODLocalTransportSessionConfiguration(NSURLSessionConf
             [weakSelf finishResponse:nil failure:ODTransportError(6,@"LOCAL_RESPONSE_TIMEOUT")];
         });
         @try {
-            route.handler(local, ^(ODLocalTransportResponse *response, NSError *error) {
+            [route handleRequest:local completion:^(ODLocalTransportResponse *response, NSError *error) {
                 // Host errors may carry private user values. Only a fixed failure crosses this boundary.
                 dispatch_async(configuration.queue, ^{
                     [weakSelf finishResponse:response failure:error ? ODTransportError(5,@"LOCAL_ROUTE_FAILED") : nil];
                 });
-            });
+            }];
         } @catch (NSException *exception) {
             [owner finishResponse:nil failure:ODTransportError(5,@"LOCAL_ROUTE_FAILED")];
         }

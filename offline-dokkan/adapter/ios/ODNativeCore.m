@@ -6,6 +6,8 @@
 #include <errno.h>
 #include <string.h>
 
+static char ODNativeCoreOwnerQueueKey;
+
 @interface ODNativeCreatorLease ()
 - (instancetype)initWithProfile:(NSString *)profile content:(NSString *)content scope:(NSString *)scope;
 @end
@@ -28,6 +30,7 @@
     if ((self = [super init])) {
         _save = [saveURL copy]; _master = [masterURL copy]; _content = [contentID copy];
         _queue = dispatch_queue_create("personal.offlinedokkan.creator-core", DISPATCH_QUEUE_SERIAL);
+        dispatch_queue_set_specific(_queue,&ODNativeCoreOwnerQueueKey,(__bridge void *)self,NULL);
     }
     return self;
 }
@@ -129,6 +132,46 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
             @"clean":@([snapshot[@"generation"] isEqual:snapshot[@"applied_generation"]])};
     }
     od_bridge_free(json);od_bridge_free(failure);return result;
+}
+- (NSDictionary *)prepareOriginalClientLocalPlayerOnPreparationQueueWithError:(NSError **)error {
+    // Refuse ALL Core owner queues, including this one, before dispatch_sync.
+    // A preparation caller must not wait here from main or create a cycle by
+    // entering a second owner from within another owner's work.
+    if(NSThread.isMainThread||dispatch_get_specific(&ODNativeCoreOwnerQueueKey)){
+        if(error)*error=CoreError("ORIGINAL_PLAYER_PREPARATION_QUEUE_REQUIRED");return nil;
+    }
+    __block NSError *failure=nil;
+    __block NSDictionary *prepared=nil;
+    dispatch_sync(_queue,^{
+        if(self->_creatorLease){failure=CoreError("CREATOR_EDIT_LEASE_HELD");return;}
+        if(![self ensureOpen:&failure])return;
+        char *output=NULL,*nativeError=NULL;
+        NSString *refresh=NSUUID.UUID.UUIDString;
+        int rc=od_bridge_execute(self->_bridge,"profile.refresh","local-player",refresh.UTF8String,"{}",&output,&nativeError);
+        BOOL missing=rc<0&&nativeError&&strcmp(nativeError,"PROFILE_NOT_FOUND")==0;
+        od_bridge_free(output);output=NULL;
+        if(rc<0&&!missing){failure=CoreError(nativeError);od_bridge_free(nativeError);return;}
+        od_bridge_free(nativeError);nativeError=NULL;
+        BOOL created=NO;
+        if(missing){
+            NSString *create=NSUUID.UUID.UUIDString;
+            rc=od_bridge_execute(self->_bridge,"profile.create","local-player",create.UTF8String,"{}",&output,&nativeError);
+            od_bridge_free(output);output=NULL;
+            if(rc<0){failure=CoreError(nativeError);od_bridge_free(nativeError);return;}
+            od_bridge_free(nativeError);nativeError=NULL;
+            created=rc==0;
+        }
+        NSDictionary *admission=ODProjectionAdmission(self->_bridge,@"local-player",self->_content);
+        if(!admission){failure=CoreError("ORIGINAL_PLAYER_ADMISSION_UNAVAILABLE");return;}
+        rc=od_bridge_offline_player_snapshot(self->_bridge,"local-player",&output,&nativeError);
+        NSDictionary *snapshot=rc>=0?ODProjectionJSON(output):nil;
+        if(!snapshot||![snapshot[@"profile_id"] isEqual:@"local-player"]||
+           ![snapshot[@"content_id"] isEqual:self->_content])failure=CoreError("ORIGINAL_PLAYER_SNAPSHOT_UNAVAILABLE");
+        else prepared=@{@"admission":admission,@"player_snapshot":snapshot,@"profile_created":@(created)};
+        od_bridge_free(output);od_bridge_free(nativeError);
+    });
+    if(!prepared&&error)*error=failure?:CoreError("ORIGINAL_PLAYER_PREPARATION_UNAVAILABLE");
+    return prepared;
 }
 - (void)originalCreatorProjectionAdmissionForProfile:(NSString *)profile reply:(ODCoreReply)reply {
     NSString *owner=[profile copy];

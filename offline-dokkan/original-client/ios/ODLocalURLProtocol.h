@@ -7,6 +7,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *method;
 @property (nonatomic, copy, readonly) NSString *path;
 @property (nonatomic, copy, readonly) NSData *body;
+/** Thread-safe observation of this native transport request's current activity.
+ * NO after cancellation, completion, timeout, or protocol release. This is a
+ * snapshot; it does not reserve activity or roll back an already-started action.
+ * The transport independently drops late/duplicate/cancelled delivery. */
+- (BOOL)isActive;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 
@@ -37,6 +42,10 @@ typedef void (^ODLocalTransportHandler)(ODLocalTransportRequest *request,
 @property (nonatomic, copy, readonly) NSString *path;
 - (nullable instancetype)initWithMethod:(NSString *)method path:(NSString *)path
                                handler:(ODLocalTransportHandler)handler;
+/** Invoke this immutable native route on the caller's queue. The admitted host
+ * may wrap its owned routes for lifecycle checks without exposing or replacing
+ * their handler blocks. This grants no route registration or WebView authority. */
+- (void)handleRequest:(ODLocalTransportRequest *)request completion:(ODLocalTransportCompletion)completion;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 

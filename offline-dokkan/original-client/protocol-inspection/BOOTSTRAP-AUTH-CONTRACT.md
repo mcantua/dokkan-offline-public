@@ -29,8 +29,9 @@ and supports a same-issue retry. Missing/expired nonce state and a stale owner
 predicate fail closed. Sign-in retries emit remaining positive TTL for the same
 token/deadline, and clock rollback invalidates that issue. Only local randomness is used; source credential headers
 and request bodies are neither read nor forwarded by these handlers. The host
-still rejects auth routes. Native compilation, delivery/invalidation behavior,
-actual login and delivery/invalidation remain unverified.
+reserves caller-supplied auth routes; its integrated-only configuration now
+constructs these handlers internally with canonical scope checks. Native
+compilation, delivery/invalidation behavior and actual login remain unverified.
 
 The pre-auth command is the actual `PingAPI`. Its constructor, actual request
 vtable and response wrapper now prove `GET /ping` and `ping_info` processing.
@@ -64,7 +65,18 @@ its exact selector enters the encoded branch only for an object containing
 root `sign`. Presence counts even if the value is JSON null. A plain object
 without that member follows the original direct-root path; nested `sign` is
 allowed. `ordinary-webapi-plain-response-contract.json` records this evidence.
-The common four model updates and endpoint DTOs still require their own
-contracts. The shared native `+plainJSONResponseWithObject:` factory rejects
+The common four model updates now have proved missing-field guards in
+`ordinary-root-optional-updates.json`; each endpoint DTO still requires its own
+contract. The shared native `+plainJSONResponseWithObject:` factory rejects
 root `sign`, serializes/rechecks the object and applies the existing response
 budget. Auth candidate handlers now use it; this does not install a route.
+
+`duo/ODUnifiedDuoHost` now has an integrated-only native configuration method
+that creates its own three auth routes. It obtains the actual Core from the
+bound services, checks the canonical local-player/content/save scope before
+issuing and before completing, and runs handlers on main. Deferred services
+have a bounded pending queue. Current-owner/scope changes invalidate the issue;
+request cancellation and an expired/missing nonce reject only that request so
+a fresh nonce can recover. No concrete integrated factory invokes it yet;
+only the diagnostic factory exists. Source review and exact limits are in
+`duo/offline-auth-composition-source.json`. No native build or login occurred.

@@ -81,6 +81,10 @@ invalid:if(error)*error=ODBindingError(1);return nil;
 - (BOOL)matchesAdmittedContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope {
     return [contentID isEqual:_content]&&[scope isEqual:_scope];
 }
+- (ODNativeCore *)originalClientCoreForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope {
+    return NSThread.isMainThread&&[self matchesAdmittedContentID:contentID saveScopeSHA256:scope]&&
+        [self creatorScopeIsCurrent] ? _core : nil;
+}
 - (BOOL)creatorScopeIsCurrent {
     struct stat master,path,workspace,save;
     return NSThread.isMainThread&&_current()&&[_core matchesSaveURL:_save masterURL:_master contentID:_content]&&

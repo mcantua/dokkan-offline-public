@@ -113,8 +113,8 @@ static BOOL ODSigned32Sum(int32_t nativeTime, int32_t expiresIn, int32_t *sum) {
         return nil;
     }
     BOOL (^current)(void) = [contextIsCurrent copy];
-    // All handlers run on ODLocalURLProtocol's serial queue. No disk state or
-    // request headers/body values become part of the locally issued identity.
+    // The caller serializes all handlers on one queue (the host uses main).
+    // No disk state or request headers/body values enter the local identity.
     __block NSDictionary *issued = nil;
     __block time_t issuedAt = 0;
     ODLocalTransportResponse *pingResponse = [ODLocalTransportResponse plainJSONResponseWithObject:

@@ -370,3 +370,33 @@ Tin says "make the builds"; no playable link, original-game execution or new
 in-app image is claimed. Both other platforms remain paused. Continue the
 first-playable path immediately after integration, updating STATUS and the
 existing Drive snapshot IDs. [Current detail](context/DUO-FIRST-PLAYABLE.md).
+
+
+### October 29, 3:13 PM CT — real source recovery and native startup composition
+
+The full approved original resource input is now verified, not pending: all25
+parts match SHA; one real staging run produced1,070original members and27exact
+working aliases plus native catalog/cache. Source originals are intact and
+private. The extraction account step is complete. Actual native startup/battle
+asset sufficiency still requires a real original-client run.
+
+Host-owned ping/auth source uses only its bound services' actual Core, checks
+canonical identity/scope before and after replies, and keeps ordinary request
+cancellation/expiry recoverable. Transport activity/invocation is native-only.
+Core has a narrow non-main preparation API using its same serial owner and
+approved clocked profile policy; it does not make an async constructor/factory
+exist. Source review fixed native /var root handling, stale package component
+admission and secondary-scene interference with the primary original renderer.
+The diagnostic assembler is source only: no .app/IPA, compile or invocation.
+Opaque-master cold staging preserves an immutable input and separate writable
+copy; it does not prove native key/schema compatibility. All such acceptance
+flags remain false. No key value or source account/save/signing data is used.
+
+**Pending:** complete native language/origin initialization ordering, real
+master selected-file/open/schema observation, actual integrated startup factory
+and canonical binding; close current Home/resources/card/battle contracts,
+then original battle/result persistence and Creator-in-battle admission. Keep
+Duo only, no native builds until Tin says "make the builds", no base merge and
+no fake in-app images. Continue independent implementation after the source
+commit and existing Drive-ID sync. Exact owners/limits are in STATUS and
+context/DUO-FIRST-PLAYABLE.md.

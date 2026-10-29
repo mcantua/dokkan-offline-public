@@ -18,6 +18,17 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 /** Native host binding check over immutable owner identity; no file/path/KVC
  * discovery and no WebView operation. Queue/open errors remain authoritative. */
 - (BOOL)matchesSaveURL:(NSURL *)saveURL masterURL:(NSURL *)masterURL contentID:(NSString *)contentID;
+/** Native cold preparation before original startup, from a dedicated IO
+ * preparation queue. Refuses main and every Core owner queue; never waits for
+ * main or creates a second connection. Runs on THIS owner's serial queue:
+ * existing clocked profile.refresh, profile.create only on PROFILE_NOT_FOUND,
+ * then exact canonical local-player admission + snapshot. No starting values,
+ * clock, currency or rewards may be supplied. The immutable result contains
+ * {admission,player_snapshot,profile_created}; keep it private in native memory.
+ * Later adapters still recheck current scope. This is not native game/master
+ * compatibility acceptance and does not make an integrated factory exist. */
+- (nullable NSDictionary *)prepareOriginalClientLocalPlayerOnPreparationQueueWithError:
+    (NSError * _Nullable * _Nullable)error;
 /** Native-only durable original-client Creator projection. Uses this exact
  * owner's core/master/save on its serial queue; overlay URL is host-pinned.
  * Success: content_id, save_scope_sha256, projection_generation,

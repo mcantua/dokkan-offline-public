@@ -21,6 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** Exact content id and save scope captured when this issuer was constructed.
  * This is not a filesystem search. */
 - (BOOL)matchesAdmittedContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope;
+/** Native original-client adapters only, on main. Returns this issuer's own
+ * Core after current filesystem/context and exact admitted identity checks.
+ * Callers must still obtain a fresh atomic profile/scope admission from Core;
+ * this does not grant a Creator lease or expose a WebView operation. */
+- (nullable ODNativeCore *)originalClientCoreForContentID:(NSString *)contentID
+    saveScopeSHA256:(NSString *)scope;
 /** Host-owned per-request policy; defaults denied. Configure only while closed.
  * No browser value grants personal-network access. */
 - (BOOL)configureCreatorNetworkAuthorization:(BOOL (^)(NSURL *url))authorization error:(NSError * _Nullable * _Nullable)error;

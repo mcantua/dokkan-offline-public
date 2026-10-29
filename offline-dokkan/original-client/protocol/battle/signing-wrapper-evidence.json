@@ -68,6 +68,106 @@
   "limits": [
     "The reference version is not an identification of the original binary OpenSSL version.",
     "Base64 only identifies the outer encoding. It does not establish whether the preceding bytes are encrypted payload, MAC framing or another native encoding.",
-    "No independent cryptography, guessed decoding, hardcoded private key, native presign hook ABI or working offline request is introduced."
+    "No independent cryptography, hardcoded private key, guessed C-string ABI or working offline request is introduced.",
+    "The original decoder is a source-proven reuse candidate. Compatibility with original encoded battle requests has not been executed."
+  ],
+  "existing_decoder": {
+    "bytes": 200,
+    "sha256": "07b37bdcda5d5b0f352ac98d75366ca0adf5ddc77878cd256ad147cc766643e1",
+    "used_by_original_ordinary_response_callback": true,
+    "caller_bytes": 1276,
+    "caller_sha256": "785d933d26d9474b66b0075a6fc10a2c1e06f343cd2ba528e01fc3940dd5627d",
+    "observed_high_pcode_sites": 19,
+    "observed_high_pcode_sites_outside_declared_body": 0,
+    "register_contract": {
+      "X0": "address of native encoded string",
+      "X1": "address of original opaque argument",
+      "X8": "caller-owned native output string storage"
+    },
+    "opaque_getter_identity_matches_outgoing_builder": true,
+    "opaque_runtime_values_equal_across_requests_verified": false,
+    "temporary_ranges_released_before_return": true,
+    "underlying_decode_stage_bodies_inspected": true,
+    "formal_exported_C_API_identified": false,
+    "request_encode_decode_compatibility_verified": false,
+    "native_adapter_implemented": false,
+    "cipher_and_derivation_implementations_inspected": false,
+    "caller_releases_opaque_result_using_native_string_discriminator": true
+  },
+  "ordinary_plain_response_policy": {
+    "bytes": 160,
+    "sha256": "925ede63daaa452d4df2a653ac089b5168ced4528c86f98069ad72d7c380819a",
+    "condition": "JSON object has member sign selects signed branch; object without sign follows plain root path",
+    "common_root_processors_fully_reviewed": false,
+    "encoded_request_decoding_proven": false
+  },
+  "bounded_codec_pair_instruction_scopes": [
+    {
+      "role": "outgoing_stage1",
+      "bytes": 288,
+      "sha256": "f28a1440a634bdfc07dd1d951b5d6967362cd208b128d32a7e3f9bb904438ac6"
+    },
+    {
+      "role": "incoming_base64_stage",
+      "bytes": 280,
+      "sha256": "af36ab396526507fe05d78fc13a6e07255ae9dc7587ce599197b8b8da8ee30f8"
+    },
+    {
+      "role": "incoming_stage2",
+      "bytes": 348,
+      "sha256": "ad8afe6b520d222bc5d31aa9ba063504715b1d50f4b8bb3a8bb518cd150a19da"
+    },
+    {
+      "role": "outgoing_init",
+      "bytes": 244,
+      "sha256": "bf4efeaa7dd055d4dd7f08682de2c30d5067b318e9c436894a120dc82e92bf15"
+    },
+    {
+      "role": "outgoing_transform",
+      "bytes": 256,
+      "sha256": "0f3e152da7e3112e938b056b254f492a63d9acdf301c978016e409a6e1842b29"
+    },
+    {
+      "role": "incoming_init",
+      "bytes": 248,
+      "sha256": "0dba0627d5152f4f54eef296fa62d95b79243a80f0c8f37569caf2dde7a49f12"
+    },
+    {
+      "role": "incoming_transform",
+      "bytes": 236,
+      "sha256": "0eb297aea23373fe1d0faca4dc1ed30e327ac0e7222f7d0468309c14ce142dd1"
+    },
+    {
+      "role": "outgoing_context_init",
+      "bytes": 76,
+      "sha256": "24281afc7dd09c321a7632fcb683f2f171673f3295a66632cd8e7eab2f6d1b88"
+    },
+    {
+      "role": "incoming_context_init",
+      "bytes": 8,
+      "sha256": "90db714bbde4f5a25a4e78c89b1a256d630bcfba3a44b0cfa080b034312bee09"
+    }
+  ],
+  "paired_stage_source_facts": {
+    "prefix_bytes": 8,
+    "same_algorithm_selector_identity": true,
+    "same_derivation_selector_identity": true,
+    "same_derivation_function_identity": true,
+    "derivation_iteration_count": 1,
+    "expected_derivation_return": 32,
+    "same_context_initialization_target": true,
+    "context_mode_outgoing": 1,
+    "context_mode_incoming": 0,
+    "same_native_update_and_final_targets": true,
+    "crypto_api_names_identified": false,
+    "referenced_constant_data_dereferenced": false,
+    "native_runtime_acceptance_verified": false
+  },
+  "decoder_failure_observations": [
+    "Outer wrapper tests first-stage range empty; second stage reads an eight-byte prefix without its own short-input guard.",
+    "Initialization status failure yields an empty byte range; unexpected derivation length logs and continues.",
+    "Native update/final status return values are not checked by the transform wrapper.",
+    "Allocation/unwind paths exist; a complete safe arbitrary-input error contract is not admitted.",
+    "Prefix/payload temporary length handling requires original-runtime acceptance evidence before declaring exact inversion."
   ]
 }

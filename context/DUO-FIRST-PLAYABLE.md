@@ -1,6 +1,6 @@
 # Original client: first playable path
 
-Updated October 29, 2026, 2:58 PM US Central.
+Updated October 29, 2026, 3:05 PM US Central.
 
 The real supplied Sparking iPhone client is the production foundation. Its
 compiled engine, original screens, combat and animation systems are retained.
@@ -36,7 +36,7 @@ C/Objective-C changes have not been compiled or executed in this cohort.
 
 For progress reports, the startup diagnostic source checklist is four steps:
 pinned binary inputs, reviewed entry source, compatible startup asset staging,
-and actual native launch. The first two are done (2/4); resource verification/staging is active and actual native launch remains unverified.
+and actual native launch. The first three are done (3/4); actual native launch remains unverified.
 The login source checklist is parsed-root proof, candidate encoders, complete
 sign-in contract, and native handler integration. The root/encoders/preauth source contract are established (3/4); trusted native handler integration remains in progress. These equal-count source checklists are not weighted readiness estimates
 or a percentage of the whole game. Original-client battle/save and Creator-in-
@@ -87,7 +87,7 @@ To avoid reconstructing minimum resource lists one file at a time, the reviewed
 cloud recovery helper now selects the complete existing 1,067-candidate original
 iPhone resource inventory plus exact framework metadata. It verifies the whole
 IPA in temporary Google-cloud scratch, preserves original bundle/tutorial
-paths, and writes one current set of parts below32MiB. The existing notebook was updated and byte-readback verified. Tin reported Finished; the final 428,858-byte manifest and all25parts are present in Drive. The manifest matches source selection (1,067resources plus framework metadata), and cloud part verification/staging is underway. No full game copy through the Mac or app build is claimed. Resource staging is not complete until its real-input receipt verifies.
+paths, and writes one current set of parts below32MiB. The existing notebook was updated and byte-readback verified. Tin reported Finished; the final 428,858-byte manifest and all25parts are present in Drive. The manifest matches source selection (1,067resources plus framework metadata). All25parts passed SHA checks and one real source-staging invocation succeeded:1,070original bundle members including2prior startup inputs,27canonical working aliases, and the compatible catalog/cache. The unchanged original source paths and hashes remain pinned. No actual app Documents tree, native launch or build was produced; full native startup and battle resource sufficiency still require observation.
 
 Master lifecycle analysis also found the original invalid-key/schema cleanup
 can remove its working `sqlite/current` tree. Stage only separate disposable
@@ -128,3 +128,28 @@ Native master staging must preserve opaque bytes in a separate writable working
 copy under the actual native language path. Plaintext derived staging cannot
 establish original MAIN key compatibility. That acceptance stays false until
 observed in the real original client. Never expose or extract the opaque key.
+
+
+## Next concrete runtime dependencies after resource recovery
+
+The host-owned auth source now uses its bound services' own Core, async main
+handoff and canonical profile/content/scope admissions before and after each
+response. Transport activity is observable without promising atomic cancellation;
+ordinary cancellation, timeout and expired nonce reject that request and permit
+a fresh nonce. Only actual owner/scope change invalidates the issuer. Source
+review caught and corrected both permanent retry lockout and native /var
+framework-path rejection. No native auth execution is claimed.
+
+A separate diagnostic assembler source consumes the actual pinned resource
+staging plus a future genuine SDK27.1 diagnostic component receipt and the
+preserved engine/shell. It has not been run; no .app or IPA was made. An actual
+integrated startup factory remains to implement. The cold opaque-master source
+keeps acceptance closed because its original native language, preferred-file
+selection and original codec/schema result have not yet been observed. A mere
+async completion is not a successful preferred-master open.
+
+Original request codec source has complementary framing/mode evidence, but its
+malformed-input/error handling is not a safe generic decode API. Reuse requires
+an authorized native synthetic roundtrip and narrow bounds before arbitrary
+request intake. No key/body/provider values are extracted. Actual Home/resources
+contracts and first battle/result semantics continue independently.

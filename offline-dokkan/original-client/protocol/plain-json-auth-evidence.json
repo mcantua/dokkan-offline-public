@@ -18,8 +18,8 @@
   "source_hashes": {
     "protocol/bootstrap-auth.js": "bacffdaf14ed2e378a345a75de1369021fdbba4f418f4efdaf414afcd97088b1",
     "protocol/plain-response.js": "77a2db1f087404ed205c173de706323c18d4a8343d6a098a87c07a73e372a461",
-    "ios/ODOfflineBootstrapAuth.h": "7a537341638871fd17ad6e9693131b872560c83c42509e36d622baf8a0d4ef53",
-    "ios/ODOfflineBootstrapAuth.m": "fafc339597b23cec1990ed91a28ba7cbc5ace64f0156d9ab93a2e591aead94ec"
+    "ios/ODOfflineBootstrapAuth.h": "b6e3cb90b5d2194c4f785050299264f80e3fe97e12dbb953deb9011573e70fe2",
+    "ios/ODOfflineBootstrapAuth.m": "dbe42da8c5b286d6bcdb67f0d7257573ec8e04e9ce8863e72c1ec650f00cb752"
   },
   "native_candidate_route_factory": {
     "implemented_in_source": true,
@@ -32,13 +32,15 @@
       "Trusted current-owner predicate checked before responding; no source credential-body access",
       "No remote calls, source/server keys, disk writes or persistence",
       "Sign-in emits only remaining positive TTL for the same original issue deadline; clock rollback invalidates the issue",
-      "All three responses use the shared native plain-object factory; root sign is rejected even if null, with the existing32MiB byte budget"
+      "All three responses use the shared native plain-object factory; root sign is rejected even if null, with the existing32MiB byte budget",
+      "Candidate handlers require caller serialization; the integrated host now wraps them on main with its bound issuer Core/scope admission. Concrete integrated factory/runtime remain absent."
     ],
     "remaining": [
       "Native compile/execution",
       "Trusted canonical owner/scope composition and transport delivery/invalidation acceptance",
       "Original-client startup/login acceptance"
-    ]
+    ],
+    "host_internal_composition_source_implemented": true
   },
   "javascript_ping_scenario": {
     "invocations": 1,

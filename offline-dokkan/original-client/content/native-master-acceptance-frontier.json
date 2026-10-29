@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "kind": "original-native-master-acceptance-source-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "new_exact_bodies": {
+    "selected_language": {"bytes":36,"sha256":"511ba43ab59746dc37d87e171f30bcb0d679aa9a494660714689a717bd431a61"},
+    "language_string_address_accessor": {"bytes":12,"sha256":"d6afb961a1ae81865f4ebf2f4554d8cceb30f1c5d0017e79079dafcd42398af1"},
+    "first_schema_check": {"bytes":340,"sha256":"d80729df6d35f7869b0c9ae30f6f897c983a985914a6b45ea2576070fb90a3e1"},
+    "compatibility_schema_retry": {"bytes":232,"sha256":"4875eb0bdd23436e370e228c1c829db83b662cd2ef98d4141bd6f3d4db37601c"}
+  },
+  "own_scope_decompilation": {"functions":3,"out_of_body_sites":0,"direct_assembly_checked":true},
+  "language_current_value_observed": false,
+  "prefix_current_value_observed": false,
+  "schema_checker_returns_native_executor_result": true,
+  "cached_open_reuses_existing_handle_without_fresh_acceptance": true,
+  "preferred_failure_can_fall_back_to_seed": true,
+  "schema_failure_result_code": 16,
+  "worker_completion_proves_master_acceptance": false,
+  "native_observer_or_callback_abi_admitted": false,
+  "engine_key_provider_or_key_values_examined": false,
+  "host_calls_native_database_functions": false,
+  "cold_copy_or_engine_runtime_executed": false,
+  "native_master_accepted": false,
+  "app_builds": 0,
+  "verification": "Three new bounded static decompilations with own-scope audit and assembly review; accessor assembly only. No runtime tests or native compilation."
+}
