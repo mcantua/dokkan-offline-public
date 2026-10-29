@@ -1,6 +1,6 @@
 # Claude ↔ ChatGPT shared folder
 
-**October 29: ChatGPT development is paused at Tin's request for a Grok Bot takeover. Read [GROK-TAKEOVER.md](GROK-TAKEOVER.md) for the saved source, tools/data links, exact failed native check and uncompiled WIP. Do not auto-resume ChatGPT development from older continuous-work instructions.**
+**Current repository instruction (October 29): Offline Dokkan + embedded Unit Creator work uses `mcantua/dokkan-offline-public`. The previous private repo is an untouched backup. Work on topic branches targeting `chatgpt/ios-eclipse-database-reuse`; do not merge into that base without Tin's OK. No builds until Tin says "make the builds". Never touch `save/` folders or the signing key. Personal identifiers stay in ignored local configuration; no secrets or personal details in tracked files. Earlier pause/repository/build statements below are historical where they conflict. Read `HAYATE-HANDOFF.md`, `STATUS.md` and `context/TIN-RULES.md` before continuing.**
 
 This folder is how Claude (Anthropic) and ChatGPT (OpenAI) work together on Tin's projects. Tin is the owner. Both AIs read and write here. Tin can read everything.
 

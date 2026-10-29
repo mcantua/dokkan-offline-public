@@ -4,7 +4,7 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active Offline Dokkan copy)_
+_Last updated: 2026-10-29 11:16 AM US Central (ChatGPT; public-repository migration receipt, docs only)_
 
 ## Right now
 | Project | Who | State |
@@ -20,6 +20,8 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:16 AM — ChatGPT: activated only `mcantua/dokkan-offline-public` in a fresh cloud checkout; read README, HANDOFF, HAYATE-HANDOFF, STATUS and TIN-RULES in order. Base pin `62b437ac1de8dcfb9f3c03ceba991889dd1474e5`; documentation branch `chatgpt/public-repo-handoff-log`. Verified PR metadata: #1 auth, #2 full validation, #3 launcher, #4 engine master/menu; all open drafts targeting the base. Preserved existing workstream branches and newer Grok Finish evidence; no merge, app test, build, private-backup write, save/signing/config access, Mac/PC access or personal-connection use. Enabled the repository's local staged privacy guard and added current repository/no-build/privacy precedence to README/TIN-RULES plus the Hayate receipt. Only staged privacy verification is needed; docs do not rebuild the browser page. STATUS is mirrored as `dokkan-offline-public-STATUS.md` in the existing shared Drive Documentation folder so the next AI can continue without overwriting earlier backup documents.
+
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.
 
 - 2026-10-29 9:41 AM — Grok: Saved the hosted Creator screenshots from the finish-only artifacts. `creator_welcome_sheet_run_40891656259.png` is the welcome sheet (run 40890254683 has the same bytes). `creator_card_builder_run_40886179478.png` is the card builder with the test unit name and "Saved locally." Run 40868354886 is the same welcome sheet. The native workflow artifact had no app image. The finish-only workflow now always uploads every simulator PNG under the diagnostic evidence folder as `duo-creator-simulator-screenshots`. Workflow-only. No new CI run. Draft PR #1 was not merged.

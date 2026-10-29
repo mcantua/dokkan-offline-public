@@ -10,6 +10,13 @@ Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
 Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says "make the builds".
 
+## Current ChatGPT repository receipt — 2026-10-29 11:16 AM CT
+- Read README.md, HANDOFF.md, this handoff, STATUS.md and context/TIN-RULES.md in the requested order. Historical private-backup instructions are superseded by Tin's current repository instruction.
+- Fresh cloud checkout from base commit `62b437ac1de8dcfb9f3c03ceba991889dd1474e5`; documentation topic branch `chatgpt/public-repo-handoff-log`. Local privacy hook enabled. No private configuration, save folder, signing key or prior checkout was changed.
+- Verified current draft PR metadata: #1 bootstrap auth (`cursor/offline-bootstrap-auth-14f6`), #2 full validation (`cursor/full-bundle-validation-3bda`), #3 Duo launcher (`cursor/iphone-duo-launcher-ef58`), #4 engine master/menu (`cursor/engine-master-menu-641c`). These are separate draft workstreams; no code from them was merged or represented as accepted gameplay.
+- Retain Grok's recorded successful Finish run40891656259; it supersedes the older unresolved precision handoff. It does not establish full game, physical Duo or completed validation/auth/master integration. No old diagnostic was rerun.
+- This migration receipt changes documentation only: no application tests, builds, device/connection access or source-game operations. A staged privacy check is the only required check. STATUS is mirrored to the shared Drive Documentation folder under a public-repository-specific name, leaving prior backup artifacts intact.
+
 ## Done
 - 1a24cfc and earlier: guarded the omitted sqlite3_enable_load_extension call. Extension loading stays OFF.
 - Selected-master read now denies SQL printf/format.
