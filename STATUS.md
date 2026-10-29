@@ -1,6 +1,6 @@
-# Status
-
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
+
+# Status
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
@@ -10,17 +10,40 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 | Project | Who | State |
 |---|---|---|
 | App Installer | **ChatGPT + cloud agents** | Old8eaf app reportedly installed and opened manually, then crashed at sign-in after authorization/Touch ID. Concrete missing Rust crypto-provider startup defect fixed in7059c85; actual fresh-process constructor1 and relevantTLS2 passed40777027792 (0failures,0.01seconds per group), plus one genuine-SDK package. No19core/response/native repeats; earlier22-check proof is8eaf-only. New local kit35,149,949bytes and matching source78,336,612bytes identify7059c85. Private draft transfer40778539399 passed; physical corrected-build update/retest pending; crash resolution unconfirmed. Native biometric/Keychain review found no separate cause; security unchanged. Broader capability limits persist, release_ready=false. Approved manual setup scope persists; no direct Mac-control tool is attached. |
-| Dokkan Unit Creator | **Grok, on draft PR #1** | Source branch `chatgpt/ios-eclipse-database-reuse`. Hosted Finish saved exact growth thousandths on run 40891656259. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
+| Dokkan Unit Creator | **Grok, draft PR #5** | The unified app opens on a launcher: Offline Dokkan or Unit Creator. Finish still imports into the saved account. Run 40898045304 did not start because GitHub Actions billing blocked it. No screenshots. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
 - Confirm with Claude: iOS and Face ID cannot guarantee unattended self-refresh. Proposed behavior keeps Face ID protection and requires opening/unlocking the app when needed. Expired installer recovery may need a computer.
 - **Resource approval already granted; do not ask again:** Tin approved MacBook/USB Duo/network/current kit/pairing/trusted dependencies and resumed manual setup. He reports native signing/export/install on the physical phone, followed by manual app launch and a sign-in crash after authorization. Corrected7059c85 delivery is verified. Guide the pinned kit merge and same-identity update before another sign-in attempt. Significantly larger Xcode installations and Apple-credential changes retain their separate approval boundary. Keep passwords/codes, private signing keys/profiles and device identifiers out of GitHub/chat.
+- GitHub Actions did not start the Duo launcher diagnostic. The account needs a working payment method or a higher spending limit before that simulator run can go.
 - Link for the Eclipse website (for Offline Dokkan data).
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.
+
+- 2026-10-29 10:06 AM — Grok: Hosted run [40898045304](https://github.com/mcantua/claude-chatg/actions/runs/40898045304) failed in a few seconds, before any simulator step. GitHub said the job was not started because recent account payments have failed or the spending limit needs to be increased. No screenshots were captured. A second run was not started. No release build. Draft PR #5 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Launcher instead of the Creator finish sheet | 0% of this diagnostic | Source is in draft PR #5. The simulator never started. |
+| Full custom-unit validation before save | 0% | Other agent. Validator must not unlock Session guards. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Do not invent an unverified success body or starting stats. |
+| Original-engine master attachment | 0% | Plaintext derived master is not attached. Do not ship Sparking keys. |
+| Late service binding in ODUnifiedDuoHost | 0% | Spec is known. Not implemented. |
+| In-game Creator menu | 0% | Other agent. The launcher is the app entry, not that menu. |
+
+- 2026-10-29 10:05 AM — Grok: Replaced the Creator entry sheet. The unified iPhone Duo app opens on a launcher with two choices. Offline Dokkan opens the one saved account. Unit Creator opens the existing editor, without the "Unit Creator · Offline Dokkan" / "Finish in Offline Dokkan" bar on the card builder. Finish on Save & Play still imports the unit into that account's character collection. One hosted Duo diagnostic is requested for screenshots of the launcher, both paths, and the import confirmation. No release build. Draft PR #1 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Launcher instead of the Creator finish sheet | 0% of this diagnostic | Source is in. Simulator screenshots are not back yet. |
+| Full custom-unit validation before save | 0% | Other agent. Validator must not unlock Session guards. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Do not invent an unverified success body or starting stats. |
+| Original-engine master attachment | 0% | Plaintext derived master is not attached. Do not ship Sparking keys. |
+| Late service binding in ODUnifiedDuoHost | 0% | Spec is known. Not implemented. |
+| In-game Creator menu | 0% | Other agent. The launcher is the app entry, not that menu. |
 
 - 2026-10-29 9:41 AM — Grok: Saved the hosted Creator screenshots from the finish-only artifacts. `creator_welcome_sheet_run_40891656259.png` is the welcome sheet (run 40890254683 has the same bytes). `creator_card_builder_run_40886179478.png` is the card builder with the test unit name and "Saved locally." Run 40868354886 is the same welcome sheet. The native workflow artifact had no app image. The finish-only workflow now always uploads every simulator PNG under the diagnostic evidence folder as `duo-creator-simulator-screenshots`. Workflow-only. No new CI run. Draft PR #1 was not merged.
 

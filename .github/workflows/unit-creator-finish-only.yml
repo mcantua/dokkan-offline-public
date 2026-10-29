@@ -1,7 +1,7 @@
 name: Duo Creator Finish targeted diagnostic
 on:
   push:
-    branches: ['chatgpt/ios-eclipse-database-reuse']
+    branches: ['chatgpt/ios-eclipse-database-reuse', 'cursor/iphone-duo-launcher-ef58']
     paths:
       - 'unit-creator/cloud-ui/finish-only-intent.json'
   workflow_dispatch:

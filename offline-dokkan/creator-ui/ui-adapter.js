@@ -4,10 +4,12 @@
   const host = window.OfflineCreatorHost;
   if (!host || !window.OfflineDokkanCreator) throw Error('The Offline Creator projection is unavailable.');
   document.documentElement.classList.add('offline-creator-host');
+  // The unified app opens on the native launcher. This file does not put a
+  // Finish sheet on the card builder. Finish stays on Save & Play and imports
+  // the unit into the saved account's character collection.
   // Legacy internal host uses a neutral placeholder. The real native tools
   // retain their actual scoped/cache-backed artwork and iPhone adapter.
   if (!window.OfflineCreatorTools) resourceThumb = () => 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="160" viewBox="0 0 120 160"%3E%3Crect width="120" height="160" fill="%23192737"/%3E%3Cpath d="M60 38l10 20 22 3-16 16 4 22-20-11-20 11 4-22-16-16 22-3z" fill="%23dbb15a"/%3E%3C/svg%3E';
-  document.title = 'Unit Creator · Offline Dokkan';
   const originalTemplate = Forge.loadTemplate;
   Forge.loadTemplate = async function (...args) { const project = await originalTemplate.apply(this, args); host.pinSource(project); return project; };
   const CV = window.ForgeCardVersions;
@@ -91,12 +93,15 @@
       const result = await host.call('offlineCreatorFinish', { key, snapshot: prepared.snapshot, definition });
       if (result?.imported !== true || result.definitionId !== definition.definition_id || result.version !== definition.version || !Number.isSafeInteger(result.instanceId) || result.instanceId < 1 || typeof result.available !== 'boolean') throw Error('Offline import was not confirmed. Your saved project is kept; retry this same unit.');
       const main = result.library?.main_id === result.definitionId;
-      status.textContent = (result.available ? 'Saved to your character collection. You can add this unit to a team.' : 'Design updated. Its original collection copy has already been used as training material; finishing again does not create another copy.') + (main ? ' This is your newest created unit.' : '') + ' Your editable project stays here.' + (result.banner?.drawable === true ? ' Its summon banner is ready.' : ' Summon availability is not configured yet.') + ' Battle integration must support this unit’s abilities and resources before it can fight.';
-      status.setAttribute('role', 'status'); toast('Unit saved in Offline Dokkan.');
+      const message = (result.available ? 'Saved to your character collection. You can add this unit to a team.' : 'Design updated. Its original collection copy has already been used as training material; finishing again does not create another copy.') + (main ? ' This is your newest created unit.' : '') + ' Your editable project stays here.' + (result.banner?.drawable === true ? ' Its summon banner is ready.' : ' Summon availability is not configured yet.') + ' Battle integration must support this unit’s abilities and resources before it can fight.';
+      if (typeof dialog === 'function') dialog('Saved to your character collection', '<p class="offline-import-confirm" role="status">' + esc(message) + '</p>');
+      toast('Unit saved in Offline Dokkan.');
       window.dispatchEvent(new CustomEvent('offline-creator-finished', { detail: { definitionId: result.definitionId, version: result.version, instanceId: result.instanceId, available: result.available, newest: main } }));
       return result;
     } catch (error) {
-      status.textContent = humanError(error.message); status.setAttribute('role', 'alert'); throw error;
+      const text = humanError(error.message);
+      if (typeof dialog === 'function') dialog('Could not finish this unit', '<p role="alert">' + esc(text) + '</p>');
+      throw error;
     } finally { working = false; update(); }
   }
   function humanError(code) {
@@ -119,14 +124,7 @@
     };
     return messages[code] || code;
   }
-  const bar = document.createElement('section'); bar.className = 'offline-creator-completion'; bar.setAttribute('aria-label', 'Offline Dokkan unit completion');
-  const heading = document.createElement('strong'); heading.textContent = 'Unit Creator · Offline Dokkan';
-  const note = document.createElement('p'); note.textContent = 'Create a unit for this game. Finish adds its supported settings to your character collection and keeps the design editable. Your imported source data stays unchanged.';
-  const button = document.createElement('button'); button.type = 'button'; button.className = 'button'; button.textContent = 'Finish in Offline Dokkan';
-  const status = document.createElement('p'); status.className = 'hint'; status.setAttribute('aria-live', 'polite');
-  bar.append(heading, note, button, status); document.querySelector('.workspace').prepend(bar);
-  button.onclick = () => finish().catch(error => toast(humanError(error.message), true));
-  function update() { button.disabled = working || !state.project; button.textContent = working ? 'Saving to Offline Dokkan…' : 'Finish in Offline Dokkan'; }
+  function update() {}
   function saveHTML() {
     const check = Forge.validate(state.project);
     const errors = (check.errors || []).map(error => { const item = document.createElement('li'); item.textContent = String(error); return item.outerHTML; }).join('');
@@ -139,7 +137,6 @@
     if (event.target.closest('[data-offline-finish]')) finish().catch(error => toast(humanError(error.message), true));
   });
   function adaptScreens() {
-    document.querySelectorAll('.dk-games').forEach(label => { label.textContent = 'Offline Dokkan'; });
     if (!window.OfflineCreatorTools) document.querySelectorAll('#main [data-dk="sparking"], #main [data-dk="offline"]').forEach(element => element.remove());
   }
   const originalMain = main;

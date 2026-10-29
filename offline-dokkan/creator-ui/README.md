@@ -35,7 +35,7 @@ The fixed `OfflineCreator` capability uses:
 
 `info.offlineCreator` includes only native-pinned `sourceDatabase` and `contentId`. The selected game names the document/Creator heading and info source; templates receive matching `source.database` and `source.contentId` before returning to shared screen logic. Eclipse sessions explicitly reject `querySparking` and report its catalog unavailable. Both aliases in a Sparking session query only its selected Sparking master; a second master is never implied. Read-only `query`/`querySparking` accept validated table/columns, scalar filters, ID lists, search, order, limit and offset, never SQL or paths. The native capability also supplies actual card indexes and durable JSON projects/versions; media, external network and arbitrary core/policy commands are not exposed.
 
-`ui-adapter.js` adds **Finish in Offline Dokkan** around the existing screens:
+The unified app opens on a launcher that asks for Offline Dokkan or the Unit Creator. Offline Dokkan opens the one saved account. Unit Creator opens these screens. `ui-adapter.js` does not put a Finish sheet on the card builder. **Finish in Offline Dokkan** stays on Save & Play:
 
 1. Pin the actual current project to its selected source, run the existing `Forge.hydrateStatGrowth` against that read-only master to capture any changed high-level stat policy, then confirm it saved.
 2. Call `offlineCreatorPrepare({key})`. Native returns an opaque persisted intent, its durable project snapshot, pinned context and table names whose complete baseline rows were proven unchanged against that master.

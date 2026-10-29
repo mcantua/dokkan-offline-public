@@ -29,7 +29,7 @@ provenance={'source':'Committed browser table rows reconstructed for one interna
 base={'CODE_SIGNING_ALLOWED':'NO','CLANG_ENABLE_OBJC_ARC':'YES','IPHONEOS_DEPLOYMENT_TARGET':'16.4','TARGETED_DEVICE_FAMILY':'1,2','ONLY_ACTIVE_ARCH':'YES','ARCHS':arch}
 native='../../../offline-dokkan/'
 host_sources=[{'path':'../FinishOnlyHost.m'},{'path':native+'creator-ui/site','type':'folder','buildPhase':'resources'},{'path':'db','type':'folder','buildPhase':'resources'}]
-host_sources += [{'path':native+'mobile/ios/'+name} for name in ['ODCreatorController.m','ODCreatorSession.m','ODBattleStore.m','ODBattleCoordinator.m']]
+host_sources += [{'path':native+'mobile/ios/'+name} for name in ['ODCreatorController.m','ODCreatorSession.m','ODBattleStore.m','ODBattleCoordinator.m','ODDuoLauncher.m','ODDuoAccountController.m']]
 host_sources += [{'path':native+'adapter/ios'},{'path':native+'adapter/od_bridge.c'},{'path':native+'core','includes':['*.c','*.h'],'excludes':['od_cli.c','test_*.c','check_*.c']},{'path':native+'content/content.c'},{'path':native+'content/master_archive.c'},{'path':native+'content/asset_catalog.c'},{'path':'../../../downloads/sqlite-amalgamation/source/sqlite3.c'}]
 # The current controller references the complete scoped native tools. Compile
 # the same committed authored components and class-renamed retained engines;
@@ -99,7 +99,7 @@ from pathlib import Path
 import shutil,sys
 source=Path(sys.argv[1]);destination=Path(sys.argv[2])
 if sys.argv[1]:
- for name in ['finish-only-result.json','finish-only-wk.png']:
+ for name in ['finish-only-result.json','finish-only-wk.png','duo-launcher.png','duo-offline-dokkan-account.png','duo-unit-creator.png','duo-import-confirmation.png']:
   p=source/'Library'/name
   if p.is_file():shutil.copy2(p,destination/name)
 PY

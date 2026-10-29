@@ -2,6 +2,8 @@
 #import <WebKit/WebKit.h>
 #import "../../../offline-dokkan/mobile/ios/ODCreatorController.h"
 #import "../../../offline-dokkan/mobile/ios/ODCreatorSession.h"
+#import "../../../offline-dokkan/mobile/ios/ODDuoLauncher.h"
+#import "../../../offline-dokkan/mobile/ios/ODDuoAccountController.h"
 #import "../../../offline-dokkan/adapter/ios/ODNativeCore.h"
 #import "../../../offline-dokkan/original-client/master/ODRuntimeForgeCompiler.h"
 #import "../../../offline-dokkan/original-client/master/ODRuntimeMasterStore.h"
@@ -88,8 +90,36 @@ static NSDictionary *ODFinishNumericProbe(void){
     };
     if(!controller){finish();return;}
     WKSnapshotConfiguration *snapshot=[WKSnapshotConfiguration new];snapshot.afterScreenUpdates=YES;
-    [controller.webView takeSnapshotWithConfiguration:snapshot completionHandler:^(UIImage *image,NSError *error){if(image)[UIImagePNGRepresentation(image) writeToFile:[library stringByAppendingPathComponent:@"finish-only-wk.png"] atomically:YES];finish();}];
+    [controller.webView takeSnapshotWithConfiguration:snapshot completionHandler:^(UIImage *image,NSError *error){
+        NSData *png=image?UIImagePNGRepresentation(image):nil;
+        if(png){[png writeToFile:[library stringByAppendingPathComponent:@"finish-only-wk.png"] atomically:YES];[png writeToFile:[library stringByAppendingPathComponent:@"duo-import-confirmation.png"] atomically:YES];}
+        [controller.webView callAsyncJavaScript:@"return !!document.querySelector('.offline-import-confirm');" arguments:@{} inFrame:nil inContentWorld:WKContentWorld.pageWorld completionHandler:^(id value,NSError *jsError){
+            if([result[@"imported"] boolValue])XCTAssertEqualObjects(value,@YES);
+            finish();
+        }];
+    }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,15*NSEC_PER_SEC),dispatch_get_main_queue(),finish);
+}
+- (NSString *)shotDirectory { return NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject; }
+- (BOOL)saveWindow:(UIWindow *)window name:(NSString *)name {
+    if(window.bounds.size.width<100||window.bounds.size.height<100)return NO;
+    UIGraphicsImageRenderer *renderer=[[UIGraphicsImageRenderer alloc] initWithBounds:window.bounds];
+    UIImage *image=[renderer imageWithActions:^(UIGraphicsImageRendererContext *context){[window drawViewHierarchyInRect:window.bounds afterScreenUpdates:YES];}];
+    NSData *png=UIImagePNGRepresentation(image);
+    return png.length>250&&image.size.width>100&&[png writeToFile:[[self shotDirectory] stringByAppendingPathComponent:name] atomically:YES];
+}
+- (void)saveWeb:(WKWebView *)web name:(NSString *)name completion:(void (^)(BOOL))completion {
+    WKSnapshotConfiguration *snapshot=[WKSnapshotConfiguration new];snapshot.afterScreenUpdates=YES;
+    [web takeSnapshotWithConfiguration:snapshot completionHandler:^(UIImage *image,NSError *error){
+        NSData *png=image?UIImagePNGRepresentation(image):nil;
+        BOOL wrote=png.length>250&&image.size.width>100&&[png writeToFile:[[self shotDirectory] stringByAppendingPathComponent:name] atomically:YES];
+        completion(wrote&&!error);
+    }];
+}
+- (void)waitUntil:(NSDate *)deadline ready:(BOOL (^)(void))ready completion:(void (^)(BOOL))completion {
+    if(ready()){completion(YES);return;}
+    if(deadline.timeIntervalSinceNow<=0){completion(NO);return;}
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,100*NSEC_PER_MSEC),dispatch_get_main_queue(),^{[self waitUntil:deadline ready:ready completion:completion];});
 }
 - (void)testSavedDraftPrepareAndFinishOnDuo {
     XCTestExpectation *completed=[self expectationWithDescription:@"One actual embedded Creator Finish boundary on hosted Duo"];
@@ -108,20 +138,43 @@ static NSDictionary *ODFinishNumericProbe(void){
         [core execute:@"profile.create" profile:@"local-player" command:@"finish-only-player" arguments:@{} reply:^(id result,NSError *error){
             if(coreFinished)return;coreFinished=YES;
             if(error||![result isKindOfClass:NSDictionary.class]){[self recordResult:@{@"phase":@"profile-create",@"errorCode":@"CORE_CREATE_FAILED"} ready:NO master:master before:before controller:nil completion:completed];return;}
-            ODCreatorSession *session=[[ODCreatorSession alloc] initWithMasterURL:master contentID:identity game:@"eclipse" directory:[owned URLByAppendingPathComponent:@"creator"] core:core];
-            ODCreatorController *controller=[[ODCreatorController alloc] initWithSession:session completion:^{}];UIWindow *window=ODFinishWindow();
+            NSURL *creatorDirectory=[owned URLByAppendingPathComponent:@"creator"];
+            ODDuoLauncher *launcher=[[ODDuoLauncher alloc] initWithCore:core masterURL:master contentID:identity game:@"eclipse" creatorDirectory:creatorDirectory];
+            UIWindow *window=ODFinishWindow();
             if(!window){[self recordResult:@{@"phase":@"window",@"errorCode":@"NATIVE_WINDOW_UNAVAILABLE"} ready:NO master:master before:before controller:nil completion:completed];return;}
-            window.rootViewController=controller;[window makeKeyAndVisible];[controller loadViewIfNeeded];
-            [self waitForCreator:controller deadline:[NSDate dateWithTimeIntervalSinceNow:150] completion:^(BOOL ready){
-                if(!ready){[self recordResult:@{@"phase":@"startup",@"errorCode":@"CREATOR_STARTUP_NOT_READY"} ready:NO master:master before:before controller:controller completion:completed];return;}
-                __block BOOL scriptFinished=NO;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW,90*NSEC_PER_SEC),dispatch_get_main_queue(),^{if(scriptFinished)return;scriptFinished=YES;[self recordResult:@{@"phase":@"finish",@"errorCode":@"NATIVE_JS_DIAGNOSTIC_TIMEOUT"} ready:YES master:master before:before controller:controller completion:completed];});
-                [controller.webView callAsyncJavaScript:[self scenarioBody] arguments:@{@"numericProbe":ODFinishNumericProbe()} inFrame:nil inContentWorld:WKContentWorld.pageWorld completionHandler:^(id value,NSError *failure){
-                    if(scriptFinished)return;scriptFinished=YES;
-                    NSDictionary *diagnosis=!failure&&[value isKindOfClass:NSDictionary.class]?value:@{@"phase":@"finish",@"errorCode":@"NATIVE_JS_DIAGNOSTIC_FAILED"};
-                    [self checkAcceptedRuntimeWithSession:session diagnosis:diagnosis master:master directory:owned completion:^(NSDictionary *checked){[self recordResult:checked ready:YES master:master before:before controller:controller completion:completed];}];
+            window.rootViewController=launcher;[window makeKeyAndVisible];[launcher loadViewIfNeeded];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(0.6*NSEC_PER_SEC)),dispatch_get_main_queue(),^{
+                if(![self saveWindow:window name:@"duo-launcher.png"]){[self recordResult:@{@"phase":@"launcher",@"errorCode":@"LAUNCHER_SCREENSHOT_FAILED"} ready:NO master:master before:before controller:nil completion:completed];return;}
+                [launcher openOfflineDokkan];
+                [self waitUntil:[NSDate dateWithTimeIntervalSinceNow:20] ready:^BOOL{return launcher.accountController.accountReady;} completion:^(BOOL accountReady){
+                    if(!accountReady||![self saveWindow:window name:@"duo-offline-dokkan-account.png"]){[self recordResult:@{@"phase":@"launcher",@"errorCode":@"ACCOUNT_NOT_READY"} ready:NO master:master before:before controller:nil completion:completed];return;}
+                    [launcher openUnitCreator];
+                    [self waitUntil:[NSDate dateWithTimeIntervalSinceNow:150] ready:^BOOL{return launcher.creatorController.webView!=nil;} completion:^(BOOL presented){
+                        ODCreatorController *controller=launcher.creatorController;
+                        if(!presented||!controller){[self recordResult:@{@"phase":@"launcher",@"errorCode":@"CREATOR_NOT_PRESENTED"} ready:NO master:master before:before controller:controller completion:completed];return;}
+                        [self waitForCreator:controller deadline:[NSDate dateWithTimeIntervalSinceNow:150] completion:^(BOOL ready){
+                            if(!ready){[self recordResult:@{@"phase":@"startup",@"errorCode":@"CREATOR_STARTUP_NOT_READY"} ready:NO master:master before:before controller:controller completion:completed];return;}
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(0.5*NSEC_PER_SEC)),dispatch_get_main_queue(),^{
+                                [controller.webView callAsyncJavaScript:@"document.querySelectorAll('dialog[open]').forEach(d=>d.close());return {bar:!!document.querySelector('.offline-creator-completion'),home:!!(document.getElementById('db-quick')||document.getElementById('dk-start'))};" arguments:@{} inFrame:nil inContentWorld:WKContentWorld.pageWorld completionHandler:^(id value,NSError *entryError){
+                                    NSDictionary *entry=[value isKindOfClass:NSDictionary.class]?value:nil;
+                                    if(entryError||[entry[@"bar"] boolValue]||![entry[@"home"] boolValue]){[self recordResult:@{@"phase":@"launcher",@"errorCode":@"CREATOR_ENTRY_IS_FINISH_SHEET"} ready:YES master:master before:before controller:controller completion:completed];return;}
+                                    [self saveWeb:controller.webView name:@"duo-unit-creator.png" completion:^(BOOL wrote){
+                                        if(!wrote){[self recordResult:@{@"phase":@"launcher",@"errorCode":@"CREATOR_SCREENSHOT_FAILED"} ready:YES master:master before:before controller:controller completion:completed];return;}
+                                        __block BOOL scriptFinished=NO;
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,90*NSEC_PER_SEC),dispatch_get_main_queue(),^{if(scriptFinished)return;scriptFinished=YES;[self recordResult:@{@"phase":@"finish",@"errorCode":@"NATIVE_JS_DIAGNOSTIC_TIMEOUT"} ready:YES master:master before:before controller:controller completion:completed];});
+                                        [controller.webView callAsyncJavaScript:[self scenarioBody] arguments:@{@"numericProbe":ODFinishNumericProbe()} inFrame:nil inContentWorld:WKContentWorld.pageWorld completionHandler:^(id value,NSError *failure){
+                                            if(scriptFinished)return;scriptFinished=YES;
+                                            NSDictionary *diagnosis=!failure&&[value isKindOfClass:NSDictionary.class]?value:@{@"phase":@"finish",@"errorCode":@"NATIVE_JS_DIAGNOSTIC_FAILED"};
+                                            ODCreatorSession *session=[[ODCreatorSession alloc] initWithMasterURL:master contentID:identity game:@"eclipse" directory:creatorDirectory core:core];
+                                            [self checkAcceptedRuntimeWithSession:session diagnosis:diagnosis master:master directory:owned completion:^(NSDictionary *checked){[self recordResult:checked ready:YES master:master before:before controller:controller completion:completed];}];
+                                        }];
+                                    }];
+                                }];
+                            });
+                        }];
+                    }];
                 }];
-            }];
+            });
         }];
     });
     [self waitForExpectations:@[completed] timeout:330];
