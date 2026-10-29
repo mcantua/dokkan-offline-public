@@ -1,10 +1,10 @@
 # Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
 
-> **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. Tin asked for a scrubbed public repo at `mcantua/dokkan-offline-public`, with this repo left private and not rewritten. The agent token cannot create repositories (GitHub rejected the create call; it requires repository creation permission). `mcantua/claude-chatg` is still the only copy and stays private. Nothing was force-pushed. From now on nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
+> **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
-Updated: Thu Oct 29, 2026, 9:41 AM CT
+Updated: Thu Oct 29, 2026, 11:02 AM CT
 
-Repo: https://github.com/mcantua/claude-chatg. Read context/TIN-RULES.md first.
+Repo: https://github.com/mcantua/dokkan-offline-public. Read context/TIN-RULES.md first.
 Base branch: chatgpt/ios-eclipse-database-reuse (draft PR #1, DO NOT MERGE)
 Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
