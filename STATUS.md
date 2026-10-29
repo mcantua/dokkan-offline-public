@@ -1,6 +1,6 @@
-# Status
-
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
+
+# Status
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
@@ -10,7 +10,7 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 | Project | Who | State |
 |---|---|---|
 | App Installer | **ChatGPT + cloud agents** | Old8eaf app reportedly installed and opened manually, then crashed at sign-in after authorization/Touch ID. Concrete missing Rust crypto-provider startup defect fixed in7059c85; actual fresh-process constructor1 and relevantTLS2 passed40777027792 (0failures,0.01seconds per group), plus one genuine-SDK package. No19core/response/native repeats; earlier22-check proof is8eaf-only. New local kit35,149,949bytes and matching source78,336,612bytes identify7059c85. Private draft transfer40778539399 passed; physical corrected-build update/retest pending; crash resolution unconfirmed. Native biometric/Keychain review found no separate cause; security unchanged. Broader capability limits persist, release_ready=false. Approved manual setup scope persists; no direct Mac-control tool is attached. |
-| Dokkan Unit Creator | **Grok, on draft PR #1** | Source branch `chatgpt/ios-eclipse-database-reuse`. Hosted Finish saved exact growth thousandths on run 40891656259. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
+| Dokkan Unit Creator | **Grok** | Base `chatgpt/ios-eclipse-database-reuse` still has the passing Finish thousandths check on draft PR #1. Branch `cursor/engine-master-menu-641c` stages the plaintext master, late-binds Creator services, and wires the in-game Creator menu. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
@@ -21,6 +21,39 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 
 ## Log (newest first)
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.
+
+- 2026-10-29 9:58 AM — Grok: Merged `chatgpt/ios-eclipse-database-reuse` into `cursor/engine-master-menu-641c`. The only conflict was `STATUS.md`. Both logs are kept. The base screenshot-upload workflow change came in clean. No compiled source changed, so CI was not run again. Draft PR #3 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Original-engine master attachment | 80% | The copy path compiled. The engine's own keyed open still needs Tin. Do not ship the key. |
+| Late service binding in ODUnifiedDuoHost | 85% | The code compiled. The menu shot did not exercise the async bind. |
+| In-game Creator menu | 75% | The Menu control showed on the hosted simulator. The icon shortcut and the player-bar Menu were not in that shot. No Cocos hook. |
+| Full custom-unit validation before save | 0% | Another agent owns the validator. Session guards stay locked. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Another agent owns this. Do not invent a success body or starting stats. |
+| Real battles, saves, and both Duo displays | 0% | Not this branch. |
+
+- 2026-10-29 9:53 AM — Grok: Run [40895147719](https://github.com/mcantua/claude-chatg/actions/runs/40895147719) **succeeded** in about 3 minutes 41 seconds, roughly 9:48–9:52 AM CT, on genuine Xcode 27.1 / SDK 27.1. The authored component library compiled. `testInGameCreatorMenuChrome` passed in 13.415 seconds. The saved image is the Creator window on the hosted Duo simulator, with the Menu control visible. The page text says this WebKit runtime could not isolate the save's drafts, because that shot did not attach the scoped data store. It is not the original game and not a physical Duo. The simulator framebuffer file was not produced. Extension loading stayed omitted. No release build. Draft PR #3 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Original-engine master attachment | 80% | The copy path compiled. The engine's own keyed open still needs Tin. Do not ship the key. |
+| Late service binding in ODUnifiedDuoHost | 85% | The code compiled. This shot did not exercise the async bind. |
+| In-game Creator menu | 75% | The Menu control showed on the hosted simulator. The icon shortcut and the player-bar Menu were not in that shot. No Cocos hook. |
+| Full custom-unit validation before save | 0% | Another agent owns the validator. Session guards stay locked. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Another agent owns this. Do not invent a success body or starting stats. |
+| Real battles, saves, and both Duo displays | 0% | Not this branch. |
+
+- 2026-10-29 9:47 AM — Grok: On `cursor/engine-master-menu-641c`, the plaintext derived master is copied to `sqlite/current/<language>/database.db` in the host state directory. The source stays read-only. No key, patcher path, extension loading, or cached-handle write. Integrated startup confirms that copy before the image loads. `ODUnifiedDuoHost` can install before Creator services exist, then bind them on main after the async scope reply: lifecycle once, renderer when it is already admitted, queued shortcut refresh. The Unit Creator shortcut presents `ODCreatorController`. Original-client mode shows Menu, and the scoped player bar uses the same return. One local file check passed. The hosted component compile and Duo simulator menu shot are the one diagnostic. The engine's keyed open still needs Tin's data. Draft PR #1 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Original-engine master attachment | 70% | Working copy is published and checked locally. The engine's own keyed open is not verified. Do not ship the key. |
+| Late service binding in ODUnifiedDuoHost | 80% | Code is in. Hosted compile is the remaining check. |
+| In-game Creator menu | 60% | Shortcut, controller Menu, and player Menu are wired. No Cocos menu hook. Simulator shot is not back yet. |
+| Full custom-unit validation before save | 0% | Another agent owns the validator. Session guards stay locked. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Another agent owns this. Do not invent a success body or starting stats. |
+| Real battles, saves, and both Duo displays | 0% | Not this branch. |
 
 - 2026-10-29 9:41 AM — Grok: Saved the hosted Creator screenshots from the finish-only artifacts. `creator_welcome_sheet_run_40891656259.png` is the welcome sheet (run 40890254683 has the same bytes). `creator_card_builder_run_40886179478.png` is the card builder with the test unit name and "Saved locally." Run 40868354886 is the same welcome sheet. The native workflow artifact had no app image. The finish-only workflow now always uploads every simulator PNG under the diagnostic evidence folder as `duo-creator-simulator-screenshots`. Workflow-only. No new CI run. Draft PR #1 was not merged.
 

@@ -76,6 +76,9 @@ invalid:if(error)*error=ODBindingError(1);return nil;
 }
 - (ODOriginalCreatorCoordinator *)coordinator{return _coordinator;}
 - (NSError *)lastBindingError{return _lastBindingError;}
+- (BOOL)matchesAdmittedContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope {
+    return [contentID isEqual:_content]&&[scope isEqual:_scope];
+}
 - (BOOL)creatorScopeIsCurrent {
     struct stat master,path,workspace,save;
     return NSThread.isMainThread&&_current()&&[_core matchesSaveURL:_save masterURL:_master contentID:_content]&&

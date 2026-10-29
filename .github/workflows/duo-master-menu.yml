@@ -1,0 +1,48 @@
+name: Duo master attach and Creator menu
+on:
+  push:
+    branches: ['cursor/engine-master-menu-641c']
+    paths:
+      - 'offline-dokkan/original-client/**'
+      - 'offline-dokkan/mobile/ios/ODCreatorController.m'
+      - 'unit-creator/ios-objc/Player.m'
+      - 'unit-creator/ios-objc/Player.h'
+      - 'unit-creator/cloud-ui/menu-shot-run.sh'
+      - 'unit-creator/cloud-ui/MenuShotTests/**'
+      - '.github/workflows/duo-master-menu.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: duo-master-menu-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: xcode-27
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - name: Compile the authored Duo components with genuine device SDK
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: bash offline-dokkan/original-client/build-components.sh
+      - name: Show the in-game Creator menu on the hosted Duo simulator
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: bash unit-creator/cloud-ui/menu-shot-run.sh
+      - name: Keep the simulator screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: creator-menu-screenshots
+          path: |
+            AI-Workspace/claude-chatg/unit-creator/cloud-ui/menu-shot-work/evidence/*.png
+          retention-days: 7
+          if-no-files-found: warn

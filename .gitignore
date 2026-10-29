@@ -60,6 +60,7 @@ __pycache__/
 # Unit Creator hosted native checks use source-browser snapshots only; no raw DB/app outputs.
 /unit-creator/cloud-ui/work/
 /unit-creator/cloud-ui/finish-work/
+/unit-creator/cloud-ui/menu-shot-work/
 /downloads/unit-creator-cloud-tools/*
 !/downloads/unit-creator-cloud-tools/SOURCE.md
 

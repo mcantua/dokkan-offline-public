@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 @property(nonatomic, readonly) ODOriginalCreatorCoordinator *coordinator;
 @property(nonatomic, readonly, nullable) NSError *lastBindingError;
+/** Exact content id and save scope captured when this issuer was constructed.
+ * This is not a filesystem search. */
+- (BOOL)matchesAdmittedContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope;
 /** Host-owned per-request policy; defaults denied. Configure only while closed.
  * No browser value grants personal-network access. */
 - (BOOL)configureCreatorNetworkAuthorization:(BOOL (^)(NSURL *url))authorization error:(NSError * _Nullable * _Nullable)error;
