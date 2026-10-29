@@ -1,0 +1,50 @@
+name: Duo host compile diagnostic
+on:
+  push:
+    branches: ['cursor/offline-bootstrap-auth-14f6']
+    paths:
+      - '.github/workflows/duo-host-compile-14f6.yml'
+      - 'offline-dokkan/original-client/**'
+      - 'offline-dokkan/core/**'
+      - 'offline-dokkan/adapter/**'
+      - 'offline-dokkan/content/**'
+      - 'offline-dokkan/mobile/ios/**'
+      - 'offline-dokkan/mobile/setup-sqlite.py'
+      - 'unit-creator/ios-objc/Host.m'
+      - 'unit-creator/ios-objc/Player.m'
+permissions:
+  contents: read
+concurrency:
+  group: duo-host-compile-14f6-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  compile:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: AI-Workspace/claude-chatg
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          path: AI-Workspace/claude-chatg
+      - name: Compile the authored Duo host library with genuine device SDK 27.1
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
+        run: |
+          test "${GITHUB_REF}" = "refs/heads/cursor/offline-bootstrap-auth-14f6"
+          mkdir -p offline-dokkan/private/component-build-log
+          set -o pipefail
+          bash offline-dokkan/original-client/build-components.sh 2>&1 | tee offline-dokkan/private/component-build-log/compile.log
+      - name: Keep the compiler log only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: duo-host-compile-14f6
+          path: |
+            AI-Workspace/claude-chatg/offline-dokkan/private/component-build-log/compile.log
+            AI-Workspace/claude-chatg/offline-dokkan/private/component-build/evidence/component-build.json
+          retention-days: 7
+          if-no-files-found: warn

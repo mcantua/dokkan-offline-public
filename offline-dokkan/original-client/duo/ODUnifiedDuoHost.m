@@ -1,5 +1,7 @@
 #import "ODUnifiedDuoHost.h"
 #import "ODDuoCreatorQuickAction.h"
+#import "../ios/ODFreshStatePolicy.h"
+#import "../ios/ODOfflineBootstrapAuth.h"
 #import "../ios/ODOriginalClientBootstrap.h"
 #import "../loader/ODPreparedEngineLoader.h"
 #import "../creator/ODBoundOriginalCreatorServices.h"
@@ -12,8 +14,14 @@
 
 static ODUnifiedDuoHost *ODInstalledUnifiedHost;
 static NSError *ODHostFailure(NSInteger code) {
+    NSString *message = code == 9
+        ? @"Auth routes stay closed because the HTTP JSON envelope is not verified. No success body was installed."
+        : @"The native original-game startup or same-save binding is unavailable. Existing files were preserved.";
     return [NSError errorWithDomain:@"OfflineDokkan.UnifiedDuoHost" code:code
-        userInfo:@{NSLocalizedDescriptionKey:@"The native original-game startup or same-save binding is unavailable. Existing files were preserved."}];
+        userInfo:@{NSLocalizedDescriptionKey:message}];
+}
+static BOOL ODHostClosedAuthPath(NSString *path) {
+    return [path isEqualToString:@"/auth/nonce"] || [path isEqualToString:@"/auth/sign_in"];
 }
 static NSString *ODHostCanonicalURL(NSURL *url) {
     if(!url.isFileURL||!url.path.isAbsolutePath)return nil;
@@ -75,6 +83,10 @@ static BOOL ODHostSourcePatcherAbsent(void) {
        (purpose==ODUnifiedDuoIntegratedTarget&&(!services||!attach||!origins.count||!routes.count))){
         if(error)*error=ODHostFailure(1);return nil;
     }
+    for (id route in routes) {
+        if (![route isKindOfClass:ODLocalTransportRoute.class]) { if (error) *error = ODHostFailure(1); return nil; }
+        if (ODHostClosedAuthPath([(ODLocalTransportRoute *)route path])) { if (error) *error = ODHostFailure(9); return nil; }
+    }
     _purpose=purpose;_baseline=[baseline copy];_engine=[engine copy];_resources=resourcePath;_state=statePath;
     _origins=[origins copy];_routes=[routes copy];_services=services;_attach=[attach copy];_current=[current copy];_report=[report copy];_stage=@"configured";
     _unsupportedRequests=[NSMutableArray array];
@@ -92,6 +104,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
         @"nativeNetworkCoverage":@"Installed Foundation handling only; raw socket, SDK/system and WebKit activity require observation/configuration",
         @"kernelNetworkIsolationEstablished":@NO,@"routeContractsRuntimeVerified":@NO,
+        @"offlineAuthReaderRelativeOnly":@YES,@"offlineAuthWireEnvelopeVerified":@NO,
+        @"offlineAuthHttpRouteAdmitted":@NO,@"freshStateSentinelsAdopted":@NO,
+        @"freshStateTutorialAndCapacityUnresolved":@YES,@"freshStateStartingStatsInvented":@NO,
         @"gameplaySaveCustomUnitsVerified":@NO,@"bothDuoDisplaysAccepted":@NO};
 }
 - (void)emit { if(_report)_report(self.startupReport); }
@@ -182,6 +197,14 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     },^BOOL(NSError **failure){return [weakSelf registerOriginalScene:failure];},error);
     _installed=ok;_stage=ok?@"waiting-for-actual-appcontroller-scene":@"bootstrap-installation-failed";
     if(ok)ODInstalledUnifiedHost=self;[self emit];return ok;
+}
+- (NSDictionary *)issueOfflineAuthEnvelopeWithNativeTime:(int32_t)nativeTime expiresIn:(int32_t)expiresIn error:(NSError **)error {
+    if (!NSThread.isMainThread || !_current()) { if (error) *error = ODHostFailure(2); return nil; }
+    return [ODOfflineBootstrapAuth issueWithNativeTime:nativeTime expiresIn:expiresIn error:error];
+}
+- (NSDictionary *)freshStatePolicyForSnapshot:(NSDictionary *)snapshot proposedSections:(NSDictionary *)proposed error:(NSError **)error {
+    if (!NSThread.isMainThread || !_current()) { if (error) *error = ODHostFailure(2); return nil; }
+    return [ODFreshStatePolicy evaluateSnapshot:snapshot proposedSections:proposed error:error];
 }
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError *))completion {
     if(!completion)return;

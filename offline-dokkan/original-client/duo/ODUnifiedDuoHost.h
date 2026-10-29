@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#include <stdint.h>
 #import "ODDuoOriginalScene.h"
 #import "../ios/ODLocalURLProtocol.h"
 @class ODBoundOriginalCreatorServices;
@@ -37,6 +38,17 @@ typedef void (^ODUnifiedDuoReportHandler)(NSDictionary *report);
 /** Explicit target for a reviewed native in-game user action. This does not
  * invent/inject a game menu position or automatically open the editor. */
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError * _Nullable error))completion;
+/** Reader-relative local auth candidate. The host does not retain the token,
+ * write it, or install GET /auth/nonce or POST /auth/sign_in. expiresIn is the
+ * caller's signed32 second count, not a recovered server duration. */
+- (nullable NSDictionary *)issueOfflineAuthEnvelopeWithNativeTime:(int32_t)nativeTime
+                                                        expiresIn:(int32_t)expiresIn
+                                                            error:(NSError * _Nullable * _Nullable)error;
+/** Omits tutorial and card/support capacities. Rejects pre-server sentinels.
+ * Does not copy played-cache values or invent starting stats. */
+- (nullable NSDictionary *)freshStatePolicyForSnapshot:(NSDictionary *)snapshot
+                                      proposedSections:(nullable NSDictionary *)proposed
+                                                 error:(NSError * _Nullable * _Nullable)error;
 /* Reports/updates are delivered on main. Unsupported Foundation requests are
    bounded to64 reviewed method/path pairs; dynamic IDs are already redacted by
    the transport. No origin, query, headers, body or raw-socket observation is
