@@ -1,0 +1,52 @@
+Command line invocation:
+    /Applications/Xcode_27.1.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/AppInstallerCloudSmoke.xcodeproj -scheme AppInstallerCloudSmoke -destination "platform=iOS Simulator,id=4392A9D0-44A8-4BFC-80E8-0B5D0392B0FF" -parallel-testing-enabled NO -derivedDataPath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/DerivedData -resultBundlePath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- "-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads" "-only-testing:AppInstallerCloudUITests/PairingConnectionGuardTests/testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs" "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture"
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+    CODE_SIGNING_ALLOWED = YES
+
+Writing result bundle at path:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+2026-10-29 18:29:59.331 xcodebuild[37593:69222] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-10-29 18:32:17.160700+0000 AppInstaller[38196:73843] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2026-10-29 18:32:17.162587+0000 AppInstaller[38196:72706] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+2026-10-29 18:32:17.829124+0000 AppInstaller[38196:73838] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+Test Suite 'Selected tests' started at 2026-10-29 18:32:25.923.
+Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-10-29 18:32:25.925.
+Test Suite 'AppInstallerCloudUITests' started at 2026-10-29 18:32:25.925.
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+2026-10-29 18:32:26.365671+0000 AppInstaller[38196:72706] [API] cannot add handler to 0 from 0 - dropping
+2026-10-29 18:32:33.867653+0000 AppInstaller[38196:72706] Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x10628cc00>.
+2026-10-29 18:32:34.808369+0000 AppInstaller[38196:72706] [API] cannot add handler to 0 from 0 - dropping
+2026-10-29 18:32:35.083114+0000 AppInstaller[38196:72706] [API] cannot add handler to 0 from 0 - dropping
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' passed (9.397 seconds).
+Test Suite 'AppInstallerCloudUITests' passed at 2026-10-29 18:32:35.326.
+	 Executed 1 test, with 0 failures (0 unexpected) in 9.397 (9.401) seconds
+Test Suite 'PairingConnectionGuardTests' started at 2026-10-29 18:32:35.328.
+Test Case '-[PairingConnectionGuardTests testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs]' started.
+Test Case '-[PairingConnectionGuardTests testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs]' passed (0.019 seconds).
+Test Suite 'PairingConnectionGuardTests' passed at 2026-10-29 18:32:35.348.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.019 (0.021) seconds
+Test Suite 'PairingDocumentReadTests' started at 2026-10-29 18:32:35.355.
+Test Case '-[PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads]' started.
+Test Case '-[PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads]' passed (0.102 seconds).
+Test Suite 'PairingDocumentReadTests' passed at 2026-10-29 18:32:35.459.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.102 (0.104) seconds
+Test Suite 'AppInstallerCloudUITests.xctest' passed at 2026-10-29 18:32:35.460.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 9.518 (9.535) seconds
+Test Suite 'Selected tests' passed at 2026-10-29 18:32:35.460.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 9.518 (9.537) seconds
+2026-10-29 18:32:40.117 xcodebuild[37593:69222] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-10-29 18:32:40.530 xcodebuild[37593:69222] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-10-29 18:32:42.028 xcodebuild[37593:69222] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-10-29 18:32:54.709 xcodebuild[37593:69222] [MT] IDETestOperationsObserverDebug: 259.224 elapsed -- Testing started completed.
+2026-10-29 18:32:54.709 xcodebuild[37593:69222] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-10-29 18:32:54.709 xcodebuild[37593:69222] [MT] IDETestOperationsObserverDebug: 259.225 sec, +259.225 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

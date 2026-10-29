@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "tool-output transcription plus directly inspected source/publication hashes",
+  "collected_at_utc": "2026-10-29T18:48:18.776824+00:00",
+  "project": "dokkan-offline-public",
+  "observed_head_at_collection": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+  "source_files": [
+    {
+      "path": "app-installer/build/source-bundle.py",
+      "bytes": 32080,
+      "sha256": "514f5c24bfc74c7382a36fa8c0722daa85cf39570310ec5bf87e0c999f3d8e79"
+    },
+    {
+      "path": "app-installer/build/tests/test_source_delivery.py",
+      "bytes": 13722,
+      "sha256": "608df34a01eba7859f8ec6ec6db5622a806f0aec871088aaf69125f72aab5cb7"
+    }
+  ],
+  "source_files_git_status_at_collection": [],
+  "test_runs": [
+    {
+      "command": "python3 app-installer/build/tests/test_source_delivery.py",
+      "transcript": "test-run-1.tool-transcript.txt",
+      "output_chunk_id": "e716f5",
+      "test_methods": 2,
+      "reported_elapsed_seconds": "0.089",
+      "reported_result": "OK",
+      "original_raw_log_captured": false
+    },
+    {
+      "command": "python3 app-installer/build/tests/test_source_delivery.py",
+      "transcript": "test-run-2.tool-transcript.txt",
+      "output_chunk_id": "f88212",
+      "test_methods": 2,
+      "reported_elapsed_seconds": "0.087",
+      "reported_result": "OK",
+      "original_raw_log_captured": false
+    }
+  ],
+  "test_methods": [
+    "SourceDeliveryTests.test_complete_locked_source_and_recipient_modified_library_are_supported",
+    "SourceDeliveryTests.test_missing_source_tampering_and_mismatched_graph_are_rejected"
+  ],
+  "publication": {
+    "crate": "nskeyedarchiver_converter",
+    "version": "0.1.3",
+    "url": "https://static.crates.io/crates/nskeyedarchiver_converter/nskeyedarchiver_converter-0.1.3.crate",
+    "bytes": 13901,
+    "sha256": "36c53158d1bf37bbbdd165f5220fda8bb5757c89eb700107992152c64c6cad7e",
+    "members": [
+      {
+        "archive_member": "nskeyedarchiver_converter-0.1.3/README.MD",
+        "bytes": 2398,
+        "sha256": "8f9d7995df53d0b3c75999fb5b253930513d761808f54f1b118c5c02cfee6f31"
+      },
+      {
+        "archive_member": "nskeyedarchiver_converter-0.1.3/README.md",
+        "bytes": 2398,
+        "sha256": "8f9d7995df53d0b3c75999fb5b253930513d761808f54f1b118c5c02cfee6f31"
+      }
+    ]
+  },
+  "limits": [
+    "No tests were rerun to create this evidence.",
+    "Source hashes were collected after the final focused run; no pre-run or post-run automated source snapshot was captured during either invocation.",
+    "The first invocation preceded one additional canonical-tamper assertion. The second invocation covered the frozen final source cohort.",
+    "This does not claim a successful hosted package retry or physical-device verification."
+  ]
+}

@@ -1,6 +1,6 @@
 # Work log
 
-**Current public revision (October29,12:58 PM Central):** Tin authorized builds. Public pairing/vendor8/helper2, then-current transport2 and baseline19 have actual passing proof; run40924206527 additionally passed teardown transport2 and recovery2 before being deliberately superseded for a new self-update identity guard. No native app test or screenshot has executed in this public revision. New guard/native checks, actual candidate/helper/source/kit packaging and physical release acceptance remain pending. See [current source/evidence](device/PUBLIC-CONTINUATION.md); historical results below do not verify this revision.
+**Current public revision (October29,2:03 PM Central):** Public Rust pairing/recovery14 plus first-account/TLS3 and native3 have actual passing proof. Native compilerSDK27.1/componentruntime27.0; physical Duo remains unverified. Package-only40934237282 succeeded with both unsigned candidates, full source and sealed minimal kit; actual artifact hashes match. Independent artifact review and hosted Mac-signature/public draft delivery are active; Apple/device acceptance remains pending. See [current source/evidence](device/PUBLIC-CONTINUATION.md). Historical entries retain their original scope.
 
 
 ## 2026-10-29 11:35 AM US Central — public-copy source repairs, no build
