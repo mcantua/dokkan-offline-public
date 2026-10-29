@@ -4,6 +4,8 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
+**LATEST — October 29, 11:02 AM US Central: https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. mcantua/claude-chatg is the private backup. No personal data may be committed. No release build.**
+
 **LATEST — October 29, 9:32 AM US Central: Run 40891656259 succeeded. Production `hydrateStatGrowth` now stores derived growth coefficients as exact thousandth strings, and the first hosted Finish no longer needed the test-only candidate. Full validation, auth, fresh state, original-engine master attachment, and late service binding remain open. See the 9:32 AM STATUS log. Extension loading stays omitted. No release build.**
 
 _Written Wed Oct 28, 2026, 11:15 AM US Central by Claude, before running out of usage._
