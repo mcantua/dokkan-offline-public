@@ -1,5 +1,7 @@
 # Status
 
+**Branding clarification — October 29, 2026, 06:52 PM CT:** Tin approved an unofficial, private, noncommercial fan-project direction with original attribution in Credits/Licenses. Working branding is Dokkan Freedom; store/purchases/external account and publisher-service behavior should be disabled in the working game. Devices, backups and saves remain untouched. Requirements only recorded in CLAUDE-HANDOFF.md; no game assets/runtime behavior changed, no tests/builds run, Claude retains development ownership.
+
 **Claude takeover — October 29, 2026, 6:21 PM CT:** Tin asked ChatGPT to stop development, upload the current work and hand off to Claude. Read [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) first for the exact source/build/input inventory and next steps. All six workers are completed. Latest compiled source is 457588c (77 units); later optional observer/probe integration remains uncompiled. No verified playable native client or in-app images exist. Older active-worker/resumption statements below are historical.
 
 

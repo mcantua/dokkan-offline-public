@@ -2,6 +2,20 @@
 
 Prepared October 29, 2026, 6:21 PM CT at Tin's explicit request to stop ChatGPT development and upload the full handoff. This is the current entry point; older Grok/Hayate notes and earlier active-worker reports are historical where they disagree. No background development remains active.
 
+## Latest agreed branding direction — October 29, 2026, 06:52 PM CT
+
+Tin clarified that this is a private, fan-made, noncommercial passion project for personal offline enjoyment. He does not intend to sell it or claim ownership of the original game. He accepted an unofficial rebrand along these lines:
+
+- Working name: **Dokkan Freedom**; custom icon, splash screen and project-facing menu branding. Preserve the original gameplay/presentation requirements; this is not permission to replace the client with a generic game.
+- Disable store/purchase flows, external account linking and publisher-service connections in the working offline application. Implement actual behavior changes; renamed labels alone do not disable requests. Do not remove the approved ability to obtain compatible game data through controlled, explicit downloads where still required by the project plan.
+- Retain original attribution and applicable third-party notices in a **Credits / Licenses** screen. Present the project as unofficial and fan-made. This supersedes earlier requests to hide all traces of the original publisher.
+- **Devices, backups and saves are explicitly excluded from cleanup.** Do not delete or rewrite these, original recovery archives, signing material, or historical provenance to make the working app look rebranded.
+- Do not blindly replace package IDs, symbols, ABI names, database identifiers or file hashes. Change technical references only as part of a compatible implementation. Preserve exact original input pins; record any derived resources separately.
+
+Suggested short About text: “Dokkan Freedom is an unofficial fan-made project for personal offline play. It is noncommercial and is not affiliated with or endorsed by the original rights holders. Original characters, artwork, music and game components belong to their respective owners. See Credits / Licenses.”
+
+**Implementation status:** This records the approved direction for Claude, who retains development ownership. No game file, Drive source asset, account connection, purchase flow or executable was changed by this clarification. The limited read-only audit found publisher names in the Android-export English localization, copyright HTML, account-linking labels, legal/store links and retained technical identifiers. No comprehensive scan of packed assets/binaries was performed. No runtime feature-disabling or rebranding verification is claimed. No tests or builds are needed for this documentation change.
+
 ## Read first and repository boundaries
 
 Read README.md → this file → STATUS.md → context/TIN-RULES.md → HANDOFF.md and HAYATE-HANDOFF.md for retained history. Then read the specific source/evidence documents linked below. The full planned feature set remains in projects/OFFLINE-DOKKAN-PLAN.md and the Creator handoff; this document prioritizes the first real playable path, not a reduced final scope.
