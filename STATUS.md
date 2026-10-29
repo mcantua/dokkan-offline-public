@@ -4,7 +4,7 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; claude-chatg is the frozen private backup)_
+_Last updated: 2026-10-29 11:20 AM US Central (Grok; launcher diagnostic failed before screenshots; minimal master fallback added)_
 
 ## Right now
 | Project | Who | State |
@@ -21,6 +21,7 @@ _Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; clau
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:20 AM — Grok: Run [40910229847](https://github.com/mcantua/dokkan-offline-public/actions/runs/40910229847) on `cursor/iphone-duo-launcher-ef58` failed in 23 seconds. Xcode 27.1 and the Duo runtime were present. `finish-only-run.sh` exited 1 because gitignored `test-page/UnitCreator-test.html` is not in the checkout. No PNGs were uploaded. The script now writes a minimal rank master when that page is absent and continues. No new dispatch. No release build.
 - 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.
 
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.

@@ -10,7 +10,7 @@ test "$(uname -s)" = Darwin || { echo 'Requires an authorized hosted macOS runne
 test ! -e "$WORK" || { echo 'Existing diagnostic directory preserved; use a fresh hosted checkout' >&2; exit 1; }
 mkdir -p "$WORK/evidence" "$TOOLS"
 python3 - "$ROOT" <<'PY'
-import importlib.util,json,pathlib,plistlib,subprocess,sys
+import importlib.util,json,pathlib,plistlib,sqlite3,subprocess,sys
 root=pathlib.Path(sys.argv[1]);work=root/'unit-creator/cloud-ui/finish-work'
 version=subprocess.check_output(['xcodebuild','-version'],text=True).strip()
 sdk=subprocess.check_output(['xcrun','--sdk','iphonesimulator','--show-sdk-version'],text=True).strip()
@@ -20,11 +20,27 @@ if 'com.apple.CoreSimulator.SimDeviceType.iPhone-Duo' not in {v['identifier'] fo
 arch=subprocess.check_output(['uname','-m'],text=True).strip()
 if arch not in ('arm64','x86_64'):raise SystemExit('Unsupported hosted simulator architecture')
 (work/'evidence/toolchain.json').write_text(json.dumps({'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'xcode':version,'sdk':sdk,'architecture':arch,'scope':'One internal embedded Creator WK boundary on genuine hosted Duo; no physical device, original game launch or app package'},indent=2)+'\n')
-# Reconstruct only the selected Eclipse master needed by the failing native scenario.
+# The generated test page is gitignored. Use it when a checkout still has it.
+# Otherwise a minimal rank master is enough for the launcher and saved-account screens.
 spec=importlib.util.spec_from_file_location('reconstruct',root/'unit-creator/cloud-ui/reconstruct-data.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
-files=m.embedded_files(root/'test-page/UnitCreator-test.html');manifest,tables=m.snapshot(files,'data/db/')
 (work/'db').mkdir()
-provenance={'source':'Committed browser table rows reconstructed for one internal native Creator diagnostic','limitations':['Not original SQLite bytes; indexes/triggers/views/foreign-key declarations and binary fidelity are not recoverable','Not release game content or game-runtime evidence'],'eclipse':m.create_database(work/'db/reference.db',manifest,tables)}
+html=root/'test-page/UnitCreator-test.html'
+if html.is_file():
+    files=m.embedded_files(html);manifest,tables=m.snapshot(files,'data/db/')
+    eclipse=m.create_database(work/'db/reference.db',manifest,tables)
+    source='Committed browser table rows reconstructed for one internal native Creator diagnostic'
+    limitations=['Not original SQLite bytes; indexes/triggers/views/foreign-key declarations and binary fidelity are not recoverable','Not release game content or game-runtime evidence']
+else:
+    db=work/'db/reference.db'
+    con=sqlite3.connect(db)
+    con.execute('CREATE TABLE rank_statuses(rank INTEGER PRIMARY KEY, act_max INTEGER NOT NULL, exp_total INTEGER NOT NULL)')
+    con.execute('INSERT INTO rank_statuses(rank,act_max,exp_total) VALUES (1,1,0)')
+    con.commit();con.close()
+    eclipse={'tables':1,'cards':0,'rank':1,'act_max':1}
+    source='test-page/UnitCreator-test.html is not in this public checkout. Minimal rank master for the launcher diagnostic.'
+    limitations=['The generated test page is gitignored and was not checked out','No card snapshot is embedded','Not release game content']
+    print('test-page/UnitCreator-test.html is absent; wrote a minimal rank master',flush=True)
+provenance={'source':source,'limitations':limitations,'eclipse':eclipse}
 (work/'evidence/data-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
 base={'CODE_SIGNING_ALLOWED':'NO','CLANG_ENABLE_OBJC_ARC':'YES','IPHONEOS_DEPLOYMENT_TARGET':'16.4','TARGETED_DEVICE_FAMILY':'1,2','ONLY_ACTIVE_ARCH':'YES','ARCHS':arch}
 native='../../../offline-dokkan/'
