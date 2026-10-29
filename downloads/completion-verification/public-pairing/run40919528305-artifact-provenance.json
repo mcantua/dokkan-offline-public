@@ -1,0 +1,33 @@
+{
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 40919528305,
+  "source_commit": "8446a7ac1e81956952c2eea27c22ec26cbab5f45",
+  "diagnostics": {
+    "artifact_id": 12918316546,
+    "bytes": 56459,
+    "sha256": "c4f7cdb093c90bb030571cf302a58c786844ac9745dd2afea713106514023a7b",
+    "expanded_to": "run40919528305"
+  },
+  "partial_proof_artifact": {
+    "artifact_id": 12918366390,
+    "bytes": 10898,
+    "sha256": "94bf0eb99fa8fd2d31805f42bb83c6c2ac01473948c6317005e462b6d1918d05"
+  },
+  "rust": {
+    "reused_run": 40916969403,
+    "vendor_passed": 8,
+    "helper_passed": 2,
+    "transport_passed": 2,
+    "new_tests_executed": false
+  },
+  "native": {
+    "runtime": "iOS27.0",
+    "model": "iPhone18ProMax",
+    "checks_started": false,
+    "app_compiled": false,
+    "app_installed": false,
+    "screenshots_available": false,
+    "failure": "pre-app simctl ui appearance timed out; owned simulator deleted"
+  },
+  "physical_resources_used": false
+}

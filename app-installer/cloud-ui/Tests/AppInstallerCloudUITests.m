@@ -246,7 +246,28 @@ static UIWindow *AIWaitForAppWindow(void) {
         fixture.stateOverrides=nil;
         window.rootViewController=host;[host addChildViewController:navigation];[host.view addSubview:navigation.view];[navigation didMoveToParentViewController:host];navigation.view.autoresizingMask=UIViewAutoresizingNone;
         home.fixtureGeometryEnabled=YES;
-        NSArray *cases=@[@{ @"width":@390,@"height":@844,@"side":@"" },@{ @"width":@466,@"height":@678,@"side":@"right" },@{ @"width":@669,@"height":@951,@"side":@"" },@{ @"width":@951,@"height":@669,@"side":@"" },@{ @"width":@466,@"height":@678,@"side":@"left" },@{ @"width":@669,@"height":@951,@"side":@"" }];
+        NSArray *cases=@[@{ @"width":@390,@"height":@844,@"side":@"" },@{ @"width":@466,@"height":@678,@"side":@"right" },@{ @"width":@669,@"height":@951,@"side":@"right" },@{ @"width":@669,@"height":@951,@"side":@"" },@{ @"width":@951,@"height":@669,@"side":@"" },@{ @"width":@466,@"height":@678,@"side":@"left" },@{ @"width":@669,@"height":@951,@"side":@"" }];
+        void (^assertPinnedCancel)(void)=^{
+            UIView *hud=[home valueForKey:@"taskHUD"];
+            UIButton *cancel=[home valueForKey:@"taskHUDCancel"];
+            UIScrollView *scroll=[home valueForKey:@"scroll"];
+            XCTAssertFalse(hud.hidden);XCTAssertTrue([cancel isDescendantOfView:hud]);
+            XCTAssertGreaterThan(cancel.allTargets.count,0u);
+            XCTAssertFalse([cancel isDescendantOfView:scroll],@"Cancel must stay outside the scrolling app list.");
+            CGRect before=[cancel convertRect:cancel.bounds toView:home.view];
+            scroll.contentOffset=CGPointMake(0,MAX(0,scroll.contentSize.height-scroll.bounds.size.height));
+            [home.view layoutIfNeeded];
+            CGRect after=[cancel convertRect:cancel.bounds toView:home.view];
+            XCTAssertTrue(CGRectEqualToRect(before,after),@"Scrolling to the list end must not move task cancellation.");
+            XCTAssertGreaterThanOrEqual(after.size.width,44.0);XCTAssertGreaterThanOrEqual(after.size.height,44.0);
+            XCTAssertGreaterThanOrEqual(CGRectGetMinY(hud.frame),home.view.safeAreaInsets.top);
+            XCTAssertLessThanOrEqual(CGRectGetMaxY(hud.frame),CGRectGetMinY(home.view.keyboardLayoutGuide.layoutFrame)+1);
+            XCTAssertLessThanOrEqual(CGRectGetMaxY(scroll.frame),CGRectGetMinY(hud.frame),@"Pinned task controls must reserve list space.");
+            CGPoint center=CGPointMake(CGRectGetMidX(after),CGRectGetMidY(after));
+            UIView *hit=[home.view hitTest:center withEvent:nil];
+            XCTAssertTrue(hit==cancel || [hit isDescendantOfView:cancel],@"The pinned Cancel button must own its rendered touch point.");
+            XCTAssertEqualWithAccuracy(((UIProgressView *)[home valueForKey:@"taskHUDProgress"]).progress,0.42,0.001);
+        };
         ((void (*)(id,SEL))objc_msgSend)(home,NSSelectorFromString(@"render"));
         for(NSDictionary *testCase in cases) {
             CGSize size=CGSizeMake([testCase[@"width"]doubleValue],[testCase[@"height"]doubleValue]);
@@ -259,8 +280,10 @@ static UIWindow *AIWaitForAppWindow(void) {
             XCTAssertNotNil(install);XCTAssertNotNil(apps);
             CGRect installFrame=[install convertRect:install.bounds toView:home.view],appsFrame=[apps convertRect:apps.bounds toView:home.view];
             XCTAssertGreaterThan(installFrame.size.width,100.0);
-            if(home.view.bounds.size.width>=600)XCTAssertGreaterThan(CGRectGetMinX(appsFrame),CGRectGetMaxX(installFrame));else XCTAssertGreaterThan(CGRectGetMinY(appsFrame),CGRectGetMaxY(installFrame));
             NSDictionary *geometry=[home displayGeometry];
+            CGFloat available=home.view.bounds.size.width-[geometry[@"contentInsets"][@"left"]doubleValue]-[geometry[@"contentInsets"][@"right"]doubleValue]-48;
+            if(available>=600)XCTAssertGreaterThan(CGRectGetMinX(appsFrame),CGRectGetMaxX(installFrame));else XCTAssertGreaterThan(CGRectGetMinY(appsFrame),CGRectGetMaxY(installFrame));
+            if(size.width==669 && home.fixtureRailSide.length)XCTAssertEqual(((UIStackView *)[home valueForKey:@"mainColumns"]).axis,UILayoutConstraintAxisVertical,@"An occluded 669-point root must stack its narrower usable content.");
             [self checkVisibleTextBounds:home.view container:home.view width:home.view.bounds.size.width];
             [self assertTouchTargets:home.view container:home.view occlusions:geometry[@"occlusions"]];
             UIStackView *rail=[home valueForKey:@"rail"];
@@ -281,12 +304,30 @@ static UIWindow *AIWaitForAppWindow(void) {
                 ((void (*)(id,SEL,id))objc_msgSend)(home,NSSelectorFromString(@"handleEvent:"),@{@"type":@"progress",@"operationId":@42,@"progress":@0.42,@"message":@"TEST-ONLY install progress fixture"});
             }
             XCTAssertEqualWithAccuracy([[home valueForKey:@"displayProgress"]doubleValue],0.42,0.001);
+            for(NSInteger pass=0;pass<3;++pass){[home.view setNeedsLayout];[home.view layoutIfNeeded];}
+            assertPinnedCancel();
             XCTAssertEqual(navigation.viewControllers.count,1u);
             [self attachView:home.view name:[NSString stringWithFormat:@"TEST-ONLY resize/camera %@ %.0fx%.0f",home.fixtureRailSide,size.width,size.height]];
         }
+        [host setOverrideTraitCollection:[UITraitCollection traitCollectionWithPreferredContentSizeCategory:UIContentSizeCategoryAccessibilityExtraExtraExtraLarge] forChildViewController:navigation];
+        navigation.view.frame=CGRectMake(0,0,466,678);home.fixtureRailSide=@"right";
+        for(NSInteger pass=0;pass<3;++pass){[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];[home.view setNeedsLayout];[home.view layoutIfNeeded];AITick();}
+        XCTAssertEqualObjects(home.traitCollection.preferredContentSizeCategory,UIContentSizeCategoryAccessibilityExtraExtraExtraLarge);
+        XCTAssertEqual(((UIStackView *)[home valueForKey:@"mainColumns"]).axis,UILayoutConstraintAxisVertical);
+        XCTAssertGreaterThan(((UIButton *)[home valueForKey:@"taskHUDCancel"]).titleLabel.font.pointSize,17.0);
+        UIScrollView *largeScroll=[home valueForKey:@"scroll"];
+        XCTAssertGreaterThan(largeScroll.contentSize.height,largeScroll.bounds.size.height,@"Large-text fixture must exercise actual list scrolling.");
+        assertPinnedCancel();
+        [self attachView:home.view name:@"TEST-ONLY maximum accessibility text — pinned native task controls"];
+        [host setOverrideTraitCollection:nil forChildViewController:navigation];
         UIBarButtonItem *settings=home.navigationItem.rightBarButtonItem;
         [UIApplication.sharedApplication sendAction:settings.action to:settings.target from:settings forEvent:nil];
         AITick();UIViewController *selected=navigation.topViewController;
+        NSDictionary *homeReport=[home valueForKey:@"homeDisplayReportSnapshot"];
+        XCTAssertNotNil(homeReport);
+        XCTAssertEqualObjects(homeReport[@"geometry"][@"bounds"],homeReport[@"viewBounds"]);
+        XCTAssertEqualObjects(homeReport[@"layout"][@"rootView"],homeReport[@"viewBounds"]);
+        XCTAssertGreaterThan([homeReport[@"windowBounds"] count],0u,@"Home diagnostics must be captured while its own window is still attached.");
         for(NSValue *value in @[[NSValue valueWithCGSize:CGSizeMake(466,678)],[NSValue valueWithCGSize:CGSizeMake(669,951)],[NSValue valueWithCGSize:CGSizeMake(466,678)]]) {
             navigation.view.frame=(CGRect){CGPointZero,value.CGSizeValue};[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];
             XCTAssertEqual(navigation.topViewController,selected,@"Forced resize must preserve navigation state.");

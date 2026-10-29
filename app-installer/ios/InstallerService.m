@@ -43,6 +43,8 @@ extern void ai_free_string(char *value);
 @property (nonatomic, strong) NSURL *pendingIPA;
 @property (nonatomic, strong) NSNumber *pendingOperationId;
 @property (nonatomic, strong) NSNumber *backgroundOperationId;
+@property (nonatomic) BOOL refreshResultsPending;
+@property (nonatomic, strong) NSNumber *previousRefreshResultsOperation;
 @property (nonatomic) BOOL pendingIPASecurityScope;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property (nonatomic) NSUInteger backgroundExecutionGeneration;
@@ -69,6 +71,7 @@ extern void ai_free_string(char *value);
 - (void)stopPairingDiscoveryClearingPort:(BOOL)clear;
 - (void)clearDiscoveredPortIfPossible;
 - (void)requestDeviceList;
+- (void)beginRefreshResultsAttempt;
 - (void)withDeviceConnection:(void (^)(void))action;
 + (BOOL)remotePairingTXT:(NSData *)data identifier:(NSString **)identifier authTag:(NSString **)authTag;
 - (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation;
@@ -137,6 +140,7 @@ extern void ai_free_string(char *value);
             AIInstallerService *self = weakSelf;
             if (!self || self.backgroundCompletion) { completion(NO); return; }
             [self poll];
+            [self beginRefreshResultsAttempt];
             self.backgroundCompletion = completion;
             if (ai_refresh_all() != AI_OK) { [self finishBackground:NO]; return; }
             [self readEngineState];
@@ -186,6 +190,9 @@ extern void ai_free_string(char *value);
 }
 - (NSDictionary *)snapshot {
     NSMutableDictionary *s = [self.engineState mutableCopy] ?: [NSMutableDictionary new];
+    // Authentication/discovery can fail before a new core operation exists.
+    // Keep prior outcomes hidden until this attempt publishes fresh results.
+    if (self.refreshResultsPending) s[@"refreshResults"] = @[];
     if (!s[@"loginStatus"]) s[@"loginStatus"] = @"signed_out";
     BOOL pairingAuthorizationCurrent = [AISecureStore sessionAuthorized];
     BOOL verifiedPairing = self.pairingVerified && pairingAuthorizationCurrent;
@@ -245,6 +252,13 @@ extern void ai_free_string(char *value);
         NSNumber *eventId = event[@"operationId"];
         NSNumber *activeId = self.engineState[@"activeOperationId"];
         if (eventId && activeId && ![eventId isEqual:activeId]) continue;
+        if (self.refreshResultsPending && eventId &&
+            ![eventId isEqual:self.previousRefreshResultsOperation] &&
+            [event[@"operation"] isEqual:@"refresh_all"] &&
+            [event[@"refreshResults"] isKindOfClass:NSArray.class]) {
+            self.refreshResultsPending = NO;
+            self.previousRefreshResultsOperation = nil;
+        }
         BOOL matchesPending = eventId && [eventId isEqual:self.pendingOperationId];
         BOOL matchesBackground = eventId && [eventId isEqual:self.backgroundOperationId];
         BOOL currentPairingCheck = eventId && [eventId isEqual:self.pairingVerificationOperation];
@@ -553,7 +567,16 @@ extern void ai_free_string(char *value);
     if (self.pendingIPA) [NSFileManager.defaultManager removeItemAtURL:self.pendingIPA error:nil];
     self.pendingIPA = nil; self.pendingOperationId = nil;
 }
+- (void)beginRefreshResultsAttempt {
+    self.refreshResultsPending = YES;
+    id previous = self.engineState[@"activeOperationId"];
+    self.previousRefreshResultsOperation = [previous isKindOfClass:NSNumber.class] ? previous : nil;
+    NSMutableDictionary *state = [self.engineState mutableCopy] ?: [NSMutableDictionary new];
+    state[@"refreshResults"] = @[];
+    self.engineState = state;
+}
 - (void)refreshAll {
+    [self beginRefreshResultsAttempt];
     [self authorize:@"Approve refreshing your installed apps" action:^{
         if (!self.pairingBackupReady) { [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing apps."]; return; }
         [self withDeviceConnection:^{
@@ -812,6 +835,7 @@ extern void ai_free_string(char *value);
     self.lastForegroundRefreshAttempt = now;
     [NSUserDefaults.standardUserDefaults setObject:now forKey:@"org.tin.appinstaller.last-foreground-refresh-attempt"];
     self.foregroundRefreshPending = YES;
+    [self beginRefreshResultsAttempt];
     [self authorize:@"Your apps are near expiry. Unlock to approve refreshing them." action:^{
         if (!self.pairingBackupReady) {
             self.foregroundRefreshPending = NO;

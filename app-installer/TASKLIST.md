@@ -1,6 +1,6 @@
 # Completion task list
 
-**Current source-only state:** public-copy remote pairing/helper/phone transport is incomplete. Source authentication/fragmentation and asynchronous Files import repairs are uncompiled. Two Python migration-boundary checks passed; no app verification. No build until "make the builds". Historical rows below retain their original source scope; see device/PUBLIC-CONTINUATION.md.
+**Current public revision:** Tin authorized cloud builds. Public vendor8/helper2/then-current transport2 and baseline19 passed; notices408/zero gaps. Native tests have not executed because both attempts failed before app launch. New teardown/recovery/UI checks and actual helper/candidate/source/kit packaging remain pending. Historical rows below retain their original source scope and do not verify this revision; current evidence and next tasks are in device/PUBLIC-CONTINUATION.md. No aggregate completion percentage or release-ready claim.
 
 This list tracks the actual completion goal. No overall100% claim while any required item is blocked or unverified. Builds and documents are evidence/milestones, not completion.
 

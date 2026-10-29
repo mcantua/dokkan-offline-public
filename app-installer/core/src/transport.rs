@@ -63,6 +63,23 @@ async fn authenticated_psk<S: ReadWrite>(stream:S,key:&[u8]) -> Result<tokio_ope
     Ok(stream)
 }
 struct TunnelParameters { client:Ipv6Addr, server:Ipv6Addr, mtu:u16, rsd_port:u16 }
+/// Independently owns OS shutdown of the tunnel socket. jktcp moves its TLS
+/// stream into a detached task whose pending connect can block before polling
+/// the handle channel again. Closing a handle alone cannot interrupt that read.
+/// shutdown(Both) applies to every duplicated descriptor for this connection,
+/// including the descriptor inside OpenSSL/the adapter, without an async wait.
+struct TunnelShutdown(std::net::TcpStream);
+impl TunnelShutdown {
+    fn retain(stream:tokio::net::TcpStream)->std::io::Result<(tokio::net::TcpStream,Self)>{
+        let stream=stream.into_std()?;
+        let shutdown=Self(stream.try_clone()?);
+        let stream=tokio::net::TcpStream::from_std(stream)?;
+        Ok((stream,shutdown))
+    }
+}
+impl Drop for TunnelShutdown {
+    fn drop(&mut self){let _=self.0.shutdown(std::net::Shutdown::Both);}
+}
 async fn tunnel_handshake<S:ReadWrite>(mut stream:S) -> Result<(S,TunnelParameters),IdeviceError> {
     fn invalid() -> IdeviceError {IdeviceError::UnexpectedResponse("Invalid authenticated RP tunnel parameters".into())}
     let body=serde_json::to_vec(&json!({"type":"clientHandshakeRequest","mtu":16000})).map_err(|_|invalid())?;
@@ -92,7 +109,10 @@ async fn tunnel_handshake<S:ReadWrite>(mut stream:S) -> Result<(S,TunnelParamete
 }
 pub(super) enum DeviceTransport {
     Lockdown(TcpProvider),
-    Remote { handle:AdapterHandle, handshake:RsdHandshake, _control:RemotePairingClient<RpPairingSocket<tokio::net::TcpStream>> },
+    // Fields drop in declaration order: shutdown interrupts the detached worker
+    // before handles/control are released. During construction the local guard
+    // likewise survives every await and shuts down on error/cancellation.
+    Remote { _shutdown:TunnelShutdown, handle:AdapterHandle, handshake:RsdHandshake, _control:RemotePairingClient<RpPairingSocket<tokio::net::TcpStream>> },
 }
 impl DeviceTransport {
     pub(super) async fn connect(credentials:Credentials,host:IpAddr,port:u16)->Result<Self,Report>{
@@ -107,6 +127,7 @@ impl DeviceTransport {
                 let port=step("The authenticated device could not open its Remote Pairing tunnel.",control.create_tcp_listener()).await?;
                 let key=Zeroizing::new(control.authenticated_encryption_key().map_err(|_|failure("Remote Pairing has no authenticated tunnel key."))?.to_vec());
                 let stream=step("The authenticated Remote Pairing tunnel could not be reached.",async{Ok::<_,IdeviceError>(tokio::net::TcpStream::connect((host,port)).await?)}).await?;
+                let (stream,shutdown)=TunnelShutdown::retain(stream).map_err(|_|failure("The authenticated tunnel could not establish cancellation ownership."))?;
                 let stream=step("The authenticated Remote Pairing TLS tunnel could not be established.",authenticated_psk(stream,&key)).await?;
                 let (stream,parameters)=step("The authenticated device returned invalid tunnel parameters.",tunnel_handshake(stream)).await?;
                 let mut adapter=Adapter::new(Box::new(stream),IpAddr::V6(parameters.client),IpAddr::V6(parameters.server));
@@ -114,7 +135,7 @@ impl DeviceTransport {
                 let mut handle=adapter.to_async_handle();
                 let stream=step("Remote service discovery could not connect through the authenticated tunnel.",async{Ok::<_,IdeviceError>(handle.connect(parameters.rsd_port).await?)}).await?;
                 let handshake=step("The authenticated device's service discovery handshake failed.",RsdHandshake::new(stream)).await?;
-                Ok(Self::Remote{handle,handshake,_control:control})
+                Ok(Self::Remote{_shutdown:shutdown,handle,handshake,_control:control})
             }
         }
     }
@@ -165,6 +186,30 @@ impl DeviceTransport {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // Observes destruction of the real adapter-owned TLS stream, rather than
+    // treating loss of a front-end handle as proof that its worker terminated.
+    #[derive(Debug)]
+    struct ObservedTransport<S:ReadWrite>{inner:S,dropped:Option<tokio::sync::oneshot::Sender<()>>}
+    impl<S:ReadWrite> Drop for ObservedTransport<S>{
+        fn drop(&mut self){if let Some(sender)=self.dropped.take(){let _=sender.send(());}}
+    }
+    impl<S:ReadWrite> tokio::io::AsyncRead for ObservedTransport<S>{
+        fn poll_read(mut self:std::pin::Pin<&mut Self>,cx:&mut std::task::Context<'_>,buffer:&mut tokio::io::ReadBuf<'_>)->std::task::Poll<std::io::Result<()>>{
+            std::pin::Pin::new(&mut self.inner).poll_read(cx,buffer)
+        }
+    }
+    impl<S:ReadWrite> tokio::io::AsyncWrite for ObservedTransport<S>{
+        fn poll_write(mut self:std::pin::Pin<&mut Self>,cx:&mut std::task::Context<'_>,buffer:&[u8])->std::task::Poll<std::io::Result<usize>>{
+            std::pin::Pin::new(&mut self.inner).poll_write(cx,buffer)
+        }
+        fn poll_flush(mut self:std::pin::Pin<&mut Self>,cx:&mut std::task::Context<'_>)->std::task::Poll<std::io::Result<()>>{
+            std::pin::Pin::new(&mut self.inner).poll_flush(cx)
+        }
+        fn poll_shutdown(mut self:std::pin::Pin<&mut Self>,cx:&mut std::task::Context<'_>)->std::task::Poll<std::io::Result<()>>{
+            std::pin::Pin::new(&mut self.inner).poll_shutdown(cx)
+        }
+    }
 
     #[tokio::test]
     async fn public_remote_transport_psk_requires_matching_secret_and_real_tls_finished() {
@@ -261,5 +306,68 @@ mod tests {
         // A plain/unpinned remote record never falls through to legacy Lockdown.
         let unpinned=RpPairingFile::generate("synthetic-host").to_bytes();
         assert!(parse_credentials(&unpinned).is_err());
+
+        // Reproduce a SYN read blocked inside the actual detached jktcp worker.
+        // A real cloud-loopback TLS peer completes the production PSK/CDTunnel
+        // handshakes, consumes the SYN, then deliberately never sends SYN-ACK.
+        // Both an outer timeout and task abortion must interrupt the actual OS
+        // socket and destroy the background worker's TLS stream within a bound.
+        async fn blocked_worker_ends(cancel:bool){
+            use openssl::ssl::{Ssl,SslContextBuilder,SslMethod,SslVerifyMode,SslVersion};
+            let key=[0x71u8;32];
+            let mut context=SslContextBuilder::new(SslMethod::tls_server()).unwrap();
+            context.set_verify(SslVerifyMode::PEER);
+            context.set_min_proto_version(Some(SslVersion::TLS1_2)).unwrap();
+            context.set_max_proto_version(Some(SslVersion::TLS1_2)).unwrap();
+            context.set_cipher_list("PSK-AES256-CBC-SHA384").unwrap();
+            context.set_psk_server_callback(move |_,_,output|{
+                if output.len()<key.len(){return Err(openssl::error::ErrorStack::get());}
+                output[..key.len()].copy_from_slice(&key);Ok(key.len())
+            });
+            let ssl=Ssl::new(&context.build()).unwrap();
+            let listener=tokio::net::TcpListener::bind((std::net::Ipv4Addr::LOCALHOST,0)).await.unwrap();
+            let address=listener.local_addr().unwrap();
+            let (syn_sent,syn_received)=tokio::sync::oneshot::channel();
+            let server=tokio::spawn(async move{
+                let (stream,_)=listener.accept().await.unwrap();
+                let mut stream=tokio_openssl::SslStream::new(ssl,stream).unwrap();
+                std::pin::Pin::new(&mut stream).accept().await.unwrap();
+                let mut header=[0u8;10];stream.read_exact(&mut header).await.unwrap();
+                assert_eq!(&header[..8],b"CDTunnel");
+                let mut request=vec![0;usize::from(u16::from_be_bytes([header[8],header[9]]))];stream.read_exact(&mut request).await.unwrap();
+                let response=serde_json::to_vec(&json!({"type":"serverHandshakeResponse","clientParameters":{"address":"::2","mtu":1500},"serverAddress":"::3","serverRSDPort":1234})).unwrap();
+                stream.write_all(b"CDTunnel").await.unwrap();stream.write_all(&(response.len() as u16).to_be_bytes()).await.unwrap();stream.write_all(&response).await.unwrap();
+                let mut ip=[0u8;40];stream.read_exact(&mut ip).await.unwrap();
+                assert_eq!(ip[0]>>4,6);assert_eq!(ip[6],6);
+                let mut tcp=vec![0;usize::from(u16::from_be_bytes([ip[4],ip[5]]))];stream.read_exact(&mut tcp).await.unwrap();
+                assert!(tcp.len()>=20);assert_ne!(tcp[13]&2,0);
+                syn_sent.send(()).unwrap();
+                let closed=async{
+                    let mut bytes=[0;4096];
+                    loop{match stream.read(&mut bytes).await{Ok(0)|Err(_)=>break,Ok(_)=>{}}}
+                };
+                tokio::time::timeout(Duration::from_secs(2),closed).await.expect("tunnel socket remained open after owner drop");
+            });
+            let stream=tokio::net::TcpStream::connect(address).await.unwrap();
+            let (stream,shutdown)=TunnelShutdown::retain(stream).unwrap();
+            let stream=authenticated_psk(stream,&key).await.unwrap();
+            let (stream,parameters)=tunnel_handshake(stream).await.unwrap();
+            let (dropped,worker_ended)=tokio::sync::oneshot::channel();
+            let transport=ObservedTransport{inner:stream,dropped:Some(dropped)};
+            let mut adapter=Adapter::new(Box::new(transport),IpAddr::V6(parameters.client),IpAddr::V6(parameters.server));
+            adapter.set_mss(usize::from(parameters.mtu)-60);
+            let owner=tokio::spawn(async move{
+                let _shutdown=shutdown;
+                let mut handle=adapter.to_async_handle();
+                tokio::time::timeout(Duration::from_millis(250),handle.connect(parameters.rsd_port)).await.is_err()
+            });
+            tokio::time::timeout(Duration::from_secs(2),syn_received).await.unwrap().unwrap();
+            if cancel{owner.abort();assert!(owner.await.unwrap_err().is_cancelled());}
+            else{assert!(owner.await.unwrap());}
+            tokio::time::timeout(Duration::from_secs(2),worker_ended).await.expect("detached adapter worker retained its TLS stream").unwrap();
+            tokio::time::timeout(Duration::from_secs(2),server).await.unwrap().unwrap();
+        }
+        blocked_worker_ends(false).await;
+        blocked_worker_ends(true).await;
     }
 }

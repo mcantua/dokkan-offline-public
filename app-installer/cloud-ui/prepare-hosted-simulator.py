@@ -70,7 +70,7 @@ devices = supported_devices(runtime)
 duo = next((d for d in devices if d.get('name') == 'iPhone Duo'), None)
 selections = [('duo', duo, runtime), ('regular-iphone-fallback', regular_phone(runtime), runtime)]
 # This exact hosted runtime failed migration before any app in run40916969403.
-# Only the two generic Files/schema checks may use the installed regular27.0
+# Only the selected Files/schema and labelled geometry-fixture checks may use regular27.0
 # runtime. Compilation still uses genuine SDK27.1+; this is never Duo/UI proof.
 component_runtime = next((r for r in items['runtimes'] if r.get('isAvailable')
                           and r.get('name', '').startswith('iOS')
@@ -83,7 +83,8 @@ if (os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public'
         'prior_run_id': 40916969403, 'prior_runtime_build': '24A94425',
         'reason': 'Duo27.1 terminal data migration failure and unavailable shell before any app. '
                   'Its supported-device list excludes regular iPhones.',
-        'checks': ['coordinated Files reads', 'pinned record/discovery metadata guards'],
+        'checks': ['coordinated Files reads', 'pinned record/discovery metadata guards',
+                   'responsive UIKit geometry fixtures (not physical Duo geometry)'],
         'runtime_version': '27.0', 'duo_runtime_verified': False,
         'os27_1_runtime_verified': False, 'sdk_minimum_unchanged': '27.1',
         'scope': 'Generic component checks only; no Duo display/fold/physical-device claim.'}
@@ -108,18 +109,26 @@ for label, device, runtime in selections:
         if frontend_available:
             command(['open', str(frontend), '--args', '-CurrentDeviceUDID', owned], directory / 'frontend.log')
         else:
-            (directory / 'frontend.log').write_text('Selected Xcode has no Simulator.app frontend. Using supported headless simctl boot, bootstatus and UI appearance query; no GUI installation or display mutation.\n')
+            (directory / 'frontend.log').write_text('Selected Xcode has no Simulator.app frontend. Using supported headless simctl boot/bootstatus; shell query/test-host handling recorded separately. No GUI installation or display mutation.\n')
         bootstatus = command(['xcrun', 'simctl', 'bootstatus', owned, '-b'], directory / 'bootstatus.log', 180)
         if 'Data Migration Failed' in bootstatus or re.search(r'Status=3\b', bootstatus):
             raise RuntimeError('Simulator reported terminal data migration failure despite process exit0.')
-        appearance = command(['xcrun', 'simctl', 'ui', owned, 'appearance'], directory / 'shell-appearance.log')
-        if appearance not in ('light', 'dark'):
-            raise RuntimeError('Pre-app shell appearance did not return a supported healthy value.')
-        entry['status'] = 'bare-os-ready'
+        managed_components = (os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public'
+                              and label == 'regular-iphone-component-fallback')
+        if managed_components:
+            (directory / 'shell-appearance.log').write_text('Not queried: this headless heuristic timed out in run40919528305. Xcode-managed test-host launch and the actual selected XCTest results decide native success.\n')
+            entry.update(status='booted-shell-unconfirmed', shell_appearance_verified=False,
+                         xcode_managed_test_host_required=True)
+        else:
+            appearance = command(['xcrun', 'simctl', 'ui', owned, 'appearance'], directory / 'shell-appearance.log')
+            if appearance not in ('light', 'dark'):
+                raise RuntimeError('Pre-app shell appearance did not return a supported healthy value.')
+            entry.update(status='bare-os-ready', shell_appearance_verified=True)
         report.update(simulator_id=owned, simulator_runtime=runtime['identifier'],
             simulator_device_type=device['identifier'], simulator_name=device['name'],
             simulator_preapp_attempts=attempts, simulator_regular_fallback_used=(label != 'duo'),
             native_component_runtime=runtime['version'],
+            production_launch_preflight=False if managed_components else None,
             os27_1_runtime_verified=(version(runtime['version']) >= (27, 1)),
             duo_os_verified=(label == 'duo'), duo_native_tests_verified=False,
             physical_hardware_verified=False, actual_panel_transition_probe_executed=False,

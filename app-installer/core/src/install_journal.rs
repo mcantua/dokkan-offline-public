@@ -16,6 +16,10 @@ pub struct Pending<R> {
     pub bundle_id: String,
     pub source_sha256: String,
     pub record: R,
+    /// The verified device lookup did not contain this app when the user
+    /// approved it. Subsequent absence cannot prove a user uninstall.
+    #[serde(default)]
+    pub initial_install: bool,
 }
 fn invalid() -> io::Error {
     io::Error::new(
@@ -119,11 +123,21 @@ fn atomic_json(path: &Path, bytes: &[u8]) -> io::Result<()> {
     sync_parent(path)
 }
 /// Retain exact validated input and commit intent before any upload/install request.
+#[cfg(test)]
 pub fn prepare<R: Serialize + DeserializeOwned>(
     work: &Path,
     bundle_id: &str,
     record: &R,
     source: &Path,
+) -> io::Result<()> {
+    prepare_with_state(work, bundle_id, record, source, false)
+}
+pub fn prepare_with_state<R: Serialize + DeserializeOwned>(
+    work: &Path,
+    bundle_id: &str,
+    record: &R,
+    source: &Path,
+    initial_install: bool,
 ) -> io::Result<()> {
     let old = read::<R>(work)?;
     if old
@@ -165,6 +179,7 @@ pub fn prepare<R: Serialize + DeserializeOwned>(
         bundle_id: bundle_id.to_owned(),
         source_sha256: hash,
         record,
+        initial_install,
     };
     atomic_json(
         &work.join(NAME),

@@ -53,6 +53,11 @@ on:
         required: false
         type: string
         default: ''
+      reuse_pairing_recovery_run:
+        description: Optional original public run with matching passing core recovery proof
+        required: false
+        type: string
+        default: ''
 permissions:
   contents: read
   actions: write # Prune only previous artifacts with this workflow's exact evidence name.
@@ -65,7 +70,7 @@ jobs:
     defaults:
       run:
         working-directory: AI-Workspace/dokkan-offline-public
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -82,6 +87,7 @@ jobs:
           AI_REUSE_PAIRING_HELPER_RUN: ${{ inputs.reuse_pairing_helper_run }}
           AI_REUSE_PAIRING_TRANSPORT_RUN: ${{ inputs.reuse_pairing_transport_run }}
           AI_REUSE_PAIRING_NATIVE_RUN: ${{ inputs.reuse_pairing_native_run }}
+          AI_REUSE_PAIRING_RECOVERY_RUN: ${{ inputs.reuse_pairing_recovery_run }}
           GH_TOKEN: ${{ github.token }}
         run: bash app-installer/cloud-ui/run.sh
       - name: Keep only the new public source-bound test proof

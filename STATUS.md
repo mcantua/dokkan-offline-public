@@ -4,12 +4,12 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:35 AM US Central (ChatGPT; App Installer public source repairs, no builds)_
+_Last updated: 2026-10-29 12:40 PM US Central (ChatGPT; App Installer cloud integration and focused verification)_
 
 ## Right now
 | Project | Who | State |
 |---|---|---|
-| App Installer | **ChatGPT, public source branch** | Resumed on `chatgpt/app-installer-pairing-repair`. The clean copy is older/Lockdown-only and lacks later helper/phone RP integration. Pairing authentication/wire and coordinated Files source repairs are uncompiled. Two Python migration-boundary checks passed; no compiler/native/device run. Private backup/base untouched. No builds until "make the builds". See app-installer/device/PUBLIC-CONTINUATION.md; not release ready. |
+| App Installer | **ChatGPT + scoped cloud agents, draft PR #7** | Builds authorized. Public pinned pairing/helper/transport integrated; actual vendor8/helper2/then-current transport2 and baseline19 passed. Notices408/zero gaps. Two native attempts stopped at OS preflight, zero app tests/screenshots. New teardown/recovery/UI fixes await combined targeted run; unchanged vendor/helper proof reused. No Mac/phone or frozen-backup use, no base merge. See app-installer/device/PUBLIC-CONTINUATION.md; release_ready=false. |
 | Dokkan Unit Creator | **Grok, on draft PR #1** | Source branch `chatgpt/ios-eclipse-database-reuse`. Hosted Finish saved exact growth thousandths on run 40891656259. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
@@ -20,6 +20,7 @@ _Last updated: 2026-10-29 11:35 AM US Central (ChatGPT; App Installer public sou
 
 
 ## Log (newest first)
+- 2026-10-29 12:40 PM US Central — ChatGPT: public runs40916969403 and40919528305 verified genuine Xcode27.1/SDK27.1 and exact Rust proof reuse; hosted native preflight failed before app compilation, so no simulator/physical or screenshot success claimed. Real cloud baseline19/19 passed (original8 included), zero notice gaps across408 packages after exact siphasher notice repair. Seven scoped agents are completing tunnel teardown, retry/refresh recovery, native import/UI and source-bound minimal delivery/update tooling. Combined targeted transport2/recovery2/native3 pending; unchanged vendor8/helper2 will not repeat. Cloud only; no frozen-backup, Mac/phone/private config/save/key access; no aggregate100% or release-ready claim.
 - 2026-10-29 11:58 AM US Central — ChatGPT: Tin explicitly authorized App Installer builds. Implemented the previously missing trustedUSB exporter, strict authenticated PSK/userspaceIPv6/RSD app transport, protected RP import, runtime-local address configuration and bounded authenticated Bonjour discovery. No guessed address/port or legacy TLS bypass. Preparing one focused new-source GitHub test batch, then source/notices-bound unsigned candidate/helper/kit only after checks pass. Existing unrelated suites will not be repeated. Cloud-only Rust1.99.1 metadata tools/dependencies are in this public project; new locked dependency graph preserves all existing package versions. No Mac, phone, user config/save/signing key or frozen-backup access.
 - 2026-10-29 11:35 AM US Central — ChatGPT: explicitly resumed App Installer in the public repository only. Source repairs from root +2 scoped agents; actual older baseline/remaining modernRP gaps documented. Two Python boundary checks passed in one run; Rust8/native1 methods added but uncompiled/unrun. No builds, old-backup access, personal machine, config/save/key reads or base merge. Historical private kit update instructions retired and private release transport disabled before network; current source and Drive continuation log recorded.
 - 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.

@@ -1,0 +1,60 @@
+{
+  "source_commit": "8446a7ac1e81956952c2eea27c22ec26cbab5f45",
+  "architecture": "arm64",
+  "rust_target": "aarch64-apple-ios-sim",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "simulator_sdk": "27.1",
+  "scope": "Genuine SDK27.1+. Actual simulator selection and pre-app health are recorded separately. No Apple login or phone use; geometry fixtures do not verify hardware folds.",
+  "pairing_public_new_test_counts": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "native": 2
+  },
+  "native_checks_requested": true,
+  "native_test_scope": "pairing-public",
+  "rust_test_scope": "pairing-public",
+  "physical_hardware_verified": false,
+  "pose_automation": "No undocumented fold CLI invoked; installed simctl help is captured for supported-control discovery.",
+  "simulator_frontend_mode": "headless-supported-simctl",
+  "simulator_frontend_bundle_available": false,
+  "native_component_runtime_fallback": {
+    "prior_run_id": 40916969403,
+    "prior_runtime_build": "24A94425",
+    "reason": "Duo27.1 terminal data migration failure and unavailable shell before any app. Its supported-device list excludes regular iPhones.",
+    "checks": [
+      "coordinated Files reads",
+      "pinned record/discovery metadata guards"
+    ],
+    "runtime_version": "27.0",
+    "duo_runtime_verified": false,
+    "os27_1_runtime_verified": false,
+    "sdk_minimum_unchanged": "27.1",
+    "scope": "Generic component checks only; no Duo display/fold/physical-device claim."
+  },
+  "simulator_preapp_attempts": [
+    {
+      "selection": "regular-iphone-component-fallback",
+      "device_type": {
+        "productFamily": "iPhone",
+        "bundlePath": "/Library/Developer/CoreSimulator/Profiles/DeviceTypes/iPhone 18 Pro Max.simdevicetype",
+        "maxRuntimeVersion": 4294967295,
+        "maxRuntimeVersionString": "65535.255.255",
+        "identifier": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+        "modelIdentifier": "iPhone19,3",
+        "minRuntimeVersionString": "27.0.0",
+        "minRuntimeVersion": 1769472,
+        "name": "iPhone 18 Pro Max"
+      },
+      "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-0",
+      "preapp_only": true,
+      "physical_hardware_verified": false,
+      "simulator_id": "88409B6F-F1DB-4C33-A5C5-915A966BAFDA",
+      "status": "preapp-os-failed",
+      "error": "Command '['xcrun', 'simctl', 'ui', '88409B6F-F1DB-4C33-A5C5-915A966BAFDA', 'appearance']' timed out after 60 seconds",
+      "diagnostic_error": "Command '['/opt/homebrew/opt/python@3.15/bin/python3.15', '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/capture-simulator-failure.py', '--simulator', '88409B6F-F1DB-4C33-A5C5-915A966BAFDA', '--evidence', '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence']' timed out after 40 seconds"
+    }
+  ],
+  "duo_os_verified": false,
+  "duo_native_tests_verified": false
+}
