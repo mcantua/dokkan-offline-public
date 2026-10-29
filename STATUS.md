@@ -1,6 +1,6 @@
-# Status
-
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
+
+# Status
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
@@ -10,7 +10,7 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 | Project | Who | State |
 |---|---|---|
 | App Installer | **ChatGPT + cloud agents** | Old8eaf app reportedly installed and opened manually, then crashed at sign-in after authorization/Touch ID. Concrete missing Rust crypto-provider startup defect fixed in7059c85; actual fresh-process constructor1 and relevantTLS2 passed40777027792 (0failures,0.01seconds per group), plus one genuine-SDK package. No19core/response/native repeats; earlier22-check proof is8eaf-only. New local kit35,149,949bytes and matching source78,336,612bytes identify7059c85. Private draft transfer40778539399 passed; physical corrected-build update/retest pending; crash resolution unconfirmed. Native biometric/Keychain review found no separate cause; security unchanged. Broader capability limits persist, release_ready=false. Approved manual setup scope persists; no direct Mac-control tool is attached. |
-| Dokkan Unit Creator | **Grok, on draft PR #1** | Source branch `chatgpt/ios-eclipse-database-reuse`. Hosted Finish saved exact growth thousandths on run 40891656259. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
+| Dokkan Unit Creator | **Grok, parallel branches** | Hosted Finish on `chatgpt/ios-eclipse-database-reuse` saved exact growth thousandths on run 40891656259. Full custom-unit validation on `cursor/full-bundle-validation-3bda` compiled on genuine Xcode 27.1 in run 40895935918. Session guards stay closed. Auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
@@ -22,7 +22,29 @@ _Last updated: 2026-10-29 11:02 AM US Central (Grok; public repo is the active O
 ## Log (newest first)
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.
 
-- 2026-10-29 9:41 AM — Grok: Saved the hosted Creator screenshots from the finish-only artifacts. `creator_welcome_sheet_run_40891656259.png` is the welcome sheet (run 40890254683 has the same bytes). `creator_card_builder_run_40886179478.png` is the card builder with the test unit name and "Saved locally." Run 40868354886 is the same welcome sheet. The native workflow artifact had no app image. The finish-only workflow now always uploads every simulator PNG under the diagnostic evidence folder as `duo-creator-simulator-screenshots`. Workflow-only. No new CI run. Draft PR #1 was not merged.
+- 2026-10-29 9:54 AM — Grok: Branch-only run [40895935918](https://github.com/mcantua/claude-chatg/actions/runs/40895935918) succeeded. Source `0364f5502e34e8aa681eefe2094ffffbaee9a1e9`. About 9:53–9:54 AM CT. Genuine Xcode 27.1, build 27A9275, device SDK 27.1, arm64. The authored component library compiled, including `ODNativeFullCreatorValidator.m`, `od_core.c`, and `ODScopedCreatorTools.m`. `full_bundle.js` is script, so it was not in that native library. The shared Finish workflow was not used. No simulator booted, so there is no new screenshot. The only compiler note was the existing upstream SQLite `gethostuuid` warning. No retry. No release build. Draft PR #4 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Full custom-unit validation before save | 85% | Xcode 27.1 compile passed. The Session screen still cannot save a full bundle. This run did not launch the app. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Do not invent an unverified success body or starting stats. |
+| Original-engine master attachment | 0% | Plaintext derived master is not attached. Do not ship Sparking keys. |
+| Late service binding in ODUnifiedDuoHost | 0% | Spec is known. Not implemented. |
+| In-game Creator menu | 0% | Final menu insertion is still unresolved. |
+| Real battles, saves, and summons with custom units | 0% | Not playable yet. |
+| Duo two-screen test on a phone | 0% | No physical device check. |
+
+- 2026-10-29 9:50 AM — Grok: Full custom-unit validation now runs before `od_creator_finish_bundle` can save. The native validator hashes the selected master, checks known references, rejects shared-dependency conflicts, and re-reads immutable capture blobs before accepting a duplicate hash. `full_bundle.js` rejects the same class of bad input and still does not grant Core acceptance. Public import/Finish still reject a full-bundle descriptor. `ODScopedCreatorTools` only hands the validator a readonly asset file. Session and WebView guards were not opened. Local checks: core C syntax, SHA-256 vectors, one JavaScript source-hash rejection, and an iPhoneOS 16.5 header syntax check of the two Objective-C files with warnings as errors. No CI run and no app screen. No release build. Draft PR #1 was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Full custom-unit validation before save | 75% | Code is in and the WIP files compiled locally. No genuine Xcode 27.1 run of this gate. The Session screen still cannot save a full bundle. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Do not invent an unverified success body or starting stats. |
+| Original-engine master attachment | 0% | Plaintext derived master is not attached. Do not ship Sparking keys. |
+| Late service binding in ODUnifiedDuoHost | 0% | Spec is known. Not implemented. |
+| In-game Creator menu | 0% | Final menu insertion is still unresolved. |
+| Real battles, saves, and summons with custom units | 0% | Not playable yet. |
+| Duo two-screen test on a phone | 0% | No physical device check. |
 
 - 2026-10-29 9:34 AM — Grok: Added [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md) at the repo root and linked it from the top of STATUS.md and HANDOFF.md. Docs only. No CI run. Draft PR #1 was not merged.
 

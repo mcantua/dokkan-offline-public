@@ -16,9 +16,12 @@ typedef int (^ODFullCreatorOpenAsset)(NSString *assetKey,NSError * _Nullable * _
                                          error:(NSError * _Nullable * _Nullable)error;
 /* Context: definitionId,version,rarity,materializationUTC (native intent time in
  * milliseconds), optional creatorId/creatorName/statPolicy. Reuse exact context
- * on final validation. Returns definition + exact full_bundle_bytes/hash,
- * original project SHA, member_count, materialization_utc. Assets are captured
- * in private immutable blobs before issuing hashes. No ownership/engine grant.
+ * on final validation. The selected master is hashed first; its digest must
+ * match the content id. Known references and shared dependencies are checked
+ * before any save. Returns definition + exact full_bundle_bytes/hash,
+ * original project SHA, source_sha256, member_count, materialization_utc.
+ * Assets are captured in private immutable blobs and a duplicate hash is kept
+ * only when those stored bytes match. No ownership, Session, or engine grant.
  */
 - (nullable NSDictionary *)validateProjectBytes:(NSData *)project
                                        context:(NSDictionary *)context

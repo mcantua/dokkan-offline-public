@@ -58,18 +58,7 @@ jobs:
           path: |
             AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.json
             AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.png
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/**/*.png
             AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.log
-          retention-days: 7
-          if-no-files-found: warn
-      - name: Upload every simulator screenshot the diagnostic reached
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: duo-creator-simulator-screenshots
-          path: |
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/*.png
-            AI-Workspace/claude-chatg/unit-creator/cloud-ui/finish-work/evidence/**/*.png
           retention-days: 7
           if-no-files-found: warn
       - name: Retain only the authored library and compiler evidence

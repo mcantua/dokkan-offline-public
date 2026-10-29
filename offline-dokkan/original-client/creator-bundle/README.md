@@ -45,13 +45,17 @@ const candidate = await ODCreatorFullBundle.stage(immutableProject, {
   contentId, saveScope, projectSHA256, definitionId, version,
   ownedInstanceId, sourceDatabase, schema, query, projects,
   sha256Text, describeAsset, listAssets,
-  readAsset, storeLwf, storeDecoration, prepareCounters
+  readAsset, storeLwf, storeDecoration, prepareCounters,
+  sourceSHA256, sourceHashVerified
 });
 ```
 
 The native caller must independently verify exact original accepted project
 bytes/hash and source/save identity; a JavaScript object or supplied hash does
-not grant that authority. `query` is the existing bounded read-only selected
+not grant that authority. `sourceSHA256` must be the lowercase digest named by
+`contentId`, and `sourceHashVerified` must be true only after native code has
+hashed that master file. The JavaScript check rejects a mismatch. It does not
+replace the native hash. `query` is the existing bounded read-only selected
 master/runtime query. `projects` includes every retained historical runtime
 reservation. `schema` is the actual selected source PRAGMA metadata. Storage
 callbacks stay private/native and must scope generated files to this candidate.
@@ -92,6 +96,24 @@ and `gameplay_ready:false`. Its unresolved list includes native atomic full
 acceptance, reference/encoded-ability proof, native derived-master publication,
 resource/CPK building, actual engine path/cipher/cache and the shared progression
 lease. A successful candidate alone never unlocks the existing production gates.
+
+## Validation before save
+
+The native validator hashes the selected plaintext master and continues only
+when that digest is the hash named by the content id. Known `*_id` columns must
+point at a row in the staged bundle or that master. Unknown `*_id` columns are
+not treated as references. Shared dependency rows must use the master schema,
+must not overlap private row ids, must agree across members, and must not
+disagree with a master row that already uses the same id. Multi-form projects
+still reject shared animation dependencies and custom shared Dodge hooks.
+
+Captured bytes are read back from the immutable blob. A second file with the
+same hash is kept only when the stored bytes and size match and the stored file
+is not writable. `od_creator_finish_bundle` hashes that packet and refuses the
+save unless the hash and packet fields match the definition binding. Public
+`creator.import` and `creator.finish` still reject a full-bundle descriptor.
+Session and WebView guards stay closed. Nothing here attaches the original
+engine or makes a custom unit playable.
 
 ## Focused evidence
 
