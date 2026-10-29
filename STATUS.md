@@ -11,6 +11,8 @@
 
 _Last updated: 2026-10-29 3:05 PM US Central (ChatGPT; original resources verified and native composition source)_
 
+- October 29, 3:49 PM CT: First authorized cloud build [40951868478](https://github.com/mcantua/dokkan-offline-public/actions/runs/40951868478) passed genuine Xcode/SDK and exact-source admission, then failed compiling Core because Darwin hid `O_NOFOLLOW` under strict POSIX feature selection. Fixed the native build flag while preserving the real filesystem protection. The next compilation collects all translation-unit failures in one attempt, avoiding one rerun per file. No game launch or downloadable app exists from the failed compile.
+
 ## Right now
 | Project | Who | State |
 |---|---|---|

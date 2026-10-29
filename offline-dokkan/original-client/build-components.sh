@@ -61,7 +61,7 @@ if manifest_path.exists():
     sources += extra
 sources += [root/'downloads/sqlite-amalgamation/source/sqlite3.c']
 if len(sources)!=len(set(sources)) or not all(p.is_file() for p in sources):raise SystemExit('Component source inventory invalid')
-common=[clang,'-target','arm64-apple-ios16.4','-isysroot',sdk,'-O2','-fblocks','-DSQLITE_THREADSAFE=1','-DSQLITE_OMIT_LOAD_EXTENSION','-DSQLITE_DQS=0','-I'+str(root/'downloads/sqlite-amalgamation/source')]
+common=[clang,'-target','arm64-apple-ios16.4','-isysroot',sdk,'-O2','-fblocks','-D_DARWIN_C_SOURCE=1','-DSQLITE_THREADSAFE=1','-DSQLITE_OMIT_LOAD_EXTENSION','-DSQLITE_DQS=0','-I'+str(root/'downloads/sqlite-amalgamation/source')]
 if startup_entry:
     entry=json.loads((own/'loader/startup-source.json').read_text())
     if entry.get('schema')!=1 or entry.get('production_compile_define')!='OD_UNIFIED_DUO_STARTUP_ENTRY=1' or root/entry.get('entry_source','') not in sources:
@@ -75,7 +75,7 @@ if diagnostic_entry:
             or entry.get('required_host_purpose')!='original-startup-diagnostic'):
         raise SystemExit('Invalid original-client diagnostic source manifest')
     common += ['-D'+entry['diagnostic_compile_define']]
-objects=[];manifest=[]
+objects=[];manifest=[];failed=[]
 for index,source in enumerate(sources):
     obj=work/'objects'/('%03d.o'%index)
     flags=['-fobjc-arc','-Wall','-Wextra','-Werror'] if source.suffix=='.m' else ['-std=c11','-Wall','-Wextra','-Werror']
@@ -86,8 +86,15 @@ for index,source in enumerate(sources):
         flags += ['-Wno-error=deprecated-declarations','-Wno-unused-parameter']+defines
     # Public SQLite carries its own platform diagnostics, already documented.
     if source.name=='sqlite3.c':flags=['-std=c11']
-    subprocess.run(common+flags+['-c',str(source),'-o',str(obj)],check=True)
+    # Compile each unit once and collect errors in this same cloud job; avoid
+    # another full hosted build merely to discover the next translation unit.
+    result=subprocess.run(common+flags+['-c',str(source),'-o',str(obj)])
+    if result.returncode:
+        failed.append(str(source.relative_to(root)))
+        continue
     objects.append(str(obj));manifest.append({'source':str(source.relative_to(root)),'sha256':hashlib.sha256(source.read_bytes()).hexdigest()})
+if failed:
+    raise SystemExit('Native compilation failed in: '+', '.join(failed))
 output=work/'OfflineDokkanHost.dylib'
 framework_args=[arg for f in frameworks for arg in ('-framework',f)]
 subprocess.run(common+['-dynamiclib','-install_name','@rpath/OfflineDokkanHost.dylib','-Wl,-dead_strip']+objects+framework_args+['-lz','-o',str(output)],check=True)
