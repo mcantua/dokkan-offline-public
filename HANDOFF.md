@@ -1,12 +1,12 @@
-# FULL HANDOFF: everything Claude (cloud chat) was doing
-
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
+
+# FULL HANDOFF: everything Claude (cloud chat) was doing
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
 **LATEST — October 29, 11:02 AM US Central: https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. mcantua/claude-chatg is the private backup. No personal data may be committed. No release build.**
 
-**LATEST — October 29, 9:32 AM US Central: Run 40891656259 succeeded. Production `hydrateStatGrowth` now stores derived growth coefficients as exact thousandth strings, and the first hosted Finish no longer needed the test-only candidate. Full validation, auth, fresh state, original-engine master attachment, and late service binding remain open. See the 9:32 AM STATUS log. Extension loading stays omitted. No release build.**
+**LATEST — October 29, 9:48 AM US Central: Run 40894918354 compiled the authored Duo host library, including the auth candidate and fresh-state gate, on genuine Xcode 27.1 / SDK 27.1. No sign-in route, release package, or simulator screen. See the 9:48 AM STATUS log.**
 
 _Written Wed Oct 28, 2026, 11:15 AM US Central by Claude, before running out of usage._
 _For: ChatGPT, and Tin's second Claude account. Read README.md ("Tin's rules") first, then this file._
