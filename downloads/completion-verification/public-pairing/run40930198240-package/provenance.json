@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "workflow_id": 400819284,
+  "run_id": 40930198240,
+  "source_commit": "142293c727693242bca3dc96bee03dc71a157f87",
+  "job": {
+    "id": 123646286192,
+    "name": "simulator (package)",
+    "status": "completed",
+    "conclusion": "failure",
+    "run_id": 40930198240,
+    "logs_url": null,
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1
+      },
+      {
+        "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2
+      },
+      {
+        "name": "Build and run hosted UIKit and secure-storage checks",
+        "status": "completed",
+        "conclusion": "failure",
+        "number": 3
+      },
+      {
+        "name": "Keep only the new public source-bound test proof",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 4
+      },
+      {
+        "name": "Keep integrity-checked unsigned candidates with their source",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 5
+      },
+      {
+        "name": "Keep the minimal native setup kit",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 6
+      },
+      {
+        "name": "Keep failed or standalone test diagnostics",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 7
+      },
+      {
+        "name": "Retain a complete kit and source pair",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 8
+      },
+      {
+        "name": "Keep only current standalone test diagnostics",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 9
+      },
+      {
+        "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 18
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 19
+      }
+    ]
+  },
+  "log_endpoint": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/jobs/123646286192/logs",
+  "log_encoding": "UTF-8 text decoded by GitHub connector",
+  "capture_kind": "Actual completed package job log; no artifact downloaded; no test or build executed locally",
+  "first_failure": {
+    "component": "source-bundle immutable-publication comparison",
+    "package": "nskeyedarchiver_converter@0.1.3",
+    "member": "README.MD",
+    "difference": "missing"
+  },
+  "stage_reached": "Genuine device Rust release compile and 408-package notice collection completed; source verification failed before helper sealing/kit.",
+  "captured_at": "2026-10-29T18:38:19.349897+00:00",
+  "log_file": "package-job.log",
+  "log_bytes": 95755,
+  "log_sha256": "4b9b234d7f44566e170ed78abdafbf162bb93a8b4f7f00d64b81f3eb44702f69"
+}

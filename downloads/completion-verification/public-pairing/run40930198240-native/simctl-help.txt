@@ -1,0 +1,1 @@
+Not queried: optional simctl help metadata is not required by the selected checks; Xcode manages test-host startup.

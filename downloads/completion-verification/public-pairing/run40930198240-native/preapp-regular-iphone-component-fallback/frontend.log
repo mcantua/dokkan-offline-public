@@ -1,0 +1,1 @@
+Not queried/launched: only an owned supported simulator was created. Xcode-managed testing owns startup; actual selected XCTest results decide native success. No boot/OS health pass is claimed.
