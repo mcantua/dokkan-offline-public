@@ -640,10 +640,10 @@
       "url": "https://drive.google.com/file/d/1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0/view?usp=drivesdk",
       "name": "current-source.tar.gz",
       "folder": "Source",
-      "size": 45096219,
-      "sha256": "d1e7059ec14bde247a53443cfea4705bdfd565daf8fbc9349c022a14d140e208",
+      "size": 45095283,
+      "sha256": "105b7acde7ee1e9e5353e44ef2f5c4b5092169d65e0d8dedee07a3dd168f5695",
       "source_files": 2171,
-      "source_commit": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6",
+      "source_commit": "89b3b7de729bc14fff2c26dcc7fc63fce25431e8",
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false,
@@ -1239,7 +1239,7 @@
     "resume_chatgpt_automatically": false,
     "paused_checkpoint_local": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
     "paused_checkpoint_remote": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
-    "source_archive_sha256": "d1e7059ec14bde247a53443cfea4705bdfd565daf8fbc9349c022a14d140e208",
+    "source_archive_sha256": "105b7acde7ee1e9e5353e44ef2f5c4b5092169d65e0d8dedee07a3dd168f5695",
     "source_archive_metadata_verified": true,
     "handoff_text_readback_verified": true,
     "latest_native_run_completed": true,
@@ -1257,9 +1257,9 @@
     "private_analysis_drive_id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
     "historical_stop_time": "October 29, 2026, about 8:30 AM US Central",
     "active_workers_at_checkpoint": 0,
-    "source_archive_commit": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6",
-    "latest_pushed_code_commit": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6",
-    "last_sync_scope": "20fd source archive and latest private research updated;8be singleIPA verified,20fd fullbytes preserved as baseline+delta; no newest singleIPA Drive restoration yet"
+    "source_archive_commit": "89b3b7de729bc14fff2c26dcc7fc63fce25431e8",
+    "latest_pushed_code_commit": "89b3b7de729bc14fff2c26dcc7fc63fce25431e8",
+    "last_sync_scope": "Implementation20fd and handoff/delivery89b3 preserved in latest source archive; separate operational registry excluded from archive to avoid self-reference. Native72unit success and actual runtime gaps recorded. Private analysis1006files updated; latest945MB diagnostic preserved as existing integrated baseline plus16.6MB delta; newer singleIPA restore not yet run."
   },
   "public_repository_integration": {
     "repository": "mcantua/dokkan-offline-public",
@@ -1271,7 +1271,7 @@
     "gameplay_verified": false,
     "both_displays_verified": false,
     "source_check": "72 native units compiled/linked genuineSDK27.1 at20fd; current native Creator site staged and package assembled; original runtime/gameplay/display acceptance unverified.",
-    "drive_archive_pin": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6"
+    "drive_archive_pin": "89b3b7de729bc14fff2c26dcc7fc63fce25431e8"
   },
   "startup_input_recovery": {
     "notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
