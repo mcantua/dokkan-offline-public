@@ -53,6 +53,7 @@ pub struct RemotePairingClient<R: RpPairingSocketProvider> {
     /// The shared secret from X25519 (pair-verify) or SRP (initial pairing).
     /// Used as PSK for the TLS tunnel and to derive per-message encryption keys.
     encryption_key: Vec<u8>,
+    authenticated: bool,
 
     client_cipher: ChaCha20Poly1305,
     server_cipher: ChaCha20Poly1305,
@@ -73,6 +74,7 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
             encrypted_sequence_number: 0,
             sending_host: sending_host.to_string(),
             encryption_key: initial_key,
+            authenticated: false,
             client_cipher,
             server_cipher,
             paired_peer_device: None,
@@ -93,10 +95,49 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
         (client_cipher, server_cipher)
     }
 
-    /// Returns the encryption key established during pairing.
-    /// This is used as TLS-PSK for tunnel connections.
+    /// Legacy raw access can return a placeholder or invalidated key. New callers
+    /// must use `authenticated_encryption_key` before opening a TLS-PSK tunnel.
+    #[deprecated(note = "use authenticated_encryption_key to require authenticated pairing")]
     pub fn encryption_key(&self) -> &[u8] {
         &self.encryption_key
+    }
+
+    /// Return a tunnel key only after complete authenticated setup or verification.
+    pub fn authenticated_encryption_key(&self) -> Result<&[u8], IdeviceError> {
+        if !self.authenticated {
+            return Err(invalid_pairing("remote pairing session is not authenticated"));
+        }
+        Ok(&self.encryption_key)
+    }
+
+    fn invalidate_authentication(&mut self) {
+        self.authenticated = false;
+        self.encryption_key.fill(0);
+        self.paired_peer_device = None;
+    }
+
+    fn reserve_sequence_number(&mut self) -> Result<usize, IdeviceError> {
+        let current = self.sequence_number;
+        let Some(next) = current.checked_add(1) else {
+            self.invalidate_authentication();
+            return Err(invalid_pairing("pairing message counter exhausted"));
+        };
+        self.sequence_number = next;
+        Ok(current)
+    }
+
+    fn reserve_encrypted_counters(&mut self) -> Result<(usize, u64), IdeviceError> {
+        self.authenticated_encryption_key()?;
+        let nonce = self.encrypted_sequence_number;
+        let Some(next_nonce) = nonce.checked_add(1) else {
+            self.invalidate_authentication();
+            return Err(invalid_pairing("pairing encryption counter exhausted"));
+        };
+        let sequence = self.reserve_sequence_number()?;
+        // Consume the nonce before encryption or I/O; any exchange failure
+        // invalidates this session, so an uncertain write cannot reuse it.
+        self.encrypted_sequence_number = next_nonce;
+        Ok((sequence, nonce))
     }
 
     /// Performs the RPPairing handshake, then verifies an existing pinned peer.
@@ -115,6 +156,7 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
     where
         Fut: std::future::Future<Output = String>,
     {
+        self.invalidate_authentication();
         self.attempt_pair_verify().await?;
 
         if pairing_file.peer_pin.is_some() {
@@ -140,6 +182,7 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
         &mut self,
         pairing_file: &mut RpPairingFile,
     ) -> Result<(), IdeviceError> {
+        self.invalidate_authentication();
         let (peer_identifier, peer_signing_key) = pairing_file.peer_pin.clone()
             .ok_or_else(|| invalid_pairing("pair-verify requires an authenticated peer pin"))?;
         let x_private_key = EphemeralSecret::random_from_rng(OsRng);
@@ -280,11 +323,15 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
         let (cc, sc) = Self::derive_main_ciphers(&self.encryption_key);
         self.client_cipher = cc;
         self.server_cipher = sc;
+        self.encrypted_sequence_number = 0;
+        self.authenticated = true;
 
         Ok(())
     }
 
     pub async fn send_pair_verified_failed(&mut self) -> Result<(), IdeviceError> {
+        self.invalidate_authentication();
+        let sequence = self.reserve_sequence_number()?;
         self.inner
             .send_plain(
                 plist!({
@@ -294,14 +341,15 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
                         }
                     }
                 }),
-                self.sequence_number,
+                sequence,
             )
             .await?;
-        self.sequence_number += 1;
         Ok(())
     }
 
     pub async fn attempt_pair_verify(&mut self) -> Result<plist::Value, IdeviceError> {
+        self.invalidate_authentication();
+        let sequence = self.reserve_sequence_number()?;
         debug!("Sending attemptPairVerify");
         self.inner
             .send_plain(
@@ -319,10 +367,9 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
                         }
                     }
                 }),
-                self.sequence_number,
+                sequence,
             )
             .await?;
-        self.sequence_number += 1;
 
         debug!("Waiting for attemptPairVerify response");
         let response = self.inner.recv_plain().await?;
@@ -353,6 +400,7 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
     where
         Fut: std::future::Future<Output = String>,
     {
+        self.invalidate_authentication();
         let (salt, public_key, pin) = self.request_pair_consent(pin_callback).await?;
         let key = self.init_srp_context(&salt, &public_key, &pin).await?;
         let mut staged = pairing_file.clone();
@@ -366,6 +414,8 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
         self.client_cipher = cc;
         self.server_cipher = sc;
         self.paired_peer_device = Some(peer_device);
+        self.encrypted_sequence_number = 0;
+        self.authenticated = true;
 
         Ok(())
     }
@@ -658,6 +708,24 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
         &mut self,
         request: plist::Value,
     ) -> Result<plist::Value, IdeviceError> {
+        let (sequence, encrypted_sequence) = self.reserve_encrypted_counters()?;
+        // Pending or cancelled exchanges must not leave a usable tunnel key.
+        self.authenticated = false;
+        let result = self.send_receive_encrypted_request_inner(request, sequence, encrypted_sequence).await;
+        if result.is_ok() {
+            self.authenticated = true;
+        } else {
+            self.invalidate_authentication();
+        }
+        result
+    }
+
+    async fn send_receive_encrypted_request_inner(
+        &mut self,
+        request: plist::Value,
+        sequence: usize,
+        encrypted_sequence: u64,
+    ) -> Result<plist::Value, IdeviceError> {
         let plaintext = serde_json::to_vec(
             &plist::to_value(&request).map_err(|_| invalid_pairing("failed to encode pairing request"))?,
         )
@@ -665,7 +733,7 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
 
         // Build nonce: 8-byte LE sequence number + 4 zero bytes
         let mut nonce_bytes = [0u8; 12];
-        nonce_bytes[..8].copy_from_slice(&self.encrypted_sequence_number.to_le_bytes());
+        nonce_bytes[..8].copy_from_slice(&encrypted_sequence.to_le_bytes());
         let nonce = Nonce::from_slice(&nonce_bytes);
 
         let ciphertext = self
@@ -680,9 +748,8 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
             .map_err(|e| IdeviceError::RemotePairing(RemotePairingError::ChachaEncryption(e)))?;
 
         self.inner
-            .send_encrypted(ciphertext, self.sequence_number)
+            .send_encrypted(ciphertext, sequence)
             .await?;
-        self.sequence_number += 1;
 
         // Receive encrypted response
         let response = self.inner.recv_plain().await?;
@@ -709,8 +776,6 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
             )
             .map_err(|e| IdeviceError::RemotePairing(RemotePairingError::ChachaEncryption(e)))?;
 
-        self.encrypted_sequence_number += 1;
-
         let value: plist::Value = serde_json::from_slice(&decrypted)
             .map_err(|_| invalid_pairing("invalid pairing RPC encoding"))?;
 
@@ -735,6 +800,15 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
     /// paired over that service must be reconnected over `_remotepairing._tcp`
     /// before a tunnel can be requested.
     pub async fn create_tcp_listener(&mut self) -> Result<u16, IdeviceError> {
+        self.authenticated_encryption_key()?;
+        let result = self.create_tcp_listener_inner().await;
+        if result.is_err() {
+            self.invalidate_authentication();
+        }
+        result
+    }
+
+    async fn create_tcp_listener_inner(&mut self) -> Result<u16, IdeviceError> {
         let request = plist!({
             "request": {
                 "_0": {
@@ -762,6 +836,7 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
         &mut self,
         pairing_data: impl Serialize + PlistConvertible,
     ) -> Result<(), IdeviceError> {
+        let sequence = self.reserve_sequence_number()?;
         self.inner
             .send_plain(
                 plist!({
@@ -773,11 +848,10 @@ impl<R: RpPairingSocketProvider> RemotePairingClient<R> {
                         }
                     }
                 }),
-                self.sequence_number,
+                sequence,
             )
             .await?;
 
-        self.sequence_number += 1;
         Ok(())
     }
 
@@ -1007,6 +1081,42 @@ mod authentication_tests {
 
     #[test]
     fn message_state_and_cryptographic_field_lengths_fail_closed() {
+        let runtime = tokio::runtime::Builder::new_current_thread().build().unwrap();
+        let (transport, peer) = tokio::io::duplex(4096);
+        let mut client = RemotePairingClient::new(RpPairingSocket::new(transport), "synthetic-host");
+        assert!(client.authenticated_encryption_key().is_err());
+        runtime.block_on(async {
+            assert!(client.create_tcp_listener().await.is_err());
+            assert!(client.send_receive_encrypted_request(plist!({})).await.is_err());
+            assert_eq!(client.sequence_number, 0);
+            assert_eq!(client.encrypted_sequence_number, 0);
+            // Failed verification also revokes a previously usable synthetic session.
+            client.authenticated = true;
+            let mut unpinned = RpPairingFile::generate("synthetic-host");
+            assert!(client.validate_pairing(&mut unpinned).await.is_err());
+            assert!(client.authenticated_encryption_key().is_err());
+        });
+        client.authenticated = true;
+        client.encrypted_sequence_number = u64::MAX;
+        assert!(client.reserve_encrypted_counters().is_err());
+        assert!(client.authenticated_encryption_key().is_err());
+        client.authenticated = true;
+        client.encrypted_sequence_number = 0;
+        client.sequence_number = usize::MAX;
+        assert!(client.reserve_encrypted_counters().is_err());
+        assert!(client.authenticated_encryption_key().is_err());
+        client.authenticated = true;
+        client.sequence_number = 0;
+        assert_eq!(client.reserve_encrypted_counters().unwrap(), (0, 0));
+        assert_eq!(client.sequence_number, 1);
+        assert_eq!(client.encrypted_sequence_number, 1);
+        // A broken transport cannot leave the synthetic session authorized.
+        drop(peer);
+        runtime.block_on(async {
+            assert!(client.send_receive_encrypted_request(plist!({})).await.is_err());
+            assert!(client.authenticated_encryption_key().is_err());
+        });
+
         assert!(require_state(&[entry(T::State, vec![6])], 6).is_ok());
         for entries in [vec![], vec![entry(T::State, vec![4])], vec![entry(T::State, vec![6, 6])],
             vec![entry(T::State, vec![6]), entry(T::State, vec![6])],

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Hosted macOS only. Compiles production sources, never authenticates or installs on a phone.
 set -euo pipefail
+case "${AI_RUST_TEST_SCOPE:-all}" in all|login-startup|pairing-public) ;; *) echo 'Unsupported Rust verification scope' >&2; exit 2;; esac
+case "${AI_NATIVE_TEST_SCOPE:-all}" in all|responsive|accessibility|authorization-cancel|pairing-document|pairing-public) ;; *) echo 'Unsupported native verification scope' >&2; exit 2;; esac
 if [[ "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" != 1 && "${AI_RUN_NATIVE_CHECKS:-1}" != 1 ]]; then
   echo 'Select candidate packaging or native checks.' >&2
   exit 2
@@ -10,6 +12,7 @@ fi
   exit 1
 }
 root="$(cd "$(dirname "$0")/../.." && pwd)"
+[[ "$(basename "$root")" == dokkan-offline-public && "${GITHUB_REPOSITORY:-}" == mcantua/dokkan-offline-public ]] || { echo 'Only the active public repository is allowed.' >&2; exit 1; }
 cloud="$root/app-installer/cloud-ui"
 work="$cloud/work"
 tools="$root/downloads/cloud-ui-tools"
@@ -34,6 +37,7 @@ report={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=
  'xcode':subprocess.check_output(['xcodebuild','-version'],text=True).strip(),
  'simulator_sdk':subprocess.check_output(['xcrun','--sdk','iphonesimulator','--show-sdk-version'],text=True).strip(),
  'scope':'Genuine SDK27.1+. Actual simulator selection and pre-app health are recorded separately. No Apple login or phone use; geometry fixtures do not verify hardware folds.',
+ 'pairing_public_new_test_counts':{'vendor':8,'helper':2,'transport':2,'native':2 if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 1},
  'native_checks_requested':__import__('os').environ.get('AI_RUN_NATIVE_CHECKS','1')=='1',
  'native_test_scope':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE','all'),
  'rust_test_scope':__import__('os').environ.get('AI_RUST_TEST_SCOPE','all'),
@@ -71,9 +75,28 @@ echo "$rustup_sha  $tools/rustup-init" | shasum -a 256 -c -
 chmod +x "$tools/rustup-init"
 "$tools/rustup-init" -y --profile minimal --default-toolchain 1.99.1 --no-modify-path
 rustup set auto-self-update disable
+export MACOSX_DEPLOYMENT_TARGET=12.0
+export PYTHONDONTWRITEBYTECODE=1
 if [[ "${AI_RUN_NATIVE_CHECKS:-1}" == 1 ]]; then rustup target add "$target"; fi
 # New-build regression checks are host binaries: never compile these against the iOS simulator sysroot.
-if [[ "${AI_RUST_TEST_SCOPE:-all}" == login-startup ]]; then
+native_reused=0
+if [[ "${AI_RUST_TEST_SCOPE:-all}" == pairing-public ]]; then
+  mkdir -p "$work/evidence/pairing-proof"
+  public_group() {
+    local group="$1" previous="$2" log="$3"; shift 3
+    if [[ -n "$previous" ]]; then
+      python3 "$cloud/pairing-public-proof.py" reuse --group "$group" --run-id "$previous"
+      return
+    fi
+    [[ "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" != 1 ]] || { echo 'Final public package requires prior passing proof; run affected checks first.' >&2; exit 2; }
+    python3 "$cloud/pairing-public-proof.py" snapshot --group "$group"
+    SDKROOT="$(xcrun --sdk macosx --show-sdk-path)" "$@" 2>&1 | tee "$work/evidence/pairing-proof/$log"
+    python3 "$cloud/pairing-public-proof.py" finish --group "$group"
+  }
+  public_group vendor "${AI_REUSE_PAIRING_VENDOR_RUN:-}" rust-pairing.log cargo test --manifest-path "$root/downloads/idevice/idevice-0.1.68/Cargo.toml" --locked --no-default-features --features ring,remote_pairing --lib -- remote_pairing::authentication_tests:: remote_pairing::rp_pairing_file::tests:: remote_pairing::tlv::tests::
+  public_group helper "${AI_REUSE_PAIRING_HELPER_RUN:-}" rust-helper.log cargo test --manifest-path "$root/downloads/idevice/idevice-0.1.68/Cargo.toml" --locked --no-default-features --features app-installer-rp-bootstrap --example app-installer-rp-bootstrap
+  public_group transport "${AI_REUSE_PAIRING_TRANSPORT_RUN:-}" rust-transport.log cargo test --manifest-path "$root/app-installer/core/Cargo.toml" --locked --lib engine::transport::tests::public_remote_transport_
+elif [[ "${AI_RUST_TEST_SCOPE:-all}" == login-startup ]]; then
   # Separate test executable: prior TLS tests cannot preinitialize its process-global provider.
   SDKROOT="$(xcrun --sdk macosx --show-sdk-path)" cargo test --manifest-path "$root/app-installer/core/Cargo.toml" --locked --test first_account_transport -- --test-threads=1 2>&1 | tee "$work/evidence/first-account-transport-tests.log"
   SDKROOT="$(xcrun --sdk macosx --show-sdk-path)" cargo test --manifest-path "$root/downloads/idevice/idevice-0.1.68/Cargo.toml" --locked --no-default-features --features ring --lib sni::tests:: 2>&1 | tee "$work/evidence/tls-tests.log"
@@ -93,8 +116,10 @@ export PYTHONDONTWRITEBYTECODE=1
 # This final run verifies the actual candidate/source/kit outputs below instead of repeating them.
 # Produce source-bound unsigned candidates independently of virtual OS startup.
 package_failed=0
+package_candidates() {
 if [[ "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 ]]; then
-  if bash "$root/app-installer/build/package-device-cloud.sh" && \
+  if bash "$root/app-installer/build/package-rp-bootstrap-public.sh" && \
+  bash "$root/app-installer/build/package-device-cloud.sh" && \
   python3 "$root/app-installer/device/validate-cloud-project.py" --execute --rust-library "$work/evidence/candidates/libapp_installer_core.a" --manifest "$work/evidence/candidates/cloud-device-library-manifest.json" && \
   python3 "$root/app-installer/device/make-bootstrap-kit.py" --execute \
     --rust-library "$work/evidence/candidates/libapp_installer_core.a" \
@@ -108,7 +133,22 @@ if [[ "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 ]]; then
     echo 'Candidate packaging did not verify; continuing independent native checks.' >&2
   fi
 fi
-if [[ "${AI_RUN_NATIVE_CHECKS:-1}" != 1 ]]; then exit "$package_failed"; fi
+}
+if [[ -n "${AI_REUSE_PAIRING_NATIVE_RUN:-}" ]]; then
+  [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]] || { echo 'Native public proof requires its exact scope.' >&2; exit 2; }
+  python3 "$cloud/pairing-public-proof.py" reuse --group native --run-id "$AI_REUSE_PAIRING_NATIVE_RUN"
+  native_reused=1
+fi
+if [[ "${AI_RUN_NATIVE_CHECKS:-1}" != 1 || "$native_reused" == 1 ]]; then
+  if [[ "${AI_RUST_TEST_SCOPE:-all}" == pairing-public && "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 && "$native_reused" != 1 ]]; then
+    echo 'Final public package also requires matching native proof.' >&2; exit 2
+  fi
+  package_candidates
+  exit "$package_failed"
+fi
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+  python3 "$cloud/pairing-public-proof.py" snapshot --group native
+fi
 # Any simulator fallback happens before our application is built or installed.
 owned_simulator="$(python3 "$cloud/prepare-hosted-simulator.py" --evidence "$work/evidence")"
 [[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]] || { echo 'No owned healthy simulator UUID' >&2; exit 1; }
@@ -157,6 +197,8 @@ xcrun simctl io "$owned_simulator" screenshot --display=primary "$work/evidence/
 native_test_args=()
 case "${AI_NATIVE_TEST_SCOPE:-all}" in
   all) ;;
+  pairing-document) native_test_args+=("-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads") ;;
+  pairing-public) native_test_args+=("-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads" "-only-testing:AppInstallerCloudUITests/PairingConnectionGuardTests/testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs") ;;
   responsive) native_test_args+=("-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture") ;;
   accessibility) native_test_args+=("-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test03AccessibilityTextKeepsControlsReadable" "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test04KeyboardKeepsFocusedFieldsReachable") ;;
   authorization-cancel) native_test_args+=("-only-testing:AppInstallerCloudUITests/SecureStoreBootstrapTests/testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess") ;;
@@ -167,5 +209,10 @@ xcodebuild test-without-building -project "$work/AppInstallerCloudSmoke.xcodepro
   -derivedDataPath "$work/DerivedData" -resultBundlePath "$work/evidence/CloudUISmoke.xcresult" \
   CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- "${native_test_args[@]}" 2>&1 | tee "$work/evidence/xcodebuild.log"
 
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+  cp "$work/evidence/xcodebuild.log" "$work/evidence/pairing-proof/native.log"
+  python3 "$cloud/pairing-public-proof.py" finish --group native
+fi
 stop_display_driver
+package_candidates
 exit "$package_failed"

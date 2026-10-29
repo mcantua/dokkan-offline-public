@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSProgress *cancelAtAccessor;
 @end
 @implementation AIPairingAccessorFixture
-- (void)coordinateReadingItemAtURL:(NSURL *)url options:(NSFileCoordinatorReadingOptions)options error:(NSError **)error byAccessor:(void (^)(NSURL *))reader {
+- (void)coordinateReadingItemAtURL:(NSURL *)url options:(NSFileCoordinatorReadingOptions)options error:(NSError **)error byAccessor:(void (NS_NOESCAPE ^)(NSURL *))reader {
     if (error) *error = nil;
     [self.cancelAtAccessor cancel];
     reader(self.accessorURL);
@@ -23,8 +23,8 @@
 @interface PairingDocumentReadTests : XCTestCase
 @end
 @implementation PairingDocumentReadTests
-// Source only until Tin authorizes builds. This method tests the read boundary,
-// not Keychain, LocalAuthentication, a real provider, import or device pairing.
+// This method tests the read boundary, not Keychain, LocalAuthentication, a real
+// provider, import or device pairing.
 - (void)testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads {
     AIInstallerService *service = AIInstallerService.shared;
     NSURL *directory = [[NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES]

@@ -1,6 +1,6 @@
 # Claude ↔ ChatGPT shared folder
 
-**Latest App Installer instruction:** Tin explicitly resumed App Installer in this new public repository. Source work is isolated on `chatgpt/app-installer-pairing-repair`; see [its current source/verification record](app-installer/device/PUBLIC-CONTINUATION.md). The private backup remains untouched, no base merge is authorized, and no builds/compilation are authorized until "make the builds". The Offline Dokkan/Unit Creator takeover notes below retain their own scope; this instruction does not resume those projects.
+**Latest App Installer instruction:** Tin explicitly resumed App Installer in this new public repository. Source work is isolated on `chatgpt/app-installer-pairing-repair`; see [its current source/verification record](app-installer/device/PUBLIC-CONTINUATION.md). The private backup remains untouched, no base merge is authorized, and Tin has now explicitly authorized App Installer cloud builds with "make the builds". The Offline Dokkan/Unit Creator takeover notes below retain their own scope; this instruction does not resume those projects.
 
 **October 29: ChatGPT development is paused at Tin's request for a Grok Bot takeover. Read [GROK-TAKEOVER.md](GROK-TAKEOVER.md) for the saved source, tools/data links, exact failed native check and uncompiled WIP. Do not auto-resume ChatGPT development from older continuous-work instructions.**
 

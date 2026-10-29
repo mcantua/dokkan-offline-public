@@ -22,6 +22,8 @@ on:
           - responsive
           - accessibility
           - authorization-cancel
+          - pairing-document
+          - pairing-public
       rust_test_scope:
         description: Select only first-login transport and TLS for a network-initialization correction
         required: false
@@ -30,6 +32,27 @@ on:
         options:
           - all
           - login-startup
+          - pairing-public
+      reuse_pairing_vendor_run:
+        description: Optional original public run with matching passing vendor proof
+        required: false
+        type: string
+        default: ''
+      reuse_pairing_helper_run:
+        description: Optional original public run with matching passing helper proof
+        required: false
+        type: string
+        default: ''
+      reuse_pairing_transport_run:
+        description: Optional original public run with matching passing transport proof
+        required: false
+        type: string
+        default: ''
+      reuse_pairing_native_run:
+        description: Optional original public run with matching passing native proof
+        required: false
+        type: string
+        default: ''
 permissions:
   contents: read
   actions: write # Prune only previous artifacts with this workflow's exact evidence name.
@@ -41,13 +64,13 @@ jobs:
     runs-on: xcode-27
     defaults:
       run:
-        working-directory: AI-Workspace/claude-chatg
+        working-directory: AI-Workspace/dokkan-offline-public
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-          path: AI-Workspace/claude-chatg
+          path: AI-Workspace/dokkan-offline-public
       - name: Build and run hosted UIKit and secure-storage checks
         id: verification
         env:
@@ -55,7 +78,20 @@ jobs:
           AI_RUN_NATIVE_CHECKS: ${{ inputs.native_checks && '1' || '0' }}
           AI_NATIVE_TEST_SCOPE: ${{ inputs.native_test_scope }}
           AI_RUST_TEST_SCOPE: ${{ inputs.rust_test_scope }}
+          AI_REUSE_PAIRING_VENDOR_RUN: ${{ inputs.reuse_pairing_vendor_run }}
+          AI_REUSE_PAIRING_HELPER_RUN: ${{ inputs.reuse_pairing_helper_run }}
+          AI_REUSE_PAIRING_TRANSPORT_RUN: ${{ inputs.reuse_pairing_transport_run }}
+          AI_REUSE_PAIRING_NATIVE_RUN: ${{ inputs.reuse_pairing_native_run }}
+          GH_TOKEN: ${{ github.token }}
         run: bash app-installer/cloud-ui/run.sh
+      - name: Keep only the new public source-bound test proof
+        if: always() && (inputs.rust_test_scope == 'pairing-public' || inputs.native_test_scope == 'pairing-document' || inputs.native_test_scope == 'pairing-public')
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-pairing-public-proof
+          path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/pairing-proof/
+          retention-days: 7
+          if-no-files-found: ignore
       - name: Keep integrity-checked unsigned candidates with their source
         id: evidence
         if: always() && inputs.package_candidates && steps.verification.outputs.candidate-ready == 'true'
@@ -63,9 +99,9 @@ jobs:
         with:
           name: app-installer-cloud-ui-latest
           path: |
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/
-            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
-            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
+            AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+            !AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
+            !AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
           retention-days: 7
           if-no-files-found: error
       - name: Keep the minimal native setup kit
@@ -75,8 +111,8 @@ jobs:
         with:
           name: app-installer-native-kit-latest
           path: |
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
+            AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
+            AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
           retention-days: 7
           if-no-files-found: error
       - name: Keep failed or standalone test diagnostics
@@ -86,8 +122,8 @@ jobs:
         with:
           name: app-installer-cloud-tests-latest
           path: |
-            AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/
-            !AI-Workspace/claude-chatg/app-installer/cloud-ui/work/evidence/candidates/**
+            AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+            !AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/**
           retention-days: 7
           if-no-files-found: error
       - name: Retain a complete kit and source pair

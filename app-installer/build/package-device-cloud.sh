@@ -9,7 +9,9 @@ export IPHONEOS_DEPLOYMENT_TARGET=16.4
 export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$root/app-installer/core/target}"
 export CC_aarch64_apple_ios="$(xcrun --sdk iphoneos --find clang)"
 export AR_aarch64_apple_ios="$(xcrun --sdk iphoneos --find ar)"
-export CFLAGS_aarch64_apple_ios="-isysroot $SDKROOT -target arm64-apple-ios16.4"
+# Cargo/cc supplies the target triple. A split -target value is misread as an
+# extra Configure target by vendored OpenSSL; keep only SDK/minimum-OS flags here.
+export CFLAGS_aarch64_apple_ios="-isysroot $SDKROOT -miphoneos-version-min=16.4"
 export CXXFLAGS_aarch64_apple_ios="$CFLAGS_aarch64_apple_ios"
 export RUSTC_WRAPPER="" RUSTC_WORKSPACE_WRAPPER=""
 [[ "$(rustc --version)" == "rustc 1.99.1 "* ]] || { echo 'Pinned Rust1.99.1 is required to match delivered runtime source/notices' >&2; exit 1; }

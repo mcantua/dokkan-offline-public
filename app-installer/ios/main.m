@@ -427,6 +427,10 @@ static UIStackView *AIStack(CGFloat spacing) {
 - (void)buildPairing {
     BOOL saved=[self.service.snapshot[@"pairingFilePresent"] boolValue];
     [self.content addArrangedSubview:AILabel(@"Connect this iPhone", UIFontTextStyleTitle1, nil)];
+    if (![self.service.snapshot[@"connectionConfigured"] boolValue]) {
+        [self.content addArrangedSubview:AILabel(@"Set the peer address shown in LocalDevVPN once in Settings. The address stays on this iPhone.", UIFontTextStyleBody, UIColor.secondaryLabelColor)];
+        [self.content addArrangedSubview:AIButton(@"Open connection settings", NO, self, @selector(showSettings))];
+    }
     if(saved) {
         [self.content addArrangedSubview:AILabel(@"Your pairing file is saved. Unlock your saved sign-in to check this iPhone’s connection before installing or refreshing apps.", UIFontTextStyleBody, UIColor.secondaryLabelColor)];
         self.submitButton=AIButton(@"Unlock and check connection",YES,self,@selector(unlockSaved));
@@ -661,7 +665,7 @@ static UIStackView *AIStack(CGFloat spacing) {
 - (void)viewWillAppear:(BOOL)animated { [super viewWillAppear:animated]; [self updateState]; }
 - (void)updateState { [self.tableView reloadData]; }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView { return 4; }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { return section == 3 ? 1 : 2; }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { return section == 3 ? 1 : (section == 1 ? 3 : 2); }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { return @[@"Account", @"This iPhone", @"Refresh", @"Display"][(NSUInteger)section]; }
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 3) return @"View or share screen geometry without account data or unique device identifiers. A report does not prove physical touch or folding behavior.";
@@ -695,6 +699,10 @@ static UIStackView *AIStack(CGFloat spacing) {
         BOOL saved=[self.home.service.snapshot[@"pairingFilePresent"] boolValue];
         cell.detailTextLabel.text=verified ? @"Connection verified" : (saved ? @"Saved — unlock and check connection" : @"No pairing file saved");
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else if (path.section == 1 && path.row == 1) {
+        cell.textLabel.text = @"Connection address";
+        cell.detailTextLabel.text = [self.home.service.snapshot[@"connectionConfigured"] boolValue] ? @"Configured on this iPhone" : @"Set the peer address shown by LocalDevVPN";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (path.section == 1) {
         cell.textLabel.text = @"Installer expiry"; cell.detailTextLabel.text = AIExpiryText(self.home.service.snapshot[@"ownExpiry"]);
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -727,8 +735,37 @@ static UIStackView *AIStack(CGFloat spacing) {
         }]];
         [self presentViewController:alert animated:YES completion:nil];
     } else if (path.section == 1 && path.row == 0) [self.home pickPairing];
+    else if (path.section == 1 && path.row == 1) [self editConnectionAddress];
     else if (path.section == 2 && path.row == 0) [self.home alert:@"Daily refresh" text:@"In Shortcuts, open Automation → Time of Day → Daily. Add Open App and choose App Installer. Choose Run Immediately if your iPhone offers it. Open and unlock the app when prompted. Refresh should finish before the apps expire; iOS cannot guarantee an unattended daily run."];
     else if (path.section == 2 && path.row == 1) [self expiryAlerts];
+}
+- (void)editConnectionAddress {
+    if ([self.home.service.snapshot[@"busy"] boolValue]) {
+        [self.home alert:@"Task in progress" text:@"Finish or cancel the current task before changing the connection address."];
+        return;
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connection address" message:@"Enter the peer IP address shown in LocalDevVPN. It stays on this iPhone. Keep the VPN connected when checking or installing apps." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *field) {
+        field.placeholder = @"Peer IP address";
+        field.autocorrectionType = UITextAutocorrectionTypeNo;
+        field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        field.spellCheckingType = UITextSpellCheckingTypeNo;
+        field.textContentType = nil;
+        field.clearButtonMode = UITextFieldViewModeWhileEditing;
+        field.accessibilityLabel = @"LocalDevVPN peer IP address";
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    __weak AISettings *weakSelf = self;
+    __weak UIAlertController *weakAlert = alert;
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSString *address = weakAlert.textFields.firstObject.text ?: @"";
+        weakAlert.textFields.firstObject.text = nil;
+        if (![weakSelf.home.service setConnectionAddress:address]) {
+            [weakSelf.home alert:@"Address unchanged" text:@"Enter a valid IPv4 or IPv6 peer address and wait for any current task to finish."];
+        }
+        [weakSelf updateState];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void)expiryAlerts {
     __weak AISettings *weakSelf = self;

@@ -42,9 +42,13 @@ use tokio::{
 };
 use x509_cert::der::Encode;
 use zeroize::Zeroizing;
+#[path = "transport.rs"]
+mod transport;
+use transport::DeviceTransport;
 
 const ANISETTE_URL: &str = "https://ani.jkcoxson.com";
 const PAIRING_KEY: &str = "engine.pairing";
+static REMOTE_PAIRING_PORT: AtomicU64 = AtomicU64::new(0);
 tokio::task_local! { static OPERATION_SCOPE:(u64, &'static str); }
 static RUNTIME: OnceLock<Runtime> = OnceLock::new();
 static ENGINE: OnceLock<AsyncMutex<Engine>> = OnceLock::new();
@@ -112,30 +116,9 @@ fn runtime() -> &'static Runtime {
 }
 
 fn configured_device_host() -> String {
-    if let Ok(host) = std::env::var("OFFLINE_DEVICE_HOST") {
-        let host = host.trim().to_string();
-        if !host.is_empty() && host.len() <= 64 && !host.chars().any(|c| c.is_whitespace()) {
-            return host;
-        }
-    }
-    let candidates = [
-        std::path::PathBuf::from("config/private.local"),
-        std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../config/private.local"),
-    ];
-    for path in candidates {
-        if let Ok(text) = std::fs::read_to_string(path) {
-            for line in text.lines() {
-                let line = line.trim();
-                if let Some(value) = line.strip_prefix("OFFLINE_DEVICE_HOST=") {
-                    let value = value.trim().trim_matches(|c: char| c == '"' || c == '\u{0027}');
-                    if !value.is_empty() && value.len() <= 64 && !value.chars().any(|c| c.is_whitespace()) {
-                        return value.to_string();
-                    }
-                }
-            }
-        }
-    }
-    "device-host.invalid".to_string()
+    // Native code supplies an explicitly selected local tunnel address after
+    // initialization. Never substitute a guessed address or read cwd files.
+    String::new()
 }
 
 fn engine() -> &'static AsyncMutex<Engine> {
@@ -467,34 +450,18 @@ async fn finish_login(mut account: AppleAccount) -> Result<(&'static str, Value)
     SIGNED_IN.store(true, Ordering::Release);
     Ok(("Signed in.", json!({"loginStatus":"signed_in","teams":[]})))
 }
-fn provider(e: &Engine) -> Result<TcpProvider, Report> {
+async fn provider(e: &Engine) -> Result<DeviceTransport, Report> {
     let bytes =
         NativeStorage::raw_read(PAIRING_KEY)?.ok_or_else(|| failure("Pairing file required"))?;
-    let pairing = PairingFile::from_bytes(&bytes)?;
-    Ok(TcpProvider {
-        addr: e.device_host.parse()?,
-        scope_id: None,
-        pairing_file: pairing,
-        label: "AppInstaller".into(),
-    })
+    let credentials = transport::parse_credentials(&bytes)?;
+    let address = e.device_host.parse().map_err(|_|failure("The device tunnel address is not configured. Check the approved LocalDevVPN setup."))?;
+    DeviceTransport::connect(credentials, address, REMOTE_PAIRING_PORT.load(Ordering::Acquire) as u16).await
 }
 async fn device_apps(
-    provider: &TcpProvider,
+    provider: &mut DeviceTransport,
     work: &Path,
 ) -> Result<HashMap<String, plist::Value>, Report> {
-    crate::cleanup::retry(work, provider).await?;
-    let mut client = InstallationProxyClient::connect(provider).await?;
-    Ok(client
-        .get_apps_with_attributes(
-            Some("User"),
-            None,
-            Some(vec![
-                "CFBundleIdentifier".into(),
-                "CFBundleVersion".into(),
-                "CFBundleShortVersionString".into(),
-            ]),
-        )
-        .await?)
+    provider.apps(work).await
 }
 fn is_installed(apps: &HashMap<String, plist::Value>, id: &str) -> bool {
     apps.keys().any(|key| key.eq_ignore_ascii_case(id))
@@ -574,11 +541,10 @@ fn record_running_self(e: &mut Engine, record: Record) -> Result<(), Report> {
 }
 
 async fn development_app_count(
-    provider: &TcpProvider,
+    provider: &mut DeviceTransport,
     apps: &HashMap<String, plist::Value>,
 ) -> Result<u32, Report> {
-    let mut client = MisagentClient::connect(provider).await?;
-    let profiles = client.copy_all().await?;
+    let profiles = provider.profiles().await?;
     let mut ids = HashSet::new();
     for data in profiles {
         let p = ProvisioningProfile::parse(&data)?;
@@ -875,8 +841,8 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     e.staged = None;
     let operation_cancel_generation = CANCEL_GENERATION.load(Ordering::Acquire);
     checked_source(e, &path)?;
-    let provider = provider(e)?;
-    let apps = device_apps(&provider, &e.work).await?;
+    let mut provider = provider(e).await?;
+    let apps = device_apps(&mut provider, &e.work).await?;
     reconcile_confirmed_apps(e, Ok(apps.clone()))?;
     let destination = e.work.join("staging").join(format!(
         "app-{}-{}",
@@ -1004,7 +970,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     }
     let paid=paid.ok_or_else(||failure("Your account membership could not be confirmed. No new certificate or App ID was created."))?;
     if !paid && !is_installed(&apps, &bundle_id) {
-        let active = development_app_count(&provider, &apps).await?;
+        let active = development_app_count(&mut provider, &apps).await?;
         if active >= 3 {
             return Err(failure("Free Apple accounts allow 3 active apps, including this installer. Free an app slot before installing."));
         }
@@ -1024,7 +990,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     if !paid && needed > 0 && quota.available_quantity.is_none() {
         return Err(failure("App ID usage unknown"));
     }
-    let info = isideload::util::device::IdeviceInfo::from_device(&provider).await?;
+    let info = provider.info().await?;
     dev.ensure_device_registered(&team, "App Installer iPhone", &info.udid, None)
         .await?;
     type CertCallback = fn(
@@ -1219,7 +1185,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     Ok(())
 }
 async fn install_staged(e: &mut Engine) -> Result<(), Report> {
-    let provider = provider(e)?;
+    let mut provider = provider(e).await?;
     let mut staged = e
         .staged
         .take()
@@ -1227,7 +1193,7 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
     if staged.cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire) {
         return Err(failure("Task cancelled"));
     }
-    crate::cleanup::retry(&e.work, &provider).await?;
+    provider.cleanup(&e.work).await?;
     // Bundle-directory names do not define its signed CFBundleIdentifier. Use a unique,
     // installer-owned basename so upstream PublicStaging never overlaps another installer's app.
     let basename = crate::cleanup::unique_basename(STAGING_ID.fetch_add(1, Ordering::AcqRel));
@@ -1249,18 +1215,11 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
     if staged.cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire) {
         return Err(failure("Task cancelled"));
     }
-    let result = isideload::sideload::install::install_app(&provider, &app_path, |p| {
-        publish(
-            "progress",
-            "Installing…",
-            json!({"progress":p as f64/100.0}),
-        )
-    })
-    .await;
+    let result = provider.install(&app_path).await;
     // Cancellation/crash may interrupt this await. Durable intent remains for next connection.
-    let _ = crate::cleanup::retry(&e.work, &provider).await;
+    let _ = provider.cleanup(&e.work).await;
     result?;
-    let apps = device_apps(&provider, &e.work).await?;
+    let apps = device_apps(&mut provider, &e.work).await?;
     confirm_installed_version(&apps, &staged.record)?;
     let pending = pending_install(&e.work)?
         .ok_or_else(|| failure("Approved install source journal missing"))?;
@@ -1672,6 +1631,7 @@ pub fn resend() -> Status {
     }
 }
 pub fn import_pairing(data: *const u8, length: usize) -> Status {
+    let Ok(_control) = CONTROL.lock() else { return Status::NotReady };
     if BUSY.load(Ordering::Acquire) {
         return Status::Busy;
     }
@@ -1679,29 +1639,76 @@ pub fn import_pairing(data: *const u8, length: usize) -> Status {
         return Status::InvalidArgument;
     }
     let bytes = unsafe { std::slice::from_raw_parts(data, length) };
-    if PairingFile::from_bytes(bytes).is_err() {
-        return Status::InvalidArgument;
-    }
+    let credentials = match transport::parse_credentials(bytes) {
+        Ok(credentials) => credentials,
+        Err(_) => return Status::InvalidArgument,
+    };
+    let Ok(mut e) = engine().try_lock() else { return Status::Busy };
     if NativeStorage::raw_write(PAIRING_KEY, bytes).is_err() {
         return Status::StorageLocked;
     }
+    // A signed staging object/profile belonged to the previously paired device.
+    // Changing credentials must require signing again for the selected identity.
+    e.staged = None;
+    CANCEL_GENERATION.fetch_add(1, Ordering::AcqRel);
+    REMOTE_PAIRING_PORT.store(0, Ordering::Release);
     publish(
         "state",
         "Pairing file imported. Keep LocalDevVPN enabled.",
-        json!({"paired":true}),
+        json!({"paired":true,"pairingKind":credentials.kind(),"pairingVerified":false,"remotePairingPortConfigured":false}),
     );
     Status::Ok
 }
 pub fn set_host(ptr: *const c_char) -> Status {
-    let host = match c_string(ptr, 64) {
-        Ok(s) => s,
-        Err(s) => return s,
+    let host = match c_string(ptr, 64) { Ok(host) => host, Err(status) => return status };
+    let address: std::net::IpAddr = match host.parse() {
+        Ok(address) => address, Err(_) => return Status::InvalidArgument,
     };
-    if &*host != configured_device_host() {
+    if address.is_unspecified() || address.is_multicast()
+        || matches!(address, std::net::IpAddr::V4(ip) if ip.is_broadcast()) {
         return Status::InvalidArgument;
+    }
+    let Ok(_control) = CONTROL.lock() else { return Status::NotReady };
+    if BUSY.load(Ordering::Acquire) { return Status::Busy; }
+    let Ok(mut e) = engine().try_lock() else { return Status::Busy };
+    let canonical = address.to_string();
+    if e.device_host != canonical {
+        e.device_host = canonical;
+        e.staged = None;
+        CANCEL_GENERATION.fetch_add(1, Ordering::AcqRel);
+        REMOTE_PAIRING_PORT.store(0, Ordering::Release);
+        publish("state", "Device tunnel configuration updated. Check the connection again.",
+            json!({"deviceConfigured":true,"pairingVerified":false,"remotePairingPortConfigured":false}));
     }
     Status::Ok
 }
+pub fn set_remote_pairing_port(port: u16) -> Status {
+    let Ok(_control) = CONTROL.lock() else { return Status::NotReady };
+    if BUSY.load(Ordering::Acquire) { return Status::Busy; }
+    REMOTE_PAIRING_PORT.store(u64::from(port), Ordering::Release);
+    publish("state", "Remote Pairing discovery configuration updated.",
+        json!({"remotePairingPortConfigured":port!=0,"pairingVerified":false}));
+    Status::Ok
+}
+pub fn pairing_kind() -> i32 {
+    match NativeStorage::raw_read(PAIRING_KEY) {
+        Ok(None) | Err(_) => 0,
+        Ok(Some(bytes)) => match transport::parse_credentials(&bytes) {
+            Ok(transport::Credentials::Lockdown(_)) => 1,
+            Ok(transport::Credentials::Remote(_)) => 2,
+            Err(_) => -1,
+        },
+    }
+}
+pub fn match_remote_pairing_service(identifier: *const c_char, auth_tag: *const c_char) -> bool {
+    let identifier = match c_string(identifier, 255) { Ok(value) if !value.is_empty() && !value.chars().any(char::is_control) => value, _ => return false };
+    let auth_tag = match c_string(auth_tag, 128) { Ok(value) if !value.is_empty() => value, _ => return false };
+    let Ok(Some(bytes)) = NativeStorage::raw_read(PAIRING_KEY) else { return false };
+    let Ok(transport::Credentials::Remote(record)) = transport::parse_credentials(&bytes) else { return false };
+    let Some(key) = record.alt_irk() else { return false };
+    idevice::remote_pairing::PeerDevice::validate_auth_tag(key, &identifier, &auth_tag)
+}
+
 pub fn sign_ipa(ptr: *const c_char) -> Status {
     let path = match c_string(ptr, 4096) {
         Ok(s) => PathBuf::from(&*s),
@@ -1723,11 +1730,12 @@ pub fn install_ipa(_ptr: *const c_char) -> Status {
 pub fn list_installed() -> Status {
     enqueue("list", async {
         let mut e = engine().lock().await;
-        let provider = provider(&e)?;
-        let lookup = device_apps(&provider, &e.work).await;
+        let mut provider = provider(&e).await?;
+        let lookup = device_apps(&mut provider, &e.work).await;
         reconcile_confirmed_apps(&mut e, lookup)?;
         let mut state = record_state(&e);
         state["paired"] = json!(true);
+        state["pairingVerified"] = json!(true);
         let message = if state["recoveryNeeded"] == json!(true) {
             "An interrupted install is present. Re-import that app's latest IPA to confirm it; automatic refresh will not downgrade it."
         } else {
@@ -1739,9 +1747,10 @@ pub fn list_installed() -> Status {
 pub fn refresh_all() -> Status {
     enqueue("refresh_all", async {
         let mut e = engine().lock().await;
-        let provider = provider(&e)?;
-        let lookup = device_apps(&provider, &e.work).await;
+        let mut provider = provider(&e).await?;
+        let lookup = device_apps(&mut provider, &e.work).await;
         reconcile_confirmed_apps(&mut e, lookup)?;
+        drop(provider);
         if pending_install(&e.work)?.is_some() || legacy_pending(&e) {
             publish(
                 "state",
@@ -1770,6 +1779,7 @@ pub fn cancel() -> Status {
     };
     let generation = GENERATION.fetch_add(1, Ordering::AcqRel) + 1;
     CANCEL_GENERATION.fetch_add(1, Ordering::AcqRel);
+    REMOTE_PAIRING_PORT.store(0, Ordering::Release);
     if let Ok(mut active) = ACTIVE_OPERATION.lock() {
         *active = (generation, "cancel");
     }
@@ -1788,7 +1798,7 @@ pub fn cancel() -> Status {
         p.clear();
     }
     BUSY.store(false, Ordering::Release);
-    publish("cancelled", "Cancelled.", json!({}));
+    publish("cancelled", "Cancelled.", json!({"pairingVerified":false,"remotePairingPortConfigured":false}));
     Status::Ok
 }
 fn clear_session_memory() {

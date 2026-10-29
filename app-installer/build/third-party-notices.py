@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect available third-party copyright/license texts from the locked iOS Cargo graph.
+"""Collect notices from locked iOS-core and universal-Mac-helper Cargo graphs.
 
 Missing license files are reported explicitly; this tool is not a legal-compatibility
 validator. It never downloads dependencies or guesses missing copyright notices.
@@ -35,6 +35,12 @@ def source_label(package):
 def find_texts(package):
     base = Path(package['manifest_path']).resolve().parent
     files = {p for pattern in PATTERNS for p in base.glob(pattern) if p.is_file()}
+    # openssl-src contains a separately licensed upstream OpenSSL tree. Preserve
+    # its own license/notice files as well as the Rust wrapper's root grant.
+    if package['name']=='openssl-src':
+        bundled=base/'openssl'
+        for pattern in PATTERNS:
+            files.update(p for p in bundled.glob(pattern) if p.is_file())
     # Some source crates place the exact notices in a dedicated licenses directory.
     for sub in ('license', 'licenses', 'LICENSES'):
         directory = base/sub
@@ -67,7 +73,7 @@ def generate(output, report, require_licenses=False):
     root_id = metadata['resolve']['root']
     needed = set(packages)
     sections = ['Third-party source notices — App Installer\n',
-                'Generated from the locked Cargo dependency graph for aarch64-apple-ios.\n'
+                'Generated from the union of locked iOS-core and arm64/x86_64 macOS-helper feature closures.\n'
                 'Available upstream notice texts follow verbatim after each package heading.\n'
                 'SPDX declarations are upstream metadata, not a compatibility certification.\n'
                 'A license filename is not required when a published grant and its actual preservation obligations are fulfilled.\n'
@@ -103,6 +109,15 @@ def generate(output, report, require_licenses=False):
         if spdx == 'NOT DECLARED' and not any(g['name']==package['name'] and g['version']==package['version'] for g in missing):
             missing.append({'name':package['name'],'version':package['version'],'license':spdx,'source':source,
                             'reason':'No SPDX license declaration in Cargo metadata; review attached notice text.'})
+    local_components=metadata['distribution_components']
+    for component in local_components:
+        license_text=(ROOT/component['license_path']).read_text()
+        if 'GNU AFFERO GENERAL PUBLIC LICENSE' not in license_text or 'Version 3' not in license_text:
+            raise ValueError('Project helper AGPL license text is missing')
+        sections.extend(['\n'+'='*78+'\n'+component['name']+' — project-written local component\n',
+            'Source: '+component['source']+'\nLicense: '+component['license']+'\n',
+            'This example is project-written AGPL source inside the upstream MIT idevice tree. '
+            'The enclosing crate retains its upstream MIT notices and license.\n',license_text,'\n'])
     runtime_root=ROOT/'downloads/license-notices/rust-runtime-1.99.1'
     runtime_info=json.loads((runtime_root/'SOURCE.json').read_text())
     runtime_files=[]
@@ -112,12 +127,13 @@ def generate(output, report, require_licenses=False):
         if hashlib.sha256(data).hexdigest()!=entry['sha256']:raise ValueError('Rust runtime notice integrity mismatch')
         runtime_files.append(entry['path']);sections.extend(['\n--- '+entry['path']+' ---\n',data.decode(errors='replace'),'\n'])
     if not {'LICENSE-APACHE','LICENSE-MIT','COPYRIGHT'}<=set(runtime_files):raise ValueError('Incomplete Rust runtime notices')
-    summary={'schema_version':2,'target':'aarch64-apple-ios','locked_dependency_graph_hash':graph_hash,
+    summary={'schema_version':3,'target':'aarch64-apple-ios','locked_dependency_graph_hash':graph_hash,
+             'distribution_graphs':metadata['distribution_graphs'],'local_components':local_components,
              'rust_runtime':{'version':'1.99.1','selected_license':'Apache-2.0','notice_files':runtime_files,'source_archive_sha256':runtime_info['source_archive_sha256']},
              'notice_obligations_satisfied':not missing,'distribution_requirements':distribution_requirements,
              'distribution_requirements_satisfied':not distribution_requirements,'target':'aarch64-apple-ios','dependency_count':len(declarations),'notice_gap_count':len(missing),
              'missing_notices':missing,'packages':declarations,
-             'scope':'Exact locked iOS Cargo graph. Distribution readiness additionally requires the matching corresponding-source/relink artifact; generic license text alone does not satisfy that delivery obligation.'}
+             'scope':'Union of exact locked iOS-core and universal macOS-helper feature closures. Distribution readiness additionally requires the matching corresponding-source/relink artifact; generic license text alone does not satisfy that delivery obligation.'}
     output.write_text(''.join(sections))
     report.write_text(json.dumps(summary, indent=2)+'\n')
     print(f'Collected notices for {len(declarations)} Cargo packages; {len(missing)} unresolved license obligations; {len(distribution_requirements)} source/relink delivery conditions.')

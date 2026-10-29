@@ -106,6 +106,18 @@ pub extern "C" fn ai_set_device_host(host: *const c_char) -> Status {
     engine::set_host(host)
 }
 #[no_mangle]
+pub extern "C" fn ai_set_remote_pairing_port(port: u16) -> Status {
+    engine::set_remote_pairing_port(port)
+}
+#[no_mangle]
+pub extern "C" fn ai_pairing_kind() -> i32 {
+    engine::pairing_kind()
+}
+#[no_mangle]
+pub extern "C" fn ai_match_remote_pairing_service(identifier: *const c_char, auth_tag: *const c_char) -> bool {
+    engine::match_remote_pairing_service(identifier, auth_tag)
+}
+#[no_mangle]
 pub extern "C" fn ai_sign_ipa(path: *const c_char) -> Status {
     engine::sign_ipa(path)
 }

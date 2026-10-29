@@ -14,12 +14,13 @@ _Last updated: 2026-10-29 11:35 AM US Central (ChatGPT; App Installer public sou
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
-- **App Installer build gate:** Tin explicitly requires "make the builds" before compilation/builds. Source repairs are saved but Rust/native checks are unrun. Do not request an old kit reinstall or another private pairing record. Continue the current helper/phone-RP/public-delivery integration after the focused verified source batch; real connection and device acceptance remain unverified. No personal identifiers or secrets are needed in chat.
+- **App Installer builds authorized:** Tin explicitly said "make the builds". Execute focused cloud verification and matching review packages without asking again. Real Apple/phone/fold/release acceptance remains unverified; private records/credentials stay local. No old kit reinstall or private-backup access. Base merge remains unauthorized.
 - Link for the Eclipse website (for Offline Dokkan data).
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 
 ## Log (newest first)
+- 2026-10-29 11:58 AM US Central — ChatGPT: Tin explicitly authorized App Installer builds. Implemented the previously missing trustedUSB exporter, strict authenticated PSK/userspaceIPv6/RSD app transport, protected RP import, runtime-local address configuration and bounded authenticated Bonjour discovery. No guessed address/port or legacy TLS bypass. Preparing one focused new-source GitHub test batch, then source/notices-bound unsigned candidate/helper/kit only after checks pass. Existing unrelated suites will not be repeated. Cloud-only Rust1.99.1 metadata tools/dependencies are in this public project; new locked dependency graph preserves all existing package versions. No Mac, phone, user config/save/signing key or frozen-backup access.
 - 2026-10-29 11:35 AM US Central — ChatGPT: explicitly resumed App Installer in the public repository only. Source repairs from root +2 scoped agents; actual older baseline/remaining modernRP gaps documented. Two Python boundary checks passed in one run; Rust8/native1 methods added but uncompiled/unrun. No builds, old-backup access, personal machine, config/save/key reads or base merge. Historical private kit update instructions retired and private release transport disabled before network; current source and Drive continuation log recorded.
 - 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.
 

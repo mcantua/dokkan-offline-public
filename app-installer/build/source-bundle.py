@@ -16,12 +16,12 @@ import tempfile
 import tomllib
 import urllib.request
 sys.dont_write_bytecode=True
-from licensing import ROOT, load_graph, sha
+from licensing import ROOT, load_graph, sha, distribution_graph_specs, HELPER_MANIFEST, HELPER_SOURCE, HELPER_FEATURE
 
 BUNDLE_ROOT='AppInstaller-source'
 MANIFEST='SourceBundleManifest.json'
 REQUIRED_COMPONENTS=['corresponding-application-source','complete-library-source','exact-locked-transitive-source',
-    'modified-path-dependency-source','build-relink-recipes','recipient-installation-information','complete-licenses-and-notices']
+    'modified-path-dependency-source','universal-macos-helper-source','build-relink-recipes','recipient-installation-information','complete-licenses-and-notices']
 
 
 def safe_relative(path):
@@ -142,7 +142,10 @@ def create(output,notice_text,notice_report):
         vendor=stage/'vendor'
         vendor_log=Path(temporary)/'vendor.log'
         with vendor_log.open('wb') as log:
-            result=subprocess.run([str(cargo),'vendor','--locked','--versioned-dirs','--manifest-path',str(ROOT/'app-installer/core/Cargo.toml'),str(vendor)],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=log)
+            result=subprocess.run([str(cargo),'vendor','--locked','--versioned-dirs',
+                '--manifest-path',str(ROOT/'app-installer/core/Cargo.toml'),
+                '--sync',str(ROOT/HELPER_MANIFEST),str(vendor)],
+                cwd=ROOT,stdout=subprocess.DEVNULL,stderr=log)
         if result.returncode:
             raise ValueError('Locked Cargo source vendoring failed: '+vendor_log.read_text(errors='replace')[-2000:])
         config=stage/'.cargo/config.toml';config.parent.mkdir()
@@ -175,7 +178,7 @@ def create(output,notice_text,notice_report):
         (stage/'ThirdPartyNoticeReport.json').write_bytes(notice_report.read_bytes())
         (stage/'README.md').write_text('''# Matching App Installer source/relink distribution
 
-This artifact accompanies the unsigned IPA candidates. Application source is AGPL-3.0-only; the corresponding LGPL signing library and all exact Cargo sources/build recipes are included. Preserve each component’s licenses and notices.
+This artifact accompanies the unsigned IPA candidates and universal macOS RP-bootstrap helper. Application and project-written helper example source are AGPL-3.0-only; the enclosing idevice crate retains its upstream MIT license. The corresponding LGPL signing library and all exact Cargo sources/build recipes for the union of device-core and both macOS-helper feature closures are included, with both Cargo.lock files. Preserve each component’s licenses and notices.
 
 The archive intentionally omits the original `.git` history. Before using build scripts that record Git metadata, initialize your own local repository from this directory: `git init`, `git add .`, then `git -c user.name="Source recipient" -c user.email="recipient@localhost" commit -m "Imported corresponding source"`. The supplied root `.gitignore` excludes tools, caches and private material. After modifying a library or recipe, commit your changed source locally before packaging. These are your own commits; no original GitHub account, remote, token or original commit hash is needed.
 
@@ -187,9 +190,10 @@ Build tools are acquired by the supplied pinned Linux recipe or a compatible gen
 
 See SourceBundleManifest.json for exact source/file/lock/graph bindings. The external candidate manifest and IPA bind this archive’s SHA-256; no self-referential archive hash is claimed inside this archive. Unsigned candidates are not final release evidence and do not claim physical phone verification.
 ''')
-        manifest={'schema_version':1,'test_fixture':False,'source_commit':commit,
+        manifest={'schema_version':2,'test_fixture':False,'source_commit':commit,
           'source_has_uncommitted_changes':bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=normal','--','app-installer','downloads','.gitignore',':!app-installer/build/work',':!app-installer/cloud-ui/work'],cwd=ROOT)),'source_tree_sha256':fingerprint,
           'locked_dependency_graph_hash':graph_hash,'cargo_lock_sha256':sha((ROOT/'app-installer/core/Cargo.lock').read_bytes()),
+          'distribution_graphs':graph['distribution_graphs'],'local_components':graph['distribution_components'],
           'required_components':REQUIRED_COMPONENTS,'path_sources':path_sources,'registry_sources':registry_sources,
           'runtime_source':{'path':str(runtime_dest.relative_to(stage)),'sha256':runtime_info['source_archive_sha256']},
           'notice_obligations_satisfied':True,'notice_gap_count':0,'recipient_library_modifications_permitted':True,
@@ -245,7 +249,7 @@ def verify(archive_path,expected_fingerprint=None,expected_graph=None,allow_test
             if relative in manifest.get('source_fingerprint_inputs',[]):
                 fp_total+=member.size
                 if fp_total>256*1024*1024:raise ValueError('Source fingerprint payload size limit exceeded')
-            is_critical=(relative=='downloads/license-notices/rust-runtime-1.99.1/SOURCE.json' or relative.endswith(('Cargo.toml','Cargo.lock','.cargo-checksum.json')) or relative in {manifest.get('relink_instructions'),'.cargo/config.toml'})
+            is_critical=(relative in {'downloads/license-notices/rust-runtime-1.99.1/SOURCE.json',HELPER_SOURCE} or relative.endswith(('Cargo.toml','Cargo.lock','.cargo-checksum.json')) or relative in {manifest.get('relink_instructions'),'.cargo/config.toml'})
             if is_critical:
                 critical_total+=member.size
                 if critical_total>128*1024*1024:raise ValueError('Retained source metadata size limit exceeded')
@@ -258,7 +262,7 @@ def verify(archive_path,expected_fingerprint=None,expected_graph=None,allow_test
                 original=published_files(data,package['name'],package['version']);published_count+=len(original)
                 if published_count>250000:raise ValueError('Published source file-count limit exceeded')
                 published_sources[relative]=original
-            if relative=='downloads/license-notices/rust-runtime-1.99.1/SOURCE.json':critical[relative]=data
+            if relative in {'downloads/license-notices/rust-runtime-1.99.1/SOURCE.json',HELPER_SOURCE}:critical[relative]=data
             if relative.endswith(('Cargo.toml','Cargo.lock','.cargo-checksum.json')) or relative in {manifest.get('relink_instructions'),'.cargo/config.toml'}:
                 critical[relative]=data
     if manifest is None or set(actual)!=set(expected):raise ValueError('Incomplete corresponding-source payload')
@@ -271,10 +275,39 @@ def verify(archive_path,expected_fingerprint=None,expected_graph=None,allow_test
     if not set(REQUIRED_COMPONENTS)<=set(manifest.get('required_components',[])):raise ValueError('Source/relink delivery component missing')
     lock_path='app-installer/core/Cargo.lock';lock=tomllib.loads(critical[lock_path].decode())
     if sha(critical[lock_path])!=manifest['cargo_lock_sha256']:raise ValueError('Cargo.lock binding mismatch')
-    required_paths={(p['name'],p['version']) for p in lock['package'] if not p.get('source')}
+    locks={lock_path:lock}
+    if not manifest.get('test_fixture'):
+        graphs=manifest.get('distribution_graphs',[])
+        specs=[{key:item[key] for key in ('manifest','target','no_default_features','features')} for item in graphs]
+        if specs!=distribution_graph_specs():raise ValueError('Device/helper feature-closure declarations missing or changed')
+        if sha(json.dumps(graphs,sort_keys=True,separators=(',',':')).encode())!=manifest['locked_dependency_graph_hash']:
+            raise ValueError('Feature-closure graph binding mismatch')
+        for graph in graphs:
+            path=safe_relative(graph['lock_path'])
+            if path!=str(PurePosixPath(graph['manifest']).with_name('Cargo.lock')):
+                raise ValueError('Feature graph lock path does not match manifest')
+            if path not in critical or sha(critical[path])!=graph['lock_sha256']:
+                raise ValueError('Device/helper lockfile binding mismatch')
+            locks[path]=tomllib.loads(critical[path].decode())
+            identities={(p['name'],p['version'],p.get('source'),p.get('checksum')) for p in locks[path]['package']}
+            for package in graph['packages']:
+                if (package['name'],package['version'],package.get('source'),package.get('checksum')) not in identities:
+                    raise ValueError('Feature closure includes an unlocked package')
+        helper_manifest=tomllib.loads(critical[HELPER_MANIFEST].decode())
+        helper_license=helper_manifest['package'].get('metadata',{}).get(HELPER_FEATURE,{}).get('license')
+        if helper_manifest['package'].get('license')!='MIT' or helper_license!='AGPL-3.0-only':
+            raise ValueError('Helper/upstream license origin changed')
+        if not critical.get(HELPER_SOURCE,b'').startswith(b'// SPDX-License-Identifier: AGPL-3.0-only'):
+            raise ValueError('Project helper source/license origin missing')
+        components=manifest.get('local_components',[])
+        if not any(item.get('source')==HELPER_SOURCE and item.get('license')=='AGPL-3.0-only'
+                   and item.get('license_path')=='app-installer/LICENSE' and item.get('containing_package_license')=='MIT'
+                   for item in components):
+            raise ValueError('Project helper license/provenance declaration missing')
+    required_paths={(p['name'],p['version']) for value in locks.values() for p in value['package'] if not p.get('source')}
     delivered_paths={(p['name'],p['version']) for p in manifest.get('path_sources',[])}
     if not required_paths<=delivered_paths:raise ValueError('Locked application/path dependency source missing')
-    required_registry={(p['name'],p['version'],p.get('checksum')) for p in lock['package'] if p.get('source','').startswith('registry+')}
+    required_registry={(p['name'],p['version'],p.get('checksum')) for value in locks.values() for p in value['package'] if p.get('source','').startswith('registry+')}
     delivered_registry={(p['name'],p['version'],p['checksum']) for p in manifest['registry_sources']}
     if not required_registry<=delivered_registry:raise ValueError('Locked transitive registry source missing')
     for package in manifest['registry_sources']:

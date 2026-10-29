@@ -10,7 +10,7 @@ crate-type = ["staticlib", "rlib"]
 
 [dependencies]
 isideload = { path = "../../downloads/isideload/isideload-0.5.0", version = "=0.5.0", default-features = false, features = ["install", "tokio-mt"] }
-idevice = { path = "../../downloads/idevice/idevice-0.1.68", version = "=0.1.68", default-features = false, features = ["ring", "tcp", "afc", "installation_proxy", "misagent"] }
+idevice = { path = "../../downloads/idevice/idevice-0.1.68", version = "=0.1.68", default-features = false, features = ["ring", "tcp", "afc", "installation_proxy", "misagent", "remote_pairing", "rsd", "tunnel_tcp_stack"] }
 apple-codesign-quick = "=0.1.0"
 rootcause = "0.12"
 tokio = { version = "1.49", features = ["rt-multi-thread", "sync", "time", "net"] }
@@ -33,6 +33,10 @@ sha1 = "=0.11.0"
 spki = "=0.7.3"
 ring = "=0.17.14"
 rustls = { version = "=0.23.46", default-features = false, features = ["ring", "std", "tls12"] }
+# Dedicated RP-only PSK connector. Do not enable idevice/openssl: legacy paired
+# Lockdown must continue using its pinned rustls implementation.
+openssl = { version = "=0.10.81", features = ["vendored"] }
+tokio-openssl = "=0.6.5"
 
 [patch.crates-io]
 idevice = { path = "../../downloads/idevice/idevice-0.1.68" }
