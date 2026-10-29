@@ -68,7 +68,7 @@ with tempfile.TemporaryDirectory(prefix='potential-owned-',dir=ROOT/'build') as 
         assert call('profile.snapshot')==before
         with sqlite3.connect(save) as state:
             assert state.execute("SELECT count(*) FROM commands WHERE operation='card.potential.preview'").fetchone()[0]==0
-            assert state.execute('PRAGMA user_version').fetchone()[0]==11
+            assert state.execute('PRAGMA user_version').fetchone()[0]==12
         # New authoritative Orb vocabulary: real master IDs, 3x once, stable source and UUID.
         rewards=[{'kind':'potential','id':item,'quantity':(amount+2)//3} for item,amount in expected.items()]
         assert rewards and all(db.execute('SELECT 1 FROM potential_items WHERE id=?',(r['id'],)).fetchone() for r in rewards)

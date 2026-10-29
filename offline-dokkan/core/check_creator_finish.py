@@ -130,6 +130,7 @@ with tempfile.TemporaryDirectory(prefix='creator-finish-', dir=ROOT/'build') as 
         for name, in old.execute("SELECT name FROM sqlite_schema WHERE type='trigger' AND name LIKE '_od_projection_%'").fetchall():
             old.execute('DROP TRIGGER "' + name + '"')
         old.execute('DROP TRIGGER _od_identity_profile')
+        old.execute('DROP TABLE created_full_bundles')
         old.execute('DROP TABLE offline_identity')
         old.execute('DROP TABLE creator_projection')
         old.execute("DELETE FROM meta WHERE k='projection_identity'")
@@ -153,7 +154,7 @@ with tempfile.TemporaryDirectory(prefix='creator-finish-', dir=ROOT/'build') as 
         core = opened(source)
         lib.od_close(core)
         with sqlite3.connect(source) as old:
-            assert old.execute('PRAGMA user_version').fetchone()[0] == 11
+            assert old.execute('PRAGMA user_version').fetchone()[0] == 12
 with master.open('rb') as f:
     assert hashlib.file_digest(f, 'sha256').hexdigest() == digest
 print('PASS one real-master Creator Finish → collection/team → progress-preserving edit/retry/reopen/save/migration scenario; original master unchanged. Gameplay/rendering/native runtime are not asserted.')

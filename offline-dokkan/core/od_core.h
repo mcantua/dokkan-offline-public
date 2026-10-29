@@ -9,7 +9,7 @@ typedef struct od_core od_core;
 /* Internal trusted domain API, not the game's HTTP protocol. Master is always read-only.
  * content_id must identify the exact imported master version (normally its SHA-256).
  * All returned strings use od_free. A core instance must be called serially.
- * Current save schema is v11; validated v1..v10 saves migrate transactionally. */
+ * Current save schema is v12; validated v1..v11 saves migrate transactionally. */
 int od_open(const char *save_path, const char *master_path, const char *content_id, od_core **out);
 void od_close(od_core *core);
 const char *od_last_error(od_core *core);
@@ -55,6 +55,17 @@ int od_creator_finish_receipt(od_core *core,const char *profile,const char *comm
 int od_creator_finish_bundle(od_core *core,const char *profile,const char *command,
                               const char *definition_json,const void *bundle_bytes,
                               size_t bundle_length,char **result_json);
+/* Native immutable packet retrieval, deliberately not an od_execute operation.
+ * The read transaction verifies this save/content scope and a live, unconsumed
+ * owned instance at the requested active definition version. It returns exact
+ * durable packet/definition bytes and a snapshot receipt with profile revision
+ * and projection generation. Every allocation uses od_free; packet_length is
+ * explicit. A migrated descriptor without bytes fails recoverably, never
+ * reconstructs a guessed packet or grants another owned copy. */
+int od_creator_accepted_bundle(od_core *core,const char *profile,const char *definition_id,
+                              int64_t version,int64_t instance_id,const char *expected_save_scope,
+                              void **packet_bytes,size_t *packet_length,
+                              char **definition_json,char **receipt_json);
 void od_free(void *memory);
 #ifdef __cplusplus
 }

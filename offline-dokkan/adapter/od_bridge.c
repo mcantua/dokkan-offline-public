@@ -178,6 +178,16 @@ int od_bridge_creator_finish_bundle(od_bridge *b,const char *profile,const char 
  int rc=od_creator_finish_bundle(b->core,profile,command,definition,bundle,bundle_len,result);
  rc=projection_reply(b,rc,result,error);pthread_mutex_unlock(&b->lock);return rc;
 }
+int od_bridge_creator_accepted_bundle(od_bridge *b,const char *profile,const char *definition,
+ int64_t version,int64_t instance,const char *scope,void **packet,size_t *packet_length,char **document,char **receipt,char **error) {
+ if(error)*error=NULL;
+ if(packet)*packet=NULL;if(packet_length)*packet_length=0;if(document)*document=NULL;if(receipt)*receipt=NULL;
+ if(!b||!profile||!definition||!scope||!packet||!packet_length||!document||!receipt)return fail(error,"INVALID_ARGUMENT");
+ pthread_mutex_lock(&b->lock);
+ int rc=od_creator_accepted_bundle(b->core,profile,definition,version,instance,scope,packet,packet_length,document,receipt);
+ if(rc<0)fail(error,od_last_error(b->core));
+ pthread_mutex_unlock(&b->lock);return rc;
+}
 static int save_io(od_bridge *b,const char *path,char **error,int importing) {
  if(error)*error=NULL;
  if(!b||!path)return fail(error,"INVALID_HOST_CONFIGURATION");

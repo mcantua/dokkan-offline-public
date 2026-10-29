@@ -143,5 +143,5 @@ with tempfile.TemporaryDirectory(prefix='kai-',dir=ROOT/'build') as temp:
     call('elder_kai.configure',policy,'legacy-policy')
     advanced=call('card.sa.train',feed([2],1),'legacy-feed');assert sa(advanced,1)==3 and advanced['sa_training']['sa_before']==2
     lib.od_close(core);core=opened(legacy);assert sa(call('profile.snapshot'),1)==2;lib.od_close(core)
-    with sqlite3.connect(legacy) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==11
+    with sqlite3.connect(legacy) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==12
 print('PASS guaranteed Kai exact+1/cap/role/ownership/locks/team/run guards, atomic failure+retry, tombstone history, pinned-cap updates, semantic JSON retries, hostile import and v6 migration')

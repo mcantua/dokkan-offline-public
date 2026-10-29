@@ -1,0 +1,18 @@
+{
+  "scope": "one synthetic in-memory SQLite migration/acceptance atomicity and exact native SQL read scenario only",
+  "sqlite_version": "3.53.1",
+  "actual_schema_v12_sql_used": true,
+  "actual_native_insert_and_read_sql_used": true,
+  "v11_descriptor_preserved_without_fabricated_bytes": true,
+  "acceptance_rollback_kept_definition_owned_and_packet_atomic": true,
+  "committed_packet_bytes_and_hash_matched": true,
+  "wrong_instance_stale_version_and_consumed_instance_rejected_by_read_sql": true,
+  "immutable_primary_key_conflict_preserved_prior_bytes": true,
+  "foreign_keys_clean": true,
+  "existing_check_sources_parse": true,
+  "c_or_objc_compiled": false,
+  "native_c_control_flow_executed": false,
+  "actual_save_or_game_data_accessed": false,
+  "original_engine_attached": false,
+  "gameplay_verified": false
+}

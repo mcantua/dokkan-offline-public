@@ -22,6 +22,10 @@ int od_content_resolve(od_content *content, const char *relative_path,
  * match. Returns 0 on success, -1 otherwise. Caller retains/closes descriptor. */
 int od_content_verify_readonly_fd(int descriptor,int64_t expected_bytes,
                                  const char *sha256);
+/* Verify exactly the caller-owned immutable buffer against an expected hash.
+ * No writes or native/file offset changes. Used to admit the same captured
+ * catalog bytes that SQLite will deserialize; returns 0 success, -1 mismatch. */
+int od_content_verify_bytes(const void *bytes,int64_t length,const char *sha256);
 /* Checks a complete host-resolved dependency set. Empty/unknown lists fail.
  * This does not discover undocumented game dependencies from a stage ID. */
 typedef struct { const char *path; int64_t bytes; const char *sha256; } od_content_ref;

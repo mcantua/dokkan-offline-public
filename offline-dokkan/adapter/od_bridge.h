@@ -38,6 +38,12 @@ int od_bridge_creator_finish_receipt(od_bridge *,const char *profile,const char 
 int od_bridge_creator_finish_bundle(od_bridge *,const char *profile,const char *command,
                                      const char *definition_json,const void *bundle,size_t bundle_length,
                                      char **result,char **error);
+/* Native-only accepted full packet read; exact scope/live-owned-version proof
+ * and immutable bytes come from one Core snapshot. No WebView operation. */
+int od_bridge_creator_accepted_bundle(od_bridge *,const char *profile,const char *definition_id,
+                                       int64_t version,int64_t instance_id,const char *expected_save_scope,
+                                       void **packet_bytes,size_t *packet_length,
+                                       char **definition_json,char **receipt_json,char **error);
 void od_bridge_close(od_bridge *);
 void od_bridge_free(void *);
 #ifdef __cplusplus

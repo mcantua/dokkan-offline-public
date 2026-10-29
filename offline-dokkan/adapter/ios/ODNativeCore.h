@@ -56,6 +56,14 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 - (void)acceptedCreatorDefinitionForProfile:(NSString *)profile definitionID:(NSString *)definitionID
     version:(int64_t)version expectedSaveScopeSHA256:(NSString *)scope
     lease:(nullable ODNativeCreatorLease *)lease reply:(ODCoreReply)reply;
+/** Native-only exact full packet for original-runtime materialization. Verifies
+ * the current lease (or no held legacy lease), expected scope, live unconsumed
+ * owned instance and active version. One Core snapshot returns immutable
+ * full_bundle_bytes/definition_bytes and full_bundle_receipt with revision,
+ * projection generation and hashes. No page can select this authority. */
+- (void)acceptedCreatorFullBundleForProfile:(NSString *)profile definitionID:(NSString *)definitionID
+    version:(int64_t)version instanceID:(int64_t)instanceID expectedSaveScopeSHA256:(NSString *)scope
+    lease:(nullable ODNativeCreatorLease *)lease reply:(ODCoreReply)reply;
 /** Read-only recovery proof for the exact retained creator.finish intent.
  * Missing/pruned/mismatched receipt stays unresolved: NEVER execute/replay an
  * old unaccepted Finish to discover whether it happened. Same scope/lease rules

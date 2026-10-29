@@ -1,0 +1,17 @@
+{
+  "schema": "core-export-budget-source-v1",
+  "export_function_sha256": "cf907874c3c1db2c7948844a3d678f06b885dec8879b25e0d5d9c6e82ad16069",
+  "check_runs": 1,
+  "checks": [
+    "Export-candidate page-count/page-size SQL ran on one tiny synthetic SQLite backup",
+    "Sparse final file over256MiB rejected by the budget predicate",
+    "Atomic hardlink cannot replace existing synthetic destination",
+    "Source review: size gates precede publication and cleanup is inode-bound"
+  ],
+  "import_budget_bytes": 268435456,
+  "native_c_compiled": false,
+  "native_c_executed": false,
+  "actual_save_or_user_backup_opened": false,
+  "large_save_streaming_restore_supported": false,
+  "limitation": "C control flow remains source-reviewed only; large valid live saves cannot currently receive supported exports until streaming restore is implemented."
+}

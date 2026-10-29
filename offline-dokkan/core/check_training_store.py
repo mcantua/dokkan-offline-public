@@ -63,6 +63,6 @@ with tempfile.TemporaryDirectory(prefix='training-owned-',dir=ROOT/'build') as t
         assert call('profile.snapshot')==baseline
         with sqlite3.connect(save) as state:
             assert state.execute("SELECT count(*) FROM commands WHERE operation='card.training.preview'").fetchone()[0]==0
-            assert state.execute('PRAGMA user_version').fetchone()[0]==11
+            assert state.execute('PRAGMA user_version').fetchone()[0]==12
         lib.od_close(core);source.close()
 print('PASS actual Eclipse/Sparking owned-level/SA/effectivecap, real training balances, known/unknown EXP, strict caller override rejection, honest extendedcurve limit and read-only state')

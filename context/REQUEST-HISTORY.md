@@ -52,3 +52,18 @@ honestly. Continue development between reports/checkpoints and reassign useful
 work. No background or other-chat synchronization is implied.
 
 Tin then clarified that progress images are for the actual app. New in-app screenshots are unavailable while no native build/run is authorized; use text status, never a browser/diagram stand-in.
+
+### Latest first-playable-path directive — October 29
+
+Read the entire attached 6,165-byte directive. Tin prioritizes the supplied
+original client: startup, offline login, player data, original home, team,
+real battle, completion and persistent save, then a Creator unit in battle.
+Further Creator expansion is paused while existing work is preserved. Six
+workers now own startup, missing original inputs, auth, native master lifecycle,
+player/home/team and original battle contracts/scoped static analysis.
+
+Tin challenged repeated zero-percent rows and delays. Source milestones and
+runtime acceptance must be reported separately; there is no reliable overall
+completion estimate. The iPhone client still needs source-proven offline
+service contracts and native startup/master integration. No original-game
+launch or playable battle has been verified, and no new build is authorized.

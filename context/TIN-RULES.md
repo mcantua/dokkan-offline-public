@@ -11,6 +11,12 @@
 - Tin's "take over" resumes ChatGPT development in the public repository. The older stop below is historical. No-build, protected-base, Duo-only and privacy limits still apply.
 - Tin reconfirmed that Offline Dokkan is the supplied Sparking/original Dokkan client adapted for offline play with the agreed changes and built-in Unit Creator. Preserve its real presentation and mechanics. The account launcher and authored battle harness are internal components, never a replacement game or completion evidence.
 
+## Latest first-playable-path priority (October 29)
+- Work in this order: original client startup → offline login → player data → original home → team selection → real battle → battle completion → persistent save → Creator unit in that battle → remaining agreed features.
+- Preserve completed Creator work, but pause further Creator expansion until the first complete real battle works. All six cloud workers must support the original-client path directly.
+- Prove the actual current client contracts. Do not manufacture response envelopes, starting values, native ABIs or success reports. Source analysis, imported databases, helper tools and checks do not count as playable gameplay.
+- Distinguish implemented source milestones from runtime acceptance. Do not invent an overall percentage or a completion date. In-app images must come from the actual running original client; report their absence plainly.
+
 ## Latest parallel-development and reporting directive (October 29)
 - Tin explicitly renewed maximum practical productive cloud-agent use. Six workers plus the integration lead are the current seven available slots; keep independent ownership and reassign finished workers while useful work remains. Do not duplicate tests or create agents only to fill slots.
 - Continue original-client development between checkpoints. Report about every ten minutes during active execution: overall/remaining estimates only when reliable, current phase, completed milestones in prose, pending task table with owners/progress/remaining work, active/blocked agents, resource use, build/check status and actual visual evidence. If no meaningful screenshot exists, use a clearly labeled source diagram/technical summary; no fabricated images or harness-as-game claims.

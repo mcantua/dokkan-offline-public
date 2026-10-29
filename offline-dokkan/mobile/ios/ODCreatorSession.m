@@ -677,7 +677,30 @@ static BOOL ODUnsupported(id p) { return ODAwakenProject(p)||ODFullBundleProject
     [self recoverAcceptedProjectsWithReply:^(id recovered,NSString *error){if(error){reply(nil,error);return;}dispatch_async(self->_queue,^{
         (void)recovered;int directory=ODCaptureDirectory(self->_directory,"accepted");NSDictionary *record=directory>=0?ODCaptureRead(directory,ODCaptureName(identifier,number)):nil;if(directory>=0)close(directory);
         NSString *scope=recovered[@"save_scope"];NSDictionary *packet=[self capturePacket:record scope:scope];
-        [self reply:reply result:packet error:packet?nil:@"ACCEPTED_CREATOR_PROJECT_UNAVAILABLE"];
+        if(!packet){[self reply:reply result:nil error:@"ACCEPTED_CREATOR_PROJECT_UNAVAILABLE"];return;}
+        NSDictionary *document=[NSJSONSerialization JSONObjectWithData:packet[@"definition_bytes"] options:0 error:nil];
+        if(!document[@"full_bundle"]){[self reply:reply result:packet error:nil];return;}
+        NSDictionary *binding=packet[@"binding"];
+        [self->_core acceptedCreatorFullBundleForProfile:@"local-player" definitionID:identifier
+            version:number.longLongValue instanceID:[binding[@"instance_id"] longLongValue]
+            expectedSaveScopeSHA256:scope lease:self->_originalLease reply:^(id full,NSError *failure){dispatch_async(self->_queue,^{
+                NSData *bytes=ODObject(full)&&[full[@"full_bundle_bytes"] isKindOfClass:NSData.class]?full[@"full_bundle_bytes"]:nil;
+                NSData *registered=ODObject(full)&&[full[@"definition_bytes"] isKindOfClass:NSData.class]?full[@"definition_bytes"]:nil;
+                NSDictionary *proof=ODObject(full)&&ODObject(full[@"full_bundle_receipt"])?full[@"full_bundle_receipt"]:nil;
+                NSDictionary *descriptor=ODObject(document[@"full_bundle"])?document[@"full_bundle"]:nil;
+                if(failure||!bytes.length||bytes.length>64u*1024u*1024u||!registered||![registered isEqualToData:packet[@"definition_bytes"]]||
+                   !proof||!descriptor||![full[@"content_id"] isEqual:self->_content]||![full[@"save_scope_sha256"] isEqual:scope]||
+                   ![full[@"profile_id"] isEqual:@"local-player"]||![full[@"definition_id"] isEqual:identifier]||![full[@"version"] isEqual:number]||
+                   ![full[@"full_bundle_sha256"] isEqual:ODHash(bytes)]||![descriptor[@"full_bundle_sha256"] isEqual:ODHash(bytes)]||
+                   ![proof[@"instance_id"] isEqual:binding[@"instance_id"]]||![proof[@"project_sha256"] isEqual:binding[@"project_sha256"]]||
+                   ![proof[@"definition_sha256"] isEqual:binding[@"definition_sha256"]]){
+                    NSString *code=[failure.localizedDescription isEqual:@"FULL_BUNDLE_PAYLOAD_MISSING_RECOVERY_REQUIRED"]?@"FULL_BUNDLE_PAYLOAD_MISSING_RECOVERY_REQUIRED":@"ACCEPTED_FULL_BUNDLE_UNCONFIRMED";
+                    [self reply:reply result:nil error:code];return;
+                }
+                NSMutableDictionary *complete=[packet mutableCopy];complete[@"full_bundle_bytes"]=bytes;
+                complete[@"full_bundle_sha256"]=full[@"full_bundle_sha256"];complete[@"full_bundle_receipt"]=proof;
+                [self reply:reply result:[complete copy] error:nil];
+            });}];
     });}];
 }
 - (void)liveImportResult:(NSDictionary *)receipt reply:(ODCreatorReply)reply {

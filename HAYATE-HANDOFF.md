@@ -10,6 +10,18 @@ Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
 Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says "make the builds".
 
+## Current first-playable priority — October 29, 1:38 PM CT
+
+Read [context/DUO-FIRST-PLAYABLE.md](context/DUO-FIRST-PLAYABLE.md). Preserve the
+completed second Creator/resource source cohort; pause expansion until one
+real original-client battle completes and persists. All six workers now serve
+the original native startup/auth/home/team/battle path. Source milestones and
+runtime acceptance are distinct. Required AdjustSigSdk and opaque bundled
+database seed are not in the restored engine/shell archive; retained caches
+are being inspected before a selective cloud extraction is requested. The
+large private IPA exceeds the Drive fetch action's 256 MiB limit. No build,
+original-game launch, playable download or new in-app image is claimed.
+
 ## Current source cohort — 2026-10-29 12:44 PM CT
 
 Draft #8 is still unmerged. New actual-client source work adds verified-root

@@ -90,6 +90,85 @@ int od_iphone_resources_open(const char *catalog,const char *manifest,const char
  *out=r;return 0;
 reject:od_iphone_resources_close(r);return -1;
 }
+static int same_catalog_file(struct stat before,struct stat after) {
+ if(!S_ISREG(before.st_mode)||!S_ISREG(after.st_mode)||before.st_dev!=after.st_dev||
+    before.st_ino!=after.st_ino||before.st_size!=after.st_size)return 0;
+#if defined(__APPLE__)
+ return before.st_mtimespec.tv_sec==after.st_mtimespec.tv_sec&&before.st_mtimespec.tv_nsec==after.st_mtimespec.tv_nsec;
+#else
+ return before.st_mtim.tv_sec==after.st_mtim.tv_sec&&before.st_mtim.tv_nsec==after.st_mtim.tv_nsec;
+#endif
+}
+int od_iphone_resources_open_catalog_fd(int fd,int64_t bytes,const char *catalog_hash,
+ const char *manifest,const char *ipa,const char *bundle,const char *source,const char *cache,
+ od_iphone_resources **out) {
+ if(!out)return -1;
+ *out=NULL;
+ if(fd<0||bytes<100||bytes>128LL*1024*1024||!valid_hash(catalog_hash)||
+    !valid_hash(manifest)||!valid_hash(ipa)||!bundle||!source||!cache)return -1;
+ int flags=fcntl(fd,F_GETFL);struct stat before,after;
+ if(flags<0||(flags&O_ACCMODE)!=O_RDONLY||fstat(fd,&before)||
+    !S_ISREG(before.st_mode)||before.st_size!=bytes)return -1;
+ unsigned char *snapshot=sqlite3_malloc64((sqlite3_uint64)bytes+32);
+ if(!snapshot)return -1;
+ int64_t total=0;
+ while(total<bytes){
+  size_t take=65536;if(bytes-total<(int64_t)take)take=(size_t)(bytes-total);
+  ssize_t n=pread(fd,snapshot+(size_t)total,take,(off_t)total);
+  if(n<0&&errno==EINTR)continue;
+  if(n<=0){sqlite3_free(snapshot);return -1;}
+  total+=n;
+ }
+ if(fstat(fd,&after)||!same_catalog_file(before,after)||
+    od_content_verify_bytes(snapshot,bytes,catalog_hash)||
+    memcmp(snapshot,"SQLite format 3",16)||snapshot[18]!=1||snapshot[19]!=1){
+  sqlite3_free(snapshot);return -1;
+ }
+ /* SQLite recommends extra zero padding for malformed-image read bounds. The
+    admitted image itself is not edited and WAL images are refused, not fixed. */
+ memset(snapshot+(size_t)bytes,0,32);
+ od_iphone_resources *r=calloc(1,sizeof(*r));
+ if(!r){sqlite3_free(snapshot);return -1;}
+ r->source_root=r->cache_root=-1;
+ if(sqlite3_open_v2(":memory:",&r->db,SQLITE_OPEN_READWRITE|SQLITE_OPEN_CREATE|SQLITE_OPEN_FULLMUTEX,NULL)!=SQLITE_OK){
+  sqlite3_free(snapshot);od_iphone_resources_close(r);return -1;
+ }
+ int loaded=sqlite3_deserialize(r->db,"main",snapshot,(sqlite3_int64)bytes,
+  (sqlite3_int64)bytes+32,SQLITE_DESERIALIZE_READONLY|SQLITE_DESERIALIZE_FREEONCLOSE);
+ /* FREEONCLOSE frees snapshot on deserialize failure too; never free twice. */
+ snapshot=NULL;
+ if(loaded!=SQLITE_OK||sqlite3_exec(r->db,"PRAGMA query_only=ON;PRAGMA trusted_schema=OFF",NULL,NULL,NULL)!=SQLITE_OK||
+    !expected(r->db,"schema","1")||!expected(r->db,"verified_alias_schema","1")||
+    !expected(r->db,"manifest_sha256",manifest)||!expected(r->db,"ipa_sha256",ipa)||
+    !expected(r->db,"iphone_bundle_id",bundle)||!meta(r->db,"iphone_app_prefix",r->prefix,sizeof(r->prefix)))goto reject;
+ size_t length=strlen(r->prefix);
+ if(length<14||strncmp(r->prefix,"Payload/",8)||strcmp(r->prefix+length-5,".app/")||
+    strchr(r->prefix+8,'/')!=r->prefix+length-1||od_content_open(source,cache,&r->content))goto reject;
+ r->source_root=open(source,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+ r->cache_root=open(cache,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+ if(r->source_root<0||r->cache_root<0)goto reject;
+ *out=r;return 0;
+reject:od_iphone_resources_close(r);return -1;
+}
+static int snapshot_asset_reference(od_iphone_resources *r,const char *path,od_asset_reference *out) {
+ /* Legacy resources use the existing catalog handle. FD composition uses
+    this same typed assets query against its one immutable admitted snapshot. */
+ if(r->catalog)return od_asset_catalog_reference(r->catalog,path,out);
+ if(strncmp(path,"assets/",7)||!valid_relative(path)||!strcmp(path,"assets/User")||
+    !strncmp(path,"assets/User/",12))return -1;
+ sqlite3_stmt *s=NULL;
+ if(sqlite3_prepare_v2(r->db,"SELECT bytes,sha256 FROM assets WHERE path=?1",-1,&s,NULL)!=SQLITE_OK)return -1;
+ if(sqlite3_bind_text(s,1,path,-1,SQLITE_TRANSIENT)!=SQLITE_OK){sqlite3_finalize(s);return -1;}
+ int ok=0;
+ if(sqlite3_step(s)==SQLITE_ROW&&sqlite3_column_type(s,0)==SQLITE_INTEGER&&sqlite3_column_type(s,1)==SQLITE_TEXT){
+  sqlite3_int64 length=sqlite3_column_int64(s,0);const char *hash=(const char*)sqlite3_column_text(s,1);
+  if(length>=0&&length<=INT64_C(8589934592)&&hash&&sqlite3_column_bytes(s,1)==64&&valid_hash(hash)){
+   memcpy(out->path,path,strlen(path)+1);memcpy(out->sha256,hash,65);out->bytes=length;
+   ok=sqlite3_step(s)==SQLITE_DONE;
+  }
+ }
+ sqlite3_finalize(s);if(!ok)memset(out,0,sizeof(*out));return ok?0:-1;
+}
 int od_iphone_resources_reference(od_iphone_resources *r,const char *relative,od_asset_reference *out) {
  if(!r||!out)return -1;
  memset(out,0,sizeof(*out));r->error=NULL;
@@ -114,7 +193,7 @@ int od_iphone_resources_reference(od_iphone_resources *r,const char *relative,od
  }
  sqlite3_finalize(s);
  if(!ok)return fail(r,row==SQLITE_DONE?"IPHONE_RESOURCE_NOT_ADMITTED":"IPHONE_RESOURCE_CATALOG_INVALID");
- if(od_asset_catalog_reference(r->catalog,path,out))return fail(r,"IPHONE_RESOURCE_REFERENCE_INVALID");
+ if(snapshot_asset_reference(r,path,out))return fail(r,"IPHONE_RESOURCE_REFERENCE_INVALID");
  return 0;
 }
 int od_iphone_resources_resolve(od_iphone_resources *r,const char *relative,int *descriptor) {
@@ -153,6 +232,34 @@ int od_iphone_resources_asset_reference(od_iphone_resources *r,const char *relat
  if(strcmp(out->path,canonical)) {
   memset(out,0,sizeof(*out));return fail(r,"IPHONE_RESOURCE_CATALOG_INVALID");
  }
+ return 0;
+}
+int od_iphone_resources_visit_aliases(od_iphone_resources *r,
+ od_iphone_resource_alias_visitor visitor,void *context) {
+ if(!r||!visitor)return -1;
+ r->error=NULL;sqlite3_stmt *s=NULL;
+ if(sqlite3_prepare_v2(r->db,"SELECT zip_entry FROM ipa_aliases ORDER BY zip_entry LIMIT 20001",-1,&s,NULL)!=SQLITE_OK)
+  return fail(r,"IPHONE_RESOURCE_CATALOG_INVALID");
+ int row;size_t count=0,prefix=strlen(r->prefix);
+ while((row=sqlite3_step(s))==SQLITE_ROW){
+  if(count>=20000||sqlite3_column_type(s,0)!=SQLITE_TEXT){sqlite3_finalize(s);return fail(r,"IPHONE_RESOURCE_CATALOG_INVALID");}
+  const char *entry=(const char*)sqlite3_column_text(s,0);int length=sqlite3_column_bytes(s,0);
+  if(!entry||length<1||(size_t)length<=prefix||length>1536||strlen(entry)!=(size_t)length||
+     memcmp(entry,r->prefix,prefix)||!valid_relative(entry+prefix)){
+   sqlite3_finalize(s);return fail(r,"IPHONE_RESOURCE_CATALOG_INVALID");
+  }
+  char relative[1025];size_t n=(size_t)length-prefix;
+  if(n>1024){sqlite3_finalize(s);return fail(r,"IPHONE_RESOURCE_CATALOG_INVALID");}
+  memcpy(relative,entry+prefix,n+1);od_asset_reference reference;
+  if(od_iphone_resources_reference(r,relative,&reference)){
+   int unadmitted=r->error&&!strcmp(r->error,"IPHONE_RESOURCE_NOT_ADMITTED");
+   sqlite3_finalize(s);return fail(r,unadmitted?"IPHONE_RESOURCE_CATALOG_UNADMITTED_ALIAS":"IPHONE_RESOURCE_CATALOG_INVALID");
+  }
+  count++;
+  if(visitor(relative,&reference,context)){sqlite3_finalize(s);return fail(r,"IPHONE_RESOURCE_VISITOR_ABORTED");}
+ }
+ sqlite3_finalize(s);
+ if(row!=SQLITE_DONE||!count)return fail(r,"IPHONE_RESOURCE_CATALOG_INVALID");
  return 0;
 }
 static int publishable_resource(const char *relative) {

@@ -1,0 +1,24 @@
+{
+  "schema": "full-runtime-store-source-v1",
+  "source_files": {
+    "offline-dokkan/original-client/master/ODRuntimeMasterStore.m": "e8868e7f9db761f6e96786c7dccd5618ace5512c6e3df5ce84d9a929a2f54795",
+    "offline-dokkan/original-client/master/ODRuntimeMasterStore.h": "9e6e6e97378b28ca68622d18df55f7d0603d59fa7868d37b4e2ce04cd38373bb"
+  },
+  "source_contract_checks": {
+    "ODRuntimeMasterStore.m_delimiters_balanced": true,
+    "ODRuntimeMasterStore.h_delimiters_balanced": true,
+    "new_native_compiler_selector_matches_both_store_calls": true,
+    "full_packet_and_detached_receipt_fields_present": true,
+    "awakening_predicate_shared_semantics_present": true
+  },
+  "source_check_runs": 1,
+  "native_compiled": false,
+  "native_executed": false,
+  "actual_database_or_save_opened": false,
+  "original_engine_attached": false,
+  "gameplay_verified": false,
+  "limits": "Source delimiter/selector/data-contract inspection only; no Objective-C compiler or runtime proof. Forge component checks are recorded separately.",
+  "peer_review_corrections": [
+    "Child member keys align with Forge nonempty <=200 UTF-16 contract, rather than definition identifier grammar. Source review only; no repeated check."
+  ]
+}

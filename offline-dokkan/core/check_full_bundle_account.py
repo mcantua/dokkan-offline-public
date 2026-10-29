@@ -19,6 +19,12 @@ lib.od_creator_finish_bundle.argtypes = [
     ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p,
     ctypes.c_void_p, ctypes.c_size_t, ctypes.POINTER(ctypes.c_void_p)]
 lib.od_creator_finish_bundle.restype = ctypes.c_int
+lib.od_creator_accepted_bundle.argtypes = [
+    ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int64,
+    ctypes.c_int64, ctypes.c_char_p, ctypes.POINTER(ctypes.c_void_p),
+    ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_void_p),
+    ctypes.POINTER(ctypes.c_void_p)]
+lib.od_creator_accepted_bundle.restype = ctypes.c_int
 lib.od_last_error.argtypes = [ctypes.c_void_p]
 lib.od_last_error.restype = ctypes.c_char_p
 lib.od_close.argtypes = lib.od_free.argtypes = [ctypes.c_void_p]
@@ -126,9 +132,12 @@ with tempfile.TemporaryDirectory(prefix="full-bundle-account-", dir=ROOT / "buil
         finally:
             lib.od_free(result)
 
+    call("profile.create", {}, "open")
+    with sqlite3.connect(save) as state:
+        identity = state.execute("SELECT v FROM meta WHERE k='projection_identity'").fetchone()[0]
+    SCOPE = hashlib.sha256(json.dumps([identity, PROFILE, CONTENT], separators=(",", ":")).encode()).hexdigest()
     raw = packet()
     document = definition(raw)
-    call("profile.create", {}, "open")
     call("creator.finish", {"definition": document}, "public-finish", error="FULL_BUNDLE_NATIVE_VALIDATION_REQUIRED")
     call("creator.import", {"definition": document}, "public-import", error="FULL_BUNDLE_NATIVE_VALIDATION_REQUIRED")
     bad = bytearray(raw)
@@ -137,6 +146,33 @@ with tempfile.TemporaryDirectory(prefix="full-bundle-account-", dir=ROOT / "buil
     assert call("profile.snapshot", {})["cards"] == []
     saved = finish_bundle(raw, document, "finish:collection-v1")
     owned = saved["instance_id"]
+
+    def read_bundle(instance, scope=SCOPE, error=None):
+        blob = ctypes.c_void_p()
+        length = ctypes.c_size_t()
+        registered = ctypes.c_void_p()
+        receipt = ctypes.c_void_p()
+        rc = lib.od_creator_accepted_bundle(handle, PROFILE.encode(), b"local-finish-unit",
+            1, instance, scope.encode(), ctypes.byref(blob), ctypes.byref(length),
+            ctypes.byref(registered), ctypes.byref(receipt))
+        if error:
+            assert rc < 0 and lib.od_last_error(handle).decode() == error
+            assert not blob.value and not length.value and not registered.value and not receipt.value
+            return
+        assert rc == 0, lib.od_last_error(handle)
+        try:
+            assert ctypes.string_at(blob, length.value) == raw
+            assert json.loads(ctypes.string_at(registered)) == document
+            proof = json.loads(ctypes.string_at(receipt))
+            assert proof["instance_id"] == owned and proof["save_scope"] == SCOPE
+            assert proof["full_bundle_sha256"] == hashlib.sha256(raw).hexdigest()
+            assert proof["profile_revision"] >= 1 and proof["projection_generation"] >= 1
+        finally:
+            for value in (blob, registered, receipt): lib.od_free(value)
+
+    read_bundle(owned)
+    read_bundle(owned, scope="ff" * 32, error="FULL_BUNDLE_SAVE_SCOPE_MISMATCH")
+    read_bundle(owned + 1, error="FULL_BUNDLE_ACCEPTED_OWNERSHIP_UNAVAILABLE")
     assert saved["newly_owned"] is True and saved["definition_id"] == "local-finish-unit"
     assert finish_bundle(raw, document, "finish:collection-v1")["instance_id"] == owned
     again = finish_bundle(raw, document, "fresh-intent")
@@ -150,6 +186,7 @@ with tempfile.TemporaryDirectory(prefix="full-bundle-account-", dir=ROOT / "buil
     handle = ctypes.c_void_p()
     assert lib.od_open(str(save).encode(), str(master).encode(), CONTENT.encode(), ctypes.byref(handle)) == 0
     reopened = call("profile.snapshot", {})
+    read_bundle(owned)
     assert len(reopened["cards"]) == 1 and reopened["teams"][0]["members"] == [owned]
     lib.od_close(handle)
 print("PASS full bundle stays out of public Finish and imports once into the saved local-player account")

@@ -260,6 +260,50 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
         dispatch_async(dispatch_get_main_queue(),^{reply(packet,error);});
     });
 }
+- (void)acceptedCreatorFullBundleForProfile:(NSString *)profile definitionID:(NSString *)definitionID
+    version:(int64_t)version instanceID:(int64_t)instanceID expectedSaveScopeSHA256:(NSString *)scope
+    lease:(ODNativeCreatorLease *)lease reply:(ODCoreReply)reply {
+    if(!reply)return;
+    NSString *owner=[profile copy],*identifier=[definitionID copy],*expected=[scope copy];
+    dispatch_async(_queue,^{
+        NSError *error=nil;NSDictionary *packet=nil;
+        if(![owner isEqualToString:@"local-player"]||![identifier isKindOfClass:NSString.class]||
+           ![expected isKindOfClass:NSString.class]||version<1||version>INT64_C(9007199254740991)||
+           instanceID<1||instanceID>INT64_C(9007199254740991))error=CoreError("INVALID_ACCEPTED_FULL_BUNDLE_REQUEST");
+        else if((lease&&lease!=self->_creatorLease)||(!lease&&self->_creatorLease)||
+            (lease&&(![lease.profileID isEqualToString:owner]||![lease.contentID isEqualToString:self->_content]||
+                ![lease.saveScopeSHA256 isEqualToString:expected])))error=CoreError("CREATOR_LEASE_NOT_CURRENT");
+        else if([self ensureOpen:&error]) {
+            void *blob=NULL;size_t count=0;char *document=NULL,*receipt=NULL,*failure=NULL;
+            int rc=od_bridge_creator_accepted_bundle(self->_bridge,owner.UTF8String,identifier.UTF8String,
+                version,instanceID,expected.UTF8String,&blob,&count,&document,&receipt,&failure);
+            size_t length=document?strnlen(document,16u*1024u*1024u+1u):0;
+            if(rc<0)error=CoreError(failure);
+            else if(!blob||!count||count>64u*1024u*1024u||!length||length>16u*1024u*1024u)error=CoreError("ACCEPTED_FULL_BUNDLE_UNAVAILABLE");
+            else {
+                NSDictionary *proof=ODProjectionJSON(receipt);char blobHash[65],definitionHash[65];
+                BOOL hashes=ODProjectionSHA256(NULL,blob,count,blobHash)==0&&ODProjectionSHA256(NULL,document,length,definitionHash)==0;
+                if(!proof||!hashes||![proof[@"format"] isEqual:@"od-accepted-full-bundle-receipt-v1"]||
+                   ![proof[@"content_id"] isEqual:self->_content]||![proof[@"profile_id"] isEqual:owner]||
+                   ![proof[@"save_scope"] isEqual:expected]||![proof[@"definition_id"] isEqual:identifier]||
+                   ![proof[@"version"] isEqual:@(version)]||![proof[@"instance_id"] isEqual:@(instanceID)]||
+                   ![proof[@"full_bundle_sha256"] isEqual:[NSString stringWithUTF8String:blobHash]]||
+                   ![proof[@"definition_sha256"] isEqual:[NSString stringWithUTF8String:definitionHash]])error=CoreError("ACCEPTED_FULL_BUNDLE_UNCONFIRMED");
+                else {
+                    NSData *bytes=[NSData dataWithBytes:blob length:count],*definitionBytes=[NSData dataWithBytes:document length:length];
+                    if(!bytes||!definitionBytes)error=CoreError("ACCEPTED_FULL_BUNDLE_UNAVAILABLE");
+                    else packet=@{@"definition_bytes":definitionBytes,@"definition_sha256":proof[@"definition_sha256"],
+                        @"definition_id":identifier,@"version":@(version),@"profile_id":owner,
+                        @"content_id":self->_content,@"save_scope_sha256":expected,
+                        @"full_bundle_bytes":bytes,@"full_bundle_sha256":proof[@"full_bundle_sha256"],
+                        @"full_bundle_receipt":proof};
+                }
+            }
+            od_bridge_free(blob);od_bridge_free(document);od_bridge_free(receipt);od_bridge_free(failure);
+        }
+        dispatch_async(dispatch_get_main_queue(),^{reply(packet,error);});
+    });
+}
 - (void)creatorFinishReceiptForProfile:(NSString *)profile command:(NSString *)command
     expectedDefinitionBytes:(NSData *)definition expectedSaveScopeSHA256:(NSString *)scope
     lease:(ODNativeCreatorLease *)lease reply:(ODCoreReply)reply {
