@@ -17,3 +17,40 @@ One actual-image static check is in `adaptation-evidence.json`: independently de
 **Still required:** executable-to-library dyld validation, concrete native startup preparation, code signing and actual device loading, and the original scene/render/protocol/resource/Creator connections. The retained main was genuinely compiled with SDK27.1; current changed authored components still need their matching native compile. The original AppController's UIApplicationMain entry is separately established by bounded method inspection; calling dlopen on the original MH_EXECUTE or merely changing its SDK field is not a valid integration.
 
 `ODPreparedEngineEnvironment` establishes actual pre-load configuration, rather than demanding an exhaustive static audit of all original initializers before an authorized startup diagnostic. The local Foundation transport must already be installed, native state paths validated and the source patcher excluded. The native host selects diagnostic versus integrated startup and reports actual coverage. Diagnostic permission does not attest raw-socket/WebKit/kernel containment or successful gameplay; complete offline behavior remains an essential runtime check. No page boolean can grant loading authority. Preparation is an intermediate implementation step, not a finished game.
+
+## Production plugin entry
+
+Adding the plugin dependency with `inject_shell.py` only asks dyld to load the
+authored library. The library must also call the reviewed native host before
+the preserved shell reaches main. Without that edge, loading component code
+alone does not replace the shell's earlier standalone UI.
+
+`ODUnifiedDuoStartup` supplies this edge only when compiled with
+`OD_UNIFIED_DUO_STARTUP_ENTRY=1`. Its constructor calls the native compiled
+`ODCreateUnifiedDuoStartupHost` factory and admits only an
+`ODUnifiedDuoIntegratedTarget`. It calls `installBeforeApplicationMain:` and
+retains the installed composition. Missing factory, an exception, wrong host
+purpose or failed installation stops the process before shell main. No
+account/launcher/battle-harness fallback runs, and only a fixed failure label
+is printed. No native error, file path or credential is logged.
+
+The factory is deliberately still unimplemented: the actual local response
+contracts, original master/resource connection and same-player services must
+be composed from their admitted native capabilities. A guessed factory that
+returns a diagnostic or fake success is not a replacement for that work.
+`startup-source.json` records this exact boundary. It does not configure an
+auth route, supply a database key, or attest gameplay.
+
+The component source inventory includes the new file but leaves its process
+constructor disabled by default. Existing hosted Finish/component diagnostics
+therefore do not change startup just because they reuse these sources. When
+Tin explicitly authorizes builds, `build-components.sh
+--original-startup-entry` selects the production entry and validates its source
+manifest. While its factory remains explicitly unfinished, this option stops
+before dependency setup or compilation; it cannot silently produce a
+constructor-enabled library presented as ready. Once the actual factory is
+implemented, that library still requires the genuine shell
+composition before use. No new workflow was added or dispatched for this
+change. One source-only shell/manifest check was performed; Objective-C
+compilation, constructor ordering, signing and actual original-game startup
+remain unverified.

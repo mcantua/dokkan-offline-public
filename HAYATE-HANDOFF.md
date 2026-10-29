@@ -10,6 +10,24 @@ Previous handoff: Drive GROK-TAKEOVER.md (1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag)
 Linked from the top of STATUS.md and HANDOFF.md.
 Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says "make the builds".
 
+## Current source cohort — 2026-10-29 12:44 PM CT
+
+Draft #8 is still unmerged. New actual-client source work adds verified-root
+resource lookup/publication, a gated compiled startup entry, Creator opening
+failure recovery and strict full-bundle resource/form validation. Native code
+is not compiled or run. Current source facts: Documents/assets default root;
+MAIN obtains its opaque key natively (no key paste needed); user.tutorial
+reader nesting proved but starting values/HTTP envelope unproved. Auth caller
+and CFG frame checkpoints are retained in public evidence plus private Drive
+analysis, not inferred as successful responses.
+
+Important newly found gap: Core full Finish currently discards validated bundle
+bytes. A schema migration/native-only retention/read path, full-form runtime
+compiler and derived-master writer are in progress together. Do not treat this
+WIP as complete or enable public full descriptors. Source/live-game/physical
+acceptance remain separate. The latest images rule allows only actual in-app
+captures; none newly exists. Current workers and exact changes are in STATUS.
+
 ## Current takeover — 2026-10-29 12:04 PM CT
 
 Tin resumed ChatGPT and reconfirmed that production is his supplied

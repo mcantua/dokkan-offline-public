@@ -1,0 +1,96 @@
+{
+  "kind": "focused-bootstrap-frame-control-flow",
+  "bodies": [
+    {
+      "bytes": 720,
+      "sha256": "e551358ed7c7b5690cabc23114060313f24420be48d62967fcc1c270f366d10a",
+      "instructions": 180,
+      "reachable_instructions": 159,
+      "cfg_transfer_steps": 159,
+      "call_stack_aliases": [
+        {
+          "call_ordinal": 10,
+          "stack_aliases": {
+            "x29": -16,
+            "x31": -144
+          }
+        },
+        {
+          "call_ordinal": 18,
+          "stack_aliases": {
+            "x29": -16,
+            "x31": -144
+          }
+        },
+        {
+          "call_ordinal": 25,
+          "stack_aliases": {
+            "x1": -88,
+            "x29": -16,
+            "x31": -144
+          }
+        }
+      ]
+    },
+    {
+      "bytes": 1432,
+      "sha256": "a7d135a3e5f611e4fe73e1a97e0a848ad8bbe91b276b69c3c67597f7e3b6ea57",
+      "instructions": 358,
+      "reachable_instructions": 325,
+      "cfg_transfer_steps": 325,
+      "call_stack_aliases": [
+        {
+          "call_ordinal": 16,
+          "stack_aliases": {
+            "x8": -104,
+            "x29": -16,
+            "x31": -224
+          }
+        },
+        {
+          "call_ordinal": 17,
+          "stack_aliases": {
+            "x2": -104,
+            "x8": -136,
+            "x29": -16,
+            "x31": -224
+          }
+        },
+        {
+          "call_ordinal": 28,
+          "stack_aliases": {
+            "x2": -136,
+            "x29": -16,
+            "x31": -224
+          }
+        },
+        {
+          "call_ordinal": 29,
+          "stack_aliases": {
+            "x2": -104,
+            "x8": -216,
+            "x29": -16,
+            "x31": -224
+          }
+        },
+        {
+          "call_ordinal": 39,
+          "stack_aliases": {
+            "x2": -104,
+            "x8": -216,
+            "x29": -16,
+            "x31": -224
+          }
+        }
+      ]
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Only affine stack-pointer aliases are analyzed.",
+    "Conditional branches are joined conservatively; no branch condition is guessed.",
+    "This does not identify JSON types, callable receivers or member selection."
+  ]
+}

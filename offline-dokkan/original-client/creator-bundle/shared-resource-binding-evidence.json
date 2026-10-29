@@ -1,0 +1,15 @@
+{
+  "kind": "one-focused-authored-shared-animation-capture-boundary",
+  "fixture": "existing synthetic Forge/Forms fixture; exact importer path mapping and native-scoped asset descriptor",
+  "checks": {
+    "matching_captured_script_accepted": true,
+    "forged_declared_script_hash_rejected": true,
+    "uncaptured_declared_asset_rejected": true,
+    "original_engine_admission_stays_false": true
+  },
+  "targeted_invocations": 1,
+  "native_compilation_or_runtime_verified": false,
+  "source_master_or_gameplay_verified": false,
+  "original_game_executed": false,
+  "personal_connection_used": false
+}

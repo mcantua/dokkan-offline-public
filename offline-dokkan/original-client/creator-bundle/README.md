@@ -122,10 +122,52 @@ account. The same Finish command keeps that copy. A page that sends
 `full_bundle` is rejected. Nothing here attaches the original engine or makes
 a custom unit playable.
 
-Full-bundle awakening rejection follows Session preparation: missing, JSON
-`false`, `null`, or numeric zero does not request an EZA edit. An actual
-awakening request still uses the separate owned-card flow. This source fix
-has not been verified in the native runtime.
+Full-bundle awakening rejection follows Session preparation for **every member**,
+including attached forms: missing, JSON `false`, `null`, or numeric zero does
+not request an EZA edit. An actual awakening request still uses the separate
+owned-card flow. A child form cannot bypass that flow through a non-awakening
+root. These native source changes have not been compiled or runtime-verified.
+
+Only the exact three compatibility entries from the real Forge exporter are
+excluded from immutable game-resource capture: `metadata.json`,
+`forge-project.json`, and `files/<Forge.filename(project)>.sql`. Another safe
+attachment ending in `.sql` is not silently discarded. It must pass the normal
+scoped asset attestation/capture or explicitly fail the capability check, and
+its bytes are never executed as SQL. The native inspector supplies the exact
+compatibility SQL path from Forge; no page-provided skip list is accepted.
+
+`check_resource_capture.js` runs one synthetic project through the actual
+Forge, Forms reservation and full-bundle staging path. The focused scenario
+retained the SQL-suffix attachment/hash, kept precisely the three compatibility
+entries, left its input project unchanged, rejected an awakening child form,
+and retained false engine/gameplay admission. `resource-capture-evidence.json`
+records the scope and the two fixture setup corrections before the pass. This
+is authored JavaScript staging evidence, not native Finish, source-game data
+or original-engine gameplay proof.
+
+Shared dependency resources now require captured immutable bytes in the same
+packet. Every declared `assetPaths` destination must match an actual captured
+asset/generated-text entry; an unbuilt CPK input list is not a finished-byte
+proof. A declaration alone, or a file presumed present in the original game,
+returns `FULL_BUNDLE_SHARED_RESOURCE_CAPTURE_REQUIRED` until a separate native
+resident-resource capability is implemented.
+
+The animation importer records source paths without `lua/`, and its existing
+`fetchResources` attaches scripts at exactly `lua/<animation.path>` (see
+`unit-creator/v2/ui/sparking-animation-import.js` and `sparking-content.js`). The
+validator uses only that established mapping and compares the declared SHA-256
+with the actual captured bytes. Unsupported path forms and changed digests
+return fixed errors; no declaration is guessed to be a native asset-store key.
+This binds the declared digest to bytes, not to an independently authenticated
+source-game version. It does not prove all dynamic script/audio/helper
+references, encoded ability semantics or unknown ID-column relationships.
+
+`node .../check_resource_capture.js --shared-only` reuses the same synthetic
+fixture in one new focused invocation. Matching captured script bytes passed;
+a changed declared hash and a missing captured resource rejected. The earlier
+resource-only scenario was not rerun. Exact scope is in
+`shared-resource-binding-evidence.json`. Objective-C remains uncompiled and
+unexecuted, and engine/gameplay admission stays false.
 
 ## Focused evidence
 

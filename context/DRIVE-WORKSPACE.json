@@ -879,6 +879,25 @@
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "capstone-5.0.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "id": "1El-zefxxKfHhkvQPLUdGxkyEEVLtRLqT",
+      "size": 1481605,
+      "sha256": "0358855773100bb91ae6681fabce7299df83156945ba943f6211061a592c54a6",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "provenance": "downloads/capstone/artifact.json"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "capstone-5.0.6-SOURCE.md",
+      "id": "1CVEeeuzUQaAhPgRmjYlJxjXfQVC19quP",
+      "size": 1427,
+      "uploaded": true,
+      "metadata_verified": true
     }
   ],
   "verification": {
@@ -1120,7 +1139,10 @@
     "source_archive_byte_readback_verified": false,
     "current_status_drive_id": "1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--",
     "current_source_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
-    "historical_pause_fields": "stop_time, paused_checkpoint_* and the original handoff ID describe the earlier Grok pause only; latest resumption/source fields supersede them."
+    "historical_pause_fields": "stop_time, paused_checkpoint_* and the original handoff ID describe the earlier Grok pause only; latest resumption/source fields supersede them.",
+    "user_latest_directive": "Maximum useful parallel cloud agents; 10-minute accurate reports with visual evidence; continue original-client work; playable link when actually available; no builds authorized.",
+    "current_parallel_workers": 6,
+    "current_phase": "Original-client auth dispatcher, resource/master roots, fresh-state data, full-unit integrity and trusted host composition source integration."
   },
   "public_repository_integration": {
     "repository": "mcantua/dokkan-offline-public",

@@ -1,0 +1,11 @@
+{
+  "name": "capstone",
+  "version": "5.0.6",
+  "file": "capstone-5.0.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+  "url": "https://files.pythonhosted.org/packages/78/7f/ec0687bbe8f6b128f1d41d90ec7cedfd1aaaa4ecb1ae8d334acc7dad8013/capstone-5.0.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+  "sha256": "0358855773100bb91ae6681fabce7299df83156945ba943f6211061a592c54a6",
+  "bytes": 1481605,
+  "metadata_url": "https://pypi.org/pypi/capstone/5.0.6/json",
+  "purpose": "Bounded static arm64 reader/resource-call analysis of the user-supplied original client; no app execution or build",
+  "license": null
+}

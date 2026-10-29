@@ -120,7 +120,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
         @"creatorServicesPending":@(_servicesPending&&_services==nil),
         @"creatorServicesBound":@(_services!=nil),
-        @"originalEngineMasterAttached":@(_masterAttached),
+        // Staging a file is not observation of the original engine opening it.
+        @"derivedMasterStaged":@(_masterAttached),
+        @"originalEngineMasterAttached":@NO,
         @"originalEngineMasterRelativePath":_masterRelative?:@"",
         @"sourceKeyApplied":@NO,@"cachedHandleRedirected":@NO,@"engineKeyedOpenObserved":@NO,
         @"keyedOpenRefused":@YES,@"flags6Applied":@NO,@"readonlyMasterReady":@(_masterReadonlyReady),

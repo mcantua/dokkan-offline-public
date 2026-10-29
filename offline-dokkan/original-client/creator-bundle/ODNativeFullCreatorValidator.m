@@ -14,6 +14,7 @@ static NSError *ODFBError(NSString *code){return [NSError errorWithDomain:@"Offl
 static BOOL ODFBHex(NSString *s){return [s isKindOfClass:NSString.class]&&s.length==64&&[s rangeOfCharacterFromSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"] invertedSet]].location==NSNotFound;}
 static BOOL ODFBName(NSString *s){return [s isKindOfClass:NSString.class]&&s.length>0&&s.length<=100&&[s rangeOfCharacterFromSet:[[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.:-"] invertedSet]].location==NSNotFound;}
 static BOOL ODFBInt(id v){return [v isKindOfClass:NSNumber.class]&&CFGetTypeID((__bridge CFTypeRef)v)!=CFBooleanGetTypeID()&&isfinite([v doubleValue])&&[v doubleValue]==[v longLongValue]&&fabs([v doubleValue])<=9007199254740991.0;}
+static BOOL ODFBAwakeningRequested(id value){return value&&value!=NSNull.null&&(![value isKindOfClass:NSNumber.class]||[value boolValue]);}
 static BOOL ODFBPath(NSString *s){if(![s isKindOfClass:NSString.class]||!s.length||s.length>500||[s hasPrefix:@"/"]||[s rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\\:\000\r\n"]].location!=NSNotFound)return NO;for(NSString *part in [s componentsSeparatedByString:@"/"])if(!part.length||[part isEqual:@"."]||[part isEqual:@".."])return NO;return YES;}
 static NSString *ODFBQuote(NSString *s){if(![s isKindOfClass:NSString.class]||!s.length||s.length>100)return nil;NSCharacterSet *set=[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"];if([s rangeOfCharacterFromSet:set.invertedSet].location!=NSNotFound||![[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"] characterIsMember:[s characterAtIndex:0]])return nil;return [NSString stringWithFormat:@"\"%@\"",s];}
 static NSString *ODFBHash(NSData *d){unsigned char hash[32];CC_SHA256(d.bytes,(CC_LONG)d.length,hash);NSMutableString *s=[NSMutableString stringWithCapacity:64];for(int i=0;i<32;i++)[s appendFormat:@"%02x",hash[i]];return s;}
@@ -48,7 +49,7 @@ static BOOL ODFBSameField(id left,id right){if(left==right)return YES; if(left==
     if(!c.length||c.length>1024*1024||!d.length||d.length>1024*1024){if(error)*error=ODFBError(@"FULL_BUNDLE_CREATOR_CODE_INVALID");return nil;}
     NSString *cs=[[NSString alloc]initWithData:c encoding:NSUTF8StringEncoding],*ds=[[NSString alloc]initWithData:d encoding:NSUTF8StringEncoding];if(!cs||!ds){if(error)*error=ODFBError(@"FULL_BUNDLE_CREATOR_CODE_INVALID");return nil;}
     _js=[JSContext new];[_js evaluateScript:ds];if(!_js.exception)[_js evaluateScript:cs];
-    [_js evaluateScript:@"globalThis.ODFullInspect=function(text,stamp){const RealDate=Date;globalThis.Date=class extends RealDate{constructor(...a){super(...(a.length?a:[stamp]));}static now(){return stamp;}};try{const p=JSON.parse(text),v=Forge.validate(p);if(v.errors.length)throw Error('FULL_BUNDLE_FORGE_REJECTED');const m=[p,...p.formProjects||[]];return {project:p,card:Forge.card(p),tables:Forge.materializeAll(p),entries:Forge.exportEntries(p),members:m.map(x=>({key:x.key,source:x.source,runtime_card_id:x.targetId})),source_dependencies:m.filter(x=>x.sourceDependencies).map(x=>({member_key:x.key,bundle:x.sourceDependencies})),shared_actions:m.filter(x=>x.actionHooks?.dodge).map(x=>({member_key:x.key,settings:x.actionHooks.dodge,generated_files:(x.generatedFiles||[]).filter(f=>f.owner==='dodge:unit')})),transform_links:p.transformLinks||[]};}finally{globalThis.Date=RealDate;}};"];
+    [_js evaluateScript:@"globalThis.ODFullInspect=function(text,stamp){const RealDate=Date;globalThis.Date=class extends RealDate{constructor(...a){super(...(a.length?a:[stamp]));}static now(){return stamp;}};try{const p=JSON.parse(text),v=Forge.validate(p);if(v.errors.length)throw Error('FULL_BUNDLE_FORGE_REJECTED');const m=[p,...p.formProjects||[]];return {project:p,card:Forge.card(p),tables:Forge.materializeAll(p),entries:Forge.exportEntries(p),members:m.map(x=>({key:x.key,source:x.source,runtime_card_id:x.targetId})),source_dependencies:m.filter(x=>x.sourceDependencies).map(x=>({member_key:x.key,bundle:x.sourceDependencies})),shared_actions:m.filter(x=>x.actionHooks?.dodge).map(x=>({member_key:x.key,settings:x.actionHooks.dodge,generated_files:(x.generatedFiles||[]).filter(f=>f.owner==='dodge:unit')})),transform_links:p.transformLinks||[],compatibility_sql_path:'files/'+Forge.filename(p)+'.sql'};}finally{globalThis.Date=RealDate;}};"];
     if(_js.exception||![_js[@"ODFullInspect"] isObject]){if(error)*error=ODFBError(@"FULL_BUNDLE_CREATOR_CODE_INVALID");return nil;}
     if(![NSFileManager.defaultManager createDirectoryAtURL:_root withIntermediateDirectories:YES attributes:@{NSFilePosixPermissions:@0700} error:nil]){if(error)*error=ODFBError(@"FULL_BUNDLE_CAPTURE_ROOT_INVALID");return nil;}
     return self;
@@ -178,6 +179,30 @@ static BOOL ODFBSameField(id left,id right){if(left==right)return YES; if(left==
     }
     return YES;
 }
+- (BOOL)bindSharedResources:(NSArray *)dependencies captured:(NSArray *)resources error:(NSError **)error {
+    NSMutableDictionary *captured=[NSMutableDictionary dictionary];
+    for(NSDictionary *resource in resources)captured[resource[@"path"]]=resource;
+    for(NSDictionary *item in dependencies){
+        NSDictionary *bundle=item[@"bundle"];
+        NSMutableArray *required=[NSMutableArray arrayWithArray:bundle[@"assetPaths"]?:@[]];
+        NSMutableDictionary *animationHashes=[NSMutableDictionary dictionary];
+        for(NSDictionary *animation in bundle[@"animations"]?:@[]){
+            NSString *path=animation[@"path"];
+            // The existing importer strips lua/ in provenance and attaches
+            // exactly lua/<path>. No native asset-key or root is inferred.
+            if(!ODFBPath(path)||![path hasPrefix:@"ab_script/"]||![path hasSuffix:@".lua"]){if(error)*error=ODFBError(@"FULL_BUNDLE_SHARED_ANIMATION_PATH_UNSUPPORTED");return NO;}
+            NSString *destination=[@"lua/" stringByAppendingString:path];
+            [required addObject:destination];animationHashes[destination]=animation[@"sha256"];
+        }
+        for(NSString *path in required){
+            NSDictionary *resource=captured[path];
+            if(!resource||![@[@"captured-asset",@"captured-generated-text"] containsObject:resource[@"kind"]]||!ODFBHex(resource[@"sha256"])||!ODFBInt(resource[@"size"])||[resource[@"size"] longLongValue]<1){if(error)*error=ODFBError(@"FULL_BUNDLE_SHARED_RESOURCE_CAPTURE_REQUIRED");return NO;}
+            NSString *expected=animationHashes[path];
+            if(expected&&![expected isEqual:resource[@"sha256"]]){if(error)*error=ODFBError(@"FULL_BUNDLE_SHARED_ANIMATION_HASH_MISMATCH");return NO;}
+        }
+    }
+    return YES;
+}
 - (NSDictionary *)validateProjectBytes:(NSData *)bytes context:(NSDictionary *)context error:(NSError **)error {
     if(![bytes isKindOfClass:NSData.class]||!bytes.length||bytes.length>20*1024*1024||![context isKindOfClass:NSDictionary.class]||!ODFBName(context[@"definitionId"])||!ODFBInt(context[@"version"])||[context[@"version"] longLongValue]<1||!ODFBInt(context[@"materializationUTC"])||[context[@"materializationUTC"] longLongValue]<0||[context[@"materializationUTC"] longLongValue]>253402300799000LL){if(error)*error=ODFBError(@"FULL_BUNDLE_NATIVE_CONTEXT_INVALID");return nil;}
     if(![self sourceIdentityHeld:error])return nil;
@@ -185,10 +210,13 @@ static BOOL ODFBSameField(id left,id right){if(left==right)return YES; if(left==
     _js.exception=nil;JSValue *inspected=[_js[@"ODFullInspect"] callWithArguments:@[text,context[@"materializationUTC"]]];NSDictionary *result=[inspected toDictionary];
     if(_js.exception||![result isKindOfClass:NSDictionary.class]){_js.exception=nil;if(error)*error=ODFBError(@"FULL_BUNDLE_FORGE_VALIDATION_FAILED");return nil;}
     NSDictionary *project=result[@"project"];NSArray *members=result[@"members"];
-    // Match Session preparation: JSON false/null do not request awakening.
-    id awaken=project[@"awaken"];
-    BOOL hasAwaken=awaken&&awaken!=NSNull.null&&(![awaken isKindOfClass:NSNumber.class]||[awaken boolValue]);
-    if(hasAwaken||members.count<1||members.count>5){if(error)*error=ODFBError(@"FULL_BUNDLE_PROJECT_INVALID");return nil;}
+    // Every form follows Session's separate awakening flow. JSON false/null
+    // and numeric zero are not awakening requests; strings/objects still reject.
+    NSArray *forms=project[@"formProjects"]?:@[];
+    if(![forms isKindOfClass:NSArray.class]||members.count<1||members.count>5||members.count!=forms.count+1){if(error)*error=ODFBError(@"FULL_BUNDLE_PROJECT_INVALID");return nil;}
+    BOOL hasAwaken=ODFBAwakeningRequested(project[@"awaken"]);
+    for(id form in forms)if(![form isKindOfClass:NSDictionary.class]||ODFBAwakeningRequested(form[@"awaken"]))hasAwaken=YES;
+    if(hasAwaken){if(error)*error=ODFBError(@"FULL_BUNDLE_PROJECT_INVALID");return nil;}
     sqlite3 *db=NULL;if(sqlite3_open_v2(_master.fileSystemRepresentation,&db,SQLITE_OPEN_READONLY|SQLITE_OPEN_NOFOLLOW,NULL)!=SQLITE_OK){sqlite3_close(db);if(error)*error=ODFBError(@"FULL_BUNDLE_MASTER_UNAVAILABLE");return nil;}
     sqlite3_exec(db,"PRAGMA query_only=ON;PRAGMA trusted_schema=OFF;BEGIN",NULL,NULL,NULL);BOOL valid=YES;NSDictionary *base=nil;
     for(NSDictionary *m in members){NSDictionary *source=m[@"source"];NSNumber *cardID=source[@"cardId"];NSString *game=[_content hasPrefix:@"sparking:"]?@"sparking":[_content hasPrefix:@"eclipse:"]?@"eclipse":project[@"source"][@"database"];
@@ -200,13 +228,14 @@ static BOOL ODFBSameField(id left,id right){if(left==right)return YES; if(left==
     if(valid)valid=[self sharedDependencies:result[@"source_dependencies"] actions:result[@"shared_actions"] memberCount:members.count privateTables:result[@"tables"] source:db error:error];
     sqlite3_exec(db,"ROLLBACK",NULL,NULL,NULL);sqlite3_close(db);if(!valid){if(error&&!*error)*error=ODFBError(@"FULL_BUNDLE_SOURCE_SCHEMA_OR_ELIGIBILITY_FAILED");return nil;}
     NSMutableArray *resources=[NSMutableArray array];NSMutableDictionary *cache=[NSMutableDictionary dictionary];NSMutableSet *destinations=[NSMutableSet set];
-    for(NSDictionary *entry in result[@"entries"]){NSString *path=entry[@"path"];if(!ODFBPath(path)){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_PATH_INVALID");return nil;}if(![path hasPrefix:@"files/"]||[path hasSuffix:@".sql"])continue;NSString *destination=[path substringFromIndex:6],*normalized=[destination precomposedStringWithCanonicalMapping].lowercaseString;if(!ODFBPath(destination)||[destinations containsObject:normalized]){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_COLLISION");return nil;}[destinations addObject:normalized];
+    for(NSDictionary *entry in result[@"entries"]){NSString *path=entry[@"path"];if(!ODFBPath(path)){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_PATH_INVALID");return nil;}if([@[@"metadata.json",@"forge-project.json",result[@"compatibility_sql_path"]?:@""] containsObject:path]){if(![entry[@"text"] isKindOfClass:NSString.class]){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_ENTRY_INVALID");return nil;}continue;}if(![path hasPrefix:@"files/"]){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_PATH_INVALID");return nil;}NSString *destination=[path substringFromIndex:6],*normalized=[destination precomposedStringWithCanonicalMapping].lowercaseString;if(!ODFBPath(destination)||[destinations containsObject:normalized]){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_COLLISION");return nil;}[destinations addObject:normalized];
         NSMutableDictionary *r=[@{@"path":destination} mutableCopy];if(entry[@"assetKey"]){NSDictionary *blob=[self captureAsset:entry[@"assetKey"] cache:cache error:error];if(!blob)return nil;[r addEntriesFromDictionary:blob];r[@"kind"]=@"captured-asset";}
         else if(entry[@"text"]){NSDictionary *blob=[self captureText:entry[@"text"] error:error];if(!blob)return nil;[r addEntriesFromDictionary:blob];r[@"kind"]=@"captured-generated-text";}
         else if([entry[@"cpk"] isKindOfClass:NSArray.class]){NSMutableArray *entries=[NSMutableArray array];for(NSDictionary *inner in entry[@"cpk"]){if(!ODFBPath(inner[@"path"])){if(error)*error=ODFBError(@"FULL_BUNDLE_CPK_ENTRY_INVALID");return nil;}NSDictionary *blob=[self captureAsset:inner[@"assetKey"] cache:cache error:error];if(!blob)return nil;NSMutableDictionary *item=[blob mutableCopy];item[@"path"]=inner[@"path"];[entries addObject:item];}r[@"kind"]=@"captured-cpk-inputs-build-pending";r[@"entries"]=entries;}
         else {if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_ENTRY_INVALID");return nil;}[resources addObject:r];
     }
     for(NSDictionary *shared in result[@"shared_actions"])for(NSDictionary *file in shared[@"generated_files"]){NSString *path=file[@"path"]; NSString *normalized=[path isKindOfClass:NSString.class]?path.precomposedStringWithCanonicalMapping.lowercaseString:nil; if(!ODFBPath(path)||[destinations containsObject:normalized]){if(error)*error=ODFBError(@"FULL_BUNDLE_RESOURCE_COLLISION"); return nil;} [destinations addObject:normalized]; NSDictionary *blob=[self captureText:file[@"text"] error:error];if(!blob)return nil;NSMutableDictionary *r=[blob mutableCopy];r[@"path"]=path;r[@"kind"]=@"captured-shared-action-installation-pending";[resources addObject:r];}
+    if(![self bindSharedResources:result[@"source_dependencies"] captured:resources error:error])return nil;
     NSString *projectSHA=ODFBHash(bytes);NSDictionary *identity=@{@"format":@"od-native-creator-full-bundle-v2",@"content_id":_content,@"profile_id":_profile,@"save_scope":_scope,@"definition_id":context[@"definitionId"],@"version":context[@"version"],@"project_sha256":projectSHA,@"source_sha256":_sourceSHA,@"member_count":@(members.count),@"materialization_utc":context[@"materializationUTC"],@"resources":resources,@"engine_admission":@"pending-master-cipher-resource-and-form-progression-binding"};
     _js[@"__odFullInspected"]=inspected;_js[@"__odFullIdentity"]=identity;
     NSString *bundleJSON=[[_js evaluateScript:@"JSON.stringify({...__odFullIdentity,tables:__odFullInspected.tables,members:__odFullInspected.members,transform_links:__odFullInspected.transform_links,source_dependencies:__odFullInspected.source_dependencies,shared_actions:__odFullInspected.shared_actions})"] toString];_js[@"__odFullInspected"]=nil;_js[@"__odFullIdentity"]=nil;

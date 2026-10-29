@@ -1,0 +1,23 @@
+{
+  "kind": "actual-current-tutorial-reader-recovery",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "recovered_readers": [
+    {
+      "role": "tutorial_loader_owner_1",
+      "bytes": 608,
+      "sha256": "c6f54e5ebf0d379205c2eb411ce3a49c8dce10ee6d039fa328276c2d9b8b1c6b",
+      "allowlisted_fields": []
+    }
+  ],
+  "direct_reader_callers": [],
+  "reader_relative_shape_verified": false,
+  "tutorial_start_state_verified": false,
+  "capacity_start_values_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "limits": [
+    "Pinned reader recovery only; symbolic events are private for manual flow review.",
+    "No played-account values, credentials or source keys read."
+  ]
+}

@@ -4,6 +4,8 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
+**LATEST — 2026-10-29 12:44 PM US Central:** Draft #8 now includes original resource-root/physical-publication source, gated native startup entry, Creator failed-opening recovery and strict captured-resource/form validation. Native runtime still unverified. Core full-packet bytes were found to be discarded; durable retention and full-form runtime materialization are active WIP, not completed gameplay. No builds/base merge. See STATUS and the Hayate cohort notes.
+
 **LATEST — 2026-10-29 12:04 PM US Central:** Tin resumed ChatGPT with “take over” and reconfirmed the original Sparking/Dokkan client as the offline foundation. Source from drafts #1–#4 is combined on the separate `chatgpt/duo-source-integration` topic, with native Finish and late-binding source fixes. No base merge or builds. Native/gameplay acceptance is still pending. [Pinned source and exact continuation](context/DUO-INTEGRATION.md).
 
 **LATEST — October 29, 11:02 AM US Central: https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. mcantua/claude-chatg is the private backup. No personal data may be committed. No release build.**

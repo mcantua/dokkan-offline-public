@@ -11,6 +11,15 @@
 - Tin's "take over" resumes ChatGPT development in the public repository. The older stop below is historical. No-build, protected-base, Duo-only and privacy limits still apply.
 - Tin reconfirmed that Offline Dokkan is the supplied Sparking/original Dokkan client adapted for offline play with the agreed changes and built-in Unit Creator. Preserve its real presentation and mechanics. The account launcher and authored battle harness are internal components, never a replacement game or completion evidence.
 
+## Latest parallel-development and reporting directive (October 29)
+- Tin explicitly renewed maximum practical productive cloud-agent use. Six workers plus the integration lead are the current seven available slots; keep independent ownership and reassign finished workers while useful work remains. Do not duplicate tests or create agents only to fill slots.
+- Continue original-client development between checkpoints. Report about every ten minutes during active execution: overall/remaining estimates only when reliable, current phase, completed milestones in prose, pending task table with owners/progress/remaining work, active/blocked agents, resource use, build/check status and actual visual evidence. If no meaningful screenshot exists, use a clearly labeled source diagram/technical summary; no fabricated images or harness-as-game claims.
+- Tin wants a download link for a genuinely playable original-client Duo test build and will install it himself. There is no playable build yet. Do not label old demos or an unverified package playable. The standing explicit "make the builds" gate remains in force; this link request does not direct a new build now.
+- Tin also authorized installation when an eligible playable build exists; the cloud currently has no direct iPhone/Mac/VPN capability. Being connected alone grants no new device access. Announce any concrete personal-connection step with known connection type/estimated bytes, or state uncertainty. No current cloud research uses Tin’s personal connection.
+
+## Latest progress-image clarification (October 29)
+- Tin clarified that progress images must be taken inside the actual app. Do not use browser captures, system diagrams, concept art or internal battle-harness screens as in-app evidence. If the actual app cannot be run under current authorization/environment limits, give text updates and explicitly say new in-app screenshots are unavailable. This overrides the broader diagram/browser examples in earlier reporting notes.
+
 ## Latest stop / takeover instruction (October 29)
 - Tin asked ChatGPT to stop development to conserve usage and save/upload everything Grok Bot needs. All development agents stopped; perform only preservation/documentation/uploads for the handoff. Do not automatically resume ChatGPT development based on older sustained-work directions. Grok takeover state and exact WIP/blockers: [../GROK-TAKEOVER.md](../GROK-TAKEOVER.md). Duo-only and all privacy/storage/testing/platform gates remain in force.
 

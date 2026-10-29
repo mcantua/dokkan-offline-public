@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "entry_source": "offline-dokkan/original-client/loader/ODUnifiedDuoStartup.m",
+  "entry_header": "offline-dokkan/original-client/loader/ODUnifiedDuoStartup.h",
+  "production_compile_define": "OD_UNIFIED_DUO_STARTUP_ENTRY=1",
+  "component_and_fixture_default": "constructor disabled",
+  "native_factory_symbol": "ODCreateUnifiedDuoStartupHost",
+  "factory_configuration_source": "trusted compiled native code only",
+  "required_host_purpose": "integrated-duo-target",
+  "before_shell_main": true,
+  "missing_factory_behavior": "stop process before legacy shell main",
+  "failed_host_gate_behavior": "stop process before legacy shell main",
+  "legacy_account_or_battle_harness_fallback": false,
+  "auth_success_routes_invented": false,
+  "master_cipher_or_resource_root_invented": false,
+  "native_factory_implemented": false,
+  "native_compile_verified": false,
+  "original_game_launch_verified": false,
+  "gameplay_verified": false
+}

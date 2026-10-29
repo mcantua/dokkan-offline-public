@@ -97,3 +97,7 @@ test-page/UnitCreator-test.html
 sparking*.key
 *sparking*.keystore
 *sparking*.p12
+
+# Pinned cloud-only static decoder; retain provenance and private Drive wheel.
+/downloads/capstone/runtime/
+/downloads/capstone/*.whl

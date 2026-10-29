@@ -1,0 +1,109 @@
+{
+  "kind": "actual-current-fresh-master-structural-contract",
+  "source_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "source_bytes": 114827264,
+  "source_rows_exported": false,
+  "schemas": {
+    "rank_statuses": [
+      "id",
+      "rank",
+      "exp_total",
+      "act_max",
+      "friends_capacity",
+      "created_at",
+      "updated_at"
+    ],
+    "tutorial_phases": [
+      "id",
+      "tutorial_scene_url",
+      "parameters",
+      "number",
+      "created_at",
+      "updated_at"
+    ],
+    "tutorial_steps": [
+      "id",
+      "phase_id",
+      "is_resume_point",
+      "number",
+      "created_at",
+      "updated_at"
+    ],
+    "tutorial_processes": [
+      "id",
+      "step_id",
+      "process_type",
+      "parameters",
+      "number",
+      "created_at",
+      "updated_at"
+    ],
+    "client_settings": [
+      "id",
+      "key",
+      "value",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  "row_counts": {
+    "rank_statuses": 2000,
+    "tutorial_phases": 16,
+    "tutorial_steps": 17,
+    "tutorial_processes": 73,
+    "client_settings": 8
+  },
+  "source_rank": {
+    "fresh_rank_row_unique": true,
+    "rank_experience_zero": true,
+    "act_max_positive": true,
+    "friends_capacity_nonnegative": true,
+    "native_snapshot_fields": [
+      "rank",
+      "exp_total",
+      "act_max",
+      "friends_capacity"
+    ],
+    "new_fields_beyond_existing_core_projection": [],
+    "values_exported": false
+  },
+  "tutorial_definition_topology": {
+    "orphan_steps": 0,
+    "orphan_processes": 0,
+    "duplicate_phase_numbers": 0,
+    "duplicate_step_numbers_per_phase": 0,
+    "duplicate_process_numbers_per_step": 0,
+    "zero_numbered_phase_count": 0,
+    "definition_to_user_progress_mapping_verified": false,
+    "definition_to_contents_lv_mapping_verified": false,
+    "first_server_tutorial_state_verified": false
+  },
+  "starting_policy_evidence": {
+    "unresolved_user_fields": [
+      "tutorial.progress",
+      "tutorial.contents_lv",
+      "tutorial.is_finished",
+      "card_capacity",
+      "total_card_capacity",
+      "support_item_capacity",
+      "is_support_item_capacity_extended"
+    ],
+    "matching_master_columns": [],
+    "relevant_client_setting_key_count": 2,
+    "shop_expansion_keys": [
+      "shop_expand_card_capacity_max",
+      "shop_expand_card_capacity_use_stone"
+    ],
+    "unreviewed_relevant_setting_key_count": 0,
+    "shop_expansion_values_exported": false,
+    "shop_expansion_setting_is_starting_capacity": false,
+    "tutorial_initial_policy_admitted": false,
+    "capacity_initial_policy_admitted": false
+  },
+  "source_identity_unchanged": true,
+  "played_account_cache_read": false,
+  "credentials_or_keys_read": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "limitation": "Master rank facts are already used by Core. Tutorial definitions and shop expansion settings do not establish a new user tutorial state or starting capacities. Keep the existing policy gates."
+}

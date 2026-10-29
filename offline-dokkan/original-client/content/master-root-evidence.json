@@ -1,0 +1,45 @@
+{
+  "schema": "original-master-root-static-v1",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "prepared_engine_bytes": 55697728,
+  "reviewed_body_sha256": {
+    "asset_root_getter": "3e00de787fa9197bfaae073edf88d1cde2f4a878628ba425d050c36b75bef867",
+    "path_prefix": "6c0cbc3211c0f9356f5b632126fdafc7de6c3cbcc0ab99a8a10b5d0525ab2402",
+    "full_path_resolver": "1a43222687527b80c5ed4e36bac248868cfca9e40aa29346b30d45d07421339b"
+  },
+  "resource_vtable_slots": {
+    "native_root": 152,
+    "full_path": 72
+  },
+  "native_root": {
+    "api": "NSSearchPathForDirectoriesInDomains",
+    "directory_enum": 9,
+    "directory_name": "NSDocumentDirectory",
+    "domain_mask": 1,
+    "domain_name": "NSUserDomainMask",
+    "expand_tilde": true,
+    "array_selector": "objectAtIndex:",
+    "array_index": 0,
+    "string_selector": "UTF8String",
+    "appended_suffix": "/",
+    "result": "own app Documents directory plus /"
+  },
+  "master_relative_template": "sqlite/current/%s/database.db",
+  "asset_prefix": {
+    "default": "assets",
+    "configured_nonempty_override_exists": true,
+    "provenance": "original-master-main-contract.json and pinned prefix body"
+  },
+  "default_master_path": "<own-app-Documents>/assets/sqlite/current/<language>/database.db",
+  "limits": {
+    "original_executed": false,
+    "actual_container_path_observed": false,
+    "runtime_prefix_value_observed": false,
+    "prefix_setter_admitted": false,
+    "host_resources_root_used_by_original_getter": false,
+    "source_key_read_or_emitted": false,
+    "source_modified": false,
+    "engine_open_of_staged_plaintext_proven": false,
+    "raw_addresses_or_code_in_public_receipt": false
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "bootstrap-callback-holder-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "request_constructors": {
+    "common_request_constructor": {
+      "bytes": 420,
+      "sha256": "9d8e134af30873e345b61ff3542d2e85399c549c0b1f1331843c9807c5865910"
+    },
+    "auth_request_constructor": {
+      "bytes": 392,
+      "sha256": "3c6d85dde0682e7c60cf425fcde4b8f85726c81a5e9a2c21dd2aad49c3526b63"
+    },
+    "nonce_request_constructor": {
+      "bytes": 228,
+      "sha256": "a4ab39956604b70ed4f0812fdbafb22b2b6b82470b0ed7b53ffa50f530730386"
+    }
+  },
+  "request_vtables": [
+    {
+      "slot_count": 24,
+      "selected_slots": {
+        "6": {
+          "bytes": 48,
+          "sha256": "b02a0b86a9a1c356ea3cb57c0a53ba4e446c7d1324d32d6876bfbc1638bc3724",
+          "writes": []
+        },
+        "8": {
+          "bytes": 8,
+          "sha256": "582bc64ba04b575362953a7f9d38052e75c7f4d7092673a0024f48e519782d0d",
+          "writes": []
+        },
+        "10": {
+          "bytes": 8,
+          "sha256": "daad29eb22764c1a6648db19c4f5fec307424c18c87672648a384e90e476ded4",
+          "writes": []
+        }
+      }
+    },
+    {
+      "slot_count": 24,
+      "selected_slots": {
+        "6": {
+          "bytes": 48,
+          "sha256": "b02a0b86a9a1c356ea3cb57c0a53ba4e446c7d1324d32d6876bfbc1638bc3724",
+          "writes": []
+        },
+        "8": {
+          "bytes": 8,
+          "sha256": "582bc64ba04b575362953a7f9d38052e75c7f4d7092673a0024f48e519782d0d",
+          "writes": []
+        },
+        "10": {
+          "bytes": 8,
+          "sha256": "daad29eb22764c1a6648db19c4f5fec307424c18c87672648a384e90e476ded4",
+          "writes": []
+        }
+      }
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Candidate stores and dispatch slots require receiver-identity matching.",
+    "No complete HTTP-body root binding is established.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ]
+}

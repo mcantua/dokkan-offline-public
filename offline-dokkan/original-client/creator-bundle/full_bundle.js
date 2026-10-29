@@ -18,13 +18,18 @@
   const stamp=name=>name==='created_at'||name==='updated_at';
   const fail=(code,createdAssets=[])=>{const e=Error(code);e.code=code;e.createdAssets=[...new Set(createdAssets)];throw e;};
   const pathKey=p=>p.normalize('NFC').toLowerCase();
-  function members(project){return [project,...project.formProjects||[]];}
+  const awakeningRequested=value=>value!==undefined&&value!==null&&(!['number','boolean'].includes(typeof value)||Boolean(value));
+  function members(project){
+    if(project.formProjects!==undefined&&!Array.isArray(project.formProjects))fail('FULL_BUNDLE_PROJECT_INVALID');
+    return [project,...project.formProjects||[]];
+  }
   function context(project,host){
     const digest=contentHash(host&&host.contentId);
     if(!record(host)||!content(host.contentId)||!hex(host.saveScope)||!hex(host.projectSHA256)||!key(host.definitionId)||!Number.isSafeInteger(host.version)||host.version<1||!['eclipse','sparking'].includes(host.sourceDatabase)||!record(host.schema)||typeof host.query!=='function'||!Array.isArray(host.projects))fail('FULL_BUNDLE_TRUSTED_CONTEXT_REQUIRED');
     if(!digest||host.sourceSHA256!==digest||host.sourceHashVerified!==true)fail('FULL_BUNDLE_SOURCE_HASH_REQUIRED');
     if(host.ownedInstanceId!==undefined&&(!Number.isSafeInteger(host.ownedInstanceId)||host.ownedInstanceId<1))fail('FULL_BUNDLE_OWNED_BINDING_INVALID');
-    if(!record(project)||project.format!=='dokkan-unit-forge'||project.version!==1||project.awaken)fail('FULL_BUNDLE_PROJECT_INVALID');
+    if(!record(project)||project.format!=='dokkan-unit-forge'||project.version!==1)fail('FULL_BUNDLE_PROJECT_INVALID');
+    if(members(project).some(member=>!record(member)||awakeningRequested(member.awaken)))fail('FULL_BUNDLE_PROJECT_INVALID');
     if(typeof host.sha256Text!=='function')fail('FULL_BUNDLE_NATIVE_TEXT_HASH_REQUIRED');
     if(members(project).some(m=>(m.assets||[]).length||(m.generatedFiles||[]).length||(m.packedAssets||[]).length||m.artBinding||m.battlePoseBinding||(m.movieBindings||[]).length)&&typeof host.listAssets!=='function')fail('FULL_BUNDLE_NATIVE_RESOURCE_CATALOG_REQUIRED');
     for(const m of members(project))if(!record(m.source)||m.source.contentId!==host.contentId||(m.source.database||'eclipse')!==host.sourceDatabase)fail('FULL_BUNDLE_SOURCE_MISMATCH');
@@ -79,11 +84,15 @@
     }
     // Use the real exporter to retain all attachment/generated/CPK paths. The
     // SQL compatibility export is retained separately, never executed here.
-    const exports=Forge.exportEntries(project),compatibility=[];
+    const exports=Forge.exportEntries(project),compatibility=[],sqlPath='files/'+Forge.filename(project)+'.sql';
     for(const entry of exports){
       if(!Forge.safePath(entry.path))fail('FULL_BUNDLE_RESOURCE_PATH_INVALID');
       const p=pathKey(entry.path);if(seen.has(p))fail('FULL_BUNDLE_RESOURCE_COLLISION');seen.add(p);
-      if(!entry.path.startsWith('files/')||entry.path.endsWith('.sql')){compatibility.push(Forge.clone(entry));continue;}
+      if(['metadata.json','forge-project.json',sqlPath].includes(entry.path)){
+        if(typeof entry.text!=='string')fail('FULL_BUNDLE_RESOURCE_ENTRY_UNSUPPORTED');
+        compatibility.push(Forge.clone(entry));continue;
+      }
+      if(!entry.path.startsWith('files/'))fail('FULL_BUNDLE_RESOURCE_PATH_INVALID');
       const destination=entry.path.slice(6);if(!Forge.safePath(destination))fail('FULL_BUNDLE_RESOURCE_PATH_INVALID');
       if(typeof entry.assetKey==='string')output.push({path:destination,kind:'asset',...await asset(entry.assetKey)});
       else if(Array.isArray(entry.cpk)){
@@ -109,6 +118,24 @@
       sharedActions.push({member_key:m.key,settings:Forge.clone(m.actionHooks.dodge),generatedFiles:Forge.clone(files),admission:'shared-dispatcher-binding-required'});
     }
     return {entries:output,compatibilityExports:compatibility,sharedActions};
+  }
+  function bindSharedResources(project,resources){
+    // Source import records paths relative to lua/, while fetchResources attaches
+    // exactly lua/<path>. Never reinterpret a destination as an asset-store key.
+    const captured=new Map(resources.entries.map(resource=>[resource.path,resource]));
+    function blob(path){
+      const resource=captured.get(path);
+      if(!resource||!['asset','generated-text'].includes(resource.kind)||!hex(resource.sha256)||!Number.isSafeInteger(resource.size)||resource.size<1)fail('FULL_BUNDLE_SHARED_RESOURCE_CAPTURE_REQUIRED');
+      return resource;
+    }
+    for(const member of members(project)){
+      const bundle=member.sourceDependencies;if(!bundle)continue;
+      for(const path of bundle.assetPaths||[])blob(path);
+      for(const animation of bundle.animations||[]){
+        if(!record(animation)||typeof animation.path!=='string'||!animation.path.startsWith('ab_script/')||!animation.path.endsWith('.lua')||!Forge.safePath(animation.path))fail('FULL_BUNDLE_SHARED_ANIMATION_PATH_UNSUPPORTED');
+        if(blob('lua/'+animation.path).sha256!==animation.sha256)fail('FULL_BUNDLE_SHARED_ANIMATION_HASH_MISMATCH');
+      }
+    }
   }
   async function validateReferences(tables,host){
     const owned=new Map(Object.entries(tables).map(([table,rows])=>[table,new Set(rows.map(row=>row.id))]));
@@ -172,6 +199,7 @@
       await validateReferences(tables,host);
       await validateShared(runtime,tables,host);
       const resources=await resourceEntries(runtime,host);
+      bindSharedResources(runtime,resources);
       const runtimeProjectJSON=JSON.stringify(runtime),runtimeProjectSHA256=await host.sha256Text(runtimeProjectJSON);
       if(!hex(runtimeProjectSHA256))fail('FULL_BUNDLE_TEXT_HASH_INVALID',created);
       const sharedDependencies=[];

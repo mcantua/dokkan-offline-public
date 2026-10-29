@@ -4,6 +4,23 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 OWN="$ROOT/offline-dokkan/original-client"
 WORK="$ROOT/offline-dokkan/private/component-build"
+STARTUP_ENTRY=0
+if [[ "${1:-}" == --original-startup-entry && $# == 1 ]]; then
+    STARTUP_ENTRY=1
+elif [[ $# != 0 ]]; then
+    echo 'Usage: build-components.sh [--original-startup-entry]' >&2
+    exit 1
+fi
+if [[ "$STARTUP_ENTRY" == 1 ]]; then
+    # Reject the known unfinished composition before downloading SQLite or
+    # invoking any compiler. A linked component library is not a playable app.
+    python3 - "$OWN/loader/startup-source.json" <<'PY'
+import json,sys
+entry=json.load(open(sys.argv[1]))
+if entry.get('native_factory_implemented') is not True:
+    raise SystemExit('Original-game startup factory is unfinished; no production library was built. Use the default component target only when its check is authorized.')
+PY
+fi
 test "$(uname -s)" = Darwin || { echo 'Requires genuine hosted Xcode27.1; no SDK version substitution.' >&2; exit 1; }
 export DEVELOPER_DIR="${DEVELOPER_DIR:-/Applications/Xcode_27.1.app/Contents/Developer}"
 test "$(xcrun --sdk iphoneos --show-sdk-version)" = 27.1
@@ -12,10 +29,11 @@ mkdir -p "$WORK/objects" "$WORK/evidence"
 python3 "$ROOT/offline-dokkan/mobile/setup-sqlite.py"
 SDK="$(xcrun --sdk iphoneos --show-sdk-path)"
 CLANG="$(xcrun --find clang)"
-python3 - "$ROOT" "$CLANG" "$SDK" "$WORK" <<'PY'
+python3 - "$ROOT" "$CLANG" "$SDK" "$WORK" "$STARTUP_ENTRY" <<'PY'
 from pathlib import Path
 import hashlib,json,subprocess,sys
 root,clang,sdk,work=Path(sys.argv[1]),sys.argv[2],sys.argv[3],Path(sys.argv[4])
+startup_entry=sys.argv[5]=='1'
 own=root/'offline-dokkan/original-client';offline=root/'offline-dokkan'
 sources=list((offline/'core').glob('*.c'))
 sources=[p for p in sources if p.name!='od_cli.c' and not p.name.startswith(('test_','check_'))]
@@ -40,6 +58,11 @@ if manifest_path.exists():
 sources += [root/'downloads/sqlite-amalgamation/source/sqlite3.c']
 if len(sources)!=len(set(sources)) or not all(p.is_file() for p in sources):raise SystemExit('Component source inventory invalid')
 common=[clang,'-target','arm64-apple-ios16.4','-isysroot',sdk,'-O2','-fblocks','-DSQLITE_THREADSAFE=1','-DSQLITE_OMIT_LOAD_EXTENSION','-DSQLITE_DQS=0','-I'+str(root/'downloads/sqlite-amalgamation/source')]
+if startup_entry:
+    entry=json.loads((own/'loader/startup-source.json').read_text())
+    if entry.get('schema')!=1 or entry.get('production_compile_define')!='OD_UNIFIED_DUO_STARTUP_ENTRY=1' or root/entry.get('entry_source','') not in sources:
+        raise SystemExit('Invalid original-game startup source manifest')
+    common += ['-D'+entry['production_compile_define']]
 objects=[];manifest=[]
 for index,source in enumerate(sources):
     obj=work/'objects'/('%03d.o'%index)
@@ -56,7 +79,7 @@ for index,source in enumerate(sources):
 output=work/'OfflineDokkanHost.dylib'
 framework_args=[arg for f in frameworks for arg in ('-framework',f)]
 subprocess.run(common+['-dynamiclib','-install_name','@rpath/OfflineDokkanHost.dylib','-Wl,-dead_strip']+objects+framework_args+['-lz','-o',str(output)],check=True)
-report={'scope':'Authored Duo component library only; no original engine, assets, master, signing or app package','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'device_sdk':'27.1','architecture':'arm64','deployment_target':'16.4','sources':manifest,'scoped_legacy_class_defines':defines,'frameworks':frameworks,'dylib_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'dylib_bytes':output.stat().st_size,'original_game_launch_verified':False}
+report={'scope':'Authored Duo component library only; no original engine, assets, master, signing or app package','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'device_sdk':'27.1','architecture':'arm64','deployment_target':'16.4','sources':manifest,'scoped_legacy_class_defines':defines,'frameworks':frameworks,'original_startup_entry_enabled':startup_entry,'native_factory_implementation_required':startup_entry,'dylib_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'dylib_bytes':output.stat().st_size,'original_game_launch_verified':False}
 (work/'evidence/component-build.json').write_text(json.dumps(report,indent=2)+'\n')
 print('Authored Duo component library compiled with genuine device SDK27.1; no app/runtime completion claimed.')
 PY

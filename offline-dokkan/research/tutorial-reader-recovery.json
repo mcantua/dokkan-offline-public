@@ -1,0 +1,93 @@
+{
+  "kind": "actual-current-tutorial-reader-recovery",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "recovered_readers": [
+    {
+      "role": "lookup_with_prior_value_fallback",
+      "bytes": 52,
+      "sha256": "a5e6db7043c8b681bf414de5a53c6764a3479c3fb450414914bc2940f2e4ba4d",
+      "allowlisted_fields": []
+    },
+    {
+      "role": "nullable_member_lookup",
+      "bytes": 284,
+      "sha256": "c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6",
+      "allowlisted_fields": []
+    },
+    {
+      "role": "profile_decoder",
+      "bytes": 2416,
+      "sha256": "4b634d9dbf00a7af014407d8efa876cde23e4975916ff9c98aa2662d94496e3e",
+      "allowlisted_fields": [
+        "card_capacity",
+        "contents_lv",
+        "is_finished",
+        "is_support_item_capacity_extended",
+        "progress",
+        "support_item_capacity",
+        "total_card_capacity",
+        "tutorial"
+      ]
+    },
+    {
+      "role": "user_constructor",
+      "bytes": 232,
+      "sha256": "a380ab8151049ccc611e4e7b0448c5241300c72dd1f29760b7c07c754f429afd",
+      "allowlisted_fields": []
+    }
+  ],
+  "direct_reader_callers": [
+    {
+      "role": "profile_decoder",
+      "count": 9,
+      "identities": [
+        {
+          "bytes": 456,
+          "sha256": "4766a08a9505670e433e594cde6dbc939204442913245ebea3a3552e229d73eb"
+        },
+        {
+          "bytes": 224,
+          "sha256": "322336f8998f9809b414c779a573a9601941db4d8eee3d5806a2bded9a9915bc"
+        },
+        {
+          "bytes": 224,
+          "sha256": "0a423202232b17080e2c4ecd73c193b7f145fac4b244921b3257a0e67d480a90"
+        },
+        {
+          "bytes": 688,
+          "sha256": "8b541923621d6330cf64149520d29798b7282fa332168c54a560372340e60800"
+        },
+        {
+          "bytes": 1212,
+          "sha256": "c9c7c7e178f14787f392fd7f14c72f6261a6dfb3c83004a4737197f523e4a521"
+        },
+        {
+          "bytes": 572,
+          "sha256": "748a441f15eebc2597a340cdba4d46552feac301746f3b3a6bf83f7dcf1861da"
+        },
+        {
+          "bytes": 1152,
+          "sha256": "8807a25ccd498aedb8c0456f6ac460762a2021af44274afba0da3afc6242cbc1"
+        },
+        {
+          "bytes": 1060,
+          "sha256": "2749ab4915dcf2f2b36a13c18acef3fdb92b978e5191e64e4d102565aaf00f93"
+        },
+        {
+          "bytes": 288,
+          "sha256": "e301511cfba27bed2eb12ed2b2dd9ec233970bdedf9a155b00fba1d112323fa4"
+        }
+      ]
+    }
+  ],
+  "reader_relative_shape_verified": false,
+  "tutorial_start_state_verified": false,
+  "capacity_start_values_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "limits": [
+    "Pinned reader recovery only; symbolic events are private for manual flow review.",
+    "No played-account values, credentials or source keys read."
+  ]
+}

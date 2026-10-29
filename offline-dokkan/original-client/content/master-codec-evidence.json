@@ -1,0 +1,244 @@
+{
+  "schema": "original-master-codec-static-v1",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "prepared_engine_bytes": 55697728,
+  "functions": {
+    "cached_master_wrapper": {
+      "body_sha256": "ac277142cbeb5788e5b5983ce1dd621e49a3d359803f87a2e95c41fce277e46b",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [
+        {
+          "role": "opaque-native-key-provider-not-followed"
+        },
+        {
+          "role": "path_and_key_wrapper"
+        },
+        {
+          "role": "path_and_key_wrapper"
+        }
+      ],
+      "unfollowed_helper_count": 8,
+      "reviewed_member_loads": [
+        {
+          "base": "entry-arg0",
+          "offset": 16
+        },
+        {
+          "base": "entry-arg1",
+          "offset": 0
+        },
+        {
+          "base": "entry-arg2",
+          "offset": 8
+        },
+        {
+          "base": "entry-arg2",
+          "offset": 0
+        }
+      ],
+      "reviewed_member_stores": [],
+      "conditional_value_branches": [
+        {
+          "kind": "cbz",
+          "value": "entry-arg0.member+16"
+        },
+        {
+          "kind": "cbz",
+          "value": "call-result-1"
+        },
+        {
+          "kind": "tbnz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "cbnz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "cbz",
+          "value": "entry-arg2.member+8"
+        },
+        {
+          "kind": "tbnz",
+          "value": "call-result-3"
+        },
+        {
+          "kind": "cbz",
+          "value": "call-result-4"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        }
+      ]
+    },
+    "path_and_key_wrapper": {
+      "body_sha256": "4614413d2dbfda33929332dd7dba19f20db1debe40ae453a0804ece642aff009",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [
+        {
+          "role": "internal_open_shim",
+          "linear_register_tags": {
+            "arg0": "call-result-2",
+            "arg1": "entry-arg2",
+            "arg2": "unresolved",
+            "arg3": "unresolved"
+          }
+        },
+        {
+          "role": "strlen",
+          "linear_register_tags": {
+            "arg0": "entry-arg1",
+            "arg1": "unresolved",
+            "arg2": "unresolved",
+            "arg3": "unresolved"
+          }
+        },
+        {
+          "role": "internal_key_attach",
+          "linear_register_tags": {
+            "arg0": "entry-arg2.member+0",
+            "arg1": "entry-arg1",
+            "arg2": "call-result-4",
+            "arg3": "unresolved"
+          }
+        }
+      ],
+      "unfollowed_helper_count": 6
+    },
+    "internal_open_shim": {
+      "body_sha256": "89e20bf1a252afbe5294a03a1647eb6dc6644fdd991f5e6f8e303963b67245e1",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [
+        {
+          "role": "internal_open_core",
+          "linear_register_tags": {
+            "arg0": "entry-arg0",
+            "arg1": "entry-arg1",
+            "arg2": 6,
+            "arg3": 0
+          }
+        }
+      ],
+      "unfollowed_helper_count": 0
+    },
+    "internal_open_core": {
+      "body_sha256": "a8e6d5a13794edbb8ea24e19cc793a1394fa57e7f4a2d36b0c63d3776f7ef54c",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [
+        {
+          "role": "strlen"
+        },
+        {
+          "role": "strlen"
+        },
+        {
+          "role": "strlen"
+        },
+        {
+          "role": "strlen"
+        },
+        {
+          "role": "strlen"
+        },
+        {
+          "role": "strlen"
+        },
+        {
+          "role": "internal_codec_attach"
+        }
+      ],
+      "unfollowed_helper_count": 28
+    },
+    "internal_key_attach": {
+      "body_sha256": "656efa15fce31fce5dbcb383fb16d33c5671a57663644c13ece5ce1a44b01aff",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [
+        {
+          "role": "internal_codec_attach",
+          "linear_key_argument_tag": "entry-arg1",
+          "linear_key_length_tag": "entry-arg2"
+        }
+      ],
+      "unfollowed_helper_count": 1
+    },
+    "internal_codec_attach": {
+      "body_sha256": "80825576cfcfd806d16c012736da2d6ed817d170ee08bd08ca01e6bccbdc638d",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [],
+      "unfollowed_helper_count": 4
+    },
+    "close_reopen": {
+      "body_sha256": "9279aed24a0ac1d41a84839c9c755e52ac7cada7f1955548e684a68b249d893c",
+      "entry_is_function_start": true,
+      "selected_call_roles_in_code_order": [
+        {
+          "role": "cached_master_wrapper"
+        }
+      ],
+      "unfollowed_helper_count": 8,
+      "reviewed_member_loads": [
+        {
+          "base": "entry-arg0",
+          "offset": 16
+        },
+        {
+          "base": "entry-arg1",
+          "offset": 0
+        },
+        {
+          "base": "entry-arg1",
+          "offset": 16
+        }
+      ],
+      "reviewed_member_stores": [
+        {
+          "base": "entry-arg0",
+          "offset": 16,
+          "value": 0
+        }
+      ],
+      "conditional_value_branches": [
+        {
+          "kind": "tbnz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        },
+        {
+          "kind": "tbz",
+          "value": "unresolved"
+        }
+      ]
+    }
+  },
+  "limits": {
+    "original_executed": false,
+    "key_provider_body_followed": false,
+    "key_values_read_or_emitted": false,
+    "source_modified": false,
+    "public_addresses_or_disassembly_emitted": false,
+    "path_sensitive_runtime_proof": false,
+    "derived_master_codec_compatibility_proven": false,
+    "foreign_sqlite_handle_abi_admitted": false
+  },
+  "evidence_model": "Bounded linear register tags; not path-sensitive execution or a callable ABI admission"
+}

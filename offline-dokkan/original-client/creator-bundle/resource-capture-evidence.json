@@ -1,0 +1,22 @@
+{
+  "kind": "one-focused-authored-full-bundle-resource-boundary",
+  "fixture": "synthetic card/schema and scoped attachment bytes; actual Forge and Forms stage path",
+  "checks": {
+    "safe_sql_suffix_attachment_retained": true,
+    "only_three_canonical_compatibility_exports_skipped": true,
+    "false_awakening_not_rejected": true,
+    "awakening_form_rejected_before_materialization": true,
+    "input_project_unchanged": true,
+    "gameplay_admission_stays_false": true
+  },
+  "native_compilation_or_runtime_verified": false,
+  "source_master_or_gameplay_verified": false,
+  "original_game_executed": false,
+  "personal_connection_used": false,
+  "targeted_invocations": 3,
+  "fixture_setup_corrections": [
+    "Added required patch.version to synthetic project",
+    "Corrected synthetic listAssets callback to return the existing array contract"
+  ],
+  "existing_native_or_gameplay_suites_repeated": false
+}

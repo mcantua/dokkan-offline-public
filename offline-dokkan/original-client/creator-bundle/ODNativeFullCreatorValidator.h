@@ -24,7 +24,10 @@ typedef int (^ODFullCreatorOpenAsset)(NSString *assetKey,NSError * _Nullable * _
  * before any save. Returns definition + exact full_bundle_bytes/hash,
  * original project SHA, source_sha256, member_count, materialization_utc.
  * Assets are captured in private immutable blobs and a duplicate hash is kept
- * only when those stored bytes match. No ownership, Session, or engine grant.
+ * only when those stored bytes match. Shared declared resource destinations
+ * require actual captured blobs; original animation digests must match the
+ * captured lua/<source-path> bytes. No inferred resident-game resource or
+ * source-version authority. No ownership, Session, or engine grant.
  */
 - (nullable NSDictionary *)validateProjectBytes:(NSData *)project
                                        context:(NSDictionary *)context

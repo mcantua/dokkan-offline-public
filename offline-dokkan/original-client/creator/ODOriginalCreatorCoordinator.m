@@ -61,6 +61,10 @@ static NSError *ODCreatorPresentationError(NSInteger code){
     return !_disconnecting&&[self admittedRelationship]&&
         _window.windowScene.activationState==UISceneActivationStateForegroundActive;
 }
+- (BOOL)canResumeOriginalGameAfterFailedPresentation {
+    return NSThread.isMainThread&&!_creator&&[self activeScene]&&
+        !_originalController.presentedViewController&&!_originalController.transitionCoordinator;
+}
 - (BOOL)attachToOriginalWindow:(UIWindow *)window controller:(UIViewController *)controller
                      renderer:(UIView *)renderer error:(NSError **)error {
     if(!NSThread.isMainThread||!window.windowScene||!controller||!renderer||
@@ -81,7 +85,9 @@ static NSError *ODCreatorPresentationError(NSInteger code){
     NSError *hostError=nil;
     if(![services beginCreatorPresentationWithError:&hostError]){if(error)*error=ODCreatorPresentationError(4);return NO;}
     if(![services creatorScopeIsCurrent]||services.creatorSession!=session||![self activeScene]){
-        [services endCreatorPresentationWithActiveScene:NO completion:^(NSError *failure){self->_lastCloseError=failure;}];if(error)*error=ODCreatorPresentationError(5);return NO;
+        // The issuer must complete one asynchronous recovery before reporting
+        // the failed opening. Starting a second release here races that owner.
+        if(error)*error=ODCreatorPresentationError(5);return NO;
     }
     _activeServices=services;_state=ODCreatorOpening;_lastCloseError=nil;
     // The active editor intentionally retains the coordinator through its close
@@ -96,15 +102,20 @@ static NSError *ODCreatorPresentationError(NSInteger code){
     ODCreatorController *presented=_creator;
     @try {
         [_originalController presentViewController:presented animated:YES completion:^{
-            if(self->_creator!=presented)return;
+            if(self->_creator!=presented||self->_state!=ODCreatorOpening)return;
             self->_state=ODCreatorPresented;
             [self refreshCreatorAfterDisplayChange];
             if(self->_closeRequested)[self beginConfirmedClose];
         }];
     }@catch(NSException *exception){
         (void)exception;
-        _creator=nil;_state=ODCreatorIdle;_activeServices=nil;
-        [services endCreatorPresentationWithActiveScene:[self activeScene] completion:^(NSError *failure){self->_lastCloseError=failure;}];
+        // UIKit may attach the modal before throwing. Never discard an actual
+        // attached editor or release the capabilities needed to flush/close it.
+        BOOL attached=presented.presentingViewController!=nil||
+            _originalController.presentedViewController==presented||
+            (presented.isViewLoaded&&presented.view.window!=nil);
+        if(attached){_state=ODCreatorPresented;_lastCloseError=ODCreatorPresentationError(6);}
+        else{_creator=nil;_state=ODCreatorIdle;_activeServices=nil;}
         if(error)*error=ODCreatorPresentationError(6);return NO;
     }
     return YES;

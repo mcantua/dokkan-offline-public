@@ -1,0 +1,152 @@
+{
+  "kind": "bounded-bootstrap-dispatch-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "callback_address_points": [
+    {
+      "role": "token_callback",
+      "callback": {
+        "bytes": 396,
+        "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4"
+      },
+      "virtual_slot": 6,
+      "offset_to_top": 0,
+      "consecutive_function_slots": 9,
+      "constructor_reference_bodies": [
+        {
+          "bytes": 748,
+          "sha256": "21bc9017688c88ec138be07f7f1bcde4c85cbb59dbf45c08912cb5a5349c3348"
+        },
+        {
+          "bytes": 88,
+          "sha256": "adc867f7ed334e98a2c454cb93080a47e93081e40cc0e008ad31125c67090452"
+        },
+        {
+          "bytes": 88,
+          "sha256": "e3cefd4a04768630b6e1bb820525260332580d4d7d2d16ee4ffca86f1acf71e3"
+        },
+        {
+          "bytes": 84,
+          "sha256": "e41b26d9955fa390a6a1e0ac36e7845c4ea6c4130b3ffb63953c59af7ad1bb57"
+        },
+        {
+          "bytes": 28,
+          "sha256": "b7a1ff171a2cc1c6823b1882c139118107d80e659587af997a990f06afdc98b4"
+        }
+      ],
+      "rebased_address_point_reference_count": 0
+    },
+    {
+      "role": "nonce_callback",
+      "callback": {
+        "bytes": 200,
+        "sha256": "34cf3d5c78c7bae97efb781db82c8b72f67b04bddd16d8d62865771a440aaac2"
+      },
+      "virtual_slot": 6,
+      "offset_to_top": 0,
+      "consecutive_function_slots": 9,
+      "constructor_reference_bodies": [
+        {
+          "bytes": 320,
+          "sha256": "396546cf7e90c266a4227dad916ccc6241bf5d7a2d869199a4369aae9a4895e3"
+        },
+        {
+          "bytes": 52,
+          "sha256": "6fc153fa1bfae857ab6eee7ba2ccbacaeae1f435051585926fad257dcd7e931b"
+        },
+        {
+          "bytes": 20,
+          "sha256": "8393f607503a35c5dca8afe600eca9fc4ebf6c97c6ba4f3e874284a376027bf0"
+        }
+      ],
+      "rebased_address_point_reference_count": 0
+    }
+  ],
+  "candidate_dispatcher_body_count": 2028,
+  "candidate_bodies_with_allowlisted_fields": [
+    {
+      "bytes": 1468,
+      "sha256": "40a64d824326d0eeb4dd9158703579edf2be20230c193d24dbff34aff29fc6f9",
+      "fields": [
+        "error"
+      ]
+    },
+    {
+      "bytes": 396,
+      "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4",
+      "fields": [
+        "access_token",
+        "expires_in"
+      ]
+    },
+    {
+      "bytes": 9284,
+      "sha256": "e174b13335d1f733ea8eb3391617bf08ce1630f282c5f68b663549ff0c17852c",
+      "fields": [
+        "code",
+        "error",
+        "message"
+      ]
+    },
+    {
+      "bytes": 508,
+      "sha256": "05685914fa3560a0c9e5858b715286e229c7a17648ee5f488fc759ff515b0a99",
+      "fields": [
+        "error"
+      ]
+    },
+    {
+      "bytes": 452,
+      "sha256": "c73a611ee9825f4c12d2449cacaa45ecee030d09025fb0bdec13616666c8fd15",
+      "fields": [
+        "error"
+      ]
+    },
+    {
+      "bytes": 556,
+      "sha256": "bb3687100e7c1a3322b6fb617ce34433010a9f5eef89a0ea98144043194e6234",
+      "fields": [
+        "code",
+        "error"
+      ]
+    },
+    {
+      "bytes": 996,
+      "sha256": "57fa9f2e16c84936ec468cfdc4acea51a95eccc61d91a1f7c0d733807f88b95d",
+      "fields": [
+        "code",
+        "error"
+      ]
+    },
+    {
+      "bytes": 204,
+      "sha256": "e8a8c2ab691c689896acd9554e1ff9c05e1ec8e80872e664a2d19954943b0991",
+      "fields": [
+        "error"
+      ]
+    },
+    {
+      "bytes": 1292,
+      "sha256": "d02f4e8b8c88d564fa133b4ae1f1211a10906ebb0ab763e4b13b973ecc81b1db",
+      "fields": [
+        "auth_transaction_id"
+      ]
+    },
+    {
+      "bytes": 420,
+      "sha256": "1bd20241d8580670331a03f04544bd34ee11628d7dd97676e2ba02baf8ea1b72",
+      "fields": [
+        "code",
+        "error"
+      ]
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Same virtual-slot offset is not proof of callback receiver identity.",
+    "Linear symbolic summaries do not prove all conditional paths.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ],
+  "remaining_trace_boundary": "Both callbacks have virtual slot6. Recover the request callback-holder member via setter slots8/10, then bind that member to the dispatcher and trace its third input to JSON parsing."
+}
