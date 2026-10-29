@@ -640,17 +640,17 @@
       "url": "https://drive.google.com/file/d/1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0/view?usp=drivesdk",
       "name": "current-source.tar.gz",
       "folder": "Source",
-      "size": 45177503,
-      "sha256": "3f1634607be1a95b3bd176663e2893967d711a087ea1838eb67b111969a1dbc0",
+      "size": 45177641,
+      "sha256": "1224ee6057ca06875cab52b962fd8551f326d049f650c85c289cec8fd4257771",
       "source_files": 2246,
-      "source_commit": "9925f19878d66f2c724dcfa6cc8d4eabb33d1a59",
+      "source_commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false,
-      "code_snapshot": "9925f19878d66f2c724dcfa6cc8d4eabb33d1a59",
+      "code_snapshot": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
       "tracked_files": 2246,
       "concurrent_uncommitted_edits_excluded": false,
-      "remote_commit": "9925f19878d66f2c724dcfa6cc8d4eabb33d1a59",
+      "remote_commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
       "operational_registry_external": true,
       "other_project_packages_included": false,
       "uncompiled_wip_explicit": true,
@@ -1235,14 +1235,14 @@
   "public_repository_integration": {
     "repository": "mcantua/dokkan-offline-public",
     "base_pin": "220d7bbc7ebd535692b3dfc7f980c928cf04f267",
-    "source_pin": "9925f19878d66f2c724dcfa6cc8d4eabb33d1a59",
+    "source_pin": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
     "draft_pr": 8,
     "base_merged": false,
     "native_runtime_verified": false,
     "gameplay_verified": false,
     "both_displays_verified": false,
     "source_check": "77 native units compiled at 457588c; handoff source also preserves uncompiled optional resource probe and observer tooling. No original runtime/gameplay/display evidence.",
-    "drive_archive_pin": "9925f19878d66f2c724dcfa6cc8d4eabb33d1a59"
+    "drive_archive_pin": "e4b225ab55c6acdee73c0da01af622b2f2f9a485"
   },
   "startup_input_recovery": {
     "notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
@@ -1377,9 +1377,9 @@
     ],
     "protected_base_merged": false,
     "source_archive": {
-      "commit": "9925f19878d66f2c724dcfa6cc8d4eabb33d1a59",
-      "size": 45177503,
-      "sha256": "3f1634607be1a95b3bd176663e2893967d711a087ea1838eb67b111969a1dbc0",
+      "commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
+      "size": 45177641,
+      "sha256": "1224ee6057ca06875cab52b962fd8551f326d049f650c85c289cec8fd4257771",
       "files": 2246,
       "excludes": [
         "context/DRIVE-WORKSPACE.json"
@@ -1390,6 +1390,15 @@
     },
     "document_drive_id": "1OVsR_BkdI2IE0n4M4Wp9NaBPJBJdNWLo",
     "document_url": "https://drive.google.com/file/d/1OVsR_BkdI2IE0n4M4Wp9NaBPJBJdNWLo/view",
-    "preserved_at": "2026-10-29 6:26 PM CT"
+    "preserved_at": "2026-10-29 6:26 PM CT",
+    "branding_clarification": {
+      "source_commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
+      "private_noncommercial_fan_project": true,
+      "working_name": "Dokkan Freedom",
+      "original_attribution_retained": true,
+      "devices_backups_saves_protected": true,
+      "implementation_status": "Requirements recorded only; no game branding or online integration changes implemented",
+      "documentation_mirrors_updated": true
+    }
   }
 }
