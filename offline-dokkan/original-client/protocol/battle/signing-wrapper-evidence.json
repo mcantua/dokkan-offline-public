@@ -1,0 +1,73 @@
+{
+  "kind": "original-battle-signing-wrapper-boundary",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_wrapper_stages": [
+    {
+      "bytes": 100,
+      "sha256": "3f00c3f3f7e2de05a9ee3faad6ba43b8f1f0900b08f6060fa36ee1b9fb2b0ade"
+    },
+    {
+      "bytes": 288,
+      "sha256": "f28a1440a634bdfc07dd1d951b5d6967362cd208b128d32a7e3f9bb904438ac6"
+    },
+    {
+      "bytes": 228,
+      "sha256": "0aa395f325f2930ac16f97d4642ece6db3c6f3dd20e5c44bc412dfbf921b5f55"
+    }
+  ],
+  "abi_observations": [
+    "The100-byte wrapper preserves its caller-provided output storage from X8.",
+    "The first stage receives the original two input pointers and writes a three-pointer temporary into local storage via X8.",
+    "The second stage receives the temporary by address and writes the final libc++-layout string into the preserved caller output storage.",
+    "Temporary pointer storage is released through standard operator delete; input runtime data values are not read or exported."
+  ],
+  "second_stage_standard_encoding": "base64",
+  "encoding_method_metadata": [
+    {
+      "role": "encoding_method_getter",
+      "bytes": 12,
+      "sha256": "ddd7e984f165ecaa74d18d01f2d496ad8c536fdd18b55bb7c62aacf2d71cf50a",
+      "method_type": 523,
+      "known_method_name": "base64 encoding"
+    },
+    {
+      "role": "memory_method_getter",
+      "bytes": 12,
+      "sha256": "f648cc762189eb569863e9de68245a9e52a89ff2f189b4956346cc1755b13488",
+      "method_type": 1025,
+      "known_method_name": "memory buffer"
+    }
+  ],
+  "encoding_control_constants": {
+    "no_newlines_flag": 256,
+    "flush_command": 11,
+    "get_buffer_pointer_command": 115
+  },
+  "first_stage_cipher_or_mac_classification": "not_verified",
+  "first_stage_input_runtime_values_extracted": false,
+  "key_provider_inspected": false,
+  "key_constants_extracted": false,
+  "underlying_key_handling_bodies_inspected": false,
+  "original_codec_executed": false,
+  "payload_decoding_verified": false,
+  "transport_admission_granted": false,
+  "official_references": [
+    {
+      "url": "https://docs.openssl.org/3.5/man3/BIO_f_base64/",
+      "bytes": 1083127,
+      "sha256": "207d5711c603c862121af82ec9daaaaf83af0fda4a801599792c8ab6255600c5",
+      "review": "Base64 BIO filter, memory BIO use and BIO_FLAGS_BASE64_NO_NL documented."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openssl/openssl/openssl-3.5.0/include/openssl/bio.h.in",
+      "bytes": 43972,
+      "sha256": "a8141829ee463b7b48413f212201c6e70cbc31f0b7c7266eefae385d9a006334",
+      "review": "Exact method IDs0x20b/0x401, no-newline flag0x100, flush11 and buffer-pointer control115 match observed metadata and wrapper controls."
+    }
+  ],
+  "limits": [
+    "The reference version is not an identification of the original binary OpenSSL version.",
+    "Base64 only identifies the outer encoding. It does not establish whether the preceding bytes are encrypted payload, MAC framing or another native encoding.",
+    "No independent cryptography, guessed decoding, hardcoded private key, native presign hook ABI or working offline request is introduced."
+  ]
+}

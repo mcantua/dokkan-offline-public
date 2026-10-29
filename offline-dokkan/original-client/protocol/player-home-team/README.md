@@ -75,3 +75,55 @@ footprint includes seven sites outside its declared body; no claim of exact
 2,112-byte-only interpretation is made. The string getter's decompiler also
 followed additional bodies, so this work does not claim its entire string ABI
 from the nominal 412-byte entry alone.
+
+`team-reader-contract.json` now records three concrete callback paths: one
+passes callback JSON directly into the collection reader, another selects
+its `teams` child first, and an update callback also passes JSON directly.
+Their request registrations and routes are still unresolved. The reader
+reaches the actual 796-byte row decoder and separate 320-byte team-BGM
+decoder, matching the previously sanitized resource nesting. This does not
+authorize mapping Core slots to native team numbers or copying cached teams.
+
+The previously selected 1,152-byte User caller has since been identified by
+the battle worker as the real quest-finish success consumer, with the same
+body hash. It is useful shared reader evidence, not a home response handler.
+Reuse that interpretation rather than requesting another decompilation.
+
+## Native team-number and formation semantics
+
+Peer review of the actual ARM64 `postTeamsAPI` writer establishes that the
+two selection arguments are emitted only when positive. Each row's `num`
+comes from its `map<int, UserDeck>` key, separately from the JSON array's
+enumeration index. Its `user_card_ids` always serializes six positions: a
+64-bit owned-card object ID in an occupied position, zero in an empty one.
+The later four-byte array belongs to another field and must not be treated
+as the owned-card IDs.
+
+Core currently stores compact `teams[{slot,members}]` arrays without zero
+entries. A real native formation can have empty positions, so importing it
+by merely removing zero IDs would lose formation layout. Before a working
+team projection is admitted, native numbers and the six positions need an
+explicit, persistent own-player binding. No `slot + 1` mapping, missing team,
+name or BGM default has been introduced. Two exact UI callers of the actual
+`postTeams` setup are retained privately for the next number-mapping step.
+
+## Exact team request method and relative path
+
+The actual `TeamsIndexAPI` constructor passes kind 0 and the resource `teams`
+to the exact 712-byte game-API ancestor already established for tutorial
+requests. `TeamsUpdateAPI` passes kind 1 and the same resource. Their real
+vtables inherit the same method getter and 1,284-byte materializer used by
+auth. Reusing the already reviewed ancestor/storage/URL/Apple-bridge chain
+establishes static `GET /teams` and `POST /teams`, optionally with a query.
+No complete configured runtime URL or query absence has been assumed.
+
+The known request setup binds the actual force-fetch and post success
+consumers. The separate ResourcesModel callback selects the `teams` child.
+The formation-save UI caller passes zero for the selection argument and an
+explicit deck map, which means that write preserves the selection under the
+positive-only writer rule. It does not establish `Core.slot + 1`.
+
+Concrete own-team projection will use the atomic persisted binding contract
+in `CORE-TEAM-BINDING.md`; it will not add a second optional JSON policy that
+claims native authority without actual persistence. HTTP admission and native
+playtest status remain false until the owner-backed flow is connected.

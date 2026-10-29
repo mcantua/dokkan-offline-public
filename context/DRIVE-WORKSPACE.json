@@ -15,7 +15,7 @@
   },
   "initial_cloud_transfer": "complete; current files available in this cloud workspace, excluding protected credentials and service-managed OS/hosted CI",
   "transfer_status": "all 46 planned objects plus initial platform archive, source snapshot and documentation uploaded; sizes/parents verified",
-  "bytes_in_primary_payload": 3607360892,
+  "bytes_in_primary_payload": 4305216042,
   "files": [
     {
       "folder": "Game Data",
@@ -640,17 +640,17 @@
       "url": "https://drive.google.com/file/d/1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0/view?usp=drivesdk",
       "name": "current-source.tar.gz",
       "folder": "Source",
-      "size": 44679370,
-      "sha256": "674c2611aa96c04790d7f19837f86ee1483e61ea889a4763dfe9fe98d7cc0030",
-      "source_files": 1990,
-      "source_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+      "size": 44813440,
+      "sha256": "81336378ba00c86a8672dcee694b1aae291cbdec4dd40d42b8ad3ca84924fb68",
+      "source_files": 2066,
+      "source_commit": "e9d57f962a7d006d932e12e719e6cc1988847f23",
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false,
-      "code_snapshot": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
-      "tracked_files": 1991,
+      "code_snapshot": "e9d57f962a7d006d932e12e719e6cc1988847f23",
+      "tracked_files": 2067,
       "concurrent_uncommitted_edits_excluded": true,
-      "remote_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+      "remote_commit": "e9d57f962a7d006d932e12e719e6cc1988847f23",
       "operational_registry_external": true,
       "other_project_packages_included": false,
       "uncompiled_wip_explicit": true,
@@ -898,6 +898,117 @@
       "size": 1427,
       "uploaded": true,
       "metadata_verified": true
+    },
+    {
+      "id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
+      "folder": "Game Data",
+      "name": "Private-static-analysis-current.tar.gz",
+      "size": 2137538,
+      "sha256": "63501e3a4cc0c0e23d8d8f2dc05dff143a0acf7801717d8936bc8dd1fbfc05f1",
+      "files": 301,
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "scope": "Derived static checkpoints and scoped C/highPcode/logs/manifests only; no original image/database/save/signing/key bytes or Ghidra working project DB."
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0001",
+      "size": 100663296,
+      "sha256": "0f49a702b780c45a6684eb307241ef41f48e09fc8d515c75f944fb4b6861515a",
+      "id": "1rpYw08mD51P8PTm3X3z3XWxfIhcARs8y",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0002",
+      "size": 100663296,
+      "sha256": "61207b356da93ddfb00ede43cacc532bdad64e86a391d12d4f07a5743867ebc9",
+      "id": "17Mc0Ssqw8d7-dHDUYS2lnavAGc3kpTx4",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0003",
+      "size": 100663296,
+      "sha256": "1dd1bf4b3b5fbfaa58558635685b0fc39d20fb94e1a6835a066e8a3d5b984f3f",
+      "id": "1Bp8a7XwuA_-rSks023_827mMg1mpn17h",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0004",
+      "size": 100663296,
+      "sha256": "58834ee04a1109f98d94ade1bd54b1696e1f832bf1ad6613f7103697ee39596f",
+      "id": "1U3amItPelnhOPZyv2bkgKGDzr2lWe8sy",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0005",
+      "size": 100663296,
+      "sha256": "a29660b87a0f10b483aa1c3d70aacf8cabadd8e014920eadb91dc111ccfd16ca",
+      "id": "1KXMzsRCj8-XYFDLdLZmjk1YlVNjmfhuZ",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0006",
+      "size": 66333118,
+      "sha256": "a2e2fc616c17e68f7e0b1dde8413d06f346f2b5e90849d0897740c889e6bb431",
+      "id": "1_1tPdRBxoAjQfQjX_19_cdUzJLtLw5w2",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4-transfer-manifest.json",
+      "size": 1297,
+      "sha256": "ed3a3e370803185813f37c78a2ebe70cd21d26639bfdabc98fa010e4c69a4137",
+      "id": "1knfLcXSxpKBLowt8InUvmr2rlBEEl_2V",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4-SOURCE.md",
+      "size": 4028,
+      "sha256": "a6eb205a8d4e55ae8ef757b4aa7e9a42b68b950ea6ba1b1f133068bb29799b3d",
+      "id": "1eJVej6f0aCNsuwKbmNkpLZyw6r78E3a7",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false
+    },
+    {
+      "folder": "Game Data",
+      "name": "Private-iPhone-startup-inputs.zip",
+      "size": 778241,
+      "sha256": "f72009372b06a5c4ad7c46cfaf86f835e34259ae5ad174a387dd5309c5a0758e",
+      "id": "1IfW48HCahcm4nvXHyiwzTeOlA3F_i_EB",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": true,
+      "member_pins_verified": true,
+      "original_ipa_preserved": true,
+      "purpose": "exact original framework binary and opaque535552byte database seed; no signing or save material"
     }
   ],
   "verification": {
@@ -914,7 +1025,7 @@
     ],
     "public_tools": "uploaded sizes/parents checked; SHA-256 per part and complete original recorded; full tool-byte readback not claimed",
     "documentation": "metadata readback verified; mutable manifest self-size/checksum omitted to avoid self-reference",
-    "latest_source": "Six-cloud-agent original iPhone/Duo component cohort: bounded exact ABI/call-path inspection, local transport, display geometry, exact resource/master admission, preserved Finish guards with distinct diagnostics. Relevant targeted component checks reused; no app/HTML/full-suite rebuild. Original-game runtime, genuine27.1 attachment, WK Finish root cause and both-display acceptance remain unverified."
+    "latest_source": "Original-client startup/login path: strict Creator packet retention preserved, separate startup diagnostic source, plainJSON root proof/candidate encoders, actual User numericbounds. No native/gameplay acceptance."
   },
   "sparking_full_data_folder": {
     "id": "1qwtEewReE2LFTjh_v9MzeA2_iQnF1GPN",
@@ -992,7 +1103,7 @@
       "original_sharing_unchanged": true,
       "transfer_notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
       "transfer_folder_id": "1nSydvwbydQXgaH6fOThK2BuXDFfFthnY",
-      "status": "Actual arm64 iPhone client now available and statically inspected; no Colab retry needed. Original-client offline/runtime and both Duo displays remain unverified.",
+      "status": "Exact engine/genuine shells and two hash-pinned startup binaries restored readonly; partial compatible resource cache only. Full original IPA remains inDrive and exceeds256MiB connectorfetch. Framework metadata and complete startup resource staging still pending; no native game launch.",
       "sha256": "0ea61911a09c4e7735f2d7b32b7b2c6c6977c1f4acf0a9db278049528b662816",
       "cloud_reassembly_verified": true,
       "transfer_manifest_drive_id": "1tT8DH7m0iAtiGmYZZX2DKMwwsBRuPZzO",
@@ -1115,9 +1226,9 @@
     "automatic_cross_chat_sync": false
   },
   "development_state": {
-    "status": "ChatGPT resumed by Tin; public repository source integration draft #8; original Sparking/Dokkan foundation; no builds authorized",
+    "status": "Active ChatGPT Duo-only original-client first-playable-path work; six cloud workers; no app builds authorized",
     "stop_time": "October 29, 2026, about 8:30 AM US Central",
-    "all_six_agents_stopped": true,
+    "all_six_agents_stopped": false,
     "no_background_development_claim": true,
     "active_builds_or_tests": false,
     "handoff_drive_id": "1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag",
@@ -1128,7 +1239,7 @@
     "resume_chatgpt_automatically": false,
     "paused_checkpoint_local": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
     "paused_checkpoint_remote": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
-    "source_archive_sha256": "674c2611aa96c04790d7f19837f86ee1483e61ea889a4763dfe9fe98d7cc0030",
+    "source_archive_sha256": "81336378ba00c86a8672dcee694b1aae291cbdec4dd40d42b8ad3ca84924fb68",
     "source_archive_metadata_verified": true,
     "handoff_text_readback_verified": true,
     "latest_native_run_completed": true,
@@ -1138,21 +1249,43 @@
     "draft_pr_url": "https://github.com/mcantua/dokkan-offline-public/pull/8",
     "source_archive_byte_readback_verified": false,
     "current_status_drive_id": "1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--",
-    "current_source_commit": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+    "current_source_commit": "7b23f2c6773d2078f252e8afc9459815a03b32d4",
     "historical_pause_fields": "stop_time, paused_checkpoint_* and the original handoff ID describe the earlier Grok pause only; latest resumption/source fields supersede them.",
     "user_latest_directive": "Maximum useful parallel cloud agents; 10-minute accurate reports with visual evidence; continue original-client work; playable link when actually available; no builds authorized.",
     "current_parallel_workers": 6,
-    "current_phase": "Original-client auth dispatcher, resource/master roots, fresh-state data, full-unit integrity and trusted host composition source integration."
+    "current_phase": "Original-client auth dispatcher, resource/master roots, fresh-state data, full-unit integrity and trusted host composition source integration.",
+    "private_analysis_drive_id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
+    "historical_stop_time": "October 29, 2026, about 8:30 AM US Central",
+    "active_workers_at_checkpoint": 6,
+    "source_archive_commit": "e9d57f962a7d006d932e12e719e6cc1988847f23",
+    "latest_pushed_code_commit": "6068503b4901e84d2fc0c97257317d96379b5492",
+    "last_sync_scope": "source archive at e9d57f9; later6068503 code already onGitHub, next Drive source update pending"
   },
   "public_repository_integration": {
     "repository": "mcantua/dokkan-offline-public",
     "base_pin": "220d7bbc7ebd535692b3dfc7f980c928cf04f267",
-    "source_pin": "44ab0bb92de8fa89566059eb8e30b61a847e10ca",
+    "source_pin": "6068503b4901e84d2fc0c97257317d96379b5492",
     "draft_pr": 8,
     "base_merged": false,
     "native_runtime_verified": false,
     "gameplay_verified": false,
     "both_displays_verified": false,
-    "source_check": "Changed JS syntax, whitespace and conflict markers passed; staged privacy gate passed; no compiler or app/runtime tests/builds."
+    "source_check": "Source-specific synthetic checks retained; staged privacy/whitespace checks passed. Native source uncompiled/unrun; no app builds.",
+    "drive_archive_pin": "e9d57f962a7d006d932e12e719e6cc1988847f23"
+  },
+  "startup_input_recovery": {
+    "notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
+    "notebook_bytes": 15632,
+    "byte_readback_verified": true,
+    "status": "Tin ran cloud notebook; output fetched and both exact pinned files restored readonly in cloud",
+    "source_read_cap": 16777216,
+    "original_ipa_unchanged": true,
+    "source_script": "offline-dokkan/tools/startup-inputs/extract_startup_inputs.py",
+    "output_id": "1IfW48HCahcm4nvXHyiwzTeOlA3F_i_EB",
+    "archive_sha256": "f72009372b06a5c4ad7c46cfaf86f835e34259ae5ad174a387dd5309c5a0758e",
+    "archive_bytes": 778241,
+    "members_verified": true,
+    "framework_bundle_metadata_restored": false,
+    "complete_startup_assets_restored": false
   }
 }

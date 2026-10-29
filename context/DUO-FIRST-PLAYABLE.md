@@ -75,6 +75,23 @@ bodies at the document root. The sign-in callback forwards that entire root
 to a further consumer, so complete response requirements are still being
 traced and the HTTP routes remain closed. Do not label the encoder a login.
 
+Native candidate handlers now retain one in-memory local issue from nonce to
+sign-in, reject expired or rolled-back time, and return the remaining positive
+TTL without extending the issue's original deadline. They are not installed.
+The existing Foundation transport already fits the actual current client and
+auth constructors' empty query. The optional ping has its own response wrapper
+and still needs its concrete startup configuration contract. Ordinary APIs
+also have a separate signed-response branch, so auth root proof does not
+automatically admit tutorial, resources or battle responses.
+
+To avoid reconstructing minimum resource lists one file at a time, the reviewed
+cloud recovery helper now selects the complete existing 1,067-candidate original
+iPhone resource inventory plus exact framework metadata. It verifies the whole
+IPA in temporary Google-cloud scratch, preserves original bundle/tutorial
+paths, and writes one current set of parts below32MiB. The existing notebook
+was updated and byte-readback verified; Tin's Run-all step is pending. No full
+game copy through the Mac, app build or resource-staging completion is claimed.
+
 Master lifecycle analysis also found the original invalid-key/schema cleanup
 can remove its working `sqlite/current` tree. Stage only separate disposable
 working copies in the app's own container and preserve immutable originals;

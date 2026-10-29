@@ -1,0 +1,179 @@
+{
+  "kind": "actual-current-iphone-team-reader-relative-contract",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "team_collection_reader": {
+    "bytes": 488,
+    "sha256": "2805881ac44c974073256832eb09e68af8d297d7a82bb032844707e6c81cb960",
+    "high_pcode_sites_outside_declared_body": 0,
+    "selected_fields": [
+      "selected_team_num",
+      "selected_kobetu_team_num",
+      "user_card_teams"
+    ],
+    "selection_number_conversion": {
+      "native": "signed32",
+      "helper_bytes": 512,
+      "helper_sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c"
+    },
+    "member_row_reader": {
+      "bytes": 796,
+      "sha256": "f35fb4e057ed8f244585dc99f32f80712c29c9f776bad4c106c94cbdf22064d8",
+      "high_pcode_sites_outside_declared_body": 0,
+      "relative_fields": [
+        "user_card_ids",
+        "name",
+        "referenced_sugoroku_map_id",
+        "referenced_z_battle_stage_id",
+        "referenced_card_ids"
+      ],
+      "complete_card_id_conversion_and_ownership_binding_verified": false
+    },
+    "bgm_reader": {
+      "bytes": 320,
+      "sha256": "7e0bbfcbab41daf96ad9c5aaada632a41665a50b7284bd489110a1458b85ded7",
+      "high_pcode_sites_outside_declared_body": 0,
+      "relative_fields": [
+        "user_card_teams",
+        "user_card_teams[].num",
+        "user_card_teams[].team_bgm_filename"
+      ]
+    }
+  },
+  "response_consumer_candidates": [
+    {
+      "bytes": 164,
+      "sha256": "2676fc2e1317a15bd8ad6843c309e52cbee2690d316fa55e4f255f1c6133d44c",
+      "high_pcode_sites_outside_declared_body": 0,
+      "reader_input_selection": "callback JSON argument passed directly",
+      "completion_event": "team fetch success",
+      "http_request_binding_verified": false,
+      "retained_rtti_method": "TeamModel::forceFetchTeams(bool)",
+      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)"
+    },
+    {
+      "bytes": 188,
+      "sha256": "09db0cb2bc1f0d15797ad06784f52f731f73d6750b865e0d2110c917c8dc2e3a",
+      "high_pcode_sites_outside_declared_body": 0,
+      "reader_input_selection": "teams member selected from callback JSON argument",
+      "completion_event": "team fetch success",
+      "http_request_binding_verified": false,
+      "retained_rtti_method": "TeamModel::fetchTeamsViaResourcesModel(bool)",
+      "retained_rtti_callback_signature": "bool(Json::Value const&)"
+    },
+    {
+      "bytes": 124,
+      "sha256": "ee0c8c380cef13644778d98b0c711c5413b5b854942ad2f89da9f5ad8dc5c96c",
+      "high_pcode_sites_outside_declared_body": 0,
+      "reader_input_selection": "callback JSON argument passed directly",
+      "completion_event": "team update success",
+      "http_request_binding_verified": false,
+      "retained_rtti_method": "TeamModel::postTeams(int, map<int, UserDeck> const&)",
+      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)"
+    }
+  ],
+  "important_distinctions": [
+    {
+      "bytes": 1436,
+      "sha256": "8f7609bee29198248f9bcea772988a9ca98a58ef50d46022d818226408b7c2d4",
+      "role": "mutable JSON member/assignment writer; not the response reader",
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "bytes": 2112,
+      "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+      "role": "mutable JSON member/assignment writer; not the response reader",
+      "high_pcode_sites_outside_declared_body": 7
+    },
+    {
+      "bytes": 436,
+      "sha256": "0af4175b23a597e3bff4afc266d4e88d6ef835c83010177c96494db7916d78db",
+      "role": "separate team persistence path references name/num/user_card_ids and transaction commit; not the796-byte row reader",
+      "high_pcode_sites_outside_declared_body": 0
+    }
+  ],
+  "matches_existing_sanitized_android_resources_teams_nesting": true,
+  "exact_http_body_root_or_route_binding_verified": false,
+  "core_slot_to_native_num_mapping_verified": false,
+  "fresh_selected_team_or_name_bgm_policy_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "next_steps": [
+    "Follow exact three callback registrations to current request family/route.",
+    "Resolve remaining team-row card-ID conversion/model ownership and native num mapping before projecting Core teams.",
+    "Use own canonical cards and savedteams; no played source-account teams or invented names/BGM values."
+  ],
+  "retained_rtti_reused_without_rescan": true,
+  "known_team_request_setup_frontier": [
+    {
+      "role": "forceFetchTeams setup candidate",
+      "bytes": 408,
+      "sha256": "44f34bf504cea404954123a43bb4280188ffd9e3b97c5e6e34bee19117df16db",
+      "high_pcode_sites_outside_declared_body": 0,
+      "next_exact_factory_bytes": 72,
+      "next_exact_factory_sha256": "8e046a4e6008b97be51d7ef36ac25faa4bdf3b62e58fe8eb93a54138fad04241"
+    },
+    {
+      "role": "fetchTeamsViaResourcesModel setup candidate",
+      "bytes": 360,
+      "sha256": "c09228f71eb55cc7d0efda389d26f6736c9f147ae6c2d072b2dafce0317d69e0",
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "role": "postTeams setup candidate",
+      "bytes": 448,
+      "sha256": "23397e42d0aba70ca4f7ebe120bef5892b8cb932783e07f4d3d64a8fc0a81dd5",
+      "high_pcode_sites_outside_declared_body": 0,
+      "next_exact_factory_bytes": 144,
+      "next_exact_factory_sha256": "167635e38b303123351ee0b351196255a63aaf3c545e32568ebfc5567ad8f414"
+    }
+  ],
+  "actual_post_teams_api_writer": {
+    "bytes": 2112,
+    "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+    "retained_rtti_context": "TeamModel::postTeamsAPI(int, int, map<int, UserDeck> const&, function<void()> const&)",
+    "peer_checked_actual_arm64": true,
+    "selected_team_num": "first actual int argument emitted only when greater than0",
+    "selected_kobetu_team_num": "second actual int argument emitted only when greater than0",
+    "user_card_teams_row_num": "signed32 std::map<int, UserDeck> node key, not array enumeration index",
+    "user_card_ids": "six ordered positions; each reads64-bit owned-card object ID, absent object emits0",
+    "later_four_byte_array_is_user_card_ids": false,
+    "scope_limit": "DecompilerhighPcodeincludes7sitesoutside2112body; mappingfactspeercheckedagainstboundedactualwriterinstructions."
+  },
+  "canonical_core_team_limit": {
+    "shape": "teams[{slot,members}] with compact owned-ID arrays(max6), nozero IDs",
+    "native_six_slot_empty_positions_preserved_by_core": false,
+    "required_before_projection": "Verified native number binding and persistent six-position layout; never silently choose slot+1 or compact away native empty positions."
+  },
+  "actual_team_request_contract": {
+    "index": {
+      "typeinfo": "TeamsIndexAPI",
+      "constructor_bytes": 128,
+      "constructor_sha256": "7f15fcc27f833f214ee6abd9043237652dc9ce7a2fdd5343e80146b067adf12a",
+      "game_api_kind_argument": 0,
+      "method": "GET",
+      "relative_suffix": "/teams"
+    },
+    "update": {
+      "typeinfo": "TeamsUpdateAPI",
+      "constructor_bytes": 200,
+      "constructor_sha256": "edac2556cf511fa0abb4e9932ef6b6ceacacabdfa1099e4705fc0e1aa8beca86",
+      "game_api_kind_argument": 1,
+      "method": "POST",
+      "relative_suffix": "/teams"
+    },
+    "shared_game_api_constructor": {
+      "bytes": 712,
+      "sha256": "0179754c18025710cf1672a8ec5f131523c81832475d593f8c1952e0c0e2da05",
+      "source_method_argument": 1,
+      "relative_resource_argument": 2,
+      "path_literal": "teams"
+    },
+    "reused_ancestor_method_and_url_proof": "../../../research/tutorial-update-contract.json",
+    "actual_family_method_getter_slot17_sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845",
+    "actual_family_request_materializer_slot2_sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37",
+    "complete_current_runtime_url_verified": false,
+    "optional_query_absence_verified": false,
+    "http_route_admitted": false,
+    "limits": "Current original constructors + exact inherited method/path materialization; no inference from Index/Update names and no live host/account data."
+  }
+}

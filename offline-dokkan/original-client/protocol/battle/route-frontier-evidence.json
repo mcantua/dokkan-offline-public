@@ -1,0 +1,43 @@
+{
+  "kind": "original-battle-literal-reference-frontier",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_vocabulary": [
+    "sugoroku_maps/start",
+    "sugoroku_maps/finish",
+    "quest_started_at_ms",
+    "is_defeated_boss",
+    "has_player_been_taken_damage"
+  ],
+  "candidate_bodies": [
+    {
+      "bytes": 584,
+      "sha256": "ddc34bed0e1e8d21f9a8ab93123e120e437dc0ee642dc1f648ec9eb37b3f5597",
+      "referenced_literals": [
+        "sugoroku_maps/finish"
+      ]
+    },
+    {
+      "bytes": 3380,
+      "sha256": "caada19b4d49112908ce7c4e44678cb9765317f55e26e78ddd5d7a7eae5d8d15",
+      "referenced_literals": [
+        "has_player_been_taken_damage",
+        "is_defeated_boss",
+        "quest_started_at_ms"
+      ]
+    },
+    {
+      "bytes": 556,
+      "sha256": "85b1c335794f7394ca93c54d2c07d071c5e0ece8893f78077c25167ff9a8928d",
+      "referenced_literals": [
+        "sugoroku_maps/start"
+      ]
+    }
+  ],
+  "request_response_contract_verified": false,
+  "route_enabled": false,
+  "gameplay_verified": false,
+  "limitations": [
+    "Exact field literals and reviewed route-suffix literal starts via ADRP/ADD only; indirect references and other instruction sequences are not covered.",
+    "A literal reference cannot establish an endpoint, request method, DTO, requiredness or runnable battle."
+  ]
+}

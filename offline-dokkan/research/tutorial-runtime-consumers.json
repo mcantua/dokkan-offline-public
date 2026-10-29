@@ -1,0 +1,107 @@
+{
+  "schema": "original-tutorial-runtime-consumer-v1",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "method": "Bounded source instruction and exact callable RTTI review, scoped decompilation, hash-pinned continuation",
+  "reviewed_bodies": {
+    "title_finished_gate": {
+      "bytes": 172,
+      "sha256": "b87838acc47bcbbf8f73e78b523bfc09f51bed3e0a4e4a41914fa8e62cef685f"
+    },
+    "title_on_tutorial_progress": {
+      "bytes": 512,
+      "sha256": "9728db44c9a1455664b83a9e4345b1f6ad86d7d81e2f39e9dab092a68234b065"
+    },
+    "tutorial_cache_owner": {
+      "bytes": 608,
+      "sha256": "c6f54e5ebf0d379205c2eb411ce3a49c8dce10ee6d039fa328276c2d9b8b1c6b"
+    },
+    "tutorial_progress_composer": {
+      "bytes": 240,
+      "sha256": "819e4c38b7050fc076ff728550d1a8559d6db011931bf52949f2ceea457378a2"
+    },
+    "tutorial_process_selection": {
+      "bytes": 172,
+      "sha256": "63ecffe1791720a49a50a75b0bede3ee4cb4f5c0bd0d6da722f9561b38155093"
+    },
+    "tutorial_ordered_process_models": {
+      "bytes": 372,
+      "sha256": "a370654d1ca32ae3bc606db5ce8fa5b2a6253d12853df1abf3404f72d43845bd"
+    },
+    "tutorial_next_process_progress": {
+      "bytes": 44,
+      "sha256": "893740f6091c409547c568d7c5eff6f1f79b1b02466d05d512dba838401068ba"
+    },
+    "tutorial_checkpoint_issue_caller": {
+      "bytes": 396,
+      "sha256": "31f79b16b13109248eacf34599a702df94ee6a1b4342603122b34524ca40b5e5"
+    },
+    "tutorial_update_request_factory": {
+      "bytes": 80,
+      "sha256": "171f90c4c45111a06e7c5272e1f984ca79b7cdb6f50f384f5de1c9bb30471ebe"
+    },
+    "tutorial_model_put_progress": {
+      "bytes": 808,
+      "sha256": "93af9ff8e8b2807f75a640c9ef879e4a1861649b91df6ac8e202148ab4bca56a"
+    },
+    "tutorial_update_success_completion": {
+      "bytes": 32,
+      "sha256": "2db50733ec5810e3807303629062ffbf7d44bf6d89b7263be93783ae7ce7dfb9"
+    },
+    "tutorial_update_failure_completion": {
+      "bytes": 156,
+      "sha256": "d5f7298783e8492d42ada0019bb3d8b462458028fb9cf1f492fbd7200cd6a88f"
+    },
+    "game_api_task_factory": {
+      "bytes": 164,
+      "sha256": "e43723bc0d548772a8c4048f1adda0902513105012ae07a109a8379e9b7317a3"
+    },
+    "game_api_task_constructor": {
+      "bytes": 464,
+      "sha256": "2b4406934c18de27d69c32b95527140db0972a045177879908217fc1ab600f4d"
+    }
+  },
+  "title_tutorial_selection": {
+    "actual_source_method": "TitleLoadingLayer::onTutorialProgress",
+    "is_finished_false_enters_tutorial_progress": true,
+    "reads_actual_user_progress": true,
+    "nonpositive_signed_progress_uses_first_native_ordered_process": true,
+    "raw_master_id_used_as_wire_progress": false,
+    "runtime_first_process_or_battle_observed": false
+  },
+  "progress_composer": {
+    "native_integer_width": 32,
+    "formula": "ancestor_component*10000 + parent_component*100 + process_component",
+    "component_master_column_names_proven": false,
+    "author_generated_codec_installed": false
+  },
+  "checkpoint": {
+    "actual_source_method": "Tutorial::TutorialModel::putTutorialProgress(int,function<void()> const&)",
+    "request_type": "Tutorial::TutorialAPI",
+    "caller_supplies_next_native_process_progress": true,
+    "native_boundary_condition_before_request": true,
+    "no_next_getter_value": -1,
+    "no_next_minus_one_is_put_completion_value": false,
+    "success_callback_signature": "void()",
+    "success_callback_reads_json_fields": false,
+    "failure_callback_invokes_completion_too": true,
+    "ordinary_response_bridge": "WebAPILayer/WebAPICaller/WebAPIBase",
+    "empty_json_success_response_proven": false
+  },
+  "limits": {
+    "client_executed": false,
+    "database_rescanned": false,
+    "played_player_values_read": false,
+    "fresh_state_mutation_implemented": false,
+    "finish_or_reward_policy_inferred": false,
+    "tutorial_http_route_admitted": false,
+    "original_tutorial_battle_verified": false,
+    "public_addresses_or_code_emitted": false
+  },
+  "verification": {
+    "runtime_pin_recovery_runs": 2,
+    "first_run_reviewed_bodies": 11,
+    "second_run_reviewed_bodies": 14,
+    "native_app_builds": 0,
+    "native_or_gameplay_tests": 0
+  }
+}

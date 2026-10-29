@@ -30,14 +30,15 @@ PINS={
 }
 
 
-def recover(source):
+def recover(source,pins=None):
+    pins=PINS if pins is None else pins
     if source.stat().st_size!=55697728:raise ValueError('Source size mismatch')
     data=source.read_bytes()
     if hashlib.sha256(data).hexdigest()!=SOURCE_SHA:raise ValueError('Source identity mismatch')
     image=Image(data);starts=function_starts(image);sections,_,_=sections_and_symbols(image)
     text,size,_,_=sections[b'__text'];ends=starts[1:]+[text+size]
-    by_identity={(size,sha):role for role,(size,sha) in PINS.items()}
-    sizes={size for size,_ in PINS.values()};found={}
+    by_identity={(size,sha):role for role,(size,sha) in pins.items()}
+    sizes={size for size,_ in pins.values()};found={}
     for start,end in zip(starts,ends):
         size=end-start
         if size not in sizes or not text<=start<end<=text+sections[b'__text'][1]:continue
@@ -46,7 +47,7 @@ def recover(source):
         if role:
             if role in found:raise ValueError('Ambiguous body identity')
             found[role]={'role':role,'start':start,'end':end,'bytes':size,'sha256':sha}
-    if set(found)!=set(PINS):raise ValueError('Required tutorial request bodies unavailable')
+    if set(found)!=set(pins):raise ValueError('Required tutorial request bodies unavailable')
     return {'source_sha256':SOURCE_SHA,'body_spans':[found[k] for k in sorted(found)]}
 
 

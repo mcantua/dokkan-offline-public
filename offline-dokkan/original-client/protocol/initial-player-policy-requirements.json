@@ -1,0 +1,46 @@
+{
+  "schema": "initial-player-policy-gap-audit-v1",
+  "runtime_configuration": false,
+  "approved_policy": {
+    "fresh_official_style_progression": true,
+    "nothing_unlocked": true,
+    "invented_initial_grants_allowed": false,
+    "skip_tutorial_authorized": false,
+    "created_character_drop_rules_define_initial_official_collection": false
+  },
+  "already_implemented_authorities": {
+    "owned_collection": "canonical Core persisted owned-card rows, initially empty",
+    "currency": "canonical ledger, no fabricated initial holdings",
+    "rank_exp_act_friends": "selected-master source_rank, matching canonical snapshot"
+  },
+  "required_policy_groups": [
+    {
+      "group": "first-run-tutorial",
+      "authority": "actual native consumer/fresh-state contract or explicit approved local policy",
+      "configured": false,
+      "fields": [
+        {"path": "user.tutorial.progress", "native_type": "uint32", "value_admitted": false},
+        {"path": "user.tutorial.contents_lv", "native_type": "uint32", "value_admitted": false},
+        {"path": "user.tutorial.is_finished", "native_type": "boolean", "value_admitted": false}
+      ]
+    },
+    {
+      "group": "starting-storage-limits",
+      "authority": "verified fresh-state limits or explicit approved local capacity policy",
+      "configured": false,
+      "fields": [
+        {"path": "user.card_capacity", "native_type": "uint32", "value_admitted": false},
+        {"path": "user.total_card_capacity", "native_type": "uint32", "value_admitted": false},
+        {"path": "user.support_item_capacity", "native_type": "uint32", "value_admitted": false},
+        {"path": "user.is_support_item_capacity_extended", "native_type": "boolean", "value_admitted": false}
+      ]
+    }
+  ],
+  "limits": {
+    "fresh_policy_gate_relaxed": false,
+    "http_route_admitted": false,
+    "played_account_values_used": false,
+    "master_definition_order_used_as_wire_default": false,
+    "gameplay_or_native_execution_verified": false
+  }
+}

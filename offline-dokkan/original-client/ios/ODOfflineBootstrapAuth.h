@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
+@class ODLocalTransportRoute;
 /** Local auth candidates. Matches protocol/bootstrap-auth.js.
  * The base issueWithNativeTime method does not build an HTTP body or admit
  * GET /auth/nonce or POST /auth/sign_in. expiresIn is a caller-supplied
@@ -17,5 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSDictionary *)issuePlainJSONWithNativeTime:(int32_t)nativeTime
                                               expiresIn:(int32_t)expiresIn
                                                   error:(NSError * _Nullable * _Nullable)error;
+/** Creates two candidate handlers; does not install or admit them.
+ * The unified host still rejects auth routes until the remaining startup and
+ * request contracts are verified. Only for a trusted native offline owner.
+ * contextIsCurrent runs on the local transport serial queue and must be safe
+ * there. Tokens stay in memory, rotate on nonce requests and expire. The local
+ * identity does not forward or validate source-server credentials. */
++ (nullable NSArray<ODLocalTransportRoute *> *)candidateRoutesWithExpiresIn:(int32_t)expiresIn
+                                                        contextIsCurrent:(BOOL (^)(void))contextIsCurrent
+                                                                    error:(NSError * _Nullable * _Nullable)error;
 @end
 NS_ASSUME_NONNULL_END

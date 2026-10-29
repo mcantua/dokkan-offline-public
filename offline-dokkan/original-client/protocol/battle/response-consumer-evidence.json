@@ -1,0 +1,127 @@
+{
+  "kind": "original-current-battle-response-consumer-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_callbacks": [
+    {
+      "role": "battle_start_success",
+      "bytes": 2692,
+      "sha256": "a923536050c08e4e9b296c991e1b14d7e8cb6ba7cfc3f5561856d5d738498f40",
+      "signature": "void(HttpResponse*,Json::Value&)"
+    },
+    {
+      "role": "battle_finish_success",
+      "bytes": 1152,
+      "sha256": "8807a25ccd498aedb8c0456f6ac460762a2021af44274afba0da3afc6242cbc1",
+      "signature": "void(HttpResponse*,Json::Value&)"
+    }
+  ],
+  "start_direct_field_observations": [
+    {
+      "field": "user_items",
+      "presence_check_observed": true
+    },
+    {
+      "field": "user",
+      "presence_check_observed": false
+    },
+    {
+      "field": "dummy_card_id",
+      "presence_check_observed": false
+    },
+    {
+      "field": "token",
+      "presence_check_observed": false
+    },
+    {
+      "field": "sugoroku",
+      "presence_check_observed": false
+    },
+    {
+      "field": "used_support_memory_id",
+      "presence_check_observed": true
+    },
+    {
+      "field": "is_team_trend",
+      "presence_check_observed": false
+    }
+  ],
+  "finish_direct_field_observations": [
+    {
+      "field": "user_items",
+      "presence_check_observed": true
+    },
+    {
+      "field": "user",
+      "presence_check_observed": false
+    },
+    {
+      "field": "is_reviewable",
+      "presence_check_observed": false
+    },
+    {
+      "field": "genkai_battle",
+      "presence_check_observed": true
+    }
+  ],
+  "start_sugoroku_handling": "Original 92-byte state method resets caches and copies the complete supplied JSON value; no typed map schema is established by that copy.",
+  "finish_callback_reuses_prior_profile_direct_caller_7": true,
+  "native_signing_implementation_inspected": false,
+  "complete_response_dto_verified": false,
+  "route_enabled": false,
+  "client_execution_verified": false,
+  "battle_or_save_verified": false,
+  "limitations": [
+    "Exact callback RTTI and direct field references are source facts; nested model readers and other engine consumers can impose additional requirements.",
+    "Ghidra inferred C types do not replace checked ARM64 calling conventions.",
+    "The complete request/response lifecycle, signed request semantic boundary, map payload, reward persistence and live retry ownership remain unverified."
+  ],
+  "finish_result_reader": {
+    "bytes": 1244,
+    "sha256": "bf4bd2e7553fdf8cdd4e00147d70e38edf0e99c4f4cd789c438f053e0c14a312",
+    "input_is_same_callback_root_json": true
+  },
+  "finish_result_scalar_reads": [
+    {
+      "field": "exp",
+      "conversion": "signed32"
+    },
+    {
+      "field": "zeni",
+      "conversion": "signed32"
+    },
+    {
+      "field": "user_exp",
+      "conversion": "signed32"
+    },
+    {
+      "field": "gasha_point",
+      "conversion": "signed32"
+    },
+    {
+      "field": "boosted",
+      "conversion": "boolean"
+    },
+    {
+      "field": "friend_status",
+      "conversion": "unsigned32_then_enum_conversion"
+    },
+    {
+      "field": "clear_time_ms",
+      "conversion": "nullable_signed64"
+    },
+    {
+      "field": "prev_record_time_ms",
+      "conversion": "signed64"
+    },
+    {
+      "field": "continue_count",
+      "conversion": "unsigned32"
+    }
+  ],
+  "finish_result_collection_reads": [
+    "quest_clear_rewards",
+    "cleared_difficulties",
+    "dragonballs"
+  ],
+  "finish_result_further_reader_present": true
+}

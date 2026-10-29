@@ -1,0 +1,23 @@
+{
+  "format": "od-prepared-original-resource-extraction-v1",
+  "source_sha256": "0ea61911a09c4e7735f2d7b32b7b2c6c6977c1f4acf0a9db278049528b662816",
+  "source_bytes": 1144358271,
+  "existing_resource_selector": "iphone_asset_catalog.resource_mapping",
+  "expected_existing_resource_candidates": 1067,
+  "additional_exact_metadata_path": "Frameworks/AdjustSigSdk.framework/Info.plist",
+  "part_limit_bytes": 32505856,
+  "root_and_tutorial_aliases_preserved": true,
+  "temporary_ipa_copy_location": "Google Colab scratch only",
+  "synthetic_scenarios_run": 1,
+  "synthetic_selector_and_aliases_passed": true,
+  "synthetic_cross_part_reconstruction_passed": true,
+  "synthetic_hashes_and_source_preservation_passed": true,
+  "synthetic_private_resource_path_rejected": true,
+  "real_cloud_extraction_run": false,
+  "existing_drive_notebook_replaced": true,
+  "reviewed_notebook_byte_readback_verified": true,
+  "google_account_run_all_requested": true,
+  "complete_startup_resource_set_proven": false,
+  "native_code_executed": false,
+  "gameplay_verified": false
+}

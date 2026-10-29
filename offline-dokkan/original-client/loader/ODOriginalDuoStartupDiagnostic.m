@@ -99,9 +99,30 @@ static BOOL ODDiagnosticHasAssets(int fd) {
     closedir(directory); return found;
 }
 
+static BOOL ODDiagnosticNoExistingEngineWorkingTree(int assets) {
+    if (assets < 0) return NO;
+    /* Unknown/existing native working trees cannot be admitted as a fresh
+     * diagnostic staging set. Do not remove, inspect or rewrite their data. */
+    struct stat info;
+    if (!fstatat(assets,"User",&info,AT_SYMLINK_NOFOLLOW) || errno != ENOENT) return NO;
+    int sqlite = openat(assets,"sqlite",O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+    if (sqlite < 0) return errno == ENOENT;
+    int found = fstatat(sqlite,"current",&info,AT_SYMLINK_NOFOLLOW);
+    int result = errno; close(sqlite);
+    return found < 0 && result == ENOENT;
+}
+
 ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
     if (!NSThread.isMainThread) { if (error) *error = ODDiagnosticFailure(); return nil; }
     NSBundle *bundle = NSBundle.mainBundle;
+    /* Never install/run this adapted engine under the supplied original game's
+     * identity. Native failure cleanup can delete its working sqlite/current
+     * tree; an Application Support probe does not isolate that Documents root.
+     * The reviewed package must also select a fresh own diagnostic container. */
+    NSString *identity = bundle.bundleIdentifier;
+    if (![identity isEqualToString:@"org.offlinedokkan.startupdiagnostic.duo"]) {
+        if (error) *error = ODDiagnosticFailure(); return nil;
+    }
     NSURL *bundleRoot = ODDiagnosticNativeRoot(bundle.resourceURL);
     NSURL *baseline = [bundleRoot URLByAppendingPathComponent:@"OriginalClient/OriginalGenuineDuoShell"];
     NSURL *frameworks = [bundleRoot URLByAppendingPathComponent:@"Frameworks" isDirectory:YES];
@@ -112,7 +133,7 @@ ODUnifiedDuoHost *ODCreateOriginalDuoStartupDiagnosticHost(NSError **error) {
     NSURL *documentRoot = ODDiagnosticNativeRoot(documents.firstObject);
     NSURL *resources = [documentRoot URLByAppendingPathComponent:@"assets" isDirectory:YES];
     int resourceFD = ODDiagnosticDirectory(resources);
-    BOOL ready = ODDiagnosticHasAssets(resourceFD) && ODDiagnosticRegularFile(baseline) &&
+    BOOL ready = ODDiagnosticHasAssets(resourceFD) && ODDiagnosticNoExistingEngineWorkingTree(resourceFD) && ODDiagnosticRegularFile(baseline) &&
         ODDiagnosticRegularFile(engine) && ODDiagnosticRegularFile(dependency) && ODDiagnosticOriginalSeed(seed);
     if (resourceFD >= 0) close(resourceFD);
     if (!ready) { if (error) *error = ODDiagnosticFailure(); return nil; }

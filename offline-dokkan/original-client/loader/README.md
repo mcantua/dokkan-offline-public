@@ -118,3 +118,14 @@ still use descriptor-relative `O_NOFOLLOW` traversal. Native database failure
 cleanup may remove its working `sqlite/current` tree, so working resources must
 be copies inside the own-app namespace; immutable originals/cache remain
 separate. No startup code redirects the engine to the only source copy.
+The native factory admits only the authored diagnostic identity
+`org.offlinedokkan.startupdiagnostic.duo`, without logging an actual account or
+provisioning identity. The package recipe must
+use a fresh own diagnostic app/container, preserving any installed original
+game and existing application data; the diagnostic Application Support folder
+alone does not isolate the original engine's actual Documents accesses.
+An existing native `assets/User` or `assets/sqlite/current` tree is refused
+without reading or deleting its contents. No reviewed copied-working-tree
+receipt has been implemented, so an existing tree cannot be admitted by a
+boolean or an invented receipt. The package's reviewed resource-copy staging
+still needs to establish the exact required first-start resource set.

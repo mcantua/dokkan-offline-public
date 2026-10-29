@@ -17,7 +17,25 @@
   "http_route_enabled": false,
   "source_hashes": {
     "protocol/bootstrap-auth.js": "6d82238295acaeb99054aa5426a2459575ac12078fbea7f77d13861e84dd2ae7",
-    "ios/ODOfflineBootstrapAuth.h": "d5d186ac10d2bbb5cd3671def254af2c4567f99023269ae651b2153dad37df0e",
-    "ios/ODOfflineBootstrapAuth.m": "1cf9acd02ac69a40b05faddf61fe897153fca2968000b17c820294e6df972e5f"
+    "ios/ODOfflineBootstrapAuth.h": "ece576ec74fd84d45e61f19b50489b4cc062cdac1701f0bdef727f9ee2df98a4",
+    "ios/ODOfflineBootstrapAuth.m": "1816e48043619b0b5bb1691896f512181a55a90d47927d4274b442ebfac57b09"
+  },
+  "native_candidate_route_factory": {
+    "implemented_in_source": true,
+    "installed": false,
+    "host_auth_gate_opened": false,
+    "source_review": [
+      "Only GET /auth/nonce and POST /auth/sign_in candidate routes",
+      "Fresh local issue on nonce, same in-memory issue on sign-in retry",
+      "Positive caller-supplied TTL, signed32 time/sum guard and expiry rejection",
+      "Trusted current-owner predicate checked before responding; no source credential-body access",
+      "No remote calls, source/server keys, disk writes or persistence",
+      "Sign-in emits only remaining positive TTL for the same original issue deadline; clock rollback invalidates the issue"
+    ],
+    "remaining": [
+      "Native compile/execution",
+      "Owner invalidation and transport-delivery lifecycle acceptance",
+      "Actual pre-auth ordering, current request/query and original-client startup acceptance"
+    ]
   }
 }

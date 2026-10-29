@@ -1,0 +1,23 @@
+{
+  "format": "od-original-resource-staging-source-evidence-v1",
+  "source": "offline-dokkan/original-client/loader/stage_original_resources.py",
+  "source_sha256": "67c665b3d85504a76d1a8f2209b6a955e9a28fad39794c23adaf7f828904fccd",
+  "verification": {
+    "combined_synthetic_runs": 1,
+    "passed": true,
+    "cross_part_member_reconstruction": true,
+    "different_original_tutorial_aliases_preserved": true,
+    "only_catalog_admitted_documents_alias_copied": true,
+    "existing_output_refused": true,
+    "member_corruption_rolled_back": true,
+    "part_corruption_refused": true,
+    "original_inputs_preserved": true,
+    "final_lexical_save_path_guard_source_review_only": true
+  },
+  "real_resource_parts_restored": false,
+  "real_resource_staging_executed": false,
+  "actual_app_documents_written": false,
+  "native_code_compiled": false,
+  "original_client_executed": false,
+  "gameplay_verified": false
+}
