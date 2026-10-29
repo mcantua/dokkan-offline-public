@@ -1,5 +1,7 @@
 # Original client: first playable path
 
+**Latest user override:** new players must skip the original intro tutorial. The first-playable target is now original normal startup/Home and an ordinary battle. Preserve the older tutorial source research below as reference, but do not select it as the product's new-player flow. New-profile skip policy and corresponding native response projection are being implemented; existing profiles are not reset.
+
 Updated October 29, 2026, 3:05 PM US Central.
 
 The real supplied Sparking iPhone client is the production foundation. Its

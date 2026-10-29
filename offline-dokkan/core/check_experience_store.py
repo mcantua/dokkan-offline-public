@@ -69,5 +69,5 @@ with tempfile.TemporaryDirectory(prefix='xp-',dir=ROOT/'build') as temp:
     seeded=call('card.experience.grant',{'instance_id':1,'source':'migrated','quantity':5},'migrated')
     assert seeded['cards'][0]['experience']==15 and seeded['cards'][0]['level']==2
     lib.od_close(core);core=opened(old);lib.od_close(core)
-    with sqlite3.connect(old) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==13
+    with sqlite3.connect(old) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==14
 print('PASS exact master-curve XP/level, source replay/overflow/ownership, lock persistence, in-run protection, hostile XP save rejection and v3 migration')

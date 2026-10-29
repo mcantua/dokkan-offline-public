@@ -67,3 +67,7 @@ runtime acceptance must be reported separately; there is no reliable overall
 completion estimate. The iPhone client still needs source-proven offline
 service contracts and native startup/master integration. No original-game
 launch or playable battle has been verified, and no new build is authorized.
+
+
+### October 29 — remove the new-player intro
+Tin: "can you get rid of the tutorial sequince of the dokkan battle intro for new players please". Implement a persistent new-profile skip policy using the original client continuation. Existing profiles/progress remain intact. This supersedes the previous first-tutorial-first-playable route; no rewards, units or game-completion credit are implied.

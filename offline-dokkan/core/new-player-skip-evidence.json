@@ -1,0 +1,22 @@
+{
+  "kind": "schema14-new-player-no-intro-preservation",
+  "runs": 1,
+  "scope": "synthetic actual extracted migration/seed/snapshot/guard SQL plus actual new SQL tuple through JS projection/fresh policy",
+  "schema13_failure_rolls_back": true,
+  "schema13_existing_rows_profiles_cards_teams_preserved": true,
+  "older_missing_tutorial_rows_not_backfilled": true,
+  "new_only_skip_tuple_zero_true": true,
+  "new_player_no_cards_items_or_teams_granted": true,
+  "skip_profile_checkpoint_sql_guard_rejects": true,
+  "snapshot_emits_actual_json_boolean": true,
+  "actual_sql_tuple_projects_new_player_skip": true,
+  "foreign_key_check_passed": true,
+  "core_c_control_flow_or_import_execution_verified": false,
+  "objc_or_original_game_executed": false,
+  "app_builds": 0,
+  "source_sha256": {
+    "od_core.c": "a98ede8629a8e931b43f84bdc71a1e5c79491de103fbe0e23d0c0fde493b4f0a"
+  },
+  "post_verification_source_changes": "od_core.c comments only; no checked SQL or mutation semantics changed after verification",
+  "final_comment_only_source_sha256": "af8621a7b3797949289b79f11d687025d2fc9c4dafefb5700174cfaa88c4c13c"
+}

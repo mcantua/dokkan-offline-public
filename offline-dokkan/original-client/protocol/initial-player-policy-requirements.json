@@ -5,14 +5,15 @@
     "fresh_official_style_progression": true,
     "nothing_unlocked": true,
     "invented_initial_grants_allowed": false,
-    "skip_tutorial_authorized": false,
-    "created_character_drop_rules_define_initial_official_collection": false
+    "skip_tutorial_authorized": true,
+    "created_character_drop_rules_define_initial_official_collection": false,
+    "skip_scope": "actually inserted new profiles only; existing profiles/progress preserved"
   },
   "already_implemented_authorities": {
     "owned_collection": "canonical Core persisted owned-card rows, initially empty",
     "currency": "canonical ledger, no fabricated initial holdings",
     "rank_exp_act_friends": "selected-master source_rank, matching canonical snapshot",
-    "partial_tutorial": "Schema13 native-owned own-profile state: authored source-compatible new-profile 0/false, durable native checkpoints; never asserted as Sparking server defaults"
+    "partial_tutorial": "Schema14 native canonical policy: new-only progress0/finishedtrue; existing Schema13 unfinished checkpoints preserved; older missing records remain unresolved"
   },
   "required_policy_groups": [
     {

@@ -1,5 +1,11 @@
 # Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
 
+**Latest user change (October29): skip the new-player Dokkan intro tutorial.**
+Core14 source seeds only new profiles with a persistent skip policy; existing
+progress is preserved. Two targeted SQL/JS checks passed. Native execution and
+normal Home startup are still unverified. This supersedes tutorial-first
+planning below; see the latest HANDOFF/STATUS entries.
+
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 Updated: Thu Oct 29, 2026, 11:02 AM CT

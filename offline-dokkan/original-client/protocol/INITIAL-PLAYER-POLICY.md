@@ -1,8 +1,8 @@
 # Initial offline player: approved policy and missing inputs
 
-The approved direction is a fresh official-style account: nothing unlocked,
-progress through the original tutorial, and no invented free stones, cards or
-event unlocks. The existing canonical Core already creates an empty collection
+Tin’s latest request removes the intro/tutorial sequence for new players.
+New profiles skip that sequence; existing profiles and their progress stay
+unchanged. There are no invented free stones, cards or event unlocks. The existing canonical Core already creates an empty collection
 and ledger. Its rank1/EXP0/max ACT facts and friends capacity come from the
 selected master, not a copied played account or hard-coded response sample.
 The projector already exposes those persisted facts. No additional starting
@@ -27,15 +27,20 @@ build, database rescan or repeated completed-feature check was needed.
 
 ## Native-owned partial tutorial state
 
-The later source consumer trace establishes false `is_finished` entering the
-original tutorial, with progress0 selecting its first native sequence.
-Schema13 persists this authored, source-compatible start policy only for newly
-inserted canonical profiles. It is not a claim about Sparking server defaults.
-Native checkpoints update that persisted progress without inferring a finish
-flag, reward or clock. The fresh-state gate accepts these two fields only
-from the native-owned snapshot. Old profiles receive no tutorial migration
-row. See `../protocol-inspection/TUTORIAL-RUNTIME-CONSUMERS.md` and
-`../../core/README.md`.
+The actual native finished flag selects the original TitleLoadingLayer’s
+normal continuation; false enters its tutorial. Schema14 stores the explicitly
+authorized new-player policy only on a successful new-profile INSERT:
+`{schema:1,policy:"offline-new-player-skip-v1",progress:0,is_finished:true}`.
+No999999 marker, arbitrary tutorial content level, reward or starter unit is
+inferred. This is our own approved skip policy, not a copied server default.
+
+Every old tutorial row is copied unchanged during migration. Old unfinished
+checkpoints keep their `original-tutorial-entry-v1` policy and native writer;
+skip profiles refuse that writer. Older profiles with no tutorial row remain
+unresolved. The snapshot emits the actual stored boolean. The full fresh-state
+gate and new-profile projector accept only the exact canonical policy tuples.
+See `../protocol-inspection/TUTORIAL-RUNTIME-CONSUMERS.md` and
+`../../core/new-player-skip-evidence.json` for source/check limits.
 
 ## Remaining state and authority
 
@@ -43,18 +48,18 @@ The real iPhone User decoder places these fields as follows:
 
 | Field | Native representation | Missing authority |
 |---|---|---|
-| `user.tutorial.progress` | unsigned32 | Canonical Schema13 state; unresolved for older profiles without it |
+| `user.tutorial.progress` | unsigned32 | Canonical Schema14 state; unresolved for older profiles without it |
 | `user.tutorial.contents_lv` | unsigned32 | Initial tutorial content level and its consumer mapping |
-| `user.tutorial.is_finished` | boolean | New canonical policy is false; completion and older missing state remain unresolved |
+| `user.tutorial.is_finished` | boolean | New-only skip policy is true; existing checkpoints preserved; older missing state unresolved |
 | `user.card_capacity` | unsigned32 | Initial owned-card capacity |
 | `user.total_card_capacity` | unsigned32 | Relationship to the initial card capacity; do not assume equality |
 | `user.support_item_capacity` | unsigned32 | Initial support-item capacity |
 | `user.is_support_item_capacity_extended` | boolean | Initial capacity-extension state |
 
-Missing/null scalar members preserve the native object's prior value. This is
+Absent scalar members preserve the native object's prior value; present JSON null is not the same condition. This is
 decoder behavior, not proof of a valid fresh-account server default. The
 fresh policy keeps remaining fields unresolved. It must not be unlocked by
-treating pre-server capacity0 or finished=true as authoritative.
+treating pre-server capacity0 or an unbound finished flag as authoritative. Only the exact canonical new-profile skip policy supplies true.
 
 The master has tutorial definitions but no column establishing these seven
 initial user values. Its first phase is not automatically wire `progress` or
@@ -64,9 +69,9 @@ initial user values. Its first phase is not automatically wire `progress` or
 
 There are two policy groups, not seven unrelated feature requests:
 
-1. **First-run tutorial:** complete the contents-level and response/persistence
-   contracts around the recovered entry. Preserve that flow without skipping
-   it or granting invented units.
+1. **First-run tutorial:** new-profile skip is now explicitly authorized and
+   persisted. Preserve old checkpoints and finish the original normal
+   continuation without inventing units or filling unknown fields.
 2. **Starting storage limits:** establish the four card/support capacity
    fields from a verified fresh-state source, or obtain one explicit approved
    local capacity policy. Do not use a played account's expanded limits.

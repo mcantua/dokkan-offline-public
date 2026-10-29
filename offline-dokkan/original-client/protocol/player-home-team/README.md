@@ -169,3 +169,83 @@ and returned the normalized mutation for the same SQL round trip. See
 layout evidence was reused without rerunning that scenario.
 C/Objective-C compilation, original-client execution, home/collection route
 contracts and first-team initialization remain outside these receipts.
+
+## Current Home/resources continuation
+
+Retained current-client RTTI now identifies the actual ResourcesModel
+success/failure callbacks and User/Card fetch consumers. All four exact
+decompilations stayed inside their declared bodies. User selects the shared
+root's `user`; Card selects `cards`, `user_card_id_updates` and `item_cards`;
+the existing Team callback selects `teams`. Resources success also updates
+`battle_status` after its consumer queue. These are concrete source
+dependencies, not proof that an abbreviated player response can reach home.
+See `home-resources-contract.json`. Exact registration owners and immediate
+User/Card/battle-status updates are now recovered, each within its own body.
+The User update calls the existing 2,416-byte decoder and aborts when decoded
+rank is zero. Actual ARM64 confirms the check is at User byte 32; the apparent
+`+4` in decompiled typed pointer arithmetic is not a separate validity flag.
+The existing canonical positive-rank and UInt32 checks already cover this
+gate, so no new default, source change or test was needed.
+
+The actual 96-byte factory and 360-byte `ResourcesAPI` constructor now
+establish `GET /resources/login` and `GET /resources/home` for those received
+native request labels. They reuse the exact established 712-byte ancestor,
+method getter and materializer. The constructor adds `battle_status:true`
+only for `login`. The derived 92-byte override copies actual request item parameters through
+the common body setter and tail-calls the already reviewed generic sender.
+It is a send override, not a separate query getter. Its decompilation follows
+the known 1,240-byte sender; those reused sites are recorded explicitly. No
+configured full URL or absence of a query is assumed.
+
+The separate `battle_status` update is optional in the actual native reader.
+A missing child becomes the source-proven Json-null singleton, and any null
+room/stage/force member skips all updates before stores. This is a native
+skip with no invented default battle values. These facts still do not prove
+a complete home response or admit an HTTP route.
+
+## Retained unfinished-profile candidate
+
+This section records the earlier tutorial-first milestone. The latest user
+instruction skips the intro for new profiles; it does not reset existing
+profiles. `projectInitialTutorialPlayer` and the same native wrapper emit
+only own wire identity, positive canonical rank and persisted unfinished
+tutorial progress. The native User callback selects `user` and calls the
+reviewed decoder. Unconfigured capacities and `contents_lv` are omitted: its
+actual default getter preserves the prior native fields on absent keys.
+Explicit JSON null is not omission and is never emitted as a substitute.
+This does not copy constructor sentinels into server state.
+
+The mode requires the actual native-owned tutorial record, clean save scope
+and empty own collection/teams. Migrated unresolved profiles and existing
+collections are rejected rather than silently downgraded. Positive stored
+tutorial checkpoints stay unchanged. It does not rely on the old Android
+full-home schema, force a team selection or register a generic HTTP success.
+
+`check_initial_tutorial_projection.js` passed one focused scenario; receipt
+`initial-tutorial-projection-evidence.json`. The prior Core13/team checks were
+not repeated. Native wrapper compilation, full resources endpoint dispatch
+and actual tutorial battle remain unverified. The full Card row decoder and
+full home DTO are separate pending work, not first-tutorial prerequisites
+merely because the earlier cached schema listed them.
+
+## Active new-profile skip-intro policy
+
+New profiles now use `projectNewProfilePlayer` and native
+`projectNewProfilePlayer:`. The exact persisted owner record must be
+`{schema:1, policy:"offline-new-player-skip-v1", progress:0, is_finished:true}`.
+This is the user's explicit new-profile policy, not a copied constructor
+sentinel. The Core worker creates it only for genuinely new profiles.
+Existing unfinished or completed profiles are not rewritten by projection.
+
+The candidate emits only own identity, positive canonical rank and that
+stored tutorial tuple. Unconfigured capacities and `contents_lv` stay
+absent through the same proven native prior-value fallback. A populated
+collection requires the full projection instead of silently dropping units.
+The original User callback/root binding is established; reaching and
+populating the actual normal Home still needs its consumer/source contracts
+and runtime acceptance. No full-home, HTTP or gameplay completion is claimed.
+
+`check_new_profile_skip_projection.js` passed one changed-policy scenario,
+including preservation of an existing unfinished checkpoint. See
+`new-profile-skip-projection-evidence.json`. Earlier unrelated scenarios were
+not repeated; no native compilation or app build was performed.

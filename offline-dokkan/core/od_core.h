@@ -46,7 +46,8 @@ int od_offline_player_snapshot(od_core *core,const char *profile,char **result_j
  * by the admitted own-client adapter, not raw arbitrary HTTP/policy JSON.
  * Scope is checked inside the same write transaction before command replay;
  * expected_revision is required for a new command. Exact command retries
- * preserve their retained result. No starter units, rewards, finished tutorial
+ * preserve their retained result. New-profile skip rows reject tutorial writes.
+ * No starter units, rewards, arbitrary finished tutorial
  * flag, contents-level default or HTTP response is created by this API. */
 int od_original_client_apply(od_core *core,const char *operation,const char *profile,
                               const char *command,const char *expected_save_scope,

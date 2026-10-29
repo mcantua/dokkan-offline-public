@@ -22,6 +22,14 @@ typedef BOOL (^ODResourceContextCurrent)(void);
     moduleURL:(NSURL *)moduleURL moduleSHA256:(NSString *)moduleHash
     nativePolicy:(nullable ODResourceNativePolicy)policy contextCurrent:(ODResourceContextCurrent)current;
 - (void)projectCurrentPlayer:(ODCoreReply)reply;
+/** Current new-profile User DTO. Requires the actual persisted skip-intro
+ * policy; existing profiles are not rewritten and full Home is not claimed. */
+- (void)projectNewProfilePlayer:(ODCoreReply)reply;
+/** Retained original User DTO for existing persisted unfinished profiles
+ * and empty own collection. New profiles use projectNewProfilePlayer:.
+ * Unresolved native fields stay absent;
+ * this does not admit a general resources/home response or HTTP route. */
+- (void)projectInitialTutorialPlayer:(ODCoreReply)reply;
 /** Source-proven direct GET /teams DTO from the same persisted Core owner.
  * Does not require unresolved user/capacity policy or register an HTTP route. */
 - (void)projectCurrentTeams:(ODCoreReply)reply;

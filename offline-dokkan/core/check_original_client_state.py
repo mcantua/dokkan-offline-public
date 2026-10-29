@@ -157,12 +157,13 @@ db.executescript('BEGIN IMMEDIATE;' + migration + 'COMMIT;')
 assert db.execute('PRAGMA user_version').fetchone()[0] == 13
 assert db.execute('SELECT count(*) FROM od_original_tutorial').fetchone()[0] == 0
 assert list(db.execute("SELECT profile,slot,members FROM teams")) == baseline
+db.executescript(constant(core, 'SCHEMA_V14'))
 
 owner = 'synthetic-owner'
 db.execute('INSERT INTO profiles(id) VALUES(?)', (owner,))
 seed = next(sql for sql in statements(core) if sql.startswith('INSERT INTO od_original_tutorial VALUES'))
 db.execute(seed, {'p': owner})
-assert db.execute('SELECT progress,is_finished FROM od_original_tutorial WHERE profile=?', (owner,)).fetchone() == (0, 0)
+assert db.execute('SELECT progress,is_finished FROM od_original_tutorial WHERE profile=?', (owner,)).fetchone() == (0, 1)
 assert not db.execute('SELECT 1 FROM owned_cards WHERE profile=?', (owner,)).fetchone()
 db.executemany('INSERT INTO owned_cards(id,profile,master_id) VALUES(?,?,1)', [(11, owner), (12, owner), (13, owner), (99, 'legacy')])
 db.execute("INSERT INTO commands VALUES(?,'synthetic-consumption','fixture','{}','{}')", (owner,))
@@ -200,6 +201,9 @@ assert db.execute(validate).fetchone(), 'Stale compact edit was not detected'
 db.execute('ROLLBACK')
 assert list(db.execute('SELECT profile,slot,members FROM teams')) == before
 
+# Synthetic preserved unfinished-profile fixture, not the active new-player policy.
+db.execute("UPDATE od_original_tutorial SET is_finished=0,policy='original-tutorial-entry-v1' WHERE profile=?", (owner,))
+
 # Execute the actual source checkpoint SQL and prove rollback covers revision
 # with the same persisted state; this is SQL proof, not C command-cache proof.
 update = next(sql for sql in statements(core) if sql.startswith('UPDATE od_original_tutorial SET progress='))
@@ -222,7 +226,7 @@ check = ROOT / 'offline-dokkan/original-client/protocol/player-home-team/check_c
 subprocess.run(['node', str(check)], input=json.dumps(fixture), text=True, check=True)
 fresh_script = """const p=require(process.argv[1]);const assert=require('assert');const s={rank:1,rank_experience:0,stamina_max:20,source_rank:{rank:1,exp_total:0,act_max:20,friends_capacity:50},original_client_tutorial:{schema:1,policy:'original-tutorial-entry-v1',progress:12345,is_finished:false}};const r=p.evaluate(s,{});assert.deepStrictEqual(r.sections.user.tutorial,{progress:12345,is_finished:false});assert(r.unresolved.includes('tutorial.contents_lv'));assert(!r.unresolved.includes('tutorial.progress'));delete s.original_client_tutorial;assert(p.evaluate(s,{}).unresolved.includes('tutorial.progress'));assert.throws(()=>p.evaluate(s,{user:{tutorial:{progress:0}}}),/PRE_SERVER_SENTINEL_REJECTED/);"""
 subprocess.run(['node', '-e', fresh_script, str(ROOT / 'offline-dokkan/original-client/protocol/fresh-state-policy.js')], check=True)
-evidence = {'kind': 'schema13-original-player-sql-and-js-scenario', 'runs': 1,
+evidence = {'kind': 'schema14-preserved-original-player-sql-and-js-scenario', 'runs': 1,
     'scope': 'actual extracted schema/mutation/validation SQL in memory, actual JS projection and fresh-state policy',
     'migration_rollback_and_legacy_state_preserved': True, 'legacy_profiles_not_reset': True,
     'new_profile_empty_collection_and_start_control_state': True, 'checkpoint_rollback_and_persistence_sql': True,
@@ -232,4 +236,4 @@ evidence = {'kind': 'schema13-original-player-sql-and-js-scenario', 'runs': 1,
     'app_builds': 0, 'http_route_admitted': False,
     'source_sha256': {name: hashlib.sha256((HERE / name).read_bytes()).hexdigest() for name in ('od_core.c', 'original_teams.c')}}
 (HERE / 'original-player-state-evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
-print('Combined schema13 SQL and actual JS scenario passed; native C/ObjC/game remain unexecuted.')
+print('Combined schema14 preserved-profile SQL and actual JS scenario passed; native C/ObjC/game remain unexecuted.')

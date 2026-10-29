@@ -67,6 +67,12 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
 - (void)projectCurrentPlayer:(ODCoreReply)reply {
     [self evaluateOriginalPlayerMode:0 decodedTeamBody:nil reply:reply];
 }
+- (void)projectNewProfilePlayer:(ODCoreReply)reply {
+    [self evaluateOriginalPlayerMode:4 decodedTeamBody:nil reply:reply];
+}
+- (void)projectInitialTutorialPlayer:(ODCoreReply)reply {
+    [self evaluateOriginalPlayerMode:3 decodedTeamBody:nil reply:reply];
+}
 - (void)projectCurrentTeams:(ODCoreReply)reply {
     [self evaluateOriginalPlayerMode:1 decodedTeamBody:nil reply:reply];
 }
@@ -111,8 +117,8 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
                     else {
                         NSDictionary *expected=@{@"profile_id":self->_profile,@"content_id":self->_content,@"save_scope_sha256":self->_scope};
                         JSValue *module=context[@"ODResourcesProjector"];
-                        NSString *method=mode==1?@"projectTeams":mode==2?@"normalizeTeamUpdate":@"project";
-                        NSArray *arguments=mode==1?@[envelope,expected]:mode==2?@[envelope,expected,body]:@[self->_schema,envelope,expected,safeSections];
+                        NSString *method=mode==1?@"projectTeams":mode==2?@"normalizeTeamUpdate":mode==3?@"projectInitialTutorialPlayer":mode==4?@"projectNewProfilePlayer":@"project";
+                        NSArray *arguments=(mode==1||mode==3||mode==4)?@[envelope,expected]:mode==2?@[envelope,expected,body]:@[self->_schema,envelope,expected,safeSections];
                         JSValue *value=[module[method] callWithArguments:arguments];
                         id candidate=context.exception?nil:value.toObject;
                         if(![candidate isKindOfClass:NSDictionary.class]||![NSJSONSerialization isValidJSONObject:candidate])

@@ -400,3 +400,22 @@ Duo only, no native builds until Tin says "make the builds", no base merge and
 no fake in-app images. Continue independent implementation after the source
 commit and existing Drive-ID sync. Exact owners/limits are in STATUS and
 context/DUO-FIRST-PLAYABLE.md.
+
+
+### October 29, 3:32 PM CT — new players skip the intro tutorial
+
+Tin explicitly removed the new-player Dokkan intro tutorial requirement.
+Core14 now seeds only new profiles with the persisted skip policy, progress0
+and is_finishedtrue. Existing profile/checkpoint/collection rows survive the
+migration unchanged; there are no tutorial rewards or starter-unit grants.
+The canonical snapshot, fresh policy and new-profile native/JS projection
+carry that state. The actual original title gate uses is_finished to bypass
+onTutorialProgress; no invented999999 completion marker is used.
+
+Two targeted checks passed, covering new-policy projection and transactional
+migration/preservation. C/Objective-C and the original app were not executed.
+**Pending:** bind the new-profile response into actual normal startup/Home and
+verify the skipped sequence in the original Duo client after an authorized
+build. Keep existing unfinished-profile support; do not reset old progress.
+Tutorial-first combat research remains reference only. No new in-app screenshot
+or playable build is available.

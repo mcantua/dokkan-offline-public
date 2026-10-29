@@ -63,7 +63,8 @@
   "prior_field_fallback": {
     "helper_bytes": 52,
     "helper_sha256": "a5e6db7043c8b681bf414de5a53c6764a3479c3fb450414914bc2940f2e4ba4d",
-    "missing_or_null": "preserve prior model field; not fresh-player defaults"
+    "missing_member": "preserve prior model field; not fresh-player defaults",
+    "present_json_null": "not omission: find can return a nonnull pointer to Json-null, so do not emit null to preserve native prior state"
   },
   "implemented_projection": "../resources-projector.js",
   "projection_evidence": "native-integer-projection-evidence.json",

@@ -64,12 +64,13 @@
     const tutorial=snapshot.original_client_tutorial;
     if(tutorial!==undefined&&tutorial!==null){
       if(!object(tutorial)||Object.keys(tutorial).length!==4||tutorial.schema!==1||
-         tutorial.policy!=='original-tutorial-entry-v1'||!integer(tutorial.progress)||
-         tutorial.progress<0||tutorial.progress>2147483647||tutorial.is_finished!==false)
+         !integer(tutorial.progress)||tutorial.progress<0||tutorial.progress>2147483647||
+         !((tutorial.policy==='original-tutorial-entry-v1'&&tutorial.is_finished===false)||
+           (tutorial.policy==='offline-new-player-skip-v1'&&tutorial.progress===0&&tutorial.is_finished===true)))
         throw Error('INVALID_CANONICAL_TUTORIAL');
       if(own(sections,'user')&&!object(sections.user))throw Error('INVALID_FRESH_POLICY');
       const user=sections.user||{};
-      user.tutorial={progress:tutorial.progress,is_finished:false};sections.user=user;
+      user.tutorial={progress:tutorial.progress,is_finished:tutorial.is_finished};sections.user=user;
       for(const field of ['tutorial.progress','tutorial.is_finished']){
         unresolved.splice(unresolved.indexOf(field),1);admitted.push(field);
       }

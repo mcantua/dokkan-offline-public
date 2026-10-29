@@ -90,16 +90,17 @@ static int ODScanPolicy(id value, NSInteger depth) {
         id finished=[tutorial isKindOfClass:NSDictionary.class]?tutorial[@"is_finished"]:nil;
         BOOL canonical=[tutorial isKindOfClass:NSDictionary.class]&&[(NSDictionary *)tutorial count]==4&&
             ODJSONInteger(tutorial[@"schema"],&schema)&&schema==1&&
-            [tutorial[@"policy"] isEqual:@"original-tutorial-entry-v1"]&&
             ODJSONInteger(tutorial[@"progress"],&progress)&&progress>=0&&progress<=INT32_MAX&&
-            [finished isKindOfClass:NSNumber.class]&&CFGetTypeID((__bridge CFTypeRef)finished)==CFBooleanGetTypeID()&&![finished boolValue];
+            [finished isKindOfClass:NSNumber.class]&&CFGetTypeID((__bridge CFTypeRef)finished)==CFBooleanGetTypeID()&&
+            (([tutorial[@"policy"] isEqual:@"original-tutorial-entry-v1"]&&![finished boolValue])||
+             ([tutorial[@"policy"] isEqual:@"offline-new-player-skip-v1"]&&progress==0&&[finished boolValue]));
         id priorUser=configured[@"user"];
         if(!canonical||(priorUser&&![priorUser isKindOfClass:NSDictionary.class])) {
             if(error)*error=ODFreshError(canonical?@"INVALID_FRESH_POLICY":@"INVALID_CANONICAL_TUTORIAL");
             return nil;
         }
         NSMutableDictionary *user=priorUser?[priorUser mutableCopy]:[NSMutableDictionary dictionary];
-        user[@"tutorial"]=@{@"progress":@(progress),@"is_finished":@NO};configured[@"user"]=user;
+        user[@"tutorial"]=@{@"progress":@(progress),@"is_finished":finished};configured[@"user"]=user;
         [admitted addObjectsFromArray:@[@"tutorial.progress",@"tutorial.is_finished"]];
         [unresolved removeObjectsInArray:admitted];
     }

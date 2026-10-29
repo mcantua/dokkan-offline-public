@@ -152,5 +152,5 @@ with tempfile.TemporaryDirectory(prefix='upgrade-',dir=ROOT/'build') as temp:
     assert lib.od_import_save(core,str(legacy).encode())==0 and hashlib.sha256(legacy.read_bytes()).hexdigest()==digest
     assert call('profile.snapshot')['stamina']==7
     lib.od_close(core);core=opened(legacy);lib.od_close(core)
-    with sqlite3.connect(legacy) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==13
+    with sqlite3.connect(legacy) as db:assert db.execute('PRAGMA user_version').fetchone()[0]==14
 print('PASS official eligibility/graphs/prices/edit/meta-policy/replay/rollback, pinned original clock intents, exclusive rank grants/provenance/XP, hostile save rejection and v5 migration')

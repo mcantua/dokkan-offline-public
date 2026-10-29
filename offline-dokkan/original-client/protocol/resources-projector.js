@@ -26,7 +26,8 @@
   const userUint64Fields=Object.freeze(['id','exp','total_score','mainpage_user_card_id']);
   function checkNativeUserIntegers(user,issues){
     // The native member-with-prior-value helper preserves the prior value for
-    // absent/null fields. This check does not invent a replacement/default.
+    // absent fields. Present JSON null is not an omitted field. This check
+    // does not invent a replacement/default.
     for(const name of userUint32Fields){
       if(own(user,name)&&user[name]!==null&&(!integer(user[name])||user[name]<0||user[name]>4294967295))
         issue(issues,'$.user.'+name,'NATIVE_UINT32_REQUIRED');
@@ -295,6 +296,47 @@
       http_route_admitted:false,original_iphone_runtime_verified:false,captured_player_values_used:false
     };
   }
+  function projectInitialPlayer(envelope,expected,skipIntro){
+    // This is the original User consumer's policy-bound initial DTO, not
+    // the observed Android full-home response. Missing native fields keep
+    // their actual prior values through the source-proven default getter.
+    if(!object(envelope)||!object(envelope.admission)||!object(envelope.player_snapshot)||!object(expected))throw Error('INVALID_NATIVE_SNAPSHOT');
+    const admission=envelope.admission,snapshot=envelope.player_snapshot;
+    for(const key of ['profile_id','content_id','save_scope_sha256']){
+      if(typeof expected[key]!=='string'||admission[key]!==expected[key])throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
+    }
+    if(snapshot.profile_id!==expected.profile_id||snapshot.content_id!==expected.content_id)throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
+    if(admission.clean!==true)throw Error('NATIVE_PROJECTION_PENDING');
+    if(!Array.isArray(snapshot.cards)||!Array.isArray(snapshot.teams)||snapshot.cards.length||snapshot.teams.length)
+      throw Error(skipIntro?'NEW_PROFILE_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION':'INITIAL_TUTORIAL_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION');
+    const tutorial=snapshot.original_client_tutorial;
+    if(!object(tutorial)||Object.keys(tutorial).length!==4||tutorial.schema!==1||
+       tutorial.policy!==(skipIntro?'offline-new-player-skip-v1':'original-tutorial-entry-v1')||!integer(tutorial.progress)||
+       tutorial.progress<0||tutorial.progress>2147483647||tutorial.is_finished!==skipIntro||
+       (skipIntro&&tutorial.progress!==0))
+      throw Error('CANONICAL_ORIGINAL_TUTORIAL_REQUIRED');
+    const identity=envelope.wire_identity||snapshot.wire_identity;
+    if(!object(identity)||!integer(identity.id)||identity.id<1||typeof identity.name!=='string'||
+       !identity.name.length||identity.name.length>64)throw Error('CANONICAL_WIRE_IDENTITY_REQUIRED');
+    if(!unsigned32(snapshot.rank)||snapshot.rank<1)throw Error('CANONICAL_POSITIVE_RANK_REQUIRED');
+    if(!integer(snapshot.revision)||snapshot.revision<0)throw Error('CANONICAL_REVISION_REQUIRED');
+    const response={user:{id:identity.id,name:identity.name,rank:snapshot.rank,
+      tutorial:{progress:tutorial.progress,is_finished:tutorial.is_finished}}};
+    return {schema:1,kind:skipIntro?'new-original-player-skip-intro-projection':'initial-original-tutorial-player-projection',profile_id:expected.profile_id,
+      content_id:expected.content_id,save_scope_sha256:expected.save_scope_sha256,core_revision:snapshot.revision,
+      response,body_json:JSON.stringify(response),full_home_projection:false,
+      omitted_native_prior_fields:['card_capacity','total_card_capacity','support_item_capacity',
+        'is_support_item_capacity_extended','tutorial.contents_lv'],
+      http_route_admitted:false,original_iphone_runtime_verified:false,captured_player_values_used:false};
+  }
+  function projectInitialTutorialPlayer(envelope,expected){
+    // Retained for existing persisted unfinished profiles, never new-profile
+    // creation. The current new-player policy uses the separate skip mode.
+    return projectInitialPlayer(envelope,expected,false);
+  }
+  function projectNewProfilePlayer(envelope,expected){
+    return projectInitialPlayer(envelope,expected,true);
+  }
   function projectTeams(envelope,expected){
     if(!object(envelope)||!object(envelope.admission)||!object(envelope.player_snapshot)||!object(expected))throw Error('INVALID_NATIVE_SNAPSHOT');
     const admission=envelope.admission,snapshot=envelope.player_snapshot;
@@ -370,5 +412,5 @@
       save_scope_sha256:expected.save_scope_sha256,expected_revision:snapshot.revision,mutation,transport_metadata:transport,
       http_route_admitted:false,original_iphone_runtime_verified:false};
   }
-  return Object.freeze({project,projectTeams,normalizeTeamUpdate,validateObserved});
+  return Object.freeze({project,projectNewProfilePlayer,projectInitialTutorialPlayer,projectTeams,normalizeTeamUpdate,validateObserved});
 });

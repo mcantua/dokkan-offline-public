@@ -1,5 +1,8 @@
 # Tin's standing rules (his own words in quotes)
 
+## Latest change: skip the new-player intro tutorial
+Tin explicitly requested removing the Dokkan Battle intro tutorial sequence for new players. New own profiles must skip that sequence and proceed through the original normal startup/Home path. Preserve existing profiles and progress; do not grant tutorial rewards, invent starter units, or reset saves. This overrides earlier first-tutorial-battle and do-not-skip planning. Preserve useful tutorial engine research as reference; it is no longer the intended new-player flow. Native runtime remains unverified until authorized builds and actual execution.
+
 ## Latest active repository instruction (October 29)
 - Offline Dokkan + embedded Unit Creator now uses `mcantua/dokkan-offline-public`. The previous private repository is an untouched backup: no edits, pushes, builds or development there.
 - Base: `chatgpt/ios-eclipse-database-reuse`. Use topic branches and draft PRs; never merge into the base without Tin's OK. Preserve the existing draft workstreams and coordinate through `STATUS.md`.

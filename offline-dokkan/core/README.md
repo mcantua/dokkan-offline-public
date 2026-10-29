@@ -10,7 +10,7 @@ Runtime requires SQLite **3.38 or newer with JSON support** (`STRICT` tables and
 od-cli SAVE MASTER CONTENT PROFILE OPERATION COMMAND JSON
 ```
 
-`CONTENT` identifies the exact imported master snapshot (the importer should supply its verified SHA-256). Masters open read-only and cannot be the same physical file as the mutable save. Player data binds to this content ID, schema version 13 and the exact save schema. Valid version1–12 saves migrate transactionally; importing an older save upgrades a transient candidate without modifying its source. The frozen migration fixture is our own schema, not game data. New profiles have zero inventory/cards. With a supported source `rank_statuses` table, our explicit `offline-rank1-act-v1` bootstrap initializes rank1/EXP0 and its exact ACT capacity (20 in both supplied masters). This is our own start policy, not a claimed verified original login. Older balances are preserved; masters without rank data retain the legacy trusted bootstrap behavior.
+`CONTENT` identifies the exact imported master snapshot (the importer should supply its verified SHA-256). Masters open read-only and cannot be the same physical file as the mutable save. Player data binds to this content ID, schema version 14 and the exact save schema. Valid version1–13 saves migrate transactionally; importing an older save upgrades a transient candidate without modifying its source. The frozen migration fixture is our own schema, not game data. New profiles have zero inventory/cards. With a supported source `rank_statuses` table, our explicit `offline-rank1-act-v1` bootstrap initializes rank1/EXP0 and its exact ACT capacity (20 in both supplied masters). This is our own start policy, not a claimed verified original login. Older balances are preserved; masters without rank data retain the legacy trusted bootstrap behavior.
 
 Internal operations:
 
@@ -39,14 +39,20 @@ Mutations require a stable per-intent command ID. Identical command retries retu
 
 ## Original-client tutorial and team storage
 
-Schema13 adds native tutorial checkpoints and persistent original-team metadata.
-Only an actually inserted new profile receives tutorial progress0 and
-is_finished=false, matching the original TitleLoadingLayer's start-sequence
-control flow. This is our source-compatible fresh policy, not a claim about
-the original Sparking server's exact defaults. Older profiles migrate without a tutorial row and remain an
-explicit recovery/policy gap. No unit, item, capacity, contents level, reward or
-tutorial-finished grant is created. The original tutorial remains responsible
-for its actual scripted scenes and temporary combat.
+Schema13 added native tutorial checkpoints and persistent original-team metadata.
+Tin's later request removes the intro/tutorial sequence for new players.
+Schema14 therefore seeds **only actually inserted new profiles** with
+`{policy:"offline-new-player-skip-v1",progress:0,is_finished:true}`. The actual
+original TitleLoadingLayer checks the finished flag to bypass the tutorial;
+no999999 marker or invented starter unit/item is used. This is an explicitly
+authorized own policy, not a claimed Sparking server default.
+
+Migration copies all existing tutorial rows unchanged, including unfinished
+positive checkpoints. Older profiles without a tutorial row remain unresolved
+instead of being reset/backfilled. Existing cards, teams, inventories and
+profile revisions remain intact. Skip profiles reject tutorial checkpoint
+writes; old unfinished profiles retain their original checkpoint operation.
+No capacity, contents level, reward or progression grant is created.
 
 `od_original_client_apply` is a separate native-only entry. Its normalized
 operations are `tutorial.progress` and `teams.apply`; their internal command
@@ -85,6 +91,11 @@ The one subsequent changed-metadata-only SQL-to-JavaScript-to-SQL check is in
 `original-team-metadata-evidence.json`; it reuses the first migration evidence
 and verifies typed references/context, preservation and the actual GET/POST
 candidate normalizer. Both receipts pin their source at verification time.
+The separate schema14 changed-policy check in `new-player-skip-evidence.json`
+verifies migration rollback/preservation, new-only skip, actual JSON booleans,
+checkpoint SQL exclusion and the real new-player projector/fresh-policy input.
+It does not compile C/Objective-C, execute native import/command control flow,
+or show the original game's skipped intro working on a device.
 
 Keep at most the last 128 full command responses and 128 full run responses per profile. Older results become a JSON-null tombstone, while command IDs, original inputs, settled outcome and reward ledger remain. An old command retry returns `COMMAND_RESULT_EXPIRED`; an old run retry returns `RUN_RESULT_EXPIRED`. Neither re-executes, rolls RNG, grants, debits or advances revision. The caller can query the current snapshot. This bounds historical full-snapshot growth while preserving exactly-once behavior; original command input history is retained.
 

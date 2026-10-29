@@ -121,12 +121,20 @@ static const char *SCHEMA_V12=
 static int retain_full_bundle(od_core *c,const char *profile,const char *args,const void *bundle,size_t bytes,int allow_insert);
 static int validate_full_bundle_rows(od_core *c,sqlite3 *db);
 
-/* Only a genuinely inserted own profile receives the original client's
- * start-tutorial control state. Migration never fabricates this for an old
- * profile. Contents level, capacities and completion remain unimplemented. */
+/* Historical schema13 unfinished checkpoints. Keep this exact schema for
+ * validation/import; schema14 below adds Tin's new-player skip policy. */
 static const char *SCHEMA_V13=
  "CREATE TABLE od_original_tutorial(profile TEXT PRIMARY KEY REFERENCES profiles(id),progress INTEGER NOT NULL CHECK(progress BETWEEN 0 AND 2147483647),is_finished INTEGER NOT NULL CHECK(is_finished=0),policy TEXT NOT NULL CHECK(policy='original-tutorial-entry-v1')) STRICT;"
  "PRAGMA user_version=13;";
+
+/* Tin's new-player no-intro policy. Copy every existing checkpoint unchanged;
+ * only a future actually inserted profile receives the separate skip tuple. */
+static const char *SCHEMA_V14=
+ "ALTER TABLE od_original_tutorial RENAME TO od_original_tutorial_v13;"
+ "CREATE TABLE od_original_tutorial(profile TEXT PRIMARY KEY REFERENCES profiles(id),progress INTEGER NOT NULL CHECK(progress BETWEEN 0 AND 2147483647),is_finished INTEGER NOT NULL CHECK(is_finished IN(0,1)),policy TEXT NOT NULL CHECK(policy IN('original-tutorial-entry-v1','offline-new-player-skip-v1')),CHECK((policy='original-tutorial-entry-v1' AND is_finished=0) OR (policy='offline-new-player-skip-v1' AND is_finished=1 AND progress=0))) STRICT;"
+ "INSERT INTO od_original_tutorial SELECT profile,progress,is_finished,policy FROM od_original_tutorial_v13;"
+ "DROP TABLE od_original_tutorial_v13;"
+ "PRAGMA user_version=14;";
 
 
 void od_free(void *p) { sqlite3_free(p); }
@@ -164,7 +172,7 @@ static char *snapshot(od_core *c,const char *p) {
 static char *original_player_fields(od_core *c,const char *profile,const char *base) {
  char *teams=NULL,*error=NULL;
  if(od_original_teams_snapshot(c->db,profile,&teams,&error)<0){fail(c,error?error:"ORIGINAL_TEAM_SNAPSHOT_UNAVAILABLE");sqlite3_free(error);sqlite3_free(teams);return NULL;}
- char *tutorial=query(c,"SELECT COALESCE((SELECT json_object('schema',1,'policy',policy,'progress',progress,'is_finished',json('false')) FROM od_original_tutorial WHERE profile=:p),'null')",profile,NULL,NULL);
+ char *tutorial=query(c,"SELECT COALESCE((SELECT json_object('schema',1,'policy',policy,'progress',progress,'is_finished',json(CASE WHEN is_finished=1 THEN 'true' ELSE 'false' END)) FROM od_original_tutorial WHERE profile=:p),'null')",profile,NULL,NULL);
  sqlite3_stmt *statement=tutorial?prepare(c,"SELECT json_set(:a,'$.original_client_teams',json(?4),'$.original_client_tutorial',json(?5))",profile,base,NULL):NULL;
  char *result=NULL;
  if(statement){sqlite3_bind_text(statement,4,teams,-1,SQLITE_TRANSIENT);sqlite3_bind_text(statement,5,tutorial,-1,SQLITE_TRANSIENT);if(sqlite3_step(statement)==SQLITE_ROW)result=sqlite3_mprintf("%s",sqlite3_column_text(statement,0));}
@@ -181,10 +189,10 @@ int od_open(const char *save,const char *master,const char *content,od_core **ou
  sqlite3_busy_timeout(c->db,3000);if(sql(c,"PRAGMA foreign_keys=ON;PRAGMA journal_mode=DELETE;PRAGMA synchronous=FULL;")<0)goto bad;
  int64_t version=0;if(scalar(c,"PRAGMA user_version",NULL,NULL,NULL,&version)<0)goto bad;
  if(version==0){int64_t n=0;if(scalar(c,"SELECT count(*) FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%'",NULL,NULL,NULL,&n)<0||n)goto bad;
-  if(sql(c,"BEGIN IMMEDIATE")<0||sql(c,SCHEMA)<0||sql(c,SCHEMA_V2)<0||sql(c,SCHEMA_V3)<0||sql(c,SCHEMA_V4)<0||sql(c,od_schedule_store_schema())<0||sql(c,SCHEMA_V5)<0||sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0||sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0||sql(c,SCHEMA_V8)<0||sql(c,SCHEMA_V9)<0||sql(c,SCHEMA_V10)<0||sql(c,SCHEMA_V11)<0||sql(c,SCHEMA_V12)<0||sql(c,od_original_teams_schema_sql())<0||sql(c,SCHEMA_V13)<0||writeq(c,"INSERT INTO meta VALUES('content',:a)",NULL,content,NULL)<0||sql(c,"COMMIT")<0)goto bad;
- }else if(version>=1&&version<=12){
-  if(!validate_save_version(c,c->db,(int)version)||sql(c,"BEGIN IMMEDIATE")<0||(version==1&&sql(c,SCHEMA_V2)<0)||(version<=2&&sql(c,SCHEMA_V3)<0)||(version<=3&&sql(c,SCHEMA_V4)<0)||(version<=4&&sql(c,od_schedule_store_schema())<0)||(version<=5&&(sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0))||(version<=6&&(sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0))||(version<=7&&sql(c,SCHEMA_V8)<0)||(version<=8&&sql(c,SCHEMA_V9)<0)||(version<=9&&sql(c,SCHEMA_V10)<0)||(version<=10&&sql(c,SCHEMA_V11)<0)||(version<=11&&sql(c,SCHEMA_V12)<0)||sql(c,od_original_teams_schema_sql())<0||sql(c,SCHEMA_V13)<0||sql(c,"COMMIT")<0)goto bad;
- }else if(version!=13)goto bad;
+  if(sql(c,"BEGIN IMMEDIATE")<0||sql(c,SCHEMA)<0||sql(c,SCHEMA_V2)<0||sql(c,SCHEMA_V3)<0||sql(c,SCHEMA_V4)<0||sql(c,od_schedule_store_schema())<0||sql(c,SCHEMA_V5)<0||sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0||sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0||sql(c,SCHEMA_V8)<0||sql(c,SCHEMA_V9)<0||sql(c,SCHEMA_V10)<0||sql(c,SCHEMA_V11)<0||sql(c,SCHEMA_V12)<0||sql(c,od_original_teams_schema_sql())<0||sql(c,SCHEMA_V13)<0||sql(c,SCHEMA_V14)<0||writeq(c,"INSERT INTO meta VALUES('content',:a)",NULL,content,NULL)<0||sql(c,"COMMIT")<0)goto bad;
+ }else if(version>=1&&version<=13){
+  if(!validate_save_version(c,c->db,(int)version)||sql(c,"BEGIN IMMEDIATE")<0||(version==1&&sql(c,SCHEMA_V2)<0)||(version<=2&&sql(c,SCHEMA_V3)<0)||(version<=3&&sql(c,SCHEMA_V4)<0)||(version<=4&&sql(c,od_schedule_store_schema())<0)||(version<=5&&(sql(c,od_schedule_store_schema_v2())<0||sql(c,SCHEMA_V6)<0))||(version<=6&&(sql(c,od_kai_training_schema())<0||sql(c,SCHEMA_V7)<0))||(version<=7&&sql(c,SCHEMA_V8)<0)||(version<=8&&sql(c,SCHEMA_V9)<0)||(version<=9&&sql(c,SCHEMA_V10)<0)||(version<=10&&sql(c,SCHEMA_V11)<0)||(version<=11&&sql(c,SCHEMA_V12)<0)||(version<=12&&(sql(c,od_original_teams_schema_sql())<0||sql(c,SCHEMA_V13)<0))||sql(c,SCHEMA_V14)<0||sql(c,"COMMIT")<0)goto bad;
+ }else if(version!=14)goto bad;
  char *saved=query(c,"SELECT v FROM meta WHERE k='content'",NULL,NULL,NULL);int same=saved&&!strcmp(saved,content);sqlite3_free(saved);if(!same)goto bad;
  sqlite3_stmt *s=NULL;if(sqlite3_prepare_v2(c->master,"SELECT id FROM cards LIMIT 1",-1,&s,NULL)!=SQLITE_OK)goto bad;sqlite3_finalize(s);
  if(!validate_save(c,c->db))goto bad;
@@ -896,7 +904,7 @@ static int profile_create(od_core *c,const char *p,const char *a,char **out) {
  sqlite3_bind_int64(s,4,stamina);int rc=sqlite3_step(s);sqlite3_finalize(s);if(rc!=SQLITE_DONE)return fail(c,"DATABASE_ERROR");
  int replay=sqlite3_changes(c->db)==0;
  if(!replay&&supported&&player_progress_attach(c,p,capacity,clock_present?&now:NULL)<0)return -1;
- if(!replay&&writeq(c,"INSERT INTO od_original_tutorial VALUES(:p,0,0,'original-tutorial-entry-v1')",p,NULL,NULL)<0)return -1;
+ if(!replay&&writeq(c,"INSERT INTO od_original_tutorial VALUES(:p,0,1,'offline-new-player-skip-v1')",p,NULL,NULL)<0)return -1;
  *out=snapshot(c,p);return *out?replay:-1;
 }
 /* Called inside the same mutation transaction as a clocked refresh/run entry.
@@ -1075,6 +1083,7 @@ static int original_client_mutation(od_core *c,const char *operation,const char 
   if(integer_arg(c,payload,"$.progress",1,INT32_MAX,&progress)<0||
      scalar(c,"SELECT count(*)=1 AND NOT EXISTS(SELECT 1 FROM json_each(:a) WHERE key!='progress') FROM json_each(:a)",profile,payload,NULL,&valid)<0||!valid){sqlite3_free(payload);return fail(c,"INVALID_TUTORIAL_CHECKPOINT");}
   if(scalar(c,"SELECT count(*) FROM od_original_tutorial WHERE profile=:p",profile,NULL,NULL,&valid)<0||valid!=1){sqlite3_free(payload);return fail(c,"TUTORIAL_STATE_RECOVERY_REQUIRED");}
+  if(scalar(c,"SELECT count(*) FROM od_original_tutorial WHERE profile=:p AND is_finished=0 AND policy='original-tutorial-entry-v1'",profile,NULL,NULL,&valid)<0||valid!=1){sqlite3_free(payload);return fail(c,"TUTORIAL_SKIPPED_FOR_NEW_PROFILE");}
   if(scalar(c,"SELECT progress FROM od_original_tutorial WHERE profile=:p AND is_finished=0 AND policy='original-tutorial-entry-v1'",profile,NULL,NULL,&prior)<0){sqlite3_free(payload);return -1;}
   replay=prior==progress;
   if(!replay&&writeq(c,"UPDATE od_original_tutorial SET progress=json_extract(:a,'$.progress') WHERE profile=:p AND is_finished=0",profile,payload,NULL)<0){sqlite3_free(payload);return -1;}
@@ -1648,7 +1657,7 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version) {
  sqlite3_finalize(s);if(!ok)return 0;
  sqlite3 *expected=NULL;
  if(sqlite3_open(":memory:",&expected)!=SQLITE_OK){if(expected)sqlite3_close(expected);return 0;}
- if(sqlite3_exec(expected,SCHEMA,0,0,0)!=SQLITE_OK||(version>=2&&sqlite3_exec(expected,SCHEMA_V2,0,0,0)!=SQLITE_OK)||(version>=3&&sqlite3_exec(expected,SCHEMA_V3,0,0,0)!=SQLITE_OK)||(version>=4&&sqlite3_exec(expected,SCHEMA_V4,0,0,0)!=SQLITE_OK)||(version>=5&&(sqlite3_exec(expected,od_schedule_store_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V5,0,0,0)!=SQLITE_OK))||(version>=6&&(sqlite3_exec(expected,od_schedule_store_schema_v2(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V6,0,0,0)!=SQLITE_OK))||(version>=7&&(sqlite3_exec(expected,od_kai_training_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V7,0,0,0)!=SQLITE_OK))||(version>=8&&sqlite3_exec(expected,SCHEMA_V8,0,0,0)!=SQLITE_OK)||(version>=9&&sqlite3_exec(expected,SCHEMA_V9,0,0,0)!=SQLITE_OK)||(version>=10&&sqlite3_exec(expected,SCHEMA_V10,0,0,0)!=SQLITE_OK)||(version>=11&&sqlite3_exec(expected,SCHEMA_V11,0,0,0)!=SQLITE_OK)||(version>=12&&sqlite3_exec(expected,SCHEMA_V12,0,0,0)!=SQLITE_OK)||(version>=13&&(sqlite3_exec(expected,od_original_teams_schema_sql(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V13,0,0,0)!=SQLITE_OK))){sqlite3_close(expected);return 0;}
+ if(sqlite3_exec(expected,SCHEMA,0,0,0)!=SQLITE_OK||(version>=2&&sqlite3_exec(expected,SCHEMA_V2,0,0,0)!=SQLITE_OK)||(version>=3&&sqlite3_exec(expected,SCHEMA_V3,0,0,0)!=SQLITE_OK)||(version>=4&&sqlite3_exec(expected,SCHEMA_V4,0,0,0)!=SQLITE_OK)||(version>=5&&(sqlite3_exec(expected,od_schedule_store_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V5,0,0,0)!=SQLITE_OK))||(version>=6&&(sqlite3_exec(expected,od_schedule_store_schema_v2(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V6,0,0,0)!=SQLITE_OK))||(version>=7&&(sqlite3_exec(expected,od_kai_training_schema(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V7,0,0,0)!=SQLITE_OK))||(version>=8&&sqlite3_exec(expected,SCHEMA_V8,0,0,0)!=SQLITE_OK)||(version>=9&&sqlite3_exec(expected,SCHEMA_V9,0,0,0)!=SQLITE_OK)||(version>=10&&sqlite3_exec(expected,SCHEMA_V10,0,0,0)!=SQLITE_OK)||(version>=11&&sqlite3_exec(expected,SCHEMA_V11,0,0,0)!=SQLITE_OK)||(version>=12&&sqlite3_exec(expected,SCHEMA_V12,0,0,0)!=SQLITE_OK)||(version>=13&&(sqlite3_exec(expected,od_original_teams_schema_sql(),0,0,0)!=SQLITE_OK||sqlite3_exec(expected,SCHEMA_V13,0,0,0)!=SQLITE_OK))||(version>=14&&sqlite3_exec(expected,SCHEMA_V14,0,0,0)!=SQLITE_OK)){sqlite3_close(expected);return 0;}
  char *a=schema(expected),*b=schema(db);ok=a&&b&&!strcmp(a,b);sqlite3_free(a);sqlite3_free(b);sqlite3_close(expected);if(!ok)return 0;
  if(sqlite3_prepare_v2(db,"SELECT count(*)=1 AND max(v)=?1 FROM meta WHERE k='content'",-1,&s,NULL)!=SQLITE_OK)return 0;
  sqlite3_bind_text(s,1,c->content,-1,SQLITE_TRANSIENT);ok=sqlite3_step(s)==SQLITE_ROW&&sqlite3_column_int(s,0);sqlite3_finalize(s);if(!ok)return 0;
@@ -1677,7 +1686,9 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version) {
  }
  if(version>=12&&!validate_full_bundle_rows(c,db))return 0;
  if(version>=13){
-  const char *tutorial_invalid="SELECT 1 FROM od_original_tutorial WHERE progress NOT BETWEEN 0 AND 2147483647 OR is_finished!=0 OR policy!='original-tutorial-entry-v1' LIMIT 1";
+  const char *tutorial_invalid=version>=14?
+   "SELECT 1 FROM od_original_tutorial WHERE progress NOT BETWEEN 0 AND 2147483647 OR policy NOT IN('original-tutorial-entry-v1','offline-new-player-skip-v1') OR (policy='original-tutorial-entry-v1' AND is_finished!=0) OR (policy='offline-new-player-skip-v1' AND (is_finished!=1 OR progress!=0)) LIMIT 1":
+   "SELECT 1 FROM od_original_tutorial WHERE progress NOT BETWEEN 0 AND 2147483647 OR is_finished!=0 OR policy!='original-tutorial-entry-v1' LIMIT 1";
   if(sqlite3_prepare_v2(db,tutorial_invalid,-1,&s,NULL)!=SQLITE_OK)return 0;
   ok=sqlite3_step(s)==SQLITE_DONE;sqlite3_finalize(s);if(!ok||!od_original_teams_validate(db))return 0;
  }
@@ -1705,7 +1716,7 @@ static int validate_save_version(od_core *c,sqlite3 *db,int version) {
  if(rc!=SQLITE_DONE){ok=0;}
  sqlite3_finalize(s);return ok&&(version==1||validate_banners(c,db));
 }
-static int validate_save(od_core *c,sqlite3 *db){return validate_save_version(c,db,13);}
+static int validate_save(od_core *c,sqlite3 *db){return validate_save_version(c,db,14);}
 int od_export_save(od_core *c,const char *dest) {
  if(!c||!dest||!*dest)return -1;
  struct stat st;if(lstat(dest,&st)==0)return fail(c,"DESTINATION_EXISTS");
@@ -1774,7 +1785,7 @@ int od_import_save(od_core *c,const char *source) {
  int valid=0;
  /* Always stage imports privately. Requeue projection before replacing the active
   * save: a restored backup may carry an ack for a sidecar absent on this device. */
- if(version>=1&&version<=13&&validate_save_version(c,db,version)){
+ if(version>=1&&version<=14&&validate_save_version(c,db,version)){
   if(sqlite3_open(":memory:",&candidate)==SQLITE_OK&&backup(candidate,db)==0&&
      (version>=2||sqlite3_exec(candidate,SCHEMA_V2,0,0,0)==SQLITE_OK)&&
      (version>=3||sqlite3_exec(candidate,SCHEMA_V3,0,0,0)==SQLITE_OK)&&
@@ -1788,6 +1799,7 @@ int od_import_save(od_core *c,const char *source) {
      (version>=11||sqlite3_exec(candidate,SCHEMA_V11,0,0,0)==SQLITE_OK)&&
      (version>=12||sqlite3_exec(candidate,SCHEMA_V12,0,0,0)==SQLITE_OK)&&
      (version>=13||(sqlite3_exec(candidate,od_original_teams_schema_sql(),0,0,0)==SQLITE_OK&&sqlite3_exec(candidate,SCHEMA_V13,0,0,0)==SQLITE_OK))&&
+     (version>=14||sqlite3_exec(candidate,SCHEMA_V14,0,0,0)==SQLITE_OK)&&
      sqlite3_exec(candidate,"UPDATE creator_projection SET generation=generation+1,applied_generation=0",0,0,0)==SQLITE_OK&&projection_import_epoch(c,candidate))
    valid=validate_save(c,candidate);
  }
