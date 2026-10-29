@@ -164,11 +164,13 @@ def api(path):
 def compare_inputs(record, group, current):
     previous = record.get('inputs')
     if previous == current: return []
-    # One reviewed harness migration: headless preflight/manual launch becomes
-    # Xcode-managed launch. Reuse only the two unchanged Rust groups from their
-    # original public run; transport changed and must execute its affected tests.
-    require(group in {'vendor', 'helper'} and record.get('run_id') == 40916969403
-            and record.get('source_commit') == '24f2809c3001c474d0ea885afc1aef00aa388fd0',
+    # Reviewed harness-only migrations. Every production input still has to
+    # match exactly; native results never inherit these Rust exceptions.
+    approved = {'vendor': (40916969403, '24f2809c3001c474d0ea885afc1aef00aa388fd0'),
+                'helper': (40916969403, '24f2809c3001c474d0ea885afc1aef00aa388fd0'),
+                'transport': (40926780346, '80f5e35efbefc7299fe1fd20b4e00b7a86a968ca'),
+                'recovery': (40926780346, '80f5e35efbefc7299fe1fd20b4e00b7a86a968ca')}
+    require(group in approved and (record.get('run_id'), record.get('source_commit')) == approved[group],
             'Source changes require new affected checks')
     require(isinstance(previous, dict) and set(previous) == set(current), 'Proof input inventory changed')
     changed = [name for name in current if current[name] != previous[name]]

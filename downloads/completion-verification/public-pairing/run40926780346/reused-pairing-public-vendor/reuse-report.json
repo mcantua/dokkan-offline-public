@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "reused": true,
+  "new_test_execution": false,
+  "repository": "mcantua/dokkan-offline-public",
+  "original_run_id": 40916969403,
+  "original_source_commit": "24f2809c3001c474d0ea885afc1aef00aa388fd0",
+  "current_source_commit": "80f5e35efbefc7299fe1fd20b4e00b7a86a968ca",
+  "group": "vendor",
+  "passed": 8,
+  "failed": 0,
+  "input_bytes_match_current": false,
+  "production_input_bytes_match_current": true,
+  "reviewed_harness_changes": [
+    {
+      "path": ".github/workflows/app-installer-cloud-ui.yml",
+      "original_sha256": "b4550a331b4e6e44fcb519039dba26405327361390bc497c60242d5e2bef2360",
+      "current_sha256": "2fc25f33e6571cc022a160eb8de40144b6db65afd472b9bb18cb710edfe804b7"
+    },
+    {
+      "path": "app-installer/cloud-ui/pairing-public-proof.py",
+      "original_sha256": "1bc9ddee4fa4fa087e2b000e201fe144141c33e43f8e255939f713623851d011",
+      "current_sha256": "4c9624f8a446ec7d47ec9a50e5bd1e33f8550620d265895177b06fe4c0072183"
+    },
+    {
+      "path": "app-installer/cloud-ui/run.sh",
+      "original_sha256": "1efc3b83c4f50a6f73b33216fa9516558eb90686159181ba1c9fd56915f75393",
+      "current_sha256": "de9053f9095ed2ce981a13e79f4f58395bbd9c2dd39abc11e22b111c1c3308a4"
+    }
+  ],
+  "original_context": {
+    "os": "darwin",
+    "architecture": "arm64",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "macos_sdk": "27.0",
+    "simulator_sdk": "27.1"
+  },
+  "scope": "Only eight new vendor cryptographic/record/TLV methods; standalone ring,remote_pairing feature graph."
+}

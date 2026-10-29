@@ -13,6 +13,15 @@ fi
 }
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 [[ "$(basename "$root")" == dokkan-offline-public && "${GITHUB_REPOSITORY:-}" == mcantua/dokkan-offline-public ]] || { echo 'Only the active public repository is allowed.' >&2; exit 1; }
+parallel_native_workflow=0
+if [[ "${AI_PARALLEL_NATIVE_WORKFLOW:-0}" == 1 ]]; then
+  [[ "${AI_WORKFLOW_ROLE:-}" == package && "${GITHUB_JOB:-}" == simulator && \
+     "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 && "${AI_RUN_NATIVE_CHECKS:-1}" == 0 && \
+     "${AI_NATIVE_TEST_SCOPE:-}" == pairing-public && "${AI_RUST_TEST_SCOPE:-}" == pairing-public ]] || {
+    echo 'Parallel packaging requires its exact same-run native sibling workflow mode.' >&2; exit 2;
+  }
+  parallel_native_workflow=1
+fi
 cloud="$root/app-installer/cloud-ui"
 work="$cloud/work"
 tools="$root/downloads/cloud-ui-tools"
@@ -42,7 +51,11 @@ report={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=
  'native_test_scope':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE','all'),
  'display_inventory_preflight_executed':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE')!='pairing-public',
  'rust_test_scope':__import__('os').environ.get('AI_RUST_TEST_SCOPE','all'),
- 'physical_hardware_verified':False, 'pose_automation':'No undocumented fold CLI invoked; installed simctl help is captured for supported-control discovery.'}
+ 'workflow_role':__import__('os').environ.get('AI_WORKFLOW_ROLE','single'),
+ 'native_gate_requires_same_run_sibling':__import__('os').environ.get('AI_PARALLEL_NATIVE_WORKFLOW')=='1',
+ 'native_pass_claimed_by_package_job':False,
+ 'physical_hardware_verified':False,
+ 'pose_automation':('No undocumented fold CLI invoked; optional simctl metadata intentionally not queried for component checks.' if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 'No undocumented fold CLI invoked; bounded installed simctl help captured for supported-control discovery.')}
 (out/'source-report.json').write_text(json.dumps(report,indent=2)+'\n')
 PY
 # Create and own exactly one disposable simulator; never boot/delete a pre-existing device.
@@ -148,7 +161,7 @@ if [[ -n "${AI_REUSE_PAIRING_NATIVE_RUN:-}" ]]; then
   native_reused=1
 fi
 if [[ "${AI_RUN_NATIVE_CHECKS:-1}" != 1 || "$native_reused" == 1 ]]; then
-  if [[ "${AI_RUST_TEST_SCOPE:-all}" == pairing-public && "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 && "$native_reused" != 1 ]]; then
+  if [[ "${AI_RUST_TEST_SCOPE:-all}" == pairing-public && "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 && "$native_reused" != 1 && "$parallel_native_workflow" != 1 ]]; then
     echo 'Final public package also requires matching native proof.' >&2; exit 2
   fi
   package_candidates
@@ -159,12 +172,14 @@ if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SC
 fi
 # Any simulator fallback happens before our application is built or installed.
 owned_simulator="$(python3 "$cloud/prepare-hosted-simulator.py" --evidence "$work/evidence")"
-[[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]] || { echo 'No owned healthy simulator UUID' >&2; exit 1; }
-bounded_command 30 xcrun simctl help > "$work/evidence/simctl-help.txt" 2>&1
-bounded_command 30 xcrun simctl io help > "$work/evidence/simctl-io-help.txt" 2>&1 || true
+[[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]] || { echo 'No valid owned simulator UUID' >&2; exit 1; }
 if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+  printf '%s\n' 'Not queried: optional simctl help metadata is not required by the selected checks; Xcode manages test-host startup.' > "$work/evidence/simctl-help.txt"
+  printf '%s\n' 'Not queried: optional simctl io-help metadata is not required by the selected checks.' > "$work/evidence/simctl-io-help.txt"
   printf '%s\n' 'Not queried: display enumeration is not required by the selected component/labelled geometry-fixture checks. No default display or Duo physical claim.' > "$work/evidence/default-display-enumeration.txt"
 else
+  bounded_command 30 xcrun simctl help > "$work/evidence/simctl-help.txt" 2>&1
+  bounded_command 30 xcrun simctl io help > "$work/evidence/simctl-io-help.txt" 2>&1 || true
   bounded_command 30 xcrun simctl io "$owned_simulator" enumerate > "$work/evidence/default-display-enumeration.txt" 2>&1
 fi
 curl --fail --location --silent --show-error 'https://github.com/yonaskolb/XcodeGen/releases/download/2.46.0/xcodegen.zip' -o "$tools/xcodegen.zip"

@@ -105,21 +105,22 @@ for label, device, runtime in selections:
             owned = None
             raise RuntimeError('Creation did not return a valid owned simulator UUID.')
         entry['simulator_id'] = owned
-        command(['xcrun', 'simctl', 'boot', owned], directory / 'boot.log')
-        if frontend_available:
-            command(['open', str(frontend), '--args', '-CurrentDeviceUDID', owned], directory / 'frontend.log')
-        else:
-            (directory / 'frontend.log').write_text('Selected Xcode has no Simulator.app frontend. Using supported headless simctl boot/bootstatus; shell query/test-host handling recorded separately. No GUI installation or display mutation.\n')
-        bootstatus = command(['xcrun', 'simctl', 'bootstatus', owned, '-b'], directory / 'bootstatus.log', 180)
-        if 'Data Migration Failed' in bootstatus or re.search(r'Status=3\b', bootstatus):
-            raise RuntimeError('Simulator reported terminal data migration failure despite process exit0.')
         managed_components = (os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public'
                               and label == 'regular-iphone-component-fallback')
         if managed_components:
-            (directory / 'shell-appearance.log').write_text('Not queried: this headless heuristic timed out in run40919528305. Xcode-managed test-host launch and the actual selected XCTest results decide native success.\n')
-            entry.update(status='booted-shell-unconfirmed', shell_appearance_verified=False,
+            for name in ('boot.log', 'bootstatus.log', 'frontend.log', 'shell-appearance.log'):
+                (directory / name).write_text('Not queried/launched: only an owned supported simulator was created. Xcode-managed testing owns startup; actual selected XCTest results decide native success. No boot/OS health pass is claimed.\n')
+            entry.update(status='created-XcodeManagedNotBootVerified', boot_verified=False, shell_appearance_verified=False,
                          xcode_managed_test_host_required=True)
         else:
+            command(['xcrun', 'simctl', 'boot', owned], directory / 'boot.log')
+            if frontend_available:
+                command(['open', str(frontend), '--args', '-CurrentDeviceUDID', owned], directory / 'frontend.log')
+            else:
+                (directory / 'frontend.log').write_text('Selected Xcode has no Simulator.app frontend. Using supported headless simctl boot/bootstatus; shell query/test-host handling recorded separately. No GUI installation or display mutation.\n')
+            bootstatus = command(['xcrun', 'simctl', 'bootstatus', owned, '-b'], directory / 'bootstatus.log', 180)
+            if 'Data Migration Failed' in bootstatus or re.search(r'Status=3\b', bootstatus):
+                raise RuntimeError('Simulator reported terminal data migration failure despite process exit0.')
             appearance = command(['xcrun', 'simctl', 'ui', owned, 'appearance'], directory / 'shell-appearance.log')
             if appearance not in ('light', 'dark'):
                 raise RuntimeError('Pre-app shell appearance did not return a supported healthy value.')
@@ -128,6 +129,7 @@ for label, device, runtime in selections:
             simulator_device_type=device['identifier'], simulator_name=device['name'],
             simulator_preapp_attempts=attempts, simulator_regular_fallback_used=(label != 'duo'),
             native_component_runtime=runtime['version'],
+            simulator_boot_verified=False if managed_components else True,
             production_launch_preflight=False if managed_components else None,
             os27_1_runtime_verified=(version(runtime['version']) >= (27, 1)),
             duo_os_verified=(label == 'duo'), duo_native_tests_verified=False,
