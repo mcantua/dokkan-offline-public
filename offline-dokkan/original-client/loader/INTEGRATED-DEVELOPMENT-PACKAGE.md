@@ -31,6 +31,12 @@ factory/host native master gate remains in place; packaging cannot bypass it.
   `f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d`.
   Its `en` label comes from the Android export. It is not an observed original
   iPhone language selection or proof of compatible native opening.
+- The native same-Core Creator frontend under `site/`, generated only with
+  `python3 offline-dokkan/creator-ui/build.py --original-client`. The pinned
+  `ui-manifest.json` must identify the same source HEAD and generator hash;
+  every file is copied with SHA verification. The original-client flag must be
+  true, gameplay harness false, and bundled game databases false. Files remain
+  read-only; private data and generated database snapshots are excluded.
 - The two exact authored protocol files at `OriginalClient/Protocol/` required
   by the factory. Their fixed source paths, sizes and hashes are in the contract.
 
@@ -62,7 +68,9 @@ assembler's exact pinned resource/component arguments:
 ```text
 --profile integrated-development \
 --core-reference /ABSOLUTE/IGNORED/PRIVATE/IMMUTABLE/reference.db \
---native-candidate /ABSOLUTE/IGNORED/PRIVATE/IMMUTABLE/Current-export-master.db
+--native-candidate /ABSOLUTE/IGNORED/PRIVATE/IMMUTABLE/Current-export-master.db \
+--creator-site /ABSOLUTE/FROZEN/WORKTREE/offline-dokkan/creator-ui/site \
+--creator-site-manifest-sha256 EXACT_UI_MANIFEST_SHA256
 ```
 
 Use a new absent `.app` output below that worktree's ignored private folder.
@@ -70,8 +78,28 @@ The existing `package_diagnostic_ipa.py` admits both explicit receipt profiles
 and retains the Diagnostic (integrated development) label in its output. Unsigned packaging does not
 establish installation, rendering, login, battles, saves or Creator integration.
 
-The earlier integrated factory compiled successfully in run `40956206387`
-from `e625d787fad552597f3502692fe94e4149e82ed0` (68 units). The current
-combined practice/resume/opaque-source candidate batch has not been compiled
-or assembled. No integrated package is signed, installed or executed. Reuse
-the prior original-resource evidence; no repeat resource staging is needed.
+The practice/resume/opaque-source candidate batch compiled successfully in
+run `40958701574` from `8be14517dd4bd00e3da747b07a87a26f4493d136`
+(71 units) and produced the unsigned integrated diagnostic. The subsequent
+original request codec, POST teams and retained Creator-site changes await
+the next combined compilation and assembly. No integrated package is signed,
+installed or executed. Reuse prior original-resource evidence; no repeat
+original resource staging is needed.
+
+Stage the native Creator UI after the integration lead freezes the next commit,
+before its app assembly. This is a local source-only staging operation, with no
+database download, game-byte transformation, compiler or separate IPA build.
+Use the original-client output, **not** `unit-creator/web/site-ios` or the
+browser test page: those standalone adapters expect their own database paths.
+The retained native controller serves `site/index.html` at `app://local/`, and
+`host-adapter.js`/`ios-tools-adapter.js` bind the selected game's same native
+Core, scope and Creator services. `core.js`, `sparking-dependencies.js` and
+`runtime-forge.js` also supply the existing trusted native validators.
+
+Generated `site/` stays ignored. Its staging manifest, complete inventory and
+all member hashes are admitted before publication. Unknown files, raw database
+or game archive files, protected trees, harness resources and source symlinks
+are rejected. The assembler holds the site directory FD and checks its identity
+throughout the existing copy/publication sequence. Package receipts keep
+`creator_ui_runtime_verified: false`; frontend inclusion alone does not prove
+that a custom unit has worked in an actual original battle.

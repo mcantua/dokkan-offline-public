@@ -316,3 +316,30 @@ the skipped new-player intro or claim native-engine acceptance. Source
 receipt: `practice-phase-provider-source.json`. Its factory/bridge integration
 and native compilation belong to the next meaningful combined batch; no
 extra isolated check was run.
+
+## Original encoded team updates
+
+The same route adapter now handles POST `/teams` through an optional original
+request-decoder capability. It passes the exact wire bytes into that native
+codec only. No plaintext substitute or base64-as-JSON path exists. The actual
+engine must first pass the decoder's fixed native-owned JSON round trip; a
+missing or unverified capability returns a specific failure without a write.
+
+After decoding, the existing normalizer reads a fresh same-Core snapshot and
+checks clean projection, actual owned IDs, saved metadata and proven writer
+fields. The Core owner applies the normalized update with that exact scope
+and revision, rejecting stale state or a Creator lease atomically. Response
+data comes from current persisted teams. Request activity and the same
+decoder/projector/master context are checked through asynchronous work.
+
+An adapter-generated UUID names each admitted invocation; it is not an
+invented original request ID. There is no permanent body-hash cache that
+would forbid returning to a previous formation. A later identical request
+is a new invocation and can advance the Core revision again. Cancellation
+after a completed write cannot undo that accepted commit; a missing current
+response is reported rather than falsely marked successful.
+
+One new clean-admission normalization check passed; see
+`team-post-clean-admission-evidence.json`. Old Core/team scenarios were not
+repeated. Native codec self-check, an actual encoded save request, and the
+real Core-to-client response round trip remain runtime verification work.

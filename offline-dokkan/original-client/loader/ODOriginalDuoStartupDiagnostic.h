@@ -43,7 +43,8 @@ FOUNDATION_EXPORT ODUnifiedDuoHost * _Nullable ODCreateOriginalDuoStartupDiagnos
     NSError * _Nullable * _Nullable error);
 
 /** Latest native host report plus the actual post-AppController-launch master
- * observation when available, main thread only. Cache presence is not master
+ * capture and a fresh bounded observation at report read, main thread only.
+ * Cache presence is not master
  * selection/schema acceptance. No file is written and no request headers,
  * bodies, account identifiers, pointers or network addresses are added. */
 FOUNDATION_EXPORT NSDictionary * _Nullable ODCopyOriginalDuoStartupDiagnosticReport(void);

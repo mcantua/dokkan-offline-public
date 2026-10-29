@@ -47,6 +47,10 @@ retains existing listener entries and invokes their stored native function
 wrappers with a manager reference. Neither exposes a durable acceptance bit.
 No safe external listener-registration ABI or lifetime contract is established
 by that iteration alone; the host does not insert a fabricated callback.
+The already-reviewed48-byte manager layout contains its base/vtable, cached
+handle and listener vector. No readiness or master-generation field/getter is
+proved. Pointer stability cannot identify a generation: the native cache may
+be reused, fail validation or later close/reopen.
 
 The316-byte cached-open wrapper is the useful result boundary, with important
 qualifications. An already-present cached handle returns1 without a fresh open.
@@ -92,6 +96,12 @@ launch return and records only fixed value observations: pinned image,
 singleton/cache presence and stability, and whether an inline native language
 matches the source default. It never follows the cached database handle or
 calls a database/key function. The report getter exposes that actual capture;
-no device execution receipt is available here. Cache presence does not identify
+it now also refreshes the same bounded observer on demand through the actual
+main-only AppController accessor, because the asynchronous master initialization
+can finish after the launch capture. No timer, callback registration or native
+database call is added. No device execution receipt is available here.
+Acceptance still needs the successful original open/schema result and the
+actual selected-file identity from that same native execution. A later cache
+observation supplies neither. Cache presence does not identify
 the selected file or prove schema success. No master acceptance, first Home or
 real battle is claimed.

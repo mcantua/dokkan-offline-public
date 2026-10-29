@@ -7,6 +7,8 @@
 #import "../ios/ODOriginalPlayerResourcesAdapter.h"
 #import "../ios/ODOriginalPracticePhaseProvider.h"
 #import "../content/ODNativeMasterColdStage.h"
+#import "../content/ODNativeMasterObservation.h"
+#import "../ios/ODOriginalClientBootstrap.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -18,7 +20,7 @@
 static NSString * const ODFactoryBundleID=@"org.offlinedokkan.duo";
 static NSString * const ODFactoryMasterHash=@"1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4";
 static const uint64_t ODFactoryMasterBytes=114827264;
-static NSString * const ODFactoryModuleHash=@"94472e085540c5502e928e629cb5b153fbbbc8c05a87f859eaa9f0459cb4881c";
+static NSString * const ODFactoryModuleHash=@"1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac";
 static NSString * const ODFactorySchemaHash=@"0db95aef3ea8d86a6fbab4c886aee6c4fc55f16d2f32f5ff370557d73e0c4feb";
 // Explicit local issuer policy; not a recovered original server duration.
 static const int32_t ODFactoryOfflineTokenSeconds=3600;
@@ -202,6 +204,9 @@ ODUnifiedDuoHost *ODCreateUnifiedDuoStartupHost(NSError **error) {
     } contextCurrent:current masterContextCurrent:^BOOL{
         ODUnifiedNativeComposition *active=weakOwner;
         return active&&[active isCurrent]&&active.host.originalGameDataAdmitted;
+    } requestDecoderProvider:^ODOriginalRequestDecoder *{
+        ODUnifiedNativeComposition *active=weakOwner;
+        return active&&[active isCurrent]?[active.host currentOriginalRequestDecoder]:nil;
     }];
     if(!owner.resources){[owner failAtStage:@"native-resource-routes-unavailable"];if(error)*error=ODFactoryFailure(owner.stage);return nil;}
     owner.host=[[ODUnifiedDuoHost alloc] initWithPurpose:ODUnifiedDuoIntegratedTarget
@@ -247,5 +252,12 @@ ODUnifiedDuoHost *ODCreateUnifiedDuoStartupHost(NSError **error) {
 }
 
 NSDictionary *ODCopyUnifiedDuoNativeFactoryReport(void) {
-    return NSThread.isMainThread?[ODUnifiedComposition report]:nil;
+    if(!NSThread.isMainThread)return nil;
+    NSDictionary *base=[ODUnifiedComposition report];if(!base)return nil;
+    NSDictionary *native=nil;id original=ODCurrentOriginalAppController();
+    if(original){@try{native=ODCopyOriginalMasterObservation(original);}@catch(NSException *exception){(void)exception;}}
+    NSMutableDictionary *report=[base mutableCopy];
+    report[@"originalMasterCurrentObservation"]=@{@"schema":@1,@"capturedOnReportRead":@YES,
+        @"nativeObservationAvailable":@(native!=nil),@"nativeMaster":native?:@{@"nativeMasterAccepted":@NO,@"originalSchemaOutcomeObserved":@NO}};
+    return [report copy];
 }

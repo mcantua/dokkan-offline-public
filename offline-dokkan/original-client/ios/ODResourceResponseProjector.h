@@ -37,6 +37,13 @@ typedef BOOL (^ODResourceContextCurrent)(void);
  * own-player snapshot, returning normalized native mutation + expected revision.
  * Does not decode/sign a request, adopt timewarp, or execute the mutation. */
 - (void)normalizeOriginalTeamUpdate:(NSDictionary *)decodedBody reply:(ODCoreReply)reply;
+/** Native route only, after an original decoder has actually verified the
+ * request. Normalize against a fresh same-Core snapshot, then apply once with
+ * its exact revision/scope and an adapter-issued command. The additional
+ * main-only predicate retains request/decoder/master authority through async
+ * work. Cancellation after an accepted commit cannot roll it back. */
+- (void)applyDecodedOriginalTeamUpdate:(NSDictionary *)decodedBody command:(NSString *)command
+    mutationCurrent:(ODResourceContextCurrent)mutationCurrent reply:(ODCoreReply)reply;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 NS_ASSUME_NONNULL_END

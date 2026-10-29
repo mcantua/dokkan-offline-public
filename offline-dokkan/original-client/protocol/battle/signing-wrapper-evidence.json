@@ -90,9 +90,10 @@
     "underlying_decode_stage_bodies_inspected": true,
     "formal_exported_C_API_identified": false,
     "request_encode_decode_compatibility_verified": false,
-    "native_adapter_implemented": false,
+    "native_adapter_implemented": true,
     "cipher_and_derivation_implementations_inspected": false,
-    "caller_releases_opaque_result_using_native_string_discriminator": true
+    "caller_releases_opaque_result_using_native_string_discriminator": true,
+    "native_adapter_source": "ios/ODOriginalRequestDecoder.mm"
   },
   "ordinary_plain_response_policy": {
     "bytes": 160,
@@ -169,5 +170,26 @@
     "Native update/final status return values are not checked by the transform wrapper.",
     "Allocation/unwind paths exist; a complete safe arbitrary-input error contract is not admitted.",
     "Prefix/payload temporary length handling requires original-runtime acceptance evidence before declaring exact inversion."
-  ]
+  ],
+  "native_request_adapter": {
+    "opaque_getter_called_internally": true,
+    "getter_body_inspected": false,
+    "key_characters_inspected": false,
+    "context_retained_or_exported": false,
+    "owned_native_string_bytes": 24,
+    "getter_explicit_arguments": 0,
+    "ABI_basis": "two independent original callsites: hidden result storage only, no explicit argument preparation; caller-owned string destruction",
+    "getter_identity": "actual pinned response-caller BL, same target in outgoing builder, actual function start",
+    "body_bytes_limit": 1048576,
+    "canonical_base64_required": true,
+    "minimum_prefix_bytes": 8,
+    "nonempty_payload_required": true,
+    "actual_own_json_roundtrip_required_before_route_enablement": true,
+    "actual_own_json_roundtrip_executed": false,
+    "actual_selfcheck_attempts_per_capability": 1,
+    "native_compilation_verified": false,
+    "route_dto_and_same_owner_validation_required": true,
+    "selfcheck_engine_guard": "actual AppController/same image/active Director/original running Scene/no pending Scene; no Home requirement",
+    "already_running_cocos_transition_excluded": false
+  }
 }

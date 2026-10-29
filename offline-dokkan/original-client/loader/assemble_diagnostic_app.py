@@ -59,6 +59,9 @@ def admit_current_component_sources(component, integrated=False):
         "offline-dokkan/original-client/loader/startup-source.json",
         "unit-creator/ios-objc/Host.m","unit-creator/ios-objc/Host.h",
         "unit-creator/ios-objc/Player.m","unit-creator/ios-objc/Player.h"]
+    if integrated:
+        relevant += ["offline-dokkan/creator-ui","unit-creator/v2/ui","unit-creator/web/src",
+            "offline-dokkan/adapter/creator-project.js","offline-dokkan/original-client/master/runtime_forge.js"]
     if git("status","--porcelain=v1","-z","--untracked-files=all","--",*relevant):
         raise ValueError("Relevant component sources and headers must be committed and clean")
     sources = component.get("sources")
@@ -156,17 +159,62 @@ def copy_member(source_root, source_path, target_root, target_path, expected, cu
         os.close(fd)
 
 
+
+def admit_creator_site(root, raw, component_commit):
+    """Admit the existing original-client native Creator output, no game harness."""
+    info = json.loads(raw)
+    if (info.get("format") != "offline-dokkan-creator-ui" or type(info.get("version")) is not int or
+            info["version"] != 2 or info.get("originalClient") is not True or
+            info.get("authoredGameplayHarnessIncluded") is not False or
+            info.get("gameDatabasesIncluded") is not False or info.get("sourceCommit") != component_commit or
+            info.get("producerSHA256") != hashlib.sha256((resource.ROOT/"offline-dokkan/creator-ui/build.py").read_bytes()).hexdigest()):
+        raise ValueError("Creator site must be the same-source original-client native build")
+    files = info.get("files")
+    required = {"index.html","bootstrap.js","host-adapter.js","ui-adapter.js","ios-tools-adapter.js",
+        "ui-scripts.json","ios-tools-scripts.json","core.js","sparking-dependencies.js","runtime-forge.js"}
+    if not isinstance(files,dict) or not 1 <= len(files) <= 4096 or not required.issubset(files):
+        raise ValueError("Complete native Creator site manifest required")
+    for name,sha in files.items():
+        if (not isinstance(name,str) or len(name)>512 or name.startswith("/") or
+                any(part.casefold() in ("user","save","saves","gameplay","db") or part in ("",".","..")
+                    for part in name.split("/")) or any(ord(char)<32 or char in "\\:" for char in name) or
+                Path(name).suffix.casefold() in (".db",".sqlite",".sqlite3",".apk",".ipa",".p12",".p8",".pem",".key",".keystore",".jks",".mobileprovision") or
+                name == "ui-manifest.json" or not resource.digest(sha)):
+            raise ValueError("Invalid or private Creator site manifest member")
+    expected = set(files)|{"ui-manifest.json"}
+    if inventory(root,expected) != expected:
+        raise ValueError("Creator site contains an unlisted or missing file")
+    pins = {"ui-manifest.json":(len(raw),hashlib.sha256(raw).hexdigest())}
+    total = len(raw)
+    for name,sha in files.items():
+        fd = resource.relative_readonly(root,name)
+        try:
+            size = os.fstat(fd).st_size
+            if not 0 <= size <= 64*1024*1024:
+                raise ValueError("Creator site member exceeds native scheme limit")
+            total += size
+            if total > 256*1024*1024:
+                raise ValueError("Creator site exceeds authored UI budget")
+            pins[name] = (size,sha)
+        finally:
+            os.close(fd)
+    return pins
+
+
 def assemble(args):
     integrated = args.profile == "integrated-development"
     # Reject protected/signing arguments before any input or output I/O.
     for name in ("staged", "manifest", "shell", "engine", "component", "component_receipt", "output"):
         setattr(args, name, admit_argument(getattr(args, name)))
     if integrated:
-        if args.core_reference is None or args.native_candidate is None:
+        if (args.core_reference is None or args.native_candidate is None or args.creator_site is None or
+                not resource.digest(args.creator_site_manifest_sha256)):
             raise ValueError("Integrated development requires exact canonical Core and opaque source candidate inputs")
         args.core_reference = admit_argument(args.core_reference)
         args.native_candidate = admit_argument(args.native_candidate)
-    elif args.core_reference is not None or args.native_candidate is not None:
+        args.creator_site = admit_argument(args.creator_site)
+    elif (args.core_reference is not None or args.native_candidate is not None or args.creator_site is not None or
+            args.creator_site_manifest_sha256 is not None):
         raise ValueError("Diagnostic packaging cannot include canonical Core or native source candidate inputs")
     if (sys.platform != "linux" or
             args.output.suffix != ".app" or
@@ -241,7 +289,8 @@ def assemble(args):
     reserved = set(additions)|{executable,"Info.plist","package-receipt.json"}
     if reserved.intersection(expected):
         raise ValueError("Original resource collides with authored app member")
-    source = parent = stage = -1
+    source = parent = stage = creator = -1
+    creator_pins = {}
     opened = []
     stage_name = None
     stage_identity = None
@@ -250,6 +299,15 @@ def assemble(args):
         if inventory(source,set(expected)) != set(expected):
             raise ValueError("Source bundle contains an unlisted or missing payload")
         source_info = os.fstat(source)
+        if integrated:
+            creator = resource.directory(args.creator_site)
+            creator_info = os.fstat(creator)
+            raw = resource.read_pinned(args.creator_site/"ui-manifest.json",2*1024*1024,args.creator_site_manifest_sha256)
+            creator_pins = admit_creator_site(creator,raw,component_commit)
+            # Reject before destination creation, never let a UI payload replace
+            # any original bundle, executable or authored package metadata.
+            if any("site/"+name in expected or "site/"+name in reserved for name in creator_pins):
+                raise ValueError("Creator site collides with original bundle members")
         # Admission happens before any destination is created.
         for target,(path,pin) in additions.items():
             fd = resource.readonly(path)
@@ -262,7 +320,10 @@ def assemble(args):
         parent = resource.directory(args.output.parent)
         parent_info = os.fstat(parent)
         def current():
-            for path,fd,before in ((args.output.parent,parent,parent_info),(args.staged/"bundle",source,source_info)):
+            roots = [(args.output.parent,parent,parent_info),(args.staged/"bundle",source,source_info)]
+            if creator >= 0:
+                roots.append((args.creator_site,creator,creator_info))
+            for path,fd,before in roots:
                 now = os.stat(path,follow_symlinks=False)
                 held = os.fstat(fd)
                 if (not stat.S_ISDIR(now.st_mode) or (now.st_dev,now.st_ino) != (before.st_dev,before.st_ino) or
@@ -284,6 +345,8 @@ def assemble(args):
         stage_identity = os.fstat(stage)
         for path,pin in expected.items():
             copy_member(source,path,stage,path,pin,current)
+        for path,pin in creator_pins.items():
+            copy_member(creator,path,stage,"site/"+path,pin,current)
         for fd,path,before,target,pin in opened:
             current()
             def chunks(fd=fd,size=pin[0]):
@@ -337,6 +400,10 @@ def assemble(args):
             "native_source_asset_language_label":("en" if integrated else None),
             "native_runtime_language_observed":False,"native_candidate_compatibility_observed":False,
             "native_working_master_written_by_assembler":False,
+            "creator_site_members":len(creator_pins),
+            "creator_site_manifest_sha256":(args.creator_site_manifest_sha256 if integrated else None),
+            "creator_site_original_client_only":bool(integrated),
+            "creator_ui_runtime_verified":False,
             "native_master_accepted":False,"gameplay_verified":False,
             "active_shell_sha256_before_signing":ACTIVE_SHA,
             "original_bundle_aliases_preserved":True,"code_signed":False,"device_installed":False,
@@ -357,6 +424,8 @@ def assemble(args):
                 os.close(fd)
             if source >= 0:
                 os.close(source)
+            if creator >= 0:
+                os.close(creator)
             if stage >= 0:
                 os.close(stage)
             if stage_name is not None and stage_identity is not None:
@@ -378,6 +447,8 @@ def main():
     parser.add_argument("--profile",choices=("diagnostic","integrated-development"),default="diagnostic")
     parser.add_argument("--core-reference",type=Path)
     parser.add_argument("--native-candidate",type=Path)
+    parser.add_argument("--creator-site",type=Path)
+    parser.add_argument("--creator-site-manifest-sha256")
     for name in ("staged","manifest","shell","engine","component","component-receipt","output"):
         parser.add_argument("--"+name,required=True,type=Path)
     for name in ("manifest-sha256","staging-receipt-sha256","component-receipt-sha256","version","build"):

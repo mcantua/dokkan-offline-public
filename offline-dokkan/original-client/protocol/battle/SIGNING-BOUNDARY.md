@@ -57,15 +57,14 @@ narrow source-pinned adapter and real acceptance evidence; an empty output is
 not a proven complete error contract. The prefix/payload temporary lengths
 must also be checked in the original runtime before assuming exact inversion.
 
-This is the preferred reuse candidate for incoming encoded battle requests:
-keep encoding and decoding inside the original engine, then copy only decoded
-ordinary request data into the local backend. An integration still needs a
-source-pinned native adapter with the real string ABI, original engine lifetime,
-error handling and request identity. It must not call these routines as guessed
-`char*` functions, retain borrowed native storage, or export opaque arguments.
-An authorized native encode/decode round trip is still required to establish
-that the outgoing request representation is accepted by this response decoder.
-No adapter, native codec execution or request decoding is claimed here.
+The source-pinned native adapter is now implemented in
+`ios/ODOriginalRequestDecoder.mm`; see [NATIVE-REQUEST-DECODER.md](NATIVE-REQUEST-DECODER.md).
+It preserves owned native strings and original codec/context lifetime, validates
+the bounded outer encoding, and keeps routes closed until an actual own-JSON
+encode/decode roundtrip succeeds after original initialization. It adds no
+separate keys, cryptography or exported context. Route ownership/DTO checks and
+native runtime acceptance remain required. No native codec execution or working
+request decoding is claimed by source implementation alone.
 
 Ordinary response handling is a separate issue: the actual native predicate
 accepts a JSON object without `sign` through its plain-response branch. Its

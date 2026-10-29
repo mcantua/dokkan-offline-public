@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-@class ODOriginalNativeOrigin, ODDuoOriginalPracticeBattle;
+@class ODOriginalNativeOrigin, ODDuoOriginalPracticeBattle, ODOriginalRequestDecoder;
 NS_ASSUME_NONNULL_BEGIN
 /** Establish concrete native pre-load state before original initialization:
  * installed local transport, native-owned paths and excluded source patcher.
@@ -26,11 +26,13 @@ FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeOrigin(NSURL *prepa
     ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
     NSError * _Nullable * _Nullable error);
 /** Integrated native capabilities from the SAME verified image snapshot.
- * Native origin remains required. A missing optional practice capability keeps
- * only manual practice unavailable and does not fabricate native acceptance. */
+ * Native origin remains required. Missing optional practice/codec capabilities
+ * keep only their actions closed. Codec issuance does not enable decoding:
+ * the actual stable original-engine own-JSON self-check remains required. */
 FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeCapabilities(NSURL *preparedImageURL,
     ODPreparedEngineEnvironment configureReviewedEnvironment,
     ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
     ODDuoOriginalPracticeBattle * _Nullable * _Nonnull practiceBattle,
+    ODOriginalRequestDecoder * _Nullable * _Nonnull requestDecoder,
     NSError * _Nullable * _Nullable error);
 NS_ASSUME_NONNULL_END

@@ -364,6 +364,7 @@
     // The native transport must supply an already decoded JSON object. This
     // does not decode a signed/compressed body or validate timewarp's lifecycle.
     const current=projectTeams(envelope,expected),snapshot=envelope.player_snapshot;
+    if(envelope.admission.clean!==true)throw Error('NATIVE_PROJECTION_PENDING');
     if(!current.response)throw Error('NATIVE_TEAM_BINDING_REQUIRED');
     if(!snapshot.teams.length)throw Error('ORIGINAL_EMPTY_TEAM_RUNTIME_UNVERIFIED');
     if(!object(body))throw Error('INVALID_NATIVE_TEAM_REQUEST');

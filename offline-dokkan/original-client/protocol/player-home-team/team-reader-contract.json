@@ -210,5 +210,18 @@
     "incomplete_team_projection_returned_as_success": false,
     "new_empty_or_selected_team_defaults_created": false,
     "native_compile_and_original_client_execution_verified": false
+  },
+  "native_post_route_adapter": {
+    "decoder": "optional same-image ODOriginalRequestDecoder; exact original wire NSData only, actual fixed own-JSON native roundtrip/current-engine verification required",
+    "no_decoder_or_unverified_behavior": "specific native decoder unavailable/verification/context failure; no Core write, no plain replacement or base64-as-JSON fallback",
+    "native_mutation_method": "ODResourceResponseProjector applyDecodedOriginalTeamUpdate:command:mutationCurrent:reply:",
+    "normalization": "fresh actual same-Core snapshot, clean projection, strict complete proven writer fields and real owned-ID bindings",
+    "atomic_write": "existing native-only Core teams.apply with exact snapshot revision/save scope; creator lease and stale revision reject in owner operation",
+    "async_authority": "same current native decoder and projector pointers, current request/Core/master before normalization/write/delivery",
+    "success": "fresh current persisted GET-team projection, never echoed request or stale command receipt",
+    "retry_policy": "new native UUID for each admitted adapter invocation; no alleged original wire intent ID and no permanent request-body hash cache; later same formation remains allowed",
+    "cancellation_after_commit": "accepted Core commit is not rolled back; currentness/response failures report specifically and do not invent success",
+    "encoded_requests_decoded_or_native_writes_verified": false,
+    "new_targeted_check": "team-post-clean-admission-evidence.json; prior migration/team metadata checks reused"
   }
 }

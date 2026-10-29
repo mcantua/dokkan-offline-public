@@ -75,3 +75,24 @@ tutorial sequence or unlink the original ordinary-battle checkpoint. The
 bridge's native finish callback requests the original Home scene. Actual battle
 entry, combat completion and return still require device evidence; ordinary
 quests and persistent gameplay remain separate unfinished requirements.
+
+Original POST decoding is now connected through another optional capability
+from that same verified loaded image snapshot. Finding source-matched functions
+does not enable it. The Host supplies the actual original AppController to the
+decoder's fixed own-JSON roundtrip; its actual initialized/current, active
+original-engine guard with no pending scene runs before any opaque context
+getter or codec invocation. An early/inactive/pending-scene attempt waits, one actual fixed
+probe may run, and failure remains closed. The shared original request codec
+has no Home-only contract, so opening the ordinary team editor first does not
+create a hidden Practice Battle prerequisite. The opaque context is passed
+only inside the original native codec and never inspected, stored or logged.
+
+The resources adapter's decoder provider returns only the Host's currently
+verified capability. POST `/teams` still requires its independent actual master,
+Core/scope, clean projection, normalized payload and revision/commit guards.
+There is no plaintext fallback, and the native own probe never uses request
+bytes. A manual practice action may also attempt the independent fixed probe;
+codec absence/failure does not block that action or original auth/User startup.
+Actual self-check success, POST team mutation/response and relaunch persistence
+remain runtime requirements. The report can refresh the existing bounded
+native master observation on demand; cache presence does not open acceptance.

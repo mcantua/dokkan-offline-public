@@ -2,7 +2,7 @@
 #include <stdint.h>
 #import "ODDuoOriginalScene.h"
 #import "../ios/ODLocalURLProtocol.h"
-@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage, ODDeferredOriginalPlayerAdmission;
+@class ODBoundOriginalCreatorServices, ODNativeMasterColdStage, ODDeferredOriginalPlayerAdmission, ODOriginalRequestDecoder;
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, ODUnifiedDuoPurpose) {
     ODUnifiedDuoStartupDiagnostic,
@@ -120,5 +120,11 @@ typedef void (^ODUnifiedDuoPracticeParametersProvider)(
 /** Main-only game-data/mutation gate, distinct from original image/auth/UI
  * startup. A cached handle or caller-supplied boolean cannot open this gate. */
 @property(nonatomic,readonly) BOOL originalGameDataAdmitted;
+/** Main-only native provider for original POST adapters. Mere loaded code does
+ * not enable this capability: its fixed own-JSON roundtrip must succeed in the
+ * actual initialized, active original engine with no pending scene. No HTTP/page data
+ * is used for that probe. Nil while
+ * missing/not-ready/failed; this never grants Core/master mutation admission. */
+- (nullable ODOriginalRequestDecoder *)currentOriginalRequestDecoder;
 @end
 NS_ASSUME_NONNULL_END

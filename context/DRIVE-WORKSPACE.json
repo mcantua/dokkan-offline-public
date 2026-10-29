@@ -1324,7 +1324,7 @@
     "target_sha256": "9c2dec628ad80a8e0c0f075d92c1ec4f3b64a91dbc108ed446a7d794bd12bbc2",
     "baseline_drive_id": "1TjyV9-OJYT1aaiQQAKzxRLFfVnW5HHj-",
     "baseline_metadata_bytes_verified": 795503162,
-    "integrated_ipa_drive_id": null,
+    "integrated_ipa_drive_id": "1INd1U3aa7eFRsb2h3YwOMNguXU8zzzLo",
     "delta_parts": [
       {
         "id": "1nFJ74XHrWW7gs_RdmefeImNJpdAXeUpk",
@@ -1341,7 +1341,11 @@
     "exact_delta_roundtrip_passed": true,
     "updated_notebook_id": "1yS8bl2XMSK5bo0BFKpgsqi7ZHkh-LWFr",
     "updated_notebook_bytes": 17161,
-    "single_ipa_restore_pending": true,
-    "creator_site_included": false
+    "single_ipa_restore_pending": false,
+    "creator_site_included": false,
+    "integrated_ipa_url": "https://drive.google.com/file/d/1INd1U3aa7eFRsb2h3YwOMNguXU8zzzLo/view",
+    "integrated_size_verified": 929647581,
+    "integrated_source_visibility": "not_shared",
+    "drive_full_byte_readback_performed": false
   }
 }

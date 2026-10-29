@@ -65,6 +65,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--original-client', action='store_true', help='Stage the actual original-game integration without the legacy authored gameplay harness')
     original_client = parser.parse_args().original_client
+    source_commit = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    if original_client:
+        # Only public UI/generator dependencies are inspected, never user data.
+        scopes = ['offline-dokkan/creator-ui','unit-creator/v2/ui','unit-creator/web/src',
+            'offline-dokkan/adapter/creator-project.js','offline-dokkan/original-client/master/runtime_forge.js']
+        if subprocess.check_output(['git','status','--porcelain=v1','--untracked-files=all','--',*scopes],cwd=ROOT):
+            raise ValueError('Original-client Creator staging requires committed clean UI sources')
     source = (UI / 'index.html').read_text()
     scripts = re.findall(r'<script\b[^>]*\bsrc="([^"]+)"[^>]*></script>', source)
     styles = re.findall(r'<link\b[^>]*\bhref="([^"]+\.css)"[^>]*>', source)
@@ -159,7 +166,10 @@ def main():
     manifest = {str(path.relative_to(SITE)): hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(SITE.rglob('*')) if path.is_file()}
     if any((path.startswith('data/') and path[5:] not in TOOL_METADATA | set(TOOL_REFERENCE_SCRIPTS)) or Path(path).suffix in {'.db', '.sqlite', '.apk', '.ipa'} for path in manifest):
         raise ValueError('Game data must never enter the Offline UI bundle')
-    (SITE / 'ui-manifest.json').write_text(json.dumps({'format': 'offline-dokkan-creator-ui', 'version': 2, 'originalClient': original_client, 'authoredGameplayHarnessIncluded': not original_client, 'gameDatabasesIncluded': False, 'gameDataIncluded': True, 'referenceMetadataIncluded': sorted(TOOL_METADATA | set(TOOL_REFERENCE_SCRIPTS)), 'files': manifest}, sort_keys=True, indent=2) + '\n')
+    (SITE / 'ui-manifest.json').write_text(json.dumps({'format': 'offline-dokkan-creator-ui', 'version': 2, 'sourceCommit': source_commit, 'producerSHA256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'originalClient': original_client, 'authoredGameplayHarnessIncluded': not original_client, 'gameDatabasesIncluded': False, 'gameDataIncluded': True, 'referenceMetadataIncluded': sorted(TOOL_METADATA | set(TOOL_REFERENCE_SCRIPTS)), 'files': manifest}, sort_keys=True, indent=2) + '\n')
+    if original_client:
+        for staged in SITE.rglob('*'):
+            if staged.is_file(): staged.chmod(0o400)
     print('Staged actual Creator screens:', len(scripts), 'shared scripts;', len(manifest), 'UI files; no game databases; explicit reference metadata only.')
 
 

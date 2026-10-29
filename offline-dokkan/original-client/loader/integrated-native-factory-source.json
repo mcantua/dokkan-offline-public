@@ -16,7 +16,7 @@
     {
       "relative_path": "OriginalClient/Protocol/resources-projector.js",
       "source": "offline-dokkan/original-client/protocol/resources-projector.js",
-      "sha256": "94472e085540c5502e928e629cb5b153fbbbc8c05a87f859eaa9f0459cb4881c"
+      "sha256": "1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac"
     },
     {
       "relative_path": "OriginalClient/Protocol/cached-resource-response-schema.json",
@@ -33,25 +33,29 @@
   ],
   "source_hashes": {
     "loader/ODUnifiedDuoNativeFactory.h": "fa5f061015865dc202d88131ea6271ecc961a8da747e72b162940f8d781b0a7c",
-    "loader/ODUnifiedDuoNativeFactory.m": "15a5e4326d71d6d632688375726d69eeae7042d7b28489f4e69dca4592ee21d0",
+    "loader/ODUnifiedDuoNativeFactory.m": "11cc7ab17815e1ca01f190c17b4a673bd4017bcaacc4c29fce1c38dd4e51376a",
     "loader/ODUnifiedDuoStartup.h": "aa3871e2b54955ac02b971bb43a35727caa51ee97ecd1e7ca9b2547636871e1e",
-    "duo/ODUnifiedDuoHost.h": "0aa8c0286062038b8eec854149e7d2ee9bf98e4d284d9fb5aa683465bac850a2",
-    "duo/ODUnifiedDuoHost.m": "f6e90bac90e6b258b78feadd940d0c5dcbb43155ac74ed33bbd6a8e7c0b27ca1",
-    "ios/ODOriginalPlayerResourcesAdapter.h": "66c4f3ebf1f5cf2b2fbbb275df374abc7f6f703cac2750d38477014505003917",
-    "ios/ODOriginalPlayerResourcesAdapter.m": "e4872a4c708ee2b50af704c240d22874aca582d9172ed9bdf2f2b560090ecccf",
+    "duo/ODUnifiedDuoHost.h": "a6f4983ce44f44f75b393a6640080defa62483857f793d286316d77bf9b332d7",
+    "duo/ODUnifiedDuoHost.m": "640f26d683a1c385468eea5efcc16cccb169bc059fbddc048c5b85eefcc4f3d7",
+    "ios/ODOriginalPlayerResourcesAdapter.h": "76f5494a44ae92e2068e29fe263b569e2580b75478bddd752e1cc7cd0909df5f",
+    "ios/ODOriginalPlayerResourcesAdapter.m": "e62d241238e44d1bb741cd3ed8128631d3355d47815b8cd9a067598e6a5ea87d",
     "loader/ODUnifiedDuoStartup.m": "17a8029eb40e2f11c102277e8d1a0d664cda09498a040bec92d923ad67059850",
-    "loader/ODPreparedEngineLoader.h": "faab1f4633c2430855d6255e74bbe172c37c3d09d344ce10d1a2a01da8c4df40",
-    "loader/ODPreparedEngineLoader.m": "e9896c230a8273d380dd30ef667332fc66e3b2adc2bb0dd7d1b1db4094f03488",
+    "loader/ODPreparedEngineLoader.h": "b0701fc0a6717d4d2f88103f94b437d1a71faf2f72ab8480a3c1f0f05f36f51b",
+    "loader/ODPreparedEngineLoader.m": "fb3f1dcfecbb9bc3a1b85fd826ba2aaf29d00bea4876312e301124276cfdfb8a",
     "ios/ODOriginalClientBootstrap.h": "f44e72dccfdfd15fe506a1d92ec2dbb4be92e0878c48e0d7119355f0d5ce2e9e",
     "ios/ODOriginalClientBootstrap.m": "66baefcc295c81a7610d7bab3d96868567165b63f24041a00c1b118990553199",
     "ios/ODOriginalPracticePhaseProvider.h": "54a58dda631c400dd866153759d76904ea083edd329b5d76cab7f0b4c5181b19",
     "ios/ODOriginalPracticePhaseProvider.m": "56e52619e5b26f7cc82f802e76bb8ac2767e3c8db6d5859ccca68035d3375120",
     "duo/ODDuoPracticeBattle.h": "2e82f484f0832e872a9b473b1d734584fde3dca0a756be01bbd2839f9a8e82c0",
-    "duo/ODDuoPracticeBattle.mm": "8d6a24262c8b41b2990dc782ea7bb56128b1b7e50b8cc422ba0c4d0e1ac7fb8c",
-    "loader/ODOriginalDuoStartupDiagnostic.h": "92bd34b73032f3e0bfa87f41df2905707687bf190460eef8a0e5e15df256e662",
-    "loader/ODOriginalDuoStartupDiagnostic.m": "a8f9a0cf040146e2c93ad27127598390e43e3f4fd1f8aee5f582e52335d74de6",
+    "duo/ODDuoPracticeBattle.mm": "b32135823b417ae1069308bbff3fa4b6e7bbe7db3ca66d9b47f153b79ebbeed2",
+    "loader/ODOriginalDuoStartupDiagnostic.h": "30a16c9042525e7be7573e336057f3feb9ebda30424b0fc91145d0e6cf6aa1d9",
+    "loader/ODOriginalDuoStartupDiagnostic.m": "aed2ac9243a2b7c48558a6b92a9101e78a35dd85c3929df45ef610560b423907",
     "content/ODNativeMasterColdStage.h": "c914918feba3ac65685c2509295c6eec299ddf27980a44d0315cfb0229ec740a",
-    "content/ODNativeMasterColdStage.m": "84d38c07093bde3a7a101ae77c6d92d8e547748f1e2928aded3232f8552cbc51"
+    "content/ODNativeMasterColdStage.m": "84d38c07093bde3a7a101ae77c6d92d8e547748f1e2928aded3232f8552cbc51",
+    "ios/ODOriginalRequestDecoder.h": "3312a09b621b3035d877900fc02522d906702f7913d4703d03b6a51ec7c33769",
+    "ios/ODOriginalRequestDecoder.mm": "c1cf71e041928b27fd615f11768eca76c2a3c2a18971825156c0131fa20b9d84",
+    "ios/ODResourceResponseProjector.h": "b155bb80a642fa4c9fffe7c43ce113e5603f9ea0c35251164c8009fc61100722",
+    "ios/ODResourceResponseProjector.m": "d2171ba43e3de3ec1c7f54ed1e2b774f52346e8ae6f6e94600757c9ca6d8136b"
   },
   "same_core_player_scope": "actual owner queue preparation, receipt returned asynchronously on main; never guessed",
   "same_core_services_binding": "native IO construction then actual Host binding on main",
@@ -122,5 +126,38 @@
     "staging_queue": "native pure IO preparation queue before dlopen; no Core/main/UI callback",
     "context": "immutable exact Core/master FD/path/bundle identity",
     "actual_native_key_open_schema_codec_accepted": false
+  },
+  "prior_combined_native_compile": {
+    "commit": "8be14517",
+    "github_actions_run": 40958701574,
+    "authored_translation_units": 71,
+    "objective_cpp_practice_bridge_compiled": true,
+    "native_libcpp_32byte_callback_assertion_passed": true,
+    "dynamic_link_succeeded": true,
+    "current_request_decoder_changes_included": false,
+    "runtime_verified": false
+  },
+  "original_post_decoder": {
+    "issued_from_same_verified_image_snapshot": true,
+    "optional_absence_blocks_initial_startup": false,
+    "code_presence_enables_decoding": false,
+    "first_verification": "actual initialized/current/active original engine with own running scene and no pending scene; one fixed native-owned JSON roundtrip",
+    "failed_actual_probe_retries": false,
+    "http_request_used_as_probe": false,
+    "opaque_context_read_stored_logged": false,
+    "plaintext_fallback": false,
+    "post_teams_requires_independent_master_core_scope_revision_commit_guards": true,
+    "actual_native_selfcheck_verified": false,
+    "actual_post_team_mutation_response_relaunch_verified": false,
+    "early_wait_basis": "not initialized, inactive, pending scene, paused or stopped; no Home-only restriction",
+    "practice_or_home_visit_required_before_team_post": false,
+    "early_not_ready_consumes_probe": false,
+    "all_running_cocos_transition_classes_excluded": false
+  },
+  "on_demand_native_observation": {
+    "actual_original_app_controller_only": true,
+    "bounded_existing_observer": true,
+    "automatic_polling": false,
+    "cached_handle_is_master_acceptance": false
   }
 }

@@ -25,5 +25,6 @@
   },
   "native_engine_or_home_admission_claimed": false,
   "native_bridge_integration": "ODDuoOriginalPracticeBattle beginWithAppController:parametersJSON:error: receives unchanged phase bytes; genuine native image/master/Home and finish-callback guards remain bridge/factory responsibility",
-  "verification": "source only; no standalone duplicate tests or local native compile; next meaningful combined native batch required"
+  "verification": "source only; no standalone duplicate tests or local native compile; next meaningful combined native batch required",
+  "native_bridge_owned_cache_guard": "separate bridge source now uses original native owned lookup for both fixed player IDs and dummy, rejecting hits or unavailable cache; provider does not replace or claim this proof"
 }

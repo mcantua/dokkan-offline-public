@@ -1,4 +1,5 @@
 #import "ODOriginalPlayerResourcesAdapter.h"
+#import "ODOriginalRequestDecoder.h"
 
 static NSError *ODPlayerResourcesError(NSString *code) {
     return [NSError errorWithDomain:@"OfflineDokkan.OriginalPlayerResources" code:1
@@ -38,11 +39,15 @@ static BOOL ODResourceBootstrapQuery(NSDictionary<NSString *,NSString *> *fields
     return [self initWithProjectorProvider:provider contextCurrent:current masterContextCurrent:current];
 }
 - (instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider contextCurrent:(ODResourceContextCurrent)current masterContextCurrent:(ODResourceContextCurrent)masterCurrent {
+    return [self initWithProjectorProvider:provider contextCurrent:current masterContextCurrent:masterCurrent requestDecoderProvider:nil];
+}
+- (instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider contextCurrent:(ODResourceContextCurrent)current masterContextCurrent:(ODResourceContextCurrent)masterCurrent requestDecoderProvider:(ODOriginalPlayerRequestDecoderProvider)decoderProvider {
     if(!provider||!current||!masterCurrent)return nil;
     if((self=[super init])){
         ODResourceContextCurrent live=[current copy];
         ODResourceContextCurrent masterLive=[masterCurrent copy];
         ODOriginalPlayerResourcesProjectorProvider issuedProjector=[provider copy];
+        ODOriginalPlayerRequestDecoderProvider issuedDecoder=[decoderProvider copy];
         NSMutableArray<ODLocalTransportRoute *> *routes=[NSMutableArray array];
         for(NSString *path in @[@"/resources/login",@"/resources/home"]){
             BOOL login=[path isEqualToString:@"/resources/login"];
@@ -108,6 +113,57 @@ static BOOL ODResourceBootstrapQuery(NSDictionary<NSString *,NSString *> *fields
             }];
         if(!teams)return nil;
         [routes addObject:teams];
+        ODLocalTransportRoute *update=[[ODLocalTransportRoute alloc] initWithMethod:@"POST" path:@"/teams"
+            handler:^(ODLocalTransportRequest *request,ODLocalTransportCompletion completion){
+                if(![request.method isEqual:@"POST"]||![request.path isEqual:@"/teams"]||!request.body.length||request.queryFields.count){
+                    completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_REQUEST_UNSUPPORTED"));return;
+                }
+                dispatch_async(dispatch_get_main_queue(),^{
+                    if(!request.isActive||!live()||!masterLive()){
+                        completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_CONTEXT_CHANGED"));return;
+                    }
+                    ODOriginalRequestDecoder *decoder=issuedDecoder?issuedDecoder():nil;
+                    if(!decoder){completion(nil,ODPlayerResourcesError(@"ORIGINAL_REQUEST_DECODER_UNAVAILABLE"));return;}
+                    NSError *decodeFailure=nil;
+                    // The capability rejects until its own original-codec
+                    // roundtrip succeeds and validates the exact wire frame.
+                    // Never try Foundation JSON/base64 as a replacement codec.
+                    NSDictionary *decoded=[decoder decodeOriginalPOSTBody:request.body error:&decodeFailure];
+                    if(decodeFailure||![decoded isKindOfClass:NSDictionary.class]||!decoder.verifiedForCurrentEngine){
+                        completion(nil,decodeFailure?:ODPlayerResourcesError(@"ORIGINAL_REQUEST_CODEC_NOT_VERIFIED"));return;
+                    }
+                    ODResourceResponseProjector *projector=issuedProjector();
+                    if(!projector){completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_NOT_READY"));return;}
+                    ODResourceContextCurrent mutationCurrent=^BOOL{
+                        return request.isActive&&live()&&masterLive()&&issuedProjector()==projector&&
+                            issuedDecoder&&issuedDecoder()==decoder&&decoder.verifiedForCurrentEngine;
+                    };
+                    if(!mutationCurrent()){
+                        completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_CONTEXT_CHANGED"));return;
+                    }
+                    // This nonce identifies this admitted adapter invocation.
+                    // It is not an invented original request ID or permanent
+                    // body-digest cache. A later identical request is allowed.
+                    NSString *command=[@"original-team:" stringByAppendingString:NSUUID.UUID.UUIDString];
+                    [projector applyDecodedOriginalTeamUpdate:decoded command:command mutationCurrent:mutationCurrent
+                        reply:^(id candidate,NSError *writeFailure){
+                            if(writeFailure){completion(nil,writeFailure);return;}
+                            if(!mutationCurrent()){
+                                completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_CONTEXT_CHANGED_AFTER_COMMIT"));return;
+                            }
+                            NSDictionary *result=[candidate isKindOfClass:NSDictionary.class]?candidate:nil;
+                            NSDictionary *body=[result[@"response"] isKindOfClass:NSDictionary.class]?result[@"response"]:nil;
+                            NSString *json=[result[@"body_json"] isKindOfClass:NSString.class]?result[@"body_json"]:nil;
+                            if(!body||!json.length||![result[@"kind"] isEqual:@"own-player-team-projection"]){
+                                completion(nil,ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_COMMITTED_RESPONSE_NOT_READY"));return;
+                            }
+                            ODLocalTransportResponse *response=[ODLocalTransportResponse plainJSONResponseWithObject:body];
+                            completion(response,response?nil:ODPlayerResourcesError(@"ORIGINAL_TEAMS_POST_ENCODING_FAILED"));
+                        }];
+                });
+            }];
+        if(!update)return nil;
+        [routes addObject:update];
         _routes=[routes copy];
     }
     return self;

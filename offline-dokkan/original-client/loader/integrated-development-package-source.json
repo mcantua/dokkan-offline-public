@@ -4,7 +4,7 @@
   "purpose": "integrated-duo-development",
   "bundle_identifier": "org.offlinedokkan.duo",
   "platform": "iPhone Duo only",
-  "recipe_status": "source only; integrated package not yet built or executed",
+  "recipe_status": "8be integrated diagnostic compiled/assembled; current codec, POST teams and Creator-site changes await combined build; no runtime execution",
   "authored_app_info_overrides": {
     "CFBundleExecutable": "OfflineDokkanDuoDevelopment",
     "CFBundleIdentifier": "org.offlinedokkan.duo",
@@ -30,8 +30,8 @@
     {
       "source": "offline-dokkan/original-client/protocol/resources-projector.js",
       "destination": "OriginalClient/Protocol/resources-projector.js",
-      "bytes": 26421,
-      "sha256": "94472e085540c5502e928e629cb5b153fbbbc8c05a87f859eaa9f0459cb4881c"
+      "bytes": 26502,
+      "sha256": "1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac"
     },
     {
       "source": "offline-dokkan/research/cached-resource-response-schema.json",
@@ -63,5 +63,17 @@
     "native_compatibility_observed": false,
     "immutable_bundle_copy_only": true,
     "existing_native_working_state_replaced": false
+  },
+  "creator_site": {
+    "producer": "offline-dokkan/creator-ui/build.py --original-client",
+    "input": "Exact immutable site directory and pinned ui-manifest.json from same clean reviewed source HEAD",
+    "destination": "site/",
+    "source_commit_and_producer_hash_required": true,
+    "every_member_sha256_reverified": true,
+    "authored_gameplay_harness_included": false,
+    "private_game_databases_included": false,
+    "separate_standalone_creator_master_included": false,
+    "same_native_core_bridge": "OfflineCreator + scoped ForgeHost",
+    "runtime_verified": false
   }
 }

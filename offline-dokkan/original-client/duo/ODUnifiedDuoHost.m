@@ -2,6 +2,7 @@
 #import "ODDuoCreatorQuickAction.h"
 #import "ODDeferredOriginalPlayerAdmission.h"
 #import "ODDuoPracticeBattle.h"
+#import "../ios/ODOriginalRequestDecoder.h"
 #import "../ios/ODFreshStatePolicy.h"
 #import "../ios/ODOfflineBootstrapAuth.h"
 #import "../ios/ODOriginalNativeOrigin.h"
@@ -97,6 +98,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     BOOL _deferredPlayerPreparationRequested;
     ODUnifiedDuoImageAttachment _attach;
     ODDuoOriginalPracticeBattle *_practice;
+    ODOriginalRequestDecoder *_requestDecoder;
     ODUnifiedDuoPracticeParametersProvider _practiceParameters;
     BOOL _practiceLoading;
     NSDictionary *_practiceReport,*_practiceEntryReport;
@@ -161,6 +163,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"originalPracticeRunning":@(_practice.running),
         @"originalPractice":_practiceReport?:@{@"outcome":@"not-started"},
         @"originalPracticeEntry":_practiceEntryReport?:@{@"outcome":@"not-configured"},
+        @"originalRequestDecoderResolved":@(_requestDecoder!=nil),
+        @"originalRequestDecoderVerified":@(_requestDecoder.verifiedForCurrentEngine),
+        @"originalRequestDecoderState":_requestDecoder.state?:@"unavailable",
         @"unsupportedRequestObserverInstalled":@(_requestObserverInstalled),
         @"unsupportedFoundationRequests":[_unsupportedRequests copy],
         @"creatorEntry":_creatorEntryReport?:@{@"outcome":@"not-configured"},
@@ -326,11 +331,13 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         };
         ODOriginalNativeOrigin *origin=nil;
         ODDuoOriginalPracticeBattle *practice=nil;
-        BOOL loaded=integrated?ODLoadPreparedOriginalEngineWithNativeCapabilities(host->_engine,prepare,&origin,&practice,failure):
+        ODOriginalRequestDecoder *decoder=nil;
+        BOOL loaded=integrated?ODLoadPreparedOriginalEngineWithNativeCapabilities(host->_engine,prepare,&origin,&practice,&decoder,failure):
             ODLoadPreparedOriginalEngine(host->_engine,prepare,failure);
         host->_engineLoaded=loaded;if(!loaded){host->_stage=@"prepared-image-load-failed";[host emit];return NO;}
         if(integrated){
             host->_practice=practice;
+            host->_requestDecoder=decoder;
             practice.report=^(NSDictionary *state){ODUnifiedDuoHost *active=weakSelf;if(active){active->_practiceReport=[state copy];[active emit];}};
             host->_nativeOriginArmed=ODRearmLocalTransportForLoadedOriginalOrigin(origin,host->_routes,failure);
             if(!host->_nativeOriginArmed){host->_stage=@"native-origin-route-binding-failed";[host emit];return NO;}
@@ -529,6 +536,24 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     }
     _practiceParameters=[provider copy];return YES;
 }
+- (ODOriginalRequestDecoder *)currentOriginalRequestDecoder {
+    if(!NSThread.isMainThread||!_installed||!_current()||!_requestDecoder||!_services||_servicesPending||
+       _services.coordinator.creatorIsOpen||_practice.running||![_services creatorScopeIsCurrent])return nil;
+    UIWindow *window=_renderer.window;
+    if(!window||!_originalController||window.rootViewController!=_originalController||_originalController.view!=_renderer||
+       window.windowScene.activationState!=UISceneActivationStateForegroundActive||
+       _originalController.transitionCoordinator||_originalController.presentedViewController)return nil;
+    if(!_requestDecoder.verifiedForCurrentEngine){
+        id original=ODCurrentOriginalAppController();if(!original)return nil;
+        // Actual active original engine and no pending scene are checked before any opaque
+        // getter or codec call. Only one fixed native-owned JSON probe is used;
+        // the original shared codec has no Home-only contract.
+        NSString *before=_requestDecoder.state;
+        [_requestDecoder verifyWithOwnJSONForAppController:original error:NULL];
+        if(![before isEqual:_requestDecoder.state])[self emit];
+    }
+    return _requestDecoder.verifiedForCurrentEngine?_requestDecoder:nil;
+}
 - (void)beginPracticeFromUserActionWithCompletion:(void (^)(NSError *))completion {
     if(!completion)return;
     if(!NSThread.isMainThread||!_installed||!_current()||!_practice||_practice.running||_practiceLoading||
@@ -551,6 +576,9 @@ static BOOL ODHostSourcePatcherAbsent(void) {
                 completion(ODHostFailure(12));return;
             }
             NSError *nativeFailure=nil;
+            // Optional own-data codec check in the active engine; its absence or
+            // failure must never prevent this independent manual practice.
+            (void)[host currentOriginalRequestDecoder];
             BOOL begun=[host->_practice beginWithAppController:original parametersJSON:parameters error:&nativeFailure];
             [host emit];completion(begun?nil:ODHostFailure(12));
         });

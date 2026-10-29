@@ -1,12 +1,16 @@
 #import <Foundation/Foundation.h>
 #import "ODLocalURLProtocol.h"
 #import "ODResourceResponseProjector.h"
+@class ODOriginalRequestDecoder;
 
 NS_ASSUME_NONNULL_BEGIN
 /** Called only on main. The native factory returns its actual issued scoped
  * projector after Core admission, or nil while not ready. No values/snapshot
  * from a page can replace this native object capability. */
 typedef ODResourceResponseProjector *_Nullable (^ODOriginalPlayerResourcesProjectorProvider)(void);
+/** MAIN-only actual original-image decoder, nil until issued. Successful
+ * native own-JSON self-check is enforced by the capability itself. */
+typedef ODOriginalRequestDecoder *_Nullable (^ODOriginalPlayerRequestDecoderProvider)(void);
 /** Native bootstrap resources and saved-team routes for the actual client.
  * The trusted host must supply its SAME scoped Core-backed projector and
  * current-context block. No page, source account, or second Core owns this.
@@ -27,6 +31,12 @@ typedef ODResourceResponseProjector *_Nullable (^ODOriginalPlayerResourcesProjec
 - (nullable instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider
                                   contextCurrent:(ODResourceContextCurrent)current
                             masterContextCurrent:(ODResourceContextCurrent)masterCurrent;
+/** Adds original POST /teams. A nil/unverified decoder fails specifically;
+ * there is no plaintext/base64-as-JSON fallback or unverified Core write. */
+- (nullable instancetype)initWithProjectorProvider:(ODOriginalPlayerResourcesProjectorProvider)provider
+                                  contextCurrent:(ODResourceContextCurrent)current
+                            masterContextCurrent:(ODResourceContextCurrent)masterCurrent
+                         requestDecoderProvider:(nullable ODOriginalPlayerRequestDecoderProvider)decoderProvider;
 - (instancetype)init NS_UNAVAILABLE;
 @end
 NS_ASSUME_NONNULL_END

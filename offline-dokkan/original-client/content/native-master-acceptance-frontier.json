@@ -74,7 +74,9 @@
     "reads_database_handle_contents": false,
     "calls_database_or_key_function": false,
     "establishes_selected_file_or_schema_outcome": false,
-    "device_execution_receipt": false
+    "device_execution_receipt": false,
+    "on_demand_current_refresh_implemented": true,
+    "refresh_uses_actual_main_only_AppController": true
   },
   "startup_and_data_gate": {
     "original_startup_may_precede_acceptance": true,
@@ -94,5 +96,15 @@
       "external_registration_abi_admitted": false
     },
     "observer_gate_changed": false
+  },
+  "readiness_boundary": {
+    "proven_manager_bytes": 48,
+    "readiness_or_generation_getter_proved": false,
+    "stable_cached_pointer_proves_generation": false,
+    "missing_runtime_evidence": [
+      "successful-original-open-and-schema-result",
+      "actual-selected-file-identity-from-same-native-execution"
+    ],
+    "acceptance_gate_changed": false
   }
 }

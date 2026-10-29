@@ -3,6 +3,7 @@
 #import "../ios/ODOriginalClientBootstrap.h"
 #import "../content/resource_preload.h"
 #import "../content/startup_provenance.h"
+#import "../content/ODNativeMasterObservation.h"
 #import <CommonCrypto/CommonDigest.h>
 #include <fcntl.h>
 #include <dirent.h>
@@ -370,6 +371,14 @@ NSDictionary *ODCopyOriginalDuoStartupDiagnosticReport(void) {
         [@{@"purpose":@"original-startup-diagnostic",@"stage":ODDiagnosticFactoryStage} mutableCopy];
     NSDictionary *observation=ODCopyOriginalMasterLaunchObservation();
     if(observation)report[@"originalMasterLaunchObservation"]=observation;
+    /* Native master initialization can finish asynchronously after launch.
+     * Re-read only the existing bounded observation on demand; do not infer
+     * schema/codec/selected-file acceptance from a later cached handle. */
+    id original=ODCurrentOriginalAppController();NSDictionary *current=nil;
+    if(original){@try{current=ODCopyOriginalMasterObservation(original);}@catch(NSException *exception){(void)exception;}}
+    report[@"originalMasterCurrentObservation"]=@{@"schema":@1,@"capturedOnReportRead":@YES,
+        @"nativeObservationAvailable":@(current!=nil),
+        @"nativeMaster":current?:@{@"nativeMasterAccepted":@NO,@"originalSchemaOutcomeObserved":@NO}};
     return [report copy];
 }
 

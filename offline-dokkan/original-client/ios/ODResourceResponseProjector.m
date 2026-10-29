@@ -1,11 +1,13 @@
 #import "ODResourceResponseProjector.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <CoreFoundation/CoreFoundation.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include <math.h>
 
 static NSError *ODResourceError(NSString *code) {
     return [NSError errorWithDomain:@"OfflineDokkanResourceProjection" code:1
@@ -85,6 +87,54 @@ static NSData *ODResourcePinnedFile(NSURL *url,NSString *expected) {
     NSDictionary *stable=[NSJSONSerialization JSONObjectWithData:bytes options:0 error:NULL];
     if(![stable isKindOfClass:NSDictionary.class]){reply(nil,ODResourceError(@"INVALID_ORIGINAL_TEAM_DECODED_BODY"));return;}
     [self evaluateOriginalPlayerMode:2 decodedTeamBody:stable reply:reply];
+}
+- (void)applyDecodedOriginalTeamUpdate:(NSDictionary *)decodedBody command:(NSString *)command
+    mutationCurrent:(ODResourceContextCurrent)mutationCurrent reply:(ODCoreReply)reply {
+    if(!NSThread.isMainThread){
+        dispatch_async(dispatch_get_main_queue(),^{[self applyDecodedOriginalTeamUpdate:decodedBody command:command mutationCurrent:mutationCurrent reply:reply];});return;
+    }
+    if(!mutationCurrent||!_current()||!mutationCurrent()||![command isKindOfClass:NSString.class]||!command.length||command.length>127){
+        reply(nil,ODResourceError(@"ORIGINAL_TEAM_MUTATION_NOT_ADMITTED"));return;
+    }
+    NSString *intent=[command copy];
+    [self normalizeOriginalTeamUpdate:decodedBody reply:^(id candidate,NSError *failure){
+        if(failure){reply(nil,failure);return;}
+        if(!self->_current()||!mutationCurrent()){
+            reply(nil,ODResourceError(@"ORIGINAL_TEAM_MUTATION_CONTEXT_CHANGED"));return;
+        }
+        NSDictionary *normalized=[candidate isKindOfClass:NSDictionary.class]?candidate:nil;
+        id revision=normalized[@"expected_revision"];
+        BOOL integer=[revision isKindOfClass:NSNumber.class]&&CFGetTypeID((__bridge CFTypeRef)revision)!=CFBooleanGetTypeID();
+        double number=integer?[revision doubleValue]:-1;
+        NSDictionary *payload=[normalized[@"mutation"] isKindOfClass:NSDictionary.class]?normalized[@"mutation"]:nil;
+        if(![normalized[@"kind"] isEqual:@"own-player-team-update-normalization"]||
+           ![normalized[@"profile_id"] isEqual:self->_profile]||![normalized[@"content_id"] isEqual:self->_content]||
+           ![normalized[@"save_scope_sha256"] isEqual:self->_scope]||!payload||!isfinite(number)||number<0||
+           number>9007199254740991.0||number!=trunc(number)){
+            reply(nil,ODResourceError(@"ORIGINAL_TEAM_NORMALIZATION_FAILED"));return;
+        }
+        // Core rejects a stale revision, changed scope or Creator lease inside
+        // its canonical owner operation. No JSON switch supplies authority.
+        [self->_core applyOriginalClientOperation:@"teams.apply" profile:self->_profile command:intent
+            payload:payload expectedSaveScopeSHA256:self->_scope expectedRevision:[revision longLongValue]
+            reply:^(id committed,NSError *writeFailure){
+                if(writeFailure){reply(nil,writeFailure);return;}
+                if(![committed isKindOfClass:NSDictionary.class]){
+                    reply(nil,ODResourceError(@"ORIGINAL_TEAM_COMMITTED_SNAPSHOT_UNAVAILABLE"));return;
+                }
+                if(!self->_current()||!mutationCurrent()){
+                    reply(nil,ODResourceError(@"ORIGINAL_TEAM_CONTEXT_CHANGED_AFTER_COMMIT"));return;
+                }
+                // Return current persisted teams, never the submitted body or
+                // an earlier command receipt masquerading as current state.
+                [self projectCurrentTeams:^(id projected,NSError *projectionFailure){
+                    if(!self->_current()||!mutationCurrent()){
+                        reply(nil,ODResourceError(@"ORIGINAL_TEAM_CONTEXT_CHANGED_AFTER_COMMIT"));return;
+                    }
+                    reply(projected,projectionFailure);
+                }];
+            }];
+    }];
 }
 - (void)evaluateOriginalPlayerMode:(NSInteger)mode decodedTeamBody:(NSDictionary *)body reply:(ODCoreReply)reply {
     // These modes are private native entrypoints, not caller-selected WebView
