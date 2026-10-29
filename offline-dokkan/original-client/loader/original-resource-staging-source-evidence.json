@@ -1,0 +1,60 @@
+{
+  "format": "od-original-resource-staging-source-evidence-v1",
+  "source": "offline-dokkan/original-client/loader/stage_original_resources.py",
+  "source_sha256": "973a4a8c4cc708157e07d1607dd62f4abd888e89e487e105fd5d9d7bd346117b",
+  "verification": {
+    "combined_synthetic_runs": 2,
+    "passed": true,
+    "first_run": [
+      "cross-part member reconstruction",
+      "different original/tutorial aliases preserved",
+      "catalog-only Documents alias copy",
+      "existing output refusal",
+      "corrupt-member rollback",
+      "corrupt-part refusal"
+    ],
+    "second_run": [
+      "native catalog/hash-cache payload",
+      "FD-relative write rollback after parent replacement",
+      "FD-relative publication with parent replacement and refusal of success",
+      "unrelated external existing tree preserved",
+      "User path refused before reads",
+      "descriptor count restored"
+    ],
+    "post_run_source_only_changes": [
+      "signing-file suffix pre-read refusal",
+      "parent FD closed even if exceptional staging cleanup fails"
+    ],
+    "final_python_ast_and_json_source_check": true
+  },
+  "native_composition": {
+    "source": "offline-dokkan/original-client/loader/ODOriginalDuoStartupDiagnostic.m",
+    "source_sha256": "a6f06f9ab52c125eaf8bb9b2b671752effe9f1479e3cd420bf660c00404176e1",
+    "existing_fd_preloader_connected": true,
+    "configured_compatible_references": 27,
+    "bulk_io_before_application_main_on_serial_queue": true,
+    "compiled": false,
+    "executed": false
+  },
+  "real_resource_parts_restored": true,
+  "real_resource_staging_executed": true,
+  "real_resource_staging": {
+    "runs": 1,
+    "exit_code": 0,
+    "manifest_bytes": 428858,
+    "manifest_sha256": "d0a887ef235f35aa54f5ac35de9c0cd867bcbfb7026ef214232fd635e0b48f2f",
+    "sha256_verified_parts": 25,
+    "total_part_bytes": 790413610,
+    "staging_receipt_sha256": "c7b5e675ab320977de0abddf9ecc44151bffc8092d550f9a546a1cb441e23c4f",
+    "original_bundle_members": 1070,
+    "original_resource_candidates": 1067,
+    "canonical_documents_preparation_aliases": 27,
+    "native_compatible_cache_members": 27,
+    "opaque_original_seed_decoded": false,
+    "app_bundle_assembled": false
+  },
+  "actual_app_documents_written": false,
+  "native_code_compiled": false,
+  "original_client_executed": false,
+  "gameplay_verified": false
+}

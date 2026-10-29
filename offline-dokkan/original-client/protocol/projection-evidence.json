@@ -14,7 +14,7 @@
   "raw_source_player_values_used": false,
   "original_iphone_runtime_verified": false,
   "tested_module_sha256": "8956c46a32b7fbd3eb979253611c2972d027e3d0751ad11f3241dd2aa0fb6414",
-  "current_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
+  "current_module_sha256": "272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602",
   "evidence_reuse": "Prior actual fresh-player identity/ACT/rank/EXP/ledger/empty-owned-card/scope paths remain unchanged and reuse their passing scenario. One additional actual Core11 fixture check covers new source-rank facts and the custom engine-ID/pending projection guards; actual engine bindings and iPhone runtime remain unverified.",
   "additional_changed_boundary_check": {
     "tested_module_sha256": "19db296788ee0e96e61cd51e9be74e2aeb27f38607fcd8b1f9d9b6045616ece1",
@@ -26,5 +26,51 @@
     "custom_engine_identity_required": true,
     "dirty_native_projection_rejected": true,
     "complete_response_or_route_admitted": false
+  },
+  "native_integer_boundary_check": {
+    "evidence": "player-home-team/native-integer-projection-evidence.json",
+    "scope": "One focused synthetic projection scenario for source-proven unsigned32 User fields and exact JS integer representation of native64 fields. Prior unrelated evidence not rerun.",
+    "http_route_admitted": false,
+    "native_runtime_execution_verified": false
+  },
+  "persisted_team_projection": {
+    "evidence": "player-home-team/core-team-projection-evidence.json",
+    "status": "first combined Core13 SQL-to-projector scenario passed once; unchanged evidence reused",
+    "source_snapshot_property": "player_snapshot.original_client_teams",
+    "http_route_admitted": false,
+    "native_runtime_execution_verified": false,
+    "changed_metadata_evidence": "player-home-team/native-team-metadata-evidence.json",
+    "changed_metadata_status": "second changed-metadata-only SQL-to-GET/POST-normalizer-to-SQL scenario passed once",
+    "native_c_objc_compiled_or_executed": false,
+    "core_snapshot_schema": 13
+  },
+  "source_specific_first_tutorial_projection": {
+    "evidence": "player-home-team/initial-tutorial-projection-evidence.json",
+    "status": "one focused new-mode scenario passed first run; previous team/Core checks reused",
+    "unknown_capacity_or_contents_defaults_invented": false,
+    "full_home_response_admitted": false,
+    "http_route_admitted": false,
+    "native_c_objc_compiled_or_executed": false
+  },
+  "source_specific_new_profile_skip_projection": {
+    "evidence": "player-home-team/new-profile-skip-projection-evidence.json",
+    "status": "one focused changed-policy scenario passed first run; prior unrelated checks reused",
+    "existing_profiles_rewritten": false,
+    "unknown_capacity_or_contents_defaults_invented": false,
+    "full_home_response_admitted": false,
+    "http_route_admitted": false,
+    "native_c_objc_compiled_or_executed": false
+  },
+  "decoded_team_write_admission": {
+    "evidence": "player-home-team/team-post-clean-admission-evidence.json",
+    "status": "one new clean-admission scenario passed; previous unrelated checks not rerun",
+    "atomic_owner": "same existing Core native teams.apply scope/revision/Creator checks",
+    "original_codec_selfcheck_or_real_native_write_executed": false
+  },
+  "first_user_submitted_formation": {
+    "evidence": "player-home-team/first-formation-evidence.json",
+    "status": "one changed-flow JS scenario passed; unchanged Core allocation and ownership SQL evidence reused",
+    "new_team_creation_policy": "received user formation; no custom music; no precreated team/grants/selection",
+    "native_empty_team_ui_encoded_post_and_core_execution_verified": false
   }
 }

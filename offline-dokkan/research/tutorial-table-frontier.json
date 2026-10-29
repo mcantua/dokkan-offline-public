@@ -1,0 +1,79 @@
+{
+  "kind": "actual-current-tutorial-table-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "literal_counts": {
+    "tutorial_steps": 1,
+    "tutorial_phases": 1,
+    "tutorial_processes": 1
+  },
+  "sql_shapes": {
+    "tutorial_steps": {
+      "sql_select": true,
+      "where_clause_present": false,
+      "allowlisted_where_fields": [],
+      "bound_parameter_count": 0,
+      "literal_values_exported": false
+    },
+    "tutorial_phases": {
+      "sql_select": true,
+      "where_clause_present": false,
+      "allowlisted_where_fields": [],
+      "bound_parameter_count": 0,
+      "literal_values_exported": false
+    },
+    "tutorial_processes": {
+      "sql_select": true,
+      "where_clause_present": false,
+      "allowlisted_where_fields": [],
+      "bound_parameter_count": 0,
+      "literal_values_exported": false
+    }
+  },
+  "referenced_bodies": [
+    {
+      "bytes": 364,
+      "sha256": "f76e24130ca07ae0c6876f0475d0d0892b90c324b8d4f989285a1333ee6e5c62",
+      "table_references": [
+        "tutorial_phases"
+      ],
+      "allowlisted_fields": [
+        "tutorial_phases"
+      ]
+    },
+    {
+      "bytes": 364,
+      "sha256": "96f8abf420bd65a6ee581c777175e9c729a634961e9a503d9409383bd53ddc2f",
+      "table_references": [
+        "tutorial_steps"
+      ],
+      "allowlisted_fields": [
+        "tutorial_steps"
+      ]
+    },
+    {
+      "bytes": 364,
+      "sha256": "5908261bbfe4f742c35584b9994e7f067b17b48a1d474c09b4d271cea7c11f97",
+      "table_references": [
+        "tutorial_processes"
+      ],
+      "allowlisted_fields": [
+        "tutorial_processes"
+      ]
+    }
+  ],
+  "user_progress_to_master_phase_mapping_verified": false,
+  "native_tutorial_execution_verified": false,
+  "starting_state_admitted": false,
+  "http_route_admitted": false,
+  "limits": [
+    "Exact reviewed master table names only.",
+    "ADRP with immediate ADD/LDR lookahead is a partial static reference recovery.",
+    "No source strings outside the reviewed schema emitted."
+  ],
+  "shared_direct_loader_owner": {
+    "bytes": 608,
+    "sha256": "c6f54e5ebf0d379205c2eb411ce3a49c8dce10ee6d039fa328276c2d9b8b1c6b",
+    "all_three_loaders_reached": true,
+    "master_model_to_user_state_mapping_verified": false
+  }
+}

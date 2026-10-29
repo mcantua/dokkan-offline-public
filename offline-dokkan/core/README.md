@@ -10,7 +10,7 @@ Runtime requires SQLite **3.38 or newer with JSON support** (`STRICT` tables and
 od-cli SAVE MASTER CONTENT PROFILE OPERATION COMMAND JSON
 ```
 
-`CONTENT` identifies the exact imported master snapshot (the importer should supply its verified SHA-256). Masters open read-only and cannot be the same physical file as the mutable save. Player data binds to this content ID, schema version 11 and the exact save schema. Valid version1–10 saves migrate transactionally; importing an older save upgrades a transient candidate without modifying its source. The frozen migration fixture is our own schema, not game data. New profiles have zero inventory/cards. With a supported source `rank_statuses` table, our explicit `offline-rank1-act-v1` bootstrap initializes rank1/EXP0 and its exact ACT capacity (20 in both supplied masters). This is our own start policy, not a claimed verified original login. Older balances are preserved; masters without rank data retain the legacy trusted bootstrap behavior.
+`CONTENT` identifies the exact imported master snapshot (the importer should supply its verified SHA-256). Masters open read-only and cannot be the same physical file as the mutable save. Player data binds to this content ID, schema version 14 and the exact save schema. Valid version1–13 saves migrate transactionally; importing an older save upgrades a transient candidate without modifying its source. The frozen migration fixture is our own schema, not game data. New profiles have zero inventory/cards. With a supported source `rank_statuses` table, our explicit `offline-rank1-act-v1` bootstrap initializes rank1/EXP0 and its exact ACT capacity (20 in both supplied masters). This is our own start policy, not a claimed verified original login. Older balances are preserved; masters without rank data retain the legacy trusted bootstrap behavior.
 
 Internal operations:
 
@@ -36,6 +36,66 @@ Internal operations:
 Reward categories are our own strings: `stone` uses ID 0; `medal`, `training`, `support`, `equipment`, `act` and `potential` validate IDs against their corresponding imported master tables. The policy module applies 10× Dragon Stones, 6× medals and 3× other supported items exactly once. Unsupported categories fail explicitly; XP/Zeni semantics are not guessed. Positive integer base quantities and checked totals are required; JSON booleans do not count as integers.
 
 Mutations require a stable per-intent command ID. Identical command retries return the stored response; changing arguments for the same ID rejects the command. Reward-source IDs prevent a second grant under another command. Run settlements have a separate namespace, retain the original committed result and cannot advance revision or award twice. Profile state, entry debit, rewards, quest clear state and command results commit in one transaction with `synchronous=FULL`. This API must be called serially per core instance.
+
+## Original-client tutorial and team storage
+
+Schema13 added native tutorial checkpoints and persistent original-team metadata.
+Tin's later request removes the intro/tutorial sequence for new players.
+Schema14 therefore seeds **only actually inserted new profiles** with
+`{policy:"offline-new-player-skip-v1",progress:0,is_finished:true}`. The actual
+original TitleLoadingLayer checks the finished flag to bypass the tutorial;
+no999999 marker or invented starter unit/item is used. This is an explicitly
+authorized own policy, not a claimed Sparking server default.
+
+Migration copies all existing tutorial rows unchanged, including unfinished
+positive checkpoints. Older profiles without a tutorial row remain unresolved
+instead of being reset/backfilled. Existing cards, teams, inventories and
+profile revisions remain intact. Skip profiles reject tutorial checkpoint
+writes; old unfinished profiles retain their original checkpoint operation.
+No capacity, contents level, reward or progression grant is created.
+
+`od_original_client_apply` is a separate native-only entry. Its normalized
+operations are `tutorial.progress` and `teams.apply`; their internal command
+names are refused by ordinary `od_execute`/WebView paths. It checks the current
+save/profile/content scope inside the same transaction before any command
+replay, then checks the expected profile revision for a new command. Identical
+command retries retain their committed result. Tutorial writes store a positive
+signed32 checkpoint, without interpreting it as a raw master ID, completion,
+reward or clock. A repeated unchanged checkpoint need not advance revision.
+
+Original team numbers are opaque positive keys with an explicit persistent
+Core-slot association. Exact names/BGM and all six card positions are retained;
+every nonzero member must be owned and unconsumed. A new observed number takes
+the lowest free Core slot; an existing number retains its slot. Unlisted teams
+and omitted selections are preserved. No initial team/selection is invented.
+Complete observed team references retain signed32 map/stage/card fields;
+unknown references remain null. The three observed UInt32 advisory context
+fields are metadata only and never grant quest progress, items or units.
+Omitted/null references and omitted context retain prior metadata.
+Generic compact `team.set` edits that conflict with a bound formation roll
+back, preserving an openable save and its original six positions.
+
+`od_offline_player_snapshot` adds `original_client_tutorial` and
+`original_client_teams` from the actual canonical transaction. Native bridge
+writes reject while Creator holds its lease; they return a current after-commit
+player snapshot/admission separately from the retained command receipt. The
+fresh-state gate uses only this native tutorial record and keeps contents level
+and storage limits unresolved. HTTP response/codec gates remain closed.
+
+One combined extracted-SQL/actual-JavaScript scenario is recorded in
+`original-player-state-evidence.json`. It verifies migration rollback, preserved
+legacy state, checkpoint SQL and actual projection of gapped formations. It
+does **not** execute C command/scope control flow, Objective-C, an original game
+or a build. Existing unrelated suites were not repeated.
+The one subsequent changed-metadata-only SQL-to-JavaScript-to-SQL check is in
+`original-team-metadata-evidence.json`; it reuses the first migration evidence
+and verifies typed references/context, preservation and the actual GET/POST
+candidate normalizer. Both receipts pin their source at verification time.
+The separate schema14 changed-policy check in `new-player-skip-evidence.json`
+verifies migration rollback/preservation, new-only skip, actual JSON booleans,
+checkpoint SQL exclusion and the real new-player projector/fresh-policy input.
+It does not compile C/Objective-C, execute native import/command control flow,
+or show the original game's skipped intro working on a device.
 
 Keep at most the last 128 full command responses and 128 full run responses per profile. Older results become a JSON-null tombstone, while command IDs, original inputs, settled outcome and reward ledger remain. An old command retry returns `COMMAND_RESULT_EXPIRED`; an old run retry returns `RUN_RESULT_EXPIRED`. Neither re-executes, rolls RNG, grants, debits or advances revision. The caller can query the current snapshot. This bounds historical full-snapshot growth while preserving exactly-once behavior; original command input history is retained.
 
@@ -69,6 +129,15 @@ The focused store scenario verified durable debit/grants/pity/replay across rest
 Runs check imported map/quest references, the previous quest clear, a nonempty saved team, explicit local asset readiness and master `act` entry cost against stamina. The saved team roster and reward plan remain pinned for the run. A failed outcome settles without grants. Missing asset readiness, locked prerequisites, insufficient stamina or conflicting outcomes fail locally. The real asset resolver, board/battle serializer, rank/stamina regeneration, all game-specific unlock conditions and authoritative master reward evaluator are still integration work; the `rewards`/`assets_ready` arguments are trusted core inputs, **not verification that the game client may choose its own rewards**.
 
 `od_export_save` uses SQLite's backup API to create a consistent player-only database, protected with mode 0600 and atomically published without replacing an existing unrelated file. `od_import_save` reads one stable source snapshot and rejects incompatible schema/content, injected triggers, integrity/foreign-key errors, invalid team references and owned levels beyond master caps. The backup API applies the accepted source to the active player database transactionally; failed validation leaves the active save intact. No master data, assets, keys, account credentials or backup history is exported. Export destination and import source are trusted host paths, not accepted from game request bodies.
+
+Export and import currently share a 256 MiB file budget. Export checks the completed
+SQLite snapshot's page count/size and its final file before reporting success;
+an oversized candidate returns `SAVE_EXPORT_TOO_LARGE`. Only the newly created
+candidate is removed on refusal, while canonical state and existing backups
+remain intact. This does not cap live-save mutations. Large valid saves,
+including retained full-Creator histories, still need a streaming restore path
+before their backups are supported; this guard prevents an unrestorable export
+from appearing successful and does not establish full save acceptance.
 
 The focused suite passed five grouped scenarios: restart/idempotency; multiplier and atomic rejection; owned-card/team constraints; entry costs/content gating/immutable settlement; consistent save export/import with hostile/incompatible/team/level rejection. A first base pass was followed by one integrity-focused pass after review found type/replay/import gaps. Builds use warnings as errors. Cross-compilation/device execution is a separate check.
 
@@ -237,6 +306,8 @@ The response reports exact source base EXP and item Zeni subtotals, selected fie
 
 `creator.finish` takes `{definition}` after the native embedded-Creator coordinator validates the exact saved project/projection. It atomically registers the strict definition and grants **one direct local collection instance per definition**. This implements Tin's latest unified-game requirement: a saved local creation immediately appears in the collection and can be assigned through `team.set`. `creator.import` retains its existing settings-sharing/banner-registration semantics and does not grant an owned copy. Neither operation grants ordinary official characters or currency.
 
+A full Creator packet is not accepted through public `creator.import` or `creator.finish`. The native `od_creator_finish_bundle` call checks the validator packet hash and fields, then uses the same one-copy collection grant on the saved `local-player` profile. A mismatched hash or a public descriptor does not create a card.
+
 The result is `{instance_id, definition_id, version, newly_owned, available, library, revision}`. `library` has the ordinary Creator library/FIFO/main-feature state and the committed revision. New copies are fully awakened, level1, Super Attack level1, Hidden Potential locked, with no add-ons; SLR/GR defaults preserve their always-on exclusive metadata. Later valid edits update the same owned instance and all effective created copies, preserving levels/EXP/locks/teams and rejecting incompatible caps or edits during active runs. Retries, including a new command after response expiry, never mint another direct copy. Consumed direct copies remain permanently bound and return `available:false`, rather than being reminted. Banner-summoned duplicate instances remain distinct and valid.
 
 The schema8 `creator_collection` mapping proves direct-copy origin independently of banner pulls; import validation rejects inconsistent bindings and preserves the active save. Valid schema1–7 saves migrate transactionally. Native coordinators should derive a stable `:collection-v1` intent command when upgrading an older `creator.import` receipt; an old settings receipt must never be mistaken for ownership. Projection checking stays before this operation, and client pages do not receive arbitrary core/SQL authority.
@@ -281,3 +352,49 @@ missing totals remain unknown at every level; restart/import never guesses them.
 Exact command retries preserve earned progress. `../original-client/master/bootstrap-evidence.json`
 records the focused real-master bootstrap/migration/grant/retry scenario.
 Tutorial enums and initial card/support capacities remain unverified.
+
+## Exact native full-bundle retention and readback
+
+Schema12 stores the exact validator packet as a bounded BLOB in
+`created_full_bundles`, keyed by immutable profile/definition/version, with its
+SHA-256 and save scope. Native full Finish inserts those bytes inside the SAME
+existing transaction as definition registration, owned identity and command
+receipt. Retry checks the existing scope/hash/byte sequence before returning a
+cached result; it cannot replace a packet or grant another owned copy.
+Public `creator.import`/`creator.finish` descriptor guards stay closed.
+
+Version11 descriptors whose bytes were discarded remain preserved through
+migration. They do not get a fabricated payload. Native retrieval returns
+`FULL_BUNDLE_PAYLOAD_MISSING_RECOVERY_REQUIRED` until a separately justified
+recovery exists. This is different from rejecting or deleting the whole save.
+
+`od_creator_accepted_bundle` and its native bridge read exact packet/definition
+bytes plus `od-accepted-full-bundle-receipt-v1` from one read transaction. Scope
+is the existing compact ASCII hash of `[save_identity,profile,content]`. The
+requested owned instance must still exist, be unconsumed and use the requested
+active version. The receipt includes profile revision, projection generation,
+member count, all identities and project/definition/full-packet hashes. It is
+snapshot evidence, not perpetual liveness or gameplay authority; activation
+must still reconcile the current projection and source-engine contracts.
+
+Session's native accepted-project API retains its simple packet unchanged.
+Full units add `full_bundle_bytes` (immutable NSData), `full_bundle_sha256` and
+`full_bundle_receipt` after Core readback matches the immutable accepted project
+and definition. No WebView operation, arbitrary file path, ownership grant,
+original-engine attachment or runtime-readiness flag is added.
+
+Source changed without a C/Objective-C compile or actual save access. The one
+focused in-memory SQLite migration/atomicity check is recorded separately;
+it does not establish compiled native behavior or original-engine gameplay.
+
+
+Schema15 adds a native-only own practice ledger (`practice.c`). The same canonical
+Core records a phase/hash-bound prepared session and its actual original finish
+callback. These records grant no rewards, consume no ACT, change no teams/cards,
+and never clear an ordinary quest or the intro tutorial. The original finish
+saver must commit before cleanup/Home; retry preserves command identity unless
+Core specifically proved a precommit revision rejection. Native player snapshots
+include a separate `offline_practice` summary. This does not implement mid-battle
+checkpoint resume or establish that the original game ran. Focused evidence:
+`practice-ledger-evidence.json`; check: `check_practice_store.py <readonly-master>
+--content <already-verified-content-id>`.

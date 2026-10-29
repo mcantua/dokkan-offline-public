@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
  * dismissal. A failure keeps the actual editable document open; no page can
  * choose this callback or the native projection/save context. */
 @property(nonatomic, copy, nullable) void (^closePreparation)(void (^completion)(NSError * _Nullable error));
+/** Visible title of the control that leaves the editor. The game path keeps its own wording. */
+@property(nonatomic, copy, nullable) NSString *closeButtonTitle;
 - (instancetype)initWithSession:(ODCreatorSession *)session completion:(void (^)(void))completion;
 - (void)closeCreator;
 @end

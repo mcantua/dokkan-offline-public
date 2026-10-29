@@ -1,0 +1,79 @@
+{
+  "format": "od-original-duo-integrated-development-package-source-v1",
+  "extends": "diagnostic-package-source.json",
+  "purpose": "integrated-duo-development",
+  "bundle_identifier": "org.offlinedokkan.duo",
+  "platform": "iPhone Duo only",
+  "recipe_status": "8be integrated diagnostic compiled/assembled; current codec, POST teams and Creator-site changes await combined build; no runtime execution",
+  "authored_app_info_overrides": {
+    "CFBundleExecutable": "OfflineDokkanDuoDevelopment",
+    "CFBundleIdentifier": "org.offlinedokkan.duo",
+    "CFBundleName": "Offline Dokkan Duo Diagnostic",
+    "CFBundleDisplayName": "Dokkan Duo Diagnostic"
+  },
+  "required_receipt_flags": {
+    "original_startup_entry_enabled": true,
+    "original_startup_diagnostic_entry_enabled": false,
+    "device_sdk": "27.1",
+    "architecture": "arm64",
+    "deployment_target": "16.4",
+    "objective_cxx_standard": "c++17",
+    "cxx_runtime": "Apple libc++"
+  },
+  "core_reference": {
+    "destination": "OriginalClient/Core/reference.db",
+    "bytes": 114827264,
+    "sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+    "role": "Immutable plaintext canonical Core database only; never an engine preferred-master file"
+  },
+  "authored_protocol_resources": [
+    {
+      "source": "offline-dokkan/original-client/protocol/resources-projector.js",
+      "destination": "OriginalClient/Protocol/resources-projector.js",
+      "bytes": 27184,
+      "sha256": "272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602"
+    },
+    {
+      "source": "offline-dokkan/research/cached-resource-response-schema.json",
+      "destination": "OriginalClient/Protocol/cached-resource-response-schema.json",
+      "bytes": 106195,
+      "sha256": "0db95aef3ea8d86a6fbab4c886aee6c4fc55f16d2f32f5ff370557d73e0c4feb"
+    }
+  ],
+  "original_resources_framework_seed_and_genuine_shell": "Inherited unchanged, exact original paths and pins",
+  "native_preferred_master_staged": false,
+  "native_master_acceptance_bypassed": false,
+  "new_or_existing_player_state_packaged": false,
+  "signing_material_packaged": false,
+  "label": "Diagnostic (integrated development)",
+  "code_signed": false,
+  "original_client_rendering_verified": false,
+  "offline_login_verified": false,
+  "native_master_accepted": false,
+  "gameplay_verified": false,
+  "playable_build": false,
+  "native_source_candidate": {
+    "destination": "OriginalClient/NativeCandidate/en/database.db",
+    "bytes": 114827264,
+    "sha256": "f37296ef05e31000d9868741b18525a5d41311ccc152acb82c848b7b1c8ef14d",
+    "role": "Immutable opaque Android export source candidate; actual original iPhone engine decides selection and compatibility",
+    "source_asset_language_label": "en",
+    "source_language_provenance": "Existing Android current export; not an observed original iPhone runtime selection",
+    "native_runtime_language_observed": false,
+    "native_compatibility_observed": false,
+    "immutable_bundle_copy_only": true,
+    "existing_native_working_state_replaced": false
+  },
+  "creator_site": {
+    "producer": "offline-dokkan/creator-ui/build.py --original-client",
+    "input": "Exact immutable site directory and pinned ui-manifest.json from same clean reviewed source HEAD",
+    "destination": "site/",
+    "source_commit_and_producer_hash_required": true,
+    "every_member_sha256_reverified": true,
+    "authored_gameplay_harness_included": false,
+    "private_game_databases_included": false,
+    "separate_standalone_creator_master_included": false,
+    "same_native_core_bridge": "OfflineCreator + scoped ForgeHost",
+    "runtime_verified": false
+  }
+}

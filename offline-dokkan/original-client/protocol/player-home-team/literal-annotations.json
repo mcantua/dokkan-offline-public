@@ -1,0 +1,78 @@
+{
+  "kind": "pinned-player-reader-literal-annotations",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "readers": [
+    {
+      "role": "profile_decoder",
+      "bytes": 2416,
+      "sha256": "4b634d9dbf00a7af014407d8efa876cde23e4975916ff9c98aa2662d94496e3e",
+      "allowlisted_fields": [
+        "achievement_id",
+        "act",
+        "act_at",
+        "act_cure_shortened_sec",
+        "act_max",
+        "card_capacity",
+        "contents_lv",
+        "exchange_point",
+        "exp",
+        "friends_capacity",
+        "gasha_point",
+        "id",
+        "is_finished",
+        "is_ondemand",
+        "is_potential_releaseable",
+        "is_support_item_capacity_extended",
+        "mainpage_card_id",
+        "mainpage_user_card_id",
+        "mydata_subpage_visible",
+        "name",
+        "progress",
+        "rank",
+        "stone",
+        "support_item_capacity",
+        "total_card_capacity",
+        "total_score",
+        "tutorial",
+        "wallpaper_item_id",
+        "zeni"
+      ]
+    },
+    {
+      "role": "profile_direct_caller_4",
+      "bytes": 688,
+      "sha256": "8b541923621d6330cf64149520d29798b7282fa332168c54a560372340e60800",
+      "allowlisted_fields": [
+        "user"
+      ]
+    },
+    {
+      "role": "profile_direct_caller_5",
+      "bytes": 1212,
+      "sha256": "c9c7c7e178f14787f392fd7f14c72f6261a6dfb3c83004a4737197f523e4a521",
+      "allowlisted_fields": [
+        "link_skill_lv_up_item_id",
+        "link_skill_lv_up_items",
+        "quantity",
+        "skill_lv",
+        "user"
+      ]
+    },
+    {
+      "role": "profile_direct_caller_7",
+      "bytes": 1152,
+      "sha256": "8807a25ccd498aedb8c0456f6ac460762a2021af44274afba0da3afc6242cbc1",
+      "allowlisted_fields": [
+        "user"
+      ]
+    }
+  ],
+  "reader_field_ownership_verified": false,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "limits": [
+    "Exact previously retained reader spans only; no new whole-image xref scan.",
+    "Literal references alone do not prove field ownership, type, requiredness, HTTP route or response root.",
+    "No scalar player data, source keys or unknown strings emitted."
+  ]
+}

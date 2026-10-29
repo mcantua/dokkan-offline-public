@@ -1,0 +1,104 @@
+{
+  "schema": "original-master-native-activation-v1",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "method": "Pinned source body identity and selected libc++ RTTI metadata; bounded assembly/Ghidra semantic review",
+  "bodies": {
+    "master_open_retry_caller": {
+      "bytes": 104,
+      "sha256": "fa40cfb7011395daf188899f72c6457ef1c5c06df41bccec0da6b541ffb64714"
+    },
+    "master_reopen_callback": {
+      "bytes": 596,
+      "sha256": "f3ecf9061232fbb8ee85e8869a61074a01ed5979b31647b022ce3538d1b0baea"
+    },
+    "master_close_implementation": {
+      "bytes": 680,
+      "sha256": "7f5fa934e493adcc4747b9309727a31b2b45a667e4859c3171947cc3de12a37e"
+    },
+    "master_open_upstream_152": {
+      "bytes": 152,
+      "sha256": "776e1944f799a07c74a42d0c409c1cc53d9baba60c870b06a430f070883fd9a3"
+    },
+    "master_before_query_100451468": {
+      "bytes": 468,
+      "sha256": "bde2e041adbae3d50863dd84fb1b9f7f92169e5875aca6e4186a2c58be4a7b55"
+    },
+    "master_asset_listener_vtable_materializer_1": {
+      "bytes": 688,
+      "sha256": "bc00ab6ae0b7c106a9a5fded5b04fe1c0f5f559a54d726bac507ef420ffad8da"
+    },
+    "master_asset_listener_vtable_materializer_2": {
+      "bytes": 52,
+      "sha256": "3c8360647b0bae2383a26e54b9cf1b040a67a6a0d20eca98443f7dbf0d39c518"
+    },
+    "master_asset_listener_vtable_materializer_3": {
+      "bytes": 20,
+      "sha256": "abf9bd71cb36f91ac194c616d6cd0afac4948c99b2abc9698f112f020145153d"
+    },
+    "resource_slot_0x128": {
+      "bytes": 128,
+      "sha256": "5fc15e7286a074c3ed4cefc151c3e75a2ea98157a9394c64b7ed6d5ed788ee46"
+    },
+    "resource_slot_0x168": {
+      "bytes": 88,
+      "sha256": "63f68d7f42cb056734a21600ada41f4d7f2202817af014d9af276d80a259e62b"
+    },
+    "resource_slot_0x178": {
+      "bytes": 44,
+      "sha256": "e8a5201e0a76962b0b0b2b14c3ea77672465cb3e429c8a1b0a034d945ce6837e"
+    },
+    "resource_nftw_callback": {
+      "bytes": 68,
+      "sha256": "69c80ea9c4493c5ea7cc2bdfbb961001caf4a444c6fcc37f320cc184e6104722"
+    },
+    "master_invalid_preferred_cleanup": {
+      "bytes": 256,
+      "sha256": "11ada9025646283834136f4ff9353826d4a3969feec606d9ce1b0f2a2912ea4b"
+    },
+    "master_first_open_outer_1": {
+      "bytes": 276,
+      "sha256": "45692de1bc1ae199e7971576607013be552399454264b12144fe525fc375c41d"
+    },
+    "master_first_open_thread_producer_1": {
+      "bytes": 364,
+      "sha256": "39d11206b449867682ffe73e6f5930eda6bfdc31bfb5f9af3ab352089c60707c"
+    }
+  },
+  "reviewed_callback": {
+    "origin": "DialogDatabaseDownloadLayer::setFetchAssetEventListeners()::$_2",
+    "signature": "void(cocos2d::EventCustom*)",
+    "virtual_slot": 6,
+    "registered_event": "EVENT_NET_FILE_DOWNLOAD_SUCCESS",
+    "path_filter": "/database.db$"
+  },
+  "reviewed_first_open_thread": {
+    "producer_bytes": 364,
+    "entry_bytes": 276,
+    "entry_passed_to_pthread_create": true,
+    "thread_detached": true,
+    "entry_initializes_libcxx_thread_local_data": true,
+    "calls_master_initialization_before_scheduling_completion": true,
+    "host_may_invoke_worker_or_callback_directly": false
+  },
+  "native_preferred_master_validation": {
+    "source_role": "DatabaseManager::removeOldPragmaKeyDatabase",
+    "uses_original_opaque_key": true,
+    "key_provider_body_followed": false,
+    "open_or_schema_failure_cleanup": true,
+    "cleanup_removes_candidate_file": true,
+    "cleanup_recursively_removes_native_relative_tree": "sqlite/current/",
+    "candidate_file_remove_import": "remove",
+    "tree_cleanup_import": "nftw",
+    "cached_handle_closed_and_cleared_after_check": true
+  },
+  "limits": {
+    "client_executed": false,
+    "keys_or_database_rows_read": false,
+    "host_callable_abi_admitted": false,
+    "runtime_quiescence_proven": false,
+    "current_android_cipher_accepted_by_iphone": false,
+    "seed_to_downloaded_master_copy_proven": false,
+    "original_master_attached": false,
+    "raw_addresses_or_code_emitted_publicly": false
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "bootstrap-callback-holder-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "request_constructors": {},
+  "request_vtables": [],
+  "accessor_followup": true,
+  "accessor_summaries": [
+    {
+      "bytes": 920,
+      "sha256": "cf78c7eb19a216f38880ed0c7e9e67fc4df0c2ab9eeecf8dbcceb2626538cffc"
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Candidate stores and dispatch slots require receiver-identity matching.",
+    "No complete HTTP-body root binding is established.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ],
+  "frontier_superseded_by": "bootstrap-plain-json-root.json",
+  "record_scope": "Earlier recovery checkpoint; retain its original negative admissions as historical, not the latest root contract."
+}

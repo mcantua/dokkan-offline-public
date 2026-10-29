@@ -1,0 +1,32 @@
+{
+  "kind": "exact-core-deferred-player-admission-source",
+  "source_hashes": {
+    "duo/ODDeferredOriginalPlayerAdmission.h": "977ea0165dff9b7b43e0c4eaaa278080fdc127a4f40bd62a0f188f2bf280fe99",
+    "duo/ODDeferredOriginalPlayerAdmission.m": "20adc9c348f871cf3f6a65eaf856ef8e616117f39e0bc7b35032f1491bb5d308",
+    "duo/ODUnifiedDuoHost.h": "998420204aea307e6d95a231c7a7089165dc4011b1b7dbab89f81488fb173fa1",
+    "duo/ODUnifiedDuoHost.m": "74bf0c68dcc1a34f9dea65b015ae4333ae9e1fe3116182303780d707e8bb68d1"
+  },
+  "existing_core_api": "ODNativeCore prepareOriginalClientLocalPlayerOnPreparationQueueWithError:",
+  "implemented_source": [
+    "One-use native capability captures the exact Core object after its immutable save/master/content identity matches. No caller supplies an initial scope.",
+    "Host records that capability before install and may create its internal auth routes while the actual scope is pending. Tokens cannot issue before same-Core services bind.",
+    "Host schedules existing Core preparation on a native IO queue, without waiting/spinning on main. Core still refuses main/any Core owner queue and uses its one existing owner connection.",
+    "A normal main callback adopts only the actual returned local-player/content/save-scope receipt from that same capability. No player values, clocks, stats or rewards are invented.",
+    "The caller can then construct its actual services/projector on IO with the real scope; Host binding requires services own Core object equal the captured capability Core, not just matching strings.",
+    "All bounded pending auth remains blocked until this admission AND actual services bind. Existing pre/post canonical snapshots still enforce current scope at every auth response.",
+    "Preparation failure uses fixed errors and drains pending requests as failures. Original UI is never replaced by a new preparation screen.",
+    "Only immutable admission metadata is retained by the capability; the canonical player snapshot is validated then discarded."
+  ],
+  "native_compiled_for_this_revision": false,
+  "native_executed": false,
+  "old_tests_repeated": false,
+  "new_tests_run": 0,
+  "source_only": true,
+  "actual_integrated_startup_factory_present": false,
+  "limits": [
+    "This wires actual native Host admission hooks, not a selected production factory. The diagnostic constructor does not invoke them.",
+    "A valid native IO preparation queue and actual same-Core services/projector still have to be supplied by the real integrated composition.",
+    "Native master acceptance, real login/home/battle/save/custom-unit runtime and physical Duo verification remain independent.",
+    "The current build authorization is owned by the integration lead; no parallel build/check was initiated for this source cohort."
+  ]
+}

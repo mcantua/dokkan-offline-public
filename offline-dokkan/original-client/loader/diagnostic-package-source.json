@@ -1,0 +1,144 @@
+{
+  "format": "od-original-duo-diagnostic-package-source-v1",
+  "purpose": "original-startup-diagnostic",
+  "recipe_status": "assembler source implemented; not executed, tested or compiled",
+  "assembler_source": "offline-dokkan/original-client/loader/assemble_diagnostic_app.py",
+  "assembler_platform": "Linux private cloud workspace; unsigned app only",
+  "assembler_requires_repeated_build_permission": false,
+  "build_authorization": "Tin's latest standing instruction authorizes ongoing Duo builds without repeated permission",
+  "platform": "iPhone Duo only",
+  "bundle_identifier": "org.offlinedokkan.startupdiagnostic.duo",
+  "fresh_own_container_required": true,
+  "original_game_identity_or_container_allowed": false,
+  "resource_layer": {
+    "producer": "offline-dokkan/original-client/loader/stage_original_resources.py",
+    "receipt_format": "od-original-resource-source-staging-v1",
+    "input_subdirectory": "bundle",
+    "destination": "app bundle root",
+    "original_resource_candidates": 1067,
+    "original_bundle_members": 1070,
+    "preserve_every_original_bundle_relative_path": true,
+    "flatten_tutorial_or_canonical_aliases": false,
+    "native_catalog": "OriginalClient/byte-identical-assets.sqlite3",
+    "native_immutable_cache": "OriginalClient/CompatibleResourceCache",
+    "native_compatible_cache_members": 27,
+    "input_documents_tree_packaged": false,
+    "input_source_and_manifest_hashes_must_match_reviewed_receipts": true,
+    "assembly_must_reverify_all_resource_member_hashes": true,
+    "original_master_preferred_path_populated": false
+  },
+  "additional_inputs": [
+    {
+      "destination": "OriginalClient/OriginalGenuineDuoShell",
+      "role": "unchanged read-only baseline, never separately signed or executed",
+      "bytes": 332320,
+      "sha256": "18db225cd578fcfc724b1dbf6c0b89eb2213fb05d6113cd52fbc1a1ce006218a"
+    },
+    {
+      "destination": "OfflineDokkanStartupDiagnostic",
+      "role": "active genuine SDK27.1 shell, with only reviewed plugin load-command injection",
+      "producer": "offline-dokkan/original-client/loader/inject_shell.py",
+      "prepared_bytes": 332320,
+      "prepared_unsigned_sha256": "2c72eb794389e994fe3b793445c56678a1b8670198282518597a96ec0f5ef0ec",
+      "original_code_and_sdk_preserved": true
+    },
+    {
+      "destination": "Frameworks/OriginalDokkanEngine.dylib",
+      "role": "prepared original engine; existing normalization permits only final signing growth",
+      "bytes_before_signing": 55697728,
+      "sha256_before_signing": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222"
+    },
+    {
+      "destination": "Frameworks/OfflineDokkanHost.dylib",
+      "role": "authored diagnostic entry, not the inert component or integrated release entry",
+      "producer_when_authorized": "offline-dokkan/original-client/build-components.sh --original-startup-diagnostic-entry",
+      "required_build_receipt": "component-build.json",
+      "required_receipt_flags": {
+        "original_startup_entry_enabled": false,
+        "original_startup_diagnostic_entry_enabled": true,
+        "device_sdk": "27.1",
+        "architecture": "arm64",
+        "deployment_target": "16.4"
+      },
+      "hash_must_match_that_build_receipt_before_signing": true
+    }
+  ],
+  "component_source_freshness": {
+    "receipt_source_commit_must_equal_current_reviewed_git_head": true,
+    "relevant_authored_compile_sources_headers_and_recipe_must_be_committed_and_clean": true,
+    "fixed_critical_source_hashes_must_match_component_source_manifest": true,
+    "receipt_source_paths_opened": false,
+    "arbitrary_receipt_source_paths_used_as_inputs": false,
+    "native_compilation_or_runtime_verified_by_freshness_check": false
+  },
+  "original_framework": {
+    "binary": "Frameworks/AdjustSigSdk.framework/AdjustSigSdk",
+    "info": "Frameworks/AdjustSigSdk.framework/Info.plist",
+    "both_supplied_by_resource_layer": true,
+    "binary_bytes_before_signing": 649088,
+    "binary_sha256_before_signing": "564cdec07867697f3e23b8df760a5c3d9c067ff5dec2780dd905c83eaf2f96cd",
+    "info_bytes": 886,
+    "info_sha256": "8d3c83e4fb61b074d89a26457fb29337468751eee01ae4140d5288fa751d13d7",
+    "info_hash_source": "exact extraction manifest member; never generated from guessed fields",
+    "required_original_info_values": {
+      "CFBundleExecutable": "AdjustSigSdk",
+      "CFBundlePackageType": "FMWK"
+    },
+    "fake_sdk_or_unsigned_runtime_bypass": false
+  },
+  "authored_app_info": {
+    "CFBundleExecutable": "OfflineDokkanStartupDiagnostic",
+    "CFBundleIdentifier": "org.offlinedokkan.startupdiagnostic.duo",
+    "CFBundleName": "Offline Dokkan Startup Diagnostic",
+    "CFBundleDisplayName": "Dokkan Startup Diagnostic",
+    "CFBundlePackageType": "APPL",
+    "MinimumOSVersion": "16.4",
+    "UIDeviceFamily": [1, 2],
+    "UILaunchScreen": {},
+    "UIApplicationSceneManifest": {
+      "UIApplicationSupportsMultipleScenes": false,
+      "UISceneConfigurations": {
+        "UIWindowSceneSessionRoleApplication": [
+          {
+            "UISceneConfigurationName": "OfflineDokkanDuo",
+            "UISceneDelegateClassName": "ODDuoOriginalSceneDelegate"
+          }
+        ]
+      }
+    },
+    "UISupportedInterfaceOrientations": [
+      "UIInterfaceOrientationPortrait",
+      "UIInterfaceOrientationLandscapeLeft",
+      "UIInterfaceOrientationLandscapeRight"
+    ]
+  },
+  "app_version_and_build": "must be explicit approved package inputs; no release claim is inferred",
+  "original_app_info_copied_wholesale": false,
+  "original_provisioning_entitlements_or_signatures_copied": false,
+  "own_signing_and_provisioning_required_later": true,
+  "native_cold_start_sequence": [
+    "authored diagnostic constructor before genuine shell main",
+    "own diagnostic identity and native root admission",
+    "exact compatible catalog and immutable cache cold publication to actual own Documents/assets",
+    "install existing local Foundation transport with zero success routes",
+    "prepare environment, then dlopen prepared original engine with all dyld initializers",
+    "verify and connect actual AppController plus original-scene provider",
+    "genuine shell UIApplicationMain invokes original AppController once",
+    "original-scene delegate owns the actual original renderer and window lifecycle"
+  ],
+  "prohibited_payloads": [
+    "private player or save trees",
+    "input documents tree or an existing sqlite/current master",
+    "signing keys, provisioning identities, credentials or original provisioning",
+    "full source IPA/APK, extraction parts or unrelated temporary tools",
+    "harness, standalone WebView or account-launcher fallback"
+  ],
+  "package_assembled": false,
+  "native_components_compiled_for_this_recipe": false,
+  "code_signed": false,
+  "device_installed": false,
+  "original_client_rendering_verified": false,
+  "offline_login_verified": false,
+  "gameplay_verified": false,
+  "playable_build": false
+}

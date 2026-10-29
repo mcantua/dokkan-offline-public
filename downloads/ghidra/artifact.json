@@ -1,0 +1,22 @@
+{
+  "name": "Ghidra",
+  "version": "12.1.4",
+  "tag": "Ghidra_12.1.4_build",
+  "file": "ghidra_12.1.4_PUBLIC_20260921.zip",
+  "bytes": 569649598,
+  "sha256": "ddac49f903da9d5bac833e5cc79395098b9c33cfd3279be5f31bd00387d2d4db",
+  "url": "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_12.1.4_build/ghidra_12.1.4_PUBLIC_20260921.zip",
+  "metadata_url": "https://api.github.com/repos/NationalSecurityAgency/ghidra/releases/tags/Ghidra_12.1.4_build",
+  "requirements_url": "https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.1.4_build/README.md",
+  "requires_jdk": "21 64-bit",
+  "selected_reason": "Official12.2 requires25; choose compatible prebuilt12.1.4 with existing cloudJDK21 instead of another toolchain",
+  "purpose": "Scoped static native JsonCpp response/callable decompilation; no original execution or app build",
+  "original_inputs_uploaded_to_analysis_service": false,
+  "license": "Apache-2.0 with bundled third-party licenses retained in official archive",
+  "java_runtime_observed": "OpenJDK21.0.12.1 64-bit with genuine jdk.compiler module",
+  "java_cli_view": "Local launcher over existing real compiler module; no Java version metadata changes",
+  "vendor_runtime_configuration": "Documented JAVA_HOME_OVERRIDE selects local Java21 tools view; official ZIP stays unchanged",
+  "official_latest_requirement_checked": "12.2 requires JDK25; compatible12.1.4 selected instead of another JDK download",
+  "original_execution": false,
+  "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+}

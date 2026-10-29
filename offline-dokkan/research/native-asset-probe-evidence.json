@@ -1,0 +1,37 @@
+{
+  "schema": "original-resource-existence-static-v1",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_bodies": [
+    {
+      "role": "resource_full_path_resolver",
+      "sha256": "1a43222687527b80c5ed4e36bac248868cfca9e40aa29346b30d45d07421339b",
+      "bytes": 660
+    },
+    {
+      "role": "foundation_existence_probe",
+      "sha256": "c42ea134c3e1e6e7d6e0a01caa727ddbf9ae8c615538af8b3b995d57cdfe10c9",
+      "bytes": 544
+    }
+  ],
+  "same_resource_vtable_probe_slot_bytes": 488,
+  "full_path_resolver_loads_probe_slot": true,
+  "probe_direct_selectors": [
+    "stringWithUTF8String:",
+    "fileExistsAtPath:",
+    "stringWithUTF8String:",
+    "stringWithUTF8String:"
+  ],
+  "probe_direct_libc_file_calls": [],
+  "conclusion": "The native resolver has a Foundation fileExistsAtPath: probe; fopen-only resource virtualization is not established as sufficient.",
+  "limits": {
+    "original_executed": false,
+    "complete_probe_control_flow_verified": false,
+    "all_stat_access_open_paths_traced": false,
+    "runtime_root_observed": false,
+    "existence_results_fabricated": false,
+    "hook_installed": false,
+    "source_modified": false,
+    "keys_or_player_values_read_or_emitted": false,
+    "public_addresses_or_code_emitted": false
+  }
+}

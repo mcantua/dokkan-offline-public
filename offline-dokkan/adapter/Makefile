@@ -1,6 +1,6 @@
 CC ?= cc
 CFLAGS ?= -O2 -std=c11 -Wall -Wextra -Werror
-SQLITE_CFLAGS ?= -I../../downloads/sqlite-header
+SQLITE_CFLAGS ?= -I../../downloads/sqlite-amalgamation/source
 SQLITE_LIBS ?= -Wl,-l:libsqlite3.so.0
 JAVA_HOME ?= ../../downloads/unit-creator-tools/jdk/usr/lib/jvm/java-21-openjdk-amd64
 JAVAC ?= ../../unit-creator/tools/javac

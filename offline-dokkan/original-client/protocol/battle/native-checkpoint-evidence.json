@@ -1,0 +1,56 @@
+{
+  "kind": "original-InGameSugorokuData-checkpoint-source-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "actual_native_RTTI": "18InGameSugorokuData",
+  "object_constructor_source": {
+    "bytes": 1576,
+    "sha256": "4ef004e95b89705be170b43bb7e3beea414b329ad6195107107161ed1e6e06b5",
+    "same_embedded_object_as_start_setter": true
+  },
+  "checkpoint_methods": [
+    {
+      "role": "serialize_checkpoint",
+      "bytes": 512,
+      "sha256": "fe7f16334765bdbd476cf0d7d60101bc8801a75428c83e9c7e1bf04a7e9b794f",
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "role": "restore_checkpoint",
+      "bytes": 868,
+      "sha256": "8a2f19a548cd41f4989245eb56e0996b7e36dfea6c8985a876848f5c680becd9",
+      "high_pcode_sites_outside_declared_body": 0
+    }
+  ],
+  "serializer_call_registers": {
+    "X0": "original embedded object",
+    "X8": "caller-owned JSON result storage"
+  },
+  "restore_call_registers": {
+    "X0": "original embedded object",
+    "X1": "checkpoint JSON address"
+  },
+  "members": [
+    "map",
+    "player_position",
+    "map_scale",
+    "bgm_no",
+    "steps",
+    "actual_steps",
+    "dices",
+    "passing"
+  ],
+  "restore_facts": {
+    "scale_clamp": [
+      1,
+      3
+    ],
+    "dice_entries_read": 3,
+    "passing_when_missing": "rebuild from actual_steps"
+  },
+  "fresh_start_response_schema": false,
+  "complete_map_layout_schema_verified": false,
+  "native_adapter_implemented": false,
+  "native_checkpoint_invoked": false,
+  "persistence_or_resume_verified": false,
+  "save_directories_read_or_changed": false
+}

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "kind": "same-canonical-core-original-native-practice-session-source",
+  "sources": {
+    "duo/ODOriginalPracticeSession.h": "6395d6d884229c70f5b1c494e359694a73d1d23ef2d1e517faaff5b2b25f8fb4",
+    "duo/ODOriginalPracticeSession.m": "baf9848e31a1ac97e3a781af2e37b3bb74175d563ead5ee61fbd42cdc4f5b4ff",
+    "duo/ODUnifiedDuoHost.h": "463975867dd3f2993b4bdf5f17beeffd062d96e3672c06658df098e828597396",
+    "duo/ODUnifiedDuoHost.m": "7c5ab4bec344f8cfd503fe75e84f170d18bbdd53b1d32fb3e84a2393fcb3e6d1",
+    "loader/ODUnifiedDuoNativeFactory.m": "a2548a0a841fbe92cac862cc8f4113666498d1cdd28bb4ba1ec190981fc7041b"
+  },
+  "session_authority": "actual factory-issued Core/profile/content/save scope and scoped readonly phase receipt",
+  "parameters": "unchanged NSData; own SHA recomputed and matched to provider receipt; Core independently validates actual selected-master phase3 hash",
+  "prepare": "durable prepared record before native entry; never claims rendered/entered/finished",
+  "finish": "only actual original finish callback invokes same-Core saver; commit precedes native cleanup/Home return",
+  "normal_quest_reward_act_unit_team_tutorial_mutation": false,
+  "separate_save_connection": false,
+  "same_intent_retry": "retain command/payload/first expected revision after unknown commit; no combat replay",
+  "known_not_committed_revision_rejection": "exact OfflineDokkanCore ORIGINAL_PLAYER_REVISION_CHANGED only; next explicit retry revalidates and creates retryN intent for same session",
+  "command_replay_order": "same scope, retained command/tombstone, then revision guard; pruned receipt fails COMMAND_RESULT_EXPIRED",
+  "projection_generation_changed_by_ledger": false,
+  "portable_core_verification": {
+    "producer": "core/check_practice_store.py",
+    "combined_targeted_run_passed": true,
+    "coverage": [
+      "migration14to15",
+      "native authority and source hash",
+      "scope rejection",
+      "lost response then later revision cached replay",
+      "known stale revision then explicit new intent",
+      "no owned/projection/gameplay change",
+      "reopen persistence"
+    ],
+    "original_client_executed": false
+  },
+  "native_compile_verified": false,
+  "actual_finish_callback_and_save_verified": false,
+  "win_or_reward_inferred": false,
+  "session_profile_parameter_values_added_to_report": false
+}

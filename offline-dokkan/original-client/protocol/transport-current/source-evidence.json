@@ -1,0 +1,129 @@
+{
+  "format": "od-current-foundation-transport-static-v1",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "methods": [
+    {
+      "selector": "dealloc",
+      "encoding": "v16@0:8",
+      "bytes": 180,
+      "sha256": "d5a959df0f17a922877b3fb993c871e515f07eb7539ff8c6a6906afdc7ba4b79",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 0
+    },
+    {
+      "selector": "startRequest:",
+      "encoding": "v24@0:8@16",
+      "bytes": 188,
+      "sha256": "cd64af5b83eb0f205516832096628740cdf78e068d87d4e492c456f7ef29c00b",
+      "direct_reviewed_selectors": [
+        "setResponseData:",
+        "initWithRequest:delegate:startImmediately:",
+        "currentRunLoop",
+        "scheduleInRunLoop:forMode:",
+        "start"
+      ],
+      "unresolved_direct_calls": 2
+    },
+    {
+      "selector": "connection:didReceiveResponse:",
+      "encoding": "v32@0:8@16@24",
+      "bytes": 300,
+      "sha256": "02df1cb1b793e3361dc973fb5b0a82a3d05fd05008ba3868045be321a431c2c0",
+      "direct_reviewed_selectors": [
+        "allHeaderFields",
+        "setResponseHeader:",
+        "statusCode",
+        "setStatusString:",
+        "setStatusString:",
+        "setLength:"
+      ],
+      "unresolved_direct_calls": 1
+    },
+    {
+      "selector": "connection:didReceiveData:",
+      "encoding": "v32@0:8@16@24",
+      "bytes": 52,
+      "sha256": "a75f8a9448e28e2a43cf1d03dfc709ef2112333417b13fe1bf2b47b45208f3fc",
+      "direct_reviewed_selectors": [
+        "appendData:"
+      ],
+      "unresolved_direct_calls": 0
+    },
+    {
+      "selector": "connection:didFailWithError:",
+      "encoding": "v32@0:8@16@24",
+      "bytes": 44,
+      "sha256": "59acd7d4f573d7cacd03c03eb53c6aa8de8306c6406bfbc337794e27e02205c5",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 0
+    },
+    {
+      "selector": "connectionDidFinishLoading:",
+      "encoding": "v24@0:8@16",
+      "bytes": 12,
+      "sha256": "cc3771ced5b3a50081e6a2eb79027da7a89dcf208239684616a4d5110e43691b",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 0
+    },
+    {
+      "selector": "responseHeader",
+      "encoding": "@16@0:8",
+      "bytes": 12,
+      "sha256": "6d5ebd695d2453fedc61971aa5f605be93e37e43371d1721a87ddb04c8fadabe",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 1
+    },
+    {
+      "selector": "setResponseHeader:",
+      "encoding": "v24@0:8@16",
+      "bytes": 8,
+      "sha256": "231d084fefebc39e77e76980f71ff6f5c80963451726d0da147d7fe2d00770bb",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 1
+    },
+    {
+      "selector": "responseData",
+      "encoding": "@16@0:8",
+      "bytes": 12,
+      "sha256": "39c8cf8016e2abaacb225a78e7be9f0ee2cc92ed1a4192220c140a0471586be0",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 1
+    },
+    {
+      "selector": "setResponseData:",
+      "encoding": "v24@0:8@16",
+      "bytes": 8,
+      "sha256": "04a57fae6fa688aa4a5b6f4cd198b815e9a9392079037753e28259115b83d239",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 1
+    },
+    {
+      "selector": "responseCode",
+      "encoding": "q16@0:8",
+      "bytes": 8,
+      "sha256": "095bb56e13b6dfde16ade0b592279392884c282a7c7810cb58472b839de552de",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 0
+    },
+    {
+      "selector": "statusString",
+      "encoding": "@16@0:8",
+      "bytes": 8,
+      "sha256": "ac1915dbf8ae56825a9e0c79c21190a655d4b32b9c10f299546aad7c9ecadc66",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 0
+    },
+    {
+      "selector": "setStatusString:",
+      "encoding": "v24@0:8@16",
+      "bytes": 8,
+      "sha256": "cf67f580193e35b5503d10a1cc1789b428b5e60d80b44bf39a4924082ca97c88",
+      "direct_reviewed_selectors": [],
+      "unresolved_direct_calls": 0
+    }
+  ],
+  "runtime_interception_verified": false,
+  "route_enablement_claimed": false,
+  "original_code_executed": false,
+  "scope": "Method bodies only; unresolved direct calls are not followed and message receiver/control-flow semantics require review."
+}

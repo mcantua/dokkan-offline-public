@@ -1,0 +1,41 @@
+{
+  "role": "foundation_method_bridge",
+  "bytes": 2960,
+  "sha256": "b44fb3f524c67beab241d0bfdbb480efac2f48aad21ca89445b168d940a17dbe",
+  "reviewed_direct_selectors": [
+    "URLWithString:",
+    "setHTTPMethod:",
+    "setValue:forHTTPHeaderField:",
+    "setHTTPBody:",
+    "startRequest:",
+    "currentRunLoop",
+    "runMode:beforeDate:",
+    "responseCode",
+    "responseHeader",
+    "responseCode",
+    "statusString",
+    "responseHeader",
+    "responseHeader",
+    "length",
+    "length",
+    "dataUsingEncoding:",
+    "bytes",
+    "length",
+    "responseData",
+    "bytes",
+    "responseData",
+    "length"
+  ],
+  "runtime_execution_verified": false,
+  "completion_poll": {
+    "accessor_bytes": 12,
+    "accessor_sha256": "82e6985b580a3c5e76e23a0148d6f9099ee26fb36348ba0e95fea92716651e9d",
+    "source_object_byte_offset": 8,
+    "mask": 1,
+    "start_clears_byte": true,
+    "finish_and_failure_set_byte": true,
+    "bridge_runs_current_run_loop_until_low_bit_set": true,
+    "manual_engine_callback_required": false
+  },
+  "scope": "Bounded current source bridge, its completion accessor and original connection delegates. Native runtime not executed; cookie values and original request/header values were not read."
+}

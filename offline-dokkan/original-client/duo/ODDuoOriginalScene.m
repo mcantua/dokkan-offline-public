@@ -150,9 +150,13 @@ rejected:
 }
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session
         options:(UISceneConnectionOptions *)options {
-    (void)session; (void)options;
+    (void)options;
+    /* Other roles and a second scene must not take the single renderer or
+       fault the already admitted primary host/Creator attachment. */
+    if (![session.role isEqualToString:UIWindowSceneSessionRoleApplication]) return;
+    if (NSThread.isMainThread && ODActiveScene) return;
     if (!NSThread.isMainThread || !ODSceneDisplay ||
-        ![scene isKindOfClass:UIWindowScene.class] || ODActiveScene) {
+        ![scene isKindOfClass:UIWindowScene.class] || scene.session!=session) {
         [self reportFailure:2]; return;
     }
     id delegate=ODAppControllerProvider ? ODAppControllerProvider() : UIApplication.sharedApplication.delegate;
@@ -298,6 +302,7 @@ rejected:
     if (!_sourceBackground) [self forward:@selector(applicationDidEnterBackground:)];
     _sourceBackground=YES; _foregroundDeferred=NO; _activeDeferred=NO;
     ODSourceInBackground=YES;
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,NO);
 }
 - (BOOL)resumeDeferred {
     if (ODActiveScene!=self || !_active || _background || ODCreatorLease) return NO;
@@ -313,6 +318,8 @@ rejected:
     }
     _activeDeferred=NO;
     [_renderer setNeedsLayout]; [self.window layoutIfNeeded];
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,
+        _active&&_sourceActive&&!_sourceBackground&&!ODCreatorLease);
     return YES;
 }
 - (ODDuoOriginalGamePauseLease *)beginCreatorWindow:(UIWindow *)window
@@ -333,6 +340,7 @@ rejected:
     /* Retain first: even a failed postcondition must not implicitly permit a
        resume or a second editor against unknown source state. */
     ODCreatorLease=lease;
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,NO);
     if (!_sourceBackground) [self forward:@selector(applicationDidEnterBackground:)];
     _sourceBackground=YES; ODSourceInBackground=YES; _foregroundDeferred=YES;
     ODDuoEngineState after;
@@ -373,6 +381,8 @@ rejected:
            deferred until a later trusted resume or lifecycle transition. */
         _foregroundDeferred=_active; _activeDeferred=_active;
     }
+    ODDuoUpdateCreatorQuickAction(self.window,_originalController,_renderer,
+        _active&&_sourceActive&&!_sourceBackground&&!ODCreatorLease);
     return YES;
 }
 - (void)sceneDidDisconnect:(UIScene *)scene {

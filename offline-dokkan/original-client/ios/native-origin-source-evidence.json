@@ -1,0 +1,56 @@
+{
+  "kind": "native-loaded-origin-binding-source-review",
+  "source_contract": "../../research/native-origin-cold-lifecycle-contract.json",
+  "source_hashes": {
+    "original-client/ios/ODOriginalNativeOrigin.h": "2eda3596b5ce817268edae4419fba48531538cc1da420b8b455af554a382a760",
+    "original-client/ios/ODOriginalNativeOrigin.m": "e1dd4f3109f8e9b620b1f61406698067ad2366d7c2e5864de9c292c83d6eed63",
+    "original-client/loader/ODPreparedEngineLoader.h": "ab3d2609a9fa0715c9bec0f6a9bd38530b330125bc14cefe7cb46b70774f9350",
+    "original-client/loader/ODPreparedEngineLoader.m": "e61a8d366499cbae81810404424322f0913009452cb6baba21b7c3decab83429",
+    "original-client/duo/ODUnifiedDuoHost.h": "cd39af0f7d1df8d36cce6f8f30bad90c43d68750598a8536e9851524e3c28e3a",
+    "original-client/duo/ODUnifiedDuoHost.m": "bc5462997741117c47a72e18ca53bc659450a746c3bf6365d2f85a9fab91193e"
+  },
+  "source_review": [
+    "Existing loader whole-image/signing normalization and one-attempt dlopen reused; same verified local byte snapshot feeds binding, without a duplicate retained image or alternate validation path.",
+    "Integrated branch verifies actual loaded HTTP ABI before invoking native configuration getter. Diagnostic original loader entry remains unchanged.",
+    "Bounded Mach-O/LC_FUNCTION_STARTS metadata parser requires unique exact80B getter/504B constructor body hashes and the actual getter BL relation; source source-memory metadata contains191463 starts all inside text, final body20 bytes.",
+    "Runtime unique image path/header/base/slide and dladdr checks plus safe code snapshots revalidate exact getter/constructor identities before calling the no-argument getter serially on main.",
+    "Only source-proved host descriptor and port fields are copied from native configuration. Every native pointer read uses bounded vm_read_overwrite (mach/mach.h, compile-time native pointer/size width checks) with checked failure, not unchecked dereference. Descriptor/port are rechecked around the snapshot.",
+    "Capability has unavailable public initializer/read-only URL and main-only current validation against exact loaded image/config object/current origin. No URL is printed or saved.",
+    "Integrated host starts Foundation deny-all before dlopen, then binds actual capability/routes through one-use native rearm before image attachment/AppDelegate. Diagnostic never requests or arms the native origin.",
+    "Transport peer owns same-queue rearm, initial strict deny-all requirement, HTTP/capability preflight and old-configuration identity invalidation.",
+    "A later changed native origin does not authorize a new origin; unsupported requests remain local errors, never remote fallback."
+  ],
+  "native_compiled": false,
+  "native_executed": false,
+  "original_client_executed": false,
+  "native_tests_run": 0,
+  "old_tests_repeated": false,
+  "game_builds_created": false,
+  "origin_values_read_or_logged_in_session": false,
+  "source_provider_key_bodies_or_values_read": false,
+  "limits": [
+    "Source review and static metadata only. Actual runtime function calls, origin serialization, cold initialization and rearm have not run.",
+    "Existing Foundation coverage does not prove global initializer/system/SDK/raw-socket/WebKit isolation.",
+    "Source-specific string ABI applies only to the exact admitted engine. The helper does not assume a future SDK/libc++ layout.",
+    "Real integrated factory/async preparation, actual master acceptance, first login/home/gameplay and physical Duo verification are still pending."
+  ],
+  "independent_peer_review": {
+    "reviewer": "startup_factory",
+    "blocking_source_findings_remaining": 0,
+    "corrections": [
+      "Actual loaded HTTP ABI verified before getter issuance",
+      "Overflow-safe text section file bounds",
+      "Explicit private initializer declaration",
+      "Retained metadata confirms function-start zero terminator reaches final20-byte text function"
+    ],
+    "native_checks_or_tests_run": 0
+  },
+  "actual_compile_finding": {
+    "run_id": "40952802294",
+    "job_id": "123725094762",
+    "result": "iPhoneOS27.1 rejects mach/mach_vm.h and mach_vm_read_overwrite; other origin source produced no additional errors in that compile",
+    "source_correction": "Use supported vm_read_overwrite from mach/mach.h, vm_address_t/vm_size_t with compile-time pointer-width checks; retain all bounds and failure checks",
+    "correction_compiled": false,
+    "standalone_retest_run": false
+  }
+}

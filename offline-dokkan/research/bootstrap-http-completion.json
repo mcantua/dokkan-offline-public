@@ -1,0 +1,75 @@
+{
+  "kind": "bootstrap-callback-holder-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "request_constructors": {},
+  "request_vtables": [],
+  "accessor_followup": true,
+  "accessor_summaries": [
+    {
+      "bytes": 588,
+      "sha256": "ddfb0349d5a5136046c35ea0c5cd784d935333586e159fa551e338f064e51d40"
+    },
+    {
+      "bytes": 48,
+      "sha256": "6b1fa73f45040cabe9bce4d4f5c436084eaeaa4824238f2704d1541941fbbbbd"
+    },
+    {
+      "bytes": 4,
+      "sha256": "c58bcac473d9a526695c9b91a30a52c708a2a4b6524ac2fe7519a6444be5c641"
+    },
+    {
+      "bytes": 164,
+      "sha256": "9655e7333452b3ffb63f588804ac091e3eb979ad68def7185f3a5d79ef49f01a"
+    },
+    {
+      "bytes": 4,
+      "sha256": "97723dea1e656509b1d4dcb7666092b745acae6b7ffb1ff2008762725e5e32ba"
+    },
+    {
+      "bytes": 152,
+      "sha256": "ee23d47a2c1946ec918a46abef75ed03a815c859e016459feb0a7776d967f5ee"
+    },
+    {
+      "bytes": 156,
+      "sha256": "5c6208023fac9a0e101a036f495074f8e2fd21103ebd7ba600ea4b2d47ebbef1"
+    },
+    {
+      "bytes": 216,
+      "sha256": "0f0de627deaafa2e05173b64107dab1a466b142429b9be6ee908a8a01629184f"
+    },
+    {
+      "bytes": 336,
+      "sha256": "fded41f2bc864f55a786522284d7dbad3940a3f4c8f0f0d3238cc7963c208f63"
+    },
+    {
+      "bytes": 116,
+      "sha256": "58a32f2f70bda15f08d752b5168da0c6dc80eb75367ad76f0cc6a0626539da9e"
+    },
+    {
+      "bytes": 52,
+      "sha256": "b19a6fce25e3800254be4093cd2095c8f4d90431e0b87ff3c2aac76a2728f7e1"
+    },
+    {
+      "bytes": 72,
+      "sha256": "7b26c31e081f8cc0449c2ecfc1867af6831b284264869addbc26605bee3c5ee8"
+    },
+    {
+      "bytes": 184,
+      "sha256": "f7acdbf521cfa586a476d565e840f89095846063b72884421895a5de5fc935ce"
+    },
+    {
+      "bytes": 112,
+      "sha256": "1dc9314f9aac0f087d96d08cb8b744cea628de8a1dbd99c33ff838cc5dbc6d4d"
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Candidate stores and dispatch slots require receiver-identity matching.",
+    "No complete HTTP-body root binding is established.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ],
+  "frontier_superseded_by": "bootstrap-plain-json-root.json",
+  "record_scope": "Earlier recovery checkpoint; retain its original negative admissions as historical, not the latest root contract."
+}

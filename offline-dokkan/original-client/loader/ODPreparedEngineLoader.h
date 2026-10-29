@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+@class ODOriginalNativeOrigin, ODDuoOriginalPracticeBattle, ODOriginalRequestDecoder;
 NS_ASSUME_NONNULL_BEGIN
 /** Establish concrete native pre-load state before original initialization:
  * installed local transport, native-owned paths and excluded source patcher.
@@ -14,5 +15,24 @@ typedef BOOL (^ODPreparedEngineEnvironment)(NSError * _Nullable * _Nullable erro
  * This API does not make a prepared candidate a verified runnable game. */
 FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngine(NSURL *preparedImageURL,
     ODPreparedEngineEnvironment configureReviewedEnvironment,
+    NSError * _Nullable * _Nullable error);
+/** Same exact load/whole-image checks, for the integrated target only. After
+ * successful ordinary dlopen, creates a native cold-origin capability from the
+ * SAME verified image snapshot and the actual loaded code/configuration.
+ * No value is printed/saved. Diagnostic callers keep the original API above.
+ * Missing origin fails startup; this does not grant route/master acceptance. */
+FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeOrigin(NSURL *preparedImageURL,
+    ODPreparedEngineEnvironment configureReviewedEnvironment,
+    ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
+    NSError * _Nullable * _Nullable error);
+/** Integrated native capabilities from the SAME verified image snapshot.
+ * Native origin remains required. Missing optional practice/codec capabilities
+ * keep only their actions closed. Codec issuance does not enable decoding:
+ * the actual stable original-engine own-JSON self-check remains required. */
+FOUNDATION_EXPORT BOOL ODLoadPreparedOriginalEngineWithNativeCapabilities(NSURL *preparedImageURL,
+    ODPreparedEngineEnvironment configureReviewedEnvironment,
+    ODOriginalNativeOrigin * _Nullable * _Nonnull nativeOrigin,
+    ODDuoOriginalPracticeBattle * _Nullable * _Nonnull practiceBattle,
+    ODOriginalRequestDecoder * _Nullable * _Nonnull requestDecoder,
     NSError * _Nullable * _Nullable error);
 NS_ASSUME_NONNULL_END

@@ -1,8 +1,22 @@
 # FULL HANDOFF: everything Claude (cloud chat) was doing
 
+**Claude takeover — October 29, 2026, 6:21 PM CT:** Tin asked ChatGPT to stop development, upload the current work and hand off to Claude. Read [CLAUDE-HANDOFF.md](CLAUDE-HANDOFF.md) first for the exact source/build/input inventory and next steps. All six workers are completed. Latest compiled source is 457588c (77 units); later optional observer/probe integration remains uncompiled. No verified playable native client or in-app images exist. Older active-worker/resumption statements below are historical.
+
+
+**Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
+
+
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:02 AM CT, https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
+
+**LATEST — 2026-10-29 1:49 PM US Central:** Tin ran the selective cloud extraction; exact original framework binary and opaque database seed are restored readonly. Plain-JSON login root proof and candidate encoders are committed at `e9d57f9`; complete sign-in and native transport remain gated. Native User numeric bounds are implemented from actual reader conversions. Startup assets/framework metadata, original home/team/battle/result integration and native execution remain pending. No playable build or new in-app image. Continue [the first playable path](context/DUO-FIRST-PLAYABLE.md); Creator expansion stays paused.
+
+**LATEST — 2026-10-29 1:38 PM US Central:** First priority is the original-client startup → offline login → home/team → real battle → completion/save path. Further Creator expansion is paused; completed schema-12 packet retention, native read/materialization/resource work is preserved as source only. Six workers now directly support that path. No native launch, playable download, new in-app screenshot, build or base merge. [Exact source milestones, owners, missing IPA inputs and continuation](context/DUO-FIRST-PLAYABLE.md).
+
+**LATEST — 2026-10-29 12:44 PM US Central:** Draft #8 now includes original resource-root/physical-publication source, gated native startup entry, Creator failed-opening recovery and strict captured-resource/form validation. Native runtime still unverified. Core full-packet bytes were found to be discarded; durable retention and full-form runtime materialization are active WIP, not completed gameplay. No builds/base merge. See STATUS and the Hayate cohort notes.
+
+**LATEST — 2026-10-29 12:04 PM US Central:** Tin resumed ChatGPT with “take over” and reconfirmed the original Sparking/Dokkan client as the offline foundation. Source from drafts #1–#4 is combined on the separate `chatgpt/duo-source-integration` topic, with native Finish and late-binding source fixes. No base merge or builds. Native/gameplay acceptance is still pending. [Pinned source and exact continuation](context/DUO-INTEGRATION.md).
 
 **LATEST — October 29, 11:02 AM US Central: https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. mcantua/claude-chatg is the private backup. No personal data may be committed. No release build.**
 
@@ -338,3 +352,102 @@ Tin completed the selective Google-cloud extractor. Its114,827,264byte output ex
 Current response research found the user's `resources_login_response.json` cache with51root fields; only field names/types and provenance are retained, not player values. Review/promotion binds field labels to verified source literals; complete actual method/response/auth/battle contracts remain unfinished. Source/key/settings values are not imported as our player. The local response builder continues against the canonical own-player core.
 
 The corrected focused WK helper and newly combined authored SDK27.1 component library will run together under explicit intent revision3. First run40860320010's main-dispatch setup failure is not an application success/failure result. No full old suite, Android target, ordinary iPhone target or obsolete package is requested. After this check, fix only actual failures and continue the next unfinished task; do not end because this cohort is saved.
+
+
+### October 29, 2:53 PM CT — complete original-resource recovery received
+
+Tin reported Finished for the reviewed existing notebook. Drive confirms the
+final resource manifest and25parts (790,413,610bytes of raw selected resources).
+Cloud-only verification and source staging are in progress; preserve original
+IPA and all admitted immutable inputs. This is not native launch/gameplay proof.
+Core13 source integration binds original six-position teams and tutorial
+checkpoints to the canonical Core with native-only scoped mutation authority;
+new profiles alone receive the documented start-tutorial policy. Existing
+profiles are not reset. Original plain JSON response handling and ping/token
+startup contracts are source-proven and being composed, with routes still
+closed until a trusted owner is bound. Ordinary encoded requests and actual
+original-engine master admission remain separate work.
+
+**Pending:** finish verified resource staging and this cohesive source commit;
+compose proven native startup/auth/state handlers; reuse the original codec for
+requests only at a verified ABI; complete actual first battle/start/finish/save
+contracts, then admit Creator units into the real engine. No native builds until
+Tin says "make the builds"; no playable link, original-game execution or new
+in-app image is claimed. Both other platforms remain paused. Continue the
+first-playable path immediately after integration, updating STATUS and the
+existing Drive snapshot IDs. [Current detail](context/DUO-FIRST-PLAYABLE.md).
+
+
+### October 29, 3:13 PM CT — real source recovery and native startup composition
+
+The full approved original resource input is now verified, not pending: all25
+parts match SHA; one real staging run produced1,070original members and27exact
+working aliases plus native catalog/cache. Source originals are intact and
+private. The extraction account step is complete. Actual native startup/battle
+asset sufficiency still requires a real original-client run.
+
+Host-owned ping/auth source uses only its bound services' actual Core, checks
+canonical identity/scope before and after replies, and keeps ordinary request
+cancellation/expiry recoverable. Transport activity/invocation is native-only.
+Core has a narrow non-main preparation API using its same serial owner and
+approved clocked profile policy; it does not make an async constructor/factory
+exist. Source review fixed native /var root handling, stale package component
+admission and secondary-scene interference with the primary original renderer.
+The diagnostic assembler is source only: no .app/IPA, compile or invocation.
+Opaque-master cold staging preserves an immutable input and separate writable
+copy; it does not prove native key/schema compatibility. All such acceptance
+flags remain false. No key value or source account/save/signing data is used.
+
+**Pending:** complete native language/origin initialization ordering, real
+master selected-file/open/schema observation, actual integrated startup factory
+and canonical binding; close current Home/resources/card/battle contracts,
+then original battle/result persistence and Creator-in-battle admission. Keep
+Duo only, no native builds until Tin says "make the builds", no base merge and
+no fake in-app images. Continue independent implementation after the source
+commit and existing Drive-ID sync. Exact owners/limits are in STATUS and
+context/DUO-FIRST-PLAYABLE.md.
+
+
+### October 29, 3:32 PM CT — new players skip the intro tutorial
+
+Tin explicitly removed the new-player Dokkan intro tutorial requirement.
+Core14 now seeds only new profiles with the persisted skip policy, progress0
+and is_finishedtrue. Existing profile/checkpoint/collection rows survive the
+migration unchanged; there are no tutorial rewards or starter-unit grants.
+The canonical snapshot, fresh policy and new-profile native/JS projection
+carry that state. The actual original title gate uses is_finished to bypass
+onTutorialProgress; no invented999999 completion marker is used.
+
+Two targeted checks passed, covering new-policy projection and transactional
+migration/preservation. C/Objective-C and the original app were not executed.
+**Pending:** bind the new-profile response into actual normal startup/Home and
+verify the skipped sequence in the original Duo client after an authorized
+build. Keep existing unfinished-profile support; do not reset old progress.
+Tutorial-first combat research remains reference only. No new in-app screenshot
+or playable build is available.
+
+### October 29, 5:00 PM CT — integrated diagnostic, latest delivery and pending runtime
+
+Compiled source `8be14517` through genuine SDK27.1 cloud run40958701574 (71 units) and assembled `OfflineDokkan-Duo-Integrated-Diagnostic-2.36.3.ipa`,929,647,581bytes/SHA256`9c2dec628ad80a8e0c0f075d92c1ec4f3b64a91dbc108ed446a7d794bd12bbc2`. Includes original-engine manual practice capability, safe own-profile relaunch and isolated opaque native-master candidate. Unsigned Diagnostic; no original-client launch or gameplay verified. The first startup-only IPA is confirmed in Drive. Tin completed the updated Colab reconstruction; the newer integrated IPA is now confirmed in private Drive (`1INd1U3aa7eFRsb2h3YwOMNguXU8zzzLo`,929,647,581bytes). See STATUS and the Drive registry. One exact delivery roundtrip passed; no repeated application suite.
+
+**Pending:** finish and compile the next cohesive original request codec/POST teams/native Creator-site source batch; obtain real signed-device launch evidence, resolve actual original native master acceptance, enter original Home/practice battle, persist gameplay and use a Creator unit in battle. Existing `site/` is not present in the8be diagnostic; the next packaging change adds the retained same-Core frontend. Diagnostic compilation and source review are not gameplay completion. No current in-game screenshot exists. Android and ordinary iPhone remain paused.
+
+### October 29, 5:14 PM CT — compiled same-client Creator and team update
+
+Source20fd1d0 compiled72units on genuine SDK27.1 in run40963117227, first attempt. The current unsigned integrated diagnostic includes the retained286-file native Creator frontend and original-codec POSTteams wiring. Package944,841,989bytes/SHA256`f8d9deddddffb2c1571fa62905c325c37920c32d0b4e291cd907ad975f3b3c43`; exact private paths and Drive delta/restore IDs in STATUS/registry. No original runtime execution, signing or installation is implied. Existing Drive8be IPA remains available; newer20fd full-file restoration has not run, but all required bytes are preserved in the16.6MB delta and baseline. No additional account step requested during the Wi-Fi question.
+
+**Pending:** real signed-device startup and original Home evidence; safe observation of original selected native master and successful schema validation; execute original codec/team-save/collection/Creator path; actual battle/save/custom-unit acceptance and Duo display behavior. Unknown first-team metadata remains explicit, never invented. Inspect the current device's actual startup result before adding speculative APIs or repeating passing checks. No direct Mac/phone execution tool exists in this session. All cohort workers finished; do not imply unattended work.
+
+### October 29, 05:50 PM CT — continued playable-path implementation
+
+The Wi-Fi/status question did not authorize a pause; development resumed. Current source adds compact actual-scene Creator/tools access, optional privacy-filtered diagnostic sharing, initial player-readiness waits, first native formation creation and same-Core15 practice completion/retry. One JS formation scenario and one C ledger scenario passed, with prior evidence reused. No actual game execution is inferred. Native compilation is the next combined check.
+
+**Pending:** compile/integrate this cohort; finish strict optional original-master observer derivation/reader and actual file/schema admission; establish original resource search resolution; deliver one original-client battle and save plus Creator-unit gameplay on Duo. Continue independent cloud work while device evidence is unavailable; do not stop simply because a batch, upload or informational answer is finished. Android and ordinary iPhone remain paused.
+
+## Pending — Claude takeover
+
+- Implement strict optional master observer admission/reader and prove original database readiness.
+- Compile/integrate later resource probe only as needed; assemble matching source/component/site.
+- Verify original startup, Home, actual battle, durable completion, embedded custom-unit gameplay and Duo displays.
+- Signing/installation/runtime evidence remain unavailable in this cloud. Current packages are unsigned diagnostics.
+- Continue with CLAUDE-HANDOFF.md; Android/ordinary iPhone and protected-base merge remain paused.

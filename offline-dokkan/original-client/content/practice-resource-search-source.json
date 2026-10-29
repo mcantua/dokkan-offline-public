@@ -1,0 +1,56 @@
+{
+  "kind": "original-practice-resource-search-source",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_resource_bytes_reused": true,
+  "native_file_utils_constructor": {
+    "bytes": 132,
+    "sha256": "46a229b83d625d34eeaff7f36430dc4e0003ac29f54788ad17c1b76e27ddf969",
+    "source": "Private bounded native-resource-constructor output",
+    "high_pcode_sites_outside_body": 0,
+    "behavior": "Calls actual base constructor, installs actual platform vtable, retains an NSBundle wrapper."
+  },
+  "native_file_utils_platform_init": {
+    "bytes": 160,
+    "sha256": "990d3183da4d3b4affb5d3757bf5e8b5369bce2b6e9e77af25d925a3011630a9",
+    "source": "Private bounded native-resource-init output",
+    "high_pcode_sites_outside_body": 0,
+    "behavior": "Locks native resource object, assigns its initial resolution vector and appends an empty search suffix, then unlocks.",
+    "tutorial0_prefix_added_by_this_body": false,
+    "later_search_path_mutations_ruled_out": false
+  },
+  "existing_full_path_resolver": {
+    "bytes": 660,
+    "sha256": "1a43222687527b80c5ed4e36bac248868cfca9e40aa29346b30d45d07421339b",
+    "evidence": "../../../research/native-asset-probe-evidence.json",
+    "behavior": "Checks absolute paths/cache, iterates native search and resolution vectors, joins candidate names and uses the actual platform existence probe before caching success."
+  },
+  "startup_helpers_reused": {
+    "first_after_initial_assets_directory_pass": "Already retained language configuration; not tutorial0 mounting.",
+    "next_helper": "Fixed region short-string assignment; not search-path setup."
+  },
+  "tutorial0_runtime_search_mapping_proven": false,
+  "exact_tutorial0_symbol": "FileUtilsCustom::TUTORIAL0_DIR",
+  "source_prefix_helpers": [
+    {"bytes":208,"sha256":"3817966400774b396d7ef758f507a97e64d2ecc2a3a9a32260a81583b769ac64","behavior":"Constructs the actual own app bundle directory plus tutorial0/. The base getter's own body and exact Objective-C selector stubs establish NSBundle.mainBundle.bundlePath plus slash."},
+    {"bytes":208,"sha256":"779b6132ef00c1d8921d25a748899c8192f987e3ff13d8f5bde60de302163641","behavior":"Constructs tutorial0/ plus the supplied native filename and forwards through the already reviewed Documents/assets prefix helper."}
+  ],
+  "tutorial0_base_getter": {
+    "bytes":68,
+    "sha256":"ea993711deba4e45dac59e1dfd79b9e4182815f6e02bdc96aa6deaa158f256f6",
+    "exact_own_body_selector_order":["mainBundle","bundlePath","stringByAppendingString:","UTF8String"],
+    "append_argument_verified_exact_slash":true,
+    "result":"actual own NSBundle bundlePath plus slash",
+    "decompiler_outside_body_sites":46,
+    "conclusion_uses_only_own_body_and_exact_selector_bindings":true,
+    "transitive_native_string_helper_tail_recounted_as_new_proof":false
+  },
+  "original_bundle_tutorial0_layout_correct_for_source_helper":true,
+  "phase3_selection_of_bundle_vs_downloaded_variant_proven":false,
+  "localization_matches_excluded": "Ten direct references belong only to five skip-download UI labels. They establish no resource mount. The filesystem constant is a separate GOT-bound symbol.",
+  "new_canonical_aliases_admitted": 0,
+  "android_replacements_admitted": 0,
+  "runtime_lookup_observed": false,
+  "next_bounded_scope": "Optional initialized-engine observation via ODOriginalResourceLookupProbe before extending any alias catalog. No further generic caller tracing is needed before runtime evidence.",
+  "keys_or_save_contents_accessed": false,
+  "resource_download_or_build_performed": false
+}

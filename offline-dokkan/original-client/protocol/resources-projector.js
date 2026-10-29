@@ -14,6 +14,38 @@
   const clone=x=>JSON.parse(JSON.stringify(x));
   const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
   function issue(list,path,code){list.push({path,code});}
+  // Actual iPhone User decoder: the 492-byte getter converts through unsigned
+  // W0, the 404-byte getter through unsigned X0, and act_at through signed X0.
+  // JSON numbers outside JS's exact integer range need a native integer bridge;
+  // never round, clamp or emit an integer the original reader cannot represent.
+  const userUint32Fields=Object.freeze([
+    'rank','act','act_max','card_capacity','total_card_capacity','zeni','stone',
+    'exchange_point','friends_capacity','support_item_capacity','gasha_point',
+    'wallpaper_item_id','achievement_id','mainpage_card_id','act_cure_shortened_sec'
+  ]);
+  const userUint64Fields=Object.freeze(['id','exp','total_score','mainpage_user_card_id']);
+  function checkNativeUserIntegers(user,issues){
+    // The native member-with-prior-value helper preserves the prior value for
+    // absent fields. Present JSON null is not an omitted field. This check
+    // does not invent a replacement/default.
+    for(const name of userUint32Fields){
+      if(own(user,name)&&user[name]!==null&&(!integer(user[name])||user[name]<0||user[name]>4294967295))
+        issue(issues,'$.user.'+name,'NATIVE_UINT32_REQUIRED');
+    }
+    for(const name of userUint64Fields){
+      if(own(user,name)&&user[name]!==null&&(!integer(user[name])||user[name]<0))
+        issue(issues,'$.user.'+name,'NATIVE_UINT64_EXACT_INTEGER_REQUIRED');
+    }
+    if(own(user,'act_at')&&user.act_at!==null&&!integer(user.act_at))
+      issue(issues,'$.user.act_at','NATIVE_INT64_EXACT_INTEGER_REQUIRED');
+    if(object(user.tutorial)){
+      for(const name of ['contents_lv','progress']){
+        if(own(user.tutorial,name)&&user.tutorial[name]!==null&&
+           (!integer(user.tutorial[name])||user.tutorial[name]<0||user.tutorial[name]>4294967295))
+          issue(issues,'$.user.tutorial.'+name,'NATIVE_UINT32_REQUIRED');
+      }
+    }
+  }
   function check(schema,value,path,issues,depth){
     if(depth>24||!object(schema)){issue(issues,path,'UNSUPPORTED_SCHEMA');return;}
     const type=schema.type;
@@ -98,6 +130,125 @@
       return row;
     });
   }
+  function nativeMetadata(value){
+    if(typeof value!=='string')return false;
+    let bytes=0;
+    for(let i=0;i<value.length;i++){
+      const c=value.charCodeAt(i);
+      if(c===0)return false;
+      if(c<0x80)bytes++;
+      else if(c<0x800)bytes+=2;
+      else if(c>=0xd800&&c<=0xdbff){
+        const next=value.charCodeAt(++i);
+        if(!(next>=0xdc00&&next<=0xdfff))return false;
+        bytes+=4;
+      }else if(c>=0xdc00&&c<=0xdfff)return false;
+      else bytes+=3;
+      // This is the Core's own storage budget, not a claimed game UI limit.
+      if(bytes>4096)return false;
+    }
+    return true;
+  }
+  const teamReferenceKeys=Object.freeze(['referenced_sugoroku_map_id','referenced_z_battle_stage_id','referenced_card_ids']);
+  const teamContextKeys=Object.freeze(['sugoroku_map_id','z_battle_stage_id','origin_battle_id']);
+  const signed32=x=>integer(x)&&x>=-2147483648&&x<=2147483647;
+  const unsigned32=x=>integer(x)&&x>=0&&x<=4294967295;
+  function nativeTeamReferences(value){
+    return object(value)&&Object.keys(value).length===3&&teamReferenceKeys.every(key=>own(value,key))&&
+      signed32(value.referenced_sugoroku_map_id)&&signed32(value.referenced_z_battle_stage_id)&&
+      Array.isArray(value.referenced_card_ids)&&value.referenced_card_ids.length<=1024&&value.referenced_card_ids.every(signed32);
+  }
+  function nativeTeamContext(value){
+    return object(value)&&Object.keys(value).every(key=>teamContextKeys.includes(key)&&unsigned32(value[key]));
+  }
+  function teams(snapshot,provided,issues){
+    if(!Array.isArray(snapshot.teams)){
+      issue(issues,'$.teams','CANONICAL_TEAMS_UNAVAILABLE');return undefined;
+    }
+    const persisted=snapshot.original_client_teams;
+    if(!object(persisted)||persisted.schema!==1||!Array.isArray(persisted.bindings)||!object(persisted.selection)){
+      issue(issues,'$.teams','NATIVE_TEAM_BINDING_REQUIRED');return undefined;
+    }
+    if(provided!==undefined&&!object(provided))throw Error('INVALID_NATIVE_TEAM_POLICY');
+    if(own(persisted,'advisory_context')&&!nativeTeamContext(persisted.advisory_context))throw Error('INVALID_NATIVE_TEAM_CONTEXT');
+    const owned=new Set();
+    for(const card of snapshot.cards){
+      if(!object(card)||!integer(card.instance_id)||card.instance_id<=0||owned.has(card.instance_id))throw Error('INVALID_OWN_CARDS');
+      owned.add(card.instance_id);
+    }
+    const canonical=new Map();
+    for(const team of snapshot.teams){
+      if(!object(team)||!integer(team.slot)||team.slot<0||team.slot>19||canonical.has(team.slot)||
+         !Array.isArray(team.members)||team.members.length>6||
+         team.members.some(id=>!integer(id)||id<=0||!owned.has(id))||new Set(team.members).size!==team.members.length)
+        throw Error('INVALID_OWN_TEAMS');
+      canonical.set(team.slot,team.members);
+    }
+    if(persisted.bindings.length!==canonical.size){
+      issue(issues,'$.teams','NATIVE_TEAM_BINDING_REQUIRED');return undefined;
+    }
+    const nums=new Set(),slots=new Set(),rows=[];
+    for(const binding of persisted.bindings){
+      if(!object(binding)||!integer(binding.slot)||!canonical.has(binding.slot)||slots.has(binding.slot)||
+         !integer(binding.native_num)||binding.native_num<1||binding.native_num>2147483647||nums.has(binding.native_num)||
+         !nativeMetadata(binding.name)||!own(binding,'team_bgm_filename')||
+         !(binding.team_bgm_filename===null||nativeMetadata(binding.team_bgm_filename))||
+         !Array.isArray(binding.card_slots)||binding.card_slots.length!==6)
+        throw Error('INVALID_NATIVE_TEAM_BINDING');
+      const members=[];
+      for(const id of binding.card_slots){
+        if(!integer(id)||id<0||id!==0&&!owned.has(id))throw Error('NATIVE_TEAM_MEMBER_NOT_OWNED');
+        if(id!==0)members.push(id);
+      }
+      if(new Set(members).size!==members.length||!equal(members,canonical.get(binding.slot)))throw Error('NATIVE_TEAM_LAYOUT_CONFLICT');
+      slots.add(binding.slot);nums.add(binding.native_num);
+      const row={num:binding.native_num,name:binding.name,user_card_ids:binding.card_slots.slice(),team_bgm_filename:binding.team_bgm_filename};
+      if(binding.references===undefined||binding.references===null)issue(issues,'$.teams.user_card_teams','NATIVE_TEAM_REFERENCE_METADATA_REQUIRED');
+      else {
+        if(!nativeTeamReferences(binding.references))throw Error('INVALID_NATIVE_TEAM_REFERENCES');
+        Object.assign(row,clone(binding.references));
+      }
+      rows.push(row);
+    }
+    rows.sort((a,b)=>a.num-b.num);
+    const result=provided===undefined?{}:clone(provided);
+    if(own(result,'user_card_teams')){
+      const configured=result.user_card_teams;
+      if(!Array.isArray(configured)||configured.length!==rows.length)throw Error('POLICY_OVERRIDES_OWNED_TEAMS');
+      const sorted=configured.slice().sort((a,b)=>(object(a)?a.num:0)-(object(b)?b.num:0));
+      for(let i=0;i<rows.length;i++){
+        const a=sorted[i],b=rows[i];
+        if(!object(a)||Object.keys(a).length!==Object.keys(b).length||Object.keys(b).some(key=>!equal(a[key],b[key])))
+          throw Error('POLICY_OVERRIDES_OWNED_TEAMS');
+      }
+    }
+    result.user_card_teams=rows;
+    for(const key of Object.keys(persisted.selection)){
+      if(key!=='selected_team_num'&&key!=='selected_kobetu_team_num')throw Error('INVALID_NATIVE_TEAM_SELECTION');
+      const value=persisted.selection[key];
+      if(!integer(value)||value<1||value>2147483647||!nums.has(value))throw Error('NATIVE_TEAM_SELECTION_NOT_OWNED');
+      if(own(result,key)&&result[key]!==value)throw Error('POLICY_OVERRIDES_OWNED_TEAMS');
+      result[key]=value;
+    }
+    for(const key of ['selected_team_num','selected_kobetu_team_num']){
+      if(own(result,key)&&!own(persisted.selection,key))throw Error('POLICY_OVERRIDES_OWNED_TEAMS');
+    }
+    return result;
+  }
+  function currentTeamStructure(structure,response){
+    const rows=object(response.teams)?response.teams.user_card_teams:undefined;
+    if(!Array.isArray(rows)||!rows.some(row=>object(row)&&own(row,'referenced_card_ids')))return structure;
+    const current=clone(structure);
+    const team=current.properties&&current.properties.teams;
+    const list=team&&team.properties&&team.properties.user_card_teams;
+    if(list&&Array.isArray(list.items))for(const row of list.items){
+      if(row.type==='object'&&object(row.properties))Object.assign(row.properties,{
+        referenced_sugoroku_map_id:{type:'integer'},referenced_z_battle_stage_id:{type:'integer'},
+        referenced_card_ids:{type:'array',items:[{type:'integer'}]}
+      });
+    }
+    return current;
+  }
   function validateObserved(structure,response){
     const issues=[];check(structure,response,'$',issues,0);
     return {shape_compatible:issues.length===0,issues};
@@ -126,12 +277,15 @@
     bind(user,'zeni',balance(snapshot.inventory,'zeni'),'$.user',issues,x=>integer(x)&&x>=0);
     bind(user,'id',object(identity)?identity.id:undefined,'$.user',issues,x=>integer(x)&&x>0);
     bind(user,'name',object(identity)?identity.name:undefined,'$.user',issues,x=>typeof x==='string'&&x.length>0&&x.length<=64);
+    checkNativeUserIntegers(user,issues);
     response.user=user;
     const projectedCards=cards(snapshot,response.cards,issues);
     if(projectedCards!==undefined)response.cards=projectedCards;
+    const projectedTeams=teams(snapshot,response.teams,issues);
+    if(projectedTeams!==undefined)response.teams=projectedTeams;
     if(admission.clean!==true&&snapshot.cards.some(row=>object(row)&&(row.created_definition||row.tournament_definition||row.official_upgrade)))
       issue(issues,'$.cards','NATIVE_PROJECTION_PENDING');
-    const shape=validateObserved(evidence.structure,response);issues.push(...shape.issues);
+    const shape=validateObserved(currentTeamStructure(evidence.structure,response),response);issues.push(...shape.issues);
     const unique=[];const seen=new Set();
     for(const item of issues){const key=item.path+'\0'+item.code;if(!seen.has(key)){seen.add(key);unique.push(item);}}
     return {
@@ -142,5 +296,133 @@
       http_route_admitted:false,original_iphone_runtime_verified:false,captured_player_values_used:false
     };
   }
-  return Object.freeze({project,validateObserved});
+  function projectInitialPlayer(envelope,expected,skipIntro){
+    // This is the original User consumer's policy-bound initial DTO, not
+    // the observed Android full-home response. Missing native fields keep
+    // their actual prior values through the source-proven default getter.
+    if(!object(envelope)||!object(envelope.admission)||!object(envelope.player_snapshot)||!object(expected))throw Error('INVALID_NATIVE_SNAPSHOT');
+    const admission=envelope.admission,snapshot=envelope.player_snapshot;
+    for(const key of ['profile_id','content_id','save_scope_sha256']){
+      if(typeof expected[key]!=='string'||admission[key]!==expected[key])throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
+    }
+    if(snapshot.profile_id!==expected.profile_id||snapshot.content_id!==expected.content_id)throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
+    if(admission.clean!==true)throw Error('NATIVE_PROJECTION_PENDING');
+    if(!Array.isArray(snapshot.cards)||!Array.isArray(snapshot.teams))throw Error('INVALID_OWN_COLLECTION');
+    // This User-only skip-policy DTO does not read or replace collection
+    // models. Keep it available after the owner creates a card/formation.
+    // Existing unfinished tutorial projection retains its empty-state rule.
+    if(!skipIntro&&(snapshot.cards.length||snapshot.teams.length))
+      throw Error('INITIAL_TUTORIAL_EXISTING_COLLECTION_REQUIRES_FULL_PROJECTION');
+    const tutorial=snapshot.original_client_tutorial;
+    if(!object(tutorial)||Object.keys(tutorial).length!==4||tutorial.schema!==1||
+       tutorial.policy!==(skipIntro?'offline-new-player-skip-v1':'original-tutorial-entry-v1')||!integer(tutorial.progress)||
+       tutorial.progress<0||tutorial.progress>2147483647||tutorial.is_finished!==skipIntro||
+       (skipIntro&&tutorial.progress!==0))
+      throw Error('CANONICAL_ORIGINAL_TUTORIAL_REQUIRED');
+    const identity=envelope.wire_identity||snapshot.wire_identity;
+    if(!object(identity)||!integer(identity.id)||identity.id<1||typeof identity.name!=='string'||
+       !identity.name.length||identity.name.length>64)throw Error('CANONICAL_WIRE_IDENTITY_REQUIRED');
+    if(!unsigned32(snapshot.rank)||snapshot.rank<1)throw Error('CANONICAL_POSITIVE_RANK_REQUIRED');
+    if(!integer(snapshot.revision)||snapshot.revision<0)throw Error('CANONICAL_REVISION_REQUIRED');
+    const response={user:{id:identity.id,name:identity.name,rank:snapshot.rank,
+      tutorial:{progress:tutorial.progress,is_finished:tutorial.is_finished}}};
+    return {schema:1,kind:skipIntro?'new-original-player-skip-intro-projection':'initial-original-tutorial-player-projection',profile_id:expected.profile_id,
+      content_id:expected.content_id,save_scope_sha256:expected.save_scope_sha256,core_revision:snapshot.revision,
+      response,body_json:JSON.stringify(response),full_home_projection:false,
+      omitted_native_prior_fields:['card_capacity','total_card_capacity','support_item_capacity',
+        'is_support_item_capacity_extended','tutorial.contents_lv'],
+      http_route_admitted:false,original_iphone_runtime_verified:false,captured_player_values_used:false};
+  }
+  function projectInitialTutorialPlayer(envelope,expected){
+    // Retained for existing persisted unfinished profiles, never new-profile
+    // creation. The current new-player policy uses the separate skip mode.
+    return projectInitialPlayer(envelope,expected,false);
+  }
+  function projectNewProfilePlayer(envelope,expected){
+    return projectInitialPlayer(envelope,expected,true);
+  }
+  function projectTeams(envelope,expected){
+    if(!object(envelope)||!object(envelope.admission)||!object(envelope.player_snapshot)||!object(expected))throw Error('INVALID_NATIVE_SNAPSHOT');
+    const admission=envelope.admission,snapshot=envelope.player_snapshot;
+    for(const key of ['profile_id','content_id','save_scope_sha256']){
+      if(typeof expected[key]!=='string'||admission[key]!==expected[key])throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
+    }
+    if(snapshot.profile_id!==expected.profile_id||snapshot.content_id!==expected.content_id||!Array.isArray(snapshot.cards))throw Error('CANONICAL_PLAYER_SCOPE_CHANGED');
+    const issues=[],response=teams(snapshot,undefined,issues);
+    if(response){
+      // A genuinely empty canonical collection has no selected formation to
+      // emit. The original reader iterates zero rows and converts its absent
+      // selection through the known null->Int zero sentinel. No team or
+      // selection is invented; actual empty-state UI remains runtime-unverified.
+      if(response.user_card_teams.length&&!own(response,'selected_team_num'))
+        issue(issues,'$.selected_team_num','NATIVE_TEAM_SELECTION_REQUIRED');
+      const used=new Set(response.user_card_teams.flatMap(row=>row.user_card_ids.filter(id=>id!==0)));
+      if(admission.clean!==true&&snapshot.cards.some(card=>used.has(card.instance_id)&&
+          (card.created_definition||card.tournament_definition||card.official_upgrade)))
+        issue(issues,'$.user_card_teams','NATIVE_PROJECTION_PENDING');
+    }
+    return {
+      schema:1,kind:'own-player-team-projection',profile_id:expected.profile_id,content_id:expected.content_id,
+      save_scope_sha256:expected.save_scope_sha256,core_revision:snapshot.revision,response:response||null,issues,
+      body_json:response&&issues.length===0?JSON.stringify(response):null,
+      http_route_admitted:false,original_iphone_runtime_verified:false,captured_player_values_used:false
+    };
+  }
+  function normalizeTeamUpdate(envelope,expected,body){
+    // The native transport must supply an already decoded JSON object. This
+    // does not decode a signed/compressed body or validate timewarp's lifecycle.
+    const current=projectTeams(envelope,expected),snapshot=envelope.player_snapshot;
+    if(envelope.admission.clean!==true)throw Error('NATIVE_PROJECTION_PENDING');
+    if(!current.response)throw Error('NATIVE_TEAM_BINDING_REQUIRED');
+    if(!object(body))throw Error('INVALID_NATIVE_TEAM_REQUEST');
+    const keys=new Set(['selected_team_num','selected_kobetu_team_num','user_card_teams','timewarp',...teamContextKeys]);
+    if(Object.keys(body).some(key=>!keys.has(key)))throw Error('UNSUPPORTED_NATIVE_TEAM_FIELD');
+    const bindings=new Map(snapshot.original_client_teams.bindings.map(row=>[row.native_num,row]));
+    const owned=new Set(snapshot.cards.map(row=>row.instance_id)),seen=new Set();
+    const mutation={teams:[]};
+    const rows=own(body,'user_card_teams')?body.user_card_teams:[];
+    if(!Array.isArray(rows)||rows.length>20)throw Error('INVALID_NATIVE_TEAM_REQUEST');
+    for(const row of rows){
+      if(!object(row)||Object.keys(row).length!==6||
+         Object.keys(row).some(key=>!['num','name','user_card_ids',...teamReferenceKeys].includes(key))||
+         !signed32(row.num)||row.num<1||seen.has(row.num)||!nativeMetadata(row.name)||
+         !Array.isArray(row.user_card_ids)||row.user_card_ids.length!==6)throw Error('INVALID_NATIVE_TEAM_REQUEST');
+      const binding=bindings.get(row.num);
+      if(binding&&(!own(binding,'team_bgm_filename')||
+         !(binding.team_bgm_filename===null||nativeMetadata(binding.team_bgm_filename))))throw Error('NATIVE_TEAM_METADATA_REQUIRED');
+      const members=[];
+      for(const id of row.user_card_ids){
+        if(!integer(id)||id<0||id!==0&&!owned.has(id))throw Error('NATIVE_TEAM_MEMBER_NOT_OWNED');
+        if(id!==0)members.push(id);
+      }
+      if(new Set(members).size!==members.length)throw Error('DUPLICATE_NATIVE_TEAM_MEMBER');
+      const references=Object.fromEntries(teamReferenceKeys.map(key=>[key,row[key]]));
+      if(!nativeTeamReferences(references))throw Error('INVALID_NATIVE_TEAM_REFERENCES');
+      seen.add(row.num);
+      // NEW user-submitted rows have no BGM field in the proven original
+      // writer. Our explicit policy is no custom formation music (empty
+      // string), not a recovered server default or asset grant. Existing
+      // bindings keep their exact saved BGM, including null.
+      mutation.teams.push({native_num:row.num,name:row.name,team_bgm_filename:binding?binding.team_bgm_filename:'',
+        card_slots:row.user_card_ids.slice(),references:clone(references)});
+    }
+    for(const key of ['selected_team_num','selected_kobetu_team_num'])if(own(body,key)){
+      if(!signed32(body[key])||body[key]<1||!bindings.has(body[key])&&!seen.has(body[key]))throw Error('NATIVE_TEAM_SELECTION_NOT_OWNED');
+      mutation[key]=body[key];
+    }
+    for(const key of teamContextKeys)if(own(body,key)){
+      if(!unsigned32(body[key]))throw Error('INVALID_NATIVE_TEAM_CONTEXT');
+      if(!own(mutation,'advisory_context'))mutation.advisory_context={};
+      mutation.advisory_context[key]=body[key];
+    }
+    const transport={};
+    if(own(body,'timewarp')){
+      if(!integer(body.timewarp))throw Error('NATIVE_TRANSPORT_INTEGER_PRECISION_REQUIRED');
+      transport.timewarp=body.timewarp;
+    }
+    return {schema:1,kind:'own-player-team-update-normalization',profile_id:expected.profile_id,content_id:expected.content_id,
+      save_scope_sha256:expected.save_scope_sha256,expected_revision:snapshot.revision,mutation,transport_metadata:transport,
+      http_route_admitted:false,original_iphone_runtime_verified:false};
+  }
+  return Object.freeze({project,projectNewProfilePlayer,projectInitialTutorialPlayer,projectTeams,normalizeTeamUpdate,validateObserved});
 });

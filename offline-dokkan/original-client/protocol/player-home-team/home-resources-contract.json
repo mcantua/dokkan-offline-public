@@ -1,0 +1,347 @@
+{
+  "kind": "actual-original-resources-player-consumer-contract",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "static_callback_rtti_reused": true,
+  "callbacks": [
+    {
+      "role": "UserModel::fetchViaResourcesModel(bool)",
+      "bytes": 152,
+      "sha256": "d411ebda43cac7bb03c5e90dcf3c5bbf8b665b112010f760ba0b0fcd895aacda",
+      "high_pcode_sites_outside_declared_body": 0,
+      "root_selection": "user child of shared root",
+      "downstream": "actual 1,060-byte model update calls exact previously reviewed 2,416-byte User DTO decoder (actual ARM64 BL target SHA verified)",
+      "event": "EVENT_USER_MODEL_FETCH_USERDATA_SUCCESS"
+    },
+    {
+      "role": "CardModel::fetchUserCardsViaResourcesModel(bool)",
+      "bytes": 424,
+      "sha256": "92dd57a3e24c3c3686fda42cc26e4b4d4ede6ad07bc4f45f455fde584caf51b5",
+      "high_pcode_sites_outside_declared_body": 0,
+      "root_selection": [
+        "cards",
+        "user_card_id_updates",
+        "item_cards"
+      ],
+      "source_missing_member_fallback": "each member read through native supplied Json type6 value; separate from any fresh-account grants or policy",
+      "downstream": "actual 224-byte aggregate update pinned separately",
+      "event": "EVENT_CARD_MODEL_FETCH_CARDS_SUCCESS"
+    },
+    {
+      "role": "ResourcesModel::sendRequest success",
+      "bytes": 572,
+      "sha256": "8a515611999f8cf9623e3da9970b0023f23c912ffe205e92c2c8963fda02e854",
+      "high_pcode_sites_outside_declared_body": 0,
+      "queued_consumers_receive": "same callback root JSON, no per-consumer wrapper",
+      "additional_root_child": "battle_status",
+      "downstream": "separate 316-byte battle-status update pinned; requiredness/defaults unproved",
+      "consumer_return_branch_arm64_peer_check": "actual vtable+48 BLR followed immediately by TBZ W0 bit0; true advances, false leaves loop; X1 same saved root",
+      "consumer_failure_has_distinct_event": true
+    },
+    {
+      "role": "ResourcesModel::sendRequest failure",
+      "bytes": 452,
+      "sha256": "c73a611ee9825f4c12d2449cacaa45ecee030d09025fb0bdec13616666c8fd15",
+      "high_pcode_sites_outside_declared_body": 0,
+      "role_limits": "failure queue/error metadata cleanup, not successful player/home DTO"
+    }
+  ],
+  "team_consumer_reuse": "team-reader-contract.json actual 188-byte ResourcesModel callback selects teams child",
+  "request_setup_frontier": {
+    "distinct_exact_address_point_owner_bodies": 3,
+    "bytes": [
+      548,
+      1040,
+      384
+    ],
+    "decompilation_pending": false,
+    "all_own_scoped": true,
+    "source_findings": [
+      "User registers request item user; Card registers cards with user_card_updated_at metadata.",
+      "Same ResourcesModel setup distinguishes login/home and adds separate content for both; actual96-byte factory and360-byte constructor now reviewed.",
+      "Actual ResourcesAPI inherits proven method/materializer; subsequent call pins use actual ARM64 targets instead of potentially stale decompiler symbol labels."
+    ]
+  },
+  "http_method_and_relative_path_verified": true,
+  "full_home_dto_required_fields_verified": false,
+  "card_row_decode_and_instance_mapping_verified": false,
+  "http_route_admitted": false,
+  "original_client_runtime_verified": false,
+  "limits": [
+    "Callback RTTI and own-scoped source establish only selected relative fields and dispatch relationships.",
+    "No Android cache filename used to infer current endpoint; no HTTP success body admitted.",
+    "No source account values or arbitrary initial cards/team/defaults adopted."
+  ],
+  "shared_response_transport_reuse": {
+    "ordinary_plain_object_without_sign": "../../../research/ordinary-webapi-plain-response-contract.json",
+    "guarded_common_optional_updates": "../../../research/ordinary-root-optional-updates.json",
+    "endpoint_dto_still_must_be_complete": true
+  },
+  "user_model_abort_gate": {
+    "model_update_bytes": 1060,
+    "model_update_sha256": "2749ab4915dcf2f2b36a13c18acef3fdb92b978e5191e64e4d102565aaf00f93",
+    "actual_arm64": "LDR User from self+64; exact User decoder; LDR W9,[User,#32]; CBZ to failure/abort",
+    "field": "rank",
+    "native_condition": "decoded/stored UInt32 rank must be nonzero",
+    "not_validity_flag_at_byte4": true,
+    "existing_projector_guard": "canonical safe-integer rank >0 plus UInt32 ceiling already enforced; no new value or source edit",
+    "runtime_verified": false,
+    "missing_field_semantics": "prior stored value supplied to native default getter; missing selects prior value; present Json null is not omission"
+  },
+  "battle_status_native_guard": {
+    "consumer_bytes": 316,
+    "consumer_sha256": "ff15452f610312e9219aaa87f88a6a4a6a3ba02e947b8013d8318faa1340b6b3",
+    "fields": {
+      "battle_room_id": "unsigned64 existing404-byte getter",
+      "stage_type": "signed32 existing512-byte getter",
+      "is_force_remove_battle_room": "existing232-byte Boolean getter"
+    },
+    "null_predicate": {
+      "bytes": 16,
+      "sha256": "1127462c4c7c8d91029776c50bf06936364c1b83981fc4003482a3cefb2840f1",
+      "actual_arm64": "LDRB type tag at8; CMP0; CSET W0 eq; RET"
+    },
+    "guard": "each of3 predicate calls immediately TBNZ W0 bit0 to cleanup; any null skips whole update before conversion or stores",
+    "missing_child_const_selector_null_proof": {
+      "selector_bytes": 40,
+      "selector_sha256": "dd42e9a722691eec379059ee01aa2173858e9c7d57dd999863e33aa226704d78",
+      "actual_lookup_bytes": 284,
+      "actual_lookup_sha256": "c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6",
+      "lookup_null_parent_or_missing_member": "returns nullptr; existing bootstrap-ping-contract default_get_proof reused",
+      "null_static_accessor_bytes": 48,
+      "null_static_accessor_sha256": "34aae1ea8fb0d3049d8d3ad42d284364c5f55ffe66442ed85def4a852f9dd2a6",
+      "null_initializer_bytes": 104,
+      "null_initializer_sha256": "09fd1cd35e3cb12e18bd5de5e0786fb6f0aeba0551b4fccb4695c52aa2390760",
+      "actual_null_initializer": "tag byte masked to zero at singleton+8",
+      "decompiler_scope_limit": "104-byte body plus one4-byte nontext import-helper observation, no other game body; relevant store peer checked against actual ARM64"
+    },
+    "new_battle_state_defaults_invented": false,
+    "runtime_verified": false,
+    "root_battle_status_omission_skips_update": true
+  },
+  "actual_resources_request": {
+    "typeinfo": "ResourcesAPI",
+    "factory": {
+      "bytes": 96,
+      "sha256": "6a13143f89a8e68614d655e9b8fc01e1e2cfd5a3f5f5fbe0fa1dd943d068bfa2"
+    },
+    "constructor": {
+      "bytes": 360,
+      "sha256": "046febc76ca744f8146c91814c7d817df1ec5c2d21afaca446b5375c8ce6cfa1",
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    "resource_string": "resources/ + received request label",
+    "actual_constructor_kind": 0,
+    "method": "GET",
+    "proven_native_label_paths": [
+      "/resources/login",
+      "/resources/home"
+    ],
+    "ancestor_reuse": "../../../research/tutorial-update-contract.json",
+    "actual712_ancestor_sha256": "0179754c18025710cf1672a8ec5f131523c81832475d593f8c1952e0c0e2da05",
+    "actual_inherited_method_slot17_sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845",
+    "actual_inherited_materializer_slot2_sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37",
+    "constructor_login_only_request_field": "battle_status:true",
+    "current_configured_runtime_url_verified": false,
+    "optional_query_absence_assumed": false,
+    "http_route_registered": false,
+    "send_override": {
+      "slot": 25,
+      "bytes": 92,
+      "sha256": "6cc5beac95f761a69932ba9c7020ea4a52a0294b2586ae539ccc31f30ad6302b",
+      "role": "copies constructed request parameter object through common body setter, checks stored flag, tail-calls established generic API sender",
+      "scope_limit": "Ghidra tail-follows known1240-byte generic sender with168 outside instruction sites; source claims distinguish own92 bytes from reused sender",
+      "base_sender_bytes": 1240,
+      "base_sender_reused_without_rerun": true,
+      "actual_json_parameter_setter": {
+        "bytes": 1496,
+        "sha256": "8751485f7af9cc0493c607c64c444c95e13eea3f656c9a525f042d54078e98bc",
+        "source_review": "actual1496 body reviewed, own high-Pcode scope only",
+        "high_pcode_sites_outside_declared_body": 0,
+        "destination": "native query string at136, cleared before iteration",
+        "scalar_format": "member-name=value using actual native Json scalar string conversion, joined with ampersand",
+        "boolean_scalars": "literal true/false, retained412-byte string reader tag5 branch",
+        "integer_scalars": "base10 signed/unsigned formatter paths; no JSON wrapper",
+        "array_format": "repeated member-name[]=element-value joined with ampersand",
+        "optional_timewarp": "added from existing raw64 member16 only when nonzero; transport metadata only",
+        "percent_encoding_in_this_body": false,
+        "sign_base64_json_wrapper_in_this_body": false,
+        "key_provider_or_unknown_key_values_inspected": false,
+        "array_predicate": {
+          "bytes": 16,
+          "sha256": "35ae228e59fc176e2e066716fc3bcd2d0f8a0138ea65e62aa9bfe88655518a6c",
+          "actual_arm64": "LDRB type tag at8; CMP6; CSET W0 eq; RET",
+          "array_query_transport_admitted": false
+        }
+      }
+    },
+    "actual_item_request_writer": {
+      "bytes": 260,
+      "sha256": "666d7d8968536bce60fc4a4752fac0253e37fcec9a2d2cf915ea69f7830f1dd3",
+      "high_pcode_sites_outside_declared_body": 0,
+      "source_effect": "sets request item label true in parameter object and merges actual object-form item metadata",
+      "example_from_native_cards_registration": "user_card_updated_at",
+      "not_a_server_grant": true
+    }
+  },
+  "native_card_storage_frontier": {
+    "actual_transaction_wrapper": {
+      "bytes": 340,
+      "sha256": "37feae3689fe3aece9d30a6e111985e7fab18befc08b85c223b8aad370d44ccc",
+      "scope": "own body only",
+      "source_effect": "begins nativeSQL transaction; calls update helper; failure clears cached_user_cards before commit; success clears internal transient vector after commit"
+    },
+    "actual_id_update_helper": {
+      "bytes": 1200,
+      "sha256": "cfb018b7b82f40068ad05618b736667d221b65808630baf7d6dc1d4b16275527",
+      "high_pcode_sites_outside_declared_body": 0,
+      "source_effect": "iterates received id-update keys, parses decimal IDs, converts target via known native UInt64 helper and applies SQL/index changes",
+      "complete_cards_row_parser_proven": false
+    },
+    "runtime_verified": false,
+    "row_apply_frontier": {
+      "bytes": 268,
+      "sha256": "960828f0045e35b3c8b27d9f65bc377368a2198ca155bdfada97ea636764006e",
+      "high_pcode_sites_outside_declared_body": 0,
+      "source_effect": "initializes output vector empty; iterates received rows and calls immediate row helper; empty range skips row helper",
+      "full_row_field_contract_verified": false,
+      "paused_after_source_specific_tutorial_priority": true
+    }
+  },
+  "first_tutorial_projection": {
+    "javascript_method": "projectInitialTutorialPlayer(envelope, expected)",
+    "native_method": "projectInitialTutorialPlayer:",
+    "source_consumer": "ResourcesModel User callback selects root.user; source1060 model update passes same child into User2416",
+    "emitted_user_fields": [
+      "id",
+      "name",
+      "rank",
+      "tutorial.progress",
+      "tutorial.is_finished"
+    ],
+    "identity_and_rank_source": "actual canonical snapshot own wire identity and positive UInt32 rank",
+    "tutorial_source": "actual persisted original_client_tutorial policy record, is_finishedfalse; checkpoints not reset",
+    "omitted_fields": [
+      "card_capacity",
+      "total_card_capacity",
+      "support_item_capacity",
+      "is_support_item_capacity_extended",
+      "tutorial.contents_lv"
+    ],
+    "omission_rule": "native decoder constructs each fallback from prior native field;52 uses supplied prior only when284 returnsnullptr, never emit Json null as omission",
+    "requires": "clean scoped own snapshot, exact tutorial policy, empty actual owncards/teams; existing collection rejected instead of silently omitted",
+    "full_home_projection": false,
+    "targeted_evidence": "initial-tutorial-projection-evidence.json",
+    "http_route_admitted": false,
+    "original_client_runtime_verified": false,
+    "current_scope": "retained only for existing unfinished profiles; superseded for NEWprofiles by active skip policy"
+  },
+  "new_profile_skip_projection": {
+    "javascript_method": "projectNewProfilePlayer(envelope, expected)",
+    "native_method": "projectNewProfilePlayer:",
+    "required_persisted_tuple": {
+      "schema": 1,
+      "policy": "offline-new-player-skip-v1",
+      "progress": 0,
+      "is_finished": true
+    },
+    "policy_source": "latest user request to remove the new-player intro, persisted only for genuinely new profiles by canonical Core owner",
+    "emitted_user_fields": [
+      "id",
+      "name",
+      "rank",
+      "tutorial.progress",
+      "tutorial.is_finished"
+    ],
+    "existing_profiles_rewritten": false,
+    "constructor_capacities_or_contents_defaults_invented": false,
+    "existing_collection_silently_omitted": false,
+    "full_home_projection": false,
+    "http_route_admitted": false,
+    "normal_home_runtime_verified": false,
+    "targeted_evidence": "new-profile-skip-projection-evidence.json",
+    "title_finished_branch_source": {
+      "gate_bytes": 172,
+      "checked_field": "User byte145 bit0 is_finished; true uses normal continuation, no progress/contents_lv gate in this body",
+      "normal_continuation_bytes": 872,
+      "normal_continuation_sha256": "7b16b891f1136aae0a16b2a913bd38b7bee15821c1e093b24df49555d824a2ab",
+      "actual_tail_bytes": 2304,
+      "actual_tail_sha256": "17628802cd09df5856459c2998ee4d90ff3fe07aa8620aed408a316c2eb3037c",
+      "direct_branch_and_tail_hash_verified": true,
+      "tail_decompilation_reused": true,
+      "scope_limit": "872 body high-Pcode includes306 sites in known2304 tail; whole output not attributed to872 alone",
+      "actual_fallback_scene_factory": {
+        "bytes": 160,
+        "sha256": "03a51e1fb7ef83553158cafab49ba1f7f749a7bd873dd9d9614101d37c9e746d",
+        "high_pcode_sites_outside_declared_body": 0,
+        "actual_arg": 1,
+        "scene_type_and_empty_collection_acceptance": "HomeMenuScene type, constructor and init proven; actual native launch/emptycollection acceptance pending client diagnostic run",
+        "scene_type": "HomeMenuScene",
+        "scene_type_proof": "actual156-byte lookup passes RTTI13HomeMenuScene as __dynamic_cast destination in X2",
+        "scene_lookup_bytes": 156,
+        "scene_lookup_sha256": "d4c9eedfcfcdc64590e14b4078aa9ef9aeebf0efc743428655528340cfb184b5",
+        "allocation_bytes": 104,
+        "allocation_sha256": "8efeb2368000791db5122049db0a1076832f20d894f4141e8f4e47bdad8ac9b6",
+        "allocated_object_bytes": 1256,
+        "open_initialize_bytes": 640,
+        "open_initialize_sha256": "f43fbebb4445b11109b13c436bbab1f32451afa0bda82c3dbabd0b95d88906e2",
+        "source_constructor": {
+          "bytes": 232,
+          "sha256": "75fc92e08ed61d1a59240153309d6573264bfb0584fc1c80dc1a175357510031",
+          "high_pcode_sites_outside_declared_body": 0
+        },
+        "source_init": {
+          "bytes": 300,
+          "sha256": "66ffc140793db4b4ba42a613d50b4a61c15be32badc08ffee756fbfc2f13d141",
+          "high_pcode_sites_outside_declared_body": 0,
+          "source": "base init, original native child layout initialization, positioning/control registration; helper dependencies not fully classified"
+        }
+      },
+      "known112_singleton_or_generic48_transition_claimed_as_home": false
+    }
+  },
+  "native_bootstrap_resources_adapter": {
+    "header": "../../ios/ODOriginalPlayerResourcesAdapter.h",
+    "source": "../../ios/ODOriginalPlayerResourcesAdapter.m",
+    "route_objects": [
+      "GET /resources/login",
+      "GET /resources/home",
+      "GET /teams",
+      "POST /teams"
+    ],
+    "query_policy": "pure lexical source-known user/cards/teams/battle_status true flags; user required, login battle_status required; optional card-updated timestamp requires cards flag; UInt64 unsigned decimal transport subset only; unknown/array/form/encoded forms denied",
+    "get_body": "must be empty, matching actual method0 materializer",
+    "deferred_owner": "MAIN-only native provider returns actual issued scoped projector after same Core admission, or nil; no guessed scope/second Core",
+    "lifecycle": "checks active request +current native context before snapshot and delivery; compares same issued projector pointer again",
+    "response": "actual new-profile skip User candidate through native plain-object/no-sign response constructor",
+    "new_profile_body_creates_no_fields_for_other_models": true,
+    "existing_profiles_or_owned_collection_not_downgraded": true,
+    "host_registration": "coordinated with actual host factory owner, no arbitrary genericroute install",
+    "native_compilation_or_running_client_verified": false,
+    "teams_route": {
+      "projector_method": "projectCurrentTeams:",
+      "source_request": "team-reader-contract.json actual TeamsIndex GET family",
+      "request_policy": "default reject all queries; empty GET body; no additional metadata accepted",
+      "response_policy": "same actual issued Core projector; only complete nonnull body_json own-player-team-projection can become plain200",
+      "missing_or_unverified_team_metadata": "NOT_READY; no invented empty-team selection, number, BGM or references",
+      "post_signed_body_support_added": false
+    },
+    "separate_admission_gates": {
+      "resources_user_only": "same actual Core/user scope, independent of unproved native-master observer; known requested cards/teams flags do not invent or serve those fields",
+      "get_teams": "same Core/user scope plus genuine native-master currentness before and after projection",
+      "query_validator_calls_main_predicates": false
+    },
+    "post_teams_route": {
+      "decoder": "optional same-image ODOriginalRequestDecoder; exact original wire NSData only, actual fixed own-JSON native roundtrip/current-engine verification required",
+      "no_decoder_or_unverified_behavior": "specific native decoder unavailable/verification/context failure; no Core write, no plain replacement or base64-as-JSON fallback",
+      "native_mutation_method": "ODResourceResponseProjector applyDecodedOriginalTeamUpdate:command:mutationCurrent:reply:",
+      "normalization": "fresh actual same-Core snapshot, clean projection, strict complete proven writer fields and real owned-ID bindings",
+      "atomic_write": "existing native-only Core teams.apply with exact snapshot revision/save scope; creator lease and stale revision reject in owner operation",
+      "async_authority": "same current native decoder and projector pointers, current request/Core/master before normalization/write/delivery",
+      "success": "fresh current persisted GET-team projection, never echoed request or stale command receipt",
+      "retry_policy": "new native UUID for each admitted adapter invocation; no alleged original wire intent ID and no permanent request-body hash cache; later same formation remains allowed",
+      "cancellation_after_commit": "accepted Core commit is not rolled back; currentness/response failures report specifically and do not invent success",
+      "encoded_requests_decoded_or_native_writes_verified": false,
+      "new_targeted_check": "team-post-clean-admission-evidence.json; prior migration/team metadata checks reused"
+    }
+  }
+}

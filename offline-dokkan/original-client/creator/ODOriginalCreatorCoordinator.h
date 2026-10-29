@@ -40,8 +40,14 @@ typedef void (^ODOriginalCreatorCloseCompletion)(BOOL saved, NSError * _Nullable
 - (BOOL)attachToOriginalWindow:(UIWindow *)window controller:(UIViewController *)controller
                      renderer:(UIView *)renderer error:(NSError * _Nullable * _Nullable)error;
 /** Explicit target for a reviewed, user-invoked in-game Creator entry. This API
- * does not choose a menu position, inject a button or open automatically. */
+ * does not choose a menu position, inject a button or open automatically.
+ * On NO the native issuer owns pre-presentation lease recovery. If UIKit has
+ * already attached the editor, creatorIsOpen stays YES and its existing
+ * confirmed-save/close flow owns recovery instead. */
 - (BOOL)presentCreatorFromUserActionWithError:(NSError * _Nullable * _Nullable)error;
+/** Admission for a failed-opening rollback only. The source pause API still
+ * independently checks the same engine/scene before any actual resume. */
+- (BOOL)canResumeOriginalGameAfterFailedPresentation;
 - (void)requestCloseWithCompletion:(ODOriginalCreatorCloseCompletion)completion;
 /** Retry a retained post-dismiss native return failure. The confirmed saved
  * document stays held until reconciliation/lease release succeeds. */

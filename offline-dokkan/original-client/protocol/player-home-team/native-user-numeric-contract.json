@@ -1,0 +1,79 @@
+{
+  "kind": "original-iphone-user-numeric-reader-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "profile_decoder": {
+    "bytes": 2416,
+    "sha256": "4b634d9dbf00a7af014407d8efa876cde23e4975916ff9c98aa2662d94496e3e",
+    "decompile_completed": true,
+    "high_pcode_sites_outside_declared_body": 0
+  },
+  "numeric_groups": [
+    {
+      "native_conversion": "unsigned32",
+      "return_register": "W0",
+      "helper_bytes": 492,
+      "helper_sha256": "73023c72fcd8a87904a1fecfd42ff8f91c05a8a4f99a5466339b6e0bda205a38",
+      "native_numeric_max": 4294967295,
+      "user_relative_fields": [
+        "rank",
+        "act",
+        "act_max",
+        "card_capacity",
+        "total_card_capacity",
+        "zeni",
+        "stone",
+        "exchange_point",
+        "friends_capacity",
+        "support_item_capacity",
+        "gasha_point",
+        "wallpaper_item_id",
+        "tutorial.contents_lv",
+        "tutorial.progress",
+        "achievement_id",
+        "mainpage_card_id",
+        "act_cure_shortened_sec"
+      ]
+    },
+    {
+      "native_conversion": "unsigned64",
+      "return_register": "X0",
+      "helper_bytes": 404,
+      "helper_sha256": "80dd4c0250389c34095edf39f9d91eeb09e5dc4236e350781fbaf84d002260e7",
+      "user_relative_fields": [
+        "id",
+        "exp",
+        "total_score",
+        "mainpage_user_card_id"
+      ],
+      "javascript_projection_limit": "nonnegative Number.isSafeInteger; no rounding or arbitrary precision bridge fabricated"
+    },
+    {
+      "native_conversion": "signed64",
+      "return_register": "X0",
+      "helper_bytes": 488,
+      "helper_sha256": "54cecdad043da78725f9ecfb61b060a60917d371eceec85a92a49b817c67c042",
+      "user_relative_fields": [
+        "act_at"
+      ],
+      "javascript_projection_limit": "Number.isSafeInteger; units are not inferred from the field name"
+    }
+  ],
+  "actual_native_register_semantics_peer_checked": true,
+  "all_three_numeric_helpers_high_pcode_sites_outside_declared_body": 0,
+  "prior_field_fallback": {
+    "helper_bytes": 52,
+    "helper_sha256": "a5e6db7043c8b681bf414de5a53c6764a3479c3fb450414914bc2940f2e4ba4d",
+    "missing_member": "preserve prior model field; not fresh-player defaults",
+    "present_json_null": "not omission: find can return a nonnull pointer to Json-null, so do not emit null to preserve native prior state"
+  },
+  "implemented_projection": "../resources-projector.js",
+  "projection_evidence": "native-integer-projection-evidence.json",
+  "whole_http_body_or_home_route_binding_verified": false,
+  "fresh_default_policy_verified": false,
+  "native_runtime_execution_verified": false,
+  "limits": [
+    "This records static reader conversions and one projection guard, not offline login/home or actual gameplay acceptance.",
+    "Ghidra inferred double return types for some mixed numeric branches; ARM64 peer review established actual integer return registers instead.",
+    "No played-player scalars or unknown source strings used as defaults."
+  ]
+}

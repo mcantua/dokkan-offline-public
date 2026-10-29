@@ -1,0 +1,9 @@
+{
+  "kind": "post-team-clean-admission-guard",
+  "runs": 1,
+  "dirty_projection_rejected_before_mutation": true,
+  "clean_revision_bound_owned_ids_retained": true,
+  "prior_team_migration_and_metadata_checks_reused": true,
+  "original_codec_or_native_core_write_executed": false,
+  "module_sha256": "1adca671f23e24ca8b2ec2dab4914014abbc9c8b8025e0a21a1eee751cf8f2ac"
+}

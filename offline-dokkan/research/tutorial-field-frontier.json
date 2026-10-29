@@ -1,0 +1,90 @@
+{
+  "kind": "actual-current-tutorial-reader-recovery",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "recovered_readers": [
+    {
+      "role": "tutorial_field_frontier_1",
+      "bytes": 112,
+      "sha256": "6c437f203ccbd1fd5ccd2603b28ccdee5b6f291c6292d3a2a1c524722b64714b",
+      "allowlisted_fields": [
+        "progress"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_2",
+      "bytes": 336,
+      "sha256": "23d8b8a822e3b9f78ea4b7da993a022c96d78918c307328f495f1969fe1a24e9",
+      "allowlisted_fields": [
+        "progress"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_3",
+      "bytes": 596,
+      "sha256": "d1edcfb999811ce186381b4f1862fd958a393cc299dda104d3ac939334497b4b",
+      "allowlisted_fields": [
+        "contents_lv"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_4",
+      "bytes": 84,
+      "sha256": "a62de2f18ad43167f9f01aa4a5177556c0847e046c200364de6b7b377c0543bc",
+      "allowlisted_fields": [
+        "progress"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_5",
+      "bytes": 856,
+      "sha256": "3e6327beaeb1051bd4a60a8d2930184adaf60052e9cfbd17db3b605c5c9d5642",
+      "allowlisted_fields": [
+        "tutorial"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_6",
+      "bytes": 264,
+      "sha256": "c97d77b9977039839e66fc9d5daa6782dd2ca5711bae349f71c1ae208e6881db",
+      "allowlisted_fields": [
+        "progress"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_7",
+      "bytes": 780,
+      "sha256": "f8e998d838213cb47cd5175f0df181d35933413485ad7db1f2c8e0d91be37b6d",
+      "allowlisted_fields": [
+        "tutorial"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_8",
+      "bytes": 264,
+      "sha256": "66cc64dc0f5a6e6aebac1be862333c95390af9a2d7f271fead11c924cdc75f9b",
+      "allowlisted_fields": [
+        "progress",
+        "tutorial"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_9",
+      "bytes": 268,
+      "sha256": "c61321995a720ec28e8559c9f16937a6b4f375457e5179bac1b5b9cfb62d1e54",
+      "allowlisted_fields": [
+        "progress"
+      ]
+    }
+  ],
+  "direct_reader_callers": [],
+  "reader_relative_shape_verified": false,
+  "tutorial_start_state_verified": false,
+  "capacity_start_values_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "limits": [
+    "Pinned reader recovery only; symbolic events are private for manual flow review.",
+    "No played-account values, credentials or source keys read."
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "schema": "original-master-lifecycle-frontier-v1",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "method": "Fixed ARM64 B/BL immediate decoding and LC_FUNCTION_STARTS ownership; no function-body semantics",
+  "initializer_count": 5259,
+  "max_reverse_edges": 8,
+  "key_provider_words_excluded": 250,
+  "targets": {
+    "master_singleton": {
+      "body_sha256": "ecad0e17cdfe18d3e4d39ea9258da41b2af648ebc9b13240a26cd4e1f895daa4",
+      "direct_incoming_branch_sites": 268,
+      "direct_caller_function_count": 264,
+      "direct_initializer_callers": 0,
+      "initializer_syntactic_paths_within_eight_edges": 0,
+      "shortest_initializer_syntactic_path_edges": null,
+      "reverse_functions_considered": 4676,
+      "reverse_frontier_capped": false,
+      "call_graph_is_syntactic_only": true
+    },
+    "master_cached_open": {
+      "body_sha256": "ac277142cbeb5788e5b5983ce1dd621e49a3d359803f87a2e95c41fce277e46b",
+      "direct_incoming_branch_sites": 2,
+      "direct_caller_function_count": 2,
+      "direct_initializer_callers": 0,
+      "initializer_syntactic_paths_within_eight_edges": 0,
+      "shortest_initializer_syntactic_path_edges": null,
+      "reverse_functions_considered": 7,
+      "reverse_frontier_capped": false,
+      "call_graph_is_syntactic_only": true
+    },
+    "master_path_key_open": {
+      "body_sha256": "4614413d2dbfda33929332dd7dba19f20db1debe40ae453a0804ece642aff009",
+      "direct_incoming_branch_sites": 3,
+      "direct_caller_function_count": 2,
+      "direct_initializer_callers": 0,
+      "initializer_syntactic_paths_within_eight_edges": 0,
+      "shortest_initializer_syntactic_path_edges": null,
+      "reverse_functions_considered": 9,
+      "reverse_frontier_capped": false,
+      "call_graph_is_syntactic_only": true
+    },
+    "master_close_reopen": {
+      "body_sha256": "9279aed24a0ac1d41a84839c9c755e52ac7cada7f1955548e684a68b249d893c",
+      "direct_incoming_branch_sites": 1,
+      "direct_caller_function_count": 1,
+      "direct_initializer_callers": 0,
+      "initializer_syntactic_paths_within_eight_edges": 0,
+      "shortest_initializer_syntactic_path_edges": null,
+      "reverse_functions_considered": 2,
+      "reverse_frontier_capped": false,
+      "call_graph_is_syntactic_only": true
+    },
+    "master_close_candidate": {
+      "body_sha256": "577633a524734a76bec358f12e088482f316ce1f8860b8b8c229d6cba9322895",
+      "direct_incoming_branch_sites": 8,
+      "direct_caller_function_count": 8,
+      "direct_initializer_callers": 0,
+      "initializer_syntactic_paths_within_eight_edges": 0,
+      "shortest_initializer_syntactic_path_edges": null,
+      "reverse_functions_considered": 6827,
+      "reverse_frontier_capped": false,
+      "call_graph_is_syntactic_only": true
+    },
+    "master_selected_entry": {
+      "body_sha256": "7b4fac1092ee6fad7c362704043de766238327b1dbc95259ad767dbd97a30a32",
+      "direct_incoming_branch_sites": 2,
+      "direct_caller_function_count": 1,
+      "direct_initializer_callers": 0,
+      "initializer_syntactic_paths_within_eight_edges": 0,
+      "shortest_initializer_syntactic_path_edges": null,
+      "reverse_functions_considered": 4,
+      "reverse_frontier_capped": false,
+      "call_graph_is_syntactic_only": true
+    }
+  },
+  "limits": {
+    "client_executed": false,
+    "key_provider_body_followed": false,
+    "source_key_data_read": false,
+    "indirect_call_graph_complete": false,
+    "initializer_path_runtime_reachable_proven": false,
+    "no_initializer_path_means_safe": false,
+    "seed_copied_to_downloaded_path_proven": false,
+    "native_master_attached": false,
+    "safe_close_reopen_abi_admitted": false,
+    "public_raw_addresses_or_disassembly": false
+  }
+}

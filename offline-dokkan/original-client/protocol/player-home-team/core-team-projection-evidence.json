@@ -1,0 +1,13 @@
+{
+  "kind": "actual-core-sql-team-snapshot-resource-projection",
+  "verification": "one combined synthetic SQL-to-projector scenario; no C/native compile or gameplay",
+  "opaque_native_key_preserved": true,
+  "exact_six_positions_and_metadata_preserved": true,
+  "missing_binding_and_stale_layout_rejected": true,
+  "unowned_member_and_policy_override_rejected": true,
+  "fresh_account_received_no_team_or_selection": true,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "module_sha256": "c3d4ec2f75d8dfd521d751ba7c299d68098d81eb8725c64db42c9740762436ab",
+  "persisted_sql_record_sha256": "e2c4349a5a700ad960e0ee10645be116885142c4a11b18944572bff1d33eca01"
+}

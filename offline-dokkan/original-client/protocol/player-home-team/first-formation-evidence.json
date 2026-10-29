@@ -1,0 +1,18 @@
+{
+  "kind": "explicit-user-submitted-first-formation-and-user-continuity",
+  "runs": 1,
+  "empty_actual_team_list_emitted_without_selection": true,
+  "new_native_row_creates_revision_bound_mutation": true,
+  "new_formation_no_custom_music_policy": "empty string; own app policy only",
+  "existing_saved_bgm_preserved": true,
+  "user_submitted_number_name_references_and_six_positions_preserved": true,
+  "selection_only_if_actually_submitted": true,
+  "foreign_duplicate_dirty_or_extra_fields_rejected": true,
+  "skip_policy_user_remains_available_after_creation": true,
+  "collection_models_not_emitted_or_synchronized_by_user_only_dto": true,
+  "prior_core_new_row_allocation_and_ownership_sql_evidence_reused": "core-team-projection-evidence.json",
+  "core_c_or_objc_execution": false,
+  "original_client_empty_ui_or_encoded_post_execution": false,
+  "app_builds": 0,
+  "module_sha256": "272b92e38ecfa92ce43b5eb659b3619b125b48f8c6661d69d2c58d9787c09602"
+}

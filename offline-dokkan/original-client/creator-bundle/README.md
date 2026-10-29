@@ -45,13 +45,17 @@ const candidate = await ODCreatorFullBundle.stage(immutableProject, {
   contentId, saveScope, projectSHA256, definitionId, version,
   ownedInstanceId, sourceDatabase, schema, query, projects,
   sha256Text, describeAsset, listAssets,
-  readAsset, storeLwf, storeDecoration, prepareCounters
+  readAsset, storeLwf, storeDecoration, prepareCounters,
+  sourceSHA256, sourceHashVerified
 });
 ```
 
 The native caller must independently verify exact original accepted project
 bytes/hash and source/save identity; a JavaScript object or supplied hash does
-not grant that authority. `query` is the existing bounded read-only selected
+not grant that authority. `sourceSHA256` must be the lowercase digest named by
+`contentId`, and `sourceHashVerified` must be true only after native code has
+hashed that master file. The JavaScript check rejects a mismatch. It does not
+replace the native hash. `query` is the existing bounded read-only selected
 master/runtime query. `projects` includes every retained historical runtime
 reservation. `schema` is the actual selected source PRAGMA metadata. Storage
 callbacks stay private/native and must scope generated files to this candidate.
@@ -92,6 +96,78 @@ and `gameplay_ready:false`. Its unresolved list includes native atomic full
 acceptance, reference/encoded-ability proof, native derived-master publication,
 resource/CPK building, actual engine path/cipher/cache and the shared progression
 lease. A successful candidate alone never unlocks the existing production gates.
+
+## Validation before save
+
+The native validator hashes the selected plaintext master and continues only
+when that digest is the hash named by the content id. Known `*_id` columns must
+point at a row in the staged bundle or that master. Unknown `*_id` columns are
+not treated as references. Shared dependency rows must use the master schema,
+must not overlap private row ids, must agree across members, and must not
+disagree with a master row that already uses the same id. Multi-form projects
+still reject shared animation dependencies and custom shared Dodge hooks.
+
+Captured bytes are read back from the immutable blob. A second file with the
+same hash is kept only when the stored bytes and size match and the stored file
+is not writable. `od_creator_finish_bundle` hashes that packet and refuses the
+save unless the hash and packet fields match the definition binding. Public
+`creator.import` and `creator.finish` still reject a full-bundle descriptor.
+No WebView operation was added.
+
+The Session screen can save a full unit only after the host installs
+`ODNativeFullCreatorValidator` for the saved `local-player` account. Prepare
+then returns `fullBundle:true`. Finish ignores a page-supplied packet, runs
+that validator on the saved project, and imports one owned copy into the open
+account. The same Finish command keeps that copy. A page that sends
+`full_bundle` is rejected. Nothing here attaches the original engine or makes
+a custom unit playable.
+
+Full-bundle awakening rejection follows Session preparation for **every member**,
+including attached forms: missing, JSON `false`, `null`, or numeric zero does
+not request an EZA edit. An actual awakening request still uses the separate
+owned-card flow. A child form cannot bypass that flow through a non-awakening
+root. These native source changes have not been compiled or runtime-verified.
+
+Only the exact three compatibility entries from the real Forge exporter are
+excluded from immutable game-resource capture: `metadata.json`,
+`forge-project.json`, and `files/<Forge.filename(project)>.sql`. Another safe
+attachment ending in `.sql` is not silently discarded. It must pass the normal
+scoped asset attestation/capture or explicitly fail the capability check, and
+its bytes are never executed as SQL. The native inspector supplies the exact
+compatibility SQL path from Forge; no page-provided skip list is accepted.
+
+`check_resource_capture.js` runs one synthetic project through the actual
+Forge, Forms reservation and full-bundle staging path. The focused scenario
+retained the SQL-suffix attachment/hash, kept precisely the three compatibility
+entries, left its input project unchanged, rejected an awakening child form,
+and retained false engine/gameplay admission. `resource-capture-evidence.json`
+records the scope and the two fixture setup corrections before the pass. This
+is authored JavaScript staging evidence, not native Finish, source-game data
+or original-engine gameplay proof.
+
+Shared dependency resources now require captured immutable bytes in the same
+packet. Every declared `assetPaths` destination must match an actual captured
+asset/generated-text entry; an unbuilt CPK input list is not a finished-byte
+proof. A declaration alone, or a file presumed present in the original game,
+returns `FULL_BUNDLE_SHARED_RESOURCE_CAPTURE_REQUIRED` until a separate native
+resident-resource capability is implemented.
+
+The animation importer records source paths without `lua/`, and its existing
+`fetchResources` attaches scripts at exactly `lua/<animation.path>` (see
+`unit-creator/v2/ui/sparking-animation-import.js` and `sparking-content.js`). The
+validator uses only that established mapping and compares the declared SHA-256
+with the actual captured bytes. Unsupported path forms and changed digests
+return fixed errors; no declaration is guessed to be a native asset-store key.
+This binds the declared digest to bytes, not to an independently authenticated
+source-game version. It does not prove all dynamic script/audio/helper
+references, encoded ability semantics or unknown ID-column relationships.
+
+`node .../check_resource_capture.js --shared-only` reuses the same synthetic
+fixture in one new focused invocation. Matching captured script bytes passed;
+a changed declared hash and a missing captured resource rejected. The earlier
+resource-only scenario was not rerun. Exact scope is in
+`shared-resource-binding-evidence.json`. Objective-C remains uncompiled and
+unexecuted, and engine/gameplay admission stays false.
 
 ## Focused evidence
 

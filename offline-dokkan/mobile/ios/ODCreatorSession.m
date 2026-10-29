@@ -2,6 +2,7 @@
 #import "ODBattleStore.h"
 #import "ODBattleCoordinator.h"
 #import "../../adapter/ios/ODNativeCore.h"
+#import "../../original-client/creator-bundle/ODNativeFullCreatorValidator.h"
 #import <CommonCrypto/CommonDigest.h>
 #include "sqlite3.h"
 #include <sys/stat.h>
@@ -73,7 +74,8 @@ static NSString *ODAfter(NSString *old) {
 }
 static NSString *ODNow(void) { return ODAfter(nil); }
 static NSString *ODQuote(NSString *name) { return [NSString stringWithFormat:@"\"%@\"",[name stringByReplacingOccurrencesOfString:@"\"" withString:@"\"\""]]; }
-static dispatch_queue_t ODCreatorQueue(void) { static dispatch_queue_t queue;static dispatch_once_t once;dispatch_once(&once,^{queue=dispatch_queue_create("personal.offlinedokkan.creator",DISPATCH_QUEUE_SERIAL);});return queue; }
+static void *ODCreatorQueueKey=&ODCreatorQueueKey;
+static dispatch_queue_t ODCreatorQueue(void) { static dispatch_queue_t queue;static dispatch_once_t once;dispatch_once(&once,^{queue=dispatch_queue_create("personal.offlinedokkan.creator",DISPATCH_QUEUE_SERIAL);dispatch_queue_set_specific(queue,ODCreatorQueueKey,ODCreatorQueueKey,NULL);});return queue; }
 static NSMutableSet *ODFinishingProjects(void) { static NSMutableSet *set;static dispatch_once_t once;dispatch_once(&once,^{set=[NSMutableSet set];});return set; }
 static id ODValue(sqlite3_stmt *s,int i) {
     switch(sqlite3_column_type(s,i)) {
@@ -111,17 +113,21 @@ static int ODReadAuthorizer(void *raw,int action,const char *a,const char *b,con
 static NSSet *ODProjectionTables(void) {
     static NSSet *tables;static dispatch_once_t once;dispatch_once(&once,^{tables=[NSSet setWithArray:@[@"leader_skill_sets",@"leader_skills",@"passive_skill_sets",@"passive_skill_set_relations",@"passive_skills",@"card_specials",@"special_sets",@"specials",@"extra_special_options",@"card_active_skills",@"active_skill_sets",@"active_skills",@"card_standby_skill_set_relations",@"standby_skill_sets",@"standby_skills",@"standby_skill_set_finish_skill_set_relations",@"card_finish_skill_set_relations",@"finish_skill_sets",@"finish_skills",@"finish_specials",@"card_card_categories",@"card_categories",@"dokkan_fields",@"dokkan_field_active_skill_set_relations",@"dokkan_field_passive_skill_relations",@"link_skills",@"skill_causalities",@"sub_target_types",@"transformation_descriptions"]];});return tables;
 }
-static BOOL ODUnsupported(id p) {
+static BOOL ODAwakenProject(id p) {
+    id awaken=p[@"awaken"];return awaken&&awaken!=NSNull.null&&(![awaken isKindOfClass:NSNumber.class]||[awaken boolValue]);
+}
+static BOOL ODFullBundleProject(id p) {
     for(NSString *key in @[@"formProjects",@"transformLinks",@"assets",@"packedAssets",@"generatedFiles"]){id v=p[key];if(v&&(!ODArray(v)||[v count]))return YES;}
     for(NSString *key in @[@"actionHooks",@"animationAssignments"]){id v=p[key];if(v&&v!=NSNull.null&&(!ODObject(v)||[v count]))return YES;}
-    id awaken=p[@"awaken"];BOOL hasAwaken=awaken&&awaken!=NSNull.null&&(![awaken isKindOfClass:NSNumber.class]||[awaken boolValue]);
-    return hasAwaken || (p[@"sourceDependencies"]&&p[@"sourceDependencies"]!=NSNull.null) || (p[@"battlePoseBinding"]&&p[@"battlePoseBinding"]!=NSNull.null);
+    return (p[@"sourceDependencies"]&&p[@"sourceDependencies"]!=NSNull.null) || (p[@"battlePoseBinding"]&&p[@"battlePoseBinding"]!=NSNull.null);
 }
+static BOOL ODUnsupported(id p) { return ODAwakenProject(p)||ODFullBundleProject(p); }
 
 @implementation ODCreatorSession {
     NSURL *_master,*_directory; NSString *_content,*_game; ODNativeCore *_core;
     dispatch_queue_t _queue; ODBattleStore *_battleStore; ODBattleCoordinator *_battleCoordinator; sqlite3 *_db; NSDictionary *_schema; NSMutableDictionary *_state; NSString *_failure;
     BOOL _originalClientMode;NSString *_originalSaveScope;ODNativeCreatorLease *_originalLease;
+    ODNativeFullCreatorValidator *_fullValidator;
 }
 - (instancetype)initWithMasterURL:(NSURL *)master contentID:(NSString *)contentID game:(NSString *)game directory:(NSURL *)directory core:(ODNativeCore *)core {
     if((self=[super init])){_master=master;_content=[contentID copy];_game=[game copy];_directory=directory;_core=core;_queue=ODCreatorQueue();}return self;
@@ -479,25 +485,30 @@ static BOOL ODUnsupported(id p) {
     }else if(restoring){if(!selected){[self reply:reply result:nil error:@"VERSION_NOT_FOUND"];return;}NSMutableDictionary *restored=[selected[@"project"] mutableCopy];restored[@"updatedAt"]=ODAfter(project[@"updatedAt"]);next[@"projects"][key]=restored;next[@"versions"][key]=[self keepVersion:[self versionRow:project label:@"Before restoring an earlier version" safety:YES] old:rows];result=@{@"saved":@YES,@"project":restored,@"versions":[self publicVersions:next[@"versions"][key]],@"currentRevision":ODHash(ODJSON(restored))};}
     BOOL saved=result&&[self commit:next];[self reply:reply result:saved?result:nil error:saved?nil:@"CREATOR_STORAGE_WRITE_FAILED"];
 }
+- (NSDictionary *)preparePayload:(NSDictionary *)intent project:(NSDictionary *)project {
+    NSMutableDictionary *payload=[@{@"snapshot":intent[@"snapshot"],@"project":project,@"context":intent[@"context"],@"unchangedTables":intent[@"unchangedTables"]?:@[]} mutableCopy];
+    if([intent[@"fullBundle"] isEqual:@YES])payload[@"fullBundle"]=@YES;return payload;
+}
 - (void)prepare:(NSDictionary *)project key:(NSString *)key reply:(ODCreatorReply)reply {
-    if(!project||![self validProject:project]||ODUnsupported(project)){[self reply:reply result:nil error:@"UNSUPPORTED_CREATOR_PROJECT"];return;}
+    BOOL full=ODFullBundleProject(project);
+    if(!project||![self validProject:project]||ODAwakenProject(project)||(full&&!_fullValidator)||(!full&&ODUnsupported(project))){[self reply:reply result:nil error:@"UNSUPPORTED_CREATOR_PROJECT"];return;}
     if([self isFinishing:key]){[self reply:reply result:nil error:@"CREATOR_FINISH_IN_PROGRESS"];return;}
     NSString *hash=ODHash(ODJSON(project));NSDictionary *intent=_state[@"intents"][key];
-    if(ODObject(intent)&&[intent[@"hash"] isEqual:hash]&&[intent[@"context"][@"contentId"] isEqual:_content]){[self reply:reply result:@{@"snapshot":intent[@"snapshot"],@"project":project,@"context":intent[@"context"],@"unchangedTables":intent[@"unchangedTables"]} error:nil];return;}
-    NSArray *proof=[self proofForProject:project];if(!proof){[self reply:reply result:nil error:@"UNSUPPORTED_MODIFIED_TABLE"];return;}
+    if(ODObject(intent)&&[intent[@"hash"] isEqual:hash]&&[intent[@"context"][@"contentId"] isEqual:_content]&&[intent[@"fullBundle"] isEqual:@(full)]){[self reply:reply result:[self preparePayload:intent project:project] error:nil];return;}
+    NSArray *proof=full?@[]:[self proofForProject:project];if(!proof){[self reply:reply result:nil error:@"UNSUPPORTED_MODIFIED_TABLE"];return;}
     NSString *definitionID=_state[@"definitionIDs"][key]?:project[@"patch"][@"uuid"]?:key;
     if(!ODName(definitionID)){[self reply:reply result:nil error:@"INVALID_DEFINITION_ID"];return;}
     [self executeCreator:@"creator.library" command:nil arguments:@{} reply:^(id library,NSError *failure){
         if(failure||!ODObject(library)){[self reply:reply result:nil error:failure.localizedDescription?:@"CREATOR_LIBRARY_FAILED"];return;}
         NSDictionary *existing=nil;for(NSDictionary *d in library[@"definitions"])if([d[@"definition_id"] isEqual:definitionID])existing=d;
-        if(existing){[self executeCreator:@"creator.export" command:nil arguments:@{@"definition_id":definitionID} reply:^(id document,NSError *error){dispatch_async(self->_queue,^{if(error){[self reply:reply result:nil error:error.localizedDescription];return;}[self preparedProject:project key:key hash:hash definitionID:definitionID previous:document proof:proof reply:reply];});}];}
-        else dispatch_async(self->_queue,^{[self preparedProject:project key:key hash:hash definitionID:definitionID previous:nil proof:proof reply:reply];});
+        if(existing){[self executeCreator:@"creator.export" command:nil arguments:@{@"definition_id":definitionID} reply:^(id document,NSError *error){dispatch_async(self->_queue,^{if(error){[self reply:reply result:nil error:error.localizedDescription];return;}[self preparedProject:project key:key hash:hash definitionID:definitionID previous:document proof:proof fullBundle:full reply:reply];});}];}
+        else dispatch_async(self->_queue,^{[self preparedProject:project key:key hash:hash definitionID:definitionID previous:nil proof:proof fullBundle:full reply:reply];});
     }];
 }
-- (void)preparedProject:(NSDictionary *)project key:(NSString *)key hash:(NSString *)hash definitionID:(NSString *)definitionID previous:(NSDictionary *)previous proof:(NSArray *)proof reply:(ODCreatorReply)reply {
+- (void)preparedProject:(NSDictionary *)project key:(NSString *)key hash:(NSString *)hash definitionID:(NSString *)definitionID previous:(NSDictionary *)previous proof:(NSArray *)proof fullBundle:(BOOL)full reply:(ODCreatorReply)reply {
     if(![self reloadState]){[self reply:reply result:nil error:_failure];return;}
     if(![ODHash(ODJSON([self project:key])) isEqual:hash]){[self reply:reply result:nil error:@"PROJECT_REVISION_CONFLICT"];return;}
-    NSDictionary *existing=_state[@"intents"][key];if(ODObject(existing)&&[existing[@"hash"] isEqual:hash]){[self reply:reply result:@{@"snapshot":existing[@"snapshot"],@"project":project,@"context":existing[@"context"],@"unchangedTables":existing[@"unchangedTables"]} error:nil];return;}
+    NSDictionary *existing=_state[@"intents"][key];if(ODObject(existing)&&[existing[@"hash"] isEqual:hash]&&[existing[@"fullBundle"] isEqual:@(full)]){[self reply:reply result:[self preparePayload:existing project:project] error:nil];return;}
     NSMutableDictionary *card=[project[@"tables"][@"cards"][0] mutableCopy];[card addEntriesFromDictionary:project[@"cardOverrides"]];
     for(NSString *field in @[@"id",@"rarity",@"lv_max"])if(!ODInteger(card[field])){[self reply:reply result:nil error:@"INVALID_OFFLINE_CARD_SETTINGS"];return;}
     if(!ODInteger(project[@"source"][@"cardId"])||[project[@"source"][@"cardId"] longLongValue]<1){[self reply:reply result:nil error:@"INVALID_SOURCE_CARD"];return;}
@@ -506,9 +517,10 @@ static BOOL ODUnsupported(id p) {
     NSMutableDictionary *context=[@{@"contentId":_content,@"sourceDatabase":_game,@"definitionId":definitionID,@"version":@(version+1),@"rarity":kind} mutableCopy];
     if(ODObject(previous[@"creator"])){context[@"creatorId"]=previous[@"creator"][@"id"];context[@"creatorName"]=previous[@"creator"][@"name"];}
     if(previous[@"stat_policy"])context[@"statPolicy"]=previous[@"stat_policy"];
+    if(full){long long stamp=(long long)llround(NSDate.date.timeIntervalSince1970*1000.0);if(stamp<0||stamp>253402300799000LL){[self reply:reply result:nil error:@"FULL_BUNDLE_NATIVE_CONTEXT_INVALID"];return;}context[@"materializationUTC"]=@(stamp);}
     NSMutableDictionary *next=[self copyState];next[@"definitionIDs"][key]=definitionID;
-    NSDictionary *intent=@{@"snapshot":NSUUID.UUID.UUIDString,@"command":NSUUID.UUID.UUIDString,@"hash":hash,@"context":context,@"unchangedTables":proof};next[@"intents"][key]=intent;
-    BOOL saved=[self commit:next];[self reply:reply result:saved?@{@"snapshot":intent[@"snapshot"],@"project":project,@"context":context,@"unchangedTables":proof}:nil error:saved?nil:@"CREATOR_STORAGE_WRITE_FAILED"];
+    NSDictionary *intent=@{@"snapshot":NSUUID.UUID.UUIDString,@"command":NSUUID.UUID.UUIDString,@"hash":hash,@"context":context,@"unchangedTables":proof,@"fullBundle":@(full)};next[@"intents"][key]=intent;
+    BOOL saved=[self commit:next];[self reply:reply result:saved?[self preparePayload:intent project:project]:nil error:saved?nil:@"CREATOR_STORAGE_WRITE_FAILED"];
 }
 - (NSDictionary *)expectedDefinition:(NSDictionary *)project context:(NSDictionary *)context proof:(NSArray *)proof {
     if(ODUnsupported(project)||![self validProject:project])return nil;
@@ -557,11 +569,13 @@ static BOOL ODUnsupported(id p) {
     NSDictionary *intent=ODName(key)?_state[@"intents"][key]:nil;id definition=a[@"definition"];
     if(!project||!ODObject(intent)||![intent[@"snapshot"] isEqual:a[@"snapshot"]]||![intent[@"hash"] isEqual:ODHash(ODJSON(project))]||![intent[@"context"][@"contentId"] isEqual:_content]){[self reply:reply result:nil error:@"PROJECT_REVISION_CONFLICT"];return;}
     if([self isFinishing:key]){[self reply:reply result:nil error:@"CREATOR_FINISH_IN_PROGRESS"];return;}
-    NSDictionary *expected=[self expectedDefinition:project context:intent[@"context"] proof:intent[@"unchangedTables"]];
-    if(!expected||!ODObject(definition)||![expected isEqual:definition]){[self reply:reply result:nil error:@"CREATOR_PROJECTION_MISMATCH"];return;}
-    NSData *projectBytes=ODJSON(project),*definitionBytes=ODJSON(expected);
+    BOOL full=[intent[@"fullBundle"] isEqual:@YES];
+    NSDictionary *expected=full?nil:[self expectedDefinition:project context:intent[@"context"] proof:intent[@"unchangedTables"]];
+    if(full){if(!_fullValidator){[self reply:reply result:nil error:@"UNSUPPORTED_CREATOR_PROJECT"];return;}if(ODObject(definition)&&definition[@"full_bundle"]){[self reply:reply result:nil error:@"FULL_BUNDLE_PAGE_DESCRIPTOR_REJECTED"];return;}}
+    else if(!expected||!ODObject(definition)||![expected isEqual:definition]){[self reply:reply result:nil error:@"CREATOR_PROJECTION_MISMATCH"];return;}
+    NSData *projectBytes=ODJSON(project);__block NSData *definitionBytes=ODJSON(expected);__block NSDictionary *resolved=expected;
     if(definitionBytes.length>16*1024*1024){[self reply:reply result:nil error:@"OFFLINE_DEFINITION_TOO_LARGE"];return;}
-    if(intent[@"definition"]&&![intent[@"definition"] isEqual:definition]){[self reply:reply result:nil error:@"CREATOR_INTENT_CONFLICT"];return;}
+    if(!full&&intent[@"definition"]&&![intent[@"definition"] isEqual:definition]){[self reply:reply result:nil error:@"CREATOR_INTENT_CONFLICT"];return;}
     NSString *originalCommand=intent[@"command"],*command=[originalCommand stringByAppendingString:@":collection-v1"];
     [ODFinishingProjects() addObject:[self finishKey:key]];
     [_core originalCreatorProjectionAdmissionForProfile:@"local-player" reply:^(id admission,NSError *failure){dispatch_async(self->_queue,^{
@@ -569,29 +583,43 @@ static BOOL ODUnsupported(id p) {
         if(failure||![admission[@"content_id"] isEqual:self->_content]||!ODName(scope)||scope.length!=64||(self->_originalClientMode&&![scope isEqual:self->_originalSaveScope])||![self reloadState]||![self->_state[@"intents"][key][@"command"] isEqual:originalCommand]||![intent[@"hash"] isEqual:ODHash(ODJSON([self project:key]))]) {
             [ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"CREATOR_CAPTURE_SCOPE_OR_REVISION_CHANGED"];return;
         }
-        NSDictionary *pending=@{@"format":@"od-pending-creator-project-v1",@"content_id":self->_content,@"save_scope":scope,@"definition_id":expected[@"definition_id"],@"version":expected[@"version"],@"command":command,@"creator_key":key,@"project_sha256":ODHash(projectBytes),@"expected_definition_sha256":ODHash(definitionBytes),@"project_base64":[projectBytes base64EncodedStringWithOptions:0],@"expected_definition_base64":[definitionBytes base64EncodedStringWithOptions:0]};
+        NSData *bundleBytes=nil;
+        if(full){
+            if(![self->_fullValidator.saveScope isEqual:scope]||![self->_fullValidator.profileID isEqual:@"local-player"]||![self->_fullValidator.contentID isEqual:self->_content]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"FULL_BUNDLE_SAVE_SCOPE_MISMATCH"];return;}
+            NSError *validationError=nil;NSDictionary *validated=[self->_fullValidator validateProjectBytes:projectBytes context:intent[@"context"] error:&validationError];
+            bundleBytes=[validated[@"full_bundle_bytes"] isKindOfClass:NSData.class]?validated[@"full_bundle_bytes"]:nil;resolved=ODObject(validated[@"definition"])?validated[@"definition"]:nil;
+            if(!resolved||!bundleBytes.length){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:validationError.localizedDescription?:@"FULL_BUNDLE_FORGE_VALIDATION_FAILED"];return;}
+            NSDictionary *stored=ODObject(intent[@"definition"])?intent[@"definition"]:nil;
+            if(stored){
+                BOOL same=[stored[@"definition_id"] isEqual:resolved[@"definition_id"]]&&[stored[@"version"] isEqual:resolved[@"version"]]&&[stored[@"full_bundle"][@"full_bundle_sha256"] isEqual:resolved[@"full_bundle"][@"full_bundle_sha256"]];
+                if(!same){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"CREATOR_INTENT_CONFLICT"];return;}
+                resolved=stored;
+            }
+            definitionBytes=ODJSON(resolved);if(!definitionBytes||definitionBytes.length>16*1024*1024){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:definitionBytes?@"OFFLINE_DEFINITION_TOO_LARGE":@"FULL_BUNDLE_MATERIALIZATION_FAILED"];return;}
+        }
+        NSDictionary *pending=@{@"format":@"od-pending-creator-project-v1",@"content_id":self->_content,@"save_scope":scope,@"definition_id":resolved[@"definition_id"],@"version":resolved[@"version"],@"command":command,@"creator_key":key,@"project_sha256":ODHash(projectBytes),@"expected_definition_sha256":ODHash(definitionBytes),@"project_base64":[projectBytes base64EncodedStringWithOptions:0],@"expected_definition_base64":[definitionBytes base64EncodedStringWithOptions:0]};
         NSString *name=[ODHash([command dataUsingEncoding:NSUTF8StringEncoding]) stringByAppendingString:@".json"];
-        int accepted=ODCaptureDirectory(self->_directory,"accepted");NSDictionary *record=accepted>=0?ODCaptureRead(accepted,ODCaptureName(expected[@"definition_id"],expected[@"version"])):nil;if(accepted>=0)close(accepted);
+        int accepted=ODCaptureDirectory(self->_directory,"accepted");NSDictionary *record=accepted>=0?ODCaptureRead(accepted,ODCaptureName(resolved[@"definition_id"],resolved[@"version"])):nil;if(accepted>=0)close(accepted);
         if(record){NSDictionary *packet=[self capturePacket:record scope:scope];
             id registered=packet?[NSJSONSerialization JSONObjectWithData:packet[@"definition_bytes"] options:0 error:nil]:nil;
-            if(!packet||![registered isEqual:expected]||![packet[@"binding"][@"project_sha256"] isEqual:pending[@"project_sha256"]]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"CREATOR_ACCEPTED_VERSION_CONFLICT"];return;}
+            if(!packet||![registered isEqual:resolved]||![packet[@"binding"][@"project_sha256"] isEqual:pending[@"project_sha256"]]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"CREATOR_ACCEPTED_VERSION_CONFLICT"];return;}
             // The immutable native receipt survived even if the editable-state
             // receipt commit did not. Repair that cache without executing a
             // mutation or granting another owned instance (even after the Core
             // command's bounded full-result cache expires).
             NSDictionary *result=intent[@"result"];
             if(!ODInteger(result[@"instanceId"])||![result[@"instanceId"] isEqual:packet[@"binding"][@"instance_id"]]){
-                result=@{@"imported":@YES,@"definitionId":expected[@"definition_id"],@"version":expected[@"version"],@"instanceId":packet[@"binding"][@"instance_id"],@"available":@NO,@"newlyOwned":@NO};
+                result=@{@"imported":@YES,@"definitionId":resolved[@"definition_id"],@"version":resolved[@"version"],@"instanceId":packet[@"binding"][@"instance_id"],@"available":@NO,@"newlyOwned":@NO};
                 NSMutableDictionary *repair=[self copyState];repair[@"intents"][key][@"result"]=result;
                 if(![self commit:repair]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"CREATOR_RECEIPT_WRITE_FAILED_RETRY_SAME_FINISH"];return;}
             }
             [ODFinishingProjects() removeObject:[self finishKey:key]];[self liveImportResult:result reply:reply];return;
         }
         int directory=ODCaptureDirectory(self->_directory,"pending");BOOL captured=directory>=0&&ODCaptureWrite(directory,name,pending);if(directory>=0)close(directory);
-        NSMutableDictionary *next=[self copyState];next[@"intents"][key][@"definition"]=expected;
+        NSMutableDictionary *next=[self copyState];next[@"intents"][key][@"definition"]=resolved;
         if(!captured||![self commit:next]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:@"CREATOR_PENDING_CAPTURE_WRITE_FAILED"];return;}
-        [self executeCreator:@"creator.finish" command:command arguments:@{@"definition":expected} reply:^(id finished,NSError *error){dispatch_async(self->_queue,^{
-            if(error||![self validFinishReceipt:finished definition:expected]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:error.localizedDescription?:@"CREATOR_COLLECTION_REPLY_INVALID_RETRY_SAME_FINISH"];return;}
+        void (^acceptFinish)(id,NSError *)=^(id finished,NSError *error){dispatch_async(self->_queue,^{
+            if(error||![self validFinishReceipt:finished definition:resolved]){[ODFinishingProjects() removeObject:[self finishKey:key]];[self reply:reply result:nil error:error.localizedDescription?:@"CREATOR_COLLECTION_REPLY_INVALID_RETRY_SAME_FINISH"];return;}
             // Persist the exact trusted Core callback before fetching canonical
             // definition bytes. An interrupted unknown request is never replayed
             // by recovery; only an explicit same-intent Finish may execute it.
@@ -601,11 +629,13 @@ static BOOL ODUnsupported(id p) {
                 [ODFinishingProjects() removeObject:[self finishKey:key]];
                 if(captureError||!packet){[self reply:reply result:nil error:captureError?:@"CREATOR_CAPTURE_FAILED"];return;}
                 if(![self reloadState]||![self->_state[@"intents"][key][@"command"] isEqual:originalCommand]){[self reply:reply result:nil error:@"CREATOR_RECEIPT_CONFLICT"];return;}
-                NSDictionary *result=@{@"imported":@YES,@"definitionId":expected[@"definition_id"],@"version":expected[@"version"],@"instanceId":finished[@"instance_id"],@"available":finished[@"available"],@"newlyOwned":finished[@"newly_owned"]};
+                NSDictionary *result=@{@"imported":@YES,@"definitionId":resolved[@"definition_id"],@"version":resolved[@"version"],@"instanceId":finished[@"instance_id"],@"available":finished[@"available"],@"newlyOwned":finished[@"newly_owned"]};
                 NSMutableDictionary *saved=[self copyState];saved[@"intents"][key][@"result"]=result;
                 if(![self commit:saved]){[self reply:reply result:nil error:@"CREATOR_RECEIPT_WRITE_FAILED_RETRY_SAME_FINISH"];return;}[self liveImportResult:result reply:reply];
             });}];
-        });}];
+        });};
+        if(bundleBytes)[self->_core creatorFinishValidatedBundleForProfile:@"local-player" command:command definition:resolved bundleBytes:bundleBytes expectedSaveScopeSHA256:scope lease:self->_originalClientMode?self->_originalLease:nil reply:acceptFinish];
+        else [self executeCreator:@"creator.finish" command:command arguments:@{@"definition":resolved} reply:acceptFinish];
     });}];
 }
 - (void)recoverAcceptedNames:(NSArray *)names index:(NSUInteger)index scope:(NSString *)scope recovered:(NSUInteger)recovered unresolved:(NSUInteger)unresolved reply:(ODCreatorReply)reply {
@@ -647,7 +677,30 @@ static BOOL ODUnsupported(id p) {
     [self recoverAcceptedProjectsWithReply:^(id recovered,NSString *error){if(error){reply(nil,error);return;}dispatch_async(self->_queue,^{
         (void)recovered;int directory=ODCaptureDirectory(self->_directory,"accepted");NSDictionary *record=directory>=0?ODCaptureRead(directory,ODCaptureName(identifier,number)):nil;if(directory>=0)close(directory);
         NSString *scope=recovered[@"save_scope"];NSDictionary *packet=[self capturePacket:record scope:scope];
-        [self reply:reply result:packet error:packet?nil:@"ACCEPTED_CREATOR_PROJECT_UNAVAILABLE"];
+        if(!packet){[self reply:reply result:nil error:@"ACCEPTED_CREATOR_PROJECT_UNAVAILABLE"];return;}
+        NSDictionary *document=[NSJSONSerialization JSONObjectWithData:packet[@"definition_bytes"] options:0 error:nil];
+        if(!document[@"full_bundle"]){[self reply:reply result:packet error:nil];return;}
+        NSDictionary *binding=packet[@"binding"];
+        [self->_core acceptedCreatorFullBundleForProfile:@"local-player" definitionID:identifier
+            version:number.longLongValue instanceID:[binding[@"instance_id"] longLongValue]
+            expectedSaveScopeSHA256:scope lease:self->_originalLease reply:^(id full,NSError *failure){dispatch_async(self->_queue,^{
+                NSData *bytes=ODObject(full)&&[full[@"full_bundle_bytes"] isKindOfClass:NSData.class]?full[@"full_bundle_bytes"]:nil;
+                NSData *registered=ODObject(full)&&[full[@"definition_bytes"] isKindOfClass:NSData.class]?full[@"definition_bytes"]:nil;
+                NSDictionary *proof=ODObject(full)&&ODObject(full[@"full_bundle_receipt"])?full[@"full_bundle_receipt"]:nil;
+                NSDictionary *descriptor=ODObject(document[@"full_bundle"])?document[@"full_bundle"]:nil;
+                if(failure||!bytes.length||bytes.length>64u*1024u*1024u||!registered||![registered isEqualToData:packet[@"definition_bytes"]]||
+                   !proof||!descriptor||![full[@"content_id"] isEqual:self->_content]||![full[@"save_scope_sha256"] isEqual:scope]||
+                   ![full[@"profile_id"] isEqual:@"local-player"]||![full[@"definition_id"] isEqual:identifier]||![full[@"version"] isEqual:number]||
+                   ![full[@"full_bundle_sha256"] isEqual:ODHash(bytes)]||![descriptor[@"full_bundle_sha256"] isEqual:ODHash(bytes)]||
+                   ![proof[@"instance_id"] isEqual:binding[@"instance_id"]]||![proof[@"project_sha256"] isEqual:binding[@"project_sha256"]]||
+                   ![proof[@"definition_sha256"] isEqual:binding[@"definition_sha256"]]){
+                    NSString *code=[failure.localizedDescription isEqual:@"FULL_BUNDLE_PAYLOAD_MISSING_RECOVERY_REQUIRED"]?@"FULL_BUNDLE_PAYLOAD_MISSING_RECOVERY_REQUIRED":@"ACCEPTED_FULL_BUNDLE_UNCONFIRMED";
+                    [self reply:reply result:nil error:code];return;
+                }
+                NSMutableDictionary *complete=[packet mutableCopy];complete[@"full_bundle_bytes"]=bytes;
+                complete[@"full_bundle_sha256"]=full[@"full_bundle_sha256"];complete[@"full_bundle_receipt"]=proof;
+                [self reply:reply result:[complete copy] error:nil];
+            });}];
     });}];
 }
 - (void)liveImportResult:(NSDictionary *)receipt reply:(ODCreatorReply)reply {
@@ -659,8 +712,21 @@ static BOOL ODUnsupported(id p) {
             if(failure||!ODObject(profile)||!ODArray(profile[@"cards"])){[self reply:reply result:nil error:failure.localizedDescription?:@"CREATOR_COLLECTION_REFRESH_FAILED_RETRY_FINISH"];return;}
             BOOL available=NO;
             for(NSDictionary *card in profile[@"cards"])if([card[@"instance_id"] isEqual:receipt[@"instanceId"]]&&[card[@"created_definition"][@"definition_id"] isEqual:receipt[@"definitionId"]])available=YES;
-            NSMutableDictionary *result=[receipt mutableCopy];result[@"available"]=@(available);result[@"library"]=library;result[@"banner"]=@{@"status":@"not_configured",@"drawable":@NO,@"reason":@"trusted_catalog_allocation_required"};[self reply:reply result:result error:nil];
+            NSMutableDictionary *result=[receipt mutableCopy];result[@"available"]=@(available);result[@"account"]=@"local-player";result[@"library"]=library;result[@"banner"]=@{@"status":@"not_configured",@"drawable":@NO,@"reason":@"trusted_catalog_allocation_required"};[self reply:reply result:result error:nil];
         }];
     }];
+}
+- (BOOL)installSavedAccountFullBundleValidationWithCreatorCoreURL:(NSURL *)core sparkingDependenciesURL:(NSURL *)dependencies resourceRoot:(NSURL *)resourceRoot saveScope:(NSString *)scope openAsset:(int (^)(NSString *, NSError **))openAsset error:(NSError **)error {
+    NSCharacterSet *invalid=[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"] invertedSet];
+    if(!core.isFileURL||!dependencies.isFileURL||!resourceRoot.isFileURL||![scope isKindOfClass:NSString.class]||scope.length!=64||[scope rangeOfCharacterFromSet:invalid].location!=NSNotFound||!openAsset){if(error)*error=[NSError errorWithDomain:@"OfflineDokkanCreator" code:2 userInfo:@{NSLocalizedDescriptionKey:@"FULL_BUNDLE_NATIVE_CONTEXT_INVALID"}];return NO;}
+    __block BOOL ok=NO;__block NSError *failure=nil;NSString *pinned=[scope copy];
+    dispatch_block_t work=^{
+        if(self->_originalClientMode&&![pinned isEqual:self->_originalSaveScope]){failure=[NSError errorWithDomain:@"OfflineDokkanCreator" code:2 userInfo:@{NSLocalizedDescriptionKey:@"FULL_BUNDLE_SAVE_SCOPE_MISMATCH"}];return;}
+        NSError *local=nil;ODNativeFullCreatorValidator *validator=[[ODNativeFullCreatorValidator alloc] initWithCreatorCoreURL:core sparkingDependenciesURL:dependencies masterURL:self->_master immutableResourceRoot:resourceRoot contentID:self->_content profileID:@"local-player" saveScope:pinned openAsset:openAsset error:&local];
+        if(!validator||![validator.profileID isEqual:@"local-player"]||![validator.contentID isEqual:self->_content]||![validator.saveScope isEqual:pinned]){failure=local?:[NSError errorWithDomain:@"OfflineDokkanCreator" code:2 userInfo:@{NSLocalizedDescriptionKey:@"FULL_BUNDLE_NATIVE_CONTEXT_INVALID"}];return;}
+        self->_fullValidator=validator;ok=YES;
+    };
+    if(dispatch_get_specific(ODCreatorQueueKey))work();else dispatch_sync(_queue,work);
+    if(!ok&&error)*error=failure;return ok;
 }
 @end

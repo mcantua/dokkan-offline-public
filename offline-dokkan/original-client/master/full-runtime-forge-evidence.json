@@ -1,0 +1,19 @@
+{
+  "kind": "one-focused-authored-accepted-full-runtime-materialization",
+  "fixture": "synthetic immutable two-form packet using actual Forge; no source game rows or native byte-hash execution",
+  "checks": {
+    "root_and_awakened_rows_retained": true,
+    "one_instance_member_mapping": true,
+    "explicit_and_encoded_transformation_targets_rebased": true,
+    "indirect_source_card_return_rebased": true,
+    "accepted_project_unchanged": true,
+    "hash_binding_mismatch_rejected": true,
+    "unproved_resource_rebase_rejected": true,
+    "unmapped_encoded_private_id_rejected": true,
+    "old_single_project_gate_unchanged": true
+  },
+  "native_compilation_or_runtime_verified": false,
+  "native_transaction_or_original_game_verified": false,
+  "targeted_invocations": 1,
+  "engine_admission": false
+}

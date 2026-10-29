@@ -1,0 +1,61 @@
+{
+  "format": "od-current-request-url-static-v1",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "url_builder": {
+    "bytes": 664,
+    "sha256": "4192af9cd1485f8a3402f6497c6f92669b60a55d006ff99e0ebfb5e2112df663",
+    "https_port": 443,
+    "explicit_port_omitted_only_for": 80,
+    "suffix_join_separator": "/"
+  },
+  "relative_suffix_builder": {
+    "bytes": 248,
+    "sha256": "3d0d976939e884fea40c87de204fba3db90f3956b8043df15133898ca8202a11",
+    "path_string_offset": 192,
+    "query_string_offset": 136,
+    "question_mark_added_only_when_query_nonempty": true
+  },
+  "auth_request_constructor_query_absence_proven": true,
+  "arbitrary_query_support_added": false,
+  "runtime_url_observed": false,
+  "original_client_executed": false,
+  "auth_constructor_chain": [
+    {
+      "role": "nonce_request_constructor",
+      "bytes": 228,
+      "sha256": "a4ab39956604b70ed4f0812fdbafb22b2b6b82470b0ed7b53ffa50f530730386",
+      "calls": "common_request_constructor"
+    },
+    {
+      "role": "sign_in_request_builder",
+      "bytes": 236,
+      "sha256": "b6a67095081dc3f45b42dbef186b38ddc57141c53ee67583fd4fd47257fb492f",
+      "calls": "auth_request_constructor"
+    },
+    {
+      "role": "auth_request_constructor",
+      "bytes": 392,
+      "sha256": "3c6d85dde0682e7c60cf425fcde4b8f85726c81a5e9a2c21dd2aad49c3526b63",
+      "calls": "common_request_constructor",
+      "added_string_members_start_at": 216
+    },
+    {
+      "role": "common_request_constructor",
+      "bytes": 420,
+      "sha256": "9d8e134af30873e345b61ff3542d2e85399c549c0b1f1331843c9807c5865910",
+      "query_string_offset": 136,
+      "query_initialized_with_empty_literal": true
+    },
+    {
+      "role": "empty_query_string_constructor",
+      "bytes": 164,
+      "sha256": "9655e7333452b3ffb63f588804ac091e3eb979ad68def7185f3a5d79ef49f01a"
+    }
+  ],
+  "queryless_auth_transport_compatibility": "The reviewed nonce and sign-in constructors initialize an empty query and their derived constructors do not overwrite it. Existing query rejection needs no broadening for those constructed requests.",
+  "limits": [
+    "Constructor/static URL assembly facts only; later mutation outside reviewed construction is not ruled out.",
+    "Runtime request interception, actual login success, and original-client gameplay remain unverified.",
+    "No origins, account headers, key values or configured host/port values were read."
+  ]
+}

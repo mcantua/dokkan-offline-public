@@ -11,6 +11,7 @@
 #include <string.h>
 
 static NSError *ODBindingError(NSInteger code){return [NSError errorWithDomain:@"OfflineDokkan.OriginalCreatorBinding" code:code userInfo:@{NSLocalizedDescriptionKey:@"The same native game/save binding could not be confirmed. Your editor and original inputs are preserved; gameplay was not resumed."}];}
+static NSError *ODOpeningRecoveredError(void){return [NSError errorWithDomain:@"OfflineDokkan.OriginalCreatorBinding" code:17 userInfo:@{NSLocalizedDescriptionKey:@"Unit Creator could not open. Its native binding was safely released; you can try opening it again."}];}
 static BOOL ODHex(id v){return [v isKindOfClass:NSString.class]&&[v length]==64&&[v rangeOfCharacterFromSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"] invertedSet]].location==NSNotFound;}
 static BOOL ODSameFile(struct stat a,struct stat b){return a.st_dev==b.st_dev&&a.st_ino==b.st_ino&&a.st_size==b.st_size&&a.st_mtimespec.tv_sec==b.st_mtimespec.tv_sec&&a.st_mtimespec.tv_nsec==b.st_mtimespec.tv_nsec&&a.st_ctimespec.tv_sec==b.st_ctimespec.tv_sec&&a.st_ctimespec.tv_nsec==b.st_ctimespec.tv_nsec;}
 static NSString *ODDigest(NSData *data){unsigned char h[32];CC_SHA256(data.bytes,(CC_LONG)data.length,h);NSMutableString *s=[NSMutableString string];for(int i=0;i<32;i++)[s appendFormat:@"%02x",h[i]];return s;}
@@ -48,7 +49,7 @@ static BOOL ODClaimOwner(int directory,NSURL *workspace,NSDictionary *owner){
     ODScopedCreatorTools *_tools;BOOL (^_networkAuthorization)(NSURL *);
     ODNativeCreatorLease *_coreLease;ODDuoOriginalGamePauseLease *_pauseLease;
     __weak UIWindow *_window;__weak UIViewController *_controller;__weak UIView *_renderer;
-    BOOL _opening,_closePrepared,_ending;NSError *_lastBindingError;
+    BOOL _opening,_closePrepared,_ending,_failedPresentationRecovery,_recoveringPresentation;NSError *_lastBindingError;
 }
 - (instancetype)initWithCore:(ODNativeCore *)core masterURL:(NSURL *)master masterBytes:(uint64_t)bytes contentID:(NSString *)content sourceDatabase:(NSString *)source saveURL:(NSURL *)save workspaceURL:(NSURL *)workspace overlayURL:(NSURL *)overlay expectedSaveScopeSHA256:(NSString *)scope contextIsCurrent:(BOOL (^)(void))current error:(NSError **)error {
     if((self=[super init])){
@@ -76,6 +77,14 @@ invalid:if(error)*error=ODBindingError(1);return nil;
 }
 - (ODOriginalCreatorCoordinator *)coordinator{return _coordinator;}
 - (NSError *)lastBindingError{return _lastBindingError;}
+- (BOOL)failedPresentationNeedsRecovery{return _failedPresentationRecovery;}
+- (BOOL)matchesAdmittedContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope {
+    return [contentID isEqual:_content]&&[scope isEqual:_scope];
+}
+- (ODNativeCore *)originalClientCoreForContentID:(NSString *)contentID saveScopeSHA256:(NSString *)scope {
+    return NSThread.isMainThread&&[self matchesAdmittedContentID:contentID saveScopeSHA256:scope]&&
+        [self creatorScopeIsCurrent] ? _core : nil;
+}
 - (BOOL)creatorScopeIsCurrent {
     struct stat master,path,workspace,save;
     return NSThread.isMainThread&&_current()&&[_core matchesSaveURL:_save masterURL:_master contentID:_content]&&
@@ -94,15 +103,29 @@ invalid:if(error)*error=ODBindingError(1);return nil;
     _window=window;_controller=controller;_renderer=renderer;return YES;
 }
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError *))completion {
-    if(![self creatorScopeIsCurrent]||_opening||_ending||_coordinator.creatorIsOpen){completion(ODBindingError(2));return;}
+    if(!completion)return;
+    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self presentCreatorFromUserActionWithCompletion:completion];});return;}
+    if(![self creatorScopeIsCurrent]||_opening||_ending||_recoveringPresentation||_coordinator.creatorIsOpen){completion(ODBindingError(2));return;}
+    if(_failedPresentationRecovery){
+        // A new explicit user action can retry cleanup, never reuse the held
+        // stale tools/session as a fresh editing capability.
+        [self recoverFailedPresentationWithCompletion:^(NSError *failure){
+            if(failure)completion(failure);else[self presentCreatorFromUserActionWithCompletion:completion];
+        }];return;
+    }
     NSError *pauseError=nil;if(!_pauseLease)_pauseLease=ODDuoBeginCreatorPause(_window,_controller,_renderer,&pauseError);
-    if(!_pauseLease){_lastBindingError=ODBindingError(3);completion(_lastBindingError);return;}
+    if(!_pauseLease){
+        // The source pause implementation retains a faulted global lease when
+        // its postconditions fail, even though it cannot hand that lease out.
+        // Surface that state; never synthesize authority to release it.
+        if([pauseError.domain isEqual:@"OfflineDokkan.OriginalDuoScene"]&&pauseError.code==15)_failedPresentationRecovery=YES;
+        _lastBindingError=ODBindingError(3);completion(_lastBindingError);return;
+    }
     _opening=YES;
     [_core synchronizeOriginalCreatorProjectionForProfile:@"local-player" overlayURL:_overlay reply:^(id receipt,NSError *failure){
-        if(failure||![self receiptMatches:receipt]||![self creatorScopeIsCurrent]){self->_opening=NO;self->_lastBindingError=ODBindingError(4);completion(self->_lastBindingError);return;}
+        if(failure||![self receiptMatches:receipt]||![self creatorScopeIsCurrent]){[self failOpeningWithError:ODBindingError(4) completion:completion];return;}
         void (^issued)(ODNativeCreatorLease *,NSError *)=^(ODNativeCreatorLease *lease,NSError *error){
-            self->_opening=NO;
-            if(error||!lease){self->_lastBindingError=ODBindingError(5);completion(self->_lastBindingError);return;}
+            if(error||!lease){[self failOpeningWithError:ODBindingError(5) completion:completion];return;}
             self->_coreLease=lease;self->_closePrepared=YES;
             self->_session=[[ODCreatorSession alloc] initWithMasterURL:self->_master contentID:self->_content game:self->_source directory:self->_workspace core:self->_core originalClientSaveScopeSHA256:self->_scope lease:lease];
             [self->_tools invalidate];self->_tools=nil;
@@ -121,13 +144,62 @@ invalid:if(error)*error=ODBindingError(1);return nil;
                 // failure after commit, which could roll back referenced media.
                 [issuedSession restoreArchiveDocuments:documents reply:callback];
             }];
+            [self installBundledFullBundleValidation];
             NSError *presentError=nil;
-            if(!self->_session||!self->_tools||![self creatorScopeIsCurrent]||![self->_coordinator presentCreatorFromUserActionWithError:&presentError]){[self->_tools invalidate];self->_lastBindingError=ODBindingError(6);completion(self->_lastBindingError);return;}
-            self->_closePrepared=NO;self->_lastBindingError=nil;completion(nil);
+            if(!self->_session||!self->_tools||![self creatorScopeIsCurrent]||![self->_coordinator presentCreatorFromUserActionWithError:&presentError]){[self failOpeningWithError:ODBindingError(6) completion:completion];return;}
+            self->_opening=NO;self->_closePrepared=NO;self->_lastBindingError=nil;completion(nil);
         };
         if(self->_coreLease)issued(self->_coreLease,nil);
         else[self->_core acquireOriginalCreatorLeaseForProfile:@"local-player" expectedSaveScopeSHA256:self->_scope reply:issued];
     }];
+}
+- (void)failOpeningWithError:(NSError *)openingError completion:(void (^)(NSError *))completion {
+    _opening=NO;_lastBindingError=openingError;
+    if(_coordinator.creatorIsOpen){
+        // An attached editor owns real editable state. Its confirmed close,
+        // not pre-presentation cleanup, must release these capabilities.
+        completion(_lastBindingError);return;
+    }
+    _failedPresentationRecovery=YES;
+    [self recoverFailedPresentationWithCompletion:^(NSError *failure){
+        self->_lastBindingError=failure?:ODOpeningRecoveredError();
+        completion(self->_lastBindingError);
+    }];
+}
+- (void)recoverFailedPresentationWithCompletion:(void (^)(NSError *))completion {
+    if(!completion)return;
+    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self recoverFailedPresentationWithCompletion:completion];});return;}
+    if(!_failedPresentationRecovery||_opening||_ending||_recoveringPresentation||_coordinator.creatorIsOpen||
+       ![self creatorScopeIsCurrent]||!_pauseLease){
+        _lastBindingError=ODBindingError(16);completion(_lastBindingError);return;
+    }
+    _recoveringPresentation=YES;
+    // Initialization/recovery can publish an outbox after the opening's first
+    // sync. Recheck now instead of treating that old clean receipt as current.
+    _closePrepared=NO;
+    BOOL active=[_coordinator canResumeOriginalGameAfterFailedPresentation];
+    [self endCreatorPresentationWithActiveScene:active completion:^(NSError *failure){
+        self->_recoveringPresentation=NO;
+        if(failure){
+            // Changed scope, dirty projection or uncertain source postconditions
+            // keep the exact leases held for an explicit native recovery.
+            self->_lastBindingError=ODBindingError(16);completion(self->_lastBindingError);return;
+        }
+        self->_failedPresentationRecovery=NO;self->_tools=nil;
+        self->_lastBindingError=nil;completion(nil);
+    }];
+}
+- (BOOL)installFullBundleValidationWithCreatorCoreURL:(NSURL *)core dependenciesURL:(NSURL *)dependencies error:(NSError **)error {
+    if(!NSThread.isMainThread||!_session||!_tools||!_coreLease||!core.isFileURL||!dependencies.isFileURL||![self creatorScopeIsCurrent]){if(error)*error=ODBindingError(15);return NO;}
+    NSURL *root=[_workspace URLByAppendingPathComponent:@"full-bundle-captures" isDirectory:YES];
+    ODScopedCreatorTools *tools=_tools;ODCreatorSession *session=_session;
+    return [session installSavedAccountFullBundleValidationWithCreatorCoreURL:core sparkingDependenciesURL:dependencies resourceRoot:root saveScope:_scope openAsset:^int(NSString *key,NSError **assetError){return [tools openAssetKey:key error:assetError];} error:error];
+}
+- (void)installBundledFullBundleValidation {
+    NSURL *site=[NSBundle.mainBundle.resourceURL URLByAppendingPathComponent:@"site" isDirectory:YES];
+    NSURL *core=[site URLByAppendingPathComponent:@"core.js"],*dependencies=[site URLByAppendingPathComponent:@"sparking-dependencies.js"];
+    if(![NSFileManager.defaultManager fileExistsAtPath:core.path]||![NSFileManager.defaultManager fileExistsAtPath:dependencies.path])return;
+    [self installFullBundleValidationWithCreatorCoreURL:core dependenciesURL:dependencies error:nil];
 }
 - (BOOL)beginCreatorPresentationWithError:(NSError **)error {
     BOOL ok=[self creatorScopeIsCurrent]&&_coreLease&&_pauseLease&&[_coreLease.profileID isEqual:@"local-player"]&&[_coreLease.contentID isEqual:_content]&&[_coreLease.saveScopeSHA256 isEqual:_scope];

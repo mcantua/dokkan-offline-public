@@ -1,0 +1,38 @@
+{
+  "kind": "own-original-native-practice-ledger",
+  "schema_version": 15,
+  "native_operations": [
+    "practice.begin",
+    "practice.finish"
+  ],
+  "ordinary_execute_or_web_authority": false,
+  "master_parameters_independently_hashed": true,
+  "master_source_readonly": true,
+  "states": [
+    "prepared",
+    "native-finish-observed"
+  ],
+  "finish_source": "actual bound original native callback with scene/generation ownership",
+  "normal_quest_progress": false,
+  "rewards_or_act_mutated": false,
+  "owned_units_or_teams_mutated": false,
+  "tutorial_progress_mutated": false,
+  "creator_projection_generation_mutated": false,
+  "combat_win_or_clear_inferred": false,
+  "mid_combat_resume_implemented": false,
+  "finish_commit_precedes_volatile_cleanup_and_home": true,
+  "explicit_same_intent_retry": true,
+  "passing_focused_check": {
+    "source": "check_practice_store.py",
+    "executions": 1,
+    "actual_c_core": true,
+    "older_schema_migration": true,
+    "scope_source_authority_and_revision_rejection": true,
+    "lost_reply_replay_after_other_revision": true,
+    "explicit_known_revision_rejection_retry": true,
+    "unchanged_gameplay_state": true,
+    "durable_reopen": true,
+    "original_engine_or_combat_executed": false
+  },
+  "environment_preparation": "Restored existing canonical pinned SQLite headers; Makefiles use downloads/sqlite-amalgamation/source; formatting-only GCC warning fixes."
+}

@@ -1,0 +1,237 @@
+{
+  "kind": "actual-current-iphone-team-reader-relative-contract",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "team_collection_reader": {
+    "bytes": 488,
+    "sha256": "2805881ac44c974073256832eb09e68af8d297d7a82bb032844707e6c81cb960",
+    "high_pcode_sites_outside_declared_body": 0,
+    "selected_fields": [
+      "selected_team_num",
+      "selected_kobetu_team_num",
+      "user_card_teams"
+    ],
+    "selection_number_conversion": {
+      "native": "signed32",
+      "helper_bytes": 512,
+      "helper_sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c"
+    },
+    "member_row_reader": {
+      "bytes": 796,
+      "sha256": "f35fb4e057ed8f244585dc99f32f80712c29c9f776bad4c106c94cbdf22064d8",
+      "high_pcode_sites_outside_declared_body": 0,
+      "relative_fields": [
+        "user_card_ids",
+        "name",
+        "referenced_sugoroku_map_id",
+        "referenced_z_battle_stage_id",
+        "referenced_card_ids"
+      ],
+      "complete_card_id_conversion_and_ownership_binding_verified": false
+    },
+    "bgm_reader": {
+      "bytes": 320,
+      "sha256": "7e0bbfcbab41daf96ad9c5aaada632a41665a50b7284bd489110a1458b85ded7",
+      "high_pcode_sites_outside_declared_body": 0,
+      "relative_fields": [
+        "user_card_teams",
+        "user_card_teams[].num",
+        "user_card_teams[].team_bgm_filename"
+      ],
+      "string_conversion": {
+        "bytes": 412,
+        "sha256": "9bada54a2aae2b2969d02446559ada7309c784d4e0393fdac3835fc3f44cb0dd",
+        "bounded_peer_checked": "declared-body null tag branch targets exact generic empty-string constant whose first byte is NUL",
+        "null_filename_conversion": "native empty string",
+        "limits": "Does not attribute the 278 outside-body high-pcode sites to this helper, infer server defaults, or grant a BGM asset."
+      }
+    }
+  },
+  "response_consumer_candidates": [
+    {
+      "bytes": 164,
+      "sha256": "2676fc2e1317a15bd8ad6843c309e52cbee2690d316fa55e4f255f1c6133d44c",
+      "high_pcode_sites_outside_declared_body": 0,
+      "reader_input_selection": "callback JSON argument passed directly",
+      "completion_event": "team fetch success",
+      "http_request_binding_verified": true,
+      "retained_rtti_method": "TeamModel::forceFetchTeams(bool)",
+      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)",
+      "runtime_execution_verified": false
+    },
+    {
+      "bytes": 188,
+      "sha256": "09db0cb2bc1f0d15797ad06784f52f731f73d6750b865e0d2110c917c8dc2e3a",
+      "high_pcode_sites_outside_declared_body": 0,
+      "reader_input_selection": "teams member selected from callback JSON argument",
+      "completion_event": "team fetch success",
+      "http_request_binding_verified": false,
+      "retained_rtti_method": "TeamModel::fetchTeamsViaResourcesModel(bool)",
+      "retained_rtti_callback_signature": "bool(Json::Value const&)",
+      "runtime_execution_verified": false
+    },
+    {
+      "bytes": 124,
+      "sha256": "ee0c8c380cef13644778d98b0c711c5413b5b854942ad2f89da9f5ad8dc5c96c",
+      "high_pcode_sites_outside_declared_body": 0,
+      "reader_input_selection": "callback JSON argument passed directly",
+      "completion_event": "team update success",
+      "http_request_binding_verified": true,
+      "retained_rtti_method": "TeamModel::postTeams(int, map<int, UserDeck> const&)",
+      "retained_rtti_callback_signature": "void(HttpResponse*, Json::Value&)",
+      "runtime_execution_verified": false
+    }
+  ],
+  "important_distinctions": [
+    {
+      "bytes": 1436,
+      "sha256": "8f7609bee29198248f9bcea772988a9ca98a58ef50d46022d818226408b7c2d4",
+      "role": "mutable JSON member/assignment writer; not the response reader",
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "bytes": 2112,
+      "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+      "role": "mutable JSON member/assignment writer; not the response reader",
+      "high_pcode_sites_outside_declared_body": 7
+    },
+    {
+      "bytes": 436,
+      "sha256": "0af4175b23a597e3bff4afc266d4e88d6ef835c83010177c96494db7916d78db",
+      "role": "separate team persistence path references name/num/user_card_ids and transaction commit; not the796-byte row reader",
+      "high_pcode_sites_outside_declared_body": 0
+    }
+  ],
+  "matches_existing_sanitized_android_resources_teams_nesting": true,
+  "exact_http_body_root_or_route_binding_verified": true,
+  "core_slot_to_native_num_mapping_verified": false,
+  "fresh_selected_team_or_name_bgm_policy_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "next_steps": [
+    "Run actual original-client empty formation UI and original codec-backed POST, same-Core persistence and GET refresh.",
+    "Integrate actual collection model/custom-unit engine identity; User-only continuity does not synchronize collection.",
+    "Preserve unresolved legacy bindings rather than silently renumbering or inventing metadata."
+  ],
+  "retained_rtti_reused_without_rescan": true,
+  "known_team_request_setup_frontier": [
+    {
+      "role": "forceFetchTeams setup candidate",
+      "bytes": 408,
+      "sha256": "44f34bf504cea404954123a43bb4280188ffd9e3b97c5e6e34bee19117df16db",
+      "high_pcode_sites_outside_declared_body": 0,
+      "next_exact_factory_bytes": 72,
+      "next_exact_factory_sha256": "8e046a4e6008b97be51d7ef36ac25faa4bdf3b62e58fe8eb93a54138fad04241"
+    },
+    {
+      "role": "fetchTeamsViaResourcesModel setup candidate",
+      "bytes": 360,
+      "sha256": "c09228f71eb55cc7d0efda389d26f6736c9f147ae6c2d072b2dafce0317d69e0",
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "role": "postTeams setup candidate",
+      "bytes": 448,
+      "sha256": "23397e42d0aba70ca4f7ebe120bef5892b8cb932783e07f4d3d64a8fc0a81dd5",
+      "high_pcode_sites_outside_declared_body": 0,
+      "next_exact_factory_bytes": 144,
+      "next_exact_factory_sha256": "167635e38b303123351ee0b351196255a63aaf3c545e32568ebfc5567ad8f414"
+    }
+  ],
+  "actual_post_teams_api_writer": {
+    "bytes": 2112,
+    "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+    "retained_rtti_context": "TeamModel::postTeamsAPI(int, int, map<int, UserDeck> const&, function<void()> const&)",
+    "peer_checked_actual_arm64": true,
+    "selected_team_num": "first actual int argument emitted only when greater than0",
+    "selected_kobetu_team_num": "second actual int argument emitted only when greater than0",
+    "user_card_teams_row_num": "signed32 std::map<int, UserDeck> node key, not array enumeration index",
+    "user_card_ids": "six ordered positions; each reads64-bit owned-card object ID, absent object emits0",
+    "later_four_byte_array_is_user_card_ids": false,
+    "scope_limit": "DecompilerhighPcodeincludes7sitesoutside2112body; mappingfactspeercheckedagainstboundedactualwriterinstructions.",
+    "complete_known_mutable_field_set_reviewed": true,
+    "unreviewed_known_mutable_field_writes": 0,
+    "row_fields": [
+      "num",
+      "name",
+      "user_card_ids",
+      "referenced_sugoroku_map_id",
+      "referenced_z_battle_stage_id",
+      "referenced_card_ids"
+    ],
+    "reference_fields_native_conversion": "signed32 scalars and signed32 vector; separate from owned64 user_card_ids",
+    "optional_top_context_native_conversion": "unsigned32 sugoroku_map_id, z_battle_stage_id, origin_battle_id",
+    "bgm_in_post_row": false,
+    "timewarp_added_separately": "raw64 transport metadata; lifecycle/signedness not inferred and never adopted as gameplay clock"
+  },
+  "canonical_core_team_limit": {
+    "shape": "teams[{slot,members}] with compact owned-ID arrays(max6), nozero IDs",
+    "native_six_slot_empty_positions_preserved_by_core": true,
+    "required_before_projection": "Core13 original_client_teams persistent binding preserves native key, six positions and saved metadata; missing historical reference metadata remains unresolved, never defaulted."
+  },
+  "actual_team_request_contract": {
+    "index": {
+      "typeinfo": "TeamsIndexAPI",
+      "constructor_bytes": 128,
+      "constructor_sha256": "7f15fcc27f833f214ee6abd9043237652dc9ce7a2fdd5343e80146b067adf12a",
+      "game_api_kind_argument": 0,
+      "method": "GET",
+      "relative_suffix": "/teams"
+    },
+    "update": {
+      "typeinfo": "TeamsUpdateAPI",
+      "constructor_bytes": 200,
+      "constructor_sha256": "edac2556cf511fa0abb4e9932ef6b6ceacacabdfa1099e4705fc0e1aa8beca86",
+      "game_api_kind_argument": 1,
+      "method": "POST",
+      "relative_suffix": "/teams"
+    },
+    "shared_game_api_constructor": {
+      "bytes": 712,
+      "sha256": "0179754c18025710cf1672a8ec5f131523c81832475d593f8c1952e0c0e2da05",
+      "source_method_argument": 1,
+      "relative_resource_argument": 2,
+      "path_literal": "teams"
+    },
+    "reused_ancestor_method_and_url_proof": "../../../research/tutorial-update-contract.json",
+    "actual_family_method_getter_slot17_sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845",
+    "actual_family_request_materializer_slot2_sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37",
+    "complete_current_runtime_url_verified": false,
+    "optional_query_absence_verified": false,
+    "http_route_admitted": false,
+    "limits": "Current original constructors + exact inherited method/path materialization; no inference from Index/Update names and no live host/account data."
+  },
+  "own_persistent_adapter_mapping_implemented": true,
+  "limits": "Static original team request/response binding and native route source are implemented; no actual original-client empty UI, encoded write, Home or full collection runtime acceptance is claimed.",
+  "verification": {
+    "first_combined_core13_scenario": "core-team-projection-evidence.json",
+    "second_changed_metadata_only_scenario": "native-team-metadata-evidence.json",
+    "each_scenario_runs": 1,
+    "c_objc_or_original_game_execution": false
+  },
+  "native_get_route_adapter": {
+    "source": "../../ios/ODOriginalPlayerResourcesAdapter.m",
+    "route": "GET /teams",
+    "same_deferred_native_core_projector_as_resources": true,
+    "actual_projection_method": "projectCurrentTeams:",
+    "empty_get_body_and_default_query_rejection": true,
+    "incomplete_team_projection_returned_as_success": false,
+    "new_empty_or_selected_team_defaults_created": false,
+    "native_compile_and_original_client_execution_verified": false,
+    "empty_team_response": "exact empty canonical/binding list emits user_card_teams:[]; no selection emitted; actual native UI remains unverified"
+  },
+  "native_post_route_adapter": {
+    "decoder": "optional same-image ODOriginalRequestDecoder; exact original wire NSData only, actual fixed own-JSON native roundtrip/current-engine verification required",
+    "no_decoder_or_unverified_behavior": "specific native decoder unavailable/verification/context failure; no Core write, no plain replacement or base64-as-JSON fallback",
+    "native_mutation_method": "ODResourceResponseProjector applyDecodedOriginalTeamUpdate:command:mutationCurrent:reply:",
+    "normalization": "fresh actual same-Core snapshot; clean projection; complete proven writer fields; real owned-ID positions; existing or explicitly user-submitted new positive native numbers",
+    "atomic_write": "existing native-only Core teams.apply with exact snapshot revision/save scope; creator lease and stale revision reject in owner operation",
+    "async_authority": "same current native decoder and projector pointers, current request/Core/master before normalization/write/delivery",
+    "success": "fresh current persisted GET-team projection, never echoed request or stale command receipt",
+    "retry_policy": "new native UUID for each admitted adapter invocation; no alleged original wire intent ID and no permanent request-body hash cache; later same formation remains allowed",
+    "cancellation_after_commit": "accepted Core commit is not rolled back; currentness/response failures report specifically and do not invent success",
+    "encoded_requests_decoded_or_native_writes_verified": false,
+    "new_targeted_check": "team-post-clean-admission-evidence.json; prior migration/team metadata checks reused",
+    "first_formation_policy": "new user-submitted formation only: empty-string no-custom-music app policy; supplied name/num/references/positions; selection only when supplied; no starter team/cards/rewards",
+    "first_formation_evidence": "first-formation-evidence.json; one changed-flow scenario; unchanged actual Core new-row SQL evidence reused"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "original-battle-exact-route-related-caller-frontier",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "caller_bodies": [
+    {
+      "bytes": 492,
+      "sha256": "e9b567422a5a7bb16d7eca7ff5b963bab40041e017f7bf3cafaabca39642bb22",
+      "route_suffixes": [
+        "sugoroku_maps/finish"
+      ]
+    },
+    {
+      "bytes": 484,
+      "sha256": "7fb12fdf34119b7e9f4be4c7b73569baabd6f5f6a29a37b307130104dc424b24",
+      "route_suffixes": [
+        "sugoroku_maps/start"
+      ]
+    }
+  ],
+  "request_response_contract_verified": false,
+  "route_enabled": false,
+  "gameplay_verified": false,
+  "limitations": [
+    "Only direct B/BL callers of the two exact retained route-related targets; no indirect-call completeness claim.",
+    "A call site does not establish callback payload types or response requiredness."
+  ],
+  "target_role": "request_constructor"
+}

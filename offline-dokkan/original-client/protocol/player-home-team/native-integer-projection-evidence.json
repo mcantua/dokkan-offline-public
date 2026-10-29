@@ -1,0 +1,17 @@
+{
+  "kind": "native-user-integer-projection-boundaries",
+  "verification": "one focused synthetic projection scenario; no native execution or full-suite rerun",
+  "source_getters": {
+    "uint32": "73023c72fcd8a87904a1fecfd42ff8f91c05a8a4f99a5466339b6e0bda205a38",
+    "uint64": "80dd4c0250389c34095edf39f9d91eeb09e5dc4236e350781fbaf84d002260e7",
+    "int64": "54cecdad043da78725f9ecfb61b060a60917d371eceec85a92a49b817c67c042"
+  },
+  "actual_native_register_semantics_peer_checked": true,
+  "exact_uint32_max_preserved": true,
+  "canonical_and_policy_uint32_overflow_rejected": true,
+  "nested_unsigned_negative_rejected": true,
+  "unsafe_js_integer_rejected_without_clamping": true,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "module_sha256": "730f43dc22598e78e0200e3e5c7a6cde99b320d85db1845c92318f54badbab54"
+}

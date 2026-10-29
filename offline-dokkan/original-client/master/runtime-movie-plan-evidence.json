@@ -1,0 +1,20 @@
+{
+  "kind": "one-focused-authored-movie-runtime-candidate",
+  "fixture": "synthetic card/schema/USM-descriptor data; actual MovieModel.plan/apply and Forms.reserve->UnitRebase->MovieModel.rebase; native callbacks simulated",
+  "checks": {
+    "accepted_project_unchanged": true,
+    "actual_movie_pack_and_destination_rebased": true,
+    "declared_immutable_bytes_hash_size_preserved": true,
+    "materialized_effect_pack_binds_destination": true,
+    "native_root_rows_retained": true,
+    "no_asset_key_or_fd_authority_in_resource_map": true,
+    "changed_capture_rejected": true,
+    "other_resource_branch_rejected": true,
+    "stale_context_rejected": true,
+    "publication_allocation_engine_gates_stay_closed": true
+  },
+  "targeted_invocations": 1,
+  "native_resource_fd_or_transaction_verified": false,
+  "usm_decode_verified": false,
+  "app_build_or_original_game_execution": false
+}

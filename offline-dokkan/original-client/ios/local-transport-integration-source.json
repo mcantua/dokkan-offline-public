@@ -1,0 +1,52 @@
+{
+  "format": "od-local-transport-integration-source-v1",
+  "plain_json_factory": "ODLocalTransportResponse plainJSONResponseWithObject:",
+  "plain_response_http_status": 200,
+  "plain_response_content_type": "application/json",
+  "root_sign_presence_including_null_rejected": true,
+  "serialized_object_rechecked": true,
+  "request_activity": {
+    "method": "isActive",
+    "weak_protocol_owner": true,
+    "synchronized_started_stopped_completed_and_configuration_check": true,
+    "snapshot_only_not_atomic_rollback": true
+  },
+  "loaded_origin_rearm": {
+    "entry": "ODRearmLocalTransportForLoadedOriginalOrigin",
+    "header": "ODLocalURLProtocolBootstrap.h",
+    "authority": "ODOriginalNativeOrigin actual-loaded-image capability",
+    "main_thread_only": true,
+    "initial_empty_origin_and_route_configuration_required": true,
+    "one_use": true,
+    "existing_serial_queue_preserved": true,
+    "old_configuration_success_delivery_refused": true,
+    "old_configuration_requests_fail_instead_of_hanging_native_completion": true,
+    "generic_origin_setter_added": false,
+    "diagnostic_calls_rearm": false,
+    "evidence": "native-origin-source-evidence.json"
+  },
+  "scalar_queries": {
+    "native_route_opt_in": "initWithMethod:path:scalarQueryValidator:handler:",
+    "request_property": "queryFields",
+    "default_query_policy_changed": false,
+    "immutable_ascii_string_fields": true,
+    "total_character_budget": 8192,
+    "pair_budget": 64,
+    "key_character_budget": 128,
+    "value_character_budget": 512,
+    "percent_decoding_or_form_plus_decoding": false,
+    "duplicates_arrays_controls_and_non_ascii_rejected": true,
+    "validator_runs_on_serial_transport_queue": true,
+    "unknown_fields_and_value_shapes_require_route_policy_refusal": true,
+    "timewarp_used_as_clock": false,
+    "source_contract": "../protocol/player-home-team/home-resources-contract.json",
+    "route_registration_added_by_transport_change": false
+  },
+  "webview_operation_added": false,
+  "native_compilation_verified": false,
+  "native_parser_runtime_checked": false,
+  "actual_original_request_delivery_verified": false,
+  "offline_login_verified": false,
+  "gameplay_verified": false,
+  "app_builds_performed": 0
+}

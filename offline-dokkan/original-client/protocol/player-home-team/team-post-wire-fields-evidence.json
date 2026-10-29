@@ -1,0 +1,64 @@
+{
+  "kind": "actual-current-team-post-writer-reviewed-field-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "recovered_readers": [
+    {
+      "role": "tutorial_field_frontier_1",
+      "bytes": 2112,
+      "sha256": "33302e3482246e7865d1bd21c287ea45a80c2eafc642c3c900253e6c42ba6f82",
+      "allowlisted_fields": [
+        "name",
+        "num",
+        "origin_battle_id",
+        "referenced_card_ids",
+        "referenced_sugoroku_map_id",
+        "referenced_z_battle_stage_id",
+        "selected_kobetu_team_num",
+        "selected_team_num",
+        "sugoroku_map_id",
+        "teams",
+        "user_card_ids",
+        "user_card_teams",
+        "z_battle_stage_id"
+      ]
+    }
+  ],
+  "direct_reader_callers": [],
+  "reader_relative_shape_verified": false,
+  "tutorial_start_state_verified": false,
+  "capacity_start_values_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "limits": [
+    "Complete known field-write set of exact actual2112-byte writer reviewed; Ghidra footprint seven sites outside declared body, relevant scalar/owned-ID facts peer checked against bounded actual ARM64.",
+    "No played-account values, credentials or source keys read.",
+    "Direct GET/POST teams method and root binding are established by separate constructor/vtable/callback evidence; no HTTP route or runtime acceptance."
+  ],
+  "scope": "Exact previously recovered original reader/caller spans with reviewed player/team field vocabulary only",
+  "full_http_envelope_verified": false,
+  "home_team_route_admitted": false,
+  "ordinary_player_or_team_runtime_verified": false,
+  "complete_known_mutable_field_write_set_reviewed": true,
+  "unreviewed_known_mutable_field_writes": 0,
+  "actual_row_fields": [
+    "num",
+    "name",
+    "user_card_ids",
+    "referenced_sugoroku_map_id",
+    "referenced_z_battle_stage_id",
+    "referenced_card_ids"
+  ],
+  "optional_top_context_fields": [
+    "sugoroku_map_id",
+    "z_battle_stage_id",
+    "origin_battle_id"
+  ],
+  "native_types": {
+    "num_and_selections": "signed32; selection omitted for nonpositive actual argument",
+    "user_card_ids": "six owned64 IDs or zero, independent of array enumeration index",
+    "reference_scalars_and_vector": "signed32 JSON constructor, ARM64 SXTW peer verified",
+    "top_context": "unsigned32 JSON constructor, ARM64 zero extension peer verified"
+  },
+  "reference_metadata_persisted_without_grants": true
+}

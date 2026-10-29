@@ -1,5 +1,40 @@
 # Tin's standing rules (his own words in quotes)
 
+## Latest ownership change — October 29, 2026, 6:21 PM CT
+Tin asked ChatGPT to upload everything and prepare a full Claude handoff. Stop ChatGPT development; preserve source, private inputs, tools and exact continuation. Claude takes over the existing approved Duo-only scope. This supersedes older instructions for ChatGPT to keep running. See [CLAUDE-HANDOFF.md](../CLAUDE-HANDOFF.md). Do not publish private game files, databases, secrets or signing material.
+
+**Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
+
+
+## Latest change: skip the new-player intro tutorial
+Tin explicitly requested removing the Dokkan Battle intro tutorial sequence for new players. New own profiles must skip that sequence and proceed through the original normal startup/Home path. Preserve existing profiles and progress; do not grant tutorial rewards, invent starter units, or reset saves. This overrides earlier first-tutorial-battle and do-not-skip planning. Preserve useful tutorial engine research as reference; it is no longer the intended new-player flow. Native runtime remains unverified until authorized builds and actual execution.
+
+## Latest active repository instruction (October 29)
+- Offline Dokkan + embedded Unit Creator now uses `mcantua/dokkan-offline-public`. The previous private repository is an untouched backup: no edits, pushes, builds or development there.
+- Base: `chatgpt/ios-eclipse-database-reuse`. Use topic branches and draft PRs; never merge into the base without Tin's OK. Preserve the existing draft workstreams and coordinate through `STATUS.md`.
+- Meaningful Duo builds are standing-authorized by the latest directive. Keep verification to one or two meaningful runs per task.
+- Never touch `save/` folders or the signing key. Personal details, including email/device/network identifiers, come only from ignored local configuration or environment selectors; do not read, print or commit their values. No secrets in files.
+- Read README, HANDOFF, HAYATE-HANDOFF, STATUS and these rules on takeover. Log actions and actual verification limits in `STATUS.md` and the existing shared Drive folder. This repository move supersedes conflicting old repository/pause directions; other project/platform limits persist.
+
+## Latest resumption and foundation confirmation (October 29)
+- Tin's "take over" resumes ChatGPT development in the public repository. The older stop below is historical. Protected-base, Duo-only and privacy limits still apply; the no-build rule is revoked.
+- Tin reconfirmed that Offline Dokkan is the supplied Sparking/original Dokkan client adapted for offline play with the agreed changes and built-in Unit Creator. Preserve its real presentation and mechanics. The account launcher and authored battle harness are internal components, never a replacement game or completion evidence.
+
+## Latest first-playable-path priority (October 29)
+- Work in this order: original client startup → offline login → player data → original home → team selection → real battle → battle completion → persistent save → Creator unit in that battle → remaining agreed features.
+- Preserve completed Creator work, but pause further Creator expansion until the first complete real battle works. All six cloud workers must support the original-client path directly.
+- Prove the actual current client contracts. Do not manufacture response envelopes, starting values, native ABIs or success reports. Source analysis, imported databases, helper tools and checks do not count as playable gameplay.
+- Distinguish implemented source milestones from runtime acceptance. Do not invent an overall percentage or a completion date. In-app images must come from the actual running original client; report their absence plainly.
+
+## Latest parallel-development and reporting directive (October 29)
+- Tin explicitly renewed maximum practical productive cloud-agent use. Six workers plus the integration lead are the current seven available slots; keep independent ownership and reassign finished workers while useful work remains. Do not duplicate tests or create agents only to fill slots.
+- Continue original-client development between checkpoints. Report about every ten minutes during active execution: overall/remaining estimates only when reliable, current phase, completed milestones in prose, pending task table with owners/progress/remaining work, active/blocked agents, resource use, build/check status and actual visual evidence. If no meaningful screenshot exists, use a clearly labeled source diagram/technical summary; no fabricated images or harness-as-game claims.
+- Tin wants a download link for a genuinely playable original-client Duo test build and will install it himself. There is no playable build yet. Do not label old demos or an unverified package playable. Meaningful builds are now authorized; share the newest diagnostic too, clearly labeled.
+- Tin also authorized installation when an eligible playable build exists; the cloud currently has no direct iPhone/Mac/VPN capability. Being connected alone grants no new device access. Announce any concrete personal-connection step with known connection type/estimated bytes, or state uncertainty. No current cloud research uses Tin’s personal connection.
+
+## Latest progress-image clarification (October 29)
+- Tin clarified that progress images must be taken inside the actual app. Do not use browser captures, system diagrams, concept art or internal battle-harness screens as in-app evidence. If the actual app cannot be run under current authorization/environment limits, give text updates and explicitly say new in-app screenshots are unavailable. This overrides the broader diagram/browser examples in earlier reporting notes.
+
 ## Latest stop / takeover instruction (October 29)
 - Tin asked ChatGPT to stop development to conserve usage and save/upload everything Grok Bot needs. All development agents stopped; perform only preservation/documentation/uploads for the handoff. Do not automatically resume ChatGPT development based on older sustained-work directions. Grok takeover state and exact WIP/blockers: [../GROK-TAKEOVER.md](../GROK-TAKEOVER.md). Duo-only and all privacy/storage/testing/platform gates remain in force.
 
@@ -31,7 +66,7 @@
 - Native package work was explicitly requested in Tin's completion instructions; never present unprovisioned or device-untested output as a final release. Follow Duo-first order and align release versions.
 
 ## Dokkan Unit Creator
-- **No new builds (APK/IPA) unless he says so** ("We are fixing the app first before we make the builds").
+- **Meaningful Duo builds are authorized.** The earlier no-build restriction is revoked; other platforms remain paused.
 - Every release = 3 builds: Android APK, iPhone IPA, iPhone Duo version (check-duo gate + Duo display test + install on his iPhone Duo with run/device-install.command). Keep only the newest IPA in AI-Workspace/Dokkan-Unit-Creator/build.
 - ChatGPT in this Unit Creator chat handles all three when Tin requests builds. Keep the version numbers the same (next: 2.36.3 / code 128); request Mac/device access only when needed, before using it.
 - Always update the **web test page** after every change. Tin's latest instruction for ChatGPT: run `python3 web/build.py`, package `web/site-artifact` as one self-contained `test-page/UnitCreator-test.html`, overwrite the same file locally and attach it in chat. Do not commit `test-page/UnitCreator-test.html`. Embed JS/CSS/fonts/data; show version + a short change line at the top. Preview when possible. Match the real app's screens/features; only true phone operations may be labeled "iPhone only". Claude's artifact cannot be updated by ChatGPT. See `test-page/README.md` for current missing assets and parity gaps.

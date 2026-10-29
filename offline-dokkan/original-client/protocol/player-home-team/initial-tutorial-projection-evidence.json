@@ -1,0 +1,13 @@
+{
+  "kind": "source-specific-initial-original-tutorial-user-projection",
+  "runs": 1,
+  "canonical_identity_positive_rank_and_tutorial_preserved": true,
+  "unknown_capacities_and_contents_lv_omitted": true,
+  "positive_persisted_checkpoint_not_reset": true,
+  "existing_collection_or_missing_tutorial_rejected": true,
+  "stale_scope_or_dirty_projection_rejected": true,
+  "prior_team_and_numeric_evidence_reused": true,
+  "http_route_admitted": false,
+  "native_runtime_or_objc_execution_verified": false,
+  "module_sha256": "a73f292f668b03d4db77ab61868665df5819e47a0deca14178a310661715a933"
+}

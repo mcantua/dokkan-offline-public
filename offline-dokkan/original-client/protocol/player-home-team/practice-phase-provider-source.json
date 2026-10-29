@@ -1,0 +1,30 @@
+{
+  "kind": "native-readonly-original-practice-phase-provider-source",
+  "header": "../../ios/ODOriginalPracticePhaseProvider.h",
+  "source": "../../ios/ODOriginalPracticePhaseProvider.m",
+  "purpose": "unchanged original fixed battle parameters for a manual borrowed-loadout request, not automatic intro or permanent starter grants",
+  "owner": "same actual native Core and selected-master URL/pin supplied by concrete factory",
+  "selector": "SELECT tutorial_scene_url,parameters FROM tutorial_phases WHERE number=3",
+  "required_scene_uri": "internal:Tutorial::BattleSetupScene",
+  "selected_master": {
+    "bytes": 114827264,
+    "sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4"
+  },
+  "source_shape": "../battle/tutorial-combat-reference.json parameter_shape reused exactly; no IDs/stats copied into public source",
+  "data_handling": "readonly immutable SQLite on private IO queue, exact single row, source hash/file identity checks, unchanged UTF8 JSON NSData for actual native begin/end parser",
+  "cache": "validated phase bytes retained in memory; same-file identity checked before reuse; no backup or extracted parameter file created",
+  "scope": "actual owner-queue player admission before and after IO, expected content/profile/save scope and clean projection; current predicate only on main",
+  "collision_guard": "current Core numeric owned instance IDs checked against fixed player/dummy IDs without mutation; invalid/missing numeric mapping or collision fails closed",
+  "native_owned_id_absence_proven": false,
+  "state_mutations": {
+    "second_core_constructed": false,
+    "permanent_cards_granted": false,
+    "selected_team_changed": false,
+    "profile_progress_changed": false,
+    "ordinary_quest_completion_emitted": false
+  },
+  "native_engine_or_home_admission_claimed": false,
+  "native_bridge_integration": "ODDuoOriginalPracticeBattle beginWithAppController:parametersJSON:error: receives unchanged phase bytes; genuine native image/master/Home and finish-callback guards remain bridge/factory responsibility",
+  "verification": "source only; no standalone duplicate tests or local native compile; next meaningful combined native batch required",
+  "native_bridge_owned_cache_guard": "separate bridge source now uses original native owned lookup for both fixed player IDs and dummy, rejecting hits or unavailable cache; provider does not replace or claim this proof"
+}

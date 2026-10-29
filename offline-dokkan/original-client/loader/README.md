@@ -17,3 +17,146 @@ One actual-image static check is in `adaptation-evidence.json`: independently de
 **Still required:** executable-to-library dyld validation, concrete native startup preparation, code signing and actual device loading, and the original scene/render/protocol/resource/Creator connections. The retained main was genuinely compiled with SDK27.1; current changed authored components still need their matching native compile. The original AppController's UIApplicationMain entry is separately established by bounded method inspection; calling dlopen on the original MH_EXECUTE or merely changing its SDK field is not a valid integration.
 
 `ODPreparedEngineEnvironment` establishes actual pre-load configuration, rather than demanding an exhaustive static audit of all original initializers before an authorized startup diagnostic. The local Foundation transport must already be installed, native state paths validated and the source patcher excluded. The native host selects diagnostic versus integrated startup and reports actual coverage. Diagnostic permission does not attest raw-socket/WebKit/kernel containment or successful gameplay; complete offline behavior remains an essential runtime check. No page boolean can grant loading authority. Preparation is an intermediate implementation step, not a finished game.
+
+## Production plugin entry
+
+Adding the plugin dependency with `inject_shell.py` only asks dyld to load the
+authored library. The library must also call the reviewed native host before
+the preserved shell reaches main. Without that edge, loading component code
+alone does not replace the shell's earlier standalone UI.
+
+`ODUnifiedDuoStartup` supplies this edge only when compiled with
+`OD_UNIFIED_DUO_STARTUP_ENTRY=1`. Its constructor calls the native compiled
+`ODCreateUnifiedDuoStartupHost` factory and admits only an
+`ODUnifiedDuoIntegratedTarget`. It calls `installBeforeApplicationMain:` and
+retains the installed composition. Missing factory, an exception, wrong host
+purpose or failed installation stops the process before shell main. No
+account/launcher/battle-harness fallback runs, and only a fixed failure label
+is printed. No native error, file path or credential is logged.
+
+The factory is deliberately still unimplemented: the actual local response
+contracts, original master/resource connection and same-player services must
+be composed from their admitted native capabilities. A guessed factory that
+returns a diagnostic or fake success is not a replacement for that work.
+`startup-source.json` records this exact boundary. It does not configure an
+auth route, supply a database key, or attest gameplay.
+
+The component source inventory includes the new file but leaves its process
+constructor disabled by default. Existing hosted Finish/component diagnostics
+therefore do not change startup just because they reuse these sources. When
+Tin explicitly authorizes builds, `build-components.sh
+--original-startup-entry` selects the production entry and validates its source
+manifest. While its factory remains explicitly unfinished, this option stops
+before dependency setup or compilation; it cannot silently produce a
+constructor-enabled library presented as ready. Once the actual factory is
+implemented, that library still requires the genuine shell
+composition before use. No new workflow was added or dispatched for this
+change. One source-only shell/manifest check was performed; Objective-C
+compilation, constructor ordering, signing and actual original-game startup
+remain unverified.
+
+## Separate original-client startup diagnostic
+
+`ODOriginalDuoStartupDiagnostic` now supplies a concrete native diagnostic
+factory. It is deliberately separate from `ODCreateUnifiedDuoStartupHost`:
+the integrated production factory remains unfinished, and its entry still
+rejects diagnostics. Both entry defines together are a compile error.
+Component libraries retain inert startup by default. Under Tin's standing
+Duo build authorization, `--original-startup-diagnostic-entry` selects only this diagnostic
+constructor; it is not a playable/release target or an app-packaging command.
+
+The native factory selects these actual app-owned inputs:
+
+- The existing hash-pinned genuine SDK27.1 shell baseline at
+  `OriginalClient/OriginalGenuineDuoShell` and prepared original engine at
+  `Frameworks/OriginalDokkanEngine.dylib`.
+- The real `Frameworks/AdjustSigSdk.framework/AdjustSigSdk` dependency. Its
+  original649,088-byte source SHA is recorded in
+  `startup-diagnostic-source.json`; package preparation must check it before
+  normal signing. Runtime loading uses ordinary dyld/OS signing policy.
+- The opaque535,552-byte original app-root `database.db` seed, read-only hashed
+  against its recovered source pin. It is not decoded, replaced with an Android
+  database, or assigned a guessed encryption key.
+- The real first `NSDocumentDirectory` result plus `assets`, matching the
+  recovered native path getter. The actual own assets directory may be created
+  for cold publication from the pinned compatible catalog/cache. The existing
+  FD preloader verifies/publishes all 27 configured aliases before `dlopen`.
+  No `_resources` path, empty-directory success or guessed master-language path
+  is used. This configured set does not attest every scene dependency.
+- A separate own Application Support `OriginalClientStartupDiagnostic`
+  directory, created with descriptor-relative/no-symlink checks. No existing
+  `save/` directory is read, copied, changed or deleted.
+
+Existing `ODInstallPreparedDuoShellBootstrap` supplies the concrete shell edge:
+it verifies the shell's exact launch and scene method encodings, installs the
+local Foundation transport before original image initialization, allocates and
+retains the real `AppController` separately, launches it once, and supplies that
+same object through the original-scene provider. The diagnostic factory reuses
+this path without copying source ivars/IMPs onto the shell or calling a guessed
+C++ entry. Scene lifecycle forwarding remains owned by the existing scene
+bridge. Installation failure stops before the shell's old WebView UI.
+
+The diagnostic installs **zero success routes**, no Creator services, no
+plaintext derived master, and no native cached-handle close/reopen. Its latest
+native host report can be read on main with
+`ODCopyOriginalDuoStartupDiagnosticReport`; no diagnostic files, account data or
+raw network requests are written. Foundation rejection is not kernel/raw-socket
+isolation, and loaded dependencies/SDK network behavior still needs observation.
+
+The real dependency binary and seed were absent from both retained resource and
+client-analysis caches, then restored through the targeted cloud-only IPA
+extractor with their exact pins. The subsequent whole-IPA-hash-verified resource
+extraction restored the exact original framework metadata and 1,067 selected
+safe resource candidates. One real source-staging invocation verified and
+preserved 1,070 original bundle members, plus the catalog and 27 immutable cache
+members. This verifies private source preparation, not an assembled app or
+complete runtime startup dependencies. Source pin verification before signing,
+native compile, original dyld
+loading, actual AppController rendering and offline login/battle/save remain
+unverified. This factory is source progress toward startup, not evidence that
+the original game launched. No app/library build was run for this change.
+
+Only Foundation-selected native directory prefixes are canonicalized, after
+rejecting a symlink at that root and confirming the same directory inode. This
+admits iOS's OS-owned `/var` alias while all resource/framework/state descendants
+still use descriptor-relative `O_NOFOLLOW` traversal. Native database failure
+cleanup may remove its working `sqlite/current` tree, so working resources must
+be copies inside the own-app namespace; immutable originals/cache remain
+separate. No startup code redirects the engine to the only source copy.
+The native factory admits only the authored diagnostic identity
+`org.offlinedokkan.startupdiagnostic.duo`, without logging an actual account or
+provisioning identity. The package recipe must
+use a fresh own diagnostic app/container, preserving any installed original
+game and existing application data; the diagnostic Application Support folder
+alone does not isolate the original engine's actual Documents accesses.
+An existing native `assets/User` or `assets/sqlite/current` tree is refused
+without reading or deleting its contents. No reviewed copied-working-tree
+receipt has been implemented, so an existing tree cannot be admitted by a
+boolean or an invented receipt. The package's reviewed resource-copy staging
+now preserves the complete existing safe original resource candidate set,
+without guessing a minimum first-screen dependency list. Real extraction and
+private source staging are verified; native consumption remains unverified. See
+`ORIGINAL-RESOURCE-STAGING.md` for the concrete source tool and its two focused
+synthetic checks.
+
+The diagnostic now composes the existing resource FD preloader before loading
+the original image. It opens the exact 36,864-byte compatible catalog from
+`OriginalClient/byte-identical-assets.sqlite3`, enumerates its 29 original
+aliases into 27 unique admitted canonical paths, and uses the immutable
+`OriginalClient/CompatibleResourceCache` as the verified source. Bulk hashing
+and no-overwrite working publication run on a serial preparation queue before
+`UIApplicationMain`; actual Documents/assets path/FD identities and protected
+native trees remain checked. Original bundle/tutorial resource aliases remain
+in their original positions. The host report adds configured/published working
+counts while scene-completeness and gameplay flags stay false. This is native
+source integration only; it has not been compiled or executed.
+
+`DIAGNOSTIC-PACKAGE-RECIPE.md` and `diagnostic-package-source.json` describe the
+cohesive original-client diagnostic app. `assemble_diagnostic_app.py` implements
+that future unsigned assembler source by reusing the existing resource and
+shell-preparation APIs. It has not been run or tested and no `.app` was created.
+Tin has now authorized ongoing Duo builds without a repeated permission gate.
+The integration lead still freezes source and exact inputs before execution.
+No old Creator/save-manager
+package, guessed framework metadata or inert component library can stand in
+for this original-client composition.

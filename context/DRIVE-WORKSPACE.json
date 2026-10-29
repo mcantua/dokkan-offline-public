@@ -15,7 +15,7 @@
   },
   "initial_cloud_transfer": "complete; current files available in this cloud workspace, excluding protected credentials and service-managed OS/hosted CI",
   "transfer_status": "all 46 planned objects plus initial platform archive, source snapshot and documentation uploaded; sizes/parents verified",
-  "bytes_in_primary_payload": 3607360892,
+  "bytes_in_primary_payload": 4305216042,
   "files": [
     {
       "folder": "Game Data",
@@ -640,20 +640,28 @@
       "url": "https://drive.google.com/file/d/1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0/view?usp=drivesdk",
       "name": "current-source.tar.gz",
       "folder": "Source",
-      "size": 64899587,
-      "sha256": "b64f5a7b2e7d3595ee1d3a7bcc7f75f1ed77c5d3c6f9334b2205a94ee64bd7ad",
-      "source_files": 1434,
-      "source_commit": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
+      "size": 45177641,
+      "sha256": "1224ee6057ca06875cab52b962fd8551f326d049f650c85c289cec8fd4257771",
+      "source_files": 2246,
+      "source_commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false,
-      "code_snapshot": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
-      "tracked_files": 1434,
-      "concurrent_uncommitted_edits_excluded": true,
-      "remote_commit": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
+      "code_snapshot": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
+      "tracked_files": 2246,
+      "concurrent_uncommitted_edits_excluded": false,
+      "remote_commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
       "operational_registry_external": true,
       "other_project_packages_included": false,
-      "uncompiled_wip_explicit": true
+      "uncompiled_wip_explicit": true,
+      "repository": "mcantua/dokkan-offline-public",
+      "branch": "chatgpt/duo-source-integration",
+      "pull_request": 8,
+      "archive_exclusions": [
+        "context/DRIVE-WORKSPACE.json",
+        "Git metadata",
+        "ignored and untracked files"
+      ]
     },
     {
       "id": "1sAqwSnzCRYPMgRlnSWBpEfV4i0ydG7u-",
@@ -871,6 +879,136 @@
       "uploaded": true,
       "metadata_verified": true,
       "byte_verified": false
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "capstone-5.0.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "id": "1El-zefxxKfHhkvQPLUdGxkyEEVLtRLqT",
+      "size": 1481605,
+      "sha256": "0358855773100bb91ae6681fabce7299df83156945ba943f6211061a592c54a6",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "provenance": "downloads/capstone/artifact.json"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "capstone-5.0.6-SOURCE.md",
+      "id": "1CVEeeuzUQaAhPgRmjYlJxjXfQVC19quP",
+      "size": 1427,
+      "uploaded": true,
+      "metadata_verified": true
+    },
+    {
+      "id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
+      "folder": "Game Data",
+      "name": "Private-static-analysis-current.tar.gz",
+      "size": 2896197,
+      "sha256": "b95a96c58b527f5a20270762bda049465d0f9819a2c88b1943883364ce9e1568",
+      "files": 1055,
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "scope": "Retained private source analysis plus final scoped findings; no game binaries, credentials, signing or user saves"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0001",
+      "size": 100663296,
+      "sha256": "0f49a702b780c45a6684eb307241ef41f48e09fc8d515c75f944fb4b6861515a",
+      "id": "1rpYw08mD51P8PTm3X3z3XWxfIhcARs8y",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0002",
+      "size": 100663296,
+      "sha256": "61207b356da93ddfb00ede43cacc532bdad64e86a391d12d4f07a5743867ebc9",
+      "id": "17Mc0Ssqw8d7-dHDUYS2lnavAGc3kpTx4",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0003",
+      "size": 100663296,
+      "sha256": "1dd1bf4b3b5fbfaa58558635685b0fc39d20fb94e1a6835a066e8a3d5b984f3f",
+      "id": "1Bp8a7XwuA_-rSks023_827mMg1mpn17h",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0004",
+      "size": 100663296,
+      "sha256": "58834ee04a1109f98d94ade1bd54b1696e1f832bf1ad6613f7103697ee39596f",
+      "id": "1U3amItPelnhOPZyv2bkgKGDzr2lWe8sy",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0005",
+      "size": 100663296,
+      "sha256": "a29660b87a0f10b483aa1c3d70aacf8cabadd8e014920eadb91dc111ccfd16ca",
+      "id": "1KXMzsRCj8-XYFDLdLZmjk1YlVNjmfhuZ",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4.zip.part-0006",
+      "size": 66333118,
+      "sha256": "a2e2fc616c17e68f7e0b1dde8413d06f346f2b5e90849d0897740c889e6bb431",
+      "id": "1_1tPdRBxoAjQfQjX_19_cdUzJLtLw5w2",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false,
+      "purpose": "ordered part of the single official Ghidra12.1.4 tool archive; reconstruct and verify full published SHA before extracting"
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4-transfer-manifest.json",
+      "size": 1297,
+      "sha256": "ed3a3e370803185813f37c78a2ebe70cd21d26639bfdabc98fa010e4c69a4137",
+      "id": "1knfLcXSxpKBLowt8InUvmr2rlBEEl_2V",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false
+    },
+    {
+      "folder": "Tools and Dependencies",
+      "name": "ghidra-12.1.4-SOURCE.md",
+      "size": 4489,
+      "sha256": "e9f3a5d39f69594a5d83499effc3b2e657b52188ea88c679d5cc370300311814",
+      "id": "1eJVej6f0aCNsuwKbmNkpLZyw6r78E3a7",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": false
+    },
+    {
+      "folder": "Game Data",
+      "name": "Private-iPhone-startup-inputs.zip",
+      "size": 778241,
+      "sha256": "f72009372b06a5c4ad7c46cfaf86f835e34259ae5ad174a387dd5309c5a0758e",
+      "id": "1IfW48HCahcm4nvXHyiwzTeOlA3F_i_EB",
+      "uploaded": true,
+      "metadata_verified": true,
+      "byte_verified": true,
+      "member_pins_verified": true,
+      "original_ipa_preserved": true,
+      "purpose": "exact original framework binary and opaque535552byte database seed; no signing or save material"
     }
   ],
   "verification": {
@@ -887,7 +1025,7 @@
     ],
     "public_tools": "uploaded sizes/parents checked; SHA-256 per part and complete original recorded; full tool-byte readback not claimed",
     "documentation": "metadata readback verified; mutable manifest self-size/checksum omitted to avoid self-reference",
-    "latest_source": "Six-cloud-agent original iPhone/Duo component cohort: bounded exact ABI/call-path inspection, local transport, display geometry, exact resource/master admission, preserved Finish guards with distinct diagnostics. Relevant targeted component checks reused; no app/HTML/full-suite rebuild. Original-game runtime, genuine27.1 attachment, WK Finish root cause and both-display acceptance remain unverified."
+    "latest_source": "Original-client startup/login path: strict Creator packet retention preserved, separate startup diagnostic source, plainJSON root proof/candidate encoders, actual User numericbounds. No native/gameplay acceptance."
   },
   "sparking_full_data_folder": {
     "id": "1qwtEewReE2LFTjh_v9MzeA2_iQnF1GPN",
@@ -965,7 +1103,7 @@
       "original_sharing_unchanged": true,
       "transfer_notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
       "transfer_folder_id": "1nSydvwbydQXgaH6fOThK2BuXDFfFthnY",
-      "status": "Actual arm64 iPhone client now available and statically inspected; no Colab retry needed. Original-client offline/runtime and both Duo displays remain unverified.",
+      "status": "Exact engine/genuine shells and two hash-pinned startup binaries restored readonly; partial compatible resource cache only. Full original IPA remains inDrive and exceeds256MiB connectorfetch. Framework metadata and complete startup resource staging still pending; no native game launch.",
       "sha256": "0ea61911a09c4e7735f2d7b32b7b2c6c6977c1f4acf0a9db278049528b662816",
       "cloud_reassembly_verified": true,
       "transfer_manifest_drive_id": "1tT8DH7m0iAtiGmYZZX2DKMwwsBRuPZzO",
@@ -1088,22 +1226,179 @@
     "automatic_cross_chat_sync": false
   },
   "development_state": {
-    "status": "paused at Tin request for Grok Bot takeover",
-    "stop_time": "October 29, 2026, about 8:30 AM US Central",
-    "all_six_agents_stopped": true,
-    "no_background_development_claim": true,
-    "active_builds_or_tests": false,
-    "handoff_drive_id": "1QY2d_MlEJ5UZlWlmS441gqW1_Yhz8Yag",
-    "toolchain_drive_id": "1BoivQMyXU6qRY3qBeHzjQ_kZAVSE5YhU",
-    "existing_tools_metadata_verified": 37,
-    "tools_missing_or_changed": 0,
-    "uncompiled_wip_preserved": true,
-    "resume_chatgpt_automatically": false,
-    "paused_checkpoint_local": "f78981e0b55dfd1755c3fac9d410f2d31d4b35e6",
-    "paused_checkpoint_remote": "ebddf01b16e450c5c228ad811f03e8a6b85d6864",
-    "source_archive_sha256": "b64f5a7b2e7d3595ee1d3a7bcc7f75f1ed77c5d3c6f9334b2205a94ee64bd7ad",
-    "source_archive_metadata_verified": true,
-    "handoff_text_readback_verified": true,
-    "latest_native_run_completed": true
+    "owner": "Claude takeover requested by Tin",
+    "chatgpt_active": false,
+    "background_development": false,
+    "runtime_gameplay_verified": false,
+    "next": "Finish strict native-master admission/witness integration, compile coherent source, then actual original-client Home/battle/save/custom-unit verification."
+  },
+  "public_repository_integration": {
+    "repository": "mcantua/dokkan-offline-public",
+    "base_pin": "220d7bbc7ebd535692b3dfc7f980c928cf04f267",
+    "source_pin": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
+    "draft_pr": 8,
+    "base_merged": false,
+    "native_runtime_verified": false,
+    "gameplay_verified": false,
+    "both_displays_verified": false,
+    "source_check": "77 native units compiled at 457588c; handoff source also preserves uncompiled optional resource probe and observer tooling. No original runtime/gameplay/display evidence.",
+    "drive_archive_pin": "e4b225ab55c6acdee73c0da01af622b2f2f9a485"
+  },
+  "startup_input_recovery": {
+    "notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
+    "notebook_bytes": 15632,
+    "byte_readback_verified": true,
+    "status": "Tin ran cloud notebook; output fetched and both exact pinned files restored readonly in cloud",
+    "source_read_cap": 16777216,
+    "original_ipa_unchanged": true,
+    "source_script": "offline-dokkan/tools/startup-inputs/extract_startup_inputs.py",
+    "output_id": "1IfW48HCahcm4nvXHyiwzTeOlA3F_i_EB",
+    "archive_sha256": "f72009372b06a5c4ad7c46cfaf86f835e34259ae5ad174a387dd5309c5a0758e",
+    "archive_bytes": 778241,
+    "members_verified": true,
+    "framework_bundle_metadata_restored": true,
+    "complete_startup_assets_restored": false,
+    "full_original_resources": {
+      "notebook_id": "1BHASvm-sqlcxx9LOkePrevMQCgJPoDGh",
+      "notebook_bytes": 38095,
+      "byte_readback_verified": true,
+      "source_script": "offline-dokkan/tools/startup-inputs/extract_original_resources.py",
+      "status": "All25parts independently SHA verified and real source staging succeeded once",
+      "manifest_id": "1TGTm7aXBu5hUPiBXW2bi2tMDxaQ0o2on",
+      "manifest_bytes": 428858,
+      "parts": 25,
+      "parts_bytes": 790413610,
+      "source_ipa_preserved_by_helper": true,
+      "original_resource_materialization_verified": true,
+      "native_execution": false,
+      "manifest_sha256": "d0a887ef235f35aa54f5ac35de9c0cd867bcbfb7026ef214232fd635e0b48f2f",
+      "manifest_selector_verified": true,
+      "all_part_metadata_verified": true,
+      "parts_byte_verified": true,
+      "original_bundle_members": 1070,
+      "canonical_documents_aliases": 27,
+      "compatible_cache_entries": 27,
+      "staging_receipt_sha256": "c7b5e675ab320977de0abddf9ecc44151bffc8092d550f9a546a1cb441e23c4f",
+      "stager_source_sha256": "973a4a8c4cc708157e07d1607dd62f4abd888e89e487e105fd5d9d7bd346117b",
+      "actual_app_documents_written": false
+    },
+    "approved_original_iphone_resource_set_restored": true,
+    "complete_startup_assets_limit": "Approved1067original iPhone resource candidates plus framework metadata restored; complete original startup/battle asset requirements still need native observation."
+  },
+  "current_duo_diagnostic_delivery": {
+    "classification": "Diagnostic; unsigned; runtime/gameplay unverified",
+    "source_commit": "20fd1d0641a63e52fdeb3af0809b14a2eb01d2a6",
+    "native_build_run": 40963117227,
+    "native_units": 72,
+    "version": "2.36.3",
+    "build_number": 128,
+    "target_bytes": 944841989,
+    "target_sha256": "f8d9deddddffb2c1571fa62905c325c37920c32d0b4e291cd907ad975f3b3c43",
+    "target_drive_filename": "OfflineDokkan-Duo-Integrated-Diagnostic-2.36.3-20fd1d0.ipa",
+    "baseline_drive_id": "1INd1U3aa7eFRsb2h3YwOMNguXU8zzzLo",
+    "integrated_ipa_drive_id": null,
+    "delta_drive_id": "1qq7ehVeBqxpYeqb0A9VpdHlotghRA8qK",
+    "delta_bytes": 16641867,
+    "delta_sha256": "a42a364f5dc8dbc0e9c64d339857ea791e3008464fa0038321539fffac30ebde",
+    "delta_metadata_verified": true,
+    "updated_notebook_id": "1yS8bl2XMSK5bo0BFKpgsqi7ZHkh-LWFr",
+    "updated_notebook_bytes": 15228,
+    "single_ipa_restore_pending": true,
+    "account_step_requested": false,
+    "creator_site_included": true,
+    "creator_site_files": 286,
+    "creator_site_manifest_sha256": "0dcae8694e011a86a8cec2f9db79a5f3ad267b0b758573e4bd569fbbd152d5f3",
+    "target_integrity_required_on_restore": true,
+    "new_delta_roundtrip_repeated": false
+  },
+  "prior_integrated_duo_diagnostic_delivery": {
+    "classification": "Diagnostic; unsigned; runtime and gameplay unverified",
+    "source_commit": "8be14517dd4bd00e3da747b07a87a26f4493d136",
+    "native_build_run": 40958701574,
+    "version": "2.36.3",
+    "build_number": 128,
+    "target_bytes": 929647581,
+    "target_sha256": "9c2dec628ad80a8e0c0f075d92c1ec4f3b64a91dbc108ed446a7d794bd12bbc2",
+    "baseline_drive_id": "1TjyV9-OJYT1aaiQQAKzxRLFfVnW5HHj-",
+    "baseline_metadata_bytes_verified": 795503162,
+    "integrated_ipa_drive_id": "1INd1U3aa7eFRsb2h3YwOMNguXU8zzzLo",
+    "delta_parts": [
+      {
+        "id": "1nFJ74XHrWW7gs_RdmefeImNJpdAXeUpk",
+        "bytes": 100663296
+      },
+      {
+        "id": "1qVmxolPZ8kYrQRaMN4uoNeJD2NM9z-Kw",
+        "bytes": 35007816
+      }
+    ],
+    "delta_bytes": 135671112,
+    "delta_sha256": "377fe110b71fe2195b5648418489cd4c141ff488fde12f40df630d4363c8ed04",
+    "parts_size_parent_verified": true,
+    "exact_delta_roundtrip_passed": true,
+    "updated_notebook_id": "1yS8bl2XMSK5bo0BFKpgsqi7ZHkh-LWFr",
+    "updated_notebook_bytes": 17161,
+    "single_ipa_restore_pending": false,
+    "creator_site_included": false,
+    "integrated_ipa_url": "https://drive.google.com/file/d/1INd1U3aa7eFRsb2h3YwOMNguXU8zzzLo/view",
+    "integrated_size_verified": 929647581,
+    "integrated_source_visibility": "not_shared",
+    "drive_full_byte_readback_performed": false
+  },
+  "claude_handoff": {
+    "requested": "2026-10-29",
+    "state": "ChatGPT development frozen for Claude takeover; no agents active",
+    "entry_document": "CLAUDE-HANDOFF.md",
+    "private_kit": {
+      "size": 40475733,
+      "sha256": "eefb06b4d58e305f8ee5bba4b18c509e0aec3e357ad122b146c759f19a397fb1",
+      "files": 17,
+      "id": "1NrRRCJ4wmZCq1anulVtOqCSJUrx60FRJ",
+      "url": "https://drive.google.com/file/d/1NrRRCJ4wmZCq1anulVtOqCSJUrx60FRJ/view",
+      "metadata_verified": true
+    },
+    "private_analysis": {
+      "size": 2896197,
+      "sha256": "b95a96c58b527f5a20270762bda049465d0f9819a2c88b1943883364ce9e1568",
+      "files": 1055,
+      "scope": "Retained private source analysis plus final scoped findings; no game binaries, credentials, signing or user saves",
+      "id": "1-BDN6S3NZm3E330vyHEd7mgkEgb0WNyu",
+      "metadata_verified": true
+    },
+    "latest_compiled_source": "457588ce135bc2704237d8b14a3936e60fa1819d",
+    "component_build_run": 40968955778,
+    "component_artifact": 12938734918,
+    "native_units": 77,
+    "newest_compiled_source_assembled_as_ipa": false,
+    "later_optional_sources_compiled": false,
+    "verified_playable": false,
+    "source_archive_excludes": [
+      "context/DRIVE-WORKSPACE.json"
+    ],
+    "protected_base_merged": false,
+    "source_archive": {
+      "commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
+      "size": 45177641,
+      "sha256": "1224ee6057ca06875cab52b962fd8551f326d049f650c85c289cec8fd4257771",
+      "files": 2246,
+      "excludes": [
+        "context/DRIVE-WORKSPACE.json"
+      ],
+      "id": "1HpVONnER2Mh8-3ywtLc01h5kXEjYybo0",
+      "metadata_verified": true,
+      "byte_verified_by_redownload": false
+    },
+    "document_drive_id": "1OVsR_BkdI2IE0n4M4Wp9NaBPJBJdNWLo",
+    "document_url": "https://drive.google.com/file/d/1OVsR_BkdI2IE0n4M4Wp9NaBPJBJdNWLo/view",
+    "preserved_at": "2026-10-29 6:26 PM CT",
+    "branding_clarification": {
+      "source_commit": "e4b225ab55c6acdee73c0da01af622b2f2f9a485",
+      "private_noncommercial_fan_project": true,
+      "working_name": "Dokkan Freedom",
+      "original_attribution_retained": true,
+      "devices_backups_saves_protected": true,
+      "implementation_status": "Requirements recorded only; no game branding or online integration changes implemented",
+      "documentation_mirrors_updated": true
+    }
   }
 }

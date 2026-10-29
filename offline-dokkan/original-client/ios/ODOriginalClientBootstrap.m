@@ -2,6 +2,7 @@
 #import "ODLocalURLProtocolBootstrap.h"
 #import "ODGameHTTPABI.h"
 #import "../duo/ODDuoOriginalScene.h"
+#import "../content/ODNativeMasterObservation.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -13,6 +14,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 static NSError *ODBootstrapError(NSInteger code, NSString *label) {
@@ -203,6 +205,16 @@ static BOOL ODMethodBelongsToHost(Method method, ODPinnedOriginalInput *host) {
 static id ODActualOriginalAppController;
 static IMP ODShellOriginalLaunch;
 static BOOL ODShellLaunchAttempted;
+static NSDictionary *ODOriginalMasterLaunchObservation;
+static BOOL ODActualOriginalLaunchSucceeded;
+
+id ODCurrentOriginalAppController(void) {
+    return NSThread.isMainThread&&ODActualOriginalLaunchSucceeded?ODActualOriginalAppController:nil;
+}
+
+NSDictionary *ODCopyOriginalMasterLaunchObservation(void) {
+    return NSThread.isMainThread?[ODOriginalMasterLaunchObservation copy]:nil;
+}
 
 static BOOL ODShellLaunch(id shell, SEL selector, UIApplication *application, NSDictionary *options) {
     if (!NSThread.isMainThread || ODShellLaunchAttempted || !ODShellOriginalLaunch) return NO;
@@ -213,8 +225,19 @@ static BOOL ODShellLaunch(id shell, SEL selector, UIApplication *application, NS
     Class game = NSClassFromString(@"AppController");
     ODActualOriginalAppController = [[game alloc] init];
     if (!ODActualOriginalAppController) return NO;
-    return ((BOOL(*)(id,SEL,UIApplication *,NSDictionary *))objc_msgSend)(
+    BOOL originalResult=((BOOL(*)(id,SEL,UIApplication *,NSDictionary *))objc_msgSend)(
         ODActualOriginalAppController,@selector(application:didFinishLaunchingWithOptions:),application,options);
+    ODActualOriginalLaunchSucceeded=originalResult;
+    // Observe the actual original controller, never the preserved shell or its
+    // RootViewController. Failure of this optional read cannot alter launch.
+    NSDictionary *native=nil;
+    @try { native=ODCopyOriginalMasterObservation(ODActualOriginalAppController); }
+    @catch(NSException *exception) { (void)exception; }
+    ODOriginalMasterLaunchObservation=@{@"schema":@1,@"capturedAfterOriginalLaunch":@YES,
+        @"originalLaunchReturnedSuccess":@(originalResult),@"nativeObservationAvailable":@(native!=nil),
+        @"nativeMaster":native?:@{@"nativeMasterAccepted":@NO,@"originalSchemaOutcomeObserved":@NO}};
+    if(!originalResult)fputs("Offline Dokkan: original-appcontroller-launch-returned-failure.\n",stderr);
+    return originalResult;
 }
 
 static UISceneConfiguration *ODShellSceneConfiguration(id shell, SEL selector, UIApplication *application,

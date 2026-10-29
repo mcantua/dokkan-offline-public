@@ -35,12 +35,12 @@ The fixed `OfflineCreator` capability uses:
 
 `info.offlineCreator` includes only native-pinned `sourceDatabase` and `contentId`. The selected game names the document/Creator heading and info source; templates receive matching `source.database` and `source.contentId` before returning to shared screen logic. Eclipse sessions explicitly reject `querySparking` and report its catalog unavailable. Both aliases in a Sparking session query only its selected Sparking master; a second master is never implied. Read-only `query`/`querySparking` accept validated table/columns, scalar filters, ID lists, search, order, limit and offset, never SQL or paths. The native capability also supplies actual card indexes and durable JSON projects/versions; media, external network and arbitrary core/policy commands are not exposed.
 
-`ui-adapter.js` adds **Finish in Offline Dokkan** around the existing screens:
+The unified app opens on a launcher that asks for Offline Dokkan or the Unit Creator. Offline Dokkan opens the one saved account. Unit Creator opens these screens. `ui-adapter.js` does not put a Finish sheet on the card builder. **Finish in Offline Dokkan** stays on Save & Play:
 
 1. Pin the actual current project to its selected source, run the existing `Forge.hydrateStatGrowth` against that read-only master to capture any changed high-level stat policy, then confirm it saved.
 2. Call `offlineCreatorPrepare({key})`. Native returns an opaque persisted intent, its durable project snapshot, pinned context and table names whose complete baseline rows were proven unchanged against that master.
-3. Pass this snapshot through `OfflineDokkanCreator.projectToDefinition`, the existing strict projector. Unsupported forms/assets/runtime/settings remain explicit errors.
-4. Call `offlineCreatorFinish({key,snapshot,definition})`. Native independently rechecks the saved project, complete projected settings, context, identity and revision before its fixed idempotent `creator.import` operation.
+3. Pass a settings-only snapshot through `OfflineDokkanCreator.projectToDefinition`. When native prepare returns `fullBundle:true`, skip that projector. The page does not build the full packet.
+4. Call `offlineCreatorFinish({key,snapshot,definition})` for settings. A full unit calls `offlineCreatorFinish({key,snapshot})`. Native rechecks the saved project. A full unit is validated, then imported once into the saved `local-player` account. Public `creator.finish` still rejects a full-bundle descriptor.
 5. Require explicit `{imported:true,definitionId,version,library,banner}` confirmation. Display newest creation only when the actual library names it. A `not_configured` banner reports that trusted catalog allocation remains required; registration alone never claims it is drawable.
 
 The native master is always read only. No file export/move is needed to finish, and projects remain editable in their own native store. The native implementations and their own-file lifecycle checks are owned by the mobile host modules.

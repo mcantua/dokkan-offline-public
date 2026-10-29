@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "kind": "original-tutorial-checkpoint-native-adapter-source",
+  "prepared_engine_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "exact_request": {
+    "method": "PUT",
+    "relative_path": "/tutorial",
+    "query": "absent on reviewed construction/preparation path",
+    "body": "ordinary JSON object",
+    "progress": "signed32 on wire; adapter positive32 only excluding999999",
+    "timewarp": "optional nonzero uint64; constructor raw0 omits; adapter discards from mutation"
+  },
+  "source_body_pins": [
+    {
+      "role": "tutorial_json_writer",
+      "bytes": 136,
+      "sha256": "2e933be346f51e7d7f2a1b6e6869f3e807057527a2a82ead7956b924b82bd101"
+    },
+    {
+      "role": "tutorial_preparation_vtable20",
+      "bytes": 108,
+      "sha256": "e1395c7a37ef545d105dc8a3ee53e38b802e3fd61de2974ca6e92d2b1ec997a0"
+    },
+    {
+      "role": "tutorial_request_ancestor",
+      "bytes": 352,
+      "sha256": "a0eba4837b88cc8ec757d5d3bb467a73b86b0d8ff6753c672cb21db8f7307e0b"
+    },
+    {
+      "role": "tutorial_plain_json_recursive_writer",
+      "bytes": 1100,
+      "sha256": "11be11a8a9fc904b635c49b62bb2eda3428cf4ee76d4337da4e3ce6fa2609c9c"
+    },
+    {
+      "role": "tutorial_signed_integer_text",
+      "bytes": 308,
+      "sha256": "02995509a8f660661e78af1a6f8a39be807f0cbb61d64368d9b9c6c20a1e612d"
+    },
+    {
+      "role": "tutorial_unsigned_integer_text",
+      "bytes": 148,
+      "sha256": "2018711a87a12833af2ec43a2080415659c37a8edbd0020ad5cc8515ac4f799c"
+    }
+  ],
+  "reused_original_bodies": [
+    "264 tutorial constructor",
+    "240 body setter",
+    "420 common constructor",
+    "712 GameAPI constructor",
+    "248 suffix",
+    "664 URL builder",
+    "316+348 header builders",
+    "1284 request materializer",
+    "2960 Foundation request bridge",
+    "1276 ordinary response wrapper",
+    "160 sign-presence predicate",
+    "444+508+412+100 optional root processors",
+    "32 tutorial void success"
+  ],
+  "native_writer": "same bound ODNativeCore tutorial.progress; canonical transaction and actual readback before success",
+  "command_identity": "private per-native-request UUID; no source wire ID claimed",
+  "response_candidate": {},
+  "source_request_contract_closed": true,
+  "global_http_route_installed": false,
+  "native_compilation_or_execution_verified": false,
+  "actual_tutorial_gameplay_verified": false,
+  "new_runtime_test_runs": 0,
+  "prior_sql_tests_reused": true,
+  "app_builds": 0,
+  "limits": "Source-only candidate, no claim of live route registration or game acceptance. Configured origin, native master/login and production host composition remain separate."
+}

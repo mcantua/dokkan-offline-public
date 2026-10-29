@@ -1,0 +1,21 @@
+{
+  "kind": "schema13-original-player-sql-and-js-scenario",
+  "runs": 1,
+  "scope": "actual extracted schema/mutation/validation SQL in memory, actual JS projection and fresh-state policy",
+  "migration_rollback_and_legacy_state_preserved": true,
+  "legacy_profiles_not_reset": true,
+  "new_profile_empty_collection_and_start_control_state": true,
+  "checkpoint_rollback_and_persistence_sql": true,
+  "opaque_team_key_and_six_position_formation_preserved": true,
+  "invalid_foreign_consumed_duplicate_layout_rejected": true,
+  "generic_stale_layout_detected_before_commit": true,
+  "foreign_key_check_passed": true,
+  "core_c_control_flow_or_command_replay_executed": false,
+  "objc_bridge_or_gameplay_executed": false,
+  "app_builds": 0,
+  "http_route_admitted": false,
+  "source_sha256": {
+    "od_core.c": "fd7c9e07d465e1eaaf394ebdd53223c2b29e50d0d66c779a06089490a1364ee0",
+    "original_teams.c": "c76194a9eff2f695b0fa60c4361b0521c94425595f0143a854ccb2742c18f792"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "native-original-client-cold-player-preparation-source-review",
+  "source_hashes": {
+    "adapter/ios/ODNativeCore.h": "6c5bf93ab7ec83e92b327ad05a34a247a3d2c64a7e5f39b03b22b452d1f8d662",
+    "adapter/ios/ODNativeCore.m": "498c53510b7665d4bf83b23a8d0d14023b3dea8a2300e6d873a7ab85730aa10d"
+  },
+  "api": "ODNativeCore -prepareOriginalClientLocalPlayerOnPreparationQueueWithError:",
+  "purpose": "Obtain the actual canonical local-player save scope before original startup without a completion forced onto main.",
+  "implemented_source": [
+    "Caller must be off main and outside every Core owner queue; a dispatch-specific owner marker rejects self/cross-owner queue entry before synchronous owner dispatch.",
+    "Preparation uses this exact existing owner queue/connection and refuses a held Creator lease. No parallel SQLite connection or saved-state folder is opened by a new helper.",
+    "Existing clocked profile.refresh executes with empty caller arguments. Only the fixed PROFILE_NOT_FOUND result permits existing clocked profile.create, also with empty caller arguments and fresh own command id.",
+    "No caller clock, player stats, starting holdings, identity text, tutorial completion, rewards or account values enter this API. Existing Core approved/master-backed policy remains authoritative.",
+    "The same owner block reads actual projection admission and the canonical own player snapshot, checking exact local-player/content identity. The immutable result returns on the preparation caller queue with profile_created metadata.",
+    "Actual scope is derived by the existing Core admission routine; the API never guesses it from paths/content metadata. Later adapters still recheck exact current scope and owner identity."
+  ],
+  "native_compiled": false,
+  "native_executed": false,
+  "new_tests_run": 0,
+  "existing_core_tests_repeated": false,
+  "game_build_created": false,
+  "limits": [
+    "The future native startup must execute the preparation phase on its dedicated IO queue before invoking the main-thread integrated factory. Calling this synchronous API from main is deliberately rejected.",
+    "No concrete integrated startup factory/phase is wired by this API. Native language/origin selection, actual master compatibility, original-client login and gameplay remain independent gates.",
+    "This is source review only. A prepared scope is not acceptance of a real client, a clean original engine projection, actual saved gameplay or a physical Duo display.",
+    "Only native memory receives the snapshot; source code does not log, upload or persist its returned player values."
+  ]
+}

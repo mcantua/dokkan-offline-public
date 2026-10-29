@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "ODLocalHost.h"
+#import "ODDuoLauncher.h"
 @interface ODLocalScene : UIResponder <UIWindowSceneDelegate>
 @property (nonatomic, strong) UIWindow *window;
 @end
@@ -17,10 +17,10 @@
         if (![hash isKindOfClass:NSString.class] || hash.length != 64) { identities = nil; break; }
         [identities addObject:[@"sha256:" stringByAppendingString:hash]];
     }
-    ODLocalHost *host = [[ODLocalHost alloc] initWithDatabaseDirectory:databases contentIdentities:identities ?: @[] saveDirectory:[support URLByAppendingPathComponent:@"OfflineDokkan"]];
+    ODDuoLauncher *host = [[ODDuoLauncher alloc] initWithDatabaseDirectory:databases contentIdentities:identities ?: @[] saveDirectory:[support URLByAppendingPathComponent:@"OfflineDokkan"]];
 #else
     // Distributable own-app host contains no Bandai/game database or assets.
-    ODLocalHost *host = [[ODLocalHost alloc] initWithLibraryDirectory:[support URLByAppendingPathComponent:@"OfflineDokkan/masters"] saveDirectory:[support URLByAppendingPathComponent:@"OfflineDokkan"]];
+    ODDuoLauncher *host = [[ODDuoLauncher alloc] initWithLibraryDirectory:[support URLByAppendingPathComponent:@"OfflineDokkan/masters"] saveDirectory:[support URLByAppendingPathComponent:@"OfflineDokkan"]];
 #endif
     self.window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene]; self.window.rootViewController = host; [self.window makeKeyAndVisible];
 }

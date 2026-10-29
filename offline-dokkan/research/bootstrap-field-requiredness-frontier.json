@@ -1,0 +1,36 @@
+{
+  "kind": "bootstrap-callback-holder-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "request_constructors": {},
+  "request_vtables": [],
+  "accessor_followup": true,
+  "accessor_summaries": [
+    {
+      "bytes": 48,
+      "sha256": "34aae1ea8fb0d3049d8d3ad42d284364c5f55ffe66442ed85def4a852f9dd2a6"
+    },
+    {
+      "bytes": 108,
+      "sha256": "326233c1802bbb9eec6a73140e4d765697e7f6911286c31452bdd806a149db44"
+    },
+    {
+      "bytes": 284,
+      "sha256": "c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6"
+    },
+    {
+      "bytes": 412,
+      "sha256": "9bada54a2aae2b2969d02446559ada7309c784d4e0393fdac3835fc3f44cb0dd"
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Candidate stores and dispatch slots require receiver-identity matching.",
+    "No complete HTTP-body root binding is established.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ],
+  "field_requiredness_verified": false,
+  "missing_key_behavior_verified": false,
+  "string_conversion_strictness_verified": false
+}

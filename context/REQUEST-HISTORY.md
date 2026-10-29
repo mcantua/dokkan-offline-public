@@ -1,5 +1,8 @@
 # Tin's recent requests, in order, and what happened (Oct 26–28, 2026)
 
+**Current directive — October 29, 2026, 3:45 PM CT:** The no-build rule is permanently revoked. Meaningful Duo diagnostic, development and playable builds are authorized without another permission request. Batch changes; use only necessary targeted checks (normally 1–2 per task). Share the newest available build, labeled Diagnostic, Playable, Release candidate or Final according to actual evidence. Prioritize original-client startup → offline login → player data → Home → team → actual battle → save, then a Creator unit in that battle. Source/checklist progress is not gameplay completion. Android and ordinary iPhone remain paused; protected-base, private-input and signing-key restrictions remain.
+
+
 Latest storage directive: Google Drive is the central workspace for everything related to Offline Dokkan + Unit Creator, including all future meaningful changes. Use `AI-Workspace/Offline Dokkan + Unit Creator`, reuse existing IDs, verify transfers before disposable-copy cleanup, minimize Mac storage and preserve active tools/only working copies. No direct Mac access or background sync exists. See `DRIVE-WORKSPACE.md` and its registry for actual transfer state.
 
 | # | Tin asked | Result |
@@ -33,3 +36,41 @@ The full attached directive requires one integrated Offline Dokkan application, 
 
 ### Latest screenshot correction — 1-to-1 Dokkan, Oct 28
 Tin rejected the simplified battle-harness screenshot: the offline game must be a 1-to-1 copy of the Dokkan experience shown in Eclipse/Sparking. Root acknowledged the wrong replacement-game direction and stopped all agents extending it. Actual production must retain Dokkan's real client/engine presentation and mechanics, with agreed offline changes and integrated Creator. Pure-JS/own-policy/native-save-manager work is preserved as internal backend/tooling only, not claimed gameplay or the intended product. No new permission is required to stop that approach or correct cloud source; no personal Mac was accessed.
+
+## October 29 resumed source integration
+
+Tin resumed ChatGPT with “take over” in `mcantua/dokkan-offline-public`, then
+reconfirmed that the supplied Sparking/original client must be the actual game
+foundation. The previous simplified screenshot was an internal harness, not
+the finished product. Preserve the original presentation/mechanics plus the
+agreed offline changes and full embedded Creator. A playable test build link
+is requested when available; no such build exists yet. Tin can install it
+himself. No builds were requested with “make the builds”.
+
+His latest pasted directive renews maximum useful parallel agents, cloud-first
+work, advance personal-bandwidth notice, minimal targeted checks, meaningful
+completion estimates and reports with actual visual evidence about every ten
+minutes while active. Unknown overall/remaining percentages must be stated
+honestly. Continue development between reports/checkpoints and reassign useful
+work. No background or other-chat synchronization is implied.
+
+Tin then clarified that progress images are for the actual app. New in-app screenshots are unavailable while no native build/run is authorized; use text status, never a browser/diagram stand-in.
+
+### Latest first-playable-path directive — October 29
+
+Read the entire attached 6,165-byte directive. Tin prioritizes the supplied
+original client: startup, offline login, player data, original home, team,
+real battle, completion and persistent save, then a Creator unit in battle.
+Further Creator expansion is paused while existing work is preserved. Six
+workers now own startup, missing original inputs, auth, native master lifecycle,
+player/home/team and original battle contracts/scoped static analysis.
+
+Tin challenged repeated zero-percent rows and delays. Source milestones and
+runtime acceptance must be reported separately; there is no reliable overall
+completion estimate. The iPhone client still needs source-proven offline
+service contracts and native startup/master integration. No original-game
+launch or playable battle has been verified, and no new build is authorized.
+
+
+### October 29 — remove the new-player intro
+Tin: "can you get rid of the tutorial sequince of the dokkan battle intro for new players please". Implement a persistent new-profile skip policy using the original client continuation. Existing profiles/progress remain intact. This supersedes the previous first-tutorial-first-playable route; no rewards, units or game-completion credit are implied.

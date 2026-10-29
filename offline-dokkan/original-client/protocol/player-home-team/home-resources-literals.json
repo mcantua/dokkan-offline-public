@@ -1,0 +1,46 @@
+{
+  "kind": "pinned-player-reader-literal-annotations",
+  "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "readers": [
+    {
+      "role": "home_cards_resources_callback_1",
+      "bytes": 424,
+      "sha256": "92dd57a3e24c3c3686fda42cc26e4b4d4ede6ad07bc4f45f455fde584caf51b5",
+      "allowlisted_fields": [
+        "cards",
+        "item_cards",
+        "user_card_id_updates"
+      ]
+    },
+    {
+      "role": "home_resources_send_callback_1",
+      "bytes": 572,
+      "sha256": "8a515611999f8cf9623e3da9970b0023f23c912ffe205e92c2c8963fda02e854",
+      "allowlisted_fields": [
+        "battle_status"
+      ]
+    },
+    {
+      "role": "home_resources_send_callback_2",
+      "bytes": 452,
+      "sha256": "c73a611ee9825f4c12d2449cacaa45ecee030d09025fb0bdec13616666c8fd15",
+      "allowlisted_fields": []
+    },
+    {
+      "role": "home_user_resources_callback_1",
+      "bytes": 152,
+      "sha256": "d411ebda43cac7bb03c5e90dcf3c5bbf8b665b112010f760ba0b0fcd895aacda",
+      "allowlisted_fields": [
+        "user"
+      ]
+    }
+  ],
+  "reader_field_ownership_verified": false,
+  "http_route_admitted": false,
+  "native_runtime_execution_verified": false,
+  "limits": [
+    "Exact previously retained reader spans only; no new whole-image xref scan.",
+    "Literal references alone do not prove field ownership, type, requiredness, HTTP route or response root.",
+    "No scalar player data, source keys or unknown strings emitted."
+  ]
+}

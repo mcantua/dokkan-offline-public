@@ -1,5 +1,7 @@
 # Primary Drive workspace
 
+Current public-repository source: [draft PR #8](https://github.com/mcantua/dokkan-offline-public/pull/8), `chatgpt/duo-source-integration`, source pin `44ab0bb`. The existing `current-source.tar.gz` is updated in place; no extra backup is created. STATUS uses the [public-repo mirror](https://drive.google.com/file/d/1eJk2p1RvCmrt8QZOK65ITgW5VZZowf--/view). The registry is retained outside the source archive so its checksum is not self-referential. Original game data, tools and the sole recovery backup remain separate and unchanged.
+
 Tin requested Google Drive as the central location for all project files, including future work. Use the existing [Offline Dokkan + Unit Creator folder](https://drive.google.com/drive/folders/1vCYgjgNagsEZ-yNsfRI97qrJkiBdsIbV) inside AI-Workspace. Keep its current sharing state. No public sharing is required.
 
 The folder registry is in `DRIVE-WORKSPACE.json`, also retained separately in Drive's Documentation folder. This operational registry is not duplicated inside the source archive, avoiding a self-referencing archive checksum. Before future upload, read that registry and list the relevant folder. Update an existing file ID when its content changes. Upload a new file only when no matching project artifact exists. A source archive is the current transferable source snapshot, not an extra dated backup. At most one explicit rollback remains permitted.

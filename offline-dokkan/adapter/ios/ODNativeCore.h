@@ -18,6 +18,17 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 /** Native host binding check over immutable owner identity; no file/path/KVC
  * discovery and no WebView operation. Queue/open errors remain authoritative. */
 - (BOOL)matchesSaveURL:(NSURL *)saveURL masterURL:(NSURL *)masterURL contentID:(NSString *)contentID;
+/** Native cold preparation before original startup, from a dedicated IO
+ * preparation queue. Refuses main and every Core owner queue; never waits for
+ * main or creates a second connection. Runs on THIS owner's serial queue:
+ * existing clocked profile.refresh, profile.create only on PROFILE_NOT_FOUND,
+ * then exact canonical local-player admission + snapshot. No starting values,
+ * clock, currency or rewards may be supplied. The immutable result contains
+ * {admission,player_snapshot,profile_created}; keep it private in native memory.
+ * Later adapters still recheck current scope. This is not native game/master
+ * compatibility acceptance and does not make an integrated factory exist. */
+- (nullable NSDictionary *)prepareOriginalClientLocalPlayerOnPreparationQueueWithError:
+    (NSError * _Nullable * _Nullable)error;
 /** Native-only durable original-client Creator projection. Uses this exact
  * owner's core/master/save on its serial queue; overlay URL is host-pinned.
  * Success: content_id, save_scope_sha256, projection_generation,
@@ -36,6 +47,16 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
  * {admission,player_snapshot}; expected scope must be native-pinned. */
 - (void)originalClientPlayerSnapshotForProfile:(NSString *)profile
     expectedSaveScopeSHA256:(NSString *)scope reply:(ODCoreReply)reply;
+/** Admitted original-client adapter only. operation is tutorial.progress or
+ * teams.apply or practice.begin/finish with normalized payload; never expose through editor operations.
+ * Rejects while a Creator lease is held. Scope/revision/command admission and
+ * durable write use this owner queue and the canonical transaction. Reply is
+ * a fresh after-commit {admission,player_snapshot,mutation_receipt}; the receipt
+ * may be the earlier identical command result, while player_snapshot is current.
+ * No HTTP route or original response envelope is implied by this native API. */
+- (void)applyOriginalClientOperation:(NSString *)operation profile:(NSString *)profile
+    command:(NSString *)command payload:(NSDictionary *)payload
+    expectedSaveScopeSHA256:(NSString *)scope expectedRevision:(int64_t)revision reply:(ODCoreReply)reply;
 /** Acquire after initial successful projection sync. Same-queue save imports
  * reject until this exact lease is cleanly released. No synchronous main/owner
  * dispatch and no lease grant through a WebView operation. */
@@ -56,6 +77,14 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 - (void)acceptedCreatorDefinitionForProfile:(NSString *)profile definitionID:(NSString *)definitionID
     version:(int64_t)version expectedSaveScopeSHA256:(NSString *)scope
     lease:(nullable ODNativeCreatorLease *)lease reply:(ODCoreReply)reply;
+/** Native-only exact full packet for original-runtime materialization. Verifies
+ * the current lease (or no held legacy lease), expected scope, live unconsumed
+ * owned instance and active version. One Core snapshot returns immutable
+ * full_bundle_bytes/definition_bytes and full_bundle_receipt with revision,
+ * projection generation and hashes. No page can select this authority. */
+- (void)acceptedCreatorFullBundleForProfile:(NSString *)profile definitionID:(NSString *)definitionID
+    version:(int64_t)version instanceID:(int64_t)instanceID expectedSaveScopeSHA256:(NSString *)scope
+    lease:(nullable ODNativeCreatorLease *)lease reply:(ODCoreReply)reply;
 /** Read-only recovery proof for the exact retained creator.finish intent.
  * Missing/pruned/mismatched receipt stays unresolved: NEVER execute/replay an
  * old unaccepted Finish to discover whether it happened. Same scope/lease rules
@@ -63,6 +92,13 @@ typedef void (^ODCoreCreatorLeaseReply)(ODNativeCreatorLease *_Nullable lease,NS
 - (void)creatorFinishReceiptForProfile:(NSString *)profile command:(NSString *)command
     expectedDefinitionBytes:(NSData *)definition expectedSaveScopeSHA256:(NSString *)scope
     lease:(nullable ODNativeCreatorLease *)lease reply:(ODCoreReply)reply;
+/** Native-only save of one validator packet into this owner's saved account.
+ * The profile is the local player. A held lease must be the current one.
+ * No WebView operation is added. Public creator.finish still rejects the descriptor. */
+- (void)creatorFinishValidatedBundleForProfile:(NSString *)profile command:(NSString *)command
+    definition:(NSDictionary *)definition bundleBytes:(NSData *)bundle
+    expectedSaveScopeSHA256:(NSString *)scope lease:(nullable ODNativeCreatorLease *)lease
+    reply:(ODCoreReply)reply;
 - (void)execute:(NSString *)operation profile:(NSString *)profile command:(nullable NSString *)command
       arguments:(NSDictionary *)arguments reply:(ODCoreReply)reply;
 /** Native policy/evaluator only; no user-supplied switch to this authority level. */

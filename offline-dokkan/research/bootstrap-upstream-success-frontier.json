@@ -1,0 +1,111 @@
+{
+  "kind": "auth-upstream-success-binding-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_bodies": [
+    {
+      "label": "transaction_auth_success",
+      "bytes": 64,
+      "sha256": "a60064e0d420a866b3f35c3f4529386f4c4d2b787aa8e15cb3ebfad9c1121f29",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 15,
+      "high_pcode_sites_outside_declared_body": 5
+    },
+    {
+      "label": "model_signin_success",
+      "bytes": 112,
+      "sha256": "cf7033fa68d42766789c46ecf2e62e9d0f169c6b178899dee12a8c151ba69b41",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 8,
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "label": "model_signin_forwarder",
+      "bytes": 388,
+      "sha256": "6dcc31b7a78663e1712d0200ccecac2f5d6dc21087a59e2ec91dfd43eadef145",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 57,
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "label": "model_auth_dispatch_success",
+      "bytes": 8,
+      "sha256": "9d020aa3abe483358f409833c118802c6b98432ba31dd6cbcf078909605a730e",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 27,
+      "high_pcode_sites_outside_declared_body": 26
+    },
+    {
+      "label": "transaction_auth_setup",
+      "bytes": 472,
+      "sha256": "2d475107fedfff3ad4a69f051d94e68259503f66884f29f1ad847ee61b29a37c",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 65,
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "label": "model_signin_setup",
+      "bytes": 392,
+      "sha256": "c24fb1ad7665639f59c2b349b16cd13e2477fbf5fe47dd7b7e340f401283305c",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 41,
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "label": "model_signin_callback_setup",
+      "bytes": 1088,
+      "sha256": "2e7219583c35edfc8d34221cb6a45a8f80f890fd04e1c190e1a36460f2b563e3",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 132,
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "label": "signin_request_factory",
+      "bytes": 576,
+      "sha256": "93dfa133b285fc6b6b4890cf36e912a3d1404585db0aa3315ac1c53eb34b3b34",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 78,
+      "high_pcode_sites_outside_declared_body": 0
+    },
+    {
+      "label": "authentication_transaction_run",
+      "bytes": 568,
+      "sha256": "49740a5b9ca2feda622f5cef773ac91837abf610e9f36f1a89b69236d6e1220a",
+      "completed": true,
+      "high_pcode_unique_instruction_sites": 81,
+      "high_pcode_sites_outside_declared_body": 0
+    }
+  ],
+  "facts": [
+    "The token consumer forwards its JSON value to its caller-supplied success callable.",
+    "The 64-byte authentication-transaction success callable forwards the same JSON reference: its x2 argument remains untouched through the normal virtual callback call. Missing pseudoC parameters alone do not prove an argument is ignored.",
+    "The model sign-in success callable emits the native sign-in success event without reading JSON fields.",
+    "The concrete model sign-in setup passes that event callable into signInWithCallback.",
+    "The callback variant creates an authentication transaction and installs a typed authentication-request factory before running it.",
+    "The typed request factory invokes the current 236-byte sign-in request builder, passing native provider-derived arguments and the saved nonce object; provider bodies and values were not inspected.",
+    "Transaction run queues an optional pre-auth command, nonce retrieval, an intermediate authentication command and the final auth request. The pre-auth command is current PingAPI; its supported skip_device_token flag disables the following GenerateToken platform-token branch. Exact source pins and scope are in bootstrap-ping-contract.json.",
+    "The callback success forwarder retains response/JSON arguments for queued delivery. No complete startup success is claimed from that forwarding alone."
+  ],
+  "pending": [
+    "Integrate internally constructed ping/nonce/sign-in handlers with trusted native owner/scope and approved origins before install, retaining closed unsupported-request behavior.",
+    "Verify queued success delivery, owner invalidation and complete offline login inside the original client."
+  ],
+  "plain_json_body_envelope_verified": true,
+  "complete_auth_success_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "scope_limits": [
+    "The 64-byte success decompilation follows five sites into one separate 60-byte body; only the within-64-byte normal-success path supplies the stated unchanged-x2 forwarding fact.",
+    "The eight-byte dispatch callable tails into a separate 172-byte body; this is observed separately, not described as an eight-byte implementation.",
+    "Each of the three setup-container decompilations remains within its own declared body.",
+    "No secrets, source/account keys, private values, raw instructions, decompiled code or addresses are published."
+  ],
+  "argument_provenance_correction": {
+    "function": "transaction_auth_success",
+    "instruction_count": 16,
+    "normal_virtual_call_preserves_entry_x2": true,
+    "normal_path_prior_calls": 0,
+    "normal_path_x2_writes": 0,
+    "incorrect_interpretation_rejected": "Ghidra pseudoC omits third parameter, therefore no JSON is forwarded"
+  },
+  "pre_auth_and_intermediate_skip_contract_verified_statically": true
+}

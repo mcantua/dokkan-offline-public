@@ -33,5 +33,12 @@ typedef void (^ODCreatorReply)(id _Nullable result, NSString *_Nullable error);
 // Trusted native run/stage planner only; no matching public page operations.
 - (void)startTrustedBattlePlan:(NSDictionary *)plan reply:(ODCreatorReply)reply;
 - (void)openTrustedBattlePlan:(NSDictionary *)reference reply:(ODCreatorReply)reply;
+/** Native host only. Pins the saved local-player account before a full unit
+ * can finish. A page cannot call this or supply the validator packet.
+ * Returns on the caller thread. The creator queue owns the validator. */
+- (BOOL)installSavedAccountFullBundleValidationWithCreatorCoreURL:(NSURL *)core
+    sparkingDependenciesURL:(NSURL *)dependencies resourceRoot:(NSURL *)resourceRoot
+    saveScope:(NSString *)scope openAsset:(int (^)(NSString *assetKey, NSError *_Nullable *_Nullable error))openAsset
+    error:(NSError *_Nullable *_Nullable)error;
 @end
 NS_ASSUME_NONNULL_END

@@ -1,0 +1,297 @@
+{
+  "kind": "original-current-battle-response-consumer-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_callbacks": [
+    {
+      "role": "battle_start_success",
+      "bytes": 2692,
+      "sha256": "a923536050c08e4e9b296c991e1b14d7e8cb6ba7cfc3f5561856d5d738498f40",
+      "signature": "void(HttpResponse*,Json::Value&)"
+    },
+    {
+      "role": "battle_finish_success",
+      "bytes": 1152,
+      "sha256": "8807a25ccd498aedb8c0456f6ac460762a2021af44274afba0da3afc6242cbc1",
+      "signature": "void(HttpResponse*,Json::Value&)"
+    }
+  ],
+  "start_direct_field_observations": [
+    {
+      "field": "user_items",
+      "presence_check_observed": true
+    },
+    {
+      "field": "user",
+      "presence_check_observed": false
+    },
+    {
+      "field": "dummy_card_id",
+      "presence_check_observed": false
+    },
+    {
+      "field": "token",
+      "presence_check_observed": false
+    },
+    {
+      "field": "sugoroku",
+      "presence_check_observed": false
+    },
+    {
+      "field": "used_support_memory_id",
+      "presence_check_observed": true
+    },
+    {
+      "field": "is_team_trend",
+      "presence_check_observed": false
+    }
+  ],
+  "finish_direct_field_observations": [
+    {
+      "field": "user_items",
+      "presence_check_observed": true
+    },
+    {
+      "field": "user",
+      "presence_check_observed": false
+    },
+    {
+      "field": "is_reviewable",
+      "presence_check_observed": false
+    },
+    {
+      "field": "genkai_battle",
+      "presence_check_observed": true
+    }
+  ],
+  "start_sugoroku_handling": "Original 92-byte state method resets caches and copies the complete supplied JSON value; no typed map schema is established by that copy.",
+  "finish_callback_reuses_prior_profile_direct_caller_7": true,
+  "native_signing_implementation_inspected": false,
+  "complete_response_dto_verified": false,
+  "route_enabled": false,
+  "client_execution_verified": false,
+  "battle_or_save_verified": false,
+  "limitations": [
+    "Exact callback RTTI and direct field references are source facts; nested model readers and other engine consumers can impose additional requirements.",
+    "Ghidra inferred C types do not replace checked ARM64 calling conventions.",
+    "The complete request/response lifecycle, signed request semantic boundary, map payload, reward persistence and live retry ownership remain unverified."
+  ],
+  "finish_result_reader": {
+    "bytes": 1244,
+    "sha256": "bf4bd2e7553fdf8cdd4e00147d70e38edf0e99c4f4cd789c438f053e0c14a312",
+    "input_is_same_callback_root_json": true
+  },
+  "finish_result_scalar_reads": [
+    {
+      "field": "exp",
+      "conversion": "signed32"
+    },
+    {
+      "field": "zeni",
+      "conversion": "signed32"
+    },
+    {
+      "field": "user_exp",
+      "conversion": "signed32"
+    },
+    {
+      "field": "gasha_point",
+      "conversion": "signed32"
+    },
+    {
+      "field": "boosted",
+      "conversion": "boolean"
+    },
+    {
+      "field": "friend_status",
+      "conversion": "unsigned32_then_enum_conversion"
+    },
+    {
+      "field": "clear_time_ms",
+      "conversion": "nullable_signed64"
+    },
+    {
+      "field": "prev_record_time_ms",
+      "conversion": "signed64"
+    },
+    {
+      "field": "continue_count",
+      "conversion": "unsigned32"
+    }
+  ],
+  "finish_result_collection_reads": [
+    "quest_clear_rewards",
+    "cleared_difficulties",
+    "dragonballs"
+  ],
+  "finish_result_further_reader_present": true,
+  "start_nested_map_observations": {
+    "path": "sugoroku.events",
+    "event_member": "content",
+    "content_member": "enemies",
+    "enemy_member_fields": [
+      "card_id",
+      "ai_type"
+    ],
+    "nested_enemy_group_iteration_observed": true,
+    "full_map_schema_verified": false,
+    "omitted_pseudocode_selector_resolved_from_exact_ARM64_call": true
+  },
+  "finish_result_further_reader": {
+    "bytes": 344,
+    "sha256": "5fa85df3c2efed9e4c5d2bf80225370f0df3b8f536c93bbe7a351186a45771dc",
+    "direct_fields": [
+      "user_items",
+      "items"
+    ],
+    "item_aggregate_schema_verified": false
+  },
+  "finish_reward_row_readers": [
+    {
+      "collection": "quest_clear_rewards",
+      "bytes": 172,
+      "sha256": "46d41178ca2b9309c37a6160a52ba63451dccfab6dbca0535281276721b85c20",
+      "fields": {
+        "item_type": "native_string",
+        "amount": "signed32"
+      }
+    },
+    {
+      "collection": "dragonballs",
+      "bytes": 120,
+      "sha256": "16f0d720694703fa58f20b089be1c3bd37cb85527597f385c255a6fe8a9d0531",
+      "fields": {
+        "id": "signed32",
+        "ball_type": "signed32",
+        "num": "signed32"
+      }
+    }
+  ],
+  "shared_signed32_reader": {
+    "bytes": 512,
+    "sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c",
+    "null_conversion": 0,
+    "out_of_range_conversion_error_path": true
+  },
+  "finish_items_collection_reader": {
+    "bytes": 1080,
+    "sha256": "e83eebfff814af9a11c4a0f63c388f7bf46f9882f8630a19d3e099911baf3074",
+    "item_type_default": "",
+    "special_case_item_type": "Card",
+    "card_item_id_conversion": "signed32",
+    "card_quantity_default": 0,
+    "card_quantity_conversion": "signed32",
+    "non_card_item_forwarded_to_original_callback": true,
+    "card_mapping_and_persistence_fully_verified": false
+  },
+  "normal_quest_map_view_frontier": {
+    "actual_RTTI": "18QuestSugorokuLayer",
+    "source_methods": [
+      {
+        "label": "ordinary_quest_sugoroku_layer_constructor",
+        "bytes": 2760,
+        "sha256": "917d7cacf9c98c1bfa69bc7bad28174e9b679317b183200bb0a6673bddac7ffb"
+      },
+      {
+        "label": "ordinary_quest_sugoroku_layer_init",
+        "bytes": 1320,
+        "sha256": "456baa40ffc39b3dc4faa2965f72ea652b6365ae86826347e6a3d02cd28caf42"
+      },
+      {
+        "label": "ordinary_sugoroku_inherited_init",
+        "bytes": 2280,
+        "sha256": "46cdb05833d367b3c63cc57e7409eca994255f05fc51043eaa163f8d23c6510f"
+      }
+    ],
+    "factory_bytes": 116,
+    "factory_sha256": "36f57187b917642489cee553cf6429becfba40f14cd90381ebbd4a993f82c6be",
+    "constructor_registers_original_event_handlers": true,
+    "initializer_calls_original_inherited_map_view_and_UI_setup": true,
+    "supplied_native_map_object_retained_by_original_refcount": true,
+    "fresh_start_map_layout_schema_verified": false,
+    "view_or_client_launched": false
+  },
+  "ordinary_map_and_enemy_input_contract": {
+    "source_methods": [
+      {
+        "label": "original_sugoroku_map_json_initializer",
+        "bytes": 180,
+        "sha256": "2803f273f810c836e93a57daf341fd364260b35a0d466aaaf47a4feb3c736d38"
+      },
+      {
+        "label": "original_sugoroku_base_map_json_initializer",
+        "bytes": 1128,
+        "sha256": "1f12a5fe0d31c4405715981407ad6a6a96a74a8bb7940658cb91d9249b4699fb"
+      },
+      {
+        "label": "ordinary_map_resource_resolver",
+        "bytes": 8,
+        "sha256": "a7256008baa914216dde2e991d51893d624f76e3772ed11cf84e1dccf2763400"
+      },
+      {
+        "label": "ordinary_map_resource_loader",
+        "bytes": 1780,
+        "sha256": "e0b3c59d415d2fb401722e50fd20546058c15607d0490f7da598d186fa91a077"
+      },
+      {
+        "label": "ordinary_map_resource_resolver_tail",
+        "bytes": 512,
+        "sha256": "18ce3b4b46c51971b435b89afcff7850b234eda74bedd00ad96e8fa1b06d0667"
+      },
+      {
+        "label": "original_battle_enemy_group_initializer",
+        "bytes": 484,
+        "sha256": "b8389e6062f070a59a714ae882c62e685752afb2d38cb35efbe7ddc2f4533d6e"
+      },
+      {
+        "label": "original_enemy_card_json_initializer",
+        "bytes": 3256,
+        "sha256": "708d23dcffff83a37db657435816dae0ebdbe576bc950afb21a2dbbf843575e1"
+      }
+    ],
+    "actual_map_RTTI": "16QuestSugorokuMap",
+    "map_field_type": "string",
+    "events_shape": "object with decimal cell-index string keys",
+    "event_row_fields": [
+      "type",
+      "content"
+    ],
+    "event_type_conversion": "signed32",
+    "optional_map_fields": [
+      "first_focus_step",
+      "tutorial_mode"
+    ],
+    "map_name_regex": "(\\d+)_\\d+",
+    "resource_format": "sugoroku/tmx/<first captured digits>/<full map name>.processed.tmx",
+    "original_TMX_layers": [
+      "Attribute",
+      "Path",
+      "PathAttributes"
+    ],
+    "numeric_PathAttributes_object_names_define_cells": true,
+    "missing_event_cell_logs_parse_error": true,
+    "actual_enemy_RTTI": "14EnemyCharacter",
+    "enemy_explicit_zero_defaults": [
+      "id",
+      "awakenings",
+      "card_id",
+      "first_turn",
+      "turn",
+      "hp",
+      "attack",
+      "defence",
+      "exp",
+      "zeni",
+      "ai_type",
+      "lv",
+      "skill_lv",
+      "extra_hp_gauges_count"
+    ],
+    "enemy_hp_conversion": "signed32 widened to signed64",
+    "master_enemy_info_contains_combat_stats": false,
+    "stage_map_name_binding_verified": false,
+    "authoritative_ordinary_encounter_catalog_available": false,
+    "standalone_TMX_asset_bytes_available": false,
+    "Android_TMX_CPK_inventory_count": 714,
+    "complete_start_payload_admitted": false
+  }
+}

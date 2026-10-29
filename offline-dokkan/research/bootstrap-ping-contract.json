@@ -1,0 +1,160 @@
+{
+  "kind": "current-client-pre-auth-ping-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "reviewed_bodies": [
+    {
+      "label": "transaction_pre_auth_command",
+      "bytes": 320,
+      "sha256": "3bb75cfcc72a30a4cd2656141ef682da5cd65fa0a6ac5d407c1bb082f438b722"
+    },
+    {
+      "label": "transaction_intermediate_command",
+      "bytes": 12,
+      "sha256": "780cbe1b5330fc97c040a26c625467240b87211ca33381626e17a3d3dfe20154"
+    },
+    {
+      "label": "transaction_intermediate_tail",
+      "bytes": 36,
+      "sha256": "3a014ac1096ababee0b8b31d67af1f5071cc437b15a2ecbcf46f85bae1819468"
+    },
+    {
+      "label": "pre_auth_request_factory",
+      "bytes": 72,
+      "sha256": "d882eaccffe4f3534f6411eb5f9a952ab73557e77eb108b6c3ca4b340863fed8"
+    },
+    {
+      "label": "pre_auth_request_send",
+      "bytes": 1128,
+      "sha256": "d0403747503380df7c626a1e422edb531628adbc9465e92f7a5e16137227d38c"
+    },
+    {
+      "label": "pre_auth_success_callback",
+      "bytes": 8,
+      "sha256": "e965deb276b390df7095feb0fb3dcce6602bb9bdbbbcbc283f12990bbac175d7"
+    },
+    {
+      "label": "pre_auth_success_tail",
+      "bytes": 260,
+      "sha256": "ed7a96899344bcc7ee3e2ebd5122a69c7b9cfea70f44c7fb0e2df00636dad0a6"
+    },
+    {
+      "label": "pre_auth_request_constructor",
+      "bytes": 228,
+      "sha256": "e84af6055c5fee4c1b07ef0f2fe90db821e834db1fc9a2c866d805a90ec9130a"
+    },
+    {
+      "label": "pre_auth_response_wrapper",
+      "bytes": 2080,
+      "sha256": "979c77eaf901eff4980ad87f42d0c956ac3ce949879325e7d185ac1c6378f874"
+    },
+    {
+      "label": "json_member_with_supplied_default",
+      "bytes": 52,
+      "sha256": "a5e6db7043c8b681bf414de5a53c6764a3479c3fb450414914bc2940f2e4ba4d"
+    },
+    {
+      "label": "json_default_lookup_284",
+      "bytes": 284,
+      "sha256": "c9e952bd968f1fdc300e030fa8122dbce410053c08c3542ca4144adc57d6c1f6"
+    },
+    {
+      "label": "authentication_transaction_constructor",
+      "bytes": 648,
+      "sha256": "2ef050581187121b73a4ad976a6e28c68ecdcf95976c30694046de0b04acc3cf"
+    },
+    {
+      "label": "authentication_generate_token_controller",
+      "bytes": 524,
+      "sha256": "566942826c2cd817a6845e06b5aeee44bf1a632a088ec1a99bfdef2c25244869"
+    }
+  ],
+  "route": {
+    "method": "GET",
+    "path": "/ping",
+    "proof": "Actual constructor kind0 and suffix ping; actual vtable slot17 and slot2 pins match the previously proved method/materializer/relative-path chain"
+  },
+  "actual_vtable_slots": [
+    {
+      "slot": 2,
+      "bytes": 1284,
+      "sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37"
+    },
+    {
+      "slot": 17,
+      "bytes": 8,
+      "sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845"
+    }
+  ],
+  "response_root": "document.ping_info",
+  "fields": {
+    "host": {
+      "conversion": "string",
+      "omission_default": "existing native host"
+    },
+    "port": {
+      "conversion": "numeric signed32 then stored as uint16",
+      "omission_default": "existing native uint16 port"
+    },
+    "port_str": {
+      "conversion": "string",
+      "omission_default": "existing native port string"
+    },
+    "cf_uri_prefix": {
+      "conversion": "string",
+      "omission_default": "existing native prefix"
+    },
+    "skip_device_token": {
+      "conversion": "boolean",
+      "omission_default": false,
+      "native_effect": "inverse boolean stored at config byte185"
+    }
+  },
+  "default_get_proof": [
+    "The52-byte wrapper preserves the supplied default and selects it if the pinned Json::Value::find helper returns null.",
+    "The284-byte find helper accepts null/object parents, returns null for null parent or the object-map end sentinel, and rejects other parent types.",
+    "The ping success wrapper constructs each omitted address-field default from its existing native configuration.",
+    "The candidate supplies an object-valued ping_info and omits address fields, preserving those values."
+  ],
+  "candidate_body": {
+    "ping_info": {
+      "skip_device_token": true
+    }
+  },
+  "candidate_policy": "skip_device_token=true is our explicit offline policy using the actual client field; no real device identifier is supplied.",
+  "response_values_copied_from_capture": false,
+  "source_configuration_values_extracted": false,
+  "native_provider_bodies_read": false,
+  "plain_json_body_envelope_verified": true,
+  "ping_response_shape_verified_statically": true,
+  "complete_offline_login_verified": false,
+  "native_runtime_execution_verified": false,
+  "http_routes_installed": false,
+  "intermediate_command_review": {
+    "bytes": [
+      12,
+      36
+    ],
+    "normal_path": "The intermediate callable selects transaction member176. The actual 648-byte transaction constructor installs GenerateToken there. Its 524-byte controller checks config byte185: when it is not1, it takes the existing 260-byte transaction-advance path without entering the platform-token branch.",
+    "target_callable_proven": true,
+    "remote_authentication_dependency_claimed": false,
+    "offline_skip_path": "Ping skip_device_token:true stores the inverse boolean0 in config byte185; the existing GenerateToken controller therefore advances without requesting a platform token.",
+    "platform_token_provider_body_or_value_read": false
+  },
+  "scope_accounting": {
+    "ping_success_alias8_follows_admitted260_tail_sites": 34,
+    "ping_ctor228_and_wrapper2080_outside_sites": 0,
+    "default_wrapper52_follows_value_copy108_sites": 8,
+    "value_copy108_sha256": "326233c1802bbb9eec6a73140e4d765697e7f6911286c31452bdd806a149db44",
+    "lookup284_outside_sites": 0,
+    "intermediate12_plus36_also_observes_exception_adjacent284_sha256": "a1122b4f8161eb75db9898bdea9c3dfa35d6ad50bf17bc79e3c31b55a70a7497",
+    "intermediate_exception_adjacent_body_used_for_normal_path_claim": false,
+    "generate_token524_follows_previously_admitted_advance260_sites": 34
+  },
+  "limits": [
+    "Candidate handlers are not installed; the unified-host auth gate remains closed.",
+    "The retained native configuration must be valid/current; its actual values and later asset routing are not established by response-shape evidence.",
+    "The intermediate stored callable and its skip branch are now bound; queued owner/completion lifecycle and actual startup/login remain unverified.",
+    "No claim of suppressing every system/device network request is made from one client flag.",
+    "No game/native compilation, original-client execution, source keys, credentials, captured player values or private addresses are involved in the public proof."
+  ]
+}

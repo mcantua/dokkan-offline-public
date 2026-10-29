@@ -1,0 +1,28 @@
+{
+  "kind": "bootstrap-callback-holder-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "request_constructors": {},
+  "request_vtables": [],
+  "accessor_followup": true,
+  "accessor_summaries": [
+    {
+      "bytes": 48,
+      "sha256": "b02a0b86a9a1c356ea3cb57c0a53ba4e446c7d1324d32d6876bfbc1638bc3724"
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Candidate stores and dispatch slots require receiver-identity matching.",
+    "No complete HTTP-body root binding is established.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ],
+  "observations": {
+    "request_slot6_body_sha256": "b02a0b86a9a1c356ea3cb57c0a53ba4e446c7d1324d32d6876bfbc1638bc3724",
+    "request_slot6_first_input_adjustment": 24,
+    "tail_helper_sha256": "fe9af7d56a6dd5e35d4ded73a6f0b7ec7e74533eedac3bdf51e6efc8b23cbe10",
+    "callback_family_slot6_is_a_different_vtable": true,
+    "json_parser_abi_claimed": false
+  }
+}

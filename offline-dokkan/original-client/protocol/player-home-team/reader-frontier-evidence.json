@@ -1,0 +1,47 @@
+{
+  "kind": "actual-current-player-team-selected-reader-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "recovered_readers": [
+    {
+      "role": "tutorial_field_frontier_1",
+      "bytes": 688,
+      "sha256": "8b541923621d6330cf64149520d29798b7282fa332168c54a560372340e60800",
+      "allowlisted_fields": [
+        "user"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_2",
+      "bytes": 1212,
+      "sha256": "c9c7c7e178f14787f392fd7f14c72f6261a6dfb3c83004a4737197f523e4a521",
+      "allowlisted_fields": [
+        "skill_lv",
+        "user"
+      ]
+    },
+    {
+      "role": "tutorial_field_frontier_3",
+      "bytes": 1152,
+      "sha256": "8807a25ccd498aedb8c0456f6ac460762a2021af44274afba0da3afc6242cbc1",
+      "allowlisted_fields": [
+        "user"
+      ]
+    }
+  ],
+  "direct_reader_callers": [],
+  "reader_relative_shape_verified": false,
+  "tutorial_start_state_verified": false,
+  "capacity_start_values_verified": false,
+  "runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "limits": [
+    "Pinned reader recovery only; symbolic events are private for manual flow review.",
+    "No played-account values, credentials or source keys read.",
+    "Field references and partial symbolic calls do not establish complete request/response DTOs, requiredness or current method/path."
+  ],
+  "scope": "Exact previously recovered original reader/caller spans with reviewed player/team field vocabulary only",
+  "full_http_envelope_verified": false,
+  "home_team_route_admitted": false,
+  "ordinary_player_or_team_runtime_verified": false
+}

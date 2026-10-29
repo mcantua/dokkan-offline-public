@@ -1,0 +1,50 @@
+{
+  "kind": "bootstrap-callback-holder-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "request_constructors": {},
+  "request_vtables": [],
+  "accessor_followup": true,
+  "accessor_summaries": [
+    {
+      "bytes": 8,
+      "sha256": "daad29eb22764c1a6648db19c4f5fec307424c18c87672648a384e90e476ded4"
+    },
+    {
+      "bytes": 8,
+      "sha256": "582bc64ba04b575362953a7f9d38052e75c7f4d7092673a0024f48e519782d0d"
+    },
+    {
+      "bytes": 148,
+      "sha256": "e5dc1f0612a5d1ae6280dae15062b1fa5cfa4625264d84a60d4cef86ef9772ec"
+    },
+    {
+      "bytes": 100,
+      "sha256": "de816a8c23c9ca097b92f2040b202a37b432fb735fe3ceb8effced0a87f5befb"
+    },
+    {
+      "bytes": 364,
+      "sha256": "d3cbfbf96c3c77802618f89d22ae70ddd11b9026ac41cbfef1785f5b36a6c491"
+    },
+    {
+      "bytes": 12,
+      "sha256": "f148dd709cb51685c119174f3c342f19f5c78ac5e5dfcfac392ad05e899e4846"
+    }
+  ],
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "Candidate stores and dispatch slots require receiver-identity matching.",
+    "No complete HTTP-body root binding is established.",
+    "Unknown strings, addresses, code bytes and player values are omitted."
+  ],
+  "observations": {
+    "request_slot8_self_adjustment_bytes": 48,
+    "request_slot10_self_adjustment_bytes": 80,
+    "shared_tail_helper_sha256": "e5dc1f0612a5d1ae6280dae15062b1fa5cfa4625264d84a60d4cef86ef9772ec",
+    "candidate_callback_pointer_member_offsets": [
+      72,
+      104
+    ]
+  }
+}

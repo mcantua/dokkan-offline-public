@@ -9,7 +9,7 @@ typedef struct od_core od_core;
 /* Internal trusted domain API, not the game's HTTP protocol. Master is always read-only.
  * content_id must identify the exact imported master version (normally its SHA-256).
  * All returned strings use od_free. A core instance must be called serially.
- * Current save schema is v11; validated v1..v10 saves migrate transactionally. */
+ * Current save schema is v15; validated v1..v14 saves migrate transactionally. */
 int od_open(const char *save_path, const char *master_path, const char *content_id, od_core **out);
 void od_close(od_core *core);
 const char *od_last_error(od_core *core);
@@ -41,6 +41,18 @@ int od_projection_ack(od_core *core,const char *profile,int64_t generation,
  * operation or second SQLite connection; all JSON uses od_free. */
 int od_offline_identity(od_core *core,const char *profile,char **result_json);
 int od_offline_player_snapshot(od_core *core,const char *profile,char **result_json);
+/* Original-client native authority only, never od_execute/WebView operation
+ * names. operation is tutorial.progress, teams.apply or practice.begin/finish; payload is normalized
+ * by the admitted own-client adapter, not raw arbitrary HTTP/policy JSON.
+ * Scope is checked inside the same write transaction before command replay;
+ * expected_revision is required for a new command. Exact command retries
+ * preserve their retained result. New-profile skip rows reject tutorial writes.
+ * No starter units, rewards, arbitrary finished tutorial
+ * flag, contents-level default or HTTP response is created by this API. */
+int od_original_client_apply(od_core *core,const char *operation,const char *profile,
+                              const char *command,const char *expected_save_scope,
+                              int64_t expected_revision,const char *payload_json,
+                              char **result_json);
 /* Read-only interrupted native accepted-project recovery. Exact profile/command
  * must already cache creator.finish with input {definition:expected}; returns
  * that existing result unchanged. Missing/pruned receipts remain unresolved.
@@ -48,11 +60,24 @@ int od_offline_player_snapshot(od_core *core,const char *profile,char **result_j
 int od_creator_finish_receipt(od_core *core,const char *profile,const char *command,
                               const char *expected_definition_json,char **result_json);
 /* Native-only full Creator acceptance after complete scoped bundle validation.
- * The canonical definition is progression-root-v1 with an immutable v2 bundle
- * hash binding; every engine table/link/resource stays in the accepted packet.
- * Same ownership/progression/receipt transaction; no new WebView operation. */
+ * bundle_bytes is the exact validator packet. Its SHA-256 must match the
+ * definition's full_bundle binding before the save transaction starts.
+ * Public creator.import and creator.finish still reject that descriptor.
+ * No WebView operation and no original-engine attachment are added here. */
 int od_creator_finish_bundle(od_core *core,const char *profile,const char *command,
-                              const char *definition_json,char **result_json);
+                              const char *definition_json,const void *bundle_bytes,
+                              size_t bundle_length,char **result_json);
+/* Native immutable packet retrieval, deliberately not an od_execute operation.
+ * The read transaction verifies this save/content scope and a live, unconsumed
+ * owned instance at the requested active definition version. It returns exact
+ * durable packet/definition bytes and a snapshot receipt with profile revision
+ * and projection generation. Every allocation uses od_free; packet_length is
+ * explicit. A migrated descriptor without bytes fails recoverably, never
+ * reconstructs a guessed packet or grants another owned copy. */
+int od_creator_accepted_bundle(od_core *core,const char *profile,const char *definition_id,
+                              int64_t version,int64_t instance_id,const char *expected_save_scope,
+                              void **packet_bytes,size_t *packet_length,
+                              char **definition_json,char **receipt_json);
 void od_free(void *memory);
 #ifdef __cplusplus
 }

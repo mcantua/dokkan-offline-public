@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "entry_source": "offline-dokkan/original-client/loader/ODOriginalDuoStartupDiagnostic.m",
+  "entry_header": "offline-dokkan/original-client/loader/ODOriginalDuoStartupDiagnostic.h",
+  "diagnostic_compile_define": "OD_ORIGINAL_DUO_DIAGNOSTIC_ENTRY=1",
+  "native_factory_symbol": "ODCreateOriginalDuoStartupDiagnosticHost",
+  "required_host_purpose": "original-startup-diagnostic",
+  "diagnostic_bundle_identifier": "org.offlinedokkan.startupdiagnostic.duo",
+  "native_factory_implemented": true,
+  "integrated_factory_implemented_by_this_module": false,
+  "component_and_fixture_default": "constructor disabled",
+  "production_entry_simultaneously_enabled": false,
+  "bundle_inputs": [
+    {
+      "relative_path": "OriginalClient/OriginalGenuineDuoShell",
+      "bytes": 332320,
+      "source_sha256": "18db225cd578fcfc724b1dbf6c0b89eb2213fb05d6113cd52fbc1a1ce006218a",
+      "verification": "existing genuine-shell bootstrap pins source and preserves active executable body and SDK"
+    },
+    {
+      "relative_path": "Frameworks/OriginalDokkanEngine.dylib",
+      "bytes": 55697728,
+      "source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+      "verification": "existing prepared-image loader normalizes only allowed appended-signature metadata"
+    },
+    {
+      "relative_path": "Frameworks/AdjustSigSdk.framework/AdjustSigSdk",
+      "bytes": 649088,
+      "source_sha256": "564cdec07867697f3e23b8df760a5c3d9c067ff5dec2780dd905c83eaf2f96cd",
+      "verification": "source pin before signing remains required; runtime ordinary dyld and OS signature policy, no fake SDK"
+    },
+    {
+      "relative_path": "database.db",
+      "bytes": 535552,
+      "source_sha256": "667e554a9cfb8c4765f05a1d85f0fdf707ade61562b50e3e5cd98ac52f997ba3",
+      "verification": "native factory reads and hashes exact opaque original seed; no database decoding or key access"
+    },
+    {
+      "relative_path": "Frameworks/AdjustSigSdk.framework/Info.plist",
+      "bytes": 886,
+      "source_sha256": "8d3c83e4fb61b074d89a26457fb29337468751eee01ae4140d5288fa751d13d7",
+      "verification": "exact original metadata restored and source-staged from whole-IPA-hash-verified extraction; no generated substitute"
+    }
+  ],
+  "resource_root": "actual own NSDocumentDirectory first result plus assets; admitted cold publication before original dlopen",
+  "missing_or_empty_resource_root_behavior": "may create only the actual own assets root for verified cold publication; no empty-directory readiness",
+  "compatible_catalog": {
+    "bundle_relative_path": "OriginalClient/byte-identical-assets.sqlite3",
+    "bytes": 36864,
+    "sha256": "a45b7c9f308e6d07452fd07ac2eeea28981be034554a73e35094552ba9163384",
+    "cache_bundle_relative_path": "OriginalClient/CompatibleResourceCache",
+    "configured_unique_references": 27,
+    "required_paths_source": "native enumeration from the exact pinned readonly catalog",
+    "publication": "existing resource preloader and no-overwrite publisher; actual own Documents boundary",
+    "bulk_io_queue": "serial preparation queue before UIApplicationMain and before original dlopen"
+  },
+  "source_resource_staging_tool_implemented": true,
+  "native_compatible_resource_preloader_connected_in_source": true,
+  "native_compatible_resource_preloader_compiled": false,
+  "original_bundle_completeness_runtime_verified": false,
+  "diagnostic_state_root": "own NSApplicationSupportDirectory/OriginalClientStartupDiagnostic",
+  "response_routes_registered": 0,
+  "derived_plaintext_master_staged": false,
+  "creator_services_installed": false,
+  "native_close_reopen_or_cache_override": false,
+  "original_sparking_bundle_identity_rejected": true,
+  "fresh_own_container_required_by_package_recipe": true,
+  "existing_native_user_or_current_master_tree_admitted": false,
+  "existing_working_tree_staging_receipt_implemented": false,
+  "legacy_harness_fallback": false,
+  "native_compile_verified": false,
+  "private_inputs_restored": true,
+  "two_pinned_binary_inputs_restored": true,
+  "framework_bundle_metadata_restored": true,
+  "original_safe_resource_source_staging_verified": true,
+  "native_app_resource_staging_verified": false,
+  "complete_resource_staging_implemented": false,
+  "original_game_launch_verified": false,
+  "offline_login_verified": false,
+  "gameplay_verified": false,
+  "playable_build": false
+}

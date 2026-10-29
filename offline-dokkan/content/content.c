@@ -104,6 +104,37 @@ static int verify_copy(int from,int to,int64_t expected,const char *hash) {
  if(total!=expected||strcmp(hex,hash)||fstat(from,&after)||before.st_dev!=after.st_dev||before.st_ino!=after.st_ino||before.st_size!=after.st_size)return -1;
  return 0;
 }
+int od_content_verify_readonly_fd(int fd,int64_t expected,const char *hash) {
+ if(fd<0||expected<0||expected>INT64_MAX/8||!hash||strlen(hash)!=64)return -1;
+ for(int i=0;i<64;i++)if(!((hash[i]>='0'&&hash[i]<='9')||(hash[i]>='a'&&hash[i]<='f')))return -1;
+ int flags=fcntl(fd,F_GETFL);struct stat before,after;
+ if(flags<0||(flags&O_ACCMODE)!=O_RDONLY||fstat(fd,&before)||
+    !S_ISREG(before.st_mode)||before.st_size!=expected)return -1;
+ sha_state sha;sha_init(&sha);int64_t total=0;unsigned char buffer[65536];
+ for(;;){
+  size_t take=sizeof(buffer);if(expected-total<(int64_t)take)take=(size_t)(expected-total);
+  if(!take)break;
+  ssize_t n=pread(fd,buffer,take,(off_t)total);
+  if(n<0&&errno==EINTR)continue;
+  if(n<=0)return -1;
+  sha_add(&sha,buffer,(size_t)n);total+=n;
+ }
+ char hex[65];sha_finish(&sha,hex);
+ if(total!=expected||strcmp(hex,hash)||fstat(fd,&after)||before.st_dev!=after.st_dev||
+    before.st_ino!=after.st_ino||before.st_size!=after.st_size||!S_ISREG(after.st_mode))return -1;
+#if defined(__APPLE__)
+ if(before.st_mtimespec.tv_sec!=after.st_mtimespec.tv_sec||before.st_mtimespec.tv_nsec!=after.st_mtimespec.tv_nsec)return -1;
+#else
+ if(before.st_mtim.tv_sec!=after.st_mtim.tv_sec||before.st_mtim.tv_nsec!=after.st_mtim.tv_nsec)return -1;
+#endif
+ return 0;
+}
+int od_content_verify_bytes(const void *bytes,int64_t length,const char *hash) {
+ if(length<0||length>INT64_MAX/8||(uint64_t)length>SIZE_MAX||(!bytes&&length)||!hash||strlen(hash)!=64)return -1;
+ for(int i=0;i<64;i++)if(!((hash[i]>='0'&&hash[i]<='9')||(hash[i]>='a'&&hash[i]<='f')))return -1;
+ sha_state sha;sha_init(&sha);if(length)sha_add(&sha,bytes,(size_t)length);
+ char hex[65];sha_finish(&sha,hex);return strcmp(hex,hash)?-1:0;
+}
 static int cached(od_content *c,const char *hash,int64_t bytes,int *out) {
  int fd=openat(c->cache,hash,O_RDONLY|O_NOFOLLOW|O_CLOEXEC|O_NONBLOCK);
  if(fd<0)return errno==ENOENT?1:fail(c,"CACHE_OPEN_FAILED");

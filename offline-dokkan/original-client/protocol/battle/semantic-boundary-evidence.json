@@ -1,0 +1,76 @@
+{
+  "kind": "original-battle-plaintext-semantic-observation-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "writer_rtti": "Json::FastWriter",
+  "writer_virtual_slot": 2,
+  "writer_slot_matches_original_serializer": true,
+  "source_functions": [
+    {
+      "role": "battle_plain_json_serializer",
+      "bytes": 136,
+      "sha256": "2e933be346f51e7d7f2a1b6e6869f3e807057527a2a82ead7956b924b82bd101"
+    },
+    {
+      "role": "battle_encoded_body_setter",
+      "bytes": 240,
+      "sha256": "fcc67747f8c0a63511d413f51a0acaca1aa7cd95c76b841711ba6aa056cfc6d9"
+    },
+    {
+      "role": "battle_base_request_send",
+      "bytes": 1240,
+      "sha256": "12893259346fc0e6f9e06e01c3d7e5a3b66c9b72e4ae575dbd03d683b7c2bf36"
+    }
+  ],
+  "exact_builder_call_sites": [
+    {
+      "kind": "finish",
+      "builder_bytes": 3380,
+      "builder_sha256": "caada19b4d49112908ce7c4e44678cb9765317f55e26e78ddd5d7a7eae5d8d15",
+      "serializer_registers": {
+        "x0": "local FastWriter object address",
+        "x1": "local plaintext Json::Value address",
+        "x8": "caller-owned24-byte libc++string result storage"
+      },
+      "request_identity": "X21, saved from this builder entry X0; meaningful only at this exact pinned call site",
+      "continuation_arguments": {
+        "x20": "builder entry X1",
+        "x19": "builder entry X2"
+      }
+    },
+    {
+      "kind": "start",
+      "builder_bytes": 1596,
+      "builder_sha256": "07e8bed5be4eda28c95689d36c1971a70e7ea58f07026243e55dbafef6696a42",
+      "serializer_registers": {
+        "x0": "local FastWriter object address",
+        "x1": "local plaintext Json::Value address",
+        "x8": "caller-owned24-byte libc++string result storage"
+      },
+      "request_identity": "X21, saved from this builder entry X0; meaningful only at this exact pinned call site",
+      "continuation_arguments": {
+        "x20": "builder entry X1",
+        "x19": "builder entry X2"
+      }
+    }
+  ],
+  "lifetime_observations": [
+    "The writer and Json::Value are local to each original builder frame.",
+    "The serialized plaintext string is passed by address to the existing native codec, then its long-string storage is deleted before the encoded-body setter.",
+    "The shared240-byte body setter receives the outer sign object, optionally adds timewarp, serializes it and stores that encoded request body on the request object.",
+    "The original request pointer remains available as X21 within each builder; the serializer formal arguments do not themselves include the request identity.",
+    "The1240-byte shared send path can dispatch immediately or defer the request; a transient thread-local observation alone cannot establish later network identity or lifetime."
+  ],
+  "missing": [
+    "Implemented original-client observation/instrumentation boundary at the exact call sites.",
+    "Owned deep copy of plaintext bytes before native cleanup, bound to current profile/save scope and request generation.",
+    "Verified identity binding from original request through materialized HttpRequest to the Foundation request and completion/cancellation.",
+    "Native execution evidence for ABI, asynchronous lifetime, retry, cancellation and save integrity."
+  ],
+  "native_hook_or_provider_interface_admitted": false,
+  "source_instrumentation_implemented": false,
+  "native_codec_modified": false,
+  "key_material_inspected": false,
+  "plaintext_runtime_values_extracted": false,
+  "original_client_executed": false,
+  "battle_or_persistence_verified": false
+}

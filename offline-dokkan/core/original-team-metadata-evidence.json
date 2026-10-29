@@ -1,0 +1,20 @@
+{
+  "kind": "schema13-native-team-changed-metadata-sql-and-js",
+  "runs": 1,
+  "prior_migration_layout_tutorial_evidence_reused": "original-player-state-evidence.json",
+  "actual_reference_and_context_sql_validation": true,
+  "signed32_and_unsigned32_bounds_and_json_bool_rejection": true,
+  "unknown_references_remain_null": true,
+  "omitted_metadata_preserves_prior": true,
+  "actual_snapshot_to_get_post_normalizer_to_persisted_sql": true,
+  "no_ownership_inventory_progression_grants": true,
+  "foreign_key_check_passed": true,
+  "core_c_control_flow_or_command_replay_executed": false,
+  "objc_bridge_or_gameplay_executed": false,
+  "app_builds": 0,
+  "http_route_admitted": false,
+  "source_sha256": {
+    "od_core.c": "51204bbf2b2a8800e3f373a36612c182c6124163025645e855bfe5576661c9df",
+    "original_teams.c": "b88bc498ae1271144bdc454814452c159918b29019dea918d4b1646112229b15"
+  }
+}

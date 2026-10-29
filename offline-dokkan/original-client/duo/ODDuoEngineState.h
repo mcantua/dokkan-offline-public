@@ -8,4 +8,11 @@ typedef struct {
     uintptr_t image, application, director;
     bool paused, stopped;
 } ODDuoEngineState;
-BOOL ODDuoInspectPinnedEngine(id originalAppController, ODDuoEngineState *result);
+/* Implemented in Objective-C; preserve its C symbol for Objective-C++ callers. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+FOUNDATION_EXPORT BOOL ODDuoInspectPinnedEngine(id originalAppController, ODDuoEngineState *result);
+#ifdef __cplusplus
+}
+#endif

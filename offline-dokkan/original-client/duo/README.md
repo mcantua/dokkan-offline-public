@@ -42,16 +42,69 @@ The pause/probe change received one affected syntax check, corrected the SDK16.5
 
 ## Unified native host and request observation
 
-`ODUnifiedDuoHost` composes the admitted genuine27.1 shell bootstrap, prepared original engine, native resource/state capabilities, original scene bridge and same-save Creator services. Its real loader preparation opens pinned resource/state directories and verifies an exclusive durable state write; it also rejects the source patcher in the bundle or loaded-image list. This preparation does not claim exhaustive constructor review or kernel-network isolation. Startup diagnostic mode may omit gameplay routes, native image attachment and Creator services. Integrated-target mode requires those configured capabilities but still reports gameplay, save/custom-unit and physical Duo acceptance as unverified.
+`ODUnifiedDuoHost` composes the admitted genuine27.1 shell bootstrap, prepared original engine, native resource/state capabilities, original scene bridge and same-save Creator services. Its real loader preparation opens pinned resource/state directories and verifies an exclusive durable state write; it also rejects the source patcher in the bundle or loaded-image list. This preparation does not claim exhaustive constructor review or kernel-network isolation. Startup diagnostic mode may omit gameplay routes, native image attachment and Creator services. Integrated-target mode requires actual original native master admission, routes, and image attachment; that master gate remains closed. Creator services may be present before `UIApplicationMain` or bound later on main. Gameplay, save/custom-unit and physical Duo acceptance stay unverified.
+
+`stagePlaintextDerivedMasterAtURL:byteCount:contentSHA256:language:` remains a detached plaintext tool. It copies a caller-supplied derived master into the writable state directory at `sqlite/current/<language>/database.db`, mode0400. Its readonly flag/key refusal is not the original MAIN flags6/native-key contract and no longer satisfies integrated startup.
+
+`adoptColdStagedOriginalMaster:` retains the separately prepared native `ODNativeMasterColdStage` only when its own Documents/assets root matches this host. That adapter publishes exact opaque bytes as a separate mode0600 working copy, rejects existing User/current and the original bundled fallback seed, and preserves source bytes. It requires the actual native language instead of choosing one. Runtime language/prefix and original key/open/schema acceptance remain unobserved; no invented ABI/caller boolean opens the integrated master gate. See [the concrete cold-stage boundary](../content/NATIVE-MASTER-COLD-STAGE.md). No new original-client launch or build occurred.
+
+`expectDeferredCreatorServicesForContentID:saveScopeSHA256:` records the exact content id and save scope from the async core reply. `bindCreatorServicesWhenReady:completion:` runs on main after install, without spinning the queue. An off-main call is queued and returns. The services must match the recorded content id and save scope. The bind installs the original scene lifecycle once, attaches the current renderer when that relationship is already admitted, and refreshes a queued Creator shortcut. Until that attach succeeds, the shortcut stays queued.
+
+The host reserves `/ping`, `/auth/nonce` and `/auth/sign_in` against caller-supplied responses. Its integrated-only auth configuration creates the proved local handlers internally with an explicit policy TTL, the actual bound services’ own Core, and fresh canonical profile/content/save-scope checks before issuing and completing. Handlers run on main; pending service binding is bounded. Request cancellation or an expired/missing nonce rejects that request so a fresh nonce can recover; an actual owner/scope change invalidates the issue. Tokens stay private in memory. `issueOfflineAuthEnvelopeWithNativeTime:expiresIn:error:` remains a reader-relative helper. The fresh-state policy still refuses invented player values. See `offline-auth-composition-source.json`; no actual original-client login has run.
+
+Integrated loading supplies empty origins/routes to the initial local transport, preserving deny-all before `dlopen`. The existing loader then verifies the admitted engine and HTTP ABI and issues a source-bound native-origin capability. The host rearms the same transport once from that actual current origin and its internally owned routes before AppDelegate requests. The source function is found uniquely by size/hash and runtime bytes, with safe bounded native memory reads; no address/host constants or first-request trust is used. Diagnostic callers retain their previous deny-all path. `ios/native-origin-source-evidence.json` records source review, not runtime acceptance. A concrete integrated factory and native master acceptance are still pending.
 
 Before original-image loading, the host registers the transport's unsupported-request observer. The transport provides only reviewed methods and canonical reviewed paths with dynamic identifiers replaced by `{id}`; the host asynchronously forwards at most64 distinct pairs to its main-thread report handler. No origin, full URL, query, headers, body or raw-socket activity is exposed. A revoked native context stops collecting reports. Observation grants no response contract or network fallback. Other Foundation configurations, raw sockets, SDK/system traffic and WebKit remain outside this observer's demonstrated coverage.
 
-`presentCreatorFromUserActionWithCompletion:` is a real native target that delegates to the same-save issuer after current scope, window/root and renderer attachment checks. Its production game-menu caller remains unresolved. Bounded source inspection found no bundled iPhone Lua/UI scene scripts or selected native Menu/Settings scene symbols; the expanded export's302 Lua files are battle-effect scripts, and known UI CPKs contain resources rather than an admitted menu-callback ABI. These facts do not prove that no private native menu callback exists. No source Cocos menu hook, new input gesture, persistent overlay or replacement game screen is installed from an unverified contract.
+`presentCreatorFromUserActionWithCompletion:` is a real native target that delegates to the same-save issuer after current scope, window/root and renderer attachment checks. The in-game caller is the native Unit Creator button below; the app-icon shortcut remains an additional entry. Bounded source inspection found no bundled iPhone Lua/UI scene scripts or selected native Menu/Settings scene symbols; the expanded export's302 Lua files are battle-effect scripts, and known UI CPKs contain resources rather than an admitted menu-callback ABI. These facts do not prove that no private native menu callback exists. The authored UIKit controls do not call an unverified Cocos menu ABI, create a new input gesture or replace the game screen. Their placement and touch handling use ordinary UIKit APIs over the same admitted scene.
 
-## Interim native app-icon Creator entry
+## In-game Creator menu
 
-`ODDuoCreatorQuickAction` registers a standard **Unit Creator** app-icon Quick Action after the admitted original scene exists. Press and hold the app icon to access it. Existing static/dynamic shortcuts remain intact; a full four-item menu is reported unavailable rather than removing another action. Registration is reported separately from device visibility. No game HUD, original root/view, touches, gesture handling or accessibility-element semantics changes.
+`ODDuoInGameActions` adds one compact **Unit Creator** entry (or **Tools** in a diagnostic-only host) to the safe area of the actual original scene-owned window. Its native `UIMenu` contains **Unit Creator**, optional **Practice Battle**, and an optional **Share diagnostic report** action. Only the entry remains on the game; there is no persistent three-button panel. It has a 44-point minimum touch target and 160-point maximum width. The original renderer, root controller, design resolution and touch methods are retained. Transparent margins outside the compact entry return no hit target, so touches outside the controls reach the original game. Auto Layout follows the admitted window's safe area and size changes; it does not create another render surface.
+
+The same native owner rechecks current scope, exact window/root/renderer, source-active state and existing readiness/action blocks on each tap. Waiting or queued game menu items are disabled; an active invocation, opening the editor, backgrounding or disconnecting hides the compact entry and dismisses its menu. The diagnostic menu item remains usable when a game request is merely queued waiting for readiness; its active sheet postpones the queue until dismissal. Creator pause/release and scene resume update the controls explicitly. Practice completion uses the existing host report/refresh callback. There is no timer and no automatic practice entry. The Creator's native data-admission gate remains unchanged, so the presence of a button never grants master acceptance.
+
+The optional **Share diagnostic report** menu item calls only a host-provided callback with the original presenter and button popover anchor. The UI never reads save, request or report data. It stays busy until the host calls completion after dismissal/failure. This is a manual diagnostic action, with no automatic upload.
+
+`ODDuoCreatorQuickAction` also registers a standard **Unit Creator** app-icon shortcut after the admitted original scene exists. Press and hold the app icon to open the Creator over the original game. Existing static/dynamic shortcuts remain intact; a full four-item menu is reported unavailable rather than removing another action. Registration is reported separately from device visibility. The existing shortcut path remains available alongside the authored in-app controls. No original root/view, game touch method or gesture handler is replaced; the native buttons have their own accessibility labels and identifiers.
 
 The actual scene delegate forwards cold `connectionOptions.shortcutItem` and warm `windowScene:performActionForShortcutItem:completionHandler:` delivery. A single native user intent is coalesced until the real source foreground/active callbacks, renderer and same-save services are admitted. Scene reconnection retains only that intent; revoked native scope clears it. Dispatch waits until after the scene/layout callback, preserving source startup ordering. Known warm requests return whether the intent was accepted; this does not report that an editor appeared. The later report distinguishes waiting, rejected, already-open and presentation-request-accepted outcomes. Unknown shortcut types are rejected; no `userInfo`, URL or page value is interpreted as authority.
 
-The action invokes the existing bound host presenter, which acquires the verified native pause/save binding. Failure leaves the source game and editable data preserved; duplicate actions never discard or reopen a held editor. This is an interim native host entry, not completed placement inside the actual game Menu/Settings screen. Physical shortcut delivery, original-engine pause/presentation and both Duo displays remain runtime acceptance work. No new package or separate test run was made for this delta; it is intended for the next changed native cohort.
+The action invokes the existing bound host presenter, which acquires the verified native pause/save binding and presents `ODCreatorController`. In original-client mode that controller's return control is labeled Menu. The scoped animation player adds the same Menu control on its bar once that bar exists, and sends it to the controller, so the preview does not cover the original renderer with its own window. Shortcut registration, the Menu title, and the decision to keep a queued shortcut while services are still attaching come from `creator_menu_policy`. A full four-item icon menu is reported unavailable. Shortcut userInfo does not grant access. Failure leaves the source game and editable data preserved; duplicate actions never discard or reopen a held editor. This is not an original Cocos menu callback. `cocosMenuHookInstalled` stays false. Physical shortcut delivery, original-engine pause/presentation and both Duo displays remain runtime acceptance work.
+
+When canonical save scope is not yet known before shell main,
+`ODDeferredOriginalPlayerAdmission` captures the exact native Core object.
+`expectDeferredCreatorServicesForPlayerAdmission:` and
+`configureOfflineAuthForDeferredPlayerWithExpiresIn:` can configure the Host
+without guessing a scope. `prepareDeferredPlayerAdmissionOnQueue:completion:`
+schedules the existing owner preparation on native IO; its normal main reply
+adopts the actual scope. Construct services with that same Core and real scope,
+then bind them. Pending auth cannot issue tokens before this completes. The
+original client keeps its own loading UI. See
+`deferred-player-admission-source.json` for source/runtime limits.
+
+The in-app control cohort is source implementation only. It has not been
+compiled, installed or exercised on either Duo display. No original-game
+screenshot, playable battle, native database acceptance or Creator-in-battle
+completion is claimed by adding these controls.
+
+Native menu selections wait for the public context-menu dismissal animator's
+completion before rechecking and invoking the native owner. No fixed animation
+delay, private selector or modal-readiness bypass is used. Hiding/disconnecting
+cancels a pending selection and dismisses the menu. UIKit's original `UIControl`
+context-menu callbacks are forwarded to `super`. Official Apple UIKit sources
+read for this behavior (all accessible on October 29):
+
+- [UIControl contextMenuInteraction](https://developer.apple.com/documentation/uikit/uicontrol/contextmenuinteraction)
+- [UIControl menu callbacks](https://developer.apple.com/documentation/uikit/uicontrol)
+- [UIControl willEndForConfiguration](https://developer.apple.com/documentation/uikit/uicontrol/contextmenuinteraction(_:willendfor:animator:))
+- [UIContextMenuInteraction dismissMenu](https://developer.apple.com/documentation/uikit/uicontextmenuinteraction/dismissmenu())
+
+These are public UIKit APIs available before the app's iOS16.4 deployment
+target. The source review is separate from real device menu/renderer evidence.
+
+When the same native practice owner reports a completed battle with a failed
+finish-save, the practice menu item becomes **Retry Save**. Only the practice
+readiness enum permits that caption/action; it invokes the same owner, which
+retries the retained finish-save. It does not start another battle or grant a
+reward. The Creator never treats this practice-only readiness as admission.

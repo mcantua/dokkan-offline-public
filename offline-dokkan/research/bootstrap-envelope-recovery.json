@@ -1,0 +1,103 @@
+{
+  "kind": "bounded-bootstrap-envelope-recovery",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "recovered_bodies": [
+    {
+      "role": "auth_request_constructor",
+      "bytes": 392,
+      "sha256": "3c6d85dde0682e7c60cf425fcde4b8f85726c81a5e9a2c21dd2aad49c3526b63",
+      "reviewed_role": "auth_request_constructor"
+    },
+    {
+      "role": "common_request_constructor",
+      "bytes": 420,
+      "sha256": "9d8e134af30873e345b61ff3542d2e85399c549c0b1f1331843c9807c5865910",
+      "reviewed_role": "common_request_constructor"
+    },
+    {
+      "role": "foundation_method_bridge",
+      "bytes": 2960,
+      "sha256": "b44fb3f524c67beab241d0bfdbb480efac2f48aad21ca89445b168d940a17dbe",
+      "reviewed_role": "foundation_method_bridge"
+    },
+    {
+      "role": "method_kind_getter",
+      "bytes": 8,
+      "sha256": "a26061eb76af386891a60b091a9a312b796ec48c788d8f4d2246855d112fa845",
+      "reviewed_role": "method_kind_getter"
+    },
+    {
+      "role": "nonce_reader",
+      "bytes": 120,
+      "sha256": "686df04ae70cfcfaf04b55b0b79e7e8c36dc940dd546e9f1377d646a09d789bd",
+      "reviewed_role": "nonce_reader"
+    },
+    {
+      "role": "nonce_request_constructor",
+      "bytes": 228,
+      "sha256": "a4ab39956604b70ed4f0812fdbafb22b2b6b82470b0ed7b53ffa50f530730386",
+      "reviewed_role": "nonce_request_constructor"
+    },
+    {
+      "role": "request_materializer",
+      "bytes": 1284,
+      "sha256": "829cd9c45cd0d3cae4d795b9ea842cae3e14d24310ddafb085a8c026cf6cbe37",
+      "reviewed_role": "request_materializer"
+    },
+    {
+      "role": "sign_in_request_builder",
+      "bytes": 236,
+      "sha256": "b6a67095081dc3f45b42dbef186b38ddc57141c53ee67583fd4fd47257fb492f",
+      "reviewed_role": "sign_in_request_builder"
+    },
+    {
+      "role": "signed_expiry_conversion",
+      "bytes": 512,
+      "sha256": "dae2630b96bb0d8eace181999a02cf2ab5a09368f745322b7711d025f40d103c",
+      "reviewed_role": "signed_expiry_conversion"
+    },
+    {
+      "role": "token_response_consumer",
+      "bytes": 396,
+      "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4",
+      "reviewed_role": "token_response_consumer"
+    }
+  ],
+  "reviewed_caller_body_count": 18,
+  "recovered_caller_facts": [
+    {
+      "role": "nonce_reader_alias",
+      "bytes": 4,
+      "sha256": "bf9475f857991a4bb81625ac6fd7b84106e09bebfb84c221813aeaa35af21ba0",
+      "observation": "Tail-forwards the same inputs to the pinned nonce reader."
+    },
+    {
+      "role": "nonce_callback",
+      "bytes": 200,
+      "sha256": "34cf3d5c78c7bae97efb781db82c8b72f67b04bddd16d8d62865771a440aaac2",
+      "observation": "Forwards its third input unchanged as the nonce reader's second input; no complete HTTP-body root binding established.",
+      "direct_callers_found": 0,
+      "image_pointer_reference_found": true
+    },
+    {
+      "role": "token_response_consumer",
+      "bytes": 396,
+      "sha256": "9be612c7e314e64f136a9999e82ffae68fa9de644525650733aa997d6b4821a4",
+      "observation": "Performs the known access_token and expires_in lookups relative to its third input.",
+      "direct_callers_found": 0,
+      "image_pointer_reference_found": true
+    }
+  ],
+  "remaining_trace_boundary": "The incoming JSON value is supplied through indirect virtual dispatch. Its identity as the complete HTTP body or a nested value is not established by the recovered callback bodies or nearby pointer entries.",
+  "analysis_invocations": 1,
+  "wire_body_envelope_verified": false,
+  "runtime_execution_verified": false,
+  "route_enablement_claimed": false,
+  "limits": [
+    "symbolic summaries are linear and conservative at branch joins",
+    "unknown strings omitted",
+    "indirect dynamic receivers unresolved",
+    "no runtime, wire, account or secret data examined"
+  ]
+}

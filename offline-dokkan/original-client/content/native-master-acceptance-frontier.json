@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "kind": "original-native-master-acceptance-source-frontier",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "new_exact_bodies": {
+    "selected_language": {
+      "bytes": 36,
+      "sha256": "511ba43ab59746dc37d87e171f30bcb0d679aa9a494660714689a717bd431a61"
+    },
+    "language_string_address_accessor": {
+      "bytes": 12,
+      "sha256": "d6afb961a1ae81865f4ebf2f4554d8cceb30f1c5d0017e79079dafcd42398af1"
+    },
+    "first_schema_check": {
+      "bytes": 340,
+      "sha256": "d80729df6d35f7869b0c9ae30f6f897c983a985914a6b45ea2576070fb90a3e1"
+    },
+    "compatibility_schema_retry": {
+      "bytes": 232,
+      "sha256": "4875eb0bdd23436e370e228c1c829db83b662cd2ef98d4141bd6f3d4db37601c"
+    },
+    "native_master_language_configuration": {
+      "bytes": 1240,
+      "sha256": "19bdcd4fd812a3cf5d252d15db311f7a35f3bd063341a9b51c21df70f2b777de"
+    },
+    "native_master_language_global_initializer": {
+      "bytes": 752,
+      "sha256": "533c6136adac6c2c3dbb9b5f3efa931cabb5ca8ec476d17bacf49f76e385b38e"
+    },
+    "source_language_default": {
+      "value": "en",
+      "native_short_string_bytes": 2,
+      "source_data_only": true
+    }
+  },
+  "own_scope_decompilation": {
+    "functions": 5,
+    "out_of_body_sites": 0,
+    "direct_assembly_checked": true
+  },
+  "language_current_value_observed": false,
+  "prefix_current_value_observed": false,
+  "schema_checker_returns_native_executor_result": true,
+  "cached_open_reuses_existing_handle_without_fresh_acceptance": true,
+  "preferred_failure_can_fall_back_to_seed": true,
+  "schema_failure_result_code": 16,
+  "worker_completion_proves_master_acceptance": false,
+  "native_observer_or_callback_abi_admitted": false,
+  "engine_key_provider_or_key_values_examined": false,
+  "host_calls_native_database_functions": false,
+  "cold_copy_or_engine_runtime_executed": false,
+  "native_master_accepted": false,
+  "verification": "Bounded static source/assembly review with own-scope audit; existing AppDelegate launch reused by exact SHA. Diagnostic native compilation and packaging are recorded separately by the integration lead; no engine/device execution or master acceptance receipt.",
+  "source_default_language_initializer": {
+    "registered_in_init_offsets": true,
+    "zero_based_position": 151,
+    "total_initializers": 5259
+  },
+  "language_configuration_order": {
+    "actual_application_launch_vtable_slot": 2,
+    "prior_exact_body_reused": true,
+    "native_preference_keys": [
+      "CurrentUsingLanguage",
+      "NextUseLanguage"
+    ],
+    "can_override_source_default": true,
+    "actual_preferences_read": false
+  },
+  "startup_observer": {
+    "source_commit": "5b695bd",
+    "actual_caller": "immediately-after-original-AppController-launch",
+    "preserves_original_launch_return": true,
+    "value_only_report": true,
+    "reads_database_handle_contents": false,
+    "calls_database_or_key_function": false,
+    "establishes_selected_file_or_schema_outcome": false,
+    "device_execution_receipt": false,
+    "on_demand_current_refresh_implemented": true,
+    "refresh_uses_actual_main_only_AppController": true
+  },
+  "startup_and_data_gate": {
+    "original_startup_may_precede_acceptance": true,
+    "game_data_requires_native_acceptance": true
+  },
+  "post_schema_helpers": {
+    "cache_setup": {
+      "bytes": 3912,
+      "sha256": "bedd53456784fb159e8d9957ff65ca0fe49f481e8f76a90091f4eab68f6342df",
+      "out_of_body_sites": 0,
+      "durable_manager_acceptance_flag_proved": false
+    },
+    "existing_listener_notification": {
+      "bytes": 212,
+      "sha256": "1c4ca52c1fc995bdb99cfe40bc6f1b0bf8430a52764c894b4a974b91a7458197",
+      "out_of_body_sites": 0,
+      "external_registration_abi_admitted": false
+    },
+    "observer_gate_changed": false
+  },
+  "readiness_boundary": {
+    "proven_manager_bytes": 48,
+    "readiness_or_generation_getter_proved": false,
+    "stable_cached_pointer_proves_generation": false,
+    "missing_runtime_evidence": [
+      "successful-original-open-and-schema-result",
+      "actual-selected-file-identity-from-same-native-execution"
+    ],
+    "acceptance_gate_changed": false
+  }
+}

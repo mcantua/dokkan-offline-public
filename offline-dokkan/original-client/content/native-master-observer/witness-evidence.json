@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "kind": "retained-schema-witness-targeted-check",
+  "result": "passed",
+  "targeted_runs": 1,
+  "exact_inverse_and_regeneration": true,
+  "tampered_derived_bytes_rejected": "prior unchanged recipe evidence; not repeated",
+  "rx_probe_rw_data_no_wx_segment": true,
+  "registers_including_live_lr_vectors_nzcv_sp_and_native_frame_preserved": true,
+  "key_pointer_provider_and_cached_sqlite_handle_unmapped_in_emulator": true,
+  "aslr_slides_checked": 1,
+  "scenarios": [
+    "preferred source path + native success tuple captured; slide=1073741824",
+    "retained schema witness survives cached reuse beyond ring capacity",
+    "empty-cache entry invalidates before open; schema failure cannot restore witness",
+    "new successful open publishes its own completed witness",
+    "changed cache identity invalidates witness; reuse cannot manufacture one"
+  ],
+  "derived_sha256": "92fee997a655cfc40f09f342ddf51e26c3da3082ce67c2d4bd3062365aa132b3",
+  "original_source_unchanged": true,
+  "original_game_executed": false,
+  "ios_dyld_signing_device_verified": false,
+  "native_master_accepted": false,
+  "prior_inverse_tamper_and_full_matrix_evidence_reused": "check-evidence.json"
+}

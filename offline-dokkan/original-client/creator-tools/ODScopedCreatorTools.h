@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) BOOL archiveOperationInProgress; // main-actor authority gate
 + (NSSet<NSString *> *)supportedOperations;
 - (void)attachWebView:(WKWebView *)webView presenter:(UIViewController *)presenter;
+/** Scoped original-client preview only. Adds the player bar control that
+ * returns to the game through the presenter. */
+- (void)useInGameCreatorMenuWithTarget:(id)target action:(SEL)action;
 - (void)handleMessage:(NSDictionary *)message reply:(void (^)(id _Nullable, NSString *_Nullable))reply;
 - (void)layoutInBounds:(CGRect)bounds safeArea:(UIEdgeInsets)insets;
 - (void)configureArchiveWithSnapshotProvider:(ODCreatorArchiveSnapshotProvider)snapshot

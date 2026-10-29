@@ -1,0 +1,124 @@
+{
+  "kind": "actual-current-profile-tutorial-reader-relative-contract",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "original_source_sha256": "9d6bf0470c4b4ff7d914740ccf9f1622afa962b763e18bfcf1f6e051bfae0610",
+  "profile_decoder": {
+    "bytes": 2416,
+    "sha256": "4b634d9dbf00a7af014407d8efa876cde23e4975916ff9c98aa2662d94496e3e"
+  },
+  "member_selector": {
+    "bytes": 40,
+    "sha256": "dd42e9a722691eec379059ee01aa2173858e9c7d57dd999863e33aa226704d78",
+    "arguments": [
+      "parent JSON value",
+      "member-name pointer",
+      "member-name byte length"
+    ],
+    "return": "selected child JSON value"
+  },
+  "prior_field_fallback": {
+    "bytes": 52,
+    "sha256": "a5e6db7043c8b681bf414de5a53c6764a3479c3fb450414914bc2940f2e4ba4d",
+    "null_or_missing_scalar": "prior native value selected, as established in initializer contract"
+  },
+  "reader_relative_fields": [
+    {
+      "path": "user.card_capacity",
+      "native_offset": 64,
+      "native_storage": "32-bit numeric",
+      "canonical_observed_shape": "integer"
+    },
+    {
+      "path": "user.total_card_capacity",
+      "native_offset": 68,
+      "native_storage": "32-bit numeric",
+      "canonical_observed_shape": "integer"
+    },
+    {
+      "path": "user.support_item_capacity",
+      "native_offset": 100,
+      "native_storage": "32-bit numeric",
+      "canonical_observed_shape": "integer"
+    },
+    {
+      "path": "user.is_support_item_capacity_extended",
+      "native_offset": 144,
+      "native_storage": "byte boolean",
+      "canonical_observed_shape": "boolean"
+    },
+    {
+      "path": "user.tutorial.contents_lv",
+      "native_offset": 112,
+      "native_storage": "32-bit numeric",
+      "canonical_observed_shape": "integer"
+    },
+    {
+      "path": "user.tutorial.progress",
+      "native_offset": 120,
+      "native_storage": "32-bit numeric",
+      "canonical_observed_shape": "integer"
+    },
+    {
+      "path": "user.tutorial.is_finished",
+      "native_offset": 145,
+      "native_storage": "byte boolean",
+      "canonical_observed_shape": "boolean"
+    }
+  ],
+  "user_selection_callers": [
+    {
+      "bytes": 456,
+      "sha256": "4766a08a9505670e433e594cde6dbc939204442913245ebea3a3552e229d73eb",
+      "parent_json_input": "input1",
+      "selected_field": "user",
+      "selected_value_is_decoder_input": true
+    },
+    {
+      "bytes": 688,
+      "sha256": "8b541923621d6330cf64149520d29798b7282fa332168c54a560372340e60800",
+      "parent_json_input": "input1",
+      "selected_field": "user",
+      "selected_value_is_decoder_input": true
+    },
+    {
+      "bytes": 1212,
+      "sha256": "c9c7c7e178f14787f392fd7f14c72f6261a6dfb3c83004a4737197f523e4a521",
+      "parent_json_input": "input2",
+      "selected_field": "user",
+      "selected_value_is_decoder_input": true
+    },
+    {
+      "bytes": 572,
+      "sha256": "748a441f15eebc2597a340cdba4d46552feac301746f3b3a6bf83f7dcf1861da",
+      "parent_json_input": "input3",
+      "selected_field": "user",
+      "selected_value_is_decoder_input": true
+    },
+    {
+      "bytes": 1152,
+      "sha256": "8807a25ccd498aedb8c0456f6ac460762a2021af44274afba0da3afc6242cbc1",
+      "parent_json_input": "input2",
+      "selected_field": "user",
+      "selected_value_is_decoder_input": true
+    },
+    {
+      "bytes": 288,
+      "sha256": "e301511cfba27bed2eb12ed2b2dd9ec233970bdedf9a155b00fba1d112323fa4",
+      "parent_json_input": "input0",
+      "selected_field": "user",
+      "selected_value_is_decoder_input": true
+    }
+  ],
+  "reader_relative_user_tutorial_shape_verified": true,
+  "matches_existing_sanitized_android_schema_paths": true,
+  "whole_http_body_root_or_wrapper_verified": false,
+  "tutorial_parent_object_requiredness_verified": false,
+  "complete_http_field_requiredness_verified": false,
+  "fresh_tutorial_values_verified": false,
+  "fresh_capacity_values_verified": false,
+  "tutorial_state_to_master_phase_mapping_verified": false,
+  "native_runtime_execution_verified": false,
+  "http_route_admitted": false,
+  "existing_projection_correction_required": false,
+  "projection_limit": "The existing observed resource schema already places tutorial under user. These static iPhone reader paths support that relative shape only; they do not supply a response body, initial values or runtime acceptance."
+}

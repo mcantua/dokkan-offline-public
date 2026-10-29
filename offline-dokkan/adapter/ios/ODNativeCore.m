@@ -6,6 +6,8 @@
 #include <errno.h>
 #include <string.h>
 
+static char ODNativeCoreOwnerQueueKey;
+
 @interface ODNativeCreatorLease ()
 - (instancetype)initWithProfile:(NSString *)profile content:(NSString *)content scope:(NSString *)scope;
 @end
@@ -28,6 +30,7 @@
     if ((self = [super init])) {
         _save = [saveURL copy]; _master = [masterURL copy]; _content = [contentID copy];
         _queue = dispatch_queue_create("personal.offlinedokkan.creator-core", DISPATCH_QUEUE_SERIAL);
+        dispatch_queue_set_specific(_queue,&ODNativeCoreOwnerQueueKey,(__bridge void *)self,NULL);
     }
     return self;
 }
@@ -130,6 +133,46 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
     }
     od_bridge_free(json);od_bridge_free(failure);return result;
 }
+- (NSDictionary *)prepareOriginalClientLocalPlayerOnPreparationQueueWithError:(NSError **)error {
+    // Refuse ALL Core owner queues, including this one, before dispatch_sync.
+    // A preparation caller must not wait here from main or create a cycle by
+    // entering a second owner from within another owner's work.
+    if(NSThread.isMainThread||dispatch_get_specific(&ODNativeCoreOwnerQueueKey)){
+        if(error)*error=CoreError("ORIGINAL_PLAYER_PREPARATION_QUEUE_REQUIRED");return nil;
+    }
+    __block NSError *failure=nil;
+    __block NSDictionary *prepared=nil;
+    dispatch_sync(_queue,^{
+        if(self->_creatorLease){failure=CoreError("CREATOR_EDIT_LEASE_HELD");return;}
+        if(![self ensureOpen:&failure])return;
+        char *output=NULL,*nativeError=NULL;
+        NSString *refresh=NSUUID.UUID.UUIDString;
+        int rc=od_bridge_execute(self->_bridge,"profile.refresh","local-player",refresh.UTF8String,"{}",&output,&nativeError);
+        BOOL missing=rc<0&&nativeError&&strcmp(nativeError,"PROFILE_NOT_FOUND")==0;
+        od_bridge_free(output);output=NULL;
+        if(rc<0&&!missing){failure=CoreError(nativeError);od_bridge_free(nativeError);return;}
+        od_bridge_free(nativeError);nativeError=NULL;
+        BOOL created=NO;
+        if(missing){
+            NSString *create=NSUUID.UUID.UUIDString;
+            rc=od_bridge_execute(self->_bridge,"profile.create","local-player",create.UTF8String,"{}",&output,&nativeError);
+            od_bridge_free(output);output=NULL;
+            if(rc<0){failure=CoreError(nativeError);od_bridge_free(nativeError);return;}
+            od_bridge_free(nativeError);nativeError=NULL;
+            created=rc==0;
+        }
+        NSDictionary *admission=ODProjectionAdmission(self->_bridge,@"local-player",self->_content);
+        if(!admission){failure=CoreError("ORIGINAL_PLAYER_ADMISSION_UNAVAILABLE");return;}
+        rc=od_bridge_offline_player_snapshot(self->_bridge,"local-player",&output,&nativeError);
+        NSDictionary *snapshot=rc>=0?ODProjectionJSON(output):nil;
+        if(!snapshot||![snapshot[@"profile_id"] isEqual:@"local-player"]||
+           ![snapshot[@"content_id"] isEqual:self->_content])failure=CoreError("ORIGINAL_PLAYER_SNAPSHOT_UNAVAILABLE");
+        else prepared=@{@"admission":admission,@"player_snapshot":snapshot,@"profile_created":@(created)};
+        od_bridge_free(output);od_bridge_free(nativeError);
+    });
+    if(!prepared&&error)*error=failure?:CoreError("ORIGINAL_PLAYER_PREPARATION_UNAVAILABLE");
+    return prepared;
+}
 - (void)originalCreatorProjectionAdmissionForProfile:(NSString *)profile reply:(ODCoreReply)reply {
     NSString *owner=[profile copy];
     dispatch_async(_queue,^{
@@ -157,6 +200,49 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
                 if(!player||![player[@"profile_id"] isEqualToString:owner]||![player[@"content_id"] isEqualToString:self->_content])
                     error=CoreError("ORIGINAL_PLAYER_SNAPSHOT_UNAVAILABLE");
                 else result=@{@"admission":admission,@"player_snapshot":player};
+                od_bridge_free(json);od_bridge_free(failure);
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(),^{reply(result,error);});
+    });
+}
+- (void)applyOriginalClientOperation:(NSString *)operation profile:(NSString *)profile command:(NSString *)command
+    payload:(NSDictionary *)payload expectedSaveScopeSHA256:(NSString *)scope expectedRevision:(int64_t)revision reply:(ODCoreReply)reply {
+    NSString *kind=[operation isKindOfClass:NSString.class]?[operation copy]:nil;
+    NSString *owner=[profile isKindOfClass:NSString.class]?[profile copy]:nil;
+    NSString *intent=[command isKindOfClass:NSString.class]?[command copy]:nil;
+    NSString *expected=[scope isKindOfClass:NSString.class]?[scope copy]:nil;
+    /* Freeze the caller's JSON intent before queuing; a later mutation of its
+     * nested arrays must not change the meaning of this retained command. */
+    NSData *data=nil;
+    @try {
+        if([payload isKindOfClass:NSDictionary.class])data=[NSJSONSerialization dataWithJSONObject:payload options:0 error:NULL];
+    } @catch(NSException *exception) { (void)exception; }
+    NSString *serialized=data.length>0&&data.length<=1024u*1024u?[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]:nil;
+    dispatch_async(_queue,^{
+        NSError *error=nil;NSDictionary *result=nil;
+        NSString *identifiers=@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.:";
+        if(!kind||![@[@"tutorial.progress",@"teams.apply",@"practice.begin",@"practice.finish"] containsObject:kind]||
+           !ODProjectionCharacters(owner,identifiers,127)||!ODProjectionCharacters(intent,identifiers,127)||
+           !ODProjectionCharacters(expected,@"0123456789abcdef",64)||expected.length!=64||
+           !serialized||revision<0||revision>INT64_C(9007199254740991))error=CoreError("INVALID_ORIGINAL_PLAYER_ARGUMENT");
+        else if(self->_creatorLease)error=CoreError("ORIGINAL_PLAYER_CREATOR_ACTIVE");
+        else if([self ensureOpen:&error]) {
+            char *json=NULL,*failure=NULL;
+            int rc=od_bridge_original_client_apply(self->_bridge,kind.UTF8String,owner.UTF8String,intent.UTF8String,
+                expected.UTF8String,revision,serialized.UTF8String,&json,&failure);
+            NSDictionary *receipt=rc>=0?ODProjectionJSON(json):nil;
+            if(rc<0)error=CoreError(failure);
+            od_bridge_free(json);od_bridge_free(failure);
+            if(rc>=0) {
+                NSDictionary *admission=ODProjectionAdmission(self->_bridge,owner,self->_content);
+                json=NULL;failure=NULL;
+                int read=od_bridge_offline_player_snapshot(self->_bridge,owner.UTF8String,&json,&failure);
+                NSDictionary *player=read>=0?ODProjectionJSON(json):nil;
+                if(!receipt||!player||![player[@"profile_id"] isEqualToString:owner]||
+                   ![player[@"content_id"] isEqualToString:self->_content]||
+                   ![expected isEqualToString:admission[@"save_scope_sha256"]])error=CoreError("ORIGINAL_PLAYER_COMMITTED_SNAPSHOT_UNAVAILABLE");
+                else result=@{@"admission":admission,@"player_snapshot":player,@"mutation_receipt":receipt};
                 od_bridge_free(json);od_bridge_free(failure);
             }
         }
@@ -260,6 +346,50 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
         dispatch_async(dispatch_get_main_queue(),^{reply(packet,error);});
     });
 }
+- (void)acceptedCreatorFullBundleForProfile:(NSString *)profile definitionID:(NSString *)definitionID
+    version:(int64_t)version instanceID:(int64_t)instanceID expectedSaveScopeSHA256:(NSString *)scope
+    lease:(ODNativeCreatorLease *)lease reply:(ODCoreReply)reply {
+    if(!reply)return;
+    NSString *owner=[profile copy],*identifier=[definitionID copy],*expected=[scope copy];
+    dispatch_async(_queue,^{
+        NSError *error=nil;NSDictionary *packet=nil;
+        if(![owner isEqualToString:@"local-player"]||![identifier isKindOfClass:NSString.class]||
+           ![expected isKindOfClass:NSString.class]||version<1||version>INT64_C(9007199254740991)||
+           instanceID<1||instanceID>INT64_C(9007199254740991))error=CoreError("INVALID_ACCEPTED_FULL_BUNDLE_REQUEST");
+        else if((lease&&lease!=self->_creatorLease)||(!lease&&self->_creatorLease)||
+            (lease&&(![lease.profileID isEqualToString:owner]||![lease.contentID isEqualToString:self->_content]||
+                ![lease.saveScopeSHA256 isEqualToString:expected])))error=CoreError("CREATOR_LEASE_NOT_CURRENT");
+        else if([self ensureOpen:&error]) {
+            void *blob=NULL;size_t count=0;char *document=NULL,*receipt=NULL,*failure=NULL;
+            int rc=od_bridge_creator_accepted_bundle(self->_bridge,owner.UTF8String,identifier.UTF8String,
+                version,instanceID,expected.UTF8String,&blob,&count,&document,&receipt,&failure);
+            size_t length=document?strnlen(document,16u*1024u*1024u+1u):0;
+            if(rc<0)error=CoreError(failure);
+            else if(!blob||!count||count>64u*1024u*1024u||!length||length>16u*1024u*1024u)error=CoreError("ACCEPTED_FULL_BUNDLE_UNAVAILABLE");
+            else {
+                NSDictionary *proof=ODProjectionJSON(receipt);char blobHash[65],definitionHash[65];
+                BOOL hashes=ODProjectionSHA256(NULL,blob,count,blobHash)==0&&ODProjectionSHA256(NULL,document,length,definitionHash)==0;
+                if(!proof||!hashes||![proof[@"format"] isEqual:@"od-accepted-full-bundle-receipt-v1"]||
+                   ![proof[@"content_id"] isEqual:self->_content]||![proof[@"profile_id"] isEqual:owner]||
+                   ![proof[@"save_scope"] isEqual:expected]||![proof[@"definition_id"] isEqual:identifier]||
+                   ![proof[@"version"] isEqual:@(version)]||![proof[@"instance_id"] isEqual:@(instanceID)]||
+                   ![proof[@"full_bundle_sha256"] isEqual:[NSString stringWithUTF8String:blobHash]]||
+                   ![proof[@"definition_sha256"] isEqual:[NSString stringWithUTF8String:definitionHash]])error=CoreError("ACCEPTED_FULL_BUNDLE_UNCONFIRMED");
+                else {
+                    NSData *bytes=[NSData dataWithBytes:blob length:count],*definitionBytes=[NSData dataWithBytes:document length:length];
+                    if(!bytes||!definitionBytes)error=CoreError("ACCEPTED_FULL_BUNDLE_UNAVAILABLE");
+                    else packet=@{@"definition_bytes":definitionBytes,@"definition_sha256":proof[@"definition_sha256"],
+                        @"definition_id":identifier,@"version":@(version),@"profile_id":owner,
+                        @"content_id":self->_content,@"save_scope_sha256":expected,
+                        @"full_bundle_bytes":bytes,@"full_bundle_sha256":proof[@"full_bundle_sha256"],
+                        @"full_bundle_receipt":proof};
+                }
+            }
+            od_bridge_free(blob);od_bridge_free(document);od_bridge_free(receipt);od_bridge_free(failure);
+        }
+        dispatch_async(dispatch_get_main_queue(),^{reply(packet,error);});
+    });
+}
 - (void)creatorFinishReceiptForProfile:(NSString *)profile command:(NSString *)command
     expectedDefinitionBytes:(NSData *)definition expectedSaveScopeSHA256:(NSString *)scope
     lease:(ODNativeCreatorLease *)lease reply:(ODCoreReply)reply {
@@ -285,6 +415,39 @@ static NSDictionary *ODProjectionAdmission(od_bridge *bridge,NSString *profile,N
             }
         }
         dispatch_async(dispatch_get_main_queue(),^{reply(receipt,error);});
+    });
+}
+- (void)creatorFinishValidatedBundleForProfile:(NSString *)profile command:(NSString *)command
+    definition:(NSDictionary *)definition bundleBytes:(NSData *)bundle
+    expectedSaveScopeSHA256:(NSString *)scope lease:(ODNativeCreatorLease *)lease reply:(ODCoreReply)reply {
+    NSString *owner=[profile copy],*intent=[command copy],*expected=[scope copy];
+    NSData *packet=[bundle copy];
+    NSError *encodingError=nil;
+    NSData *document=[definition isKindOfClass:NSDictionary.class]&&[NSJSONSerialization isValidJSONObject:definition]?
+        [NSJSONSerialization dataWithJSONObject:definition options:NSJSONWritingSortedKeys error:&encodingError]:nil;
+    NSString *definitionJSON=document.length&&document.length<=16u*1024u*1024u&&!memchr(document.bytes,0,document.length)?
+        [[NSString alloc] initWithData:document encoding:NSUTF8StringEncoding]:nil;
+    if(!definitionJSON||![packet isKindOfClass:NSData.class]||!packet.length||packet.length>64u*1024u*1024u||memchr(packet.bytes,0,packet.length)){
+        dispatch_async(dispatch_get_main_queue(),^{reply(nil,CoreError("INVALID_ARGUMENT"));});return;
+    }
+    dispatch_async(_queue,^{
+        NSError *error=nil;id result=nil;
+        if(![owner isEqualToString:@"local-player"]||![intent isKindOfClass:NSString.class]||![expected isKindOfClass:NSString.class])error=CoreError("INVALID_ARGUMENT");
+        else if((lease&&lease!=self->_creatorLease)||(!lease&&self->_creatorLease)||
+            (lease&&(![lease.profileID isEqualToString:owner]||![lease.contentID isEqualToString:self->_content]||
+                ![lease.saveScopeSHA256 isEqualToString:expected])))error=CoreError("CREATOR_LEASE_NOT_CURRENT");
+        else if([self ensureOpen:&error]) {
+            NSDictionary *admission=ODProjectionAdmission(self->_bridge,owner,self->_content);
+            if(!admission||![expected isEqualToString:admission[@"save_scope_sha256"]])error=CoreError("CREATOR_SAVE_SCOPE_CHANGED");
+            else {
+                char *out=NULL,*failure=NULL;
+                int rc=od_bridge_creator_finish_bundle(self->_bridge,owner.UTF8String,intent.UTF8String,definitionJSON.UTF8String,packet.bytes,packet.length,&out,&failure);
+                if(rc<0)error=CoreError(failure);
+                else {result=ODProjectionJSON(out);if(!result)error=CoreError("INVALID_CORE_REPLY");}
+                od_bridge_free(out);od_bridge_free(failure);
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(),^{reply(result,error);});
     });
 }
 - (void)synchronizeOriginalCreatorProjectionForProfile:(NSString *)profile overlayURL:(NSURL *)overlayURL reply:(ODCoreReply)reply {

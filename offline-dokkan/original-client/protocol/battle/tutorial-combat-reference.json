@@ -1,0 +1,112 @@
+{
+  "kind": "preserved-original-tutorial-combat-reference",
+  "production_first_playable_path": false,
+  "latest_user_instruction": "Skip introduction/tutorial for new profiles; preserve existing progress.",
+  "prepared_source_sha256": "efaabfc9b3cdb0e2eeb550b6ea616f5eeb565c6584ad838b765f34539648d222",
+  "master_plaintext_sha256": "1a8f5a823a6efa7343ff463b92197a574898e03569e2067f3daf8a4f282be4f4",
+  "master_read_mode": "ro immutable",
+  "phase_number_in_current_master": 3,
+  "scene_uri": "internal:Tutorial::BattleSetupScene",
+  "actual_RTTI": "N8Tutorial16BattleSetupSceneE",
+  "parameter_shape": {
+    "bgm_id": "int",
+    "map_id": "int",
+    "enemies": {
+      "array_count": 1,
+      "first_shape": {
+        "array_count": 1,
+        "first_shape": {
+          "hp": "int",
+          "exp": "int",
+          "turn": "int",
+          "zeni": "int",
+          "attack": "int",
+          "ai_type": "int",
+          "card_id": "int",
+          "defence": "int",
+          "first_turn": "int",
+          "extra_hp_gauges_count": "int"
+        }
+      }
+    },
+    "card_ids": {
+      "array_count": 2,
+      "first_shape": "int"
+    },
+    "ball_tables": {
+      "array_count": 2,
+      "first_shape": {
+        "array_count": 5,
+        "first_shape": {
+          "array_count": 9,
+          "first_shape": "int"
+        }
+      }
+    },
+    "dummy_card_id": "int",
+    "force_high_speed": "bool",
+    "fixed_next_turn_orders": {
+      "array_count": 1,
+      "first_shape": {
+        "array_count": 2,
+        "first_shape": "int"
+      }
+    }
+  },
+  "first_process": "WAIT_INITIALIZE_PUZZLE",
+  "reviewed_source_methods": [
+    {
+      "label": "tutorial_battle_scene_factory",
+      "bytes": 184,
+      "sha256": "598f57193212f6fecf0591e7197e0a3e0929b4bfbc7a132c3789457b6157612d"
+    },
+    {
+      "label": "tutorial_battle_scene_init_entry",
+      "bytes": 88,
+      "sha256": "d474374f19fcf12b100551f82282ebc1c3866b84fc9346cab1f451ae9d46df58"
+    },
+    {
+      "label": "tutorial_battle_fixed_parameters_consumer",
+      "bytes": 1840,
+      "sha256": "5f7dc8291c2d70b15aa0e2da956aafa47c750f1d0176d5b512b3d449d09b7cb2"
+    },
+    {
+      "label": "tutorial_battle_player_card_setup",
+      "bytes": 1252,
+      "sha256": "202b69f5fe8082d5b25f59cd60e27dd2dc1a338211f6147bad66c3a16c8c699f"
+    }
+  ],
+  "source_call_chain": [
+    "factory184",
+    "initializer88",
+    "fixed_parameter_consumer1840"
+  ],
+  "URI_factory_registration_independently_verified": false,
+  "native_card_setup_arguments": {
+    "supporter_json": "original null Json::Value",
+    "card_ids": "unchanged current phase vector",
+    "fallback_flag": 1
+  },
+  "native_card_setup_slots": 7,
+  "fixed_card_master_membership": {
+    "tutorial_player_cards": {
+      "count": 2,
+      "all_present": true
+    },
+    "tutorial_enemy_cards": {
+      "count": 1,
+      "all_present": true
+    },
+    "tutorial_dummy_card": {
+      "count": 1,
+      "all_present": true
+    }
+  },
+  "runtime_or_gameplay_verified": false,
+  "native_adapter_implemented": true,
+  "ordinary_start_map_schema_verified": false,
+  "save_directories_read_or_changed": false,
+  "manual_practice_reuse_authorized": true,
+  "native_adapter_runtime_verified": false,
+  "manual_entry_document": "PRACTICE-BATTLE-ENTRY.md"
+}

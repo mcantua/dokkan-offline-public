@@ -23,6 +23,28 @@ The native original-mode initializer pins the save scope/capability, while the l
 
 ## Scope and limits
 
+Failed openings now have one cleanup owner: the bound native issuer. Before
+an editor is attached, initial projection, lease issuance, tools/session setup
+or presentation failure triggers a fresh same-scope projection reconciliation,
+exact Core-lease release (if issued), then verified source-pause release. A
+clean initial opening receipt is not reused as current close permission after
+session initialization. Completion is delayed until this cleanup succeeds or
+explicitly fails. A later user action retries a retained cleanup before opening
+a fresh editor; `failedPresentationNeedsRecovery` and the native
+`recoverFailedPresentationWithCompletion:` expose that state without adding a
+WebView capability.
+
+Changed scope, a dirty/unavailable projection, uncertain source pause state or
+a faulted pause retains native authority and refuses a guessed resume. A source
+pause postcondition failure may retain a global faulted lease without issuing
+it; that state is reported but cannot be cleared by inventing a release token.
+If UIKit attached the editor before a presentation exception, the coordinator
+keeps that editor, session and tools for confirmed save/close instead of treating
+it as an unopened screen. Coordinator rejection no longer launches a competing
+asynchronous cleanup, and a late UIKit completion cannot overwrite a closing
+state. Native runtime verification of these failure/retry paths remains open;
+no compilation or app execution was performed for this source change.
+
 This is authored presentation/lifecycle integration source, not an installed original-game feature. The concrete issuer now uses the actual source pause lease and actual serialized projection/core lease APIs. The coherent original shell must still construct it with the real admitted full master/context, wire its native scene/entry callbacks and verify the real original game runtime on Duo. It registers no gameplay response schema and does not prove a created definition is consumed by the original collection, team or battle engine. No package or HTML rebuild is needed for this native component.
 
 The affected Objective-C component compiles with warnings-as-errors against the actual pinned iPhoneOS16.5 headers in the cloud. Genuine SDK27.1 coherent host compilation, runtime presentation/return and physical Duo behavior remain unverified; the header check is not substituted for those gates.
