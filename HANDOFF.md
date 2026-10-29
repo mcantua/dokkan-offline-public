@@ -4,6 +4,8 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
+**LATEST — October 29, 11:47 AM US Central: `cursor/engine-master-menu-641c` gates the plaintext master as a mode 0400 readonly copy and keeps the in-game Creator shortcut queued through late bind. Local checks passed. No CI. No release build. The engine keyed open still needs Tin. Do not ship the key.**
+
 **LATEST — October 29, 11:02 AM US Central: https://github.com/mcantua/dokkan-offline-public is the active repo for Offline Dokkan work. mcantua/claude-chatg is the private backup. No personal data may be committed. No release build.**
 
 **LATEST — October 29, 9:58 AM US Central: Merged the base into `cursor/engine-master-menu-641c`. The only conflict was STATUS.md. No compiled source changed, so CI was not run again. Draft PR #3 was not merged.**

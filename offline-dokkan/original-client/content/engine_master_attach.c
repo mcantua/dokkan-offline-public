@@ -9,6 +9,12 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#if OD_ENGINE_MASTER_OPEN_READONLY != SQLITE_OPEN_READONLY
+#error OD_ENGINE_MASTER_OPEN_READONLY drifted from SQLITE_OPEN_READONLY
+#endif
+#if (SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE) != 6
+#error MAIN open flags 6 are no longer READWRITE|CREATE
+#endif
 
 static int hex64(const char *s) {
     if (!s || strlen(s) != 64) return 0;
@@ -213,8 +219,10 @@ static int publish(int source_fd, int state_dir_fd, const char *state_dir_path, 
         else close(dest);
         close(language_fd); close(current_fd); close(sqlite_fd); return -4;
     }
-    if (fsync(language_fd)) {
-        close(dest); close(language_fd); close(current_fd); close(sqlite_fd); return -3;
+    if (fchmod(dest, 0400) || fsync(dest) || fsync(language_fd)) {
+        if (created) { close(dest); unlinkat(language_fd, "database.db", 0); }
+        else close(dest);
+        close(language_fd); close(current_fd); close(sqlite_fd); return -3;
     }
     close(dest); close(language_fd); close(current_fd); close(sqlite_fd);
     if (!receipt) return 0;
@@ -229,4 +237,90 @@ int od_engine_master_attach(int source_fd, int state_dir_fd, const char *state_d
 }
 int od_engine_master_confirm(int source_fd, int state_dir_fd, const char *state_dir_path, const char *language, const char *expected_sha256, uint64_t expected_bytes) {
     return publish(source_fd, state_dir_fd, state_dir_path, language, expected_sha256, expected_bytes, 0, NULL);
+}
+static int open_published_db(int root, const char *language, int *missing) {
+    if (missing) *missing = 0;
+    if (root < 0 || !language_ok(language)) return -1;
+    const char *parts[3] = {"sqlite", "current", language};
+    int fd = root, owned = 0;
+    for (int i = 0; i < 3; i++) {
+        int next = openat(fd, parts[i], O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC);
+        int err = errno;
+        if (owned) close(fd);
+        if (next < 0) { if (missing && err == ENOENT) *missing = 1; return -1; }
+        fd = next; owned = 1;
+    }
+    int db = openat(fd, "database.db", O_RDONLY | O_NOFOLLOW | O_CLOEXEC);
+    int err = errno;
+    close(fd);
+    if (db < 0 && missing && err == ENOENT) *missing = 1;
+    return db;
+}
+static void mark_refused(od_engine_master_receipt *receipt) {
+    if (receipt) receipt->keyed_open_refused = 1;
+}
+int od_engine_master_resolve_readonly(int source_fd, int state_dir_fd, const char *state_dir_path, const char *language, const char *expected_sha256, uint64_t expected_bytes, int requested_sqlite_flags, const void *key, size_t key_length, int cipher_requested, int extension_requested, int cached_handle_requested, int *out_fd, od_engine_master_receipt *receipt) {
+    if (out_fd) *out_fd = -1;
+    clear_receipt(receipt);
+    if (!out_fd || source_fd < 0) return -1;
+    if (key || key_length) { mark_refused(receipt); return -5; }
+    if (requested_sqlite_flags != SQLITE_OPEN_READONLY) { mark_refused(receipt); if (receipt) receipt->flags6_refused = 1; return -6; }
+    if (cipher_requested || extension_requested) { mark_refused(receipt); return -7; }
+    if (cached_handle_requested || patcher_path(state_dir_path)) {
+        mark_refused(receipt);
+        if (receipt) {
+            receipt->patcher_path_used = patcher_path(state_dir_path) ? 1 : 0;
+            receipt->cached_handle_redirected = cached_handle_requested ? 1 : 0;
+        }
+        return -8;
+    }
+    if (publish(source_fd, state_dir_fd, state_dir_path, language, expected_sha256, expected_bytes, 0, NULL)) return -3;
+    int missing = 0;
+    int dest = open_published_db(state_dir_fd, language, &missing);
+    if (dest < 0) return -3;
+    unsigned char header[16];
+    struct stat copy, source;
+    int flags = fcntl(dest, F_GETFL);
+    int header_ok = pread(dest, header, sizeof header, 0) == (ssize_t)sizeof header && !memcmp(header, "SQLite format 3", 16);
+    int readonly = flags >= 0 && (flags & O_ACCMODE) == O_RDONLY;
+    int identity = !fstat(dest, &copy) && !fstat(source_fd, &source) && S_ISREG(copy.st_mode) &&
+        !(copy.st_dev == source.st_dev && copy.st_ino == source.st_ino) &&
+        (copy.st_mode & (S_IWUSR | S_IWGRP | S_IWOTH)) == 0;
+    if (!header_ok || !readonly || !identity) { close(dest); return -4; }
+    if (receipt) {
+        if (!relative_for(language, receipt->relative_path)) { close(dest); clear_receipt(receipt); return -1; }
+        receipt->attached = 1;
+        receipt->plaintext = 1;
+        receipt->source_preserved = 1;
+        receipt->keyed_open_refused = 1;
+        receipt->flags6_refused = 1;
+        receipt->readonly_resolved = 1;
+    }
+    *out_fd = dest;
+    return 0;
+}
+int od_engine_master_asset_root_matches(int source_fd, int state_dir_fd, const char *state_dir_path, int asset_root_fd, const char *asset_root_path, const char *language, int *matches) {
+    if (matches) *matches = 0;
+    if (!matches || source_fd < 0 || state_dir_fd < 0 || asset_root_fd < 0 || !state_dir_path || !asset_root_path || !language_ok(language)) return -1;
+    if (patcher_path(state_dir_path) || patcher_path(asset_root_path)) return -8;
+    if (!same_dir(state_dir_fd, state_dir_path) || !same_dir(asset_root_fd, asset_root_path)) return -1;
+    struct stat source;
+    if (fstat(source_fd, &source) || !S_ISREG(source.st_mode)) return -1;
+    int missing = 0;
+    int published = open_published_db(state_dir_fd, language, &missing);
+    if (published < 0) return missing ? -3 : -1;
+    struct stat copy;
+    int copy_ok = !fstat(published, &copy);
+    close(published);
+    if (!copy_ok || !S_ISREG(copy.st_mode) || (copy.st_dev == source.st_dev && copy.st_ino == source.st_ino)) return -3;
+    missing = 0;
+    int candidate = open_published_db(asset_root_fd, language, &missing);
+    if (candidate < 0) return missing ? 0 : -1;
+    struct stat live;
+    int live_ok = !fstat(candidate, &live);
+    close(candidate);
+    if (!live_ok || !S_ISREG(live.st_mode)) return -1;
+    if (live.st_dev == source.st_dev && live.st_ino == source.st_ino) return 0;
+    *matches = live.st_dev == copy.st_dev && live.st_ino == copy.st_ino;
+    return 0;
 }

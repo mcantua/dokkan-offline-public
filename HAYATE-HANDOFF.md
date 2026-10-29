@@ -1,7 +1,7 @@
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:11 AM CT, https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 # Hayate (Grok Bot) handoff: Offline Dokkan / embedded Unit Creator
-Updated: Thu Oct 29, 2026, 11:11 AM CT
+Updated: Thu Oct 29, 2026, 11:47 AM CT
 
 Repo: https://github.com/mcantua/dokkan-offline-public. Read context/TIN-RULES.md first.
 Base branch: chatgpt/ios-eclipse-database-reuse (draft PR #1, DO NOT MERGE)
@@ -16,6 +16,7 @@ Tin's go-ahead: "continue everything" (9:14 AM). No release builds until he says
 - CI runs: 40886179478 FAIL (selected-master-read), 40890254683 PASS, 40891656259 PASS.
 - Saved app screenshots: creator_welcome_sheet_run_40891656259.png (also identical in 40890254683) and creator_card_builder_run_40886179478.png. The finish-only workflow now always uploads every simulator PNG it reaches as duo-creator-simulator-screenshots. No new CI run for that workflow edit.
 - 9:58 AM: merged that base tip into `cursor/engine-master-menu-641c`. The only conflict was STATUS.md. No compiled source changed, so CI was not run again. Draft PR #3 was not merged.
+- 11:47 AM: on `cursor/engine-master-menu-641c`, the published master is mode 0400 and readonly resolve refuses a key, MAIN flags 6, cipher requests, extension loading, the patcher path, and a cached-handle write. Late bind queues off main. A queued Unit Creator shortcut waits until the renderer attaches. Menu title, player-bar install, and shortcut registration share `creator_menu_policy`. Cocos hook stays off. Two local checks passed. No CI. No Unit Creator build. Draft PR was not merged.
 
 ## Cloud agents (Cursor) running in parallel
 | Agent | Task | Branch |
@@ -32,16 +33,21 @@ Each agent writes its own log under messages/ in the repo.
 | Finish saves numbers exactly | 100% (diagnostic) |
 | Full custom-unit validation before save | 0% |
 | Bootstrap auth envelope + fresh-state policy | 0% |
-| Original-engine master attachment | 80% |
-| Late service binding in ODUnifiedDuoHost | 85% |
-| In-game Creator menu | 75% |
+| Original-engine master attachment | 90% |
+| Late service binding in ODUnifiedDuoHost | 93% |
+| In-game Creator menu | 88% |
 | Real battles/saves/summons with custom units | 0% |
 | Duo two-screen test on phone | 0% |
 
 ## Blockers needing Tin's data (don't guess)
 - The real auth success response body
 - Fresh-account starting stats and items
-- How the original engine keys or opens its master database (the key must never ship in the app)
+- How the original engine keys or opens its master database, and which native asset-root path it returns. The key must never ship in the app. Do not guess either value.
+
+## Next on this branch
+- Keep extension loading omitted. Keep TLS verification on. Do not add a Cocos menu hook.
+- `ODUnifiedDuoHost` calls the checked C decisions. This VM did not compile that Objective-C file. The next genuine SDK compile is waiting until CI is allowed.
+- Local checks that passed at 11:47 AM CT: `offline-dokkan/content/engine_master_attach_check.c` with `engine_master_attach.c` (`-DSQLITE_OMIT_LOAD_EXTENSION`), and `offline-dokkan/content/creator_late_bind_menu_check.c` with `creator_late_bind.c` and `creator_menu_policy.c`.
 
 ## Rules recap
 Cloud-only (ask before using Tin's Mac, PC or data). 1-2 test runs per task. At most one backup.

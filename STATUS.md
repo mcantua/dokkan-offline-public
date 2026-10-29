@@ -4,13 +4,13 @@
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; claude-chatg is the frozen private backup)_
+_Last updated: 2026-10-29 11:47 AM US Central (Grok; plaintext master gate and late-bind menu wait are locally checked; no CI)_
 
 ## Right now
 | Project | Who | State |
 |---|---|---|
 | App Installer | **ChatGPT + cloud agents** | Old8eaf app reportedly installed and opened manually, then crashed at sign-in after authorization/Touch ID. Concrete missing Rust crypto-provider startup defect fixed in7059c85; actual fresh-process constructor1 and relevantTLS2 passed40777027792 (0failures,0.01seconds per group), plus one genuine-SDK package. No19core/response/native repeats; earlier22-check proof is8eaf-only. New local kit35,149,949bytes and matching source78,336,612bytes identify7059c85. Private draft transfer40778539399 passed; physical corrected-build update/retest pending; crash resolution unconfirmed. Native biometric/Keychain review found no separate cause; security unchanged. Broader capability limits persist, release_ready=false. Approved manual setup scope persists; no direct Mac-control tool is attached. |
-| Dokkan Unit Creator | **Grok** | Base `chatgpt/ios-eclipse-database-reuse` still has the passing Finish thousandths check on draft PR #1. Branch `cursor/engine-master-menu-641c` stages the plaintext master, late-binds Creator services, and wires the in-game Creator menu. No release builds until Tin says "make the builds". |
+| Dokkan Unit Creator | **Grok** | Branch `cursor/engine-master-menu-641c` publishes the plaintext master read-only, late-binds Creator services, and keeps the in-game Menu shortcut queued until that bind attaches. No release builds until Tin says "make the builds". No CI this step. |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
 ## Waiting on Tin
@@ -20,6 +20,17 @@ _Last updated: 2026-10-29 11:11 AM US Central (Grok; public repo is active; clau
 - Mac access for future Unit Creator testing is deferred with Tin’s connection pause; no new build or phone-install authorization is inferred.
 
 ## Log (newest first)
+- 2026-10-29 11:47 AM — Grok: On `cursor/engine-master-menu-641c`, the published master at `sqlite/current/<language>/database.db` is mode 0400. Readonly resolve refuses a key without reading it, refuses MAIN open flags 6, refuses cipher and extension requests, and refuses the patcher path and a cached-handle write. The resources directory is compared to the published inode and is not used as a guessed asset root. Late bind queues off the main thread and does not spin. A queued Unit Creator shortcut now waits while services are pending or bound and the renderer is not attached yet. The controller Menu title, the player-bar Menu install, and icon-shortcut registration use `creator_menu_policy`. Cocos hook stays off. Local checks: `engine master attach checks passed` and `late bind and creator menu checks passed`. Extension loading stayed omitted. No Unit Creator build. No CI. Draft PR was not merged.
+
+| Pending item | Done | Remaining |
+|---|---:|---|
+| Original-engine master attachment | 90% | Readonly copy and refusal gate passed locally. The engine's own keyed open still needs Tin. The native asset-root return is still unobserved. Do not ship the key. |
+| Late service binding in ODUnifiedDuoHost | 93% | The decision passed a local check, including the queued shortcut. This VM has no Apple SDK, so the host file was not compiled here. The hosted menu shot did not exercise this path. |
+| In-game Creator menu | 88% | Menu title, player-bar install, and shortcut registration passed a local check. The older hosted shot still shows only the controller Menu. No Cocos hook. The icon press is not verified on a device. |
+| Full custom-unit validation before save | 0% | Another agent owns the validator. Session guards stay locked. |
+| Bootstrap auth envelope and fresh-state policy | 0% | Another agent owns this. Do not invent a success body or starting stats. |
+| Real battles, saves, and both Duo displays | 0% | Not this branch. |
+
 - 2026-10-29 11:11 AM — Grok: https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Docs only. No release build.
 
 - 2026-10-29 11:02 AM — Grok: https://github.com/mcantua/dokkan-offline-public is now the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the private backup. No personal data may be committed. Docs only. No release build. Draft pull requests are not merged.

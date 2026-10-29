@@ -1,5 +1,7 @@
 #import "ODUnifiedDuoHost.h"
 #import "ODDuoCreatorQuickAction.h"
+#import "creator_late_bind.h"
+#import "creator_menu_policy.h"
 #import "../content/engine_master_attach.h"
 #import "../ios/ODOriginalClientBootstrap.h"
 #import "../loader/ODPreparedEngineLoader.h"
@@ -66,7 +68,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     BOOL (^_current)(void);
     ODUnifiedDuoReportHandler _report;
     BOOL _attempted,_environmentPrepared,_foundationInstalled,_engineLoaded,_imageAttached,_sceneObserved,_creatorAttached,_installed;
-    BOOL _requestObserverInstalled,_servicesPending,_lifecycleInstalled,_masterAttached;
+    BOOL _requestObserverInstalled,_servicesPending,_lifecycleInstalled,_masterAttached,_masterReadonlyReady,_assetRootHasMaster;
     NSString *_admittedContent,*_admittedScope,*_masterSourcePath,*_masterLanguage,*_masterSHA,*_masterRelative;
     uint64_t _masterBytes;
     NSMutableArray<NSDictionary *> *_unsupportedRequests;
@@ -109,6 +111,8 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         @"originalEngineMasterAttached":@(_masterAttached),
         @"originalEngineMasterRelativePath":_masterRelative?:@"",
         @"sourceKeyApplied":@NO,@"cachedHandleRedirected":@NO,@"engineKeyedOpenObserved":@NO,
+        @"keyedOpenRefused":@YES,@"flags6Applied":@NO,@"readonlyMasterReady":@(_masterReadonlyReady),
+        @"engineAssetRootContainsPublishedMaster":@(_assetRootHasMaster),
         @"extensionLoadingEnabled":@NO,@"patcherContractUsed":@NO,
         @"nativeNetworkCoverage":@"Installed Foundation handling only; raw socket, SDK/system and WebKit activity require observation/configuration",
         @"kernelNetworkIsolationEstablished":@NO,@"routeContractsRuntimeVerified":@NO,
@@ -133,8 +137,15 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     if(valid&&_masterAttached){
         int source=open(_masterSourcePath.fileSystemRepresentation,O_RDONLY|O_NOFOLLOW|O_CLOEXEC);
         int confirmed=source<0?-2:od_engine_master_confirm(source,_stateFD,_state.UTF8String,_masterLanguage.UTF8String,_masterSHA.UTF8String,_masterBytes);
+        int readonly=-1;od_engine_master_receipt gate;memset(&gate,0,sizeof gate);
+        int resolved=confirmed?confirmed:od_engine_master_resolve_readonly(source,_stateFD,_state.UTF8String,_masterLanguage.UTF8String,_masterSHA.UTF8String,_masterBytes,OD_ENGINE_MASTER_OPEN_READONLY,NULL,0,0,0,0,&readonly,&gate);
+        if(readonly>=0)close(readonly);
+        int resource=ODHostDirectory(_resources),matches=0;
+        int compared=resolved?resolved:od_engine_master_asset_root_matches(source,_stateFD,_state.UTF8String,resource,_resources.UTF8String,_masterLanguage.UTF8String,&matches);
+        if(resource>=0)close(resource);
         if(source>=0)close(source);
-        valid=confirmed==0;
+        valid=confirmed==0&&resolved==0&&gate.readonly_resolved&&gate.keyed_open_refused&&gate.flags6_refused&&!gate.engine_keyed_open_observed&&!gate.source_key_applied&&!gate.extension_loading_enabled&&compared==0;
+        _masterReadonlyReady=valid;_assetRootHasMaster=valid&&matches;
     }
     if(!valid){if(error)*error=ODHostFailure(4);return NO;}
     _environmentPrepared=YES;_stage=@"native-environment-prepared";[self emit];return YES;
@@ -149,6 +160,7 @@ static BOOL ODHostSourcePatcherAbsent(void) {
             host->_creatorAttached=[host->_services attachToOriginalWindow:renderer.window controller:controller renderer:renderer error:&failure];
             host->_stage=host->_creatorAttached?@"original-scene-and-creator-bound":@"creator-binding-not-attached";
         }else host->_stage=host->_servicesPending?@"original-scene-observed-services-pending":@"original-scene-observed-diagnostic-only";
+        if(host->_services||host->_servicesPending)ODDuoRefreshQueuedCreatorQuickAction();
         [host emit];
     },^(NSError *failure){
         (void)failure;ODUnifiedDuoHost *host=weakSelf;if(!host)return;
@@ -162,12 +174,21 @@ static BOOL ODHostSourcePatcherAbsent(void) {
         ODUnifiedDuoHost *host=weakSelf;return host&&host->_current();
     },^ODDuoCreatorQuickActionReadiness(UIWindow *window,UIViewController *controller,UIView *renderer){
         ODUnifiedDuoHost *host=weakSelf;
-        if(!host||!host->_current())return ODDuoCreatorEntryRejected;
-        if(host->_services.coordinator.creatorIsOpen)return ODDuoCreatorEntryAlreadyOpen;
-        if(!host->_installed||!host->_sceneObserved)return ODDuoCreatorEntryWaiting;
-        if(!host->_creatorAttached||controller!=host->_originalController||renderer!=host->_renderer||renderer.window!=window)
-            return ODDuoCreatorEntryRejected;
-        return ODDuoCreatorEntryReady;
+        od_creator_menu_admission admission={0};
+        if(host){
+            admission.context_current=host->_current()?1:0;
+            admission.creator_already_open=host->_services.coordinator.creatorIsOpen?1:0;
+            admission.installed=host->_installed;admission.scene_observed=host->_sceneObserved;
+            admission.creator_attached=host->_creatorAttached;admission.services_pending=host->_servicesPending;
+            admission.services_bound=host->_services!=nil;
+            admission.scene_identity_matches=controller==host->_originalController&&renderer==host->_renderer&&renderer.window==window;
+        }
+        switch(od_creator_menu_admit(&admission)){
+            case OD_CREATOR_MENU_READY:return ODDuoCreatorEntryReady;
+            case OD_CREATOR_MENU_ALREADY_OPEN:return ODDuoCreatorEntryAlreadyOpen;
+            case OD_CREATOR_MENU_WAITING:return ODDuoCreatorEntryWaiting;
+            default:return ODDuoCreatorEntryRejected;
+        }
     },^(void (^completion)(NSError *)){
         ODUnifiedDuoHost *host=weakSelf;if(!host){completion(ODHostFailure(8));return;}
         [host presentCreatorFromUserActionWithCompletion:completion];
@@ -230,12 +251,16 @@ static BOOL ODHostSourcePatcherAbsent(void) {
     }
     od_engine_master_receipt receipt;
     int result=od_engine_master_attach(source,state,_state.UTF8String,language.UTF8String,sha256.UTF8String,bytes,&receipt);
+    int readonly=-1;od_engine_master_receipt gate;memset(&gate,0,sizeof gate);
+    int resolved=result?result:od_engine_master_resolve_readonly(source,state,_state.UTF8String,language.UTF8String,sha256.UTF8String,bytes,OD_ENGINE_MASTER_OPEN_READONLY,NULL,0,0,0,0,&readonly,&gate);
+    if(readonly>=0)close(readonly);
     close(source);close(state);
-    if(result||!receipt.attached||!receipt.plaintext||!receipt.source_preserved||receipt.source_key_applied||
-       receipt.extension_loading_enabled||receipt.patcher_path_used||receipt.cached_handle_redirected||receipt.engine_keyed_open_observed){
+    if(result||resolved||!receipt.attached||!receipt.plaintext||!receipt.source_preserved||receipt.source_key_applied||
+       receipt.extension_loading_enabled||receipt.patcher_path_used||receipt.cached_handle_redirected||receipt.engine_keyed_open_observed||
+       !gate.readonly_resolved||!gate.keyed_open_refused||!gate.flags6_refused||gate.engine_keyed_open_observed||gate.source_key_applied||gate.extension_loading_enabled){
         if(error)*error=ODHostFailure(9);return NO;
     }
-    _masterAttached=YES;_masterSourcePath=[derived.path copy];_masterLanguage=[language copy];_masterSHA=[sha256 copy];
+    _masterAttached=YES;_masterReadonlyReady=YES;_masterSourcePath=[derived.path copy];_masterLanguage=[language copy];_masterSHA=[sha256 copy];
     _masterBytes=bytes;_masterRelative=[NSString stringWithUTF8String:receipt.relative_path];
     _stage=@"plaintext-master-staged";[self emit];return YES;
 }
@@ -246,22 +271,31 @@ static BOOL ODHostSourcePatcherAbsent(void) {
 }
 - (void)bindCreatorServicesWhenReady:(ODBoundOriginalCreatorServices *)services completion:(void (^)(NSError *))completion {
     if(!completion)return;
-    if(!NSThread.isMainThread){dispatch_async(dispatch_get_main_queue(),^{[self bindCreatorServicesWhenReady:services completion:completion];});return;}
-    if(!_installed||!_servicesPending||_services||!services||!_current()||
-       ![services matchesAdmittedContentID:_admittedContent saveScopeSHA256:_admittedScope]||![services creatorScopeIsCurrent]){
+    od_creator_late_bind_input input={0};input.on_main=NSThread.isMainThread;
+    od_creator_late_bind_result decision;
+    if(!input.on_main){
+        if(od_creator_late_bind_decide(&input,&decision)!=OD_LATE_BIND_QUEUE){completion(ODHostFailure(10));return;}
+        dispatch_async(dispatch_get_main_queue(),^{[self bindCreatorServicesWhenReady:services completion:completion];});
+        return;
+    }
+    input.installed=_installed;input.services_pending=_servicesPending;input.services_already_bound=_services!=nil;
+    input.services_supplied=services!=nil;input.context_current=_current();
+    input.content_matches=services&&[services matchesAdmittedContentID:_admittedContent saveScopeSHA256:_admittedScope];
+    input.scope_current=services&&[services creatorScopeIsCurrent];
+    input.scene_observed=_sceneObserved;input.controller_present=_originalController!=nil;input.renderer_present=_renderer!=nil;
+    if(od_creator_late_bind_decide(&input,&decision)!=OD_LATE_BIND_ACCEPT_WAITING&&decision.action!=OD_LATE_BIND_ACCEPT_ATTACH){
         completion(ODHostFailure(10));return;
     }
     NSError *failure=nil;
-    if(!_lifecycleInstalled){
+    if(decision.install_lifecycle&&!_lifecycleInstalled){
         if(![services.coordinator installOriginalSceneLifecycleWithError:&failure]){completion(failure?:ODHostFailure(10));return;}
         _lifecycleInstalled=YES;
     }
-    _services=services;_servicesPending=NO;
-    if(_sceneObserved&&_originalController&&_renderer&&
-       [services attachToOriginalWindow:_renderer.window controller:_originalController renderer:_renderer error:&failure]){
+    _services=services;if(decision.clear_pending)_servicesPending=NO;
+    if(decision.try_attach&&[services attachToOriginalWindow:_renderer.window controller:_originalController renderer:_renderer error:&failure]){
         _creatorAttached=YES;_stage=@"original-scene-and-creator-bound";
     }else _stage=@"creator-services-bound-waiting-for-renderer";
-    ODDuoRefreshQueuedCreatorQuickAction();
+    if(decision.refresh_shortcut)ODDuoRefreshQueuedCreatorQuickAction();
     [self emit];completion(nil);
 }
 - (void)presentCreatorFromUserActionWithCompletion:(void (^)(NSError *))completion {

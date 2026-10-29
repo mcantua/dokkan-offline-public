@@ -2,6 +2,7 @@
 // The animation player for the Unit Creator on iPhone (see Player.h).
 #import "Player.h"
 #import "Host.h"
+#import "../../offline-dokkan/original-client/duo/creator_menu_policy.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/socket.h>
@@ -533,11 +534,13 @@ static NSString *const kSecurityHeaders[][2] = {
 }
 
 - (void)installInGameMenuButton {
-    if (_inGameMenuButton || !_bar || !_inGameMenuTarget || !_inGameMenuAction) return;
+    ForgeStorageContext *storage = self.storageContext;
+    if (!od_creator_player_menu_should_install(storage && storage.scoped, storage && [storage isCurrent],
+            _inGameMenuTarget != nil, _inGameMenuAction != NULL, _bar != nil, _inGameMenuButton != nil)) return;
     _inGameMenuButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_inGameMenuButton setTitle:@"Menu" forState:UIControlStateNormal];
+    [_inGameMenuButton setTitle:[NSString stringWithUTF8String:od_creator_return_title(1)] forState:UIControlStateNormal];
     [_inGameMenuButton setTitleColor:Hex(0xFFB15D) forState:UIControlStateNormal];
-    _inGameMenuButton.accessibilityIdentifier = @"in-game-creator-menu";
+    _inGameMenuButton.accessibilityIdentifier = [NSString stringWithUTF8String:od_creator_player_menu_identifier()];
     [_inGameMenuButton addTarget:self action:@selector(inGameMenuTapped) forControlEvents:UIControlEventTouchUpInside];
     [_bar addSubview:_inGameMenuButton];
 }

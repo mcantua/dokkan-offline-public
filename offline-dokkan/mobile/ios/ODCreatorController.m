@@ -1,6 +1,7 @@
 #import "ODCreatorController.h"
 #import "ODCreatorSession.h"
 #import "../../original-client/creator-tools/ODScopedCreatorTools.h"
+#import "../../original-client/duo/creator_menu_policy.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <objc/message.h>
 #include <sys/stat.h>
@@ -56,9 +57,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];self.view.backgroundColor=UIColor.systemBackgroundColor;
     UIButton *close=[UIButton buttonWithType:UIButtonTypeSystem];
-    NSString *closeTitle=_session.originalClientMode?@"Menu":@"Back to Offline Dokkan";
+    NSString *closeTitle=[NSString stringWithUTF8String:od_creator_return_title(_session.originalClientMode)];
     [close setTitle:closeTitle forState:UIControlStateNormal];
-    close.accessibilityIdentifier=_session.originalClientMode?@"in-game-creator-menu":@"creator-close";
+    close.accessibilityIdentifier=[NSString stringWithUTF8String:_session.originalClientMode?od_creator_player_menu_identifier():"creator-close"];
     [close addTarget:self action:@selector(closeCreator) forControlEvents:UIControlEventTouchUpInside];close.translatesAutoresizingMaskIntoConstraints=NO;
     _status=[UILabel new];_status.text=@"Opening Unit Creator…";_status.numberOfLines=0;_status.font=[UIFont preferredFontForTextStyle:UIFontTextStyleBody];_status.translatesAutoresizingMaskIntoConstraints=NO;
     WKWebViewConfiguration *config=[WKWebViewConfiguration new];
