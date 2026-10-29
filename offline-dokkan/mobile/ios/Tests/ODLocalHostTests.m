@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "../ODLocalHost.h"
+#import "../ODDuoLauncher.h"
 #import "../ODMasterLibrary.h"
 #import "../ODCreatorController.h"
 #import "../../../adapter/ios/ODNativeCore.h"
@@ -100,7 +101,8 @@ static BOOL ODHasSourceModePicker(UIView *view) {
         NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:20]; UIWindow *window = ODWindow();
         while (!window && deadline.timeIntervalSinceNow > 0) { ODTick(); window = ODWindow(); }
         XCTAssertNotNil(window); if (!window) return;
-        ODLocalHost *host = (id)window.rootViewController;
+        UIViewController *root = window.rootViewController;
+        ODLocalHost *host = [root isKindOfClass:ODLocalHost.class] ? (id)root : [root isKindOfClass:ODDuoLauncher.class] ? ((ODDuoLauncher *)root).savedAccountHost : nil;
         XCTAssertTrue([host isKindOfClass:ODLocalHost.class]); if (![host isKindOfClass:ODLocalHost.class]) return;
         deadline = [NSDate dateWithTimeIntervalSinceNow:20];
         while (!host.lastError && !host.snapshot && deadline.timeIntervalSinceNow > 0) ODTick();

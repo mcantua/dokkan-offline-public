@@ -42,8 +42,6 @@ def strip_catalogs(name, source):
         source = source.replace('Create brand-new cards for Dokkan Eclipse and Dokkan Sparking', 'Create brand-new cards for Offline Dokkan')
         source = source.replace('Save your unit for Dokkan Eclipse or Dokkan Sparking on the last step.', 'Finish your unit to add it to this game’s collection.')
         source = source.replace('on the last step, tap Import to Eclipse or Import to Sparking.', 'on the last step, tap Finish in Offline Dokkan.')
-    if name == 'dbz-home.js':
-        source = source.replace('Eclipse · Sparking', 'Offline Dokkan')
     if name == 'offline.js':
         marker = '  async function storageReady(force = false) {\n'
         if source.count(marker) != 1:

@@ -55,7 +55,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];self.view.backgroundColor=UIColor.systemBackgroundColor;
-    UIButton *close=[UIButton buttonWithType:UIButtonTypeSystem];[close setTitle:@"Back to Offline Dokkan" forState:UIControlStateNormal];[close addTarget:self action:@selector(closeCreator) forControlEvents:UIControlEventTouchUpInside];close.translatesAutoresizingMaskIntoConstraints=NO;
+    UIButton *close=[UIButton buttonWithType:UIButtonTypeSystem];[close setTitle:self.closeButtonTitle.length?self.closeButtonTitle:@"Back to Offline Dokkan" forState:UIControlStateNormal];[close addTarget:self action:@selector(closeCreator) forControlEvents:UIControlEventTouchUpInside];close.translatesAutoresizingMaskIntoConstraints=NO;
     _status=[UILabel new];_status.text=@"Opening Unit Creator…";_status.numberOfLines=0;_status.font=[UIFont preferredFontForTextStyle:UIFontTextStyleBody];_status.translatesAutoresizingMaskIntoConstraints=NO;
     WKWebViewConfiguration *config=[WKWebViewConfiguration new];
     WKWebsiteDataStore *store=_session.originalClientMode?[self scopedWebsiteDataStore]:WKWebsiteDataStore.defaultDataStore;
