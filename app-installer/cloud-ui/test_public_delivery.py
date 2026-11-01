@@ -1,5 +1,6 @@
 """Two pure negative groups; no API, tokens, builds or artifact downloads."""
 import copy
+import contextlib
 import importlib.util
 import io
 import hashlib
@@ -9,6 +10,7 @@ import tempfile
 from pathlib import Path
 import stat
 import unittest
+from unittest.mock import patch
 import zipfile
 
 spec = importlib.util.spec_from_file_location('public_delivery', Path(__file__).with_name('public-delivery.py'))
@@ -76,6 +78,26 @@ class PublicDeliveryGuards(unittest.TestCase):
         for pages in invalid:
             with self.subTest(release_pages=pages), self.assertRaises(delivery.DeliveryError):
                 delivery.find_review_draft(Releases(pages))
+        secret = 'TEST-ONLY signed-URL/token/path/payload must never be printed'
+        exceptions = [(delivery.urllib.error.HTTPError('https://TEST-ONLY.invalid/?token=private', 500, secret, None, None), 'HTTPError'),
+                      (delivery.urllib.error.URLError(secret), 'URLError'), (TimeoutError(secret), 'TimeoutError'),
+                      (ConnectionResetError(secret), 'ConnectionError'), (PermissionError(secret), 'OSError'),
+                      (delivery.subprocess.TimeoutExpired(secret, 5), 'SubprocessError'),
+                      (zipfile.BadZipFile(secret), 'BadZipFile'), (RuntimeError(secret), 'OtherException')]
+        work = delivery.ROOT/'app-installer/cloud-ui/work'; work.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='TEST-ONLY-delivery-classifier-', dir=work) as temporary:
+            contract = Path(temporary)/'contract.json'; contract.write_text(json.dumps(value))
+            for error, expected in exceptions:
+                output = io.StringIO()
+                with self.subTest(exception=expected), patch.object(delivery.sys, 'argv', ['test', '--contract', str(contract), '--execute']), \
+                     patch.object(delivery, 'execute', side_effect=error), contextlib.redirect_stderr(output):
+                    self.assertEqual(delivery.main(), 1)
+                self.assertIn('PUBLIC_DELIVERY_ERROR_TYPE: '+expected+'\n', output.getvalue())
+                self.assertNotIn(secret, output.getvalue())
+                self.assertNotIn('https://', output.getvalue())
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output): delivery.delivery_phase('FIND_DRAFT')
+        self.assertEqual(output.getvalue(), 'PUBLIC_DELIVERY_PHASE: FIND_DRAFT\n')
 
     def test_archive_guards_reject_escape_links_aliases_and_expansion(self):
         cases = [[('../outside', b'bad', None)], [('/absolute', b'bad', None)],

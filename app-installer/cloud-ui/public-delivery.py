@@ -66,6 +66,22 @@ def require(condition, message):
         raise DeliveryError(message)
 
 
+def delivery_phase(code):
+    print('PUBLIC_DELIVERY_PHASE: ' + code, flush=True)
+
+
+def safe_exception_kind(error):
+    # Fixed type categories only. Exception text/attributes can contain signed
+    # download URLs, request headers, tokens, local paths or artifact contents.
+    for kind, label in [(urllib.error.HTTPError, 'HTTPError'), (urllib.error.URLError, 'URLError'),
+                        (TimeoutError, 'TimeoutError'), (ConnectionError, 'ConnectionError'),
+                        (OSError, 'OSError'), (subprocess.SubprocessError, 'SubprocessError'),
+                        (zipfile.BadZipFile, 'BadZipFile')]:
+        if isinstance(error, kind):
+            return label
+    return 'OtherException'
+
+
 def digest(value, length=64):
     return isinstance(value, str) and re.fullmatch('[0-9a-f]{' + str(length) + '}', value) is not None
 
@@ -586,6 +602,7 @@ def release_assets(api, identity):
 
 
 def execute(contract, contract_sha):
+    delivery_phase('EXECUTION_METADATA')
     require_execution_scope()
     api = PublicGitHub()
     execution_id = int(os.environ.get('GITHUB_RUN_ID', '0'))
@@ -609,13 +626,16 @@ def execute(contract, contract_sha):
     with tempfile.TemporaryDirectory(prefix='public-delivery-', dir=work) as temporary:
         stage = Path(temporary)
         for kind, pin in contract['artifacts'].items():
+            delivery_phase('KIT_ARTIFACT_METADATA' if kind == 'kit' else 'CANDIDATE_ARTIFACT_METADATA')
             metadata = api.request('GET', f"/actions/artifacts/{pin['id']}")
             require(metadata.get('id') == pin['id'] and metadata.get('name') == pin['name'] and metadata.get('expired') is False
                     and metadata.get('workflow_run', {}).get('id') == contract['source_run_id']
                     and metadata.get('workflow_run', {}).get('head_sha') == contract['source_commit']
                     and metadata.get('size_in_bytes') == pin['bytes'] and metadata.get('digest') == 'sha256:' + pin['sha256'], 'Reviewed artifact metadata mismatch')
             archive_path = stage / (kind + '.zip')
+            delivery_phase('KIT_DOWNLOAD' if kind == 'kit' else 'CANDIDATE_DOWNLOAD')
             api.download(pin['id'], archive_path, pin)
+            delivery_phase('KIT_EXTRACT' if kind == 'kit' else 'CANDIDATE_EXTRACT')
             names = {KIT, KIT_RECEIPT} if kind == 'kit' else FILES - {KIT, KIT_RECEIPT}
             with zipfile.ZipFile(archive_path) as archive:
                 index = zip_index(archive)
@@ -634,8 +654,11 @@ def execute(contract, contract_sha):
                             require(count <= contract['files'][name]['bytes'], 'Artifact member exceeds reviewed bound')
                             output.write(block)
             archive_path.unlink()
+        delivery_phase('LOCAL_VERIFICATION')
         candidate = verify_local(stage, contract)
+        delivery_phase('REVIEW_TAG')
         verify_review_tag(api, contract['source_commit'])
+        delivery_phase('FIND_DRAFT')
         release = find_review_draft(api)
         if release is None:
             release = api.request('POST', '/releases', {'tag_name': TAG, 'target_commitish': contract['source_commit'], 'name': 'App Installer — unsigned public review', 'draft': True, 'prerelease': True, 'make_latest': 'false', 'body': 'Unsigned review candidates with complete corresponding source. Physical acceptance is pending; release_ready=false.'})
@@ -644,6 +667,7 @@ def execute(contract, contract_sha):
         assets = release_assets(api, identity)
         pending_pattern = re.compile(r'pending-[0-9a-f]{12}--(.+)')
         require(all(item['name'] in FILES or (pending_pattern.fullmatch(item['name']) and pending_pattern.fullmatch(item['name']).group(1) in FILES) for item in assets), 'Foreign assets exist in the dedicated draft; none were changed')
+        delivery_phase('STAGING')
         staged = {}
         for name in sorted(FILES):
             canonical = next((item for item in assets if asset_matches(item, contract['files'][name], name)), None)
@@ -660,9 +684,11 @@ def execute(contract, contract_sha):
                 require(asset_matches(staged[name], contract['files'][name], pending_name), 'Staged server asset digest/size mismatch')
         # All seven replacement bytes are on the server and verified before any
         # old canonical name is deleted. An interrupted rename is resumable.
+        delivery_phase('STAGED_READBACK')
         for name, item in staged.items():
             current = api.request('GET', f"/releases/assets/{item['id']}")
             require(asset_matches(current, contract['files'][name], item['name']), 'Staged asset changed before replacement')
+        delivery_phase('FINALIZATION')
         for name, item in staged.items():
             if item['name'] == name:
                 continue
@@ -681,6 +707,7 @@ def execute(contract, contract_sha):
                 require(match is not None and match.group(1) in FILES, 'A foreign draft asset appeared during transfer; it was retained')
                 checked_release(api, identity)
                 api.request('DELETE', f"/releases/assets/{item['id']}")
+        delivery_phase('FINAL_READBACK')
         final = checked_release(api, identity)
         verify_review_tag(api, contract['source_commit'])
         final_assets = release_assets(api, identity)
@@ -693,6 +720,7 @@ def execute(contract, contract_sha):
             'compilation_performed': False, 'tests_repeated': False, 'personal_resources_used': False, 'device_install_attempted': False,
             'assets': [{'file': item['name'], 'id': item['id'], 'bytes': item['size'], 'sha256': item['digest'][7:]} for item in final_assets]}
         (work / 'public-delivery-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+        delivery_phase('COMPLETE')
         print('Verified seven public review draft assets; unpublished and unsigned, release_ready=false.')
 
 
@@ -720,7 +748,8 @@ def main():
         return 0
     except DeliveryError as error:
         print(str(error), file=sys.stderr)
-    except Exception:
+    except Exception as error:
+        print('PUBLIC_DELIVERY_ERROR_TYPE: ' + safe_exception_kind(error), file=sys.stderr, flush=True)
         print('Public delivery validation/transfer failed. No release was published; inspect the scoped workflow before retrying.', file=sys.stderr)
     return 1
 

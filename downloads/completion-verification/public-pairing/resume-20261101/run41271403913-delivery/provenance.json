@@ -1,0 +1,76 @@
+{
+  "job": {
+    "id": 124744748933,
+    "name": "deliver",
+    "status": "completed",
+    "conclusion": "failure",
+    "run_id": 41271403913,
+    "logs_url": null,
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1
+      },
+      {
+        "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2
+      },
+      {
+        "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3
+      },
+      {
+        "name": "Verify reviewed public source and seven assets, then stage the unpublished draft",
+        "status": "completed",
+        "conclusion": "failure",
+        "number": 4
+      },
+      {
+        "name": "Retain the actual seven-asset delivery receipt",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 5
+      },
+      {
+        "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 9
+      },
+      {
+        "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 10
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 11
+      }
+    ]
+  },
+  "artifacts": [],
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "workflow_id": 400819288,
+  "run_id": 41271403913,
+  "source_commit": "3cf4a4613d5d03391bbea09e0cf9970f4e2bdc92",
+  "captured_at": "2026-11-01T04:05:50.793426+00:00",
+  "log_file": "delivery-job.log",
+  "log_bytes": 14424,
+  "log_sha256": "2a109a45dbaebc69abc75634a4816888e57a3d5b26ab3711c61844be64caa654",
+  "log_encoding": "UTF-8 decoded by GitHub connector",
+  "failure": "Generic validation/transfer failure only; exact gate not emitted",
+  "scope": "No actual delivery receipt or artifacts produced. Release mutation/reuse state must be independently read back; log does not establish which stage failed.",
+  "local_tests_executed": 0,
+  "local_builds_executed": 0,
+  "artifact_blobs_downloaded": false
+}

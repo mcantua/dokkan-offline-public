@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_head_at_test": "3cf4a4613d5d03391bbea09e0cf9970f4e2bdc92",
+  "source_status_at_test": "Two owned modified files; exact hashes identify tested inputs.",
+  "before_hash_observation_utc": "2026-11-01T04:07:27Z",
+  "before_hash_provenance": "Pre-edit sha256sum tool result; independently checked against recorded HEAD. Original pre-edit raw output was not separately logged.",
+  "test_command": "python3 app-installer/cloud-ui/test_public_delivery.py",
+  "started_utc": "2026-11-01T04:08:13Z",
+  "finished_utc": "2026-11-01T04:08:13Z",
+  "test_invocations_this_instrumentation_task": 1,
+  "test_invocations_discovery_plus_instrumentation": 2,
+  "test_result": {
+    "exit_code": 0,
+    "tests": 2,
+    "reported_seconds": 0.037,
+    "status": "OK"
+  },
+  "methods": [
+    "PublicDeliveryGuards.test_contract_rejects_wrong_destination_and_incomplete_review_pins",
+    "PublicDeliveryGuards.test_archive_guards_reject_escape_links_aliases_and_expansion"
+  ],
+  "raw_output": {
+    "file": "delivery-diagnostic-tests.log",
+    "bytes": 421,
+    "sha256": "8e7f93ebf381b5a02f58dc56b1b2aa4881bb933b41dade9ea8f3b11048c3475b",
+    "capture": "Actual combined stdout/stderr captured with tee; includes timestamps and source input hashes."
+  },
+  "files": [
+    {
+      "path": "app-installer/cloud-ui/public-delivery.py",
+      "before_sha256": "1e466fbb8a4a64ea42b40e0068c89287d49c33c3740d1010027951381df92ff1",
+      "tested_after_sha256": "e5656ac9ced24be073fc5aacc7e13584c98d0788556d9ef5936502ecd7ca0d73",
+      "after_bytes": 48334
+    },
+    {
+      "path": "app-installer/cloud-ui/test_public_delivery.py",
+      "before_sha256": "b8fcd708176245f70ccecbecd2390c5c203ea2ca0c65452138f2d8044428c0d0",
+      "tested_after_sha256": "a58e36bc2cdf9f1c8cd8170b829b62092017243761aebd20ddb9982ca5f0a2bf",
+      "after_bytes": 11299
+    }
+  ],
+  "limitations": [
+    "Mocked exceptions and fixed marker output; no live API/download/build/device operation.",
+    "Cause of actual run41271403913 failure remains unproven; instrumentation does not assert timeout or retry automatically."
+  ]
+}
