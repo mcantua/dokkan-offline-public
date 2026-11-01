@@ -1,7 +1,7 @@
 # App Installer repair batch
 
 ## Summary
-Tin resumed development. Four concrete cloud-fixable defects found and repaired; setup2/0 and uploader2/0 passed. Affected core/native verification is next. No new package or physical success yet.
+Tin resumed development. Four concrete cloud-fixable defects found and repaired; setup2/0 and uploader2/0 passed. Hosted41269237340/source0648612 then passed fresh core4/native3, reusing vendor8/helper2. Matching replacement package is next; no new package or physical success yet.
 
 ## Details
 - Active public repo/branch and PR #7 only; no base merge or frozen backup access.

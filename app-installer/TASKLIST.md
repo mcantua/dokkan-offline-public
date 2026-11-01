@@ -1,6 +1,6 @@
 # App Installer completion task list
 
-**Active repair batch — 2026-10-31 10:26 PM US Central:** Setup retry/variant fixes and bounded uploader passed targeted2+2 checks. App-specific missing-discovery-key validation is implemented; hosted affected core/native checks and a matching replacement package remain pending. Earlier evidence below retains its exact source scope. No physical/account acceptance is inferred.
+**Active repair batch — 2026-10-31 10:26 PM US Central:** Setup retry/variant fixes and bounded uploader passed targeted2+2 checks. Hosted41269237340/source0648612 passed current core4/native3, with unchanged vendor/helper reuse. Matching replacement package/delivery remains pending. Earlier evidence below retains its exact source scope. No physical/account acceptance is inferred.
 
 Current public revision: October29,2026,2:10 PM US Central. Tin authorized builds. Draft PR #7 remains unmerged. Historical private-repository artifacts are not proof for this revision. Exact evidence and delivery state are in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md).
 

@@ -2,7 +2,7 @@
 
 Use only the reviewed public delivery from **mcantua/dokkan-offline-public**, on branch `chatgpt/app-installer-pairing-repair`. The review draft is named **app-installer-public-review**. A draft and a successful cloud build are not proof that the app works on your phone.
 
-**Download gate:** the current kit's actual download link, exact byte count, SHA-256 and source revision must first be provided from the reviewed public delivery receipt. Those values are not available in this guide yet. Do not substitute an older kit, guess a hash, use a private-repository link or download anything before that review is complete.
+**Download gate:** the current kit's actual download link, exact byte count, SHA-256 and source revision must first be provided from the reviewed public delivery receipt. Use the current reviewed [delivery receipt and exact instructions](https://github.com/mcantua/dokkan-offline-public/blob/chatgpt/app-installer-pairing-repair/app-installer/device/PUBLIC-DELIVERY.md). This build-bound guide cannot embed its own final ZIP hash. Do not substitute an older kit, guess a hash, use a private-repository link or download anything before that review is complete.
 
 ## Before each Mac or internet step
 
@@ -45,9 +45,9 @@ An install reported as successful still needs manual opening and source/version 
 
 ## 3. Pair without reinstalling
 
-Once the installed build is confirmed compatible, use the verified kit's **pairing-only** action. Keep the phone unlocked and connected by USB. Follow local Trust/Developer Mode prompts if required; never bypass a trust or signature check.
+Once the installed build is confirmed compatible, use the verified kit's **pairing-only** action only if a new export is needed. Keep an already working compatible version-2 record; this source update does not itself require regenerating its keys. Keep the phone unlocked and connected by USB. Follow local Trust/Developer Mode prompts if required; never bypass a trust or signature check.
 
-The supplied launcher supports a `--pairing-only` execution option. Use only the exact source-bound chooser/launcher instruction provided for the verified kit; do not reuse a historical command with a guessed path. Pairing-only must skip Apple-account/team discovery and app preparation, signing, installation and launch.
+The supplied launcher offers **Cancel / Pair only / Full setup** and defaults to Cancel. Choose **Pair only** for a pairing retry. It also supports `--execute --pairing-only`; `--plan` prints the plan without a chooser. Use only the exact source-bound chooser/launcher instruction provided for the verified kit; do not reuse a historical command with a guessed path. Pairing-only must skip Apple-account/team discovery and app preparation, signing, installation and launch.
 
 The helper creates a private **format_version=2** export containing an authenticated peer pin. It opens the new public folder's private export location locally. A successful export is not proof of an on-phone connection. Do not replace it with an unpinned/legacy remote record, edit its fields or upload it for inspection. A failure must remain a failure; never turn off TLS or peer verification.
 

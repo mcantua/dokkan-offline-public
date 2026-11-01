@@ -1,6 +1,6 @@
 # Update the public setup kit without losing data
 
-Use [Public kit quick start](PUBLIC-QUICK-START.md) first. **No current download size/hash or compatible installed source is pinned here yet.** The local updater is [update-public-kit.py](update-public-kit.py); wait for the actual reviewed public kit receipt and the assistant's exact source-bound invocation. Do not execute a placeholder or reuse old download pins.
+Use [Public kit quick start](PUBLIC-QUICK-START.md) first. **Get the current exact download/source pins from [Verified public delivery](https://github.com/mcantua/dokkan-offline-public/blob/chatgpt/app-installer-pairing-repair/app-installer/device/PUBLIC-DELIVERY.md).** This build-bound guide intentionally does not embed its own final ZIP hash. The local updater is [update-public-kit.py](update-public-kit.py); wait for the actual reviewed public kit receipt and the assistant's exact source-bound invocation. Do not execute a placeholder or reuse old download pins.
 
 ## Before downloading
 
@@ -36,7 +36,7 @@ Review the new kit's plan and its managed payload checks. If an app update is ac
 
 Never uninstall, clear phone data, remove Keychain records, reset trust or create a second installer identity as an update shortcut. An automatic launch failure alone does not justify reinstalling. Confirm manual launch and the installed source/version locally.
 
-If the compatible app is already installed and only pairing failed, use the verified **pairing-only** action. Do not rerun the full setup/build/install. Creating or transferring a private version-2 export does not prove an on-phone authenticated connection; preserve needed private outputs until that connection succeeds.
+If the compatible app is already installed and only pairing failed, choose **Pair only** in the verified launcher. **Full setup** is a separate choice and updates the app; it is not a pairing retry. Do not rerun the full setup/build/install. Creating or transferring a private version-2 export does not prove an on-phone authenticated connection; preserve needed private outputs until that connection succeeds.
 
 If an overlay is interrupted or a hash/source check fails, stop before setup and review the exact selected public ZIP/folder. Do not run a mixed kit or disable integrity/security checks. After a successful verified update, delete the obsolete downloaded ZIP, keeping only the newest kit and no extra rollback copies.
 

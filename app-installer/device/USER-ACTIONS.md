@@ -1,6 +1,6 @@
 # What Tin needs to do
 
-The active instructions are [Public kit quick start](PUBLIC-QUICK-START.md) and [Update the existing kit](UPDATE-EXISTING-KIT.md). Use the public **mcantua/dokkan-offline-public** review delivery only. No current kit size, SHA-256 or source revision is asserted in this guide; root must supply actual verified delivery pins first.
+The active instructions are [Public kit quick start](PUBLIC-QUICK-START.md) and [Update the existing kit](UPDATE-EXISTING-KIT.md). Use the public **mcantua/dokkan-offline-public** review delivery only. Use [Verified public delivery](https://github.com/mcantua/dokkan-offline-public/blob/chatgpt/app-installer-pairing-repair/app-installer/device/PUBLIC-DELIVERY.md) for the current exact kit size, SHA-256, source revision and update command. This build-bound guide does not embed its own final ZIP hash.
 
 1. **Receive the next-step notice before using the Mac or its connection.** It must name the task, resources and selected Wi-Fi/hotspot connection, and state the exact verified transfer size or that usage is unknown. Routine approval already granted remains valid. Apple credential/certificate changes and a large Xcode installation retain their separate approval boundary.
 2. **Download only the verified small native kit once.** Check its actual size/hash first. Do not download/clone the full repository or install/build Rust on the Mac; the kit carries the cloud-built library and USB helper.

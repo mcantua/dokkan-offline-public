@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "source_commit": "06486120c736ea6efcb246424894a85a07e1fb36",
+  "kind": "Source review, not test/build/hardware evidence",
+  "reviews": [
+    "Root review of integration diffs and source-bound test selectors",
+    "Independent scoped agent review of status8 and primary/backup mutation ordering, main-queue/generation/auth/protected-data guards",
+    "Independent scoped agent review of bounded VFS reader, real AFC AsyncWrite behavior, backpressure and cancellation ownership"
+  ],
+  "blocking_regressions_found": 0,
+  "reviewed_inputs_sha256": {
+    "app-installer/core/app_installer.h": "6a8cb6133d9cea9ca881d1a2df54c4eca7fd80605442bf27275a866ca1d450fb",
+    "app-installer/core/src/lib.rs": "d948db728664ac087911bfceee82e52882f9bd4f615957ab88ff01f84914ea32",
+    "app-installer/core/src/engine.rs": "8f6ace2e1e90a3b699685071554ea5c5566a0695edecf686ade65fa0b73d3da2",
+    "app-installer/core/src/transport.rs": "41f0db23a2f6d7a068302f6eeadf82db035559f52683d67b5fa012571c7d5c97",
+    "app-installer/ios/PairingStore.h": "03bcb235b1fe5471ced128937783a2b993db95de53e5c7d7f744f0a627eaf23f",
+    "app-installer/ios/PairingStore.m": "d937e05370b952f4f9fa8774271a6bc6f934947d00f47655173eb9953a9bca0f",
+    "app-installer/ios/InstallerService.m": "1abd927f7a418391f4c046b5fa53536b10f249a0d62af5fb95d2e2f683ef6a45",
+    "app-installer/cloud-ui/Tests/PairingConnectionGuardTests.m": "c86a5977495b3aa7b4fa3871b2d7151f20fcf1d4e7a4767926446aa49e99634f",
+    "app-installer/device/Run-App-Installer-Setup.command": "a80c88ab0fd2cc1214134e9a576406ce4401b997bcc274d10fe844f2dfa07e92",
+    "app-installer/device/setup-wizard.py": "8f20f96a374046daca7098eb79a280270ecc954067c8e022ce709567415bd798",
+    "downloads/isideload/isideload-0.5.0/src/sideload/install.rs": "06de5daafef84f470726beea53dae1949f8de35b9a7f97c4057728cc1734f2c0"
+  },
+  "limitations": [
+    "No physical phone/Apple account/signature/install/refresh accepted",
+    "Existing native and generic format tests extended; actual hosted result pending41269237340",
+    "Unchanged vendor/helper proof reused; no broad repeated suites",
+    "Missing-key guard addresses an accepted-input dead end; it does not explain a complete delivered-helper export failing on a phone"
+  ]
+}
