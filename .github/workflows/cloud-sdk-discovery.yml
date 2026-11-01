@@ -1,11 +1,18 @@
 name: App Installer hosted Apple SDK inventory
 on:
   workflow_dispatch:
+    inputs:
+      trait_api_only:
+        description: Inspect genuine UIKit trait declarations and syntax-check the small API probe only
+        type: boolean
+        required: false
+        default: false
 permissions:
   contents: read
 jobs:
   inventory:
-    runs-on: macos-latest
+    if: github.repository == 'mcantua/dokkan-offline-public' && github.ref == 'refs/heads/chatgpt/app-installer-pairing-repair'
+    runs-on: ${{ inputs.trait_api_only && 'xcode-27' || 'macos-latest' }}
     timeout-minutes: 8
     defaults:
       run:
@@ -15,7 +22,13 @@ jobs:
         with:
           persist-credentials: false
           path: AI-Workspace/dokkan-offline-public
+      - name: Inspect installed public declarations and syntax-check one probe
+        if: inputs.trait_api_only
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 app-installer/cloud-ui/inspect-trait-api.py
       - name: Read installed official hosted Xcode SDK and simulator inventory
+        if: ${{ !inputs.trait_api_only }}
         run: |
           python3 - <<'PY'
           import json,os,pathlib,platform,subprocess,sys
@@ -51,10 +64,18 @@ jobs:
           print(json.dumps([{k:v for k,v in p.items() if k!='simulator_inventory'} for p in probes],indent=2))
           PY
       - name: Preserve actual inventory
-        if: always()
+        if: always() && !inputs.trait_api_only
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: app-installer-macos-sdk-inventory
           path: AI-Workspace/dokkan-offline-public/downloads/hosted-sdk-inventory/
+          retention-days: 7
+          if-no-files-found: error
+      - name: Preserve compact trait declarations and actual compiler result
+        if: always() && inputs.trait_api_only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: app-installer-trait-api-inventory
+          path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/trait-api-inventory/
           retention-days: 7
           if-no-files-found: error
