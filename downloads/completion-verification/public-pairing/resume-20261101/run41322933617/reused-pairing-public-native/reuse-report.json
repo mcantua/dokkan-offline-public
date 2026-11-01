@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "reused": true,
+  "new_test_execution": false,
+  "repository": "mcantua/dokkan-offline-public",
+  "original_run_id": 41321551443,
+  "original_source_commit": "da1a36ab2ecf4b3cb9f85ed9ad2723fbba61cd60",
+  "current_source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "group": "native",
+  "passed": 1,
+  "failed": 0,
+  "input_bytes_match_current": true,
+  "production_input_bytes_match_current": true,
+  "reviewed_harness_changes": [],
+  "original_context": {
+    "os": "darwin",
+    "architecture": "arm64",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "macos_sdk": "27.0",
+    "simulator_sdk": "27.1"
+  },
+  "scope": "Only selected nonsecret Files/schema, labelled responsive/status-details geometry or explicit expired-authorization/cancellation fixtures; no actual five-minute lease, successful authentication, real provider, Keychain account, phone pairing or physical Duo proof."
+}

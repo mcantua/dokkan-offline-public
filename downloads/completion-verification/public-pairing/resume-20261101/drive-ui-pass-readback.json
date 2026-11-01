@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "id": "1DGvilOgQ8P5exf_q8Ccj-_KNde02XZze",
+      "modified_utc": "2026-11-01T15:49:49.337Z",
+      "exact_readback": true
+    },
+    {
+      "id": "1QhqGf0XueByisrD6T4kzq_3mXPcWg8dS",
+      "modified_utc": "2026-11-01T15:49:53.422Z",
+      "exact_readback": true
+    }
+  ],
+  "scope": "Passing responsive UI and pending source-matched package; other projects preserved, explicit writes only."
+}

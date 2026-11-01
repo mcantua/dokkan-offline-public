@@ -1,0 +1,21 @@
+{
+  "classification": "unsigned-candidate",
+  "candidate_integrity_verified": true,
+  "notices_verified": true,
+  "corresponding_source_verified": true,
+  "relink_instructions_verified": true,
+  "unresolved_notice_cases": 0,
+  "release_ready": false,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "source_bundle_sha256": "79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4",
+  "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "source_manifest_bytes": 7018460,
+  "source_manifest_sha256": "7459dac3c5dc6bbd87393734e3553487daea77fb43f72d917c1d187d7aab9fb4",
+  "elapsed_seconds": 10.06,
+  "original_source_verifier_return_observed": true,
+  "source_verifier_success_injected": false,
+  "mac_signature_verification_performed": false,
+  "stock_verifier_sha256": "9a02145b167615754df555d8e3ee5c5da5a36f6ce79b472436a1b699c60f53f9",
+  "observation_recipe_sha256": "40461a23d91d3e3fce39f4f8097dd8916b387551e0e07f7b931c4f1e2c1810c1"
+}

@@ -1,0 +1,5 @@
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:47:26.9872430Z Reused vendor: 8 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:47:29.2819800Z Reused helper: 2 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:47:31.4672600Z Reused transport: 2 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:47:33.6141950Z Reused recovery: 2 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:47:35.3163370Z Reused native: 1 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.

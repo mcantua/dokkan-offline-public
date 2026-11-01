@@ -1,0 +1,15 @@
+{
+  "scope": "Generated native bootstrap project: unsigned hosted-cloud compilation only; no account/provisioning/phone installation.",
+  "passed": true,
+  "device_install_attempted": false,
+  "apple_account_used": false,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+  "rust_archive_sha256": "84af85cf1131a2bc93741d4803d8b597c26f6920a1b6f9f39f34c7322e3e8d2e",
+  "rust_archive_bytes": 112274928,
+  "actual_iphoneos_sdk": "27.1",
+  "compiled_binary_sha256": "1df9257534cb9528cb912bc7604066a3d6944891c47abfff048046c5bd76857b",
+  "codesigning_allowed": false,
+  "profile_present": false,
+  "generated_shared_scheme_compiled": true
+}

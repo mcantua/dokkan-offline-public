@@ -1,0 +1,65 @@
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:50:15.0768130Z {"file": "app-installer-rp-bootstrap", "bytes": 7805024, "sha256": "0d882d3c1fcd0eb524d10a74df51e2aac185a80fe390fe06cfb6a9986362b1a1", "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c", "distribution_ready": false}
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1876190Z   "classification": "unsigned-candidate",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1877660Z   "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1878290Z   "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1883230Z       "file": "AppInstaller-iphone-candidate.ipa",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1885370Z       "file": "AppInstaller-duo-candidate.ipa",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1890240Z     "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1890890Z     "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:57:53.1894470Z     "native simulator functionality is verified separately from candidate integrity",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:58:16.4889840Z   "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:58:16.4893310Z     "path": "candidates/AppInstaller-corresponding-source.tar.xz"
+simulator (single)	Keep integrity-checked unsigned candidates with their source	﻿2026-11-01T15:58:16.9759630Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9760090Z with:
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9760300Z   name: app-installer-cloud-ui-latest
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9761420Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+simulator (single)	Keep integrity-checked unsigned candidates with their source	!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
+simulator (single)	Keep integrity-checked unsigned candidates with their source	!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
+simulator (single)	Keep integrity-checked unsigned candidates with their source	
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9762500Z   retention-days: 7
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9762710Z   if-no-files-found: error
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9762960Z   compression-level: 6
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9763130Z   overwrite: false
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9763310Z   include-hidden-files: false
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:16.9763500Z ##[endgroup]
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.1621050Z (node:66946) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.1622880Z (Use `node --trace-deprecation ...` to show where the warning was created)
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.1713150Z With the provided path, there will be 24 files uploaded
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.1717020Z Artifact name is valid!
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.1717310Z Root directory input is valid!
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.6261020Z Beginning upload of artifact content to blob storage
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:17.8594380Z (node:66946) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:18.7414610Z Uploaded bytes 8388608
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:19.0158850Z Uploaded bytes 16777216
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:19.0843200Z Uploaded bytes 25165824
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:19.2315220Z Uploaded bytes 33554432
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:19.3875480Z Uploaded bytes 41943040
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:19.4552190Z Uploaded bytes 50331648
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:19.7798790Z Uploaded bytes 58720256
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:20.1178060Z Uploaded bytes 67108864
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:20.4010600Z Uploaded bytes 75497472
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:20.5503820Z Uploaded bytes 83886080
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:20.5577530Z Uploaded bytes 92274688
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:20.7958370Z Uploaded bytes 100663296
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:21.0567930Z Uploaded bytes 109051904
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:21.2008520Z Uploaded bytes 117440512
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:21.4010200Z Uploaded bytes 125829120
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:21.8539300Z Uploaded bytes 134217728
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.0107770Z Uploaded bytes 142606336
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.0373880Z Uploaded bytes 150994944
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.2448650Z Uploaded bytes 159383552
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.5328590Z Uploaded bytes 167772160
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.6990580Z Uploaded bytes 170998136
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.7755740Z Finished uploading artifact content to blob storage!
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.7759140Z SHA256 digest of uploaded artifact zip is 3c896596d0bca7a2074c8177cbc8730955ede7715e808bb132bfa9305a3aeda8
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:22.7761780Z Finalizing artifact upload
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:23.4060620Z Artifact app-installer-cloud-ui-latest.zip successfully finalized. Artifact ID 13089864046
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:23.4062860Z Artifact app-installer-cloud-ui-latest has been successfully uploaded! Final size is 170998136 bytes. Artifact ID is 13089864046
+simulator (single)	Keep integrity-checked unsigned candidates with their source	2026-11-01T15:58:23.4078730Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/41322933617/artifacts/13089864046
+simulator (single)	Keep the minimal native setup kit	2026-11-01T15:58:23.4347950Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
+simulator (single)	Keep the minimal native setup kit	AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
+simulator (single)	Keep the minimal native setup kit	2026-11-01T15:58:23.5790500Z The least common ancestor is /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates. This will be the root directory of the artifact
+simulator (single)	Keep the minimal native setup kit	2026-11-01T15:58:26.1834070Z SHA256 digest of uploaded artifact zip is 3025694c3ffaa185fbef72902f9f31abc879fff19be38577ae51fac370ee184c
+simulator (single)	Keep the minimal native setup kit	2026-11-01T15:58:26.6572730Z Artifact app-installer-native-kit-latest.zip successfully finalized. Artifact ID 13089864052
+simulator (single)	Keep the minimal native setup kit	2026-11-01T15:58:26.6574880Z Artifact app-installer-native-kit-latest has been successfully uploaded! Final size is 43869532 bytes. Artifact ID is 13089864052
+simulator (single)	Retain a complete kit and source pair	2026-11-01T15:58:26.7996850Z   CANDIDATE_ARTIFACT_ID: 13089864046

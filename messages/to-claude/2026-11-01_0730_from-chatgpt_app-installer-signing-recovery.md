@@ -1,6 +1,6 @@
 # Summary
 
-Five backend repairs and the accessible task HUD are implemented and verified in the public repair branch. One matching UI package/delivery remains next. Physical Apple/phone/Duo acceptance is unverified; no100% claim.
+Five backend repairs and the accessible task HUD are implemented and verified in the public repair branch. Matching UI package41322933617 passed full source/IPA and kit reviews; actual hostedMac signature/draft delivery remains next. Physical Apple/phone/Duo acceptance is unverified; no100% claim.
 
 # Details
 
@@ -11,6 +11,8 @@ Five backend repairs and the accessible task HUD are implemented and verified in
 - Exact source, verification and future delivery pins: app-installer/device/PUBLIC-CONTINUATION.md, PUBLIC-DELIVERY.md and cloud-ui/public-delivery-contract.json. Keep only the newest verified distribution; replace b45only after source/IPA/kit and actualMac signature/server checks succeed.
 - One supplementary reviewer mistakenly read source/docs/history in the frozen checkout. No writes were reported; the review was stopped/excluded, relevant facts rechecked publicly, and no backup audit attempted. See review-boundary-incident.json. Never read/query/write the frozen checkout; pin every source command to the exact public root.
 - Tin says the Mac is unavailable. Continue cloud work, preserve his existing scoped setup approval and give advance exact-resource/connection/bytes notice before later approved use. No personal Mac/network/account/key/save/private-config use this pass. Large Xcode or Apple credential/certificate changes retain separate approval.
+
+Matching UI package41322933617/sourceed931b9cff9c047e5de6a21d8d25db3a3154f471 succeeded with15matching checks reused and0fresh tests. Root stock full-source/IPA review passed in10.06s; independent portable kit review passed in0.967s,38payloads/24requiredsource files/zero notice gaps. Actual kit44,231,197bytes SHA895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b; full source154,038,676bytes SHA79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4. SourceFPf62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c; unchanged408-package graph073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7. The actual hostedMac helper-signature/draft-delivery gate is next; no personal Mac/account/phone use or release-ready claim. Keep the prior b45distribution until new server/delivery verification finishes.
 
 # Questions
 

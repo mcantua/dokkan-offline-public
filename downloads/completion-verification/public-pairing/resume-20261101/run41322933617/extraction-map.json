@@ -1,0 +1,37 @@
+[
+  {
+    "outer": "candidate-artifact.zip",
+    "member": "candidates/AppInstaller-corresponding-source.tar.xz",
+    "output": "AppInstaller-corresponding-source.tar.xz"
+  },
+  {
+    "outer": "candidate-artifact.zip",
+    "member": "candidates/AppInstaller-candidate-manifest.json",
+    "output": "AppInstaller-candidate-manifest.json"
+  },
+  {
+    "outer": "candidate-artifact.zip",
+    "member": "candidates/AppInstaller-duo-candidate.ipa",
+    "output": "AppInstaller-duo-candidate.ipa"
+  },
+  {
+    "outer": "candidate-artifact.zip",
+    "member": "candidates/AppInstaller-iphone-candidate.ipa",
+    "output": "AppInstaller-iphone-candidate.ipa"
+  },
+  {
+    "outer": "candidate-artifact.zip",
+    "member": "candidates/cloud-device-library-manifest.json",
+    "output": "cloud-device-library-manifest.json"
+  },
+  {
+    "outer": "kit-artifact.zip",
+    "member": "AppInstaller-native-bootstrap-kit.zip",
+    "output": "AppInstaller-native-bootstrap-kit.zip"
+  },
+  {
+    "outer": "kit-artifact.zip",
+    "member": "AppInstaller-native-bootstrap-kit.json",
+    "output": "AppInstaller-native-bootstrap-kit.json"
+  }
+]

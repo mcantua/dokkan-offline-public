@@ -5,7 +5,7 @@
   "native_failed": 0,
   "native_seconds": 12.518,
   "original_maximum_text_and_compact_images_visually_reviewed": true,
-  "full_details_image_identical_to_already_reviewed_original_sha256": "c63201a124bd",
+  "full_details_image_identical_to_already_reviewed_original_sha256": "c63201a124bd7ccdb714cd1458001f60250cc7133a3be2ac8fe4d829ef72198e",
   "removed_obsolete_diagnostic_zips": [
     {
       "file": "downloads/completion-verification/public-pairing/resume-20261101/run41310143960/native-artifact.zip",
