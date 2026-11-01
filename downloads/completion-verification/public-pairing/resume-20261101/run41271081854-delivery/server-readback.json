@@ -1,0 +1,59 @@
+{
+  "id": 430349496,
+  "draft": true,
+  "prerelease": true,
+  "tag_name": "app-installer-public-review",
+  "target_commitish": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "html_url": "https://github.com/mcantua/dokkan-offline-public/releases/tag/untagged-73d507024473c30c4a80",
+  "assets": [
+    {
+      "id": 697263163,
+      "name": "AppInstaller-candidate-manifest.json",
+      "size": 2207,
+      "digest": "sha256:d4fb3233370d1aca24528c8aa02973bbddea6b90e5b51c19e276883f7958f455",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/AppInstaller-candidate-manifest.json"
+    },
+    {
+      "id": 697263203,
+      "name": "AppInstaller-corresponding-source.tar.xz",
+      "size": 154032876,
+      "digest": "sha256:20f37f3d71672cfe4a0dba21ab41222534f9c26b4df3d5bf3e1b8bed556ab35a",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/AppInstaller-corresponding-source.tar.xz"
+    },
+    {
+      "id": 697263447,
+      "name": "AppInstaller-duo-candidate.ipa",
+      "size": 8442558,
+      "digest": "sha256:ebadfbe5f5615b772f1908953f95ad718f5c7b5f69f8cc6b50174260eb9938ae",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/AppInstaller-duo-candidate.ipa"
+    },
+    {
+      "id": 697263547,
+      "name": "AppInstaller-iphone-candidate.ipa",
+      "size": 8442555,
+      "digest": "sha256:20315792575f7c45b3024ceb9aac6f2c71bbc69d0d29e925a946b3047e91a4d0",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/AppInstaller-iphone-candidate.ipa"
+    },
+    {
+      "id": 697263629,
+      "name": "AppInstaller-native-bootstrap-kit.json",
+      "size": 893,
+      "digest": "sha256:f4cb433f4694530fec10526deb45dad2b811eb783fb86bd98608a85a6aebaba7",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/AppInstaller-native-bootstrap-kit.json"
+    },
+    {
+      "id": 697263699,
+      "name": "AppInstaller-native-bootstrap-kit.zip",
+      "size": 44149993,
+      "digest": "sha256:b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/AppInstaller-native-bootstrap-kit.zip"
+    },
+    {
+      "id": 697263851,
+      "name": "cloud-device-library-manifest.json",
+      "size": 1334,
+      "digest": "sha256:0f1dd5fc37b5ddbb5eb46ee5caedbd5281772584152ee653999bd79d4ea71617",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-73d507024473c30c4a80/cloud-device-library-manifest.json"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "reason": "GitHub tag endpoint omitted unpublished draft; delivery created duplicate. Corrected discovery uses bounded list lookup.",
+  "removed_release": 428285659,
+  "retained_release": 430349496,
+  "old_seven_assets_exactly_matched_saved_older_contract": true,
+  "replacement_seven_assets_exactly_matched_current_contract_before_old_removal": true,
+  "only_one_review_draft_remains": true,
+  "new_release_ready": false,
+  "personal_resources_used": false
+}

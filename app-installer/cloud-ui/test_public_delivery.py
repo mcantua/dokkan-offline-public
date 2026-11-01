@@ -44,6 +44,38 @@ class PublicDeliveryGuards(unittest.TestCase):
             delivery.verify_helper_macho(b'TEST-ONLY not a universal executable',{
                 'genuine_toolchain':{'rustc':'rustc 1.99.1 TEST-ONLY','xcode':'Xcode 27.1',
                     'clang':'TEST-ONLY Apple clang','macos_sdk':'27.1','sdk_settings_sha256':'0'*64}})
+        # An existing draft may be invisible to GET /releases/tags/TAG.
+        # Fake API allows reads only: ambiguity must never cause a mutation.
+        class Releases:
+            def __init__(self, pages): self.pages, self.calls = pages, []
+            def request(self, method, suffix, body=None, optional=False):
+                self.calls.append((method, suffix))
+                if method != 'GET': raise AssertionError('Discovery must not mutate releases')
+                if suffix == '/releases/tags/' + delivery.TAG: return None
+                page = len(self.calls)
+                if suffix != f'/releases?per_page=100&page={page}':
+                    raise AssertionError('Discovery must use sequential bounded release listing')
+                return self.pages[page - 1]
+        current = {'id': 430349496, 'tag_name': delivery.TAG, 'draft': True}
+        other = lambda identity: {'id': identity, 'tag_name': 'TEST-ONLY-other-tag', 'draft': False}
+        for pages, expected in [([[]], None), ([[other(1)]], None),
+                                ([[other(1), current]], current),
+                                ([[other(i) for i in range(1, 101)], [current]], current),
+                                ([[current, *[other(i) for i in range(1, 100)]], []], current)]:
+            api = Releases(pages)
+            self.assertEqual(delivery.find_review_draft(api), expected)
+            self.assertEqual(len(api.calls), len(pages))
+            self.assertNotIn(('GET', '/releases/tags/' + delivery.TAG), api.calls)
+        invalid = [[None], [[None]], [[{'id': True, 'tag_name': delivery.TAG, 'draft': True}]],
+                   [[{**current, 'draft': False}]], [[{**current, 'draft': 1}]],
+                   [[{**current, 'tag_name': None}]], [[current, {**current, 'id': 428285659}]],
+                   [[other(1), other(1)]], [[other(i) for i in range(101)]],
+                   [[current, *[other(i) for i in range(1, 100)]], [{**current, 'id': 428285659}]],
+                   [[current, *[other(i) for i in range(1, 100)]], [{**current, 'id': 428285659, 'draft': False}]],
+                   [[other(page * 100 + offset + 1) for offset in range(100)] for page in range(10)]]
+        for pages in invalid:
+            with self.subTest(release_pages=pages), self.assertRaises(delivery.DeliveryError):
+                delivery.find_review_draft(Releases(pages))
 
     def test_archive_guards_reject_escape_links_aliases_and_expansion(self):
         cases = [[('../outside', b'bad', None)], [('/absolute', b'bad', None)],

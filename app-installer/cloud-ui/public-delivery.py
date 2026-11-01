@@ -550,6 +550,29 @@ def verify_review_tag(api, source):
                 and tag.get('object', {}).get('sha') == source, 'Existing review tag differs from the reviewed source; no tag was retargeted')
 
 
+def find_review_draft(api):
+    # The tag endpoint can return 404 for an authenticated, existing draft.
+    # Inspect the complete bounded release list before deciding to create one.
+    match = None
+    seen = set()
+    for page in range(1, 11):
+        batch = api.request('GET', f'/releases?per_page=100&page={page}')
+        require(type(batch) is list and len(batch) <= 100, 'Invalid review release list')
+        for release in batch:
+            require(type(release) is dict and positive(release.get('id'))
+                    and isinstance(release.get('tag_name'), str) and release['tag_name']
+                    and type(release.get('draft')) is bool, 'Invalid review release entry')
+            require(release['id'] not in seen, 'Repeated release identity while discovering review draft')
+            seen.add(release['id'])
+            if release['tag_name'] == TAG:
+                require(release['draft'] is True, 'The review tag belongs to a published release; none were changed')
+                require(match is None, 'Multiple releases use the review tag; none were changed')
+                match = release
+        if len(batch) < 100:
+            return match
+    raise DeliveryError('Review release list exceeds bound; none were changed')
+
+
 def release_assets(api, identity):
     values = []
     for page in range(1, 11):
@@ -613,7 +636,7 @@ def execute(contract, contract_sha):
             archive_path.unlink()
         candidate = verify_local(stage, contract)
         verify_review_tag(api, contract['source_commit'])
-        release = api.request('GET', '/releases/tags/' + TAG, optional=True)
+        release = find_review_draft(api)
         if release is None:
             release = api.request('POST', '/releases', {'tag_name': TAG, 'target_commitish': contract['source_commit'], 'name': 'App Installer — unsigned public review', 'draft': True, 'prerelease': True, 'make_latest': 'false', 'body': 'Unsigned review candidates with complete corresponding source. Physical acceptance is pending; release_ready=false.'})
         identity = release['id']
