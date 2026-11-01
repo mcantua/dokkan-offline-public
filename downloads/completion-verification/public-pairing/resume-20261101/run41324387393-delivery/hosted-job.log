@@ -1,0 +1,212 @@
+deliver	Set up job	﻿2026-11-01T16:04:14.8499900Z Current runner version: '2.338.2'
+deliver	Set up job	2026-11-01T16:04:14.8533650Z ##[group]Runner Image Provisioner
+deliver	Set up job	2026-11-01T16:04:14.8534410Z Hosted Compute Agent
+deliver	Set up job	2026-11-01T16:04:14.8534790Z Version: 20261021.618
+deliver	Set up job	2026-11-01T16:04:14.8535230Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+deliver	Set up job	2026-11-01T16:04:14.8535750Z Build Date: 2026-10-21T00:45:21Z
+deliver	Set up job	2026-11-01T16:04:14.8536200Z Worker ID: {0be44a70-0662-4c35-95bf-ff6af147a7a4}
+deliver	Set up job	2026-11-01T16:04:14.8536680Z Region: westus
+deliver	Set up job	2026-11-01T16:04:14.8537030Z Cloud: MacCloud
+deliver	Set up job	2026-11-01T16:04:14.8537370Z ##[endgroup]
+deliver	Set up job	2026-11-01T16:04:14.8538500Z ##[group]Operating System
+deliver	Set up job	2026-11-01T16:04:14.8538890Z macOS
+deliver	Set up job	2026-11-01T16:04:14.8539210Z 26.6.2
+deliver	Set up job	2026-11-01T16:04:14.8539520Z 25G83
+deliver	Set up job	2026-11-01T16:04:14.8539830Z ##[endgroup]
+deliver	Set up job	2026-11-01T16:04:14.8540170Z ##[group]Runner Image
+deliver	Set up job	2026-11-01T16:04:14.8540610Z Image: macos-26-arm64
+deliver	Set up job	2026-11-01T16:04:14.8541030Z Version: 20261026.0455.2
+deliver	Set up job	2026-11-01T16:04:14.8542230Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20261026.0455/images/macos/macos-26-arm64-Readme.md
+deliver	Set up job	2026-11-01T16:04:14.8543610Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20261026.0455
+deliver	Set up job	2026-11-01T16:04:14.8544340Z ##[endgroup]
+deliver	Set up job	2026-11-01T16:04:14.8545190Z ##[group]GITHUB_TOKEN Permissions
+deliver	Set up job	2026-11-01T16:04:14.8546720Z Actions: read
+deliver	Set up job	2026-11-01T16:04:14.8547090Z Contents: write
+deliver	Set up job	2026-11-01T16:04:14.8547430Z Metadata: read
+deliver	Set up job	2026-11-01T16:04:14.8547780Z ##[endgroup]
+deliver	Set up job	2026-11-01T16:04:14.8549370Z Secret source: Actions
+deliver	Set up job	2026-11-01T16:04:14.8549950Z Cache mode: write
+deliver	Set up job	2026-11-01T16:04:14.8550410Z Prepare workflow directory
+deliver	Set up job	2026-11-01T16:04:14.8998250Z Prepare all required actions
+deliver	Set up job	2026-11-01T16:04:14.9068040Z Getting action download info
+deliver	Set up job	2026-11-01T16:04:15.1782510Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+deliver	Set up job	2026-11-01T16:04:15.5696740Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+deliver	Set up job	2026-11-01T16:04:15.7296010Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+deliver	Set up job	2026-11-01T16:04:15.9738220Z Complete job name: deliver
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-11-01T16:04:16.0572090Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0572990Z with:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0573350Z   persist-credentials: false
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0573860Z   path: AI-Workspace/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0574410Z   repository: mcantua/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0578110Z   token: ***
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0578490Z   ssh-strict: true
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0578820Z   ssh-user: git
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0579170Z   clean: true
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0579510Z   sparse-checkout-cone-mode: true
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0579970Z   fetch-depth: 1
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0580340Z   fetch-tags: false
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0580760Z   show-progress: true
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0581170Z   lfs: false
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0581620Z   submodules: false
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0581960Z   set-safe-directory: true
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.0583180Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.8475470Z Syncing repository: mcantua/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.8477280Z ##[group]Getting Git version info
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.8478540Z Working directory is '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public'
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.8497010Z [command]/opt/homebrew/bin/git version
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.8969670Z git version 2.56.0
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.8996090Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9020590Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/c7b3ca09-8334-4dda-8b03-86cc15883456/.gitconfig'
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9029470Z Temporarily overriding HOME='/Users/runner/work/_temp/c7b3ca09-8334-4dda-8b03-86cc15883456' before making global git config changes
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9031140Z Adding repository directory to the temporary git global config as a safe directory
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9038440Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9212170Z ##[group]Initializing the repository
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9226810Z [command]/opt/homebrew/bin/git init /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9680290Z hint: Using 'master' as the name for the initial branch. This default branch name
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9683550Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9684830Z hint: to use in all of your new repositories, which will suppress this warning,
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9685860Z hint: call:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9686440Z hint:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9687000Z hint: 	git config --global init.defaultBranch <name>
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9687790Z hint:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9688470Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9689670Z hint: 'development'. The just-created branch can be renamed via this command:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9690480Z hint:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9691180Z hint: 	git branch -m <name>
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9691720Z hint:
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9692500Z hint: Disable this message with "git config set advice.defaultBranchName false"
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9722580Z Initialized empty Git repository in /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/.git/
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9734710Z [command]/opt/homebrew/bin/git remote add origin https://github.com/mcantua/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9864710Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9868490Z ##[group]Disabling automatic garbage collection
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9871160Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9971900Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9974800Z ##[group]Setting up auth
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:16.9976340Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.0088870Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.2183320Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.2308060Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.3560000Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.3676580Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.3679060Z ##[group]Fetching the repository
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:17.3682110Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +489af38257d94ea6f325a77de572838a661e287e:refs/remotes/origin/chatgpt/app-installer-pairing-repair
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6653960Z From https://github.com/mcantua/dokkan-offline-public
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6660100Z  * [new ref]         489af38257d94ea6f325a77de572838a661e287e -> origin/chatgpt/app-installer-pairing-repair
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6665140Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6666290Z ##[group]Determining the checkout info
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6667520Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6670790Z [command]/opt/homebrew/bin/git sparse-checkout disable
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6781830Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6910120Z ##[group]Checking out the ref
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:20.6955300Z [command]/opt/homebrew/bin/git checkout --progress --force -B chatgpt/app-installer-pairing-repair refs/remotes/origin/chatgpt/app-installer-pairing-repair
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.8698300Z Updating files:  93% (2450/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.8802750Z Updating files:  94% (2464/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.8903810Z Updating files:  95% (2490/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9009210Z Updating files:  96% (2517/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9120580Z Updating files:  97% (2543/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9223100Z Updating files:  98% (2569/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9332420Z Updating files:  99% (2595/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9434450Z Updating files: 100% (2621/2621)
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9554820Z Updating files: 100% (2621/2621), done.
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:21.9768910Z Switched to a new branch 'chatgpt/app-installer-pairing-repair'
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.0283420Z branch 'chatgpt/app-installer-pairing-repair' set up to track 'origin/chatgpt/app-installer-pairing-repair'.
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.0629470Z ##[endgroup]
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.0936070Z [command]/opt/homebrew/bin/git log -1 --format=%H
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.1038370Z 489af38257d94ea6f325a77de572838a661e287e
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.1344510Z ##[group]Removing auth
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.1444360Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.1749590Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.2681540Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.2730880Z http.https://github.com/.extraheader
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.2736830Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.2812880Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+deliver	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:04:22.4162660Z ##[endgroup]
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	﻿2026-11-01T16:04:22.4773290Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4774910Z with:
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4775740Z   python-version: 3.12
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4776410Z   check-latest: false
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4780430Z   token: ***
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4807180Z   update-environment: true
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4807540Z   allow-prereleases: false
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4807780Z   freethreaded: false
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.4808010Z ##[endgroup]
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.8523100Z (node:3234) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.8524240Z ##[group]Installed versions
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:22.8628860Z (Use `node --trace-deprecation ...` to show where the warning was created)
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:23.0232800Z Successfully set up CPython (3.12.10)
+deliver	Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:04:23.0293840Z ##[endgroup]
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	﻿2026-11-01T16:04:23.0448540Z ##[group]Run python3 app-installer/cloud-ui/public-delivery.py --contract "$DELIVERY_CONTRACT" --execute
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0449370Z [36;1mpython3 app-installer/cloud-ui/public-delivery.py --contract "$DELIVERY_CONTRACT" --execute[0m
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0936730Z shell: /bin/bash -e {0}
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0937060Z env:
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0937360Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0937820Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0938330Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0938730Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0939170Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0941970Z   GH_TOKEN: ***
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0942260Z   DELIVERY_CONTRACT: app-installer/cloud-ui/public-delivery-contract.json
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0942610Z   PYTHONDONTWRITEBYTECODE: 1
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:23.0942890Z ##[endgroup]
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:24.1915230Z PUBLIC_DELIVERY_PHASE: EXECUTION_METADATA
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:25.1187880Z PUBLIC_DELIVERY_PHASE: CANDIDATE_ARTIFACT_METADATA
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:25.3330890Z PUBLIC_DELIVERY_PHASE: CANDIDATE_DOWNLOAD
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:32.5222210Z PUBLIC_DELIVERY_PHASE: CANDIDATE_EXTRACT
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:33.0293390Z PUBLIC_DELIVERY_PHASE: KIT_ARTIFACT_METADATA
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:33.3620710Z PUBLIC_DELIVERY_PHASE: KIT_DOWNLOAD
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:36.2480960Z PUBLIC_DELIVERY_PHASE: KIT_EXTRACT
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:36.4218970Z PUBLIC_DELIVERY_PHASE: LOCAL_VERIFICATION
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:22.4583440Z PUBLIC_DELIVERY_PHASE: REVIEW_TAG
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:22.7144870Z PUBLIC_DELIVERY_PHASE: FIND_DRAFT
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:23.6690820Z PUBLIC_DELIVERY_PHASE: STAGING
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:43.8303270Z PUBLIC_DELIVERY_PHASE: STAGED_READBACK
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:45.5370940Z PUBLIC_DELIVERY_PHASE: FINALIZATION
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:58.0418170Z PUBLIC_DELIVERY_PHASE: FINAL_READBACK
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:58.8281950Z PUBLIC_DELIVERY_PHASE: COMPLETE
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:58.8641990Z Verified seven public review draft assets; unpublished and unsigned, release_ready=false.
+deliver	Retain the actual seven-asset delivery receipt	﻿2026-11-01T16:05:59.0348340Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0351130Z with:
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0351750Z   name: app-installer-public-delivery-receipt
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0353060Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/public-delivery-receipt.json
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0354120Z   if-no-files-found: error
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0354590Z   retention-days: 7
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0355010Z   compression-level: 6
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0355450Z   overwrite: false
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0356040Z   include-hidden-files: false
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0356730Z env:
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0357560Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0358720Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0359940Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0361000Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0362150Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0362890Z ##[endgroup]
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3432850Z (node:5294) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3433590Z (Use `node --trace-deprecation ...` to show where the warning was created)
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3482560Z With the provided path, there will be 1 file uploaded
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3485640Z Artifact name is valid!
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3486580Z Root directory input is valid!
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.7122720Z Beginning upload of artifact content to blob storage
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.7298300Z (node:5294) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.8913040Z Uploaded bytes 1149
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.9468400Z Finished uploading artifact content to blob storage!
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.9570820Z SHA256 digest of uploaded artifact zip is ca22656e21a3d4f50cec2a0ea0c94ca1d68607c6739f578cf55264251437fffc
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.9673960Z Finalizing artifact upload
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:02.3841680Z Artifact app-installer-public-delivery-receipt.zip successfully finalized. Artifact ID 13090324078
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:02.3887090Z Artifact app-installer-public-delivery-receipt has been successfully uploaded! Final size is 1149 bytes. Artifact ID is 13090324078
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:02.3893470Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/41324387393/artifacts/13090324078
+deliver	Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	﻿2026-11-01T16:06:02.4222790Z Post job cleanup.
+deliver	Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:06:02.6028920Z (node:5404) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+deliver	Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065	2026-11-01T16:06:02.6037540Z (Use `node --trace-deprecation ...` to show where the warning was created)
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-11-01T16:06:02.6297570Z Post job cleanup.
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.7783790Z [command]/opt/homebrew/bin/git version
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8273730Z git version 2.56.0
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8366240Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/d60998a9-4ccd-4e7f-87c6-f996ca264e21/.gitconfig'
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8367140Z Temporarily overriding HOME='/Users/runner/work/_temp/d60998a9-4ccd-4e7f-87c6-f996ca264e21' before making global git config changes
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8367910Z Adding repository directory to the temporary git global config as a safe directory
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8376890Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8768080Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:02.8966170Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:03.0565410Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+deliver	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-11-01T16:06:03.0567230Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+deliver	Complete job	﻿2026-11-01T16:06:03.2373450Z Cleaning up orphan processes
+deliver	Complete job	2026-11-01T16:06:05.5029080Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

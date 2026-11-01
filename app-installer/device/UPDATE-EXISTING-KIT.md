@@ -26,7 +26,7 @@ The updater:
 
 Each file replacement is atomic and the manifest is committed last; the entire overlay is not one atomic transaction. An interrupted run may leave a mix of old and new managed files. Do not launch setup from that mixture. A rerun with the same reviewed ZIP accepts only its pinned new bytes or unchanged old-manifest bytes and completes the overlay. Run only one updater at a time. No rollback copies are created.
 
-The tool exists, but its real delivery pins and a successful actual-kit Mac execution are still pending. Do not improvise an extraction command while the pins are missing. If only the old folder exists, create the new public folder without opening or copying from the backup.
+The current reviewed delivery pins and exact invocation are in PUBLIC-DELIVERY.md. A successful actual-kit overlay on Tin's Mac remains unverified. Use those pins; do not improvise an extraction command or reuse an older kit. If only the old folder exists, create the new public folder without opening or copying from the backup.
 
 The overlay itself is local filesystem work: no planned Apple request, app signing, installation, Keychain change or Rust compilation. Announce this local Mac use before it starts. macOS may still perform unrelated background network traffic; do not promise zero total internet use.
 

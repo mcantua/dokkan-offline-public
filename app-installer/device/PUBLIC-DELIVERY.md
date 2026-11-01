@@ -1,16 +1,16 @@
-# Verified public App Installer delivery
+# Verified App Installer cloud update
 
-November 1, 2026. **Backend review milestone verified; download recommendation is on hold while the accessibility HUD correction is completed.** Current sourceb45c705e5fde11a5c07bed590cc4a4643a24f1e4/package41311226478 and actual Mac signature/delivery41313262648 passed. The sole unpublished draft remains430349496 with exactly7verified assets. This is unsigned/release_ready=false, and physical/account acceptance is unverified. Do not download another intermediate kit merely to follow this milestone; the next UI-matched receipt will replace these pins.
+November 1, 2026. **The corrected UI and backend update is ready for later authorized Mac setup.** Source`ed931b9cff9c047e5de6a21d8d25db3a3154f471`, package41322933617 and actual hostedMac signature/draft delivery41324387393 all passed their scoped checks. The existing unpublished draft430349496 contains exactly seven assets with verified server sizes/hashes. Candidates remain unsigned/`release_ready=false`; live account/phone and physical Duo acceptance are unverified.
 
-The current held review asset is [AppInstaller-native-bootstrap-kit.zip](https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-native-bootstrap-kit.zip) ; wait for the UI-matched update before the next Mac step. Sign into GitHub as the repository owner to access the unpublished draft; if the direct link is unavailable, open the repository's Releases page and its **App Installer — unsigned public review** draft. Do not publish it or use an old kit as a workaround.
+Current verified [AppInstaller-native-bootstrap-kit.zip](https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-native-bootstrap-kit.zip). Tin's Mac is unavailable, so no download or local action is requested now. When ready, sign into GitHub as the repository owner to access the unpublished **App Installer — unsigned public review** draft. Do not publish it or use an old kit.
 
-- Exact ZIP bytes: **44228257** (44.2 MB decimal).
-- SHA-256: `88e1aab0ca98a5e2187471d42dba7d047c2438703588898d201e01dd62483391`.
-- Source revision: `b45c705e5fde11a5c07bed590cc4a4643a24f1e4`.
-- Native static library and universal arm64/x86_64 pairing helper are already built in the cloud; no Mac Rust build or full repository/source download is needed.
-- All seven source/IPA/kit/receipt pins: `app-installer/cloud-ui/public-delivery-contract.json`.
-- Actual hosted receipt and independent final server readback: `downloads/completion-verification/public-pairing/resume-20261101/run41313262648-delivery/`.
-- Sole current cloud-local distribution: `app-installer/build/work/latest-reviewed/` (ignored). Outer artifact ZIP duplicates were removed after delivery verification.
+- ZIP bytes: **44231197** (44.2 MB decimal).
+- SHA-256: `895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b`.
+- Source revision: `ed931b9cff9c047e5de6a21d8d25db3a3154f471`.
+- Native static library and universal arm64/x86_64 pairing helper are already cloud-built; no Mac Rust build, full repository or154MB source download is needed.
+- Exact seven-file pins: `app-installer/cloud-ui/public-delivery-contract.json`.
+- Actual delivery receipt/server readback: `downloads/completion-verification/public-pairing/resume-20261101/run41324387393-delivery/`.
+- Sole cloud-local distribution: `app-installer/build/work/latest-reviewed/`. Old build/outer archive duplicates were removed after verification; no backup retained.
 
 ## Advance notice before personal use
 
@@ -26,9 +26,9 @@ Keep the ZIP unopened until this verification. Paste the following into Terminal
 /usr/bin/python3 - <<'UPDATE_PUBLIC_KIT'
 from pathlib import Path
 import hashlib, io, subprocess, unicodedata, zipfile
-size = 44228257
-sha = '88e1aab0ca98a5e2187471d42dba7d047c2438703588898d201e01dd62483391'
-source = 'b45c705e5fde11a5c07bed590cc4a4643a24f1e4'
+size = 44231197
+sha = '895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b'
+source = 'ed931b9cff9c047e5de6a21d8d25db3a3154f471'
 try:
     selected = subprocess.check_output(['/usr/bin/osascript', '-e', 'POSIX path of (choose file with prompt "Choose the NEW public AppInstaller native kit ZIP")'], text=True).strip()
 except subprocess.CalledProcessError:
@@ -56,13 +56,13 @@ UPDATE_PUBLIC_KIT
 
 The printed result is enough; never paste pairing records, passwords, codes, raw device output or private identifiers. If this reports a managed-file/signature error, preserve the app/data and report only that safe message.
 
-## Included fixes
+## Included fixes and actual verification
 
-This backend revision adds bounded resource signing, cooperative resource/executable/verifier cancellation, a declared128MiB executable/4MiB signature budget, durable source-directory promotion and direct native five-minute lease checks/installation monitoring. Hosted41310143960 passed core4/native4, with only affected methods selected; signer regressions and independently bound source/licence/kit checks also passed. Package41311226478 reused matching checks and ran0fresh tests. The native component run used SDK27.1 with regular simulator iOS27.0, not physical Duo.
+The update contains bounded resource signing, cooperative signing/verifier cancellation, a128MiB executable/4MiB signature budget, durable source-directory promotion and direct five-minute authorization-lease checks. Core/transport/recovery checks keep their exact source scope. The native HUD has a readable two-line preview, full scrolling Task details/Done, preserved progress/Cancel and visible compact activity. Actual responsive41321551443 passed1method/0failures in12.518s on genuine compilerSDK27.1 and regular simulator runtime27.0; no physical-Duo claim.
 
-**Known UI correction in progress:** maximum text exposed a sliced HUD status line. The next revision uses a bounded explicit preview plus native scrolling Task details, retaining progress/Cancel. Do not treat this held backend candidate as the completed UI update.
+Package41322933617 reused15matching passes and ran0fresh tests. Independent full corresponding-source/IPA review and38-payload/24-required-source kit review passed, with408 dependency packages/zero notice gaps. Delivery41324387393 verified the helper seal using actual hostedMac codesign, then all seven final server assets. This does not verify personal-device authentication, installation, refresh or folding.
 
-**Documentation correction:** the b45embedded continuation predates discovery of one supplementary reviewer's wrong inherited path. It incorrectly states that no frozen-checkout read occurred. Read-only source/documentation/file-history access was disclosed; no writes were reported, those findings were excluded and actual public-source evidence was rechecked. App changes/builds derive only from public source. Current STATUS/continuation and `review-boundary-incident.json` are the erratum; the frozen checkout was not reopened for an audit.
+A supplementary read-only reviewer previously opened the frozen checkout by mistake. No writes were reported; its findings were excluded and public source rechecked. The current kit contains the corrected continuation; the old b45memo's no-frozen-read statement is historical and incorrect. The incident ledger and STATUS preserve the record. Never reopen the frozen checkout for an audit.
 
 ## Then update and pair
 

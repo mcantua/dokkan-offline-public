@@ -1,0 +1,45 @@
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:25.1187880Z PUBLIC_DELIVERY_PHASE: CANDIDATE_ARTIFACT_METADATA
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:25.3330890Z PUBLIC_DELIVERY_PHASE: CANDIDATE_DOWNLOAD
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:32.5222210Z PUBLIC_DELIVERY_PHASE: CANDIDATE_EXTRACT
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:33.0293390Z PUBLIC_DELIVERY_PHASE: KIT_ARTIFACT_METADATA
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:33.3620710Z PUBLIC_DELIVERY_PHASE: KIT_DOWNLOAD
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:36.2480960Z PUBLIC_DELIVERY_PHASE: KIT_EXTRACT
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:04:36.4218970Z PUBLIC_DELIVERY_PHASE: LOCAL_VERIFICATION
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:22.4583440Z PUBLIC_DELIVERY_PHASE: REVIEW_TAG
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:22.7144870Z PUBLIC_DELIVERY_PHASE: FIND_DRAFT
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:23.6690820Z PUBLIC_DELIVERY_PHASE: STAGING
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:43.8303270Z PUBLIC_DELIVERY_PHASE: STAGED_READBACK
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:45.5370940Z PUBLIC_DELIVERY_PHASE: FINALIZATION
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:58.0418170Z PUBLIC_DELIVERY_PHASE: FINAL_READBACK
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:58.8281950Z PUBLIC_DELIVERY_PHASE: COMPLETE
+deliver	Verify reviewed public source and seven assets, then stage the unpublished draft	2026-11-01T16:05:58.8641990Z Verified seven public review draft assets; unpublished and unsigned, release_ready=false.
+deliver	Retain the actual seven-asset delivery receipt	﻿2026-11-01T16:05:59.0348340Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0351130Z with:
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0351750Z   name: app-installer-public-delivery-receipt
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0353060Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/public-delivery-receipt.json
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0354120Z   if-no-files-found: error
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0354590Z   retention-days: 7
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0355010Z   compression-level: 6
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0355450Z   overwrite: false
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0356040Z   include-hidden-files: false
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0356730Z env:
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0357560Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0358720Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0359940Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0361000Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0362150Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:05:59.0362890Z ##[endgroup]
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3432850Z (node:5294) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3433590Z (Use `node --trace-deprecation ...` to show where the warning was created)
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3482560Z With the provided path, there will be 1 file uploaded
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3485640Z Artifact name is valid!
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.3486580Z Root directory input is valid!
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.7122720Z Beginning upload of artifact content to blob storage
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.7298300Z (node:5294) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.8913040Z Uploaded bytes 1149
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.9468400Z Finished uploading artifact content to blob storage!
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.9570820Z SHA256 digest of uploaded artifact zip is ca22656e21a3d4f50cec2a0ea0c94ca1d68607c6739f578cf55264251437fffc
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:01.9673960Z Finalizing artifact upload
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:02.3841680Z Artifact app-installer-public-delivery-receipt.zip successfully finalized. Artifact ID 13090324078
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:02.3887090Z Artifact app-installer-public-delivery-receipt has been successfully uploaded! Final size is 1149 bytes. Artifact ID is 13090324078
+deliver	Retain the actual seven-asset delivery receipt	2026-11-01T16:06:02.3893470Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/41324387393/artifacts/13090324078
