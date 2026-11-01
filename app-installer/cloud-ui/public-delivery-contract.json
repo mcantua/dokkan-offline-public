@@ -3,52 +3,52 @@
   "reviewed": true,
   "repository": "mcantua/dokkan-offline-public",
   "branch": "chatgpt/app-installer-pairing-repair",
-  "source_run_id": 40934237282,
-  "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
-  "source_tree_sha256": "81ae60bfb915c777847e3e6d7e3ca65ae4733f0d701049fbfd062b0635d7b039",
+  "source_run_id": 41270305394,
+  "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
   "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
   "artifacts": {
     "candidate": {
-      "id": 12923688740,
+      "id": 13069385967,
       "name": "app-installer-cloud-ui-latest",
-      "bytes": 170905335,
-      "sha256": "f0544f916f158e084c820adc3e8112ce493df4c8253e6617480072124e5f2241"
+      "bytes": 170920657,
+      "sha256": "80f5a4192ad86e16f26b2b4285d118c951e36135bca5da1003107f14ae3c1c22"
     },
     "kit": {
-      "id": 12924382450,
+      "id": 13069430881,
       "name": "app-installer-native-kit-latest",
-      "bytes": 43758787,
-      "sha256": "d6b3ae6d235bb779a282412756954b1957d38bc9aa128c6756b9795e52e76173"
+      "bytes": 43790028,
+      "sha256": "b42fbc9fa90d60134c518c65b98160d7422512179f60778a74726e9ec1fec2e5"
     }
   },
   "files": {
     "AppInstaller-candidate-manifest.json": {
       "bytes": 2207,
-      "sha256": "98317f9fa131705efd02cb62f6ec44572429d50bfec26f6dcb6518a0f621f4f2"
+      "sha256": "d4fb3233370d1aca24528c8aa02973bbddea6b90e5b51c19e276883f7958f455"
     },
     "AppInstaller-corresponding-source.tar.xz": {
-      "bytes": 154020324,
-      "sha256": "23582b0f7538bc2ec8194f20e40c94aa324ede56533e2af70eb10cc9c1201911"
+      "bytes": 154032876,
+      "sha256": "20f37f3d71672cfe4a0dba21ab41222534f9c26b4df3d5bf3e1b8bed556ab35a"
     },
     "AppInstaller-duo-candidate.ipa": {
-      "bytes": 8439339,
-      "sha256": "5d6374d86050b3791e6360d1922fb3aa9d9275cc1c2507953588d7ba773cdfd6"
+      "bytes": 8442558,
+      "sha256": "ebadfbe5f5615b772f1908953f95ad718f5c7b5f69f8cc6b50174260eb9938ae"
     },
     "AppInstaller-iphone-candidate.ipa": {
-      "bytes": 8439335,
-      "sha256": "cbc36b6671ca72e0ef718902954b78c46adafcd43f959e7c331e192b5fac3be9"
+      "bytes": 8442555,
+      "sha256": "20315792575f7c45b3024ceb9aac6f2c71bbc69d0d29e925a946b3047e91a4d0"
     },
     "AppInstaller-native-bootstrap-kit.json": {
       "bytes": 893,
-      "sha256": "5f2542a0a3e5b5287fc8a6504ab6d56523555b3b15f6126519e298463bbca06f"
+      "sha256": "f4cb433f4694530fec10526deb45dad2b811eb783fb86bd98608a85a6aebaba7"
     },
     "AppInstaller-native-bootstrap-kit.zip": {
-      "bytes": 44120569,
-      "sha256": "4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7"
+      "bytes": 44149993,
+      "sha256": "b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661"
     },
     "cloud-device-library-manifest.json": {
       "bytes": 1334,
-      "sha256": "c3bdf94f591674a042da36e18fdae0d2adc216e2876a57687c141d263f2f7189"
+      "sha256": "0f1dd5fc37b5ddbb5eb46ee5caedbd5281772584152ee653999bd79d4ea71617"
     }
   }
 }
