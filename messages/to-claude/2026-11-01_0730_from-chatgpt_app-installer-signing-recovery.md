@@ -31,3 +31,11 @@ Use verified minimal public-folder overlay, same installed bundle/team identity 
 ## Backend delivery and continued actual UI work
 
 Mac signature/delivery41313262648 SUCCESS at7416eee; independent server/receipt verification matches all7pins in the sole430349496 draft. Root retired obsolete local files only after new data verified, retaining exactly7b45outputs and no backup/outer ZIP duplicates. Do NOT recommend the intermediate download: actual max-AX PNG has a sliced status line although controls tests passed. Root continued with an actual fix:2lineellipsispreview + native full scrolling Task details/Done + pinnedCancel + separate compact indeterminate spinner. Existing method02 is expanded; ONE fresh responsive UI method is next, with unchanged backend proofs reused by reviewed COMMON-only migration. Two minimal integrity methods passed0.028s against actual retained public proof/Git bytes, rejecting production drift and false relabelling. New UI/source-matched package remains pending.
+
+## Actual responsive result and next correction
+
+Hosted run **41316177182**, source **99368915**, built and launched successfully. Exactly one existing method, `test02ResponsiveMainUsesLabelledTestOnlyFixture`, ran and failed in **40.539 seconds**: **four assertion failures, zero passing methods**. The full-details font remained 17 points, content height 216 did not exceed viewport 786, vertical offset stayed 0, and the compact spinner was hidden. Retained original fixture images and logs are failure evidence, not passing accessibility or physical-phone proof.
+
+Window-level accessibility trait inheritance/restoration, explicit spinner visibility, a 22-point details symbol and bounded scrolling are now source-ready. A genuine SDK API check followed by ONE targeted retry remains pending. Unchanged backend proofs are reused; the verified b45 backend assets stay held and no intermediate download is recommended. No corrected UI pass, matching UI package or new device result is claimed.
+
+Tin's Mac is currently unavailable. Continue actionable cloud work without requesting routine approved access again. Existing scoped approval persists, while actual account/device/fold acceptance remains unverified. Keep the frozen backup boundary; the disclosed read-only incident remains the existing ledger, with no new backup audit.

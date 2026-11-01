@@ -223,6 +223,9 @@ static UIWindow *AIWaitForAppWindow(void) {
     AICloudUITestOnlyFixture *fixture=[AICloudUITestOnlyFixture new];[home setValue:fixture forKey:@"service"];
     UINavigationController *navigation=[[UINavigationController alloc]initWithRootViewController:home];
     UIViewController *host=[UIViewController new];
+    BOOL changedWindowCategory=NO;
+    BOOL hadWindowCategoryOverride=NO;
+    UIContentSizeCategory priorWindowCategory=nil;
     @try {
         window.rootViewController=navigation;
         fixture.stateOverrides=@{@"paired":@NO,@"pairingFilePresent":@YES,@"pairingVerified":@NO};
@@ -313,9 +316,21 @@ static UIWindow *AIWaitForAppWindow(void) {
         NSMutableDictionary *largeState=[fixture.stateOverrides mutableCopy];
         largeState[@"statusMessage"]=fullTaskStatus;fixture.stateOverrides=largeState;
         ((void (*)(id,SEL))objc_msgSend)(home,NSSelectorFromString(@"render"));
-        [host setOverrideTraitCollection:[UITraitCollection traitCollectionWithPreferredContentSizeCategory:UIContentSizeCategoryAccessibilityExtraExtraExtraLarge] forChildViewController:navigation];
+        // Emulate the system preference at the owning window, not only its
+        // embedded navigation child: native sheets inherit from this environment.
+        if (@available(iOS 17.0, *)) {
+            hadWindowCategoryOverride=[window.traitOverrides containsTrait:UITraitPreferredContentSizeCategory.class];
+            priorWindowCategory=window.traitOverrides.preferredContentSizeCategory;
+            window.traitOverrides.preferredContentSizeCategory=UIContentSizeCategoryAccessibilityExtraExtraExtraLarge;
+            changedWindowCategory=YES;
+        } else {
+            XCTFail(@"This hosted modal accessibility fixture requires public UIWindow trait overrides on iOS 17 or newer.");
+            return;
+        }
         navigation.view.frame=CGRectMake(0,0,466,678);home.fixtureRailSide=@"right";
         for(NSInteger pass=0;pass<3;++pass){[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];[home.view setNeedsLayout];[home.view layoutIfNeeded];AITick();}
+        XCTAssertEqualObjects(window.traitCollection.preferredContentSizeCategory,UIContentSizeCategoryAccessibilityExtraExtraExtraLarge);
+        XCTAssertEqualObjects(host.traitCollection.preferredContentSizeCategory,UIContentSizeCategoryAccessibilityExtraExtraExtraLarge);
         XCTAssertEqualObjects(home.traitCollection.preferredContentSizeCategory,UIContentSizeCategoryAccessibilityExtraExtraExtraLarge);
         XCTAssertEqual(((UIStackView *)[home valueForKey:@"mainColumns"]).axis,UILayoutConstraintAxisVertical);
         XCTAssertGreaterThan(((UIButton *)[home valueForKey:@"taskHUDCancel"]).titleLabel.font.pointSize,17.0);
@@ -335,6 +350,12 @@ static UIWindow *AIWaitForAppWindow(void) {
         XCTAssertEqualObjects(detailsButton.accessibilityLabel,@"Task details");
         CGRect detailsFrame=[detailsButton convertRect:detailsButton.bounds toView:home.view];
         XCTAssertGreaterThanOrEqual(detailsFrame.size.width,44.0);XCTAssertGreaterThanOrEqual(detailsFrame.size.height,44.0);
+        UIImageView *detailsImage=detailsButton.imageView;
+        XCTAssertNotNil(detailsImage.image);
+        XCTAssertGreaterThan(detailsImage.bounds.size.width,0.0);XCTAssertGreaterThan(detailsImage.bounds.size.height,0.0);
+        XCTAssertLessThanOrEqual(detailsImage.bounds.size.width,28.0);XCTAssertLessThanOrEqual(detailsImage.bounds.size.height,28.0,@"The explicit 22-point symbol must not grow with the accessibility text font.");
+        CGRect detailsImageFrame=[detailsImage convertRect:detailsImage.bounds toView:detailsButton];
+        XCTAssertTrue(CGRectContainsRect(CGRectInset(detailsButton.bounds,-1,-1),detailsImageFrame),@"The actual info image must fit inside its 44-point touch target without clipping.");
         CGPoint detailsPoint=CGPointMake(CGRectGetMidX(detailsFrame),CGRectGetMidY(detailsFrame));
         UIView *detailsHit=[home.view hitTest:detailsPoint withEvent:nil];
         XCTAssertTrue(detailsHit==detailsButton || [detailsHit isDescendantOfView:detailsButton]);
@@ -351,6 +372,7 @@ static UIWindow *AIWaitForAppWindow(void) {
             UINavigationController *detailsNavigation=(id)presented;
             UIViewController *details=detailsNavigation.topViewController;
             [details.view layoutIfNeeded];AITick();
+            XCTAssertEqualObjects(details.traitCollection.preferredContentSizeCategory,UIContentSizeCategoryAccessibilityExtraExtraExtraLarge,@"The actual modal must inherit the owning-window accessibility preference.");
             UITextView *full=(id)AIFindView(details.view,^BOOL(UIView *view){return[view isKindOfClass:UITextView.class]&&[view.accessibilityIdentifier isEqual:@"Full task status"];});
             XCTAssertNotNil(full);
             if(full) {
@@ -359,12 +381,18 @@ static UIWindow *AIWaitForAppWindow(void) {
                 XCTAssertGreaterThan(full.font.pointSize,17.0,@"Full details must keep the actual enlarged Dynamic Type font.");
                 XCTAssertGreaterThan(full.contentSize.height,full.bounds.size.height,@"The long safe fixture must exercise native details scrolling.");
                 [full scrollRangeToVisible:NSMakeRange(full.text.length-1,1)];
-                [full layoutIfNeeded];AITick();
+                NSDate *scrollDeadline=[NSDate dateWithTimeIntervalSinceNow:3];
+                CGRect last=CGRectNull;
+                do {
+                    [full layoutIfNeeded];
+                    UITextPosition *end=full.endOfDocument;
+                    UITextRange *lastRange=[full textRangeFromPosition:[full positionFromPosition:end offset:-1] toPosition:end];
+                    last=[full firstRectForRange:lastRange];
+                    if(full.contentOffset.y>0 && CGRectIntersectsRect(last,full.bounds)) break;
+                    AITick();
+                } while(scrollDeadline.timeIntervalSinceNow>0);
                 XCTAssertGreaterThan(full.contentOffset.y,0.0);
-                UITextPosition *end=full.endOfDocument;
-                UITextRange *lastRange=[full textRangeFromPosition:[full positionFromPosition:end offset:-1] toPosition:end];
-                CGRect last=[full firstRectForRange:lastRange];
-                XCTAssertTrue(CGRectIntersectsRect(last,full.bounds),@"The last sentence must be reachable in the actual text viewport.");
+                XCTAssertTrue(CGRectIntersectsRect(last,full.bounds),@"The last sentence must be reachable in the actual text viewport after native scrolling settles.");
                 XCTAssertTrue([full.text hasSuffix:@"all task details are available."]);
                 [self attachView:detailsNavigation.view name:@"TEST-ONLY maximum accessibility text — full task details final sentence"];
             }
@@ -393,6 +421,12 @@ static UIWindow *AIWaitForAppWindow(void) {
         UIActivityIndicatorView *activity=[home valueForKey:@"taskHUDCompactSpinner"];
         UIView *compactHUD=[home valueForKey:@"taskHUD"];
         XCTAssertTrue(activity.isAnimating);XCTAssertFalse(activity.hidden);XCTAssertFalse(activity.superview.hidden);XCTAssertFalse(compactHUD.hidden);
+        UIImageView *compactDetailsImage=((UIButton *)[home valueForKey:@"taskHUDDetails"]).imageView;
+        UIButton *compactDetails=[home valueForKey:@"taskHUDDetails"];
+        XCTAssertNotNil(compactDetailsImage.image);
+        XCTAssertGreaterThan(compactDetailsImage.bounds.size.width,0.0);XCTAssertGreaterThan(compactDetailsImage.bounds.size.height,0.0);
+        XCTAssertLessThanOrEqual(compactDetailsImage.bounds.size.width,28.0);XCTAssertLessThanOrEqual(compactDetailsImage.bounds.size.height,28.0);
+        XCTAssertTrue(CGRectContainsRect(CGRectInset(compactDetails.bounds,-1,-1),[compactDetailsImage convertRect:compactDetailsImage.bounds toView:compactDetails]));
         XCTAssertGreaterThan(activity.bounds.size.height,0.0);
         CGRect activityFrame=[activity convertRect:activity.bounds toView:compactHUD];
         XCTAssertTrue(CGRectContainsRect(CGRectInset(compactHUD.bounds,-1,-1),activityFrame),@"The compact indeterminate spinner must actually be visible inside the pinned HUD.");
@@ -407,7 +441,11 @@ static UIWindow *AIWaitForAppWindow(void) {
         ((void (*)(id,SEL,id))objc_msgSend)(home,NSSelectorFromString(@"handleEvent:"),@{@"type":@"progress",@"operationId":@42,@"progress":@0.42});
         for(NSInteger pass=0;pass<3;++pass){[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];[home.view setNeedsLayout];[home.view layoutIfNeeded];AITick();}
         assertPinnedCancel();
-        [host setOverrideTraitCollection:nil forChildViewController:navigation];
+        if (@available(iOS 17.0, *)) {
+            if(hadWindowCategoryOverride) window.traitOverrides.preferredContentSizeCategory=priorWindowCategory;
+            else [window.traitOverrides removeTrait:UITraitPreferredContentSizeCategory.class];
+            changedWindowCategory=NO;
+        }
         UIBarButtonItem *settings=home.navigationItem.rightBarButtonItem;
         [UIApplication.sharedApplication sendAction:settings.action to:settings.target from:settings forEvent:nil];
         AITick();UIViewController *selected=navigation.topViewController;
@@ -423,7 +461,15 @@ static UIWindow *AIWaitForAppWindow(void) {
         }
         NSDictionary *invalid=[AIDisplayDiagnostics geometryForBounds:CGRectMake(0,0,466,678) safeArea:UIEdgeInsetsMake(0,0,34,84) occlusions:@[[NSValue valueWithCGRect:CGRectMake(NAN,0,84,174)],[NSValue valueWithCGRect:CGRectMake(0,0,100000,100000)]] divisions:@[] source:@"TEST-ONLY invalid geometry"];
         XCTAssertEqual([invalid[@"occlusions"]count],0u);XCTAssertEqual([invalid[@"rail"]count],0u);
-    } @finally {window.rootViewController=original;AIInstallerService.shared.eventHandler=originalHandler;}
+    } @finally {
+        if(changedWindowCategory) {
+            if (@available(iOS 17.0, *)) {
+                if(hadWindowCategoryOverride) window.traitOverrides.preferredContentSizeCategory=priorWindowCategory;
+                else [window.traitOverrides removeTrait:UITraitPreferredContentSizeCategory.class];
+            }
+        }
+        window.rootViewController=original;AIInstallerService.shared.eventHandler=originalHandler;
+    }
     }];
 }
 // Inspect text in its laid-out label frame; scrolling is allowed, truncation is not.

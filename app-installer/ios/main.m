@@ -311,6 +311,7 @@ static UIStackView *AIStack(CGFloat spacing) {
     UIButtonConfiguration *detailsConfiguration = [UIButtonConfiguration plainButtonConfiguration];
     detailsConfiguration.title = @"Task details";
     detailsConfiguration.image = [UIImage systemImageNamed:@"info.circle"];
+    detailsConfiguration.preferredSymbolConfigurationForImage = [UIImageSymbolConfiguration configurationWithPointSize:22 weight:UIImageSymbolWeightRegular];
     detailsConfiguration.imagePadding = 8;
     detailsConfiguration.contentInsets = NSDirectionalEdgeInsetsMake(4, 0, 4, 0);
     __weak UIButton *detailsButton = self.taskHUDDetails;
@@ -382,6 +383,8 @@ static UIStackView *AIStack(CGFloat spacing) {
     BOOL compactActivity = !self.taskHUD.hidden && compact && !numeric;
     if (compactActivity) [self.taskHUDCompactSpinner startAnimating];
     else [self.taskHUDCompactSpinner stopAnimating];
+    // Animation state does not override an explicitly hidden view.
+    self.taskHUDCompactSpinner.hidden = !compactActivity;
     self.taskHUDProgress.hidden = !numeric;
     self.taskHUDPercent.hidden = compact || !numeric;
     self.taskHUDProgress.superview.hidden = !numeric && !compactActivity;

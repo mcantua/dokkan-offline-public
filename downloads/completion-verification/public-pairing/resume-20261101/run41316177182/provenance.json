@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 41316177182,
+  "job_id": 124876597980,
+  "source_commit": "99368915c3ac0838f98b4cac73dfad676c97e057",
+  "conclusion": "failure",
+  "test_build_succeeded": true,
+  "selected_native_method": "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+  "native_methods_executed": 1,
+  "native_methods_passed": 0,
+  "native_assertion_failures": 4,
+  "native_test_seconds": 40.539,
+  "actual_assertions": [
+    {
+      "line": 359,
+      "message": "((full.font.pointSize) greater than (17.0)) failed: (\"17\") is not greater than (\"17\") - Full details must keep the actual enlarged Dynamic Type font."
+    },
+    {
+      "line": 360,
+      "message": "((full.contentSize.height) greater than (full.bounds.size.height)) failed: (\"216\") is not greater than (\"786\") - The long safe fixture must exercise native details scrolling."
+    },
+    {
+      "line": 363,
+      "message": "((full.contentOffset.y) greater than (0.0)) failed: (\"0\") is not greater than (\"0\")"
+    },
+    {
+      "line": 395,
+      "message": "((activity.hidden) is false) failed"
+    }
+  ],
+  "native_success_receipt_present": false,
+  "reused_checks": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "recovery": 2
+  },
+  "compiler_sdk": "27.1",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "actual_runtime": "27.0",
+  "actual_simulator": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+  "physical_hardware_verified": false,
+  "actual_LA_or_device_lease_verified": false,
+  "outer_pins_verified": {
+    "proof-artifact.zip": {
+      "bytes": 11503,
+      "sha256": "84c66cc7108bd0f6cb9ba1bceba709e58993476a6a43c003bfe7ddd734d5978f"
+    },
+    "native-artifact.zip": {
+      "bytes": 44147182,
+      "sha256": "1b3a0ea0f13fa4f8056c9188783f2dc129683fbacdec4ab754f9e3e1a84ce768"
+    }
+  },
+  "native_artifact_retained": "native-artifact.zip",
+  "full_xcresult_extracted": false,
+  "png_attachment_count": 10,
+  "attachments": [
+    {
+      "attachment_name": "TEST-ONLY resize/camera  390x844",
+      "payload_ref": "0~UAUlNUqK5KOtTIXASQLr9nRW_tJlWTa-Omgap4kjwR5im69_vCdlkwi7kMN9u2oNVq3nOBjKdkTYFCmxsjs2_g==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~UAUlNUqK5KOtTIXASQLr9nRW_tJlWTa-Omgap4kjwR5im69_vCdlkwi7kMN9u2oNVq3nOBjKdkTYFCmxsjs2_g==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1204044,
+      "sha256": "69426178cded748a43d4d3ef9b584bda3aa1de5018dd1344163537132aebb556",
+      "pixel_dimensions": [
+        1170,
+        2532
+      ],
+      "extracted_file": "screenshots/01-TEST-ONLY-resize-camera-390x844-69426178cded.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 466x678",
+      "payload_ref": "0~TH7Pcct60pmNv4xXZd5gTGRSvQbxihmv1LfyEzQw_SnlnuJsYBpiTy5RURLW6LKa7EbKD8AwV4gpvG4klHPD4Q==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~TH7Pcct60pmNv4xXZd5gTGRSvQbxihmv1LfyEzQw_SnlnuJsYBpiTy5RURLW6LKa7EbKD8AwV4gpvG4klHPD4Q==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1203231,
+      "sha256": "d62c1000b7bb308428f09b3342f1d7d9bf7ce42ef07c3a57d651723ca5fdc271",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/02-TEST-ONLY-resize-camera-right-466x678-d62c1000b7bb.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 669x951",
+      "payload_ref": "0~qzb_5yLVV4EkLnDsRkcpNPYpE6Bg2QXOTMJgcYD1z1TO3-5LKZGgB_MC93k2mnxwkZKs2xPGhlUMW6f-IGsjMQ==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~qzb_5yLVV4EkLnDsRkcpNPYpE6Bg2QXOTMJgcYD1z1TO3-5LKZGgB_MC93k2mnxwkZKs2xPGhlUMW6f-IGsjMQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1336654,
+      "sha256": "4c5b1934693289db752ddf66ba072f61e9d5b7a82cecf4f243adec9e877dd1b9",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/03-TEST-ONLY-resize-camera-right-669x951-4c5b19346932.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~WZIrKrR0diswl3TnS34ErDuXQ_K88Be332ftwMm9_boO4ZE8_LssMS2pltvXfPAsa2c5VAcPhdWDCBWuqpCt5A==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~WZIrKrR0diswl3TnS34ErDuXQ_K88Be332ftwMm9_boO4ZE8_LssMS2pltvXfPAsa2c5VAcPhdWDCBWuqpCt5A==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1439731,
+      "sha256": "a232d8ede56872ed6f7ac5099f3b24c0e69fb5e25c15a5f7b0066f3db1f37367",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/04-TEST-ONLY-resize-camera-669x951-a232d8ede568.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  951x669",
+      "payload_ref": "0~CeRymfDdjC5ahuf2UpdG1fO6x2Qk6gTQa4hO6s3GvdGkFh1TqChYGBixRwEKd4iNgMzA--c8iX1eDKijDehvcw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~CeRymfDdjC5ahuf2UpdG1fO6x2Qk6gTQa4hO6s3GvdGkFh1TqChYGBixRwEKd4iNgMzA--c8iX1eDKijDehvcw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1606281,
+      "sha256": "1b9f84dbeb4f4107033d252b24f8fe2bdfb96b4fecc2817fab488763352b4509",
+      "pixel_dimensions": [
+        2853,
+        2007
+      ],
+      "extracted_file": "screenshots/05-TEST-ONLY-resize-camera-951x669-1b9f84dbeb4f.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera left 466x678",
+      "payload_ref": "0~Sagg14Q2-jYlYfZsZtP6NSKCRSc9ZO1icOfA98boniEpraGc4-V_Gvhet6eFv6RF0vAqwvvxrQFWJ6ps3bn6vQ==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~Sagg14Q2-jYlYfZsZtP6NSKCRSc9ZO1icOfA98boniEpraGc4-V_Gvhet6eFv6RF0vAqwvvxrQFWJ6ps3bn6vQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1121374,
+      "sha256": "429ea666210b10d413a7e07355fb1319edc7b57e2685636b4533214fe5b6ac37",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/06-TEST-ONLY-resize-camera-left-466x678-429ea666210b.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~X04LvodtLn1ZoacWQmCSt2vY_0GVkefvObP98v8_I6qYMKV33E4AbttWdyEZBTOxWNWMQXp4LKI-0O_fuM3pbA==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~X04LvodtLn1ZoacWQmCSt2vY_0GVkefvObP98v8_I6qYMKV33E4AbttWdyEZBTOxWNWMQXp4LKI-0O_fuM3pbA==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1439525,
+      "sha256": "64c641cad6446217b569c44f48b575e89b0a50f101577051b827d8f4449bfe09",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/07-TEST-ONLY-resize-camera-669x951-64c641cad644.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY maximum accessibility text \u2014 pinned native task controls",
+      "payload_ref": "0~SVEP87SqaRpeDAsOJxrD7ZE93V3EdC8lWDuJfV5p5tHZM4wtUKvIn2QpC1YEkA42VbqfaoFGNhEvpKPIZSjYMw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~SVEP87SqaRpeDAsOJxrD7ZE93V3EdC8lWDuJfV5p5tHZM4wtUKvIn2QpC1YEkA42VbqfaoFGNhEvpKPIZSjYMw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 1151068,
+      "sha256": "348d6137c15a9bf73c8af5fcc013e45d26dd36250e4e50e0572f7df6d3407d1a",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/08-TEST-ONLY-maximum-accessibility-text-pinned-native-task-controls-348d6137c15a.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY maximum accessibility text \u2014 full task details final sentence",
+      "payload_ref": "0~NKA1KazZiXKeNvh_cD7H4g586JhGMQVcDxeTMhLDX5lk3bAus4_El3egQ8l_xw5JQL6dvk28ilhnb1GU_M07Zw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~NKA1KazZiXKeNvh_cD7H4g586JhGMQVcDxeTMhLDX5lk3bAus4_El3egQ8l_xw5JQL6dvk28ilhnb1GU_M07Zw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 267616,
+      "sha256": "df65669e3848270e4db926e88697cef358ec03c8176d746521704b3bb7590382",
+      "pixel_dimensions": [
+        1320,
+        2682
+      ],
+      "extracted_file": "screenshots/09-TEST-ONLY-maximum-accessibility-text-full-task-details-final-sentence-df65669e3848.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY compact maximum accessibility \u2014 indeterminate native task activity",
+      "payload_ref": "0~vqkbcXaZ-7O115YuDcMPXDQUMmc1h6YpReCoALbuY7SZ-qZFIyq9ixEvHwCSWzRmzXRF5jP5YurBLXi6kBxsgA==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~vqkbcXaZ-7O115YuDcMPXDQUMmc1h6YpReCoALbuY7SZ-qZFIyq9ixEvHwCSWzRmzXRF5jP5YurBLXi6kBxsgA==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~1iSm8sRNqWe862efXZrRKxZfTvFp5Puvi7bQQNP8gxVnsfEa_MPzKULgy5pBx33CT729vsRpa_0zZIZyJ4Sozw==",
+      "metadata_member_sha256": "089e3127ecef53f07498626ab81b4ef6918f12f45856507d381c68855d969730",
+      "bytes": 526598,
+      "sha256": "9a49aeb11190f9f7c234744be1e0a309c249340729635b5ffd4218c57cf979da",
+      "pixel_dimensions": [
+        1398,
+        1200
+      ],
+      "extracted_file": "screenshots/10-TEST-ONLY-compact-maximum-accessibility-indeterminate-native-task-activity-9a49aeb11190.png",
+      "original_bytes_unmodified": true
+    }
+  ],
+  "zstd_members_exceeding_decode_bound": [
+    "CloudUISmoke.xcresult/Data/data.0~zUL4mp3qUubgb0GRLovCebO9mBilfLDkJf973U7gjRArvNHCCLdhnIa-Fz1Kv6FXgHuqVCKMs9Wn1vNFOnkESQ=="
+  ],
+  "image_scope": "Original XCTest UIKit fixture PNG payloads from a FAILED responsive method; copied verbatim, no editing or generated image. They diagnose actual presentation/trait/spinner assertions and are not passing UI or physical-Duo evidence.",
+  "raw_job_log": {
+    "file": "hosted-job.log",
+    "bytes": 421563,
+    "sha256": "457c74c141a2cd5b17e3ada1c4fc04ae0affc0c3e086ddd37a0583894a2ba88d"
+  },
+  "local_tests_builds_or_native_execution": false,
+  "redispatch_or_source_mutation": false,
+  "download_recommended": false,
+  "all_native_xcresult_png_payloads_bound": true,
+  "png_payload_count": 10,
+  "artifacts": [
+    {
+      "kind": "compact-proof",
+      "id": 13088235997,
+      "bytes": 11503,
+      "sha256": "84c66cc7108bd0f6cb9ba1bceba709e58993476a6a43c003bfe7ddd734d5978f"
+    },
+    {
+      "kind": "native-diagnostics",
+      "id": 13088121235,
+      "bytes": 44147182,
+      "sha256": "1b3a0ea0f13fa4f8056c9188783f2dc129683fbacdec4ab754f9e3e1a84ce768"
+    }
+  ]
+}

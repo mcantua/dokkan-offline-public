@@ -1,0 +1,21 @@
+{
+  "retrieved_utc": "2026-11-01T14:46:54.184952+00:00",
+  "scope": "Official public Apple UIKit documentation; no account/device or personal network use.",
+  "documents": [
+    {
+      "name": "view-trait-overrides",
+      "url": "https://developer.apple.com/tutorials/data/documentation/uikit/uiview/traitoverrides.json",
+      "error": "HTTPError"
+    },
+    {
+      "name": "preferred-content-size",
+      "url": "https://developer.apple.com/tutorials/data/documentation/uikit/uitraitoverrides/preferredcontentsizecategory.json",
+      "error": "HTTPError"
+    },
+    {
+      "name": "remove-trait",
+      "url": "https://developer.apple.com/tutorials/data/documentation/uikit/uitraitoverrides/removetrait(_:).json",
+      "error": "HTTPError"
+    }
+  ]
+}
