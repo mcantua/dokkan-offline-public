@@ -30,6 +30,16 @@ pub(super) fn parse_credentials(bytes: &[u8]) -> Result<Credentials, Report> {
             .map_err(|_| failure("The Lockdown pairing file could not be read safely."))
     }
 }
+/// This app discovers the authenticated RP endpoint instead of accepting a
+/// manually supplied port. Keep the vendor's generic optional-key format, but
+/// reject an unusable app import before replacing any existing credentials.
+pub(super) fn parse_import_credentials(bytes: &[u8]) -> Result<Credentials, Status> {
+    let credentials = parse_credentials(bytes).map_err(|_| Status::InvalidArgument)?;
+    if matches!(&credentials, Credentials::Remote(record) if record.alt_irk().is_none()) {
+        return Err(Status::PairingDiscoveryUnavailable);
+    }
+    Ok(credentials)
+}
 async fn step<T>(message: &'static str, future: impl Future<Output=Result<T,IdeviceError>>) -> Result<T,Report> {
     match tokio::time::timeout(Duration::from_secs(20),future).await {
         Ok(Ok(value)) => Ok(value),
@@ -280,6 +290,25 @@ mod tests {
     }
     #[tokio::test]
     async fn public_remote_transport_tunnel_frames_are_bounded_and_preserve_following_ip_bytes() {
+        // A cryptographically well-formed pinned record can be valid for other
+        // clients' explicit endpoints while unusable by this app's discovery.
+        // All synthetic private material remains in RAM; no storage is called.
+        let host = RpPairingFile::generate("nonsecret import fixture host");
+        let peer = RpPairingFile::generate("nonsecret import fixture peer");
+        let mut record: plist::Dictionary = plist::from_bytes(&host.to_bytes()).unwrap();
+        record.insert("peer_identifier".into(), plist::Value::String("nonsecret import fixture peer".into()));
+        record.insert("peer_public_key".into(), plist::Value::Data(peer.public_key_bytes()));
+        let encode = |record: &plist::Dictionary| {
+            let mut bytes = Vec::new(); plist::to_writer_binary(&mut bytes, record).unwrap(); bytes
+        };
+        let missing_key = encode(&record);
+        assert!(matches!(parse_credentials(&missing_key), Ok(Credentials::Remote(_))));
+        assert!(matches!(parse_import_credentials(&missing_key), Err(Status::PairingDiscoveryUnavailable)));
+        record.insert("alt_irk".into(), plist::Value::Data(vec![7; 16]));
+        assert!(matches!(parse_import_credentials(&encode(&record)), Ok(Credentials::Remote(_))));
+        record.insert("alt_irk".into(), plist::Value::Data(vec![7; 15]));
+        assert!(matches!(parse_import_credentials(&encode(&record)), Err(Status::InvalidArgument)));
+
         async fn response(value:Value,declared:Option<u16>,trailing:&[u8])->Result<(tokio::io::DuplexStream,TunnelParameters),IdeviceError>{
             let (client,mut server)=tokio::io::duplex(65536);
             let trailing=trailing.to_vec();

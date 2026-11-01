@@ -13,6 +13,7 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
 @interface AIPairingStore ()
 @property (nonatomic, strong) NSURL *directory;
 @property (nonatomic, strong) NSURL *backupURL;
+- (BOOL)hasConnectionMetadataForPairingData:(NSData *)data;
 @end
 
 @implementation AIPairingStore
@@ -124,10 +125,19 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
         if (![record[key] isKindOfClass:NSData.class] || ![record[key] length]) return NO;
     return YES;
 }
+- (BOOL)hasConnectionMetadataForPairingData:(NSData *)data {
+    if (![self looksLikePairingData:data]) return NO;
+    NSDictionary *record = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
+    // Generic RPv2 permits an explicit endpoint without this key. This app
+    // instead requires authenticated discovery; legacy Lockdown needs no hint.
+    return !record[@"format_version"] || [record[@"alt_irk"] length] == 16;
+}
 - (BOOL)importValidatedPairingData:(NSData *)data error:(NSError **)error {
     @synchronized(self) {
         if (![AISecureStore sessionAuthorized]) return [self fail:error code:2 message:@"Unlock secure storage before importing the pairing file."];
         if (![self looksLikePairingData:data]) return [self fail:error code:4 message:@"The pairing file is not valid."];
+        if (![self hasConnectionMetadataForPairingData:data]) return [self fail:error code:AIPairingStoreMissingDiscoveryKey
+            message:@"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept."];
         if (![self prepareDirectory:error]) return NO;
         SecKeyRef privateKey = [self privateKeyCreatingIfNeeded:YES error:error];
         if (!privateKey) return NO;
@@ -165,6 +175,9 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
         NSData *primary = [AISecureStore load:AIPairingKeyName context:nil status:&status];
         if (primary) {
             if (![self looksLikePairingData:primary]) { [self fail:error code:4 message:@"Import a new pairing file."]; return nil; }
+            if (![self hasConnectionMetadataForPairingData:primary]) {
+                [self fail:error code:AIPairingStoreMissingDiscoveryKey message:@"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept."]; return nil;
+            }
             return primary;
         }
         if (status != errSecItemNotFound) { [self fail:error code:5 message:@"The pairing file could not be unlocked."]; return nil; }
@@ -202,6 +215,9 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
         if (!rawPlain) { [self fail:error code:7 message:@"The pairing backup could not be opened. Import a new pairing file."]; return nil; }
         NSData *plain = CFBridgingRelease(rawPlain);
         if (![self looksLikePairingData:plain]) { [self fail:error code:7 message:@"The pairing backup is invalid. Import a new pairing file."]; return nil; }
+        if (![self hasConnectionMetadataForPairingData:plain]) {
+            [self fail:error code:AIPairingStoreMissingDiscoveryKey message:@"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept."]; return nil;
+        }
         if ([AISecureStore save:plain key:AIPairingKeyName biometric:[AISecureStore biometricsEnabled]] != errSecSuccess) {
             [self fail:error code:5 message:@"The pairing backup could not be restored to secure storage."]; return nil;
         }

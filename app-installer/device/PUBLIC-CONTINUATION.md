@@ -1,5 +1,7 @@
 # App Installer public-source continuation
 
+**Resumed 2026-10-31 10:26 PM US Central:** New source repairs are awaiting affected hosted core/native verification. The Finder launcher now offers Pair only; incompatible kit/device variants stop before Apple-team discovery. Shared AFC upload streams through one bounded buffer (targeted2/0) instead of allocating complete large app files. Incomplete RP discovery metadata produces an immediate re-export error before saved credentials change. Generic vendor RP schema and legacy Lockdown remain unchanged. Python setup2/0 passed; new native/core results and package are not claimed yet. The October29 delivery below remains the last verified build. All work is cloud-only.
+
 Updated: October 29, 2026, 2:10 PM US Central. Active repository: `mcantua/dokkan-offline-public`; branch: `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin authorized cloud builds with **“make the builds.”** No base/main merge is authorized. The private backup is frozen and untouched. This chat handles App Installer only.
 
 ## Implemented current path

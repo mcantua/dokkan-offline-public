@@ -126,6 +126,8 @@ def main(argv=None):
             if workflow.main(['create-remote-pairing','--execute','--device',device,'--variant',variant])!=0:return 1
             pairing_export_instructions()
             return 0
+        if kit.get('variant')!=variant:
+            raise workflow.WorkflowError('This verified kit does not contain the selected physical iPhone’s app variant. No Apple-team discovery, build or installation was started. Select the intended phone or obtain its matching reviewed kit; pairing-only remains independent of the app variant.')
         teams=teams_with_signing_keys()
         if not teams:
             raise workflow.WorkflowError('An existing Apple Development signing identity is not available. Stop before changing Apple account credentials or creating/replacing a certificate. Review Xcode → Settings → Accounts locally, then obtain separate approval for the exact needed account/certificate step; keep passwords and verification codes in Apple’s UI.')

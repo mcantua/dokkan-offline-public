@@ -1,5 +1,5 @@
 """Two grouped account/device-free regressions; all helper bytes are TEST-ONLY."""
-import contextlib, copy, hashlib, importlib.util, io, json, pathlib, sys, tempfile, unittest
+import contextlib, copy, hashlib, importlib.util, io, json, os, pathlib, subprocess, sys, tempfile, unittest
 from unittest import mock
 sys.dont_write_bytecode=True
 DEVICE=pathlib.Path(__file__).resolve().parents[1]
@@ -63,6 +63,62 @@ class PublicPairingWorkflow(unittest.TestCase):
             with self.assertRaises(workflow.WorkflowError):workflow.validate_remote_pairing_tool(fixture(receipt),base=base)
 
     def test_pair_only_skips_accounts_and_owned_capture_never_forwards_private_text(self):
+        # Exercise the actual launcher branches with inert TEST-ONLY commands.
+        # No AppleScript UI, setup interpreter, Mac/device or account is invoked.
+        launcher=(DEVICE/'Run-App-Installer-Setup.command').read_text()
+        self.assertIn('buttons {"Cancel", "Pair only", "Full setup"}',launcher)
+        self.assertIn('default button "Cancel"',launcher)
+        with tempfile.TemporaryDirectory(prefix='TEST-ONLY-launcher-') as temporary:
+            base=pathlib.Path(temporary)
+            python=base/'python';python.write_text('#!/bin/bash\nprintf "TEST-PYTHON"\nprintf " <%s>" "$@"\nprintf "\\n"\n');python.chmod(0o700)
+            chooser=base/'chooser';chooser.write_text('#!/bin/bash\nprintf "%s\\n" "$RP_TEST_CHOICE"\nexit "$RP_TEST_CHOOSER_EXIT"\n');chooser.chmod(0o700)
+            script=launcher.replace('/usr/bin/python3',str(python)).replace('/usr/bin/osascript',str(chooser))
+            cases=[([], 'Pair only', 0, [[],['--execute','--pairing-only']]),
+                   ([], 'Full setup', 0, [[],['--execute']]),
+                   ([], '', 1, [[]]),
+                   (['--execute','--pairing-only'], '', 0, [['--execute','--pairing-only']]),
+                   (['--execute'], '', 0, [['--execute']]),
+                   (['--plan'], '', 0, [[]]),
+                   (['--help'], '', 0, []), (['-h'], '', 0, []),
+                   (['--unsupported'], '', 0, [])]
+            for args,choice,chooser_exit,expected in cases:
+                with self.subTest(launcher_args=args,choice=choice,chooser_exit=chooser_exit):
+                    result=subprocess.run(['bash','-c',script,str(DEVICE/'Run-App-Installer-Setup.command'),*args],
+                        env={**os.environ,'RP_TEST_CHOICE':choice,'RP_TEST_CHOOSER_EXIT':str(chooser_exit)},
+                        stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=5)
+                    calls=[line for line in result.stdout.splitlines() if line.startswith('TEST-PYTHON')]
+                    self.assertEqual(calls,['TEST-PYTHON <'+str(DEVICE/'setup-wizard.py')+'>'+''.join(' <'+arg+'>' for arg in call) for call in expected])
+                    self.assertEqual(result.returncode,1 if chooser_exit or args==['--unsupported'] else 0)
+        for mode,kit_variant,selected_variant in [([], 'duo','iphone'),([], 'iphone','duo'),([], None,'duo'),
+                                                  (['--pairing-only'],'duo','iphone')]:
+            error=io.StringIO()
+            with self.subTest(mode=mode,kit_variant=kit_variant,selected_variant=selected_variant), \
+                 mock.patch.object(wizard.workflow,'mac_only'),mock.patch.object(wizard.workflow,'private_directory'), \
+                 mock.patch.object(wizard.workflow,'bootstrap_kit',return_value={'variant':kit_variant}), \
+                 mock.patch.object(wizard.workflow,'local_preflight'), \
+                 mock.patch.object(wizard,'choose_device',return_value=('TEST-ONLY-local-selection',selected_variant)), \
+                 mock.patch.object(wizard,'teams_with_signing_keys',side_effect=AssertionError('account discovery forbidden')), \
+                 mock.patch.object(wizard.workflow,'main',return_value=0) as operation, \
+                 mock.patch.object(wizard,'pairing_export_instructions'),contextlib.redirect_stderr(error):
+                self.assertEqual(wizard.main(['--execute',*mode]),0 if mode else 1)
+                if mode:
+                    operation.assert_called_once_with(['create-remote-pairing','--execute','--device','TEST-ONLY-local-selection','--variant',selected_variant])
+                else:
+                    operation.assert_not_called()
+                    self.assertIn('No Apple-team discovery, build or installation was started',error.getvalue())
+        # A matching kit proceeds to the existing account-discovery boundary.
+        with mock.patch.object(wizard.workflow,'mac_only'),mock.patch.object(wizard.workflow,'private_directory'), \
+             mock.patch.object(wizard.workflow,'bootstrap_kit',return_value={'variant':'duo'}), \
+             mock.patch.object(wizard.workflow,'local_preflight'), \
+             mock.patch.object(wizard,'choose_device',return_value=('TEST-ONLY-local-selection','duo')), \
+             mock.patch.object(wizard,'teams_with_signing_keys',side_effect=RuntimeError('TEST-ONLY matched account boundary')):
+            with self.assertRaisesRegex(RuntimeError,'matched account boundary'):wizard.main(['--execute'])
+        with mock.patch.object(wizard.workflow,'mac_only',side_effect=AssertionError('plan/help inspected Mac')), \
+             mock.patch.object(wizard.workflow,'private_directory',side_effect=AssertionError('plan/help inspected private files')), \
+             contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(wizard.main([]),0)
+            with self.assertRaises(SystemExit) as help_exit:wizard.main(['--help'])
+            self.assertEqual(help_exit.exception.code,0)
         with contextlib.redirect_stdout(io.StringIO()),mock.patch.object(wizard.workflow,'mac_only'), \
              mock.patch.object(wizard.workflow,'private_directory'),mock.patch.object(wizard.workflow,'bootstrap_kit',return_value={'TEST-ONLY':True}), \
              mock.patch.object(wizard.workflow,'local_preflight') as preflight, \

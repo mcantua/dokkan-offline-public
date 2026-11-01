@@ -1753,9 +1753,9 @@ pub fn import_pairing(data: *const u8, length: usize) -> Status {
         return Status::InvalidArgument;
     }
     let bytes = unsafe { std::slice::from_raw_parts(data, length) };
-    let credentials = match transport::parse_credentials(bytes) {
+    let credentials = match transport::parse_import_credentials(bytes) {
         Ok(credentials) => credentials,
-        Err(_) => return Status::InvalidArgument,
+        Err(status) => return status,
     };
     let Ok(mut e) = engine().try_lock() else { return Status::Busy };
     if NativeStorage::raw_write(PAIRING_KEY, bytes).is_err() {

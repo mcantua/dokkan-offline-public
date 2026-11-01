@@ -20,6 +20,7 @@ pub enum Status {
     InvalidArgument = 5,
     Busy = 6,
     StorageLocked = 7,
+    PairingDiscoveryUnavailable = 8,
 }
 
 /// active_count includes the installer; updates do not consume another app slot.

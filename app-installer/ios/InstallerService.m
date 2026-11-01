@@ -12,6 +12,7 @@
 
 static const NSUInteger AIPairingReadLimit = 1024 * 1024;
 static NSString *const AIConnectionAddressPreference = @"org.tin.appinstaller.local-device-address";
+static NSString *const AIMissingPairingDiscoveryMessage = @"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept.";
 
 // Implemented by the Rust engine; declarations also live in app_installer.h.
 extern AIStatus ai_initialize(const char *work_dir);
@@ -37,6 +38,7 @@ extern void ai_free_string(char *value);
 @property (nonatomic) BOOL cancelling;
 @property (nonatomic) BOOL staging;
 @property (nonatomic) BOOL pairingBackupReady;
+@property (nonatomic) AIStatus savedPairingImportStatus;
 @property (nonatomic) BOOL biometricMigrationPending;
 @property (nonatomic) NSUInteger operationGeneration;
 @property (nonatomic) NSUInteger messageGeneration;
@@ -74,6 +76,8 @@ extern void ai_free_string(char *value);
 - (void)beginRefreshResultsAttempt;
 - (void)withDeviceConnection:(void (^)(void))action;
 + (BOOL)remotePairingTXT:(NSData *)data identifier:(NSString **)identifier authTag:(NSString **)authTag;
++ (NSString *)pairingImportFailureMessageForStatus:(AIStatus)status;
+- (NSString *)pairingNotReadyMessage;
 - (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation;
 - (void)cancelPairingDocumentRead;
 @end
@@ -221,6 +225,14 @@ extern void ai_free_string(char *value);
     if (message.length) event[@"message"] = message;
     if (self.eventHandler) self.eventHandler(event);
 }
++ (NSString *)pairingImportFailureMessageForStatus:(AIStatus)status {
+    return status == AI_PAIRING_DISCOVERY_UNAVAILABLE ? AIMissingPairingDiscoveryMessage :
+        @"That pairing file could not be validated or saved. Please check it and try again.";
+}
+- (NSString *)pairingNotReadyMessage {
+    return self.savedPairingImportStatus == AI_PAIRING_DISCOVERY_UNAVAILABLE ? AIMissingPairingDiscoveryMessage :
+        @"Import a pairing file and save its protected backup before device access.";
+}
 - (void)resume {
     if (!NSThread.isMainThread) { dispatch_async(dispatch_get_main_queue(), ^{ [self resume]; }); return; }
     if (!self.initialized && self.pairingStore) {
@@ -305,6 +317,9 @@ extern void ai_free_string(char *value);
         if ([type isEqual:@"done"] && [event[@"operation"] isEqual:@"login"]) {
             if ([self.engineState[@"paired"] boolValue] && self.pairingBackupReady) {
                 [self requestDeviceList];
+            } else if (self.savedPairingImportStatus == AI_PAIRING_DISCOVERY_UNAVAILABLE) {
+                self.foregroundRefreshPending = NO;
+                [self emit:@"error" message:AIMissingPairingDiscoveryMessage];
             } else if (self.foregroundRefreshPending) {
                 self.foregroundRefreshPending = NO;
                 [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing."];
@@ -364,11 +379,17 @@ extern void ai_free_string(char *value);
             self.localMessage = nil; self.cancelling = NO;
             [self stopPairingDiscoveryClearingPort:YES];
             self.pairingVerified = NO; self.pairingCheckRequested = YES;
-            NSData *savedPairing = [self.pairingStore pairingDataWithError:nil];
+            NSError *pairingError = nil;
+            NSData *savedPairing = [self.pairingStore pairingDataWithError:&pairingError];
+            self.savedPairingImportStatus = ([pairingError.domain isEqualToString:@"org.tin.appinstaller.pairing"] &&
+                pairingError.code == AIPairingStoreMissingDiscoveryKey) ? AI_PAIRING_DISCOVERY_UNAVAILABLE : AI_OK;
             self.pairingBackupReady = NO;
-            if (savedPairing.length && ai_import_pairing(savedPairing.bytes, savedPairing.length) == AI_OK) {
-                // Replace the single encrypted backup from the validated primary before permitting device work.
-                self.pairingBackupReady = [self.pairingStore importValidatedPairingData:savedPairing error:nil];
+            if (savedPairing.length) {
+                self.savedPairingImportStatus = ai_import_pairing(savedPairing.bytes, savedPairing.length);
+                if (self.savedPairingImportStatus == AI_OK) {
+                    // Replace the single encrypted backup from the validated primary before permitting device work.
+                    self.pairingBackupReady = [self.pairingStore importValidatedPairingData:savedPairing error:nil];
+                }
             }
             [self beginBackgroundExecution];
             action(); [self readEngineState];
@@ -440,10 +461,14 @@ extern void ai_free_string(char *value);
                         [self emit:@"error" message:@"Open and unlock App Installer, then choose the pairing file again."];
                     } else if (!bytes.length) {
                         [self emit:@"error" message:@"The pairing file could not be read safely. Choose a nonempty file up to 1 MB from Files."];
-                    } else if (ai_import_pairing(bytes.bytes, bytes.length) != AI_OK) {
-                        [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
-                        [self emit:@"error" message:@"That pairing file could not be validated or saved. Please check it and try again."];
                     } else {
+                        AIStatus importStatus = ai_import_pairing(bytes.bytes, bytes.length);
+                        if (importStatus != AI_OK) {
+                            [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
+                            [self emit:@"error" message:[AIInstallerService pairingImportFailureMessageForStatus:importStatus]];
+                            [self readEngineState]; [self endBackgroundExecutionIfIdle]; return;
+                        }
+                        self.savedPairingImportStatus = AI_OK;
                         self.pairingBackupReady = [self.pairingStore importValidatedPairingData:bytes error:nil];
                         [bytes resetBytesInRange:NSMakeRange(0, bytes.length)];
                         if (!self.pairingBackupReady) {
@@ -510,7 +535,7 @@ extern void ai_free_string(char *value);
 }
 - (void)installIPA:(NSURL *)url {
     [self authorize:@"Approve signing and installing this app" action:^{
-        if (!self.pairingBackupReady) { [self emit:@"error" message:@"Import a pairing file and save its protected backup before installing apps."]; return; }
+        if (!self.pairingBackupReady) { [self emit:@"error" message:[self pairingNotReadyMessage]]; return; }
         [self withDeviceConnection:^{
         if (!url.isFileURL) { [self emit:@"error" message:@"Choose an IPA from Files."]; return; }
         self.staging = YES; [self emit:@"preparing" message:@"Preparing the IPA in protected storage…"];
@@ -578,7 +603,7 @@ extern void ai_free_string(char *value);
 - (void)refreshAll {
     [self beginRefreshResultsAttempt];
     [self authorize:@"Approve refreshing your installed apps" action:^{
-        if (!self.pairingBackupReady) { [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing apps."]; return; }
+        if (!self.pairingBackupReady) { [self emit:@"error" message:[self pairingNotReadyMessage]]; return; }
         [self withDeviceConnection:^{
         if (ai_refresh_all() != AI_OK) {
             [self emit:@"error" message:@"Refresh could not start. Check sign-in, pairing and LocalDevVPN."];
@@ -673,8 +698,18 @@ extern void ai_free_string(char *value);
     // An existing authorized session permits this read-only check; no authentication
     // prompt is ever created by this path. Locked sessions stay explicitly unverified.
     self.pairingCheckRequested = NO;
-    NSData *pairing = [self.pairingStore pairingDataWithError:nil];
-    if (!pairing.length) { self.pairingVerified = NO; return; }
+    NSError *pairingError = nil;
+    NSData *pairing = [self.pairingStore pairingDataWithError:&pairingError];
+    if (!pairing.length) {
+        self.pairingVerified = NO;
+        if ([pairingError.domain isEqualToString:@"org.tin.appinstaller.pairing"] && pairingError.code == AIPairingStoreMissingDiscoveryKey) {
+            self.savedPairingImportStatus = AI_PAIRING_DISCOVERY_UNAVAILABLE;
+            self.pairingBackupReady = NO;
+            [self emit:@"error" message:AIMissingPairingDiscoveryMessage];
+        }
+        return;
+    }
+    self.savedPairingImportStatus = AI_OK;
     self.pairingFileKnownPresent = YES;
     self.pairingBackupReady = [self.pairingStore importValidatedPairingData:pairing error:nil];
     if (!self.pairingBackupReady) {
@@ -736,6 +771,10 @@ extern void ai_free_string(char *value);
     }];
 }
 - (void)withDeviceConnection:(void (^)(void))action {
+    if (self.savedPairingImportStatus == AI_PAIRING_DISCOVERY_UNAVAILABLE) {
+        self.foregroundRefreshPending = NO;
+        [self emit:@"error" message:AIMissingPairingDiscoveryMessage]; return;
+    }
     if (![self deviceActionAuthorized]) {
         self.foregroundRefreshPending = NO;
         [self emit:@"error" message:self.connectionConfigured ? @"Open and unlock App Installer to check the connection." :
@@ -839,7 +878,7 @@ extern void ai_free_string(char *value);
     [self authorize:@"Your apps are near expiry. Unlock to approve refreshing them." action:^{
         if (!self.pairingBackupReady) {
             self.foregroundRefreshPending = NO;
-            [self emit:@"error" message:@"Import a pairing file and save its protected backup before refreshing."]; return;
+            [self emit:@"error" message:[self pairingNotReadyMessage]]; return;
         }
         if ([self.engineState[@"loginStatus"] isEqual:@"signed_in"]) { [self requestDeviceList]; return; }
         if (ai_restore_session() != AI_OK) {

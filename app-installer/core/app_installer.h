@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
-typedef enum { AI_OK=0, AI_NOT_READY=1, AI_APP_LIMIT=2, AI_APP_ID_LIMIT=3, AI_UNKNOWN_USAGE=4, AI_INVALID_ARGUMENT=5, AI_BUSY=6, AI_STORAGE_LOCKED=7 } AIStatus;
+typedef enum { AI_OK=0, AI_NOT_READY=1, AI_APP_LIMIT=2, AI_APP_ID_LIMIT=3, AI_UNKNOWN_USAGE=4, AI_INVALID_ARGUMENT=5, AI_BUSY=6, AI_STORAGE_LOCKED=7, AI_PAIRING_DISCOVERY_UNAVAILABLE=8 } AIStatus;
 bool ai_backend_ready(void);
 AIStatus ai_initialize(const char *work_dir);
 AIStatus ai_register_self_bundle(const char *app_bundle_path);
