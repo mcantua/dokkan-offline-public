@@ -320,7 +320,7 @@ static UIWindow *AIWaitForAppWindow(void) {
         // embedded navigation child: native sheets inherit from this environment.
         if (@available(iOS 17.0, *)) {
             hadWindowCategoryOverride=[window.traitOverrides containsTrait:UITraitPreferredContentSizeCategory.class];
-            priorWindowCategory=window.traitOverrides.preferredContentSizeCategory;
+            priorWindowCategory=hadWindowCategoryOverride ? window.traitOverrides.preferredContentSizeCategory : nil;
             window.traitOverrides.preferredContentSizeCategory=UIContentSizeCategoryAccessibilityExtraExtraExtraLarge;
             changedWindowCategory=YES;
         } else {
