@@ -361,6 +361,9 @@ static int32_t AIStoreStatus(OSStatus status) {
     if (status == errSecInteractionNotAllowed || status == errSecAuthFailed || status == errSecUserCanceled) return AI_STORE_LOCKED;
     return AI_STORE_ERROR;
 }
+int32_t ai_secure_session_authorized(void) {
+    @autoreleasepool { return [AISecureStore sessionAuthorized] ? 1 : 0; }
+}
 int32_t ai_secure_read(const char *key, uint8_t *buffer, size_t capacity, size_t *length) {
     @autoreleasepool {
         if (!length) return AI_STORE_ERROR;

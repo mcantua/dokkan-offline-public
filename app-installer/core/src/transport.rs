@@ -184,13 +184,29 @@ impl DeviceTransport {
         }
     }
     pub(super) async fn install(&mut self,path:&Path)->Result<(),Report>{
+        // Independent of main-queue timers: an already-open device session may
+        // not keep uploading/installing indefinitely after its native lease ends.
+        let authorization = authorization_ended(operation_authorized);
+        tokio::pin!(authorization);
+        let install = async {
+
         let callback=|p|publish("progress","Installing…",json!({"progress":p as f64/100.0}));
         let result=match self{
             Self::Lockdown(provider)=>isideload::sideload::install::install_app(provider,path,callback).await,
             Self::Remote{handle,handshake,..}=>isideload::sideload::install::install_app_rsd(handle,handshake,path,callback).await,
         };
         result.map_err(|_|failure("The device did not confirm this installation. Its approved source was kept for recovery; no success was recorded."))
+        };
+        tokio::pin!(install);
+        tokio::select! {
+            biased;
+            _ = &mut authorization => Err(expired_authorization_failure()),
+            result = &mut install => result,
+        }
     }
+}
+async fn authorization_ended(authorized: impl Fn() -> bool) {
+    while authorized() { tokio::time::sleep(Duration::from_millis(100)).await; }
 }
 
 #[cfg(test)]
@@ -290,6 +306,17 @@ mod tests {
     }
     #[tokio::test]
     async fn public_remote_transport_tunnel_frames_are_bounded_and_preserve_following_ip_bytes() {
+        // The production monitor stops an in-flight task without a UI timer.
+        // This callback is explicit synthetic lease state, never native auth.
+        tokio::time::timeout(Duration::from_millis(50), authorization_ended(|| false)).await.unwrap();
+        let authorized = std::sync::Arc::new(AtomicBool::new(true));
+        let observed = authorized.clone();
+        let monitor = tokio::spawn(async move { authorization_ended(|| observed.load(Ordering::Acquire)).await });
+        tokio::task::yield_now().await;
+        assert!(!monitor.is_finished());
+        authorized.store(false, Ordering::Release);
+        tokio::time::timeout(Duration::from_secs(1), monitor).await.unwrap().unwrap();
+
         // A cryptographically well-formed pinned record can be valid for other
         // clients' explicit endpoints while unusable by this app's discovery.
         // All synthetic private material remains in RAM; no storage is called.

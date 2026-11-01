@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 41308375871,
+  "job_id": 124853400387,
+  "source_commit": "c40f7896d4cb48599bfa6d8daa8ebd77d7ee50ca",
+  "conclusion": "cancelled",
+  "reason": "Root superseded this run after a material newer executable-memory guard; cancellation is not a test failure.",
+  "fresh_historical_checks": {
+    "transport": {
+      "passed": 2,
+      "failed": 0,
+      "seconds": 0.26,
+      "scope": "Historical sourcec40 only, before newer executable-memory guard",
+      "context": {
+        "os": "darwin",
+        "architecture": "arm64",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+        "xcode": "Xcode 27.1\nBuild version 27A9275",
+        "macos_sdk": "27.0",
+        "simulator_sdk": "27.1"
+      }
+    },
+    "recovery": {
+      "passed": 2,
+      "failed": 0,
+      "seconds": 0.03,
+      "scope": "Historical sourcec40 only, before newer executable-memory guard",
+      "context": {
+        "os": "darwin",
+        "architecture": "arm64",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+        "xcode": "Xcode 27.1\nBuild version 27A9275",
+        "macos_sdk": "27.0",
+        "simulator_sdk": "27.1"
+      }
+    }
+  },
+  "reused_checks": {
+    "vendor": {
+      "passed": 8,
+      "source_run_id": 40916969403
+    },
+    "helper": {
+      "passed": 2,
+      "source_run_id": 40916969403
+    }
+  },
+  "native": {
+    "test_build_succeeded": true,
+    "test_cases_completed": 0,
+    "pass_claimed": false,
+    "stage_at_cancellation": "Xcode test-without-building/test-host startup, after successful native/test-bundle compile"
+  },
+  "compact_artifact": {
+    "id": 13085040712,
+    "bytes": 58881,
+    "sha256": "045d110d3d131c7f0603325f7e9761a228493bf38a05c893a93e16606d1f10ae",
+    "extracted_to": "pairing-proof/"
+  },
+  "raw_job_log": {
+    "file": "hosted-job.log",
+    "bytes": 458330,
+    "sha256": "d7e3d383f70d423c03287b2cfb7acccb1d0b44f58dbaef271984f853f794e094"
+  },
+  "large_native_diagnostics_downloaded": false,
+  "screenshots_downloaded": false,
+  "new_local_tests_or_builds": false,
+  "current_memory_guard_verified": false
+}

@@ -9,7 +9,10 @@ use byteorder::{BigEndian, ByteOrder, LittleEndian};
 use plist::Dictionary;
 use rayon::prelude::*;
 use std::fs;
+use std::io::{self, Read};
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::time::Duration;
 
 const MH_MAGIC: u32 = 0xfeed_face;
 const MH_MAGIC_64: u32 = 0xfeed_facf;
@@ -32,6 +35,55 @@ const S_ZEROFILL: u32 = 0x1;
 const S_THREAD_LOCAL_ZEROFILL: u32 = 0x11;
 
 pub const DEFAULT_CMS_BLOB_RESERVATION: usize = 16 * 1024;
+pub const MAX_EXECUTABLE_FILE_BYTES: usize = 128 * 1024 * 1024;
+const MAX_FILE_SIGNATURE_BYTES: usize = 4 * 1024 * 1024;
+static FILE_SIGNING_ACTIVE: AtomicBool = AtomicBool::new(false);
+
+// Serialize file rewrites process-wide. All work under this lease is sequential
+// (including FAT slices/page hashing), avoiding nested Rayon lease deadlocks.
+struct FileSigningLease;
+impl FileSigningLease {
+    fn acquire(should_stop: &StopPredicate<'_>) -> Result<Self> {
+        loop {
+            check_stop(should_stop)?;
+            if FILE_SIGNING_ACTIVE.compare_exchange(false,true,Ordering::AcqRel,Ordering::Acquire).is_ok() {
+                return Ok(Self);
+            }
+            std::thread::sleep(Duration::from_millis(2));
+        }
+    }
+}
+impl Drop for FileSigningLease {
+    fn drop(&mut self) { FILE_SIGNING_ACTIVE.store(false,Ordering::Release); }
+}
+fn input_metadata(metadata: &fs::Metadata) -> Result<usize> {
+    if !metadata.file_type().is_file() || metadata.len() > MAX_EXECUTABLE_FILE_BYTES as u64 {
+        return Err(CodeSignError::ExecutableLimit);
+    }
+    Ok(metadata.len() as usize)
+}
+fn read_executable_bytes(reader: &mut impl Read, expected: usize, should_stop: &StopPredicate<'_>) -> Result<Vec<u8>> {
+    check_stop(should_stop)?;
+    if expected > MAX_EXECUTABLE_FILE_BYTES { return Err(CodeSignError::ExecutableLimit); }
+    let mut bytes=Vec::new();
+    bytes.try_reserve_exact(expected).map_err(|_|CodeSignError::MemoryUnavailable)?;
+    let mut buffer=[0u8;64*1024];
+    loop {
+        check_stop(should_stop)?;
+        let limit=(expected-bytes.len()).min(buffer.len()).max(1);
+        let count=match reader.read(&mut buffer[..limit]) {
+            Err(error) if error.kind()==io::ErrorKind::Interrupted=>continue,
+            result=>result.map_err(|_|CodeSignError::ExecutableChanged)?,
+        };
+        check_stop(should_stop)?;
+        if bytes.len()==expected {
+            if count!=0{return Err(CodeSignError::ExecutableChanged);}
+            return Ok(bytes);
+        }
+        if count==0{return Err(CodeSignError::ExecutableChanged);}
+        bytes.extend_from_slice(&buffer[..count]);
+    }
+}
 
 #[derive(Clone)]
 pub struct MachOSigningConfig<'a> {
@@ -76,9 +128,26 @@ pub fn sign_macho_file_controlled(
     should_stop: &StopPredicate<'_>,
 ) -> Result<()> {
     check_stop(should_stop)?;
-    let original = fs::read(path).map_err(|source| CodeSignError::io(path, source))?;
+    let before=fs::symlink_metadata(path).map_err(|source|CodeSignError::io(path,source))?;
+    let expected=input_metadata(&before)?;
+    let _lease=FileSigningLease::acquire(should_stop)?;
+    check_stop(should_stop)?;
+    let mut file=fs::File::open(path).map_err(|source|CodeSignError::io(path,source))?;
+    let opened=file.metadata().map_err(|source|CodeSignError::io(path,source))?;
+    if input_metadata(&opened)?!=expected {return Err(CodeSignError::ExecutableChanged);}
+    let current=fs::symlink_metadata(path).map_err(|_|CodeSignError::ExecutableChanged)?;
+    if input_metadata(&current)?!=expected {return Err(CodeSignError::ExecutableChanged);}
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::MetadataExt;
+        if opened.dev()!=current.dev() || opened.ino()!=current.ino() {return Err(CodeSignError::ExecutableChanged);}
+    }
+    if config.cms_blob_reservation>MAX_FILE_SIGNATURE_BYTES {return Err(CodeSignError::ExecutableLimit);}
+    let original=read_executable_bytes(&mut file,expected,should_stop)?;
+    if file.metadata().map_err(|_|CodeSignError::ExecutableChanged)?.len()!=expected as u64 {return Err(CodeSignError::ExecutableChanged);}
     check_stop(should_stop)?;
     let signed = sign_macho_owned(path, original, config, should_stop)?;
+    if signed.len()>MAX_EXECUTABLE_FILE_BYTES{return Err(CodeSignError::ExecutableLimit);}
     check_stop(should_stop)?;
     fs::write(path, signed).map_err(|source| CodeSignError::io(path, source))?;
     check_stop(should_stop)
@@ -89,10 +158,10 @@ pub fn sign_macho_data(
     data: &[u8],
     config: &MachOSigningConfig<'_>,
 ) -> Result<Vec<u8>> {
-    if let Some(fat_arches) = parse_fat_arches(path, data)? {
+    if let Some(fat_arches) = parse_fat_arches(path, data, false)? {
         sign_fat_macho(path, data, fat_arches, config, &|| false)
     } else {
-        Ok(sign_thin_macho(path, data.to_vec(), config, &|| false)?.data)
+        Ok(sign_thin_macho(path, data.to_vec(), config, &|| false, None)?.data)
     }
 }
 
@@ -103,10 +172,26 @@ fn sign_macho_owned(
     should_stop: &StopPredicate<'_>,
 ) -> Result<Vec<u8>> {
     check_stop(should_stop)?;
-    if let Some(fat_arches) = parse_fat_arches(path, &data)? {
-        sign_fat_macho(path, &data, fat_arches, config, should_stop)
+    if let Some(fat_arches) = parse_fat_arches(path, &data, true)? {
+        let mut signed_arches=Vec::new();
+        let mut total=0usize;
+        for arch in fat_arches {
+            check_stop(should_stop)?;
+            let remaining=MAX_EXECUTABLE_FILE_BYTES-total;
+            if arch.size>remaining{return Err(CodeSignError::ExecutableLimit);}
+            let mut bytes=Vec::new();
+            bytes.try_reserve_exact(arch.size).map_err(|_|CodeSignError::MemoryUnavailable)?;
+            bytes.extend_from_slice(&data[arch.offset..arch.offset+arch.size]);
+            let signed=sign_thin_macho(path,bytes,config,should_stop,Some(remaining))?;
+            total=total.checked_add(signed.data.len()).ok_or(CodeSignError::ExecutableLimit)?;
+            signed_arches.push(SignedArch{cputype:signed.cputype,cpusubtype:signed.cpusubtype,align:arch.align,data:signed.data});
+        }
+        // Do not retain the original file while allocating the rebuilt output.
+        drop(data);
+        check_stop(should_stop)?;
+        rebuild_fat(path,&signed_arches,true)
     } else {
-        Ok(sign_thin_macho(path, data, config, should_stop)?.data)
+        Ok(sign_thin_macho(path, data, config, should_stop, Some(MAX_EXECUTABLE_FILE_BYTES))?.data)
     }
 }
 
@@ -125,7 +210,7 @@ fn sign_fat_macho(
             check_stop(should_stop)?;
             let bytes = data[arch.offset..arch.offset + arch.size].to_vec();
             check_stop(should_stop)?;
-            let signed = sign_thin_macho(path, bytes, config, should_stop)?;
+            let signed = sign_thin_macho(path, bytes, config, should_stop, None)?;
             Ok(SignedArch {
                 cputype: signed.cputype,
                 cpusubtype: signed.cpusubtype,
@@ -136,7 +221,7 @@ fn sign_fat_macho(
         .collect::<Result<Vec<_>>>()?;
 
     check_stop(should_stop)?;
-    let rebuilt = rebuild_fat(path, &signed_arches)?;
+    let rebuilt = rebuild_fat(path, &signed_arches, false)?;
     check_stop(should_stop)?;
     Ok(rebuilt)
 }
@@ -146,9 +231,11 @@ fn sign_thin_macho(
     data: Vec<u8>,
     config: &MachOSigningConfig<'_>,
     should_stop: &StopPredicate<'_>,
+    output_limit: Option<usize>,
 ) -> Result<SignedThin> {
     check_stop(should_stop)?;
     let mut macho = ThinMachO::parse(path, data)?;
+    macho.output_limit=output_limit;
     check_stop(should_stop)?;
 
     let requirements = empty_requirements_blob();
@@ -176,6 +263,7 @@ fn sign_thin_macho(
             has_cms_signature: config.cms_signer.is_some(),
             cms_blob_reservation,
         });
+        if output_limit.is_some() && planned_len>MAX_FILE_SIGNATURE_BYTES{return Err(CodeSignError::ExecutableLimit);}
 
         macho.reserve_code_signature(planned_len)?;
         check_stop(should_stop)?;
@@ -202,7 +290,7 @@ fn sign_thin_macho(
             code_resources: config.code_resources,
         };
 
-        match encode_embedded_signature_controlled(&params, config.cms_signer, cms_blob_reservation, should_stop) {
+        match encode_embedded_signature_controlled(&params, config.cms_signer, cms_blob_reservation, should_stop, output_limit.is_none()) {
             Ok(signature) => {
                 check_stop(should_stop)?;
                 macho.write_code_signature(&signature)?;
@@ -245,6 +333,7 @@ struct ThinMachO {
     linkedit_command_offset: Option<usize>,
     header_pad_limit: usize,
     exec_segment: SegmentBounds,
+    output_limit: Option<usize>,
 }
 
 #[derive(Clone, Copy, Debug, Default)]
@@ -357,7 +446,15 @@ impl ThinMachO {
             linkedit_command_offset,
             header_pad_limit,
             exec_segment,
+            output_limit: None,
         })
+    }
+
+    fn resize_signed_data(&mut self, length: usize) -> Result<()> {
+        if self.output_limit.is_some_and(|limit|length>limit){return Err(CodeSignError::ExecutableLimit);}
+        self.data.try_reserve_exact(length.saturating_sub(self.data.len())).map_err(|_|CodeSignError::MemoryUnavailable)?;
+        self.data.resize(length,0);
+        Ok(())
     }
 
     fn is_executable(&self) -> bool {
@@ -381,6 +478,7 @@ impl ThinMachO {
             LittleEndian::read_u32(&self.data[command_offset + 8..command_offset + 12]) as usize;
         let datasize =
             LittleEndian::read_u32(&self.data[command_offset + 12..command_offset + 16]) as usize;
+        if self.output_limit.is_some() && datasize>MAX_FILE_SIGNATURE_BYTES{return Err(CodeSignError::ExecutableLimit);}
 
         if datasize == 0 {
             return self.allocate_code_signature(command_offset, signature_len);
@@ -407,7 +505,7 @@ impl ThinMachO {
         self.grow_linkedit_segment(linkedit_offset, extra_file_size)?;
 
         self.data.truncate(dataoff);
-        self.data.resize(dataoff + signature_len, 0);
+        self.resize_signed_data(dataoff.checked_add(signature_len).ok_or(CodeSignError::ExecutableLimit)?)?;
         LittleEndian::write_u32(
             &mut self.data[command_offset + 8..command_offset + 12],
             dataoff.try_into().map_err(|_| {
@@ -493,7 +591,7 @@ impl ThinMachO {
         self.resize_linkedit_for_new_signature(linkedit_offset, padding, signature_len)?;
 
         self.data.truncate(linkedit_end);
-        self.data.resize(dataoff + signature_len, 0);
+        self.resize_signed_data(dataoff.checked_add(signature_len).ok_or(CodeSignError::ExecutableLimit)?)?;
 
         LittleEndian::write_u32(
             &mut self.data[command_offset + 8..command_offset + 12],
@@ -675,7 +773,7 @@ struct SignedArch {
     data: Vec<u8>,
 }
 
-fn parse_fat_arches(path: &Path, data: &[u8]) -> Result<Option<Vec<FatArch>>> {
+fn parse_fat_arches(path: &Path, data: &[u8], file_limited: bool) -> Result<Option<Vec<FatArch>>> {
     if data.len() < 4 {
         return Err(CodeSignError::macho(path, "file is too small"));
     }
@@ -693,6 +791,7 @@ fn parse_fat_arches(path: &Path, data: &[u8]) -> Result<Option<Vec<FatArch>>> {
 
     ensure_len(path, data, FAT_HEADER_SIZE, "fat header")?;
     let nfat_arch = BigEndian::read_u32(&data[4..8]) as usize;
+    if file_limited && (nfat_arch==0 || nfat_arch>32){return Err(CodeSignError::ExecutableLimit);}
     let table_len = checked_mul(path, nfat_arch, FAT_ARCH_SIZE, "fat architecture table")?;
     ensure_len(
         path,
@@ -707,6 +806,10 @@ fn parse_fat_arches(path: &Path, data: &[u8]) -> Result<Option<Vec<FatArch>>> {
         let arch_offset = BigEndian::read_u32(&data[offset + 8..offset + 12]) as usize;
         let size = BigEndian::read_u32(&data[offset + 12..offset + 16]) as usize;
         let align = BigEndian::read_u32(&data[offset + 16..offset + 20]);
+        if file_limited && (arch_offset<FAT_HEADER_SIZE+table_len || size<32 || align>16 || arch_offset%(1usize<<align)!=0
+            || arches.iter().any(|previous:&FatArch|arch_offset<previous.offset+previous.size && previous.offset<arch_offset.saturating_add(size))) {
+            return Err(CodeSignError::ExecutableLimit);
+        }
         ensure_len(path, data, arch_offset + size, "fat architecture slice")?;
         arches.push(FatArch {
             offset: arch_offset,
@@ -718,7 +821,7 @@ fn parse_fat_arches(path: &Path, data: &[u8]) -> Result<Option<Vec<FatArch>>> {
     Ok(Some(arches))
 }
 
-fn rebuild_fat(path: &Path, arches: &[SignedArch]) -> Result<Vec<u8>> {
+fn rebuild_fat(path: &Path, arches: &[SignedArch], file_limited: bool) -> Result<Vec<u8>> {
     let table_len = checked_mul(path, arches.len(), FAT_ARCH_SIZE, "fat architecture table")?;
     let mut records = Vec::with_capacity(arches.len());
     let mut cursor = FAT_HEADER_SIZE + table_len;
@@ -736,8 +839,11 @@ fn rebuild_fat(path: &Path, arches: &[SignedArch]) -> Result<Vec<u8>> {
             "fat Mach-O exceeds 32-bit offsets",
         ));
     }
+    if file_limited && cursor>MAX_EXECUTABLE_FILE_BYTES{return Err(CodeSignError::ExecutableLimit);}
 
-    let mut out = vec![0; FAT_HEADER_SIZE + table_len];
+    let mut out = Vec::new();
+    out.try_reserve_exact(cursor).map_err(|_|CodeSignError::MemoryUnavailable)?;
+    out.resize(FAT_HEADER_SIZE+table_len,0);
     BigEndian::write_u32(&mut out[0..4], FAT_MAGIC);
     BigEndian::write_u32(&mut out[4..8], arches.len() as u32);
 
@@ -954,6 +1060,33 @@ pub(crate) mod tests {
     const CPU_TYPE_ARM64_TEST: i32 = 0x0100_000c;
 
     struct TestCmsSigner;
+
+    pub(crate) fn file_limit_input_and_cancellable_lease_regressions() {
+        assert!(matches!(read_executable_bytes(&mut std::io::Cursor::new(b"grown"),4,&||false),Err(CodeSignError::ExecutableChanged)));
+        assert!(matches!(read_executable_bytes(&mut std::io::Cursor::new(b"cut"),4,&||false),Err(CodeSignError::ExecutableChanged)));
+        assert!(matches!(read_executable_bytes(&mut std::io::empty(),MAX_EXECUTABLE_FILE_BYTES,&||true),Err(CodeSignError::Cancelled)));
+        let lease=FileSigningLease::acquire(&||false).unwrap();
+        let stop=std::sync::Arc::new(AtomicBool::new(false));
+        let worker_stop=stop.clone();
+        let (waiting_tx,waiting_rx)=std::sync::mpsc::channel();
+        let (done_tx,done_rx)=std::sync::mpsc::channel();
+        let worker=std::thread::spawn(move||{
+            let checks=std::sync::atomic::AtomicUsize::new(0);
+            let result=FileSigningLease::acquire(&||{
+                if checks.fetch_add(1,Ordering::AcqRel)==1 {let _=waiting_tx.send(());}
+                worker_stop.load(Ordering::Acquire)
+            }).map(|_lease|());
+            let _=done_tx.send(result);
+        });
+        let waited=waiting_rx.recv_timeout(Duration::from_secs(2));
+        stop.store(true,Ordering::Release);
+        let result=done_rx.recv_timeout(Duration::from_secs(2));
+        drop(lease);
+        worker.join().unwrap();
+        waited.unwrap();
+        assert!(matches!(result,Ok(Err(CodeSignError::Cancelled))),"A waiting signer must observe cancellation while another file owns the lease");
+        FileSigningLease::acquire(&||false).unwrap(); // Cancellation must not leak the lease.
+    }
 
     impl CmsSigner for TestCmsSigner {
         fn sign(&self, _: CmsSigningRequest<'_>) -> Result<Vec<u8>> {

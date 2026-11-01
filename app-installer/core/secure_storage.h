@@ -12,6 +12,10 @@ extern "C" {
  */
 enum { AI_STORE_OK=0, AI_STORE_MISSING=1, AI_STORE_LOCKED=2,
        AI_STORE_ERROR=3, AI_STORE_BUFFER_SMALL=4 };
+/* Cheap synchronized monotonic session check: returns only 0/1.
+ * Never prompts for authentication or reads a Keychain value.
+ */
+int32_t ai_secure_session_authorized(void);
 int32_t ai_secure_read(const char *key, uint8_t *buffer, size_t capacity, size_t *length);
 int32_t ai_secure_write(const char *key, const uint8_t *data, size_t length);
 int32_t ai_secure_remove(const char *key);

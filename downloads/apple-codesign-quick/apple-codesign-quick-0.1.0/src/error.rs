@@ -5,6 +5,15 @@ pub enum CodeSignError {
     #[error("Signing cancelled before completion")]
     Cancelled,
 
+    #[error("This executable exceeds the supported file-signing memory or signature limit")]
+    ExecutableLimit,
+
+    #[error("Memory for executable signing is unavailable")]
+    MemoryUnavailable,
+
+    #[error("The executable changed while it was being read")]
+    ExecutableChanged,
+
     #[error("I/O error for {path}: {source}")]
     Io {
         path: PathBuf,

@@ -319,10 +319,17 @@ unsafe extern "C" {
     ) -> i32;
     fn ai_secure_write(key: *const c_char, data: *const u8, length: usize) -> i32;
     fn ai_secure_remove(key: *const c_char) -> i32;
+    fn ai_secure_session_authorized() -> i32;
 }
 #[derive(Clone, Copy)]
 struct NativeStorage;
 impl NativeStorage {
+    fn session_authorized() -> bool {
+        #[cfg(target_os = "ios")]
+        { unsafe { ai_secure_session_authorized() == 1 } }
+        #[cfg(not(target_os = "ios"))]
+        { false } // Host component tests do not grant a native user session.
+    }
     fn raw_read(key: &str) -> Result<Option<Zeroizing<Vec<u8>>>, Report> {
         #[cfg(target_os = "ios")]
         {
@@ -889,6 +896,13 @@ fn verify_self_entitlements(expected:&plist::Dictionary,signed:&plist::Dictionar
     }
     Ok(())
 }
+fn native_authorization_active() -> bool {
+    if NativeStorage::session_authorized() { return true; }
+    // Only the first observer schedules cleanup. Cooperative signing stops and
+    // releases Engine before that cleanup can acquire it; no UI timer is needed.
+    if SIGNED_IN.swap(false, Ordering::AcqRel) { clear_session_memory(); }
+    false
+}
 async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Result<(), Report> {
     if !SIGNED_IN.load(Ordering::Acquire) {
         return Err(failure("Sign in required"));
@@ -900,7 +914,8 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         .unwrap_or_else(|_| Instant::now() + Duration::from_secs(600));
     let should_stop = || operation_cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire)
         || authorization_generation != AUTH_GENERATION.load(Ordering::Acquire)
-        || !SIGNED_IN.load(Ordering::Acquire) || Instant::now() >= deadline;
+        || !SIGNED_IN.load(Ordering::Acquire) || !native_authorization_active()
+        || Instant::now() >= deadline;
     checked_source(e, &path).map_err(|_|independent_app_failure("This app's retained IPA is missing or could not be read safely. Import its latest IPA again."))?;
     let mut provider = provider(e).await?;
     let apps = device_apps(&mut provider, &e.work).await?;
@@ -1193,7 +1208,24 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         Some(callback),
         &should_stop,
     )
-    .await.map_err(|error| if should_stop() { failure("Signing was cancelled or authorization expired. Unlock and try again.") } else { error })?;
+    .await.map_err(|error| {
+        if should_stop() {
+            return failure("Signing was cancelled or authorization expired. Unlock and try again.");
+        }
+        if error.iter_reports().any(|node| node.downcast_current_context::<apple_codesign_quick::CodeSignError>()
+            .is_some_and(|e| matches!(e, apple_codesign_quick::CodeSignError::ExecutableLimit))) {
+            return failure("This IPA exceeds the signer's current executable limit (128 MiB per executable, 4 MiB per signature). No install was started and saved data was kept. Use a compatible IPA or the original developer's signing tools.");
+        }
+        if error.iter_reports().any(|node| node.downcast_current_context::<apple_codesign_quick::CodeSignError>()
+            .is_some_and(|e| matches!(e, apple_codesign_quick::CodeSignError::ExecutableChanged))) {
+            return failure("The executable changed or could not be read consistently while signing. No install was started. Import a fresh, intact IPA and try again.");
+        }
+        if error.iter_reports().any(|node| node.downcast_current_context::<apple_codesign_quick::CodeSignError>()
+            .is_some_and(|e| matches!(e, apple_codesign_quick::CodeSignError::MemoryUnavailable))) {
+            return failure("The signer could not reserve its required memory. No install was started and saved data was kept. Close other apps or try a smaller compatible IPA.");
+        }
+        error
+    })?;
     let signing_cert_der = cert.certificate.to_der()?;
     let verified=crate::signed_verification::verify_signed_bundle_controlled(
         &application.bundle.bundle_dir,&team.team_id,&bundle_id,&info.udid,
@@ -1250,7 +1282,20 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     });
     Ok(())
 }
+fn operation_authorized() -> bool {
+    SIGNED_IN.load(Ordering::Acquire) && native_authorization_active()
+        && OPERATION_SCOPE.try_with(|scope| Instant::now() < scope.2).unwrap_or(true)
+}
+fn expired_authorization_failure() -> Report {
+    // Called outside SecureStore/control locks. The queued native notification
+    // cancels UI continuations; core memory cleanup must not wait for that queue.
+    SIGNED_IN.store(false, Ordering::Release);
+    publish("locked", "Unlock your saved session to continue.", json!({"loginStatus":"signed_out"}));
+    clear_session_memory();
+    failure("Authorization expired or changed during installation. Unlock and check the device before retrying; its latest recovery input was kept and an accepted device request may still finish.")
+}
 async fn install_staged(e: &mut Engine) -> Result<(), Report> {
+    if !operation_authorized() { return Err(expired_authorization_failure()); }
     let mut provider = provider(e).await?;
     let mut staged = e
         .staged
@@ -1281,7 +1326,13 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
     if staged.cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire) {
         return Err(failure("Task cancelled"));
     }
+    if !operation_authorized() { return Err(expired_authorization_failure()); }
     let result = provider.install(&app_path).await;
+    // A stopped lease clears account/session objects before any best-effort
+    // remote staging cleanup, which may itself wait on an unavailable device.
+    if !SIGNED_IN.load(Ordering::Acquire) {
+        e.account = None; e.dev = None; e.team = None;
+    }
     // Cancellation/crash may interrupt this await. Durable intent remains for next connection.
     let _ = provider.cleanup(&e.work).await;
     result?;
@@ -1351,7 +1402,7 @@ impl RefreshOperations for EngineRefresh<'_>{
     async fn install(&mut self)->Result<(),Report>{install_staged(self.engine).await}
     fn continuation_allowed(&self)->Result<bool,Report>{
         Ok(self.cancellation==CANCEL_GENERATION.load(Ordering::Acquire)
-            && SIGNED_IN.load(Ordering::Acquire)
+            && operation_authorized()
             && self.engine.account.is_some() && self.engine.dev.is_some() && self.engine.team.is_some()
             && pending_install(&self.engine.work)?.is_none() && !legacy_pending(self.engine))
     }

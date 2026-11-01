@@ -242,7 +242,7 @@ pub fn encode_embedded_signature(
     cms_signer: Option<&dyn CmsSigner>,
     cms_blob_reservation: usize,
 ) -> Result<Vec<u8>> {
-    encode_embedded_signature_controlled(params, cms_signer, cms_blob_reservation, &|| false)
+    encode_embedded_signature_controlled(params, cms_signer, cms_blob_reservation, &|| false, true)
 }
 
 pub(crate) fn encode_embedded_signature_controlled(
@@ -250,6 +250,7 @@ pub(crate) fn encode_embedded_signature_controlled(
     cms_signer: Option<&dyn CmsSigner>,
     cms_blob_reservation: usize,
     should_stop: &StopPredicate<'_>,
+    parallel: bool,
 ) -> Result<Vec<u8>> {
     check_stop(should_stop)?;
     if params.code_limit > params.macho_data.len() {
@@ -263,9 +264,9 @@ pub(crate) fn encode_embedded_signature_controlled(
         ));
     }
 
-    let code_hashes = hash_code_pages(&params.macho_data[..params.code_limit], should_stop)?;
+    let code_hashes = hash_code_pages(&params.macho_data[..params.code_limit], should_stop, parallel)?;
     let (primary_code_directory, alternate_code_directory) =
-        if should_parallelize_code_directory_encoding(params, code_hashes.len()) {
+        if parallel && should_parallelize_code_directory_encoding(params, code_hashes.len()) {
             let (primary, alternate) = rayon::join(
                 || encode_code_directory(params, HashAlgorithm::Sha1, &code_hashes, should_stop),
                 || encode_code_directory(params, HashAlgorithm::Sha256, &code_hashes, should_stop),
@@ -437,13 +438,13 @@ fn encode_code_directory(
     Ok(out)
 }
 
-fn hash_code_pages(code: &[u8], should_stop: &StopPredicate<'_>) -> Result<Vec<CodePageHashes>> {
+fn hash_code_pages(code: &[u8], should_stop: &StopPredicate<'_>, parallel: bool) -> Result<Vec<CodePageHashes>> {
     check_stop(should_stop)?;
     let pages = code.len().div_ceil(CODEDIRECTORY_PAGE_SIZE);
     let mut hashes = vec![CodePageHashes::default(); pages];
     check_stop(should_stop)?;
 
-    if pages < 8 {
+    if !parallel || pages < 8 {
         for (hash, page) in hashes.iter_mut().zip(code.chunks(CODEDIRECTORY_PAGE_SIZE)) {
             check_stop(should_stop)?;
             *hash = hash_code_page(page);

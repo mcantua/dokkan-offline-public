@@ -5,6 +5,7 @@
 #import <math.h>
 #import "SecureStore.h"
 #import "InstallerService.h"
+#import "../../core/secure_storage.h"
 
 // Hosted disposable-simulator Keychain tests only.
 // Real biometric/passcode authentication is not tested here. The cancellation
@@ -136,6 +137,7 @@ static BOOL AIExpiredLeaseFixturePending;
 }
 - (void)testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess {
     if (![self requireEmptyDisposableTestServices]) return;
+    XCTAssertEqual(ai_secure_session_authorized(), 0, @"The C bridge denies an unauthenticated fixture without prompting or reading secrets.");
     // A nonsecret existing record prevents bootstrap/configuration persistence
     // even if this regression fails. No saved credential is touched by the test.
     NSMutableDictionary *dummy = [[self queryForService:@"org.tin.appinstaller.secure" account:self.dummyAccount] mutableCopy];
@@ -166,6 +168,7 @@ static BOOL AIExpiredLeaseFixturePending;
             [AISecureStore authenticateSessionWithReason:@"TEST ONLY — delayed callback race" completion:^(BOOL success) {
                 XCTAssertFalse(success, @"Service cancellation must invalidate SecureStore's outstanding generation.");
                 XCTAssertFalse([AISecureStore sessionAuthorized], @"A late synthetic callback must never establish a reusable session.");
+                XCTAssertEqual(ai_secure_session_authorized(), 0, @"A cancelled delayed callback must also remain denied through the production C bridge.");
                 [completed fulfill];
             }];
         });
@@ -173,6 +176,7 @@ static BOOL AIExpiredLeaseFixturePending;
         XCTAssertNotNil(AIHeldAuthenticationReply);
         dispatch_async(dispatch_get_main_queue(), ^{
             [AIInstallerService.shared cancel]; // Actual public cancellation, not a mocked generation increment.
+            XCTAssertEqual(ai_secure_session_authorized(), 0);
             if (AIHeldAuthenticationReply) AIHeldAuthenticationReply(YES, nil);
         });
         [self waitForExpectations:@[completed] timeout:5];
@@ -206,6 +210,7 @@ static BOOL AIExpiredLeaseFixturePending;
             __block BOOL continuationRan = NO;
             @try {
                 XCTAssertFalse([AISecureStore sessionAuthorized]);
+                XCTAssertEqual(ai_secure_session_authorized(), 0, @"The expired-transition fixture starts denied; it never creates a successful authentication.");
                 service.eventHandler = ^(NSDictionary *event) {
                     if ([event[@"type"] isEqual:@"error"] && [event[@"message"] containsString:@"five-minute unlock expired"]) ++expiryErrors;
                 };
@@ -224,6 +229,7 @@ static BOOL AIExpiredLeaseFixturePending;
                 XCTAssertEqualObjects([service valueForKey:@"operationGeneration"], generation, @"Repeated polls must not recancel/revoke a new operation.");
                 XCTAssertEqual(expiryErrors, 1u);
                 XCTAssertFalse([AISecureStore sessionAuthorized]);
+                XCTAssertEqual(ai_secure_session_authorized(), 0, @"Expiration handling cannot leave a usable core session lease.");
             } @finally {
                 service.eventHandler = previousHandler;
                 AIExpiredLeaseFixturePending = NO;

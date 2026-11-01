@@ -748,6 +748,21 @@ mod tests {
         assert!(matches!(sign_macho_file_controlled(&executable,&config,&||stop.load(Ordering::Acquire)),Err(CodeSignError::Cancelled)));
         assert!(stop.load(Ordering::Acquire),"The real signing path must reach the CMS callback");
         assert_eq!(fs::read(&executable).unwrap(),executable_bytes,"Cancellation before replacement preserves the original executable");
+        // Sparse oversized input is rejected before any file-sized allocation;
+        // neither its prefix nor its declared length is changed by signing.
+        let oversized=test_root.join("OversizedExecutable");
+        {
+            use std::io::Write;
+            let mut file=fs::File::create(&oversized).unwrap();
+            file.write_all(b"original").unwrap();
+            file.set_len(crate::macho::MAX_EXECUTABLE_FILE_BYTES as u64+1).unwrap();
+        }
+        assert!(matches!(sign_macho_file_controlled(&oversized,&config,&||false),Err(CodeSignError::ExecutableLimit)));
+        assert_eq!(fs::metadata(&oversized).unwrap().len(),crate::macho::MAX_EXECUTABLE_FILE_BYTES as u64+1);
+        let mut prefix=[0u8;8];
+        fs::File::open(&oversized).unwrap().read_exact(&mut prefix).unwrap();
+        assert_eq!(&prefix,b"original");
+        crate::macho::tests::file_limit_input_and_cancellable_lease_regressions();
         fs::remove_dir_all(test_root).unwrap();
     }
 
