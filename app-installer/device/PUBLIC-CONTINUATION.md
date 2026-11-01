@@ -1,52 +1,46 @@
 # App Installer public-source continuation
 
-**Current repair batch — 2026-10-31 10:43 PM US Central:** Source0648612 fixes the missing Pair only choice, late kit/device mismatch, whole-file AFC memory allocation and accepted RP records lacking discovery metadata. Focused setupPython2 and uploaderRust2 passed. Hosted41269237340 then completed SUCCESS: fresh core transport2/recovery2 and native3, unchanged vendor8/helper2 reused. No physical/Apple/Duo acceptance claim. Matching replacement package is next and will reuse these proofs; the October29 delivery remains the last verified downloadable build until replacement is complete. All work is cloud-only.
+Updated: 2026-10-31 11:14 PM US Central. Active public repository `mcantua/dokkan-offline-public`, branch `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin resumed development and authorized necessary cloud builds. No base/main merge or publication is authorized. The private backup remains frozen and untouched. This chat owns App Installer only.
 
-Updated: October 29, 2026, 2:10 PM US Central. Active repository: `mcantua/dokkan-offline-public`; branch: `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin authorized cloud builds with **“make the builds.”** No base/main merge is authorized. The private backup is frozen and untouched. This chat handles App Installer only.
+## Latest completed development
 
-## Implemented current path
+Application build source **f941208e77ed37405cd9fbb109e87ed56f81fb45** contains four new fixes, following production source0648612:
 
-The old public snapshot was Lockdown-only. Its missing modern path was independently implemented here: authenticated SRP/TLV/Ed25519 setup and pinned verify; strict version-2 records; trusted-USB export helper; protected asynchronous native import and authenticated Bonjour selection; authenticated TLS-PSK userspace tunnel/RSD; app installation, management and cleanup. Legacy Lockdown remains separate. No guessed address/port, accept-all TLS, silent re-pair after pin failure, security bypass or account/private-record logging.
+- **Actual Pair only launcher:** Cancel / Pair only / Full setup, default Cancel; explicit plan/help. Pair-only skips Apple-team discovery, app building, installation and launch. Full setup rejects a kit/physical-phone variant mismatch before account discovery.
+- **Bounded AFC upload:** both legacy and remote-pairing installation paths reuse a bounded buffer, move native reads off the async executor, await write acknowledgements and reject shortened/growing input. The prior code allocated each entire accepted multi-GB resource. This is an implementation/mocked-I/O result, not a real large-IPA phone result.
+- **Actionable incomplete-record handling:** generic strict RPv2 may omit altIRK, but this app needs it for authenticated discovery. App-specific status8 rejects missing metadata before replacing primary/backup credentials; restored records show a fixed re-export message. Values0–7 and legacy Lockdown/vendor schema remain unchanged. The trusted USB helper already includes this key, so this does not establish why an intact helper export failed on Tin’s phone.
+- **Clear setup guidance:** exact external delivery pins, separate pairing retry and same-identity app update, no unnecessary regeneration of a working compatible record, and no stale no-pins-yet wording. Guides embedded in the kit link to the external current receipt.
 
-Current source also retains failed-first-install retry inputs, shuts down adapter-owned sockets on timeout/abort, continues only typed local per-app refresh errors, preserves uncertain installation journals and running-installer signing/Keychain identity, and reports per-app outcomes. Native UI uses usable content width, a pinned accessible task HUD, fresh refresh-result ownership and coherent Home-view display reports.
+The previous authenticated SRP/TLV/Ed25519 setup, pinned verification, strict version2 export/import, authenticated Bonjour, TLS-PSK userspace tunnel/RSD installation, durable source recovery, refresh per-app results and running-installer team/Keychain protections remain implemented. No guessed ports, peer/TLS bypass, silent re-pair or private-record logging.
 
-The minimal updater verifies an externally pinned ZIP, source/library/helper/notice bindings and genuine Mac helper signatures before managed replacement. It preserves private files, refuses frozen folders case-insensitively, syncs data/directories and publishes its manifest last. Pair-only skips Apple identity discovery and app build/install. A launch timeout remains explicitly unconfirmed.
+## Exact verification and delivery
 
-## Actual public evidence
-
-| Area | Verified result and scope |
+| Area | Actual result and limit |
 |---|---|
-| Pairing vendor/helper | Vendor8 + helper2 passed on hosted SDK27.1 in40916969403, source24f2809; unchanged exact production/context proofs reused, never silently retested |
-| Current transport/recovery/self guard | Transport2 + recovery2 passed in40926780346, source80f5e35, zero failures0.27s/0.06s. Real cloud-loopback TLS/adapter teardown plus synthetic durable recovery/team/Keychain cases; no phone |
-| First sign-in / legacy TLS | Fresh-process account-client constructor1 and standalone strict-TLS2 passed once on cloud Linux at source80f5;0.02s/0.01s,191 exact source hashes unchanged. No HTTP send, Apple account or credentials |
-| Native app | Job123646285756 in40930198240, source142293c, compiled production Rust/Objective-C and launched Xcode-managed test host. Selected Files/schema/responsive methods3/0 passed in9.518s. Compiler SDK27.1, actual regular-iPhone component runtime27.0; no Duo27.1/physical/fold claim |
-| Native visuals | Three original UIKit fixture PNGs retained (outer, inner, maximum accessibility text), with all8 original attachment refs/hashes. Sizes, rail and task state are explicitly test-only;42% is synthetic progress, not a real install |
-| Existing baseline | Earlier real cloud baseline19/19 passed, including original8 requirements, before subsequent recovery/self-guard edits. Its189-input receipt/raw log retain that source scope; no blanket current-suite claim |
-| Python boundaries | Migration2, workflow/kit2, publisher negative2 and updater filesystem2 passed in their respective focused tasks. Updater's affected rerun followed two concrete review fixes. Transcribed outputs are explicitly distinguished from raw/pre-run evidence |
-| Licensing |408 union packages, zero notice gaps. siphasher notice fixed from its checksum-matched published COPYING/source and official terms. Actual matching final source/relink delivery remains required |
+| Setup retry and variant boundary | One focused Python invocation2/0 in0.054s; inert launcher substitutions/mocked device/account calls, not actual Mac UI |
+| AFC uploader | One actual locked/offline Rust test execution2/0 in0.22s; bounded synthetic reader/partial sink, backpressure, errors/EOF and cancellation. Earlier invalid Cargo feature-selection attempt ran0tests.172 input hashes unchanged |
+| Current core/native | Hosted41269237340/source0648612 SUCCESS: transport2/0 in0.27s, recovery2/0 in0.04s, native3/0 in8.869s. Genuine compilerSDK27.1, actual regular-iPhone component runtime27.0(24A434), not Duo/physical |
+| Unchanged vendor/helper | Original vendor8/helper2 from40916969403 reused with exact production/features/context proof; no repeated suites |
+| Visual evidence | Three untouched original current UIKit fixture PNGs and all8 attachment refs/hashes retained. Viewport/rail and42% task progress are explicitly test-only, not physical display or installation results |
+| Replacement package |41270305394/sourcef941208 SUCCESS: both genuine-SDK unsigned iPhone/Duo candidates, universal Mac USB helper, complete corresponding source and minimal kit. Zero new app tests; all matching proofs reused |
+| Source/licensing/integrity | Independent strict source/IPA and kit reviews passed;408 dependency packages,0notice gaps, exact graph/relink/source/library/helper/mode closure. Actual hosted Mac helper ad-hoc signature verification passed; helper is not Developer ID notarized |
+| Public delivery | Final41271986054/source452e2e9 SUCCESS through every safe phase; same sole draft430349496 and7asset IDs reused. Independent final server sizes/SHA-256 values match actual contract. Unpublished, unsigned, release_ready=false |
+| Earlier baseline/startup | Prior19/19 baseline (original8 included) and fresh-account/TLS3 retain older exact source scopes. Do not call them a newly executed complete suite or a live account success |
 
-Exact logs, before/after receipts, downloaded artifact hashes and source provenance are in `downloads/completion-verification/public-pairing/`. Historical private-repository results are not proof for this public tree. No aggregate completion percentage is reliably measurable yet; `release_ready=false`.
+Evidence: `downloads/completion-verification/public-pairing/resume-20261101/`. Current 7-file pins: `app-installer/cloud-ui/public-delivery-contract.json`. Only current local distribution: `app-installer/build/work/latest-reviewed/`. Its obsolete baseline and duplicate outer ZIPs were removed only after verified replacement. One current compressed native test artifact plus compact logs/receipts and original PNGs remain for reproducibility.
 
-## Actual package success and delivery review
+## Delivery defect investigated and fixed
 
-Package job123646286192 in40930198240 completed both genuine Mac helper release targets/signature steps and the iOS release core, then failed the strict corresponding-source check: `nskeyedarchiver_converter0.1.3` publishes both `README.MD` and `README.md`; macOS Cargo vendor retained only the canonical spelling. No candidate/kit upload or final helper seal completed.
+GitHub’s tag endpoint omitted an existing unpublished draft. Initial delivery41271081854 created a second managed review draft. Both old and replacement7asset sets were checked against their exact saved contracts before only obsolete draft428285659 was removed. Corrected discovery scans the bounded complete release list, reuses exactly one matching draft and refuses ambiguous or published matches before writes. Focused publisher2/0 passed; diagnostic2/0 passed.
 
-The fix preserves missing case aliases as bounded tar members using exact checksum-matched immutable bytes, includes them in the full manifest and writes the canonical Cargo entry last. Strict publication and Cargo checksum verification is unchanged. Two focused source-delivery methods passed; an independent review found no blocker. Both real upstream README files are2398 bytes with the same SHA; synthetic regression aliases deliberately have different bytes and exercise tamper rejection.
+One full reuse probe41271403913 returned an opaque exception after124seconds. Its exact cause is **unproven**; readback found the sole current draft and7pins unchanged. Fixed safe phase markers and exception-type-only diagnostics avoid raw URLs/tokens/payloads. Live read-only production discovery selected430349496; subsequent full instrumented41271986054 passed all phases and produced the real receipt. No application rebuild/test repeat was needed for delivery repairs. Never infer stable untagged URLs: use actual latest server readback.
 
-**Package-only run40934237282 succeeded**, source `4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8`. It reused all14 Rust and3 native checks without any repeated app tests. Both genuine SDK27.1 unsigned IPAs, the universal Mac helper, strict corresponding source and minimal native kit were produced. Actual downloaded outer artifacts match GitHub SHA-256/byte pins. Independent source/IPA and kit checks passed. Hosted Mac signature/draft delivery40936908790 then succeeded, with all seven final server hashes/sizes independently read back. The actual seven-file contract is `app-installer/cloud-ui/public-delivery-contract.json`; source154,020,324bytes, kit44,120,569bytes (SHA-256 `4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7`). The draft is unpublished; no signed release or phone success is claimed. Exact download pins and the minimal local overlay are in [PUBLIC-DELIVERY.md](https://github.com/mcantua/dokkan-offline-public/blob/chatgpt/app-installer-pairing-repair/app-installer/device/PUBLIC-DELIVERY.md).
+## Next actual work
 
-## Environment findings
+1. Use [the current exact delivery/overlay guide](https://github.com/mcantua/dokkan-offline-public/blob/chatgpt/app-installer-pairing-repair/app-installer/device/PUBLIC-DELIVERY.md). Kit **44149993bytes**, SHA-256 **b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661**. No need for Mac Rust/Cargo/full-repository/source-archive downloads.
+2. Before personal use, state the exact Mac/USB/network step, connection known/unknown and expected bytes. Existing scoped approval persists; no repeated request for routine approved work. Large Xcode or Apple credential/certificate changes retain separate approval.
+3. Update in place with the same existing development team/bundle identity. Never uninstall, reset trust, clear data or copy from the frozen backup. Use Pair only for an actual pairing retry after compatible app update. Transfer the private version2 export only locally to that phone; never request it in chat/GitHub/Drive.
+4. Verify real sign-in/2FA, authenticated phone session, installation/update/refresh, protected-storage/restart/recovery and both Duo displays/touch/folding. These remain unverified for this revision. The prior optional question about whether Tin installed the October29 kit has no reply yet; do not infer results.
+5. Current managed environment is cloud Linux with no Mac/USB capability, VPN or configured personal endpoint. Permission alone does not create computer control. A precise manual action or available authorized computer connection is now needed for physical/account checks. Keep known external Apple/profile/layout limitations explicit in CAPABILITY-MATRIX.md; no100%/final-release claim.
 
-Early native attempts stopped on optional headless OS metadata before app tests. Those probes are removed from component verification; Xcode manages startup. One superseded run reached simulator Rust compilation before cancellation; cancellation was not a test failure. The successful native run above supersedes those preflight failures for its specific component scope.
-
-Read-only official `macos-latest` inventory40925957648 found Xcode26.x, SDKs through26.5 and Simulator.app, with no27.1 runtime/Duo type. It cannot replace the genuine27.1 target requirement. No SDK/toolchain was downloaded to Tin's Mac.
-
-## Next actions without stopping at a milestone
-
-1. Cloud artifact review/delivery is complete for this revision. Sole current distribution is `app-installer/build/work/latest-reviewed/`; outer ZIP duplicates removed. Preserve necessary source/build inputs.
-2. Actual seven-file contract, successful source/delivery runs and final server readback are saved. No publish/base merge is authorized. Use the source-bound download/update guide; do not rebuild/retest unchanged inputs.
-3. Once a real compatible kit is available, explain the exact Mac/network/USB step, connection known/unknown and verified download bytes before personal use. Earlier routine setup approval persists; no repeated approval request. Larger Xcode or Apple-credential/certificate changes retain separate approval.
-4. Guide the minimal same-identity update and private trusted-USB export/import. Never request pairing records, keys, credentials, real device IDs, private addresses or raw device output in chat. No uninstall/reset/data-clearing shortcut.
-5. Continue actual Apple sign-in/signing/install/update/refresh/recovery and both physical Duo displays/touch/fold acceptance. These remain unverified for this revision and require authorized device/account access; neither cloud tests nor a build establishes them.
-
-All current actions are cloud-only. No operation is running on Tin's Mac, phone, home Wi-Fi, hotspot or cellular connection. No save folders, signing keys, private local config or frozen-backup contents are accessed. Drive synchronization is explicit per session, never automatic across chats.
+No personal MacBook, phone, home Wi-Fi/hotspot/cellular connection, Apple credentials, save folders, signing keys, private config or frozen-backup content was accessed. Drive updates are explicit per-session, never automatic across chats.

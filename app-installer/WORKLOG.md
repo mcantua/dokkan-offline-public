@@ -1,6 +1,6 @@
 # Work log
 
-**Current public revision (October29,2:10 PM Central):** Package40934237282/source4c09 and hosted Mac-signature/draft delivery40936908790 succeeded. Independent source/IPA/kit checks and all7 server hashes/sizes passed; notices408/zero gaps. Public pairing/recovery14, startup/TLS3 and native3 retain actual passing proof without repeated tests. Native SDK27.1/runtime27.0 component scope; Apple/phone/physical Duo acceptance remains0% for this revision. Exact download/next local step: [PUBLIC-DELIVERY.md](device/PUBLIC-DELIVERY.md). Historical entries keep their original scope; release_ready=false.
+**Current public revision (2026-10-31 11:14 PM US Central):** Four app/setup repairs plus draft-discovery repair verified. Focused setup2/uploader2 and hosted current core4/native3 passed; unchanged vendor8/helper2 reused. Package41270305394/sourcef941208 and final Mac-signature/draft reuse41271986054 passed; all7 server hashes/sizes, source/relink and408-package/zero-gap notices verified. Sole44.1MB kit retained. Physical Apple/phone/Duo acceptance unverified; release_ready=false. [Exact download/next step](device/PUBLIC-DELIVERY.md); [source/evidence scope](device/PUBLIC-CONTINUATION.md). Historical entries retain original scope.
 
 
 ## 2026-10-29 11:35 AM US Central — public-copy source repairs, no build

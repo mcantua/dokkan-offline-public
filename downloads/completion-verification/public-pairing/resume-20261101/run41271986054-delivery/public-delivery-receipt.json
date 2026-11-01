@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "branch": "chatgpt/app-installer-pairing-repair",
+  "release_id": 430349496,
+  "tag_name": "app-installer-public-review",
+  "draft": true,
+  "source_workflow_id": 400819284,
+  "source_run_id": 41270305394,
+  "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
+  "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
+  "contract_sha256": "5871f2146198c69874b60283d1dc16a0154d7b0b808a0e302ec9f91a9b419147",
+  "classification": "unsigned-candidate",
+  "release_ready": false,
+  "compilation_performed": false,
+  "tests_repeated": false,
+  "personal_resources_used": false,
+  "device_install_attempted": false,
+  "assets": [
+    {
+      "file": "AppInstaller-candidate-manifest.json",
+      "id": 697263163,
+      "bytes": 2207,
+      "sha256": "d4fb3233370d1aca24528c8aa02973bbddea6b90e5b51c19e276883f7958f455"
+    },
+    {
+      "file": "AppInstaller-corresponding-source.tar.xz",
+      "id": 697263203,
+      "bytes": 154032876,
+      "sha256": "20f37f3d71672cfe4a0dba21ab41222534f9c26b4df3d5bf3e1b8bed556ab35a"
+    },
+    {
+      "file": "AppInstaller-duo-candidate.ipa",
+      "id": 697263447,
+      "bytes": 8442558,
+      "sha256": "ebadfbe5f5615b772f1908953f95ad718f5c7b5f69f8cc6b50174260eb9938ae"
+    },
+    {
+      "file": "AppInstaller-iphone-candidate.ipa",
+      "id": 697263547,
+      "bytes": 8442555,
+      "sha256": "20315792575f7c45b3024ceb9aac6f2c71bbc69d0d29e925a946b3047e91a4d0"
+    },
+    {
+      "file": "AppInstaller-native-bootstrap-kit.json",
+      "id": 697263629,
+      "bytes": 893,
+      "sha256": "f4cb433f4694530fec10526deb45dad2b811eb783fb86bd98608a85a6aebaba7"
+    },
+    {
+      "file": "AppInstaller-native-bootstrap-kit.zip",
+      "id": 697263699,
+      "bytes": 44149993,
+      "sha256": "b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661"
+    },
+    {
+      "file": "cloud-device-library-manifest.json",
+      "id": 697263851,
+      "bytes": 1334,
+      "sha256": "0f1dd5fc37b5ddbb5eb46ee5caedbd5281772584152ee653999bd79d4ea71617"
+    }
+  ]
+}

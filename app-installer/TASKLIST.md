@@ -1,19 +1,17 @@
 # App Installer completion task list
 
-**Active repair batch — 2026-10-31 10:26 PM US Central:** Setup retry/variant fixes and bounded uploader passed targeted2+2 checks. Hosted41269237340/source0648612 passed current core4/native3, with unchanged vendor/helper reuse. Matching replacement package/delivery remains pending. Earlier evidence below retains its exact source scope. No physical/account acceptance is inferred.
-
-Current public revision: October29,2026,2:10 PM US Central. Tin authorized builds. Draft PR #7 remains unmerged. Historical private-repository artifacts are not proof for this revision. Exact evidence and delivery state are in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md).
+Current: 2026-10-31 11:14 PM US Central. Four app/setup repairs plus draft-discovery repair are implemented and checked; sourcef941208 package41270305394 and final sole-draft delivery41271986054 passed. Exact scopes in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md). No physical/Apple completion is inferred.
 
 | Requirement | Current verified state | Remaining acceptance |
 |---|---|---|
-| Authenticated pairing/export | Vendor8/helper2 passed; exact production/context reuse | Actual selected trusted-USB export/import and pinned phone session |
+| Authenticated pairing/export | Vendor8/helper2 passed; exact production/context reuse | Actual selected trusted-USB export/import and pinned phone session; preserve a working compatible record |
 | Device transport and recovery | Transport2/recovery2 passed including real loopback teardown, durable failed-first-install retention and self identity/team guards | Real installation/update/refresh/error/restart outcomes |
 | First-account/TLS startup | Fresh-process constructor1 and strict TLS2 passed without requests | Actual Apple sign-in/2FA/team/session recovery |
-| Native import/UI | Files/schema/responsive3 passed, SDK27.1 compilation and regular iOS27.0 component execution | Actual provider, biometrics, touch, keyboard and Duo device behavior |
+| Native import/UI | Current41269237340 Files/schema/responsive3 passed, SDK27.1 / regular iOS27.0 component scope | Actual provider, biometrics, touch, keyboard and Duo device behavior |
 | Original eight offline requirements | Included in earlier19/19 baseline; exact older source scope retained | Do not claim a new complete-suite pass; use necessary focused final checks for affected requirements |
 | Notices/source obligations |408 union packages, zero notice gaps; exact siphasher terms/source retained | Passed: full corresponding-source/relink/helper/library/archive bindings and zero notice gaps |
-| Clean candidate/helper/kit | Package40934237282 succeeded: both unsigned IPAs, universal helper, complete source and44.1MB kit; exact artifact hashes match | Passed: independent source/IPA/kit review and hosted helper signature gate |
-| Public distribution | Strong seven-asset source/run/hash/signature contract implemented, negative2 passed | Passed: actual7asset draft delivery40936908790 and independent final server digest/size readback |
+| Clean candidate/helper/kit | Replacement41270305394 succeeded: both unsigned IPAs, universal helper, complete source and44.1MB kit; exact artifact hashes match | Passed: independent source/IPA/kit review and hosted helper signature gate |
+| Public distribution | Strong seven-asset source/run/hash/signature contract implemented, negative2 passed | Passed: sole7asset draft delivery41271986054 and independent final server digest/size readback |
 | Personal-resource boundary | All current work cloud-only; no private backup, save or signing-key access | Give advance exact-step/connection/byte notice before approved Mac/network use; separate reserved approval for large Xcode/credential changes |
 | Apple signing/install/update/refresh |0% verified for this revision | Authorized local identity/account/device operations and actual results |
 | Physical Duo displays/folding |0% verified | Outer/inner resolution, safe areas, touchscreen, folding and retained state |

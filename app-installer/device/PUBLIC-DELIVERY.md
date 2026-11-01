@@ -1,15 +1,15 @@
 # Verified public App Installer delivery
 
-October29,2026,2:10 PM US Central. Source **4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8**. Cloud build40934237282 and hosted Mac verification/delivery40936908790 succeeded. All seven final server sizes/SHA-256 values match the reviewed contract. This is an unsigned review candidate, **release_ready=false**; real Apple/phone/Duo acceptance is pending.
+October 31, 2026, 11:15 PM US Central. Source **f941208e77ed37405cd9fbb109e87ed56f81fb45**. Cloud build41270305394 and hosted Mac verification/delivery41271081854 succeeded. Corrected draft reuse then passed41271986054 with the same release430349496 and all seven asset IDs unchanged; only one review draft remains. All seven final server sizes/SHA-256 values match the reviewed contract. This is an unsigned review candidate, **release_ready=false**; real Apple/phone/Duo acceptance is pending.
 
-Download only [AppInstaller-native-bootstrap-kit.zip](https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-bed720fc78dd111d2a22/AppInstaller-native-bootstrap-kit.zip) for the next Mac step. Sign into GitHub as the repository owner to access the unpublished draft; if the direct link is unavailable, open the repository's Releases page and its **App Installer — unsigned public review** draft. Do not publish it or use an old kit as a workaround.
+Download only [AppInstaller-native-bootstrap-kit.zip](https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-c42bba3ea7070303b8ec/AppInstaller-native-bootstrap-kit.zip) for the next Mac step. Sign into GitHub as the repository owner to access the unpublished draft; if the direct link is unavailable, open the repository's Releases page and its **App Installer — unsigned public review** draft. Do not publish it or use an old kit as a workaround.
 
-- Exact ZIP bytes: **44120569** (44.1 MB decimal).
-- SHA-256: `4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7`.
-- Source revision: `4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8`.
+- Exact ZIP bytes: **44149993** (44.1 MB decimal).
+- SHA-256: `b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661`.
+- Source revision: `f941208e77ed37405cd9fbb109e87ed56f81fb45`.
 - Native static library and universal arm64/x86_64 pairing helper are already built in the cloud; no Mac Rust build or full repository/source download is needed.
 - All seven source/IPA/kit/receipt pins: `app-installer/cloud-ui/public-delivery-contract.json`.
-- Actual hosted receipt and independent final server readback: `downloads/completion-verification/public-pairing/run40936908790-delivery/`.
+- Actual hosted receipt and independent final server readback: `downloads/completion-verification/public-pairing/resume-20261101/run41271986054-delivery/`.
 - Sole current cloud-local distribution: `app-installer/build/work/latest-reviewed/` (ignored). Outer artifact ZIP duplicates were removed after delivery verification.
 
 ## Advance notice before personal use
@@ -26,9 +26,9 @@ Keep the ZIP unopened until this verification. Paste the following into Terminal
 /usr/bin/python3 - <<'UPDATE_PUBLIC_KIT'
 from pathlib import Path
 import hashlib, io, subprocess, unicodedata, zipfile
-size = 44120569
-sha = '4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7'
-source = '4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8'
+size = 44149993
+sha = 'b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661'
+source = 'f941208e77ed37405cd9fbb109e87ed56f81fb45'
 try:
     selected = subprocess.check_output(['/usr/bin/osascript', '-e', 'POSIX path of (choose file with prompt "Choose the NEW public AppInstaller native kit ZIP")'], text=True).strip()
 except subprocess.CalledProcessError:
@@ -53,6 +53,10 @@ UPDATE_PUBLIC_KIT
 ```
 
 The printed result is enough; never paste pairing records, passwords, codes, raw device output or private identifiers. If this reports a managed-file/signature error, preserve the app/data and report only that safe message.
+
+## Included fixes
+
+This revision adds the actual **Pair only** launcher choice, stops incompatible kit/device variants before account discovery, rejects missing discovery metadata before replacing saved pairing, and streams large AFC uploads through a bounded buffer. Targeted setup2/uploader2 and hosted core4/native3 passed. Unchanged vendor8/helper2 were reused. The native component run used SDK27.1 with regular simulator iOS27.0; no physical Duo result is claimed.
 
 ## Then update and pair
 
