@@ -1,0 +1,1 @@
+Not queried: optional simctl io-help metadata is not required by the selected checks.

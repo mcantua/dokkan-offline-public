@@ -1,0 +1,14 @@
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:30:54.3296990Z error: cannot install while Rust is installed
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:37:29.5670920Z ** TEST BUILD SUCCEEDED **
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:42:35.6580520Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:42:47.9237890Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' passed (12.518 seconds).
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:42:48.0233940Z 	 Executed 1 test, with 0 failures (0 unexpected) in 12.518 (12.523) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:42:48.0919500Z 	 Executed 1 test, with 0 failures (0 unexpected) in 12.518 (12.524) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:42:48.1153140Z 	 Executed 1 test, with 0 failures (0 unexpected) in 12.518 (12.526) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:42:49.2496600Z ** TEST EXECUTE SUCCEEDED **
+simulator (single)	Keep only the new public source-bound test proof	2026-11-01T15:43:20.1882610Z SHA256 digest of uploaded artifact zip is a3674c802c02531e461d979c3cd24d62912cbebb675f6319139298e1cc9b1bb8
+simulator (single)	Keep only the new public source-bound test proof	2026-11-01T15:43:20.5927850Z Artifact app-installer-pairing-public-proof.zip successfully finalized. Artifact ID 13090040992
+simulator (single)	Keep only the new public source-bound test proof	2026-11-01T15:43:20.5930060Z Artifact app-installer-pairing-public-proof has been successfully uploaded! Final size is 24577 bytes. Artifact ID is 13090040992
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:43:22.2231000Z SHA256 digest of uploaded artifact zip is 9465243b0cbbbf0df4cb5c2c4d1323d8ade3336c0f5a14a8355813393194fafd
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:43:22.6785010Z Artifact app-installer-cloud-tests-latest.zip successfully finalized. Artifact ID 13089861689
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:43:22.6785970Z Artifact app-installer-cloud-tests-latest has been successfully uploaded! Final size is 9864608 bytes. Artifact ID is 13089861689
