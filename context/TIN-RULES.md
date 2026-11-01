@@ -1,5 +1,9 @@
 # Tin's standing rules (his own words in quotes)
 
+## Latest App Installer ownership — November 1, 2026
+
+Tin transferred App Installer to Claude. ChatGPT development is paused after preservation; resume only if Tin explicitly asks. The complete transfer is [app-installer/CLAUDE-HANDOFF.md](../app-installer/CLAUDE-HANDOFF.md). Existing cloud-first, privacy, minimal-testing, build/resource approval and protected-base rules continue. No other project ownership changes.
+
 ## Latest stop / takeover instruction (October 29)
 - Tin asked ChatGPT to stop development to conserve usage and save/upload everything Grok Bot needs. All development agents stopped; perform only preservation/documentation/uploads for the handoff. Do not automatically resume ChatGPT development based on older sustained-work directions. Grok takeover state and exact WIP/blockers: [../GROK-TAKEOVER.md](../GROK-TAKEOVER.md). Duo-only and all privacy/storage/testing/platform gates remain in force.
 
@@ -102,3 +106,7 @@
 - Synchronize after meaningful changes during active work. The connector does not mount Drive as a compiler filesystem or run unattended sync; use cloud working files only where development/build/runtime requires them. Never claim continuous/background sync.
 - Minimize Mac storage. No direct Mac access exists in this chat. Do not claim Mac files were moved/deleted. Mac use still requires the existing scoped authorization; do not delete an only working copy. Explain Google Drive for desktop streaming/Free up space when relevant, rather than mirroring the entire workspace locally.
 - Verify successful uploads/readback before deleting disposable local/cloud copies. Keep necessary active tools, originals and candidates until safely recoverable. Exclude signing keys/passwords/provisioning/account credentials/AI API keys; private game content belongs only in private Drive, never GitHub. Do not recreate obsolete Offline builds that Tin requested removed.
+
+## App Installer reviewer path guard
+- Every delegated App Installer source task must pin its first and every filesystem command to `/workspace/AI-Workspace/dokkan-offline-public` in this cloud environment, checking the expected public root before reading repository files. Do not rely on an inherited working directory. The frozen checkout must never be read, queried or audited.
+- A November1 supplementary read-only review used the wrong checkout; it was disclosed and excluded, with no writes reported. Never repeat that access to investigate it. Build/source provenance and live verification remain separately evidenced.

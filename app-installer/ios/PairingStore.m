@@ -13,6 +13,7 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
 @interface AIPairingStore ()
 @property (nonatomic, strong) NSURL *directory;
 @property (nonatomic, strong) NSURL *backupURL;
+- (BOOL)hasConnectionMetadataForPairingData:(NSData *)data;
 @end
 
 @implementation AIPairingStore
@@ -92,6 +93,31 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
     id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
     if (![plist isKindOfClass:NSDictionary.class]) return NO;
     NSDictionary *record = plist;
+    NSSet *remoteFields = [NSSet setWithArray:@[@"format_version", @"public_key", @"private_key", @"identifier",
+        @"peer_identifier", @"peer_public_key", @"alt_irk"]];
+    BOOL remote = NO;
+    for (id field in record) if ([remoteFields containsObject:field]) { remote = YES; break; }
+    if (remote) {
+        // Only the current peer-pinned wire format is allowed. Cryptographic
+        // host-key consistency and peer-key/signature verification remain Rust's
+        // responsibility; these bounds also guard decrypted backup recovery.
+        if (data.length > 1024 * 1024) return NO;
+        id version = record[@"format_version"];
+        if (![version isKindOfClass:NSNumber.class] ||
+            CFGetTypeID((__bridge CFTypeRef)version) != CFNumberGetTypeID() ||
+            CFNumberIsFloatType((__bridge CFNumberRef)version) || [version longLongValue] != 2) return NO;
+        for (id field in record) if (![remoteFields containsObject:field]) return NO;
+        for (NSString *field in @[@"identifier", @"peer_identifier"]) {
+            id value = record[field];
+            if (![value isKindOfClass:NSString.class]) return NO;
+            NSData *encoded = [value dataUsingEncoding:NSUTF8StringEncoding];
+            if (!encoded.length || encoded.length > 1024) return NO;
+        }
+        for (NSString *field in @[@"public_key", @"private_key", @"peer_public_key"])
+            if (![record[field] isKindOfClass:NSData.class] || [record[field] length] != 32) return NO;
+        id discoveryKey = record[@"alt_irk"];
+        return !discoveryKey || ([discoveryKey isKindOfClass:NSData.class] && [discoveryKey length] == 16);
+    }
     // Rust validates the complete format and device session. This check is only a local bound/type guard.
     for (NSString *key in @[@"HostID", @"SystemBUID"])
         if (![record[key] isKindOfClass:NSString.class] || ![record[key] length]) return NO;
@@ -99,10 +125,19 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
         if (![record[key] isKindOfClass:NSData.class] || ![record[key] length]) return NO;
     return YES;
 }
+- (BOOL)hasConnectionMetadataForPairingData:(NSData *)data {
+    if (![self looksLikePairingData:data]) return NO;
+    NSDictionary *record = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:nil];
+    // Generic RPv2 permits an explicit endpoint without this key. This app
+    // instead requires authenticated discovery; legacy Lockdown needs no hint.
+    return !record[@"format_version"] || [record[@"alt_irk"] length] == 16;
+}
 - (BOOL)importValidatedPairingData:(NSData *)data error:(NSError **)error {
     @synchronized(self) {
         if (![AISecureStore sessionAuthorized]) return [self fail:error code:2 message:@"Unlock secure storage before importing the pairing file."];
         if (![self looksLikePairingData:data]) return [self fail:error code:4 message:@"The pairing file is not valid."];
+        if (![self hasConnectionMetadataForPairingData:data]) return [self fail:error code:AIPairingStoreMissingDiscoveryKey
+            message:@"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept."];
         if (![self prepareDirectory:error]) return NO;
         SecKeyRef privateKey = [self privateKeyCreatingIfNeeded:YES error:error];
         if (!privateKey) return NO;
@@ -140,6 +175,9 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
         NSData *primary = [AISecureStore load:AIPairingKeyName context:nil status:&status];
         if (primary) {
             if (![self looksLikePairingData:primary]) { [self fail:error code:4 message:@"Import a new pairing file."]; return nil; }
+            if (![self hasConnectionMetadataForPairingData:primary]) {
+                [self fail:error code:AIPairingStoreMissingDiscoveryKey message:@"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept."]; return nil;
+            }
             return primary;
         }
         if (status != errSecItemNotFound) { [self fail:error code:5 message:@"The pairing file could not be unlocked."]; return nil; }
@@ -177,6 +215,9 @@ static const NSUInteger AIPairingMaxBytes = 2 * 1024 * 1024;
         if (!rawPlain) { [self fail:error code:7 message:@"The pairing backup could not be opened. Import a new pairing file."]; return nil; }
         NSData *plain = CFBridgingRelease(rawPlain);
         if (![self looksLikePairingData:plain]) { [self fail:error code:7 message:@"The pairing backup is invalid. Import a new pairing file."]; return nil; }
+        if (![self hasConnectionMetadataForPairingData:plain]) {
+            [self fail:error code:AIPairingStoreMissingDiscoveryKey message:@"This Remote Pairing export is missing its discovery key. Create a new trusted USB export for this iPhone. Saved pairing data was kept."]; return nil;
+        }
         if ([AISecureStore save:plain key:AIPairingKeyName biometric:[AISecureStore biometricsEnabled]] != errSecSuccess) {
             [self fail:error code:5 message:@"The pairing backup could not be restored to secure storage."]; return nil;
         }

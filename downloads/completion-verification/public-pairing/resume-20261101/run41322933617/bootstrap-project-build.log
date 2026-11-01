@@ -1,0 +1,1 @@
+warning: User supplied UIDeviceFamily key in the Info.plist will be overwritten. Please use the build setting TARGETED_DEVICE_FAMILY and remove UIDeviceFamily from your Info.plist. (in target 'AppInstaller' from project 'AppInstallerDevice')

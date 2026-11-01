@@ -1,0 +1,10 @@
+started=2026-11-01T03:58:56Z
+711679fb813bc0ca553070b6d1098cf7081fddd0
+1e466fbb8a4a64ea42b40e0068c89287d49c33c3740d1010027951381df92ff1  app-installer/cloud-ui/public-delivery.py
+b8fcd708176245f70ccecbecd2390c5c203ea2ca0c65452138f2d8044428c0d0  app-installer/cloud-ui/test_public_delivery.py
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.035s
+
+OK
+finished=2026-11-01T03:58:57Z

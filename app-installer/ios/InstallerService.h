@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSDictionary *snapshot;
 @property (nonatomic, readonly) NSArray<NSDictionary *> *appRecords;
 - (void)resume;
+/// Saves only a core-validated numeric local/VPN address on this device.
+/// Returns NO while a task is active or if the value is invalid; never emits it.
+- (BOOL)setConnectionAddress:(NSString *)address;
 - (void)signInWithEmail:(NSString *)email password:(NSString *)password;
 - (void)submitCode:(NSString *)code;
 - (void)selectTeam:(NSString *)teamId;

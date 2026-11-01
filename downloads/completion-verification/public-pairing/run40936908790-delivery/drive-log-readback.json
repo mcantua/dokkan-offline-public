@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "status": true,
+  "continuation": true,
+  "status_modified": "2026-10-29T19:12:16.920Z",
+  "continuation_modified": "2026-10-29T19:12:20.080Z",
+  "scope": "Explicit current-session log/continuation updates only. Existing unrelated shared Drive history retained. No asset/source upload or sharing changes. No automatic synchronization."
+}

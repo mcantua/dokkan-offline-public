@@ -1,0 +1,55 @@
+Command line invocation:
+    /Applications/Xcode_27.1.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/AppInstallerCloudSmoke.xcodeproj -scheme AppInstallerCloudSmoke -destination "platform=iOS Simulator,id=A625A87F-9C25-4F4C-8108-60EC5C475B7A" -parallel-testing-enabled NO -derivedDataPath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/DerivedData -resultBundlePath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- "-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads" "-only-testing:AppInstallerCloudUITests/PairingConnectionGuardTests/testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs" "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture" "-only-testing:AppInstallerCloudUITests/SecureStoreBootstrapTests/testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess"
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+    CODE_SIGNING_ALLOWED = YES
+
+Writing result bundle at path:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+2026-11-01 13:19:14.390 xcodebuild[42848:85340] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 13:20:27.933582+0000 AppInstaller[43585:88395] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+Test Suite 'Selected tests' started at 2026-11-01 13:20:30.070.
+Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-11-01 13:20:30.071.
+Test Suite 'AppInstallerCloudUITests' started at 2026-11-01 13:20:30.071.
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+2026-11-01 13:20:30.284764+0000 AppInstaller[43585:88395] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 13:20:34.386830+0000 AppInstaller[43585:88395] Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x108231200>.
+2026-11-01 13:20:35.198496+0000 AppInstaller[43585:88395] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 13:20:35.362022+0000 AppInstaller[43585:88395] [API] cannot add handler to 0 from 0 - dropping
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' passed (5.434 seconds).
+Test Suite 'AppInstallerCloudUITests' passed at 2026-11-01 13:20:35.507.
+	 Executed 1 test, with 0 failures (0 unexpected) in 5.434 (5.436) seconds
+Test Suite 'PairingConnectionGuardTests' started at 2026-11-01 13:20:35.507.
+Test Case '-[PairingConnectionGuardTests testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs]' started.
+Test Case '-[PairingConnectionGuardTests testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs]' passed (0.007 seconds).
+Test Suite 'PairingConnectionGuardTests' passed at 2026-11-01 13:20:35.515.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.007 (0.007) seconds
+Test Suite 'PairingDocumentReadTests' started at 2026-11-01 13:20:35.515.
+Test Case '-[PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads]' started.
+Test Case '-[PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads]' passed (0.295 seconds).
+Test Suite 'PairingDocumentReadTests' passed at 2026-11-01 13:20:35.810.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.295 (0.295) seconds
+Test Suite 'SecureStoreBootstrapTests' started at 2026-11-01 13:20:35.811.
+Test Case '-[SecureStoreBootstrapTests testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess]' started.
+Test Case '-[SecureStoreBootstrapTests testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess]' passed (0.216 seconds).
+Test Suite 'SecureStoreBootstrapTests' passed at 2026-11-01 13:20:36.028.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.216 (0.217) seconds
+Test Suite 'AppInstallerCloudUITests.xctest' passed at 2026-11-01 13:20:36.028.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 5.952 (5.957) seconds
+Test Suite 'Selected tests' passed at 2026-11-01 13:20:36.028.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 5.952 (5.958) seconds
+2026-11-01 13:20:39.723 xcodebuild[42848:85340] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 13:20:40.051 xcodebuild[42848:85340] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 13:20:40.880 xcodebuild[42848:85340] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 13:20:48.362 xcodebuild[42848:85340] [MT] IDETestOperationsObserverDebug: 133.126 elapsed -- Testing started completed.
+2026-11-01 13:20:48.362 xcodebuild[42848:85340] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-01 13:20:48.362 xcodebuild[42848:85340] [MT] IDETestOperationsObserverDebug: 133.126 sec, +133.126 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

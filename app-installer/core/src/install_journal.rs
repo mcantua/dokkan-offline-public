@@ -16,6 +16,10 @@ pub struct Pending<R> {
     pub bundle_id: String,
     pub source_sha256: String,
     pub record: R,
+    /// The verified device lookup did not contain this app when the user
+    /// approved it. Subsequent absence cannot prove a user uninstall.
+    #[serde(default)]
+    pub initial_install: bool,
 }
 fn invalid() -> io::Error {
     io::Error::new(
@@ -119,11 +123,21 @@ fn atomic_json(path: &Path, bytes: &[u8]) -> io::Result<()> {
     sync_parent(path)
 }
 /// Retain exact validated input and commit intent before any upload/install request.
+#[cfg(test)]
 pub fn prepare<R: Serialize + DeserializeOwned>(
     work: &Path,
     bundle_id: &str,
     record: &R,
     source: &Path,
+) -> io::Result<()> {
+    prepare_with_state(work, bundle_id, record, source, false)
+}
+pub fn prepare_with_state<R: Serialize + DeserializeOwned>(
+    work: &Path,
+    bundle_id: &str,
+    record: &R,
+    source: &Path,
+    initial_install: bool,
 ) -> io::Result<()> {
     let old = read::<R>(work)?;
     if old
@@ -165,6 +179,7 @@ pub fn prepare<R: Serialize + DeserializeOwned>(
         bundle_id: bundle_id.to_owned(),
         source_sha256: hash,
         record,
+        initial_install,
     };
     atomic_json(
         &work.join(NAME),
@@ -185,6 +200,41 @@ pub fn verified_candidate<R>(work: &Path, pending: &Pending<R>) -> io::Result<Pa
         return Err(invalid());
     }
     Ok(path)
+}
+/// Promote only the retained, hash-verified input after device confirmation.
+/// The directory entry must be durable before callers commit installed metadata
+/// or clear recovery intent; a failed sync deliberately retains that intent.
+pub fn promote_candidate<R>(work: &Path, pending: &Pending<R>, source: &Path) -> io::Result<()> {
+    promote_candidate_using(work, pending, source, sync_parent)
+}
+fn promote_candidate_using<R>(
+    work: &Path,
+    pending: &Pending<R>,
+    source: &Path,
+    sync_directory: impl FnOnce(&Path) -> io::Result<()>,
+) -> io::Result<()> {
+    if source.parent() != Some(work.join("sources").as_path()) {
+        return Err(invalid());
+    }
+    let retained = verified_candidate(work, pending)?;
+    let temp = source.with_extension("ipa.pending");
+    fs::copy(retained, &temp)?;
+    if hash_file(&temp)? != pending.source_sha256 {
+        return Err(invalid());
+    }
+    File::open(&temp)?.sync_all()?;
+    fs::rename(&temp, source)?;
+    sync_directory(source)
+}
+/// Fault seam for the exact production promotion path, compiled only in tests.
+#[cfg(test)]
+pub fn promote_candidate_with_directory_sync<R>(
+    work: &Path,
+    pending: &Pending<R>,
+    source: &Path,
+    sync_directory: impl FnOnce(&Path) -> io::Result<()>,
+) -> io::Result<()> {
+    promote_candidate_using(work, pending, source, sync_directory)
 }
 pub fn clear<R>(work: &Path, pending: &Pending<R>) -> io::Result<()> {
     match fs::remove_file(work.join(NAME)) {

@@ -2,8 +2,10 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
 #import <objc/runtime.h>
+#import <math.h>
 #import "SecureStore.h"
 #import "InstallerService.h"
+#import "../../core/secure_storage.h"
 
 // Hosted disposable-simulator Keychain tests only.
 // Real biometric/passcode authentication is not tested here. The cancellation
@@ -12,6 +14,21 @@
 // nonsecret test markers and are removed after each case.
 static void (^AIHeldAuthenticationReply)(BOOL, NSError *);
 static XCTestExpectation *AIAuthenticationReplyCaptured;
+static BOOL AIExpiredLeaseFixturePending;
+@interface AISecureStore (AIExpiredLeaseFixture)
++ (BOOL)ai_fixtureConsumeSessionExpiration;
++ (BOOL)leaseExpiredAtTime:(NSTimeInterval)now deadline:(NSTimeInterval)deadline;
+@end
+@implementation AISecureStore (AIExpiredLeaseFixture)
++ (BOOL)ai_fixtureConsumeSessionExpiration {
+    BOOL pending = AIExpiredLeaseFixturePending;
+    AIExpiredLeaseFixturePending = NO;
+    return pending; // Expired transition only; never grants an authenticated context.
+}
+@end
+@interface AIInstallerService (AIExpiredLeaseTestAccess)
+- (BOOL)handleSessionExpiration;
+@end
 @interface LAContext (AICancellationRaceFixture)
 - (BOOL)ai_raceCanEvaluatePolicy:(LAPolicy)policy error:(NSError **)error;
 - (void)ai_raceEvaluatePolicy:(LAPolicy)policy localizedReason:(NSString *)reason reply:(void (^)(BOOL, NSError *))reply;
@@ -120,6 +137,7 @@ static XCTestExpectation *AIAuthenticationReplyCaptured;
 }
 - (void)testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess {
     if (![self requireEmptyDisposableTestServices]) return;
+    XCTAssertEqual(ai_secure_session_authorized(), 0, @"The C bridge denies an unauthenticated fixture without prompting or reading secrets.");
     // A nonsecret existing record prevents bootstrap/configuration persistence
     // even if this regression fails. No saved credential is touched by the test.
     NSMutableDictionary *dummy = [[self queryForService:@"org.tin.appinstaller.secure" account:self.dummyAccount] mutableCopy];
@@ -150,6 +168,7 @@ static XCTestExpectation *AIAuthenticationReplyCaptured;
             [AISecureStore authenticateSessionWithReason:@"TEST ONLY — delayed callback race" completion:^(BOOL success) {
                 XCTAssertFalse(success, @"Service cancellation must invalidate SecureStore's outstanding generation.");
                 XCTAssertFalse([AISecureStore sessionAuthorized], @"A late synthetic callback must never establish a reusable session.");
+                XCTAssertEqual(ai_secure_session_authorized(), 0, @"A cancelled delayed callback must also remain denied through the production C bridge.");
                 [completed fulfill];
             }];
         });
@@ -157,6 +176,7 @@ static XCTestExpectation *AIAuthenticationReplyCaptured;
         XCTAssertNotNil(AIHeldAuthenticationReply);
         dispatch_async(dispatch_get_main_queue(), ^{
             [AIInstallerService.shared cancel]; // Actual public cancellation, not a mocked generation increment.
+            XCTAssertEqual(ai_secure_session_authorized(), 0);
             if (AIHeldAuthenticationReply) AIHeldAuthenticationReply(YES, nil);
         });
         [self waitForExpectations:@[completed] timeout:5];
@@ -168,6 +188,58 @@ static XCTestExpectation *AIAuthenticationReplyCaptured;
         method_exchangeImplementations(canEvaluate, fixtureCanEvaluate);
         AIHeldAuthenticationReply = nil; AIAuthenticationReplyCaptured = nil;
         [AIInstallerService.shared setValue:@NO forKey:@"authorizing"];
+    }
+    // The production monotonic deadline is not affected by calendar time. No
+    // successful LocalAuthentication/context or saved account is created here.
+    XCTAssertFalse([AISecureStore leaseExpiredAtTime:299.999 deadline:300]);
+    XCTAssertTrue([AISecureStore leaseExpiredAtTime:300 deadline:300]);
+    XCTAssertTrue([AISecureStore leaseExpiredAtTime:301 deadline:300]);
+    XCTAssertTrue([AISecureStore leaseExpiredAtTime:1 deadline:0]);
+    XCTAssertTrue([AISecureStore leaseExpiredAtTime:NAN deadline:300]);
+    Method consume = class_getClassMethod(AISecureStore.class, @selector(consumeSessionExpiration));
+    Method fixtureConsume = class_getClassMethod(AISecureStore.class, @selector(ai_fixtureConsumeSessionExpiration));
+    XCTAssertTrue(consume && fixtureConsume);
+    if (!consume || !fixtureConsume) return;
+    XCTestExpectation *expired = [self expectationWithDescription:@"Expired lease cancels the real native continuation only once"];
+    method_exchangeImplementations(consume, fixtureConsume);
+    @try {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            AIInstallerService *service = AIInstallerService.shared;
+            void (^previousHandler)(NSDictionary *) = service.eventHandler;
+            __block NSUInteger expiryErrors = 0;
+            __block BOOL continuationRan = NO;
+            @try {
+                XCTAssertFalse([AISecureStore sessionAuthorized]);
+                XCTAssertEqual(ai_secure_session_authorized(), 0, @"The expired-transition fixture starts denied; it never creates a successful authentication.");
+                service.eventHandler = ^(NSDictionary *event) {
+                    if ([event[@"type"] isEqual:@"error"] && [event[@"message"] containsString:@"five-minute unlock expired"]) ++expiryErrors;
+                };
+                [service setValue:@YES forKey:@"signingForInstall"];
+                [service setValue:@YES forKey:@"foregroundRefreshPending"];
+                [service setValue:[^{ continuationRan = YES; } copy] forKey:@"pendingDeviceAction"];
+                AIExpiredLeaseFixturePending = YES;
+                XCTAssertTrue([service handleSessionExpiration]);
+                XCTAssertFalse([[service valueForKey:@"signingForInstall"] boolValue]);
+                XCTAssertFalse([[service valueForKey:@"foregroundRefreshPending"] boolValue]);
+                XCTAssertNil([service valueForKey:@"pendingDeviceAction"]);
+                XCTAssertFalse(continuationRan);
+                XCTAssertEqualObjects(service.snapshot[@"loginStatus"], @"signed_out", @"Revocation leaves this unauthenticated fixture locked; it does not simulate a real signed-in account.");
+                NSNumber *generation = [service valueForKey:@"operationGeneration"];
+                XCTAssertFalse([service handleSessionExpiration]);
+                XCTAssertEqualObjects([service valueForKey:@"operationGeneration"], generation, @"Repeated polls must not recancel/revoke a new operation.");
+                XCTAssertEqual(expiryErrors, 1u);
+                XCTAssertFalse([AISecureStore sessionAuthorized]);
+                XCTAssertEqual(ai_secure_session_authorized(), 0, @"Expiration handling cannot leave a usable core session lease.");
+            } @finally {
+                service.eventHandler = previousHandler;
+                AIExpiredLeaseFixturePending = NO;
+                [expired fulfill];
+            }
+        });
+        [self waitForExpectations:@[expired] timeout:5];
+    } @finally {
+        method_exchangeImplementations(consume, fixtureConsume);
+        AIExpiredLeaseFixturePending = NO;
     }
 }
 @end

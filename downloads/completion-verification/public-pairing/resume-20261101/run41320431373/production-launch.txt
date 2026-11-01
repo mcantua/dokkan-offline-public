@@ -1,0 +1,1 @@
+No manual production launch/screenshot: Xcode-managed component test host only.

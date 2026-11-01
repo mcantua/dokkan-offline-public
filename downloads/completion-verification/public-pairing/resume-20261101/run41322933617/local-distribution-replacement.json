@@ -1,0 +1,61 @@
+{
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "package_run": 41322933617,
+  "delivery_run": 41324387393,
+  "actual_server_7_pins_checked": true,
+  "old_7_verified_before_retirement": true,
+  "new_7_verified_before_and_after_move": true,
+  "current_directory": "app-installer/build/work/latest-reviewed",
+  "current_files": {
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 154038676,
+      "sha256": "79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4"
+    },
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2207,
+      "sha256": "69145e698ad3bb3a118325edf89facee99e4663c1f5a698ee82973dcc56b7e38"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 8480400,
+      "sha256": "c489d6657a8489a3f390312d84fb30fd6b859fc5ccb9feb501ae98286f4169c9"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 8480396,
+      "sha256": "d7c09818ff6bd17f8f62e0199eba794c491ef8498e5f16ea43dbb142a62155d8"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1334,
+      "sha256": "bb43d500694ef3a890c348f8823f6c1489103b0907d97b07554733de50f35d19"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 44231197,
+      "sha256": "895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 893,
+      "sha256": "ca79236970577d3d744543c13929c2b39cb8e867f728aa23fba9fb173b2f1c35"
+    }
+  },
+  "retired_source_commit": "b45c705e5fde11a5c07bed590cc4a4643a24f1e4",
+  "retired_distribution_deleted": true,
+  "backup_count": 0,
+  "removed_verified_temporary_files": [
+    {
+      "file": "app-installer/build/work/review-41322933617/kit-artifact.zip",
+      "bytes": 43869532
+    },
+    {
+      "file": "app-installer/build/work/review-41322933617/candidate-artifact.zip",
+      "bytes": 170998136
+    },
+    {
+      "file": "app-installer/build/work/review-41322933617/verified-source-manifest.json",
+      "bytes": 7018460
+    }
+  ],
+  "review_observation_recipes_removed": true,
+  "original_stock_verifier_and_required_build_tools_preserved": true,
+  "kit_available_for_later_authorized_setup": true,
+  "personal_download_or_install_attempted": false,
+  "release_ready": false
+}

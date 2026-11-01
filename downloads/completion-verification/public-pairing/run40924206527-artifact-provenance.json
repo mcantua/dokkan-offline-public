@@ -1,0 +1,30 @@
+{
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 40924206527,
+  "source_commit": "2f13bda789f1c8bf1b90edbe02a0ad1bb7f6d7ba",
+  "conclusion": "cancelled",
+  "reason": "Superseded by reviewed self-identity guard and bounded harness changes; not a test failure.",
+  "artifacts": [
+    {
+      "kind": "proof",
+      "id": 12920511078,
+      "bytes": 55872,
+      "sha256": "2785b86e61b4fde88016fb8aca57e666614dab9f6f264328695f3c84a5e3dad7"
+    },
+    {
+      "kind": "diagnostics",
+      "id": 12920905334,
+      "bytes": 91420,
+      "sha256": "bb2a9331941d3b096de10c667eea4a972f13a9559d54a5d2511a28ae6c733fca"
+    }
+  ],
+  "actual_checks": {
+    "vendor8": "reused40916969403",
+    "helper2": "reused40916969403",
+    "transport2": "passed2/0;0.27s;pre-selfguard",
+    "recovery2": "passed2/0;0.05s;pre-selfguard",
+    "native3": "not started; simulator Rust dependency compilation cancelled"
+  },
+  "screenshots_available": false,
+  "expanded_to": "run40924206527"
+}

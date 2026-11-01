@@ -75,12 +75,16 @@ class PublicRedirect(urllib.request.HTTPRedirectHandler):
 
 class GitHub:
     def __init__(self, token):
-        self.headers = {'Authorization': 'Bearer ' + token,
-                        'Accept': 'application/vnd.github+json',
-                        'X-GitHub-Api-Version': '2022-11-28',
-                        'User-Agent': 'AppInstaller-draft-transfer'}
-        self.base = 'https://api.github.com/repos/' + REPOSITORY
-        self.opener = urllib.request.build_opener(PublicRedirect())
+        # This retained transport is bound to the frozen private backup's
+        # release IDs and receipts. It must never contact that repository from
+        # the public continuation, even if old workflow variables are present.
+        # A future public release needs its own reviewed destination contract;
+        # changing an owner/name alone cannot safely migrate these asset pins.
+        raise ValueError(
+            'Legacy private-repository transfer is retired. '
+            'No network request or release change was performed. '
+            'A reviewed public-repository delivery contract is required.'
+        )
 
     def get(self, suffix):
         request = urllib.request.Request(self.base + suffix, headers=self.headers)

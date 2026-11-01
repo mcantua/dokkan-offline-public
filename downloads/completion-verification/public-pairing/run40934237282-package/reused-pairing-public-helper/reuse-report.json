@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "reused": true,
+  "new_test_execution": false,
+  "repository": "mcantua/dokkan-offline-public",
+  "original_run_id": 40916969403,
+  "original_source_commit": "24f2809c3001c474d0ea885afc1aef00aa388fd0",
+  "current_source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+  "group": "helper",
+  "passed": 2,
+  "failed": 0,
+  "input_bytes_match_current": false,
+  "production_input_bytes_match_current": true,
+  "reviewed_harness_changes": [
+    {
+      "path": ".github/workflows/app-installer-cloud-ui.yml",
+      "original_sha256": "b4550a331b4e6e44fcb519039dba26405327361390bc497c60242d5e2bef2360",
+      "current_sha256": "8b5610da19549367d1f8c95ffdd24349778b902d8547c8c10c36568f00ceabb2"
+    },
+    {
+      "path": "app-installer/cloud-ui/pairing-public-proof.py",
+      "original_sha256": "1bc9ddee4fa4fa087e2b000e201fe144141c33e43f8e255939f713623851d011",
+      "current_sha256": "217269c13fc4713536dacd7e54462e2811e3a6bbfff139227c1bf6caf92ddc39"
+    },
+    {
+      "path": "app-installer/cloud-ui/run.sh",
+      "original_sha256": "1efc3b83c4f50a6f73b33216fa9516558eb90686159181ba1c9fd56915f75393",
+      "current_sha256": "1f89fc090f2ff86f7df1ada6cd4bf618b495f20e8a95236d0825ba5d9f759429"
+    }
+  ],
+  "original_context": {
+    "os": "darwin",
+    "architecture": "arm64",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "macos_sdk": "27.0",
+    "simulator_sdk": "27.1"
+  },
+  "scope": "Only two explicit helper argument/private-file methods; no USB or account action."
+}

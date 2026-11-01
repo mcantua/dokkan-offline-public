@@ -1,0 +1,17 @@
+{
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 40916969403,
+  "source_commit": "24f2809c3001c474d0ea885afc1aef00aa388fd0",
+  "diagnostics": {
+    "artifact_id": 12917850171,
+    "bytes": 78435,
+    "sha256": "37b0081b32b671f12d720c0f816017469e458347950f2db6b19e09b9451f6e31",
+    "expanded_to": "run40916969403"
+  },
+  "proof_artifact": {
+    "artifact_id": 12917820260,
+    "bytes": 67090,
+    "sha256": "3b0a33ae410550df59f07ddd3d2f8918a57655b803494b679651286fb3483a05"
+  },
+  "result": "Rust12passed;native_not_started;preapp_simulator_failed"
+}

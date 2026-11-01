@@ -1,0 +1,1193 @@
+simulator	Set up job	﻿2026-10-29T16:59:42.6150630Z Current runner version: '2.338.0'
+simulator	Set up job	2026-10-29T16:59:42.6169010Z ##[group]Runner Image Provisioner
+simulator	Set up job	2026-10-29T16:59:42.6169600Z Hosted Compute Agent
+simulator	Set up job	2026-10-29T16:59:42.6169990Z Version: 20261021.618
+simulator	Set up job	2026-10-29T16:59:42.6170390Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+simulator	Set up job	2026-10-29T16:59:42.6170860Z Build Date: 2026-10-21T00:45:21Z
+simulator	Set up job	2026-10-29T16:59:42.6171310Z Worker ID: {53225680-f928-41db-ab11-a98a97442e50}
+simulator	Set up job	2026-10-29T16:59:42.6171770Z Region: westus
+simulator	Set up job	2026-10-29T16:59:42.6172120Z Cloud: MacCloud
+simulator	Set up job	2026-10-29T16:59:42.6172530Z ##[endgroup]
+simulator	Set up job	2026-10-29T16:59:42.6173590Z ##[group]Operating System
+simulator	Set up job	2026-10-29T16:59:42.6174020Z macOS
+simulator	Set up job	2026-10-29T16:59:42.6174360Z 27.0.1
+simulator	Set up job	2026-10-29T16:59:42.6174690Z 26A434
+simulator	Set up job	2026-10-29T16:59:42.6175040Z ##[endgroup]
+simulator	Set up job	2026-10-29T16:59:42.6175400Z ##[group]Runner Image
+simulator	Set up job	2026-10-29T16:59:42.6175790Z Image: xcode-27-arm64
+simulator	Set up job	2026-10-29T16:59:42.6176190Z Version: 20261026.0314.1
+simulator	Set up job	2026-10-29T16:59:42.6176940Z Included Software: https://github.com/actions/runner-images/blob/xcode-27-arm64/20261026.0314/images/macos/xcode-27-arm64-Readme.md
+simulator	Set up job	2026-10-29T16:59:42.6178200Z Image Release: https://github.com/actions/runner-images/releases/tag/xcode-27-arm64%2F20261026.0314
+simulator	Set up job	2026-10-29T16:59:42.6178880Z ##[endgroup]
+simulator	Set up job	2026-10-29T16:59:42.6179690Z ##[group]GITHUB_TOKEN Permissions
+simulator	Set up job	2026-10-29T16:59:42.6180910Z Actions: write
+simulator	Set up job	2026-10-29T16:59:42.6181300Z Contents: read
+simulator	Set up job	2026-10-29T16:59:42.6181650Z Metadata: read
+simulator	Set up job	2026-10-29T16:59:42.6182030Z ##[endgroup]
+simulator	Set up job	2026-10-29T16:59:42.6183470Z Secret source: Actions
+simulator	Set up job	2026-10-29T16:59:42.6184070Z Cache mode: write
+simulator	Set up job	2026-10-29T16:59:42.6184530Z Prepare workflow directory
+simulator	Set up job	2026-10-29T16:59:42.6470260Z Prepare all required actions
+simulator	Set up job	2026-10-29T16:59:42.6511120Z Getting action download info
+simulator	Set up job	2026-10-29T16:59:43.0821240Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+simulator	Set up job	2026-10-29T16:59:43.2702130Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+simulator	Set up job	2026-10-29T16:59:43.4587430Z Complete job name: simulator
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-10-29T16:59:43.5116370Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5117080Z with:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5117410Z   persist-credentials: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5117810Z   path: AI-Workspace/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5118250Z   repository: mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5121110Z   token: ***
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5121420Z   ssh-strict: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5121730Z   ssh-user: git
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5122040Z   clean: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5122360Z   sparse-checkout-cone-mode: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5122740Z   fetch-depth: 1
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5123050Z   fetch-tags: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5123360Z   show-progress: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5123730Z   lfs: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5124030Z   submodules: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5124350Z   set-safe-directory: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.5124880Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.8700680Z Syncing repository: mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.8706390Z ##[group]Getting Git version info
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.8708700Z Working directory is '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public'
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.8819580Z [command]/opt/homebrew/bin/git version
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.8848560Z git version 2.56.0
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.8976110Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9003400Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/f351d8ab-fdb4-4e8f-b5c0-6996e64bb329/.gitconfig'
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9006240Z Temporarily overriding HOME='/Users/runner/work/_temp/f351d8ab-fdb4-4e8f-b5c0-6996e64bb329' before making global git config changes
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9032010Z Adding repository directory to the temporary git global config as a safe directory
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9046630Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9052160Z ##[group]Initializing the repository
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9053120Z [command]/opt/homebrew/bin/git init /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9054180Z hint: Using 'master' as the name for the initial branch. This default branch name
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9055030Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9055790Z hint: to use in all of your new repositories, which will suppress this warning,
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9056430Z hint: call:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9056850Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9057340Z hint: 	git config --global init.defaultBranch <name>
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9057890Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9058410Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9059180Z hint: 'development'. The just-created branch can be renamed via this command:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9059800Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9060260Z hint: 	git branch -m <name>
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9060720Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9061290Z hint: Disable this message with "git config set advice.defaultBranchName false"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9062380Z Initialized empty Git repository in /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/.git/
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9064300Z [command]/opt/homebrew/bin/git remote add origin https://github.com/mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9066230Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9067020Z ##[group]Disabling automatic garbage collection
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9067620Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9072240Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9073090Z ##[group]Setting up auth
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9073880Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9076430Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9333330Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:43.9404140Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:44.0673950Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:44.0676150Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:44.0676890Z ##[group]Fetching the repository
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:44.0678100Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +24f2809c3001c474d0ea885afc1aef00aa388fd0:refs/remotes/origin/chatgpt/app-installer-pairing-repair
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6467370Z From https://github.com/mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6569720Z  * [new ref]         24f2809c3001c474d0ea885afc1aef00aa388fd0 -> origin/chatgpt/app-installer-pairing-repair
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6880700Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6882460Z ##[group]Determining the checkout info
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6883300Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6884820Z [command]/opt/homebrew/bin/git sparse-checkout disable
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6887170Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6888770Z ##[group]Checking out the ref
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:45.6890090Z [command]/opt/homebrew/bin/git checkout --progress --force -B chatgpt/app-installer-pairing-repair refs/remotes/origin/chatgpt/app-installer-pairing-repair
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.1484600Z Switched to a new branch 'chatgpt/app-installer-pairing-repair'
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.1587580Z branch 'chatgpt/app-installer-pairing-repair' set up to track 'origin/chatgpt/app-installer-pairing-repair'.
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.1892660Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2066210Z [command]/opt/homebrew/bin/git log -1 --format=%H
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2092410Z 24f2809c3001c474d0ea885afc1aef00aa388fd0
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2161270Z ##[group]Removing auth
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2183360Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2253620Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2957970Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.2974270Z http.https://github.com/.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.3060420Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.3064690Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T16:59:46.3908570Z ##[endgroup]
+simulator	Build and run hosted UIKit and secure-storage checks	﻿2026-10-29T16:59:46.4100070Z ##[group]Run bash app-installer/cloud-ui/run.sh
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4101100Z [36;1mbash app-installer/cloud-ui/run.sh[0m
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4149250Z shell: /bin/bash -e {0}
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4150140Z env:
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4150830Z   AI_PACKAGE_DEVICE_CANDIDATES: 0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4151510Z   AI_RUN_NATIVE_CHECKS: 1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4152220Z   AI_NATIVE_TEST_SCOPE: pairing-public
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4153000Z   AI_RUST_TEST_SCOPE: pairing-public
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4153700Z   AI_REUSE_PAIRING_VENDOR_RUN: 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4154360Z   AI_REUSE_PAIRING_HELPER_RUN: 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4155040Z   AI_REUSE_PAIRING_TRANSPORT_RUN: 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4155750Z   AI_REUSE_PAIRING_NATIVE_RUN: 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4159320Z   GH_TOKEN: ***
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:46.4159990Z ##[endgroup]
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3530250Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/rustup-init: OK
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3690220Z warn: It looks like you have an existing installation of Rust at:
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3690760Z warn: /opt/homebrew/opt/rustup/bin
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3691070Z warn: It is recommended that rustup be the primary Rust installation.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3691520Z warn: Otherwise you may have confusion unless you are careful with your PATH.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3691940Z warn: If you are sure that you want both rustup and your already installed Rust
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3692360Z warn: then please reply `y' or `yes' or set RUSTUP_INIT_SKIP_PATH_CHECK to yes
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3692750Z warn: or pass `-y' to ignore all ignorable checks.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3693120Z error: cannot install while Rust is installed
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3693460Z warn: continuing (because the -y flag is set and the error is ignorable)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3768030Z info: profile set to 'minimal'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3769660Z info: default host triple is aarch64-apple-darwin
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.3770340Z info: syncing channel updates for '1.99.1-aarch64-apple-darwin'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.4228840Z info: latest update on 2026-10-15, rust version 1.99.1 (58cf8f9c3 2026-10-13)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.4229320Z info: downloading component 'cargo'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.4887090Z info: downloading component 'rust-std'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T16:59:59.7062140Z info: downloading component 'rustc'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:00.0647460Z info: installing component 'cargo'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:00.7338650Z info: installing component 'rust-std'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:02.6895300Z info: installing component 'rustc'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.7741960Z info: default toolchain set to '1.99.1-aarch64-apple-darwin'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.7742290Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8164770Z   1.99.1-aarch64-apple-darwin installed - rustc 1.99.1 (58cf8f9c3 2026-10-13)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8165170Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8165380Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8165580Z Rust is installed now. Great!
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8166300Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8168290Z To get started you need Cargo's bin directory 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8171100Z (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/bin)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8172060Z in your PATH
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8172400Z environment variable. This has not been done automatically.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8172630Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8172740Z To configure your current shell, you need to source
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8173000Z the corresponding env file under 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8173510Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8173970Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8174150Z This is usually done by running one of the following (note the leading DOT):
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8174480Z . 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8174920Z "/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env"
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8175470Z # For sh/bash/zsh/ash/dash/pdksh
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8175730Z source 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8176190Z "/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env.fish"
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8177930Z # For fish
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8178110Z source 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8178570Z $"/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env.nu"
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8179110Z # For nushell
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.8384700Z info: auto-self-update mode set to 'disable'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:05.9297490Z info: downloading component 'rust-std' for 'aarch64-apple-ios-sim'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:06.1655430Z info: installing component 'rust-std' for 'aarch64-apple-ios-sim'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.2819620Z     Updating crates.io index
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.6448170Z  Downloading crates ...
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.6868920Z   Downloaded aead v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.6896120Z   Downloaded asn1-rs-impl v0.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.6913670Z   Downloaded asn1-rs-derive v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.6956680Z   Downloaded async-stream v0.3.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7017600Z   Downloaded cpufeatures v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7089430Z   Downloaded crypto-common v0.1.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7106450Z   Downloaded futures-sink v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7122460Z   Downloaded bytes v1.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7229910Z   Downloaded cbc v0.1.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7269280Z   Downloaded chacha20 v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7318990Z   Downloaded chacha20poly1305 v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7359240Z   Downloaded cipher v0.4.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7404180Z   Downloaded const-oid v0.9.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7450830Z   Downloaded ed25519 v2.2.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7548520Z   Downloaded getrandom v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7611570Z   Downloaded rustls-pki-types v1.14.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7681580Z   Downloaded aes v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7760710Z   Downloaded asn1-rs v0.7.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.7975130Z   Downloaded der v0.7.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8079510Z   Downloaded der-parser v10.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8157060Z   Downloaded deranged v0.5.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8180470Z   Downloaded ipnet v2.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8213010Z   Downloaded num-bigint v0.4.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8303790Z   Downloaded curve25519-dalek v4.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8468230Z   Downloaded digest v0.10.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8506500Z   Downloaded futures-io v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8522950Z   Downloaded pin-project-lite v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8656960Z   Downloaded thiserror-impl v2.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8711220Z   Downloaded tracing-attributes v0.1.31
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8769000Z   Downloaded cc v1.2.57
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8824440Z   Downloaded cfg-if v1.0.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8851000Z   Downloaded errno v0.3.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8880920Z   Downloaded num-integer v0.1.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8911240Z   Downloaded fastrand v2.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8935390Z   Downloaded poly1305 v0.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.8988740Z   Downloaded rand_core v0.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9037830Z   Downloaded serde_core v1.0.228
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9091030Z   Downloaded block-buffer v0.10.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9110110Z   Downloaded autocfg v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9148660Z   Downloaded rustls v0.23.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9373360Z   Downloaded num-conv v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9406950Z   Downloaded chacha20 v0.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9455140Z   Downloaded untrusted v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9489930Z   Downloaded crossbeam-utils v0.8.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9542420Z   Downloaded once_cell v1.21.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9592570Z   Downloaded rustc_version v0.4.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9616240Z   Downloaded rustls-webpki v0.103.16
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9689230Z   Downloaded sha2 v0.10.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9758350Z   Downloaded generic-array v0.14.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9784630Z   Downloaded data-encoding v2.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9800890Z   Downloaded bitflags v2.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9897900Z   Downloaded concurrent-queue v2.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9929350Z   Downloaded parking_lot_core v0.9.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:10.9969790Z   Downloaded signature v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0000550Z   Downloaded smallvec v1.15.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0043370Z   Downloaded socket2 v0.6.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0091480Z   Downloaded time-core v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0112010Z   Downloaded tokio-macros v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0132040Z   Downloaded atomic-waker v1.1.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0155800Z   Downloaded displaydoc v0.2.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0198340Z   Downloaded log v0.4.29
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0244710Z   Downloaded memoffset v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0269130Z   Downloaded nix v0.31.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0525530Z   Downloaded equivalent v1.0.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0546880Z   Downloaded rand v0.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0621860Z   Downloaded rand_chacha v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0643430Z   Downloaded semver v1.0.27
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0690200Z   Downloaded signal-hook-registry v1.4.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0712170Z   Downloaded siphasher v1.0.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0740010Z   Downloaded slab v0.4.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0764460Z   Downloaded spin v0.9.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0825420Z   Downloaded typenum v1.19.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0878240Z   Downloaded zeroize_derive v1.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0895740Z   Downloaded ed25519-dalek v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.0953770Z   Downloaded hashbrown v0.16.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1051860Z   Downloaded idevice-srp v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1088020Z   Downloaded md-5 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1118280Z   Downloaded minimal-lexical v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1235620Z   Downloaded pkcs8 v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1295820Z   Downloaded ppv-lite86 v0.2.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1318560Z   Downloaded quick-xml v0.38.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1413690Z   Downloaded shlex v1.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1437880Z   Downloaded subtle v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1460590Z   Downloaded uuid v1.23.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1533820Z   Downloaded base64 v0.21.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1605740Z   Downloaded base64 v0.22.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1678320Z   Downloaded block-padding v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1693550Z   Downloaded cfg_aliases v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1711580Z   Downloaded futures v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1820860Z   Downloaded futures-channel v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1874600Z   Downloaded futures-task v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1900400Z   Downloaded getifaddrs v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.1929430Z   Downloaded getrandom v0.4.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2013860Z   Downloaded lazy_static v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2054460Z   Downloaded lock_api v0.4.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2078590Z   Downloaded num-iter v0.1.45
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2095740Z   Downloaded async-stream-impl v0.3.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2106000Z   Downloaded blocking v1.6.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2126960Z   Downloaded event-listener v5.4.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2161210Z   Downloaded indexmap v2.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2261240Z   Downloaded pem-rfc7468 v0.7.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2300520Z   Downloaded sha1 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2329490Z   Downloaded synstructure v0.13.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2346350Z   Downloaded tun-rs v2.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2485590Z   Downloaded zeroize v1.8.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2528030Z   Downloaded bit-vec v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2558070Z   Downloaded byteorder v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2587640Z   Downloaded futures-core v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2613090Z   Downloaded futures-util v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.2965720Z   Downloaded hmac v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3003360Z   Downloaded inout v0.1.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3023520Z   Downloaded memchr v2.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3134930Z   Downloaded base64 v0.23.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3225100Z   Downloaded rusticata-macros v4.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3255660Z   Downloaded scopeguard v1.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3277750Z   Downloaded version_check v0.9.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3303130Z   Downloaded plist v1.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3357400Z   Downloaded plist-macro v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3378870Z   Downloaded async-task v4.7.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3428870Z   Downloaded base64ct v1.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3483600Z   Downloaded serde_derive v1.0.228
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3564230Z   Downloaded unicode-ident v1.0.24
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3619200Z   Downloaded zmij v1.0.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3656300Z   Downloaded futures-lite v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3684780Z   Downloaded parking_lot v0.12.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3737300Z   Downloaded proc-macro2 v1.0.106
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3800600Z   Downloaded quote v1.0.45
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3858000Z   Downloaded rand v0.8.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3938960Z   Downloaded rand_core v0.6.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3962260Z   Downloaded spki v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.3994940Z   Downloaded tracing-core v0.1.36
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4044920Z   Downloaded x509-parser v0.18.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4160840Z   Downloaded async-channel v2.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4182730Z   Downloaded find-msvc-tools v0.1.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4213650Z   Downloaded mio v1.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4349060Z   Downloaded num-traits v0.2.19
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4398120Z   Downloaded pkcs1 v0.7.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4444110Z   Downloaded rsa v0.9.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4565890Z   Downloaded serde v1.0.228
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4627950Z   Downloaded time-macros v0.2.27
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4669190Z   Downloaded x25519-dalek v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4696110Z   Downloaded futures-macro v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4717020Z   Downloaded num-bigint-dig v0.8.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4800780Z   Downloaded route_manager v0.2.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.4882910Z   Downloaded serde_json v1.0.149
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5051800Z   Downloaded event-listener-strategy v0.5.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5075750Z   Downloaded futures-executor v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5102210Z   Downloaded hkdf v0.12.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5138630Z   Downloaded itoa v1.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5168170Z   Downloaded nom v7.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5284830Z   Downloaded oid-registry v0.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5309850Z   Downloaded opaque-debug v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5327880Z   Downloaded parking v2.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5348360Z   Downloaded pem v4.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5374250Z   Downloaded rcgen v0.14.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5418030Z   Downloaded zerocopy v0.8.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.5875110Z   Downloaded libm v0.2.16
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.6118970Z   Downloaded piper v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.6149040Z   Downloaded syn v2.0.117
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.6367420Z   Downloaded tokio v1.50.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.7284260Z   Downloaded syn v3.0.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.7505470Z   Downloaded tokio-rustls v0.26.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.7544800Z   Downloaded thiserror v2.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.7706750Z   Downloaded time v0.3.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.7999680Z   Downloaded ring v0.17.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.8800630Z   Downloaded universal-hash v0.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.8816970Z   Downloaded yasna v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.8858150Z   Downloaded powerfmt v0.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.8899190Z   Downloaded tracing v0.1.44
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:11.9164480Z   Downloaded libc v0.2.185
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:12.0876880Z    Compiling libc v0.2.185
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:12.0877410Z    Compiling proc-macro2 v1.0.106
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:12.0877960Z    Compiling cfg-if v1.0.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:12.1671290Z    Compiling quote v1.0.45
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.2112810Z    Compiling unicode-ident v1.0.24
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.3109550Z    Compiling version_check v0.9.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.4646530Z    Compiling typenum v1.19.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.7480460Z    Compiling generic-array v0.14.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.8487310Z    Compiling syn v2.0.117
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.8896140Z    Compiling getrandom v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:13.9853870Z    Compiling rand_core v0.6.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.1122800Z    Compiling subtle v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.1982520Z    Compiling const-oid v0.9.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.2972990Z    Compiling autocfg v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.5305550Z    Compiling pin-project-lite v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.5921990Z    Compiling shlex v1.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.7003090Z    Compiling find-msvc-tools v0.1.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.8314580Z    Compiling crypto-common v0.1.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.8516210Z    Compiling block-buffer v0.10.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.9017910Z    Compiling futures-core v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.9334270Z    Compiling digest v0.10.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:14.9837780Z    Compiling libm v0.2.16
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:15.0741280Z    Compiling cc v1.2.57
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:15.1862800Z    Compiling num-traits v0.2.19
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:15.3413840Z    Compiling crossbeam-utils v0.8.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:15.5151810Z    Compiling serde_core v1.0.228
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:15.9628170Z    Compiling ring v0.17.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:16.2253780Z    Compiling smallvec v1.15.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:16.3769570Z    Compiling zerocopy v0.8.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:16.5955570Z    Compiling memchr v2.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:17.3015310Z    Compiling zeroize_derive v1.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:17.5907230Z    Compiling zeroize v1.8.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:17.6826360Z    Compiling block-padding v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:17.7391990Z    Compiling semver v1.0.27
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:17.8933810Z    Compiling futures-io v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:17.9731360Z    Compiling parking_lot_core v0.9.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.0965290Z    Compiling itoa v1.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.2082140Z    Compiling powerfmt v0.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.3596970Z    Compiling base64ct v1.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.5141100Z    Compiling pem-rfc7468 v0.7.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.6428960Z    Compiling deranged v0.5.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.7022810Z    Compiling rustc_version v0.4.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.8409040Z    Compiling inout v0.1.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:18.9135780Z    Compiling concurrent-queue v2.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.0120800Z    Compiling num-integer v0.1.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.2158250Z    Compiling cpufeatures v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.2375660Z    Compiling untrusted v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.2694060Z    Compiling parking v2.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.2937930Z    Compiling num-conv v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.3558060Z    Compiling scopeguard v1.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.3660800Z    Compiling time-core v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.4019740Z    Compiling lock_api v0.4.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.4488850Z    Compiling time v0.3.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:19.5359780Z    Compiling event-listener v5.4.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:20.5048160Z    Compiling cipher v0.4.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:20.6332140Z    Compiling curve25519-dalek v4.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:20.8697200Z    Compiling der v0.7.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:20.9213070Z    Compiling rustls-pki-types v1.14.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.1767350Z    Compiling ppv-lite86 v0.2.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.2067460Z    Compiling memoffset v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.3375810Z    Compiling errno v0.3.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.3480970Z    Compiling serde v1.0.228
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.4191080Z    Compiling rand_core v0.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.5303330Z    Compiling spin v0.9.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.5404610Z    Compiling getrandom v0.4.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.6109470Z    Compiling cfg_aliases v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.6615020Z    Compiling once_cell v1.21.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.7093740Z    Compiling futures-sink v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.7708320Z    Compiling futures-channel v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.8021280Z    Compiling nix v0.31.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.8145520Z    Compiling lazy_static v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.9061410Z    Compiling spki v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:21.9162540Z    Compiling signal-hook-registry v1.4.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.0470210Z    Compiling rand_chacha v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.0972420Z    Compiling parking_lot v0.12.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.1900990Z    Compiling event-listener-strategy v0.5.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.2554490Z    Compiling futures-macro v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.3230560Z    Compiling tokio-macros v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.3331640Z    Compiling serde_derive v1.0.228
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.6718400Z    Compiling signature v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.6819340Z    Compiling socket2 v0.6.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.7421830Z    Compiling mio v1.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:22.9493070Z    Compiling bytes v1.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.0841750Z    Compiling hashbrown v0.16.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.3171800Z    Compiling slab v0.4.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.4035060Z    Compiling bitflags v2.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.4140190Z    Compiling fastrand v2.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.5261340Z    Compiling route_manager v0.2.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.5571190Z    Compiling zmij v1.0.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.6730890Z    Compiling equivalent v1.0.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.7332330Z    Compiling rustls v0.23.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.7434980Z    Compiling num-bigint-dig v0.8.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.8705880Z    Compiling futures-task v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.8808250Z    Compiling atomic-waker v1.1.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.9376860Z    Compiling piper v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:23.9729530Z    Compiling futures-util v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:24.1102990Z    Compiling indexmap v2.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:24.3373920Z    Compiling tokio v1.50.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:24.4761850Z    Compiling async-channel v2.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:25.1104650Z    Compiling rand v0.8.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:25.4383390Z    Compiling pkcs8 v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:25.5236860Z    Compiling rustls-webpki v0.103.16
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:25.5771690Z    Compiling sha2 v0.10.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:25.7156800Z    Compiling num-iter v0.1.45
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:25.7908860Z    Compiling quick-xml v0.38.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.2405880Z    Compiling futures-lite v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.4671500Z    Compiling universal-hash v0.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.5251010Z    Compiling thiserror v2.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.6160540Z    Compiling opaque-debug v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.6541360Z    Compiling serde_json v1.0.149
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.7221510Z    Compiling base64 v0.23.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.8130360Z    Compiling tun-rs v2.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.9553290Z    Compiling base64 v0.22.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:26.9854930Z    Compiling async-task v4.7.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:27.1014720Z    Compiling blocking v1.6.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:27.1631230Z    Compiling plist v1.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:27.2881720Z    Compiling pem v4.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:27.6013770Z    Compiling poly1305 v0.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:28.8029960Z    Compiling pkcs1 v0.7.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:29.1115310Z    Compiling futures-executor v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:29.7692990Z    Compiling getifaddrs v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:29.8465230Z    Compiling ed25519 v2.2.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:29.9364900Z    Compiling tracing-core v0.1.36
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:30.0572880Z    Compiling chacha20 v0.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:30.1755030Z    Compiling chacha20 v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:30.2527300Z    Compiling yasna v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:30.2875270Z    Compiling num-bigint v0.4.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:30.6925700Z    Compiling tracing-attributes v0.1.31
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.1053790Z    Compiling thiserror-impl v2.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.3257010Z    Compiling async-stream-impl v0.3.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.5242210Z    Compiling hmac v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.6704390Z    Compiling md-5 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.7161350Z    Compiling aead v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.8263160Z    Compiling ipnet v2.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:31.8702170Z    Compiling log v0.4.29
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.0236050Z    Compiling byteorder v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.1523520Z    Compiling base64 v0.21.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.3508270Z    Compiling idevice-srp v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.3682540Z    Compiling chacha20poly1305 v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.4459240Z    Compiling uuid v1.23.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.4760520Z    Compiling async-stream v0.3.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.5464790Z    Compiling hkdf v0.12.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.6168080Z    Compiling tracing v0.1.44
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.7372080Z    Compiling rcgen v0.14.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:32.7573370Z    Compiling rand v0.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.0938770Z    Compiling ed25519-dalek v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.2577570Z    Compiling tokio-rustls v0.26.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.3511550Z    Compiling futures v0.3.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.4044140Z    Compiling rsa v0.9.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.4147020Z    Compiling plist-macro v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.6061220Z    Compiling x25519-dalek v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.6714640Z    Compiling cbc v0.1.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.7444210Z    Compiling aes v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.7845960Z    Compiling sha1 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.8767040Z    Compiling siphasher v1.0.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:33.9750900Z    Compiling idevice v0.1.68 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/idevice/idevice-0.1.68)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1309190Z warning: unused import: `RsdProvider`
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1309480Z   --> src/lib.rs:57:33
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1309770Z    |
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1313690Z 57 | use provider::{IdeviceProvider, RsdProvider};
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1314080Z    |                                 ^^^^^^^^^^^
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1314370Z    |
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1314680Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:34.1314920Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.6832890Z warning: `idevice` (lib test) generated 1 warning (run `cargo fix --lib -p idevice --tests` to apply 1 suggestion)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.6833500Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 25.49s
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7154010Z      Running unittests src/lib.rs (app-installer/core/target/debug/deps/idevice-a77952c5b0a35c29)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7238100Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7238800Z running 8 tests
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7239900Z test remote_pairing::authentication_tests::message_state_and_cryptographic_field_lengths_fail_closed ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7240650Z test remote_pairing::authentication_tests::authenticated_m6_requires_exact_identity_and_valid_signature ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7241350Z test remote_pairing::authentication_tests::short_or_non_ascii_pin_is_rejected_without_slicing ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7242030Z test remote_pairing::authentication_tests::m6_aead_failure_is_an_error_and_long_identity_fragments_authenticate ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7242670Z test remote_pairing::rp_pairing_file::tests::pinned_v2_round_trip_and_legacy_rejection ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7243280Z test remote_pairing::tlv::tests::pairing_fields_use_canonical_fragments_and_reject_ambiguous_values ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7243930Z test remote_pairing::authentication_tests::pair_verify_m2_checks_pin_signature_and_both_ephemerals ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7244630Z test remote_pairing::rp_pairing_file::tests::invalid_keys_identifiers_and_version_fail_closed ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7245540Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7245980Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 20 filtered out; finished in 0.01s
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:35.7251150Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.0643710Z Recorded vendor: 8 new public checks passed; exact pre/post source and raw logs saved.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.4538440Z  Downloading crates ...
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5002750Z   Downloaded der_derive v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5038780Z   Downloaded core-foundation-sys v0.8.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5126370Z   Downloaded flagset v0.4.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5164070Z   Downloaded iana-time-zone v0.1.65
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5227030Z   Downloaded chrono v0.4.44
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5619720Z   Downloaded tls_codec_derive v0.4.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5672780Z   Downloaded tls_codec v0.4.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5710060Z   Downloaded x509-cert v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.5850150Z   Downloaded web-time v1.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.6303930Z    Compiling const-oid v0.9.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.6347270Z    Compiling der_derive v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.6355860Z    Compiling flagset v0.4.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.7040640Z    Compiling core-foundation-sys v0.8.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.8092370Z    Compiling iana-time-zone v0.1.65
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.8799110Z    Compiling tracing v0.1.44
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:36.9944100Z    Compiling chrono v0.4.44
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.1015690Z    Compiling web-time v1.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.1857580Z    Compiling digest v0.10.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.2216140Z    Compiling der v0.7.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.2941970Z    Compiling signature v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.3590280Z    Compiling sha2 v0.10.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.4914650Z    Compiling curve25519-dalek v4.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:37.9706600Z    Compiling spki v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.0532050Z    Compiling ed25519 v2.2.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.0732710Z    Compiling sha1 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.1538830Z    Compiling pkcs8 v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.1647020Z    Compiling hmac v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.1848240Z    Compiling md-5 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.2591690Z    Compiling hkdf v0.12.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.2849380Z    Compiling pkcs1 v0.7.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.3544700Z    Compiling uuid v1.23.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.3670150Z    Compiling x509-cert v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.6356470Z    Compiling rsa v0.9.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.7482850Z    Compiling ed25519-dalek v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:38.9446740Z    Compiling x25519-dalek v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.0149230Z    Compiling idevice-srp v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.6529370Z    Compiling idevice v0.1.68 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/idevice/idevice-0.1.68)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8139610Z warning: unused import: `RsdProvider`
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8139950Z   --> src/lib.rs:57:33
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8240780Z    |
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8341350Z 57 | use provider::{IdeviceProvider, RsdProvider};
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8442120Z    |                                 ^^^^^^^^^^^
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8542670Z    |
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8643450Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:39.8744120Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.5390490Z warning: `idevice` (lib) generated 1 warning (run `cargo fix --lib -p idevice` to apply 1 suggestion)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8468840Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 5.46s
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8530280Z      Running unittests examples/app-installer-rp-bootstrap.rs (app-installer/core/target/debug/examples/app_installer_rp_bootstrap-5bf4f3a7d903d5c3)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8559520Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8559870Z running 2 tests
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8561020Z test tests::explicit_arguments_and_plan_have_no_device_actions ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8629600Z test tests::private_export_never_replaces_existing_file_or_symlink ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8630130Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8631160Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:41.8631850Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.1533480Z Recorded helper: 2 new public checks passed; exact pre/post source and raw logs saved.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.5189720Z     Updating crates.io index
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6607600Z  Downloading crates ...
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6804490Z   Downloaded fnv v1.0.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6858880Z   Downloaded cfg-if v1.0.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6895560Z   Downloaded compression-core v0.4.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6922130Z   Downloaded foreign-types-shared v0.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6943060Z   Downloaded block-padding v0.4.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.6962800Z   Downloaded cipher v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7031380Z   Downloaded aead v0.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7073060Z   Downloaded autocfg v1.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7171380Z   Downloaded futures-io v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7172630Z   Downloaded bytes v1.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7252880Z   Downloaded crossbeam-utils v0.8.23
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7339570Z   Downloaded isideload-vfs v0.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7396930Z   Downloaded lazy_static v1.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7420130Z   Downloaded openssl-sys v0.9.117
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7594630Z   Downloaded inout v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7640850Z   Downloaded yoke-derive v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7684970Z   Downloaded reqwest v0.13.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.7866320Z   Downloaded serde v1.0.229
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8005970Z   Downloaded sha1 v0.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8373980Z   Downloaded siphasher v1.0.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8488300Z   Downloaded syn v2.0.119
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8667750Z   Downloaded tinyvec v1.13.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8755390Z   Downloaded block-buffer v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8780280Z   Downloaded crc32fast v1.5.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8824720Z   Downloaded crypto-common v0.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8846500Z   Downloaded base16ct v1.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.8875610Z   Downloaded der_derive v0.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9182660Z   Downloaded digest v0.11.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9233740Z   Downloaded equivalent v1.0.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9253320Z   Downloaded find-msvc-tools v0.1.15
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9289780Z   Downloaded foreign-types v0.3.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9302580Z   Downloaded form_urlencoded v1.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9323800Z   Downloaded futures-core v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9356900Z   Downloaded futures-macro v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9379460Z   Downloaded ghash v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9401390Z   Downloaded http-body-util v0.1.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9442560Z   Downloaded hyper-rustls v0.27.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9469910Z   Downloaded hyper-tls v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9496420Z   Downloaded idna_adapter v1.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:42.9514430Z   Downloaded zerocopy v0.8.63
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0159950Z   Downloaded zerofrom v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0178970Z   Downloaded zerovec v0.11.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0307960Z   Downloaded zerovec-derive v0.11.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0341700Z   Downloaded zlib-rs v0.6.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0458270Z   Downloaded multiversion_no_op v1.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0474250Z   Downloaded num-conv v0.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0489200Z   Downloaded openssl v0.10.81
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0948620Z   Downloaded openssl-macros v0.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0959300Z   Downloaded percent-encoding v2.3.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.0976400Z   Downloaded pkcs5 v0.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1093270Z   Downloaded quick-xml v0.42.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1193920Z   Downloaded system-configuration v0.7.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1221730Z   Downloaded tokio-macros v2.7.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1244590Z   Downloaded unicode-casefold v0.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1258390Z   Downloaded universal-hash v0.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1275090Z   Downloaded uuid v1.29.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1330700Z   Downloaded tokio-tungstenite v0.29.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1382920Z   Downloaded tower-http v0.6.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1581220Z   Downloaded adler2 v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1681630Z   Downloaded bitflags v2.13.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1782960Z   Downloaded const-oid v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1877000Z   Downloaded core-foundation v0.9.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1977860Z   Downloaded cpubits v0.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.1984340Z   Downloaded crossbeam-deque v0.8.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2085440Z   Downloaded crossbeam-epoch v0.9.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2187840Z   Downloaded anyhow v1.0.104
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2288790Z   Downloaded apple-codesign-quick v0.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2384170Z   Downloaded deranged v0.5.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2436730Z   Downloaded des v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2529390Z   Downloaded either v1.19.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2630270Z   Downloaded fastrand v2.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2731850Z   Downloaded futures-channel v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2832640Z   Downloaded futures-task v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2933540Z   Downloaded hex v0.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2985420Z   Downloaded hmac v0.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2990370Z   Downloaded http-body v1.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2994460Z   Downloaded ipnet v2.12.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.2996990Z   Downloaded keccak v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3001940Z   Downloaded memmap2 v0.9.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3005940Z   Downloaded yoke v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3010570Z   Downloaded zeroize v1.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3016870Z   Downloaded zeroize_derive v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3023860Z   Downloaded zerotrie v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3028170Z   Downloaded zip v8.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3032770Z   Downloaded zmij v1.0.23
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3036570Z   Downloaded miniz_oxide v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3039750Z   Downloaded mio v1.2.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3043510Z   Downloaded native-tls v0.2.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3049050Z   Downloaded num-integer v0.1.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3053810Z   Downloaded pbkdf2 v0.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3059030Z   Downloaded pem-rfc7468 v1.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3063290Z   Downloaded pin-project v1.1.13
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3374720Z   Downloaded pin-project-internal v1.1.13
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3408690Z   Downloaded pkcs8 v0.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3484270Z   Downloaded pkg-config v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3514420Z   Downloaded plist v1.10.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3606600Z   Downloaded serde_derive v1.0.229
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3668120Z   Downloaded sha1 v0.10.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3700070Z   Downloaded urlencoding v2.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3720760Z   Downloaded utf8_iter v1.0.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3743100Z   Downloaded bumpalo v3.20.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3795970Z   Downloaded cbc v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3829770Z   Downloaded cpufeatures v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3858710Z   Downloaded ctr v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3902360Z   Downloaded async-trait v0.1.92
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.3988960Z   Downloaded flate2 v1.1.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4119400Z   Downloaded futures v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4226480Z   Downloaded futures-executor v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4252220Z   Downloaded futures-sink v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4270150Z   Downloaded jktcp v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4296350Z   Downloaded zerofrom-derive v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4317020Z   Downloaded zopfli v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4372180Z   Downloaded num-iter v0.1.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4382100Z   Downloaded rand_chacha v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4406430Z   Downloaded rustls-platform-verifier v0.7.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4510950Z   Downloaded scrypt v0.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4617830Z   Downloaded simd-adler32 v0.3.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4662750Z   Downloaded simdutf8 v0.1.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4763780Z   Downloaded socket2 v0.6.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4861990Z   Downloaded stable_deref_trait v1.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4893170Z   Downloaded synstructure v0.14.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4893540Z   Downloaded system-configuration-sys v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4894020Z   Downloaded thiserror v2.0.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4894240Z   Downloaded time-core v0.1.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4915880Z   Downloaded time-macros v0.2.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.4968270Z   Downloaded tinystr v0.8.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5008610Z   Downloaded tokio-openssl v0.6.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5035480Z   Downloaded tower-layer v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5053250Z   Downloaded core-foundation v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5120220Z   Downloaded ctutils v0.4.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5161070Z   Downloaded aes v0.9.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5238190Z   Downloaded getrandom v0.3.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5312000Z   Downloaded getrandom v0.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5393330Z   Downloaded httparse v1.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5439930Z   Downloaded hybrid-array v0.4.15
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5501750Z   Downloaded icu_locale_core v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5660870Z   Downloaded icu_provider v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5709370Z   Downloaded isideload-p12-keystore v0.3.0-rc4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5761320Z   Downloaded litemap v0.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.5823220Z   Downloaded log v0.4.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6154740Z   Downloaded polyval v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6194800Z   Downloaded potential_utf v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6212930Z   Downloaded powerfmt v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6236590Z   Downloaded rand_core v0.9.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6261020Z   Downloaded rayon-core v1.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6333990Z   Downloaded rc2 v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6390980Z   Downloaded rustc-hash v2.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6435100Z   Downloaded rustversion v1.0.23
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6500060Z   Downloaded serde_core v1.0.229
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6550580Z   Downloaded serdect v0.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6580470Z   Downloaded spin v0.9.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6623280Z   Downloaded spki v0.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6663750Z   Downloaded srp v0.7.0-rc.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6697370Z   Downloaded thiserror-impl v2.0.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6727260Z   Downloaded tokio-native-tls v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6777950Z   Downloaded unicode-ident v1.0.27
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6835710Z   Downloaded writeable v0.6.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6875810Z   Downloaded chacha20 v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6923840Z   Downloaded cmov v0.5.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.6957700Z   Downloaded cms v0.2.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.7064520Z   Downloaded compression-codecs v0.4.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.7183700Z   Downloaded der v0.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.7312630Z   Downloaded async_zip v0.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.7753780Z   Downloaded hyper-util v0.1.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.7881340Z   Downloaded icu_normalizer_data v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.7918030Z   Downloaded num-bigint v0.4.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8015310Z   Downloaded rand_core v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8069560Z   Downloaded rootcause-internals v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8107740Z   Downloaded rustls-pki-types v1.15.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8163960Z   Downloaded salsa20 v0.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8196660Z   Downloaded security-framework-sys v2.17.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8528290Z   Downloaded semver v1.0.28
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8584280Z   Downloaded shlex v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8613710Z   Downloaded mime v0.3.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8648400Z   Downloaded smallvec v1.16.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8672740Z   Downloaded sync_wrapper v1.0.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8704940Z   Downloaded cc v1.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8786440Z   Downloaded aes-gcm v0.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.8835290Z   Downloaded async-compression v0.4.51
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.9287920Z   Downloaded http v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.9375160Z   Downloaded icu_collections v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.9513220Z   Downloaded icu_properties_data v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:43.9772530Z   Downloaded indexmap v2.14.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0116220Z   Downloaded memchr v2.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0228640Z   Downloaded proc-macro2 v1.0.107
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0299490Z   Downloaded quote v1.0.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0382450Z   Downloaded security-framework v3.7.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0461320Z   Downloaded sha2 v0.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0808160Z   Downloaded typenum v1.20.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.0865560Z   Downloaded typed-path v0.12.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1017680Z   Downloaded url v2.5.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1061920Z   Downloaded hashbrown v0.17.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1159270Z   Downloaded hyper v1.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1289880Z   Downloaded idna v1.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1361500Z   Downloaded pkcs12 v0.2.0-pre.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1440100Z   Downloaded rand v0.10.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1511100Z   Downloaded reqwest-middleware v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1535080Z   Downloaded unicode-normalization v0.1.26
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1589860Z   Downloaded tower-service v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1604400Z   Downloaded try-lock v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1620300Z   Downloaded webpki-roots v0.26.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1641820Z   Downloaded icu_properties v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.1719160Z   Downloaded tempfile v3.27.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2060580Z   Downloaded tokio-rustls v0.26.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2089990Z   Downloaded tower v0.5.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2317790Z   Downloaded want v0.3.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2335660Z   Downloaded cms v0.3.0-pre.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2522310Z   Downloaded rand v0.8.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2622650Z   Downloaded rand v0.9.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2723290Z   Downloaded triomphe v0.1.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.2732080Z   Downloaded futures-util v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.3023900Z   Downloaded h2 v0.4.20
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.3173140Z   Downloaded x509-cert v0.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.3335840Z   Downloaded rayon v1.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.3556140Z   Downloaded tokio-util v0.7.20
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.3724160Z   Downloaded chrono v0.4.45
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.3860040Z   Downloaded serde_json v1.0.154
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.4016580Z   Downloaded tungstenite v0.29.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.4087470Z   Downloaded crypto-bigint v0.7.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.4467070Z   Downloaded rootcause v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.4646480Z   Downloaded time v0.3.55
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.4967410Z   Downloaded webpki-roots v1.0.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.5011570Z   Downloaded vcpkg v0.2.15
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.6828350Z   Downloaded rustix v1.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.7727670Z   Downloaded icu_normalizer v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.7852670Z   Downloaded encoding_rs v0.8.42
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.7976460Z   Downloaded libc v0.2.191
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.9526460Z   Downloaded sha3 v0.10.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:44.9598330Z   Downloaded tokio v1.54.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.0918920Z   Downloaded openssl-src v300.6.1+3.6.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.6894490Z    Compiling proc-macro2 v1.0.107
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.6894830Z    Compiling quote v1.0.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.6895050Z    Compiling unicode-ident v1.0.27
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.7700120Z    Compiling libc v0.2.191
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.9023050Z    Compiling cfg-if v1.0.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:45.9387330Z    Compiling typenum v1.20.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:46.4579170Z    Compiling generic-array v0.14.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:46.5300880Z    Compiling syn v2.0.119
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:46.5361400Z    Compiling syn v3.0.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:46.7829570Z    Compiling getrandom v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:46.8883280Z    Compiling rand_core v0.6.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:47.0110810Z    Compiling rand_core v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:47.0854850Z    Compiling getrandom v0.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:47.2500080Z    Compiling crypto-common v0.1.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:47.3917290Z    Compiling memchr v2.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:47.6948820Z    Compiling hybrid-array v0.4.15
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:48.0316530Z    Compiling find-msvc-tools v0.1.15
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:48.1592330Z    Compiling shlex v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:48.2567090Z    Compiling cc v1.10.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.1577790Z    Compiling zeroize_derive v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.1882120Z    Compiling crypto-common v0.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.3347240Z    Compiling block-buffer v0.10.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.4076960Z    Compiling bytes v1.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.4616990Z    Compiling zeroize v1.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.5495980Z    Compiling futures-core v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.6209680Z    Compiling digest v0.10.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.7286420Z    Compiling autocfg v1.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.7692240Z    Compiling synstructure v0.14.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.8616050Z    Compiling block-buffer v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.9471480Z    Compiling num-traits v0.2.19
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:49.9629510Z    Compiling serde_core v1.0.229
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:50.2072620Z    Compiling displaydoc v0.2.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:50.2255000Z    Compiling futures-io v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:50.3095540Z    Compiling zerofrom-derive v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:50.8337160Z    Compiling tokio-macros v2.7.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.0951430Z    Compiling socket2 v0.6.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.2164660Z    Compiling mio v1.2.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.4832600Z    Compiling cmov v0.5.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.6139660Z    Compiling futures-sink v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.6544250Z    Compiling ctutils v0.4.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.6712040Z    Compiling tokio v1.54.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.7814410Z    Compiling zerofrom v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:51.8508540Z    Compiling yoke-derive v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:52.4050500Z    Compiling stable_deref_trait v1.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:52.4487590Z    Compiling const-oid v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:52.5143880Z    Compiling yoke v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:52.6091410Z    Compiling smallvec v1.16.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:52.7118330Z    Compiling zerocopy v0.8.63
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:52.9309930Z    Compiling zerovec-derive v0.11.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:53.4770290Z    Compiling ring v0.17.14
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:53.7200570Z    Compiling slab v0.4.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:53.9078510Z    Compiling zerovec v0.11.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.2034480Z    Compiling futures-channel v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.3212020Z    Compiling rustls-pki-types v1.15.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.3439310Z    Compiling block-padding v0.4.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.4095950Z    Compiling cpufeatures v0.2.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.4628010Z    Compiling time-core v0.1.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.5675240Z    Compiling equivalent v1.0.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.6008470Z    Compiling num-conv v0.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.6136870Z    Compiling thiserror v2.0.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.6792870Z    Compiling hashbrown v0.17.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:55.8589560Z    Compiling time-macros v0.2.32
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.0017650Z    Compiling indexmap v2.14.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.2892070Z    Compiling ppv-lite86 v0.2.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.3778630Z    Compiling inout v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.4223630Z    Compiling thiserror-impl v2.0.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.4555260Z    Compiling futures-macro v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.5548170Z    Compiling powerfmt v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.6496360Z    Compiling crc32fast v1.5.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.8193530Z    Compiling deranged v0.5.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.8534130Z    Compiling futures-task v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:56.9361110Z    Compiling futures-util v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:57.4224220Z    Compiling time v0.3.55
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.4111160Z    Compiling http v1.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.4226860Z    Compiling num-integer v0.1.47
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.6110210Z    Compiling simd-adler32 v0.3.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.7353950Z    Compiling cipher v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.8256460Z    Compiling tinystr v0.8.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.8920840Z    Compiling digest v0.11.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.9461170Z    Compiling cpufeatures v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:58.9924870Z    Compiling litemap v0.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.0126110Z    Compiling base64 v0.23.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.0499120Z    Compiling bitflags v2.13.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.1059930Z    Compiling writeable v0.6.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.1658550Z    Compiling adler2 v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.2290150Z    Compiling miniz_oxide v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.2396070Z    Compiling icu_locale_core v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.2692070Z    Compiling rustls v0.23.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.2747960Z    Compiling rustls-webpki v0.103.16
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.6601040Z    Compiling potential_utf v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.7346480Z    Compiling tokio-util v0.7.20
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.9069060Z    Compiling zerotrie v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:00:59.9334240Z    Compiling der_derive v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.0878170Z    Compiling tracing-attributes v0.1.31
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.1582550Z    Compiling block-padding v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.2173300Z    Compiling icu_normalizer_data v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.3283190Z    Compiling zlib-rs v0.6.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.4334800Z    Compiling icu_properties_data v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.5463910Z    Compiling spin v0.9.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.6035850Z    Compiling getrandom v0.3.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.7634820Z    Compiling serde v1.0.229
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.7764980Z    Compiling httparse v1.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.9159550Z    Compiling utf8_iter v1.0.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:00.9973160Z    Compiling icu_collections v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:01.0407210Z    Compiling tracing v0.1.44
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:01.1683210Z    Compiling lazy_static v1.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:01.2162940Z    Compiling der v0.7.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:01.3101840Z    Compiling inout v0.1.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:01.3709070Z    Compiling icu_provider v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:02.0100400Z    Compiling pem-rfc7468 v1.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:02.2074060Z    Compiling serde_derive v1.0.229
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:03.7663010Z    Compiling flate2 v1.1.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:04.0447980Z    Compiling der_derive v0.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:04.0650500Z    Compiling cpubits v0.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:04.4425740Z    Compiling spki v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:04.5389180Z    Compiling cipher v0.4.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:04.6305560Z    Compiling der v0.8.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.0569000Z    Compiling http-body v1.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.1275910Z    Compiling signature v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.1961540Z    Compiling compression-core v0.4.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.2834810Z    Compiling semver v1.0.28
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.4491130Z    Compiling rustversion v1.0.23
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.5516970Z    Compiling system-configuration-sys v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.6490060Z    Compiling log v0.4.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.7053900Z    Compiling crossbeam-utils v0.8.23
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.7487160Z    Compiling percent-encoding v2.3.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.8500350Z    Compiling minimal-lexical v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.9012000Z    Compiling rustc_version v0.4.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:05.9883200Z    Compiling nom v7.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.0419310Z    Compiling compression-codecs v0.4.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.1125910Z    Compiling spki v0.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.1815800Z    Compiling rand_core v0.9.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.2226070Z    Compiling icu_properties v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.2905800Z    Compiling icu_normalizer v2.4.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.6420470Z    Compiling rand_chacha v0.3.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.8835670Z    Compiling sha1 v0.10.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.9237470Z    Compiling openssl-src v300.6.1+3.6.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:06.9722860Z    Compiling synstructure v0.13.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.0249740Z    Compiling pkg-config v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.0578540Z    Compiling tower-service v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.1023480Z    Compiling crossbeam-epoch v0.9.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.2311260Z    Compiling vcpkg v0.2.15
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.3037810Z    Compiling try-lock v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.3139070Z    Compiling zmij v1.0.23
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.3640650Z    Compiling fnv v1.0.7
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.4117780Z    Compiling h2 v0.4.20
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.5243580Z    Compiling want v0.3.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.6026880Z    Compiling asn1-rs-derive v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.6206340Z    Compiling openssl-sys v0.9.117
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.8780500Z    Compiling idna_adapter v1.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.9575860Z    Compiling rusticata-macros v4.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:07.9745020Z    Compiling rand v0.8.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:08.0517860Z    Compiling rand_chacha v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:08.3257660Z    Compiling async-compression v0.4.51
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:08.3961890Z    Compiling curve25519-dalek v4.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:08.8551570Z    Compiling pkcs8 v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:08.9784560Z    Compiling tokio-rustls v0.26.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:08.9956270Z    Compiling core-foundation v0.9.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.1246980Z    Compiling num-iter v0.1.46
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.1814760Z    Compiling num-bigint v0.4.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.2095030Z    Compiling sha2 v0.10.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.3751590Z    Compiling universal-hash v0.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.4334120Z    Compiling asn1-rs-impl v0.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.6252310Z    Compiling crossbeam-deque v0.8.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.7006290Z    Compiling serde_json v1.0.154
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.7705250Z    Compiling asn1-rs v0.7.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.8338790Z    Compiling polyval v0.7.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:09.9374470Z    Compiling num-bigint-dig v0.8.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:10.0918100Z    Compiling system-configuration v0.7.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:10.2565620Z    Compiling hyper v1.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:10.6508350Z    Compiling pkcs1 v0.7.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:10.8398180Z    Compiling encoding_rs v0.8.42
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:10.9490410Z    Compiling rand v0.9.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:10.9606950Z    Compiling idna v1.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:11.5914670Z    Compiling form_urlencoded v1.2.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:11.6454170Z    Compiling sha2 v0.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:11.6848510Z    Compiling hmac v0.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:11.7660770Z    Compiling core-foundation v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:11.9739860Z    Compiling security-framework-sys v2.17.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.0706970Z    Compiling sync_wrapper v1.0.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.1200680Z    Compiling quick-xml v0.42.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.1368560Z    Compiling ipnet v2.12.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.4274830Z    Compiling rayon-core v1.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.5310320Z    Compiling oid-registry v0.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.7098970Z    Compiling tower-layer v0.3.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.7900500Z    Compiling data-encoding v2.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:12.7978190Z    Compiling tower v0.5.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:13.0739210Z    Compiling plist v1.10.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:13.3047830Z    Compiling hyper-util v0.1.21
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:13.6335810Z    Compiling security-framework v3.7.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:14.2032320Z    Compiling pbkdf2 v0.13.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:14.2670960Z    Compiling url v2.5.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:15.6574540Z    Compiling rsa v0.9.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:15.8198920Z    Compiling ghash v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:15.8900580Z    Compiling x509-cert v0.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.0729110Z    Compiling http-body-util v0.1.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.2077460Z    Compiling cbc v0.1.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.2703090Z    Compiling aes v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.4590370Z    Compiling aes v0.9.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.6591960Z    Compiling salsa20 v0.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.7215120Z    Compiling ctr v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.8024050Z    Compiling futures-executor v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.9235780Z    Compiling aead v0.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:16.9867280Z    Compiling keccak v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:17.1286990Z    Compiling pin-project-internal v1.1.13
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:17.6534830Z    Compiling universal-hash v0.5.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:17.7115600Z    Compiling chacha20 v0.10.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:17.8307530Z    Compiling fastrand v2.5.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:17.9169780Z    Compiling multiversion_no_op v1.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:17.9803110Z    Compiling anyhow v1.0.104
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:18.0606630Z    Compiling simdutf8 v0.1.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:18.1726820Z    Compiling poly1305 v0.8.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:18.2625910Z    Compiling futures-lite v2.6.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:18.7446530Z    Compiling rand v0.10.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.1158750Z    Compiling pin-project v1.1.13
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.1617640Z    Compiling cms v0.3.0-pre.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.4197710Z    Compiling sha3 v0.10.9
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.5917000Z    Compiling aes-gcm v0.11.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.7040370Z    Compiling futures v0.3.34
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.7669220Z    Compiling scrypt v0.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:19.9016510Z    Compiling tower-http v0.6.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:20.2265210Z    Compiling rustls-platform-verifier v0.7.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:20.4081600Z    Compiling hyper-rustls v0.27.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:20.5870250Z    Compiling der-parser v10.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:20.6460730Z    Compiling x509-cert v0.2.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:20.9959100Z    Compiling ed25519 v2.2.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.1124500Z    Compiling chacha20 v0.9.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.2221530Z    Compiling sha1 v0.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.3907870Z    Compiling cbc v0.2.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.4639700Z    Compiling webpki-roots v1.0.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.5348800Z    Compiling hmac v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.6142430Z    Compiling md-5 v0.10.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:21.7118920Z    Compiling async-stream-impl v0.3.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.0007460Z    Compiling aead v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.1146250Z    Compiling openssl v0.10.81
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.1192580Z    Compiling triomphe v0.1.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.2460030Z    Compiling mime v0.3.17
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.3130290Z    Compiling either v1.19.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.4328830Z    Compiling foreign-types-shared v0.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.4352340Z    Compiling bumpalo v3.20.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.4952710Z    Compiling foreign-types v0.3.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.5888790Z    Compiling zopfli v0.8.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:22.6232290Z    Compiling rayon v1.12.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:23.0439390Z    Compiling reqwest v0.13.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:23.7318700Z    Compiling idevice-srp v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:23.8525120Z    Compiling rootcause-internals v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:23.9648250Z    Compiling chacha20poly1305 v0.10.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:24.0410490Z    Compiling async-stream v0.3.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:24.1408150Z    Compiling uuid v1.29.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:24.4957580Z    Compiling hkdf v0.12.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:24.6103010Z    Compiling cms v0.2.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:25.7911690Z    Compiling webpki-roots v0.26.11
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:25.8606820Z    Compiling pkcs5 v0.8.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:25.8729140Z    Compiling ed25519-dalek v2.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:26.1035340Z    Compiling x509-parser v0.18.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:26.3718380Z    Compiling jktcp v0.1.8
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:27.5505180Z    Compiling pkcs12 v0.2.0-pre.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:27.8415220Z    Compiling async_zip v0.0.18
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:28.0931900Z    Compiling x25519-dalek v2.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:28.1543190Z    Compiling plist-macro v0.1.6
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:28.3084940Z    Compiling tungstenite v0.29.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:28.3490230Z    Compiling pkcs8 v0.11.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:28.4443270Z    Compiling chrono v0.4.45
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:29.0452050Z    Compiling crypto-bigint v0.7.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:29.0636670Z    Compiling pem v4.0.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:29.2637510Z    Compiling des v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:29.3659470Z    Compiling rc2 v0.9.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:29.4504000Z    Compiling yasna v0.6.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:29.8872630Z    Compiling async-trait v0.1.92
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:30.4063890Z    Compiling openssl-macros v0.1.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:30.5560080Z    Compiling memmap2 v0.9.12
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:30.6804020Z    Compiling typed-path v0.12.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:31.2944140Z    Compiling hex v0.4.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:31.4247070Z    Compiling rustc-hash v2.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:31.4662530Z    Compiling tokio-openssl v0.6.5
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:31.4786710Z    Compiling siphasher v1.0.4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:31.5828800Z    Compiling idevice v0.1.68 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/idevice/idevice-0.1.68)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:31.5933780Z    Compiling rootcause v0.12.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:32.1427550Z    Compiling isideload-p12-keystore v0.3.0-rc4
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:33.2689240Z    Compiling apple-codesign-quick v0.1.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:34.6051200Z    Compiling zip v8.3.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:35.0157400Z    Compiling srp v0.7.0-rc.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:35.3434570Z    Compiling reqwest-middleware v0.5.2
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:35.6423360Z    Compiling rcgen v0.14.10
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:35.9084550Z    Compiling tokio-tungstenite v0.29.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:36.0976420Z    Compiling urlencoding v2.1.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:36.1828830Z    Compiling tinyvec v1.13.3
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:36.2602090Z    Compiling isideload-vfs v0.0.1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:36.4005310Z    Compiling isideload v0.5.0 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/isideload/isideload-0.5.0)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:36.6204960Z    Compiling unicode-normalization v0.1.26
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:01:36.8834010Z    Compiling unicode-casefold v0.2.0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:18.5412270Z    Compiling app-installer-core v0.1.0 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/core)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8387430Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 40s
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8832670Z      Running unittests src/lib.rs (app-installer/core/target/debug/deps/app_installer_core-3b306707f9bdc45d)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8890760Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8892020Z running 2 tests
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8945480Z test engine::transport::tests::public_remote_transport_tunnel_frames_are_bounded_and_preserve_following_ip_bytes ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8992920Z test engine::transport::tests::public_remote_transport_psk_requires_matching_secret_and_real_tls_finished ... ok
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8993410Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8993660Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 19 filtered out; finished in 0.01s
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:22.8993970Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:02:23.2014800Z Recorded transport: 2 new public checks passed; exact pre/post source and raw logs saved.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:05:04.4835860Z Both supported pre-app simulator OS baselines failed; see preapp evidence.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:05:04.5757610Z ##[error]Process completed with exit code 1.
+simulator	Keep only the new public source-bound test proof	﻿2026-10-29T17:05:04.9321060Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9321630Z with:
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9321980Z   name: app-installer-pairing-public-proof
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9322530Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/pairing-proof/
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9323130Z   retention-days: 7
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9323340Z   if-no-files-found: ignore
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9323650Z   compression-level: 6
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9324120Z   overwrite: false
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9324400Z   include-hidden-files: false
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:04.9324700Z ##[endgroup]
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:15.6061630Z (node:21018) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:15.6077340Z (Use `node --trace-deprecation ...` to show where the warning was created)
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:15.6134980Z With the provided path, there will be 10 files uploaded
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:15.6137180Z Artifact name is valid!
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:15.6137850Z Root directory input is valid!
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:16.0433590Z Beginning upload of artifact content to blob storage
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:16.0721050Z (node:21018) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:16.4878190Z Uploaded bytes 67090
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:16.5672140Z Finished uploading artifact content to blob storage!
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:16.5716950Z SHA256 digest of uploaded artifact zip is 3b0a33ae410550df59f07ddd3d2f8918a57655b803494b679651286fb3483a05
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:16.5723870Z Finalizing artifact upload
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:17.0624940Z Artifact app-installer-pairing-public-proof.zip successfully finalized. Artifact ID 12917820260
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:17.0625950Z Artifact app-installer-pairing-public-proof has been successfully uploaded! Final size is 67090 bytes. Artifact ID is 12917820260
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:05:17.0630110Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40916969403/artifacts/12917820260
+simulator	Keep failed or standalone test diagnostics	﻿2026-10-29T17:05:17.0820830Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0821180Z with:
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0821370Z   name: app-installer-cloud-tests-latest
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0821990Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+simulator	Keep failed or standalone test diagnostics	!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/**
+simulator	Keep failed or standalone test diagnostics	
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0822600Z   retention-days: 7
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0822790Z   if-no-files-found: error
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0822990Z   compression-level: 6
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0823160Z   overwrite: false
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0823340Z   include-hidden-files: false
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.0823560Z ##[endgroup]
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.3307890Z (node:21609) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.3420200Z (Use `node --trace-deprecation ...` to show where the warning was created)
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.3906750Z With the provided path, there will be 24 files uploaded
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.3907260Z Artifact name is valid!
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.3907470Z Root directory input is valid!
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.7657720Z Beginning upload of artifact content to blob storage
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:17.8010650Z (node:21609) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.2015950Z Uploaded bytes 78435
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.2780780Z Finished uploading artifact content to blob storage!
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.2785670Z SHA256 digest of uploaded artifact zip is 37b0081b32b671f12d720c0f816017469e458347950f2db6b19e09b9451f6e31
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.2786510Z Finalizing artifact upload
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.7446070Z Artifact app-installer-cloud-tests-latest.zip successfully finalized. Artifact ID 12917850171
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.7446790Z Artifact app-installer-cloud-tests-latest has been successfully uploaded! Final size is 78435 bytes. Artifact ID is 12917850171
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:05:18.7451560Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40916969403/artifacts/12917850171
+simulator	Keep only current standalone test diagnostics	﻿2026-10-29T17:05:18.7563790Z ##[group]Run python3 app-installer/cloud-ui/prune-artifacts.py
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:18.7564230Z [36;1mpython3 app-installer/cloud-ui/prune-artifacts.py[0m
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:18.8611480Z shell: /bin/bash -e {0}
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:18.8611690Z env:
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:18.8613970Z   GH_TOKEN: ***
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:18.8614140Z   DIAGNOSTIC_ARTIFACT_ID: 12917850171
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:18.8614370Z ##[endgroup]
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:05:19.8576320Z Artifact retention completed; removed 0 owned artifacts.
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-10-29T17:05:19.9174610Z Post job cleanup.
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0058610Z [command]/opt/homebrew/bin/git version
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0262130Z git version 2.56.0
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0282370Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/5bc010ea-99f2-46df-be02-cff69fbff7ec/.gitconfig'
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0297890Z Temporarily overriding HOME='/Users/runner/work/_temp/5bc010ea-99f2-46df-be02-cff69fbff7ec' before making global git config changes
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0304820Z Adding repository directory to the temporary git global config as a safe directory
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0305730Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0414170Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.0484430Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.1385060Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:05:20.1451360Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+simulator	Complete job	﻿2026-10-29T17:05:20.2335590Z Cleaning up orphan processes
+simulator	Complete job	2026-10-29T17:05:20.8807510Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

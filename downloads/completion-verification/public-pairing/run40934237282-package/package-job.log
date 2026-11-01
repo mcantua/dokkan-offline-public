@@ -1,0 +1,1621 @@
+﻿2026-10-29T18:48:25.6866790Z Current runner version: '2.338.0'
+2026-10-29T18:48:25.6883510Z ##[group]Runner Image Provisioner
+2026-10-29T18:48:25.6884180Z Hosted Compute Agent
+2026-10-29T18:48:25.6884570Z Version: 20261021.618
+2026-10-29T18:48:25.6884970Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-29T18:48:25.6885450Z Build Date: 2026-10-21T00:45:21Z
+2026-10-29T18:48:25.6885900Z Worker ID: {12e985ff-a54c-44ca-b312-ba57ded9f9b1}
+2026-10-29T18:48:25.6886370Z Region: westus
+2026-10-29T18:48:25.6886720Z Cloud: MacCloud
+2026-10-29T18:48:25.6887070Z ##[endgroup]
+2026-10-29T18:48:25.6888010Z ##[group]Operating System
+2026-10-29T18:48:25.6888390Z macOS
+2026-10-29T18:48:25.6888710Z 27.0.1
+2026-10-29T18:48:25.6889030Z 26A434
+2026-10-29T18:48:25.6889350Z ##[endgroup]
+2026-10-29T18:48:25.6889690Z ##[group]Runner Image
+2026-10-29T18:48:25.6890070Z Image: xcode-27-arm64
+2026-10-29T18:48:25.6890530Z Version: 20261026.0314.1
+2026-10-29T18:48:25.6891400Z Included Software: https://github.com/actions/runner-images/blob/xcode-27-arm64/20261026.0314/images/macos/xcode-27-arm64-Readme.md
+2026-10-29T18:48:25.6892510Z Image Release: https://github.com/actions/runner-images/releases/tag/xcode-27-arm64%2F20261026.0314
+2026-10-29T18:48:25.6893160Z ##[endgroup]
+2026-10-29T18:48:25.6894040Z ##[group]GITHUB_TOKEN Permissions
+2026-10-29T18:48:25.6895290Z Actions: write
+2026-10-29T18:48:25.6895670Z Contents: read
+2026-10-29T18:48:25.6896020Z Metadata: read
+2026-10-29T18:48:25.6896380Z ##[endgroup]
+2026-10-29T18:48:25.6898100Z Secret source: Actions
+2026-10-29T18:48:25.6898730Z Cache mode: write
+2026-10-29T18:48:25.6899200Z Prepare workflow directory
+2026-10-29T18:48:25.7195860Z Prepare all required actions
+2026-10-29T18:48:25.7233720Z Getting action download info
+2026-10-29T18:48:26.0352400Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2026-10-29T18:48:26.2729150Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-29T18:48:26.5065760Z Complete job name: simulator (single)
+2026-10-29T18:48:26.5607670Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+2026-10-29T18:48:26.5608360Z with:
+2026-10-29T18:48:26.5608700Z   persist-credentials: false
+2026-10-29T18:48:26.5609090Z   path: AI-Workspace/dokkan-offline-public
+2026-10-29T18:48:26.5609570Z   repository: mcantua/dokkan-offline-public
+2026-10-29T18:48:26.5612470Z   token: ***
+2026-10-29T18:48:26.5612790Z   ssh-strict: true
+2026-10-29T18:48:26.5613110Z   ssh-user: git
+2026-10-29T18:48:26.5613430Z   clean: true
+2026-10-29T18:48:26.5613760Z   sparse-checkout-cone-mode: true
+2026-10-29T18:48:26.5614150Z   fetch-depth: 1
+2026-10-29T18:48:26.5614490Z   fetch-tags: false
+2026-10-29T18:48:26.5614820Z   show-progress: true
+2026-10-29T18:48:26.5615160Z   lfs: false
+2026-10-29T18:48:26.5615480Z   submodules: false
+2026-10-29T18:48:26.5615830Z   set-safe-directory: true
+2026-10-29T18:48:26.5616310Z ##[endgroup]
+2026-10-29T18:48:26.7407530Z Syncing repository: mcantua/dokkan-offline-public
+2026-10-29T18:48:26.7409380Z ##[group]Getting Git version info
+2026-10-29T18:48:26.7410280Z Working directory is '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public'
+2026-10-29T18:48:26.7411320Z [command]/opt/homebrew/bin/git version
+2026-10-29T18:48:26.7685800Z git version 2.56.0
+2026-10-29T18:48:26.7697700Z ##[endgroup]
+2026-10-29T18:48:26.7703950Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/f5acb78a-4aa7-4238-b085-bb15780fa08c/.gitconfig'
+2026-10-29T18:48:26.7710470Z Temporarily overriding HOME='/Users/runner/work/_temp/f5acb78a-4aa7-4238-b085-bb15780fa08c' before making global git config changes
+2026-10-29T18:48:26.7711560Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-29T18:48:26.7713790Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+2026-10-29T18:48:26.7820480Z ##[group]Initializing the repository
+2026-10-29T18:48:26.7824670Z [command]/opt/homebrew/bin/git init /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+2026-10-29T18:48:26.8047650Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-29T18:48:26.8048470Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-29T18:48:26.8049260Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-29T18:48:26.8049910Z hint: call:
+2026-10-29T18:48:26.8050480Z hint:
+2026-10-29T18:48:26.8050920Z hint: 	git config --global init.defaultBranch <name>
+2026-10-29T18:48:26.8051510Z hint:
+2026-10-29T18:48:26.8051990Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-29T18:48:26.8052790Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-29T18:48:26.8053720Z hint:
+2026-10-29T18:48:26.8054120Z hint: 	git branch -m <name>
+2026-10-29T18:48:26.8054530Z hint:
+2026-10-29T18:48:26.8055060Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-29T18:48:26.8056190Z Initialized empty Git repository in /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/.git/
+2026-10-29T18:48:26.8061040Z [command]/opt/homebrew/bin/git remote add origin https://github.com/mcantua/dokkan-offline-public
+2026-10-29T18:48:26.8143400Z ##[endgroup]
+2026-10-29T18:48:26.8144070Z ##[group]Disabling automatic garbage collection
+2026-10-29T18:48:26.8146630Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-29T18:48:26.8220290Z ##[endgroup]
+2026-10-29T18:48:26.8220890Z ##[group]Setting up auth
+2026-10-29T18:48:26.8225510Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T18:48:26.8301590Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T18:48:26.9321890Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T18:48:26.9391510Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T18:48:27.0215700Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-29T18:48:27.0289580Z ##[endgroup]
+2026-10-29T18:48:27.0290240Z ##[group]Fetching the repository
+2026-10-29T18:48:27.0295430Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8:refs/remotes/origin/chatgpt/app-installer-pairing-repair
+2026-10-29T18:48:31.4306800Z From https://github.com/mcantua/dokkan-offline-public
+2026-10-29T18:48:31.4308020Z  * [new ref]         4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8 -> origin/chatgpt/app-installer-pairing-repair
+2026-10-29T18:48:31.4313910Z ##[endgroup]
+2026-10-29T18:48:31.4314670Z ##[group]Determining the checkout info
+2026-10-29T18:48:31.4316190Z ##[endgroup]
+2026-10-29T18:48:31.4316960Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-29T18:48:31.4400550Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-29T18:48:31.4468590Z ##[group]Checking out the ref
+2026-10-29T18:48:31.4471220Z [command]/opt/homebrew/bin/git checkout --progress --force -B chatgpt/app-installer-pairing-repair refs/remotes/origin/chatgpt/app-installer-pairing-repair
+2026-10-29T18:48:31.9677190Z Switched to a new branch 'chatgpt/app-installer-pairing-repair'
+2026-10-29T18:48:31.9681330Z branch 'chatgpt/app-installer-pairing-repair' set up to track 'origin/chatgpt/app-installer-pairing-repair'.
+2026-10-29T18:48:31.9693050Z ##[endgroup]
+2026-10-29T18:48:31.9795600Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-29T18:48:31.9881210Z 4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8
+2026-10-29T18:48:31.9885140Z ##[group]Removing auth
+2026-10-29T18:48:31.9888020Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T18:48:31.9960030Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T18:48:32.0853470Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T18:48:32.0914210Z http.https://github.com/.extraheader
+2026-10-29T18:48:32.0922320Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-29T18:48:32.0991020Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T18:48:32.1792430Z ##[endgroup]
+2026-10-29T18:48:32.1980570Z ##[group]Run bash app-installer/cloud-ui/run.sh
+2026-10-29T18:48:32.1981180Z [36;1mbash app-installer/cloud-ui/run.sh[0m
+2026-10-29T18:48:32.2030520Z shell: /bin/bash -e {0}
+2026-10-29T18:48:32.2030950Z env:
+2026-10-29T18:48:32.2031290Z   AI_PACKAGE_DEVICE_CANDIDATES: 1
+2026-10-29T18:48:32.2031730Z   AI_RUN_NATIVE_CHECKS: 0
+2026-10-29T18:48:32.2032120Z   AI_PARALLEL_NATIVE_WORKFLOW: 0
+2026-10-29T18:48:32.2032530Z   AI_WORKFLOW_ROLE: single
+2026-10-29T18:48:32.2032950Z   AI_NATIVE_TEST_SCOPE: pairing-public
+2026-10-29T18:48:32.2033380Z   AI_RUST_TEST_SCOPE: pairing-public
+2026-10-29T18:48:32.2033850Z   AI_REUSE_PAIRING_VENDOR_RUN: 40916969403
+2026-10-29T18:48:32.2034340Z   AI_REUSE_PAIRING_HELPER_RUN: 40916969403
+2026-10-29T18:48:32.2034830Z   AI_REUSE_PAIRING_TRANSPORT_RUN: 40926780346
+2026-10-29T18:48:32.2035370Z   AI_REUSE_PAIRING_NATIVE_RUN: 40930198240
+2026-10-29T18:48:32.2035820Z   AI_REUSE_PAIRING_RECOVERY_RUN: 40926780346
+2026-10-29T18:48:32.2039130Z   GH_TOKEN: ***
+2026-10-29T18:48:32.2039500Z ##[endgroup]
+2026-10-29T18:48:46.0676310Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/rustup-init: OK
+2026-10-29T18:48:46.0840590Z warn: It looks like you have an existing installation of Rust at:
+2026-10-29T18:48:46.0841050Z warn: /opt/homebrew/opt/rustup/bin
+2026-10-29T18:48:46.0841470Z warn: It is recommended that rustup be the primary Rust installation.
+2026-10-29T18:48:46.0842510Z warn: Otherwise you may have confusion unless you are careful with your PATH.
+2026-10-29T18:48:46.0843260Z warn: If you are sure that you want both rustup and your already installed Rust
+2026-10-29T18:48:46.0843750Z warn: then please reply `y' or `yes' or set RUSTUP_INIT_SKIP_PATH_CHECK to yes
+2026-10-29T18:48:46.0844480Z warn: or pass `-y' to ignore all ignorable checks.
+2026-10-29T18:48:46.0845080Z error: cannot install while Rust is installed
+2026-10-29T18:48:46.0845670Z warn: continuing (because the -y flag is set and the error is ignorable)
+2026-10-29T18:48:46.0896540Z info: profile set to 'minimal'
+2026-10-29T18:48:46.0897230Z info: default host triple is aarch64-apple-darwin
+2026-10-29T18:48:46.0898620Z info: syncing channel updates for '1.99.1-aarch64-apple-darwin'
+2026-10-29T18:48:46.2628230Z info: latest update on 2026-10-15, rust version 1.99.1 (58cf8f9c3 2026-10-13)
+2026-10-29T18:48:46.2628860Z info: downloading component 'cargo'
+2026-10-29T18:48:46.4607160Z info: downloading component 'rust-std'
+2026-10-29T18:48:46.7982020Z info: downloading component 'rustc'
+2026-10-29T18:48:47.3846970Z info: installing component 'cargo'
+2026-10-29T18:48:48.0575890Z info: installing component 'rust-std'
+2026-10-29T18:48:49.9898950Z info: installing component 'rustc'
+2026-10-29T18:48:53.2066500Z info: default toolchain set to '1.99.1-aarch64-apple-darwin'
+2026-10-29T18:48:53.2069010Z 
+2026-10-29T18:48:53.2656330Z   1.99.1-aarch64-apple-darwin installed - rustc 1.99.1 (58cf8f9c3 2026-10-13)
+2026-10-29T18:48:53.2673580Z 
+2026-10-29T18:48:53.2673970Z 
+2026-10-29T18:48:53.2674230Z Rust is installed now. Great!
+2026-10-29T18:48:53.2674590Z 
+2026-10-29T18:48:53.2674880Z To get started you need Cargo's bin directory 
+2026-10-29T18:48:53.2675660Z (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/bin)
+2026-10-29T18:48:53.2676840Z in your PATH
+2026-10-29T18:48:53.2677360Z environment variable. This has not been done automatically.
+2026-10-29T18:48:53.2678010Z 
+2026-10-29T18:48:53.2678460Z To configure your current shell, you need to source
+2026-10-29T18:48:53.2679010Z the corresponding env file under 
+2026-10-29T18:48:53.2679840Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo.
+2026-10-29T18:48:53.2680410Z 
+2026-10-29T18:48:53.2680680Z This is usually done by running one of the following (note the leading DOT):
+2026-10-29T18:48:53.2681130Z . 
+2026-10-29T18:48:53.2683010Z "/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env"
+2026-10-29T18:48:53.2683960Z # For sh/bash/zsh/ash/dash/pdksh
+2026-10-29T18:48:53.2684230Z source 
+2026-10-29T18:48:53.2684850Z "/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env.fish"
+2026-10-29T18:48:53.2685500Z # For fish
+2026-10-29T18:48:53.2685830Z source 
+2026-10-29T18:48:53.2686390Z $"/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env.nu"
+2026-10-29T18:48:53.2687040Z # For nushell
+2026-10-29T18:48:53.4489570Z info: auto-self-update mode set to 'disable'
+2026-10-29T18:48:57.8568790Z Reused vendor: 8 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+2026-10-29T18:49:00.0737100Z Reused helper: 2 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+2026-10-29T18:49:02.2426970Z Reused transport: 2 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+2026-10-29T18:49:04.3384630Z Reused recovery: 2 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+2026-10-29T18:49:05.6642030Z Reused native: 3 actual public checks; matching production bytes/context, reviewed harness changes recorded, no new test execution.
+2026-10-29T18:49:05.8049990Z     Updating crates.io index
+2026-10-29T18:49:06.5916630Z  Downloading crates ...
+2026-10-29T18:49:06.6804260Z   Downloaded zopfli v0.8.4
+2026-10-29T18:49:06.6953800Z   Downloaded cfg-if v1.0.5
+2026-10-29T18:49:06.7001810Z   Downloaded sha2 v0.11.1
+2026-10-29T18:49:06.7095140Z   Downloaded form_urlencoded v1.2.2
+2026-10-29T18:49:06.7115060Z   Downloaded compression-core v0.4.34
+2026-10-29T18:49:06.7141060Z   Downloaded equivalent v1.0.3
+2026-10-29T18:49:06.7170790Z   Downloaded adler2 v2.0.1
+2026-10-29T18:49:06.7211370Z   Downloaded windows-registry v0.6.1
+2026-10-29T18:49:06.7242420Z   Downloaded generic-array v0.14.7
+2026-10-29T18:49:06.7278670Z   Downloaded cpufeatures v0.2.17
+2026-10-29T18:49:06.7315990Z   Downloaded zeroize_derive v1.5.0
+2026-10-29T18:49:06.7336520Z   Downloaded futures-sink v0.3.34
+2026-10-29T18:49:06.7361960Z   Downloaded futures-macro v0.3.34
+2026-10-29T18:49:06.7427770Z   Downloaded signature v2.2.0
+2026-10-29T18:49:06.7445190Z   Downloaded futures-core v0.3.34
+2026-10-29T18:49:06.7473750Z   Downloaded subtle v2.6.1
+2026-10-29T18:49:06.7510350Z   Downloaded unicode-casefold v0.2.0
+2026-10-29T18:49:06.7526450Z   Downloaded tinystr v0.8.5
+2026-10-29T18:49:06.7595500Z   Downloaded block-buffer v0.10.4
+2026-10-29T18:49:06.7626840Z   Downloaded fnv v1.0.7
+2026-10-29T18:49:06.7654110Z   Downloaded simd-adler32 v0.3.10
+2026-10-29T18:49:06.7722880Z   Downloaded log v0.4.34
+2026-10-29T18:49:06.7833220Z   Downloaded foreign-types v0.3.2
+2026-10-29T18:49:06.7860180Z   Downloaded potential_utf v0.1.6
+2026-10-29T18:49:06.7889370Z   Downloaded jni-sys v0.4.1
+2026-10-29T18:49:06.7919700Z   Downloaded multiversion_no_op v1.0.0
+2026-10-29T18:49:06.7980430Z   Downloaded wasm-bindgen-macro v0.2.129
+2026-10-29T18:49:06.7984130Z   Downloaded futures-io v0.3.34
+2026-10-29T18:49:06.8006960Z   Downloaded version_check v0.9.5
+2026-10-29T18:49:06.8044740Z   Downloaded flagset v0.4.7
+2026-10-29T18:49:06.8106130Z   Downloaded sha1 v0.10.7
+2026-10-29T18:49:06.8168180Z   Downloaded foreign-types-shared v0.1.1
+2026-10-29T18:49:06.8192820Z   Downloaded crypto-common v0.2.2
+2026-10-29T18:49:06.8223120Z   Downloaded tokio-native-tls v0.3.1
+2026-10-29T18:49:06.8277590Z   Downloaded system-configuration v0.7.0
+2026-10-29T18:49:06.8319380Z   Downloaded futures-task v0.3.34
+2026-10-29T18:49:06.8347510Z   Downloaded tokio-openssl v0.6.5
+2026-10-29T18:49:06.8386430Z   Downloaded tokio-macros v2.7.2
+2026-10-29T18:49:06.8435360Z   Downloaded openssl-macros v0.1.1
+2026-10-29T18:49:06.8473540Z   Downloaded want v0.3.2
+2026-10-29T18:49:06.8495430Z   Downloaded same-file v1.0.6
+2026-10-29T18:49:06.8537560Z   Downloaded system-configuration-sys v0.6.0
+2026-10-29T18:49:06.8563750Z   Downloaded atomic-waker v1.1.2
+2026-10-29T18:49:06.8591130Z   Downloaded digest v0.10.7
+2026-10-29T18:49:06.8632360Z   Downloaded crypto-common v0.1.7
+2026-10-29T18:49:06.8652020Z   Downloaded windows-link v0.2.1
+2026-10-29T18:49:06.8670250Z   Downloaded try-lock v0.2.5
+2026-10-29T18:49:06.8693520Z   Downloaded hyper-rustls v0.27.10
+2026-10-29T18:49:06.8726230Z   Downloaded scopeguard v1.2.0
+2026-10-29T18:49:06.8753170Z   Downloaded rc2 v0.9.0
+2026-10-29T18:49:06.8829400Z   Downloaded num-iter v0.1.46
+2026-10-29T18:49:06.8896040Z   Downloaded quote v1.0.47
+2026-10-29T18:49:06.9006150Z   Downloaded zeroize v1.9.1
+2026-10-29T18:49:06.9041590Z   Downloaded tls_codec_derive v0.4.2
+2026-10-29T18:49:06.9117080Z   Downloaded spki v0.7.3
+2026-10-29T18:49:06.9184810Z   Downloaded pem-rfc7468 v0.7.0
+2026-10-29T18:49:06.9209800Z   Downloaded der_derive v0.7.3
+2026-10-29T18:49:06.9250700Z   Downloaded const-oid v0.9.6
+2026-10-29T18:49:06.9290130Z   Downloaded rand_core v0.6.4
+2026-10-29T18:49:06.9319640Z   Downloaded wasm-bindgen-shared v0.2.129
+2026-10-29T18:49:06.9350730Z   Downloaded rustversion v1.0.23
+2026-10-29T18:49:06.9433060Z   Downloaded wasi v0.11.1+wasi-snapshot-preview1
+2026-10-29T18:49:06.9468520Z   Downloaded slab v0.4.12
+2026-10-29T18:49:06.9497450Z   Downloaded pin-project-lite v0.2.17
+2026-10-29T18:49:06.9655520Z   Downloaded pkg-config v0.3.34
+2026-10-29T18:49:06.9686380Z   Downloaded shlex v2.0.1
+2026-10-29T18:49:06.9723100Z   Downloaded find-msvc-tools v0.1.15
+2026-10-29T18:49:06.9778980Z   Downloaded digest v0.11.3
+2026-10-29T18:49:06.9830240Z   Downloaded cmov v0.5.4
+2026-10-29T18:49:06.9875150Z   Downloaded rand_core v0.10.1
+2026-10-29T18:49:06.9914820Z   Downloaded litemap v0.8.3
+2026-10-29T18:49:06.9966000Z   Downloaded tower-layer v0.3.3
+2026-10-29T18:49:06.9988630Z   Downloaded sync_wrapper v1.0.2
+2026-10-29T18:49:07.0030570Z   Downloaded http-body-util v0.1.5
+2026-10-29T18:49:07.0058330Z   Downloaded simdutf8 v0.1.5
+2026-10-29T18:49:07.0114740Z   Downloaded jni-sys-macros v0.4.1
+2026-10-29T18:49:07.0132720Z   Downloaded windows-strings v0.5.1
+2026-10-29T18:49:07.0169030Z   Downloaded windows-result v0.4.1
+2026-10-29T18:49:07.0194790Z   Downloaded ipnet v2.12.2
+2026-10-29T18:49:07.0229330Z   Downloaded hyper-tls v0.6.0
+2026-10-29T18:49:07.0255990Z   Downloaded rusticata-macros v4.1.0
+2026-10-29T18:49:07.0286040Z   Downloaded pem v4.0.0
+2026-10-29T18:49:07.0310330Z   Downloaded plist-macro v0.1.6
+2026-10-29T18:49:07.0328500Z   Downloaded md-5 v0.10.6
+2026-10-29T18:49:07.0356080Z   Downloaded base64ct v1.8.3
+2026-10-29T18:49:07.0411570Z   Downloaded tracing-attributes v0.1.31
+2026-10-29T18:49:07.0471690Z   Downloaded writeable v0.6.4
+2026-10-29T18:49:07.0510420Z   Downloaded http-body v1.1.0
+2026-10-29T18:49:07.0529620Z   Downloaded rustc_version v0.4.1
+2026-10-29T18:49:07.0552680Z   Downloaded asn1-rs-derive v0.6.0
+2026-10-29T18:49:07.0572950Z   Downloaded base16ct v1.0.0
+2026-10-29T18:49:07.0599880Z   Downloaded unicode-ident v1.0.27
+2026-10-29T18:49:07.0649940Z   Downloaded tls_codec v0.4.2
+2026-10-29T18:49:07.0683670Z   Downloaded futures-channel v0.3.34
+2026-10-29T18:49:07.0727380Z   Downloaded bitflags v2.13.2
+2026-10-29T18:49:07.0832740Z   Downloaded ctutils v0.4.6
+2026-10-29T18:49:07.0871190Z   Downloaded hybrid-array v0.4.15
+2026-10-29T18:49:07.0911770Z   Downloaded getrandom v0.4.3
+2026-10-29T18:49:07.0987850Z   Downloaded openssl-probe v0.2.2
+2026-10-29T18:49:07.1010880Z   Downloaded rustls-platform-verifier-android v0.2.0
+2026-10-29T18:49:07.1023160Z   Downloaded winapi-util v0.1.11
+2026-10-29T18:49:07.1067310Z   Downloaded mime v0.3.17
+2026-10-29T18:49:07.1088020Z   Downloaded core-foundation v0.9.4
+2026-10-29T18:49:07.1130180Z   Downloaded core_detect v1.0.0
+2026-10-29T18:49:07.1162000Z   Downloaded anyhow v1.0.104
+2026-10-29T18:49:07.1242770Z   Downloaded bit-vec v0.9.1
+2026-10-29T18:49:07.1270530Z   Downloaded asn1-rs-impl v0.2.0
+2026-10-29T18:49:07.1281300Z   Downloaded synstructure v0.13.2
+2026-10-29T18:49:07.1298420Z   Downloaded isideload-vfs v0.0.1
+2026-10-29T18:49:07.1314280Z   Downloaded cipher v0.5.2
+2026-10-29T18:49:07.1378100Z   Downloaded inout v0.2.5
+2026-10-29T18:49:07.1402830Z   Downloaded block-padding v0.4.2
+2026-10-29T18:49:07.1419600Z   Downloaded pkcs8 v0.11.0
+2026-10-29T18:49:07.1485690Z   Downloaded lazy_static v1.5.1
+2026-10-29T18:49:07.1519320Z   Downloaded cpubits v0.1.1
+2026-10-29T18:49:07.1535730Z   Downloaded spki v0.8.1
+2026-10-29T18:49:07.1573590Z   Downloaded crc32fast v1.5.3
+2026-10-29T18:49:07.1612630Z   Downloaded serde_core v1.0.229
+2026-10-29T18:49:07.1668290Z   Downloaded serde_derive v1.0.229
+2026-10-29T18:49:07.1736870Z   Downloaded proc-macro2 v1.0.107
+2026-10-29T18:49:07.1794650Z   Downloaded serde v1.0.229
+2026-10-29T18:49:07.1862130Z   Downloaded flate2 v1.1.10
+2026-10-29T18:49:07.1998530Z   Downloaded miniz_oxide v0.9.1
+2026-10-29T18:49:07.2047160Z   Downloaded getrandom v0.2.17
+2026-10-29T18:49:07.2115180Z   Downloaded wasm-bindgen v0.2.129
+2026-10-29T18:49:07.2169240Z   Downloaded once_cell v1.21.4
+2026-10-29T18:49:07.2219870Z   Downloaded tinyvec v1.13.3
+2026-10-29T18:49:07.2286990Z   Downloaded tracing-core v0.1.36
+2026-10-29T18:49:07.2337500Z   Downloaded socket2 v0.6.5
+2026-10-29T18:49:07.2371300Z   Downloaded bytes v1.12.1
+2026-10-29T18:49:07.2444760Z   Downloaded openssl-sys v0.9.117
+2026-10-29T18:49:07.2559570Z   Downloaded r-efi v6.0.0
+2026-10-29T18:49:07.2663700Z   Downloaded icu_locale_core v2.4.0
+2026-10-29T18:49:07.2822280Z   Downloaded compression-codecs v0.4.46
+2026-10-29T18:49:07.2923880Z   Downloaded native-tls v0.2.18
+2026-10-29T18:49:07.2950240Z   Downloaded errno v0.3.14
+2026-10-29T18:49:07.2978940Z   Downloaded security-framework-sys v2.17.0
+2026-10-29T18:49:07.3036930Z   Downloaded core-foundation-sys v0.8.7
+2026-10-29T18:49:07.3103390Z   Downloaded core-foundation v0.10.1
+2026-10-29T18:49:07.3146040Z   Downloaded schannel v0.1.30
+2026-10-29T18:49:07.3180110Z   Downloaded rustls-platform-verifier v0.7.1
+2026-10-29T18:49:07.3260500Z   Downloaded rustls-native-certs v0.8.5
+2026-10-29T18:49:07.3282610Z   Downloaded walkdir v2.5.0
+2026-10-29T18:49:07.3319830Z   Downloaded semver v1.0.28
+2026-10-29T18:49:07.3371690Z   Downloaded jni-macros v0.22.4
+2026-10-29T18:49:07.3402000Z   Downloaded async-trait v0.1.92
+2026-10-29T18:49:07.3478550Z   Downloaded rcgen v0.14.10
+2026-10-29T18:49:07.3521490Z   Downloaded yasna v0.6.0
+2026-10-29T18:49:07.3561330Z   Downloaded oid-registry v0.8.1
+2026-10-29T18:49:07.3584560Z   Downloaded pbkdf2 v0.13.0
+2026-10-29T18:49:07.3611180Z   Downloaded hmac v0.13.0
+2026-10-29T18:49:07.3663310Z   Downloaded chacha20 v0.10.2
+2026-10-29T18:49:07.3707650Z   Downloaded uuid v1.29.0
+2026-10-29T18:49:07.3760770Z   Downloaded rand_core v0.9.5
+2026-10-29T18:49:07.3788000Z   Downloaded rand_chacha v0.9.0
+2026-10-29T18:49:07.3811280Z   Downloaded httparse v1.10.1
+2026-10-29T18:49:07.3859480Z   Downloaded synstructure v0.14.0
+2026-10-29T18:49:07.3877100Z   Downloaded displaydoc v0.2.7
+2026-10-29T18:49:07.3918370Z   Downloaded icu_provider v2.4.0
+2026-10-29T18:49:07.3970700Z   Downloaded hex v0.4.3
+2026-10-29T18:49:07.4005940Z   Downloaded des v0.9.0
+2026-10-29T18:49:07.4043810Z   Downloaded pin-utils v0.1.1
+2026-10-29T18:49:07.4069760Z   Downloaded ed25519 v2.2.3
+2026-10-29T18:49:07.4104010Z   Downloaded parking v2.2.1
+2026-10-29T18:49:07.4123390Z   Downloaded keccak v0.1.6
+2026-10-29T18:49:07.4144470Z   Downloaded block-buffer v0.12.1
+2026-10-29T18:49:07.4165800Z   Downloaded zip v8.3.0
+2026-10-29T18:49:07.4246980Z   Downloaded bumpalo v3.20.3
+2026-10-29T18:49:07.4296560Z   Downloaded typed-path v0.12.4
+2026-10-29T18:49:07.4440160Z   Downloaded memchr v2.8.3
+2026-10-29T18:49:07.4547630Z   Downloaded indexmap v2.14.2
+2026-10-29T18:49:07.4631770Z   Downloaded hashbrown v0.17.1
+2026-10-29T18:49:07.4732390Z   Downloaded x509-cert v0.2.5
+2026-10-29T18:49:07.4901620Z   Downloaded der v0.7.10
+2026-10-29T18:49:07.5058770Z   Downloaded wasm-bindgen-macro-support v0.2.129
+2026-10-29T18:49:07.5089700Z   Downloaded js-sys v0.3.106
+2026-10-29T18:49:07.5136320Z   Downloaded typenum v1.20.1
+2026-10-29T18:49:07.5195830Z   Downloaded unicode-normalization v0.1.26
+2026-10-29T18:49:07.5254790Z   Downloaded mio v1.2.4
+2026-10-29T18:49:07.5380540Z   Downloaded cc v1.10.0
+2026-10-29T18:49:07.5468940Z   Downloaded icu_collections v2.4.0
+2026-10-29T18:49:07.5600330Z   Downloaded icu_normalizer_data v2.4.0
+2026-10-29T18:49:07.5634430Z   Downloaded tower v0.5.3
+2026-10-29T18:49:07.5856810Z   Downloaded async-compression v0.4.51
+2026-10-29T18:49:07.6001230Z   Downloaded tempfile v3.27.0
+2026-10-29T18:49:07.6059360Z   Downloaded fastrand v2.5.0
+2026-10-29T18:49:07.6089690Z   Downloaded security-framework v3.7.0
+2026-10-29T18:49:07.6170850Z   Downloaded webpki-root-certs v1.0.11
+2026-10-29T18:49:07.6201340Z   Downloaded combine v4.6.9
+2026-10-29T18:49:07.6259650Z   Downloaded hyper-util v0.1.21
+2026-10-29T18:49:07.6375380Z   Downloaded x509-parser v0.18.1
+2026-10-29T18:49:07.6501640Z   Downloaded nom v7.1.3
+2026-10-29T18:49:07.6595560Z   Downloaded minimal-lexical v0.2.1
+2026-10-29T18:49:07.6685890Z   Downloaded asn1-rs v0.7.2
+2026-10-29T18:49:07.6843550Z   Downloaded der-parser v10.0.0
+2026-10-29T18:49:07.6908990Z   Downloaded num-bigint v0.4.8
+2026-10-29T18:49:07.6999280Z   Downloaded isideload-p12-keystore v0.3.0-rc4
+2026-10-29T18:49:07.7056210Z   Downloaded rand v0.10.3
+2026-10-29T18:49:07.7135210Z   Downloaded num-bigint-dig v0.8.6
+2026-10-29T18:49:07.7217970Z   Downloaded zerocopy-derive v0.8.63
+2026-10-29T18:49:07.7493810Z   Downloaded icu_properties v2.4.0
+2026-10-29T18:49:07.7549890Z   Downloaded wasmtimer v0.4.3
+2026-10-29T18:49:07.7603330Z   Downloaded hmac v0.12.1
+2026-10-29T18:49:07.7639790Z   Downloaded ed25519-dalek v2.2.0
+2026-10-29T18:49:07.7693400Z   Downloaded pin-project-internal v1.1.13
+2026-10-29T18:49:07.7725890Z   Downloaded futures-lite v2.6.1
+2026-10-29T18:49:07.7760300Z   Downloaded byteorder v1.5.0
+2026-10-29T18:49:07.7791910Z   Downloaded num-integer v0.1.47
+2026-10-29T18:49:07.7822010Z   Downloaded smallvec v1.16.4
+2026-10-29T18:49:07.7845130Z   Downloaded rand_chacha v0.3.1
+2026-10-29T18:49:07.7864650Z   Downloaded ppv-lite86 v0.2.21
+2026-10-29T18:49:07.7887450Z   Downloaded thiserror-impl v2.0.21
+2026-10-29T18:49:07.7919090Z   Downloaded getrandom v0.3.4
+2026-10-29T18:49:07.7996130Z   Downloaded percent-encoding v2.3.2
+2026-10-29T18:49:07.8012850Z   Downloaded utf8_iter v1.0.4
+2026-10-29T18:49:07.8036090Z   Downloaded idna_adapter v1.2.2
+2026-10-29T18:49:07.8100960Z   Downloaded zlib-rs v0.6.8
+2026-10-29T18:49:07.8227900Z   Downloaded futures-util v0.3.34
+2026-10-29T18:49:07.8839670Z   Downloaded vcpkg v0.2.15
+2026-10-29T18:49:08.0054370Z   Downloaded openssl v0.10.81
+2026-10-29T18:49:08.0270020Z   Downloaded icu_properties_data v2.4.0
+2026-10-29T18:49:08.0535170Z   Downloaded tower-http v0.6.11
+2026-10-29T18:49:08.0741720Z   Downloaded tokio-util v0.7.20
+2026-10-29T18:49:08.0926980Z   Downloaded jni v0.22.4
+2026-10-29T18:49:08.1066680Z   Downloaded hyper v1.12.0
+2026-10-29T18:49:08.1219850Z   Downloaded aes v0.9.3
+2026-10-29T18:49:08.1299130Z   Downloaded const-oid v0.10.2
+2026-10-29T18:49:08.1342000Z   Downloaded rand v0.8.8
+2026-10-29T18:49:08.1406790Z   Downloaded rand v0.9.5
+2026-10-29T18:49:08.1491030Z   Downloaded block-padding v0.3.3
+2026-10-29T18:49:08.1511220Z   Downloaded chacha20 v0.9.1
+2026-10-29T18:49:08.1564150Z   Downloaded aead v0.5.2
+2026-10-29T18:49:08.1578670Z   Downloaded cbc v0.1.2
+2026-10-29T18:49:08.1611850Z   Downloaded apple-codesign-quick v0.1.0
+2026-10-29T18:49:08.1643280Z   Downloaded either v1.19.0
+2026-10-29T18:49:08.1672810Z   Downloaded syn v3.0.9
+2026-10-29T18:49:08.1882880Z   Downloaded syn v2.0.119
+2026-10-29T18:49:08.2111820Z   Downloaded tracing v0.1.44
+2026-10-29T18:49:08.2381350Z   Downloaded h2 v0.4.20
+2026-10-29T18:49:08.2531080Z   Downloaded zerocopy v0.8.63
+2026-10-29T18:49:08.3255540Z   Downloaded hkdf v0.12.4
+2026-10-29T18:49:08.3296510Z   Downloaded wasm-bindgen-futures v0.4.79
+2026-10-29T18:49:08.3318100Z   Downloaded url v2.5.8
+2026-10-29T18:49:08.3365490Z   Downloaded idna v1.1.0
+2026-10-29T18:49:08.3423750Z   Downloaded zerovec v0.11.9
+2026-10-29T18:49:08.3546230Z   Downloaded base64 v0.22.1
+2026-10-29T18:49:08.3644470Z   Downloaded pin-project v1.1.13
+2026-10-29T18:49:08.4006000Z   Downloaded async-stream v0.3.6
+2026-10-29T18:49:08.4062200Z   Downloaded rayon-core v1.13.0
+2026-10-29T18:49:08.4140550Z   Downloaded simd_cesu8 v1.2.0
+2026-10-29T18:49:08.4217620Z   Downloaded siphasher v1.0.4
+2026-10-29T18:49:08.4249780Z   Downloaded async_zip v0.0.18
+2026-10-29T18:49:08.4432080Z   Downloaded async-stream-impl v0.3.6
+2026-10-29T18:49:08.4444220Z   Downloaded rayon v1.12.0
+2026-10-29T18:49:08.4662400Z   Downloaded memmap2 v0.9.12
+2026-10-29T18:49:08.4703260Z   Downloaded libc v0.2.191
+2026-10-29T18:49:08.5796760Z   Downloaded tokio v1.54.1
+2026-10-29T18:49:08.6885220Z   Downloaded icu_normalizer v2.4.0
+2026-10-29T18:49:08.7033220Z   Downloaded rustix v1.1.6
+2026-10-29T18:49:08.7715570Z   Downloaded encoding_rs v0.8.42
+2026-10-29T18:49:08.7857000Z   Downloaded windows_aarch64_gnullvm v0.52.6
+2026-10-29T18:49:08.7966830Z   Downloaded parking_lot_core v0.9.12
+2026-10-29T18:49:08.8017060Z   Downloaded redox_syscall v0.5.18
+2026-10-29T18:49:08.8091550Z   Downloaded lock_api v0.4.14
+2026-10-29T18:49:08.8121240Z   Downloaded futures v0.3.34
+2026-10-29T18:49:08.8240640Z   Downloaded futures-executor v0.3.34
+2026-10-29T18:49:08.8277810Z   Downloaded base64 v0.21.7
+2026-10-29T18:49:08.8368170Z   Downloaded aes v0.8.4
+2026-10-29T18:49:08.8435490Z   Downloaded cms v0.2.3
+2026-10-29T18:49:08.8552350Z   Downloaded web-sys v0.3.106
+2026-10-29T18:49:09.1833220Z   Downloaded curve25519-dalek v4.1.3
+2026-10-29T18:49:09.1990740Z   Downloaded curve25519-dalek-derive v0.1.1
+2026-10-29T18:49:09.2014050Z   Downloaded jktcp v0.1.8
+2026-10-29T18:49:09.2041750Z   Downloaded parking_lot v0.12.5
+2026-10-29T18:49:09.2115220Z   Downloaded idevice-srp v0.6.0
+2026-10-29T18:49:09.2167030Z   Downloaded poly1305 v0.8.0
+2026-10-29T18:49:09.2227790Z   Downloaded universal-hash v0.5.1
+2026-10-29T18:49:09.2245740Z   Downloaded opaque-debug v0.3.1
+2026-10-29T18:49:09.2265390Z   Downloaded cipher v0.4.4
+2026-10-29T18:49:09.2301340Z   Downloaded inout v0.1.4
+2026-10-29T18:49:09.2327780Z   Downloaded crossbeam-deque v0.8.8
+2026-10-29T18:49:09.2366690Z   Downloaded crossbeam-epoch v0.9.21
+2026-10-29T18:49:09.2500460Z   Downloaded windows_aarch64_msvc v0.52.6
+2026-10-29T18:49:09.2651800Z   Downloaded chrono v0.4.45
+2026-10-29T18:49:09.2793220Z   Downloaded crossbeam-utils v0.8.23
+2026-10-29T18:49:09.2879330Z   Downloaded scrypt v0.12.0
+2026-10-29T18:49:09.2930970Z   Downloaded fiat-crypto v0.2.9
+2026-10-29T18:49:09.3073140Z   Downloaded chacha20poly1305 v0.10.1
+2026-10-29T18:49:09.3105380Z   Downloaded sha3 v0.10.9
+2026-10-29T18:49:09.3193710Z   Downloaded salsa20 v0.11.0
+2026-10-29T18:49:09.3581410Z   Downloaded cbc v0.2.1
+2026-10-29T18:49:09.3628820Z   Downloaded ghash v0.6.0
+2026-10-29T18:49:09.3667510Z   Downloaded polyval v0.7.3
+2026-10-29T18:49:09.3707810Z   Downloaded universal-hash v0.6.1
+2026-10-29T18:49:09.3729210Z   Downloaded x509-cert v0.3.0
+2026-10-29T18:49:09.3908770Z   Downloaded sha2 v0.10.9
+2026-10-29T18:49:09.3970250Z   Downloaded windows-sys v0.61.2
+2026-10-29T18:49:09.5648700Z   Downloaded pkcs12 v0.2.0-pre.0
+2026-10-29T18:49:09.5739040Z   Downloaded linux-raw-sys v0.12.1
+2026-10-29T18:49:09.7545660Z   Downloaded aes-gcm v0.11.1
+2026-10-29T18:49:09.7608150Z   Downloaded ctr v0.10.1
+2026-10-29T18:49:09.7653890Z   Downloaded aead v0.6.1
+2026-10-29T18:49:09.7685110Z   Downloaded x25519-dalek v2.0.1
+2026-10-29T18:49:09.7724490Z   Downloaded cpufeatures v0.3.1
+2026-10-29T18:49:09.7752980Z   Downloaded sha1 v0.11.0
+2026-10-29T18:49:09.7810590Z   Downloaded cms v0.3.0-pre.1
+2026-10-29T18:49:09.8028770Z   Downloaded hashbrown v0.16.1
+2026-10-29T18:49:09.8091330Z   Downloaded time-macros v0.2.32
+2026-10-29T18:49:09.8147460Z   Downloaded num-conv v0.2.2
+2026-10-29T18:49:09.8164670Z   Downloaded powerfmt v0.2.1
+2026-10-29T18:49:09.8195160Z   Downloaded r-efi v5.3.0
+2026-10-29T18:49:09.8316280Z   Downloaded data-encoding v2.11.1
+2026-10-29T18:49:09.8336840Z   Downloaded stable_deref_trait v1.2.1
+2026-10-29T18:49:09.8356650Z   Downloaded rootcause-internals v0.12.1
+2026-10-29T18:49:09.8399480Z   Downloaded plist v1.10.3
+2026-10-29T18:49:09.9018390Z   Downloaded urlencoding v2.1.3
+2026-10-29T18:49:09.9042840Z   Downloaded tokio-tungstenite v0.29.0
+2026-10-29T18:49:09.9105220Z   Downloaded thiserror v2.0.21
+2026-10-29T18:49:09.9259360Z   Downloaded zerofrom-derive v0.1.8
+2026-10-29T18:49:09.9277820Z   Downloaded yoke v0.8.4
+2026-10-29T18:49:09.9313220Z   Downloaded yoke-derive v0.8.4
+2026-10-29T18:49:09.9334600Z   Downloaded zerotrie v0.2.5
+2026-10-29T18:49:09.9675420Z   Downloaded der_derive v0.8.0
+2026-10-29T18:49:09.9718800Z   Downloaded deranged v0.5.9
+2026-10-29T18:49:09.9748180Z   Downloaded base64 v0.23.1
+2026-10-29T18:49:09.9824660Z   Downloaded webpki-roots v0.26.11
+2026-10-29T18:49:09.9848270Z   Downloaded der v0.8.3
+2026-10-29T18:49:09.9989630Z   Downloaded pem-rfc7468 v1.0.0
+2026-10-29T18:49:10.0063740Z   Downloaded pkcs5 v0.8.1
+2026-10-29T18:49:10.0493410Z   Downloaded time v0.3.55
+2026-10-29T18:49:10.0831920Z   Downloaded time-core v0.1.9
+2026-10-29T18:49:10.0851350Z   Downloaded web-time v1.1.0
+2026-10-29T18:49:10.0880970Z   Downloaded wit-bindgen v0.57.1
+2026-10-29T18:49:10.0950000Z   Downloaded zmij v1.0.23
+2026-10-29T18:49:10.1281520Z   Downloaded itoa v1.0.18
+2026-10-29T18:49:10.1311050Z   Downloaded tokio-rustls v0.26.6
+2026-10-29T18:49:10.1350700Z   Downloaded rustls-pki-types v1.15.1
+2026-10-29T18:49:10.1413170Z   Downloaded rustc-hash v2.1.3
+2026-10-29T18:49:10.1441600Z   Downloaded wasip2 v1.0.4+wasi-0.2.12
+2026-10-29T18:49:10.1510860Z   Downloaded http v1.5.0
+2026-10-29T18:49:10.1577900Z   Downloaded rustls v0.23.46
+2026-10-29T18:49:10.2150860Z   Downloaded untrusted v0.9.0
+2026-10-29T18:49:10.2194910Z   Downloaded windows-targets v0.52.6
+2026-10-29T18:49:10.2210500Z   Downloaded pkcs8 v0.10.2
+2026-10-29T18:49:10.2272380Z   Downloaded autocfg v1.5.1
+2026-10-29T18:49:10.2310980Z   Downloaded tower-service v0.3.3
+2026-10-29T18:49:10.2325820Z   Downloaded zerofrom v0.1.8
+2026-10-29T18:49:10.2343480Z   Downloaded pkcs1 v0.7.5
+2026-10-29T18:49:10.2395620Z   Downloaded num-traits v0.2.19
+2026-10-29T18:49:10.2454240Z   Downloaded libm v0.2.16
+2026-10-29T18:49:10.3016500Z   Downloaded spin v0.9.9
+2026-10-29T18:49:10.3066510Z   Downloaded triomphe v0.1.17
+2026-10-29T18:49:10.3129130Z   Downloaded zerovec-derive v0.11.7
+2026-10-29T18:49:10.3164310Z   Downloaded serdect v0.4.3
+2026-10-29T18:49:10.3194870Z   Downloaded reqwest-middleware v0.5.2
+2026-10-29T18:49:10.3218590Z   Downloaded rsa v0.9.10
+2026-10-29T18:49:10.3644360Z   Downloaded tungstenite v0.29.0
+2026-10-29T18:49:10.3721860Z   Downloaded rustls-webpki v0.103.16
+2026-10-29T18:49:10.3796260Z   Downloaded srp v0.7.0-rc.3
+2026-10-29T18:49:10.3827960Z   Downloaded serde_json v1.0.154
+2026-10-29T18:49:10.3999270Z   Downloaded webpki-roots v1.0.11
+2026-10-29T18:49:10.4042450Z   Downloaded reqwest v0.13.5
+2026-10-29T18:49:10.4412550Z   Downloaded rootcause v0.12.1
+2026-10-29T18:49:10.4587020Z   Downloaded quick-xml v0.42.0
+2026-10-29T18:49:10.4687660Z   Downloaded openssl-src v300.6.1+3.6.3
+2026-10-29T18:49:11.0748980Z   Downloaded crypto-bigint v0.7.10
+2026-10-29T18:49:11.1411500Z   Downloaded windows_x86_64_gnullvm v0.52.6
+2026-10-29T18:49:11.1510950Z   Downloaded windows_i686_gnullvm v0.52.6
+2026-10-29T18:49:11.1601680Z   Downloaded windows_x86_64_gnu v0.52.6
+2026-10-29T18:49:11.1795400Z   Downloaded windows_i686_gnu v0.52.6
+2026-10-29T18:49:11.2010770Z   Downloaded windows_x86_64_msvc v0.52.6
+2026-10-29T18:49:11.2148050Z   Downloaded windows_i686_msvc v0.52.6
+2026-10-29T18:49:11.2292260Z   Downloaded ring v0.17.14
+2026-10-29T18:49:11.3502290Z   Downloaded windows-sys v0.52.0
+2026-10-29T18:49:11.6416470Z     Updating crates.io index
+2026-10-29T18:49:12.2745080Z  Downloading crates ...
+2026-10-29T18:49:12.3285100Z   Downloaded time-core v0.1.8
+2026-10-29T18:49:12.3309110Z   Downloaded num-conv v0.2.1
+2026-10-29T18:49:12.3326320Z   Downloaded polyval v0.6.2
+2026-10-29T18:49:12.3654870Z   Downloaded time-macros v0.2.27
+2026-10-29T18:49:12.3706150Z   Downloaded time v0.3.47
+2026-10-29T18:49:12.4103100Z   Downloaded num-bigint v0.4.6
+2026-10-29T18:49:12.4235550Z   Downloaded windows-core v0.62.2
+2026-10-29T18:49:12.4626530Z   Downloaded js-sys v0.3.91
+2026-10-29T18:49:12.4705530Z   Downloaded quick-xml v0.38.4
+2026-10-29T18:49:12.4826150Z   Downloaded android_system_properties v0.1.5
+2026-10-29T18:49:12.4850890Z   Downloaded iana-time-zone v0.1.65
+2026-10-29T18:49:12.4925700Z   Downloaded iana-time-zone-haiku v0.1.2
+2026-10-29T18:49:12.4952730Z   Downloaded compression-core v0.4.31
+2026-10-29T18:49:12.4977100Z   Downloaded wasm-bindgen-macro v0.2.114
+2026-10-29T18:49:12.5001300Z   Downloaded semver v1.0.27
+2026-10-29T18:49:12.5072040Z   Downloaded powerfmt v0.2.0
+2026-10-29T18:49:12.5094750Z   Downloaded cpufeatures v0.3.0
+2026-10-29T18:49:12.5184770Z   Downloaded obfstr v0.4.4
+2026-10-29T18:49:12.5476730Z   Downloaded windows-result v0.3.4
+2026-10-29T18:49:12.5514890Z   Downloaded futures-sink v0.3.32
+2026-10-29T18:49:12.5551370Z   Downloaded nskeyedarchiver_converter v0.1.3
+2026-10-29T18:49:12.5580260Z   Downloaded quote v1.0.45
+2026-10-29T18:49:12.5640530Z   Downloaded chacha20 v0.10.0
+2026-10-29T18:49:12.5682890Z   Downloaded simd-adler32 v0.3.8
+2026-10-29T18:49:12.5718780Z   Downloaded serde v1.0.228
+2026-10-29T18:49:12.5778240Z   Downloaded futures-macro v0.3.32
+2026-10-29T18:49:12.5816100Z   Downloaded futures-channel v0.3.32
+2026-10-29T18:49:12.5852030Z   Downloaded wit-bindgen-rust-macro v0.51.0
+2026-10-29T18:49:12.5869510Z   Downloaded rand v0.10.0
+2026-10-29T18:49:12.5943830Z   Downloaded plist v1.8.0
+2026-10-29T18:49:12.6260420Z   Downloaded rand v0.9.2
+2026-10-29T18:49:12.6330570Z   Downloaded compression-codecs v0.4.37
+2026-10-29T18:49:12.6427050Z   Downloaded wasm-bindgen-macro-support v0.2.114
+2026-10-29T18:49:12.6459030Z   Downloaded rustversion v1.0.22
+2026-10-29T18:49:12.6519100Z   Downloaded typenum v1.19.0
+2026-10-29T18:49:12.6566270Z   Downloaded futures-task v0.3.32
+2026-10-29T18:49:12.6588700Z   Downloaded futures-io v0.3.32
+2026-10-29T18:49:12.6604650Z   Downloaded futures-core v0.3.32
+2026-10-29T18:49:12.6630140Z   Downloaded wasmparser v0.244.0
+2026-10-29T18:49:12.6780600Z   Downloaded equivalent v1.0.2
+2026-10-29T18:49:12.6799400Z   Downloaded id-arena v2.3.0
+2026-10-29T18:49:12.6824590Z   Downloaded wasm-metadata v0.244.0
+2026-10-29T18:49:12.6868780Z   Downloaded ctr v0.9.2
+2026-10-29T18:49:12.6910160Z   Downloaded deranged v0.5.8
+2026-10-29T18:49:12.6931250Z   Downloaded ns-keyed-archive v0.1.5
+2026-10-29T18:49:12.6948220Z   Downloaded sha1 v0.10.6
+2026-10-29T18:49:12.6977330Z   Downloaded wasm-bindgen-shared v0.2.114
+2026-10-29T18:49:12.6996620Z   Downloaded serde_core v1.0.228
+2026-10-29T18:49:12.7063280Z   Downloaded bitflags v2.11.0
+2026-10-29T18:49:12.7416580Z   Downloaded wasm-bindgen-futures v0.4.64
+2026-10-29T18:49:12.7442790Z   Downloaded anyhow v1.0.102
+2026-10-29T18:49:12.7527300Z   Downloaded leb128fmt v0.1.0
+2026-10-29T18:49:12.7543950Z   Downloaded ghash v0.5.1
+2026-10-29T18:49:12.7562830Z   Downloaded foldhash v0.1.5
+2026-10-29T18:49:12.7585300Z   Downloaded crc32fast v1.5.0
+2026-10-29T18:49:12.7618980Z   Downloaded pin-project-internal v1.1.11
+2026-10-29T18:49:12.7664240Z   Downloaded zeroize_derive v1.4.3
+2026-10-29T18:49:12.7682330Z   Downloaded rustls-pki-types v1.14.0
+2026-10-29T18:49:12.7733080Z   Downloaded futures-executor v0.3.32
+2026-10-29T18:49:12.7759080Z   Downloaded zmij v1.0.21
+2026-10-29T18:49:12.8078830Z   Downloaded pin-utils v0.1.0
+2026-10-29T18:49:12.8102130Z   Downloaded heck v0.5.0
+2026-10-29T18:49:12.8127080Z   Downloaded fastrand v2.3.0
+2026-10-29T18:49:12.8149560Z   Downloaded cfg-if v1.0.4
+2026-10-29T18:49:12.8174540Z   Downloaded uuid v1.23.3
+2026-10-29T18:49:12.8226340Z   Downloaded unicode-xid v0.2.6
+2026-10-29T18:49:12.8268890Z   Downloaded zeroize v1.8.2
+2026-10-29T18:49:12.8293340Z   Downloaded jktcp v0.1.7
+2026-10-29T18:49:12.8318360Z   Downloaded miniz_oxide v0.8.9
+2026-10-29T18:49:12.8361080Z   Downloaded tokio-util v0.7.18
+2026-10-29T18:49:12.8513290Z   Downloaded pin-project v1.1.11
+2026-10-29T18:49:12.8857490Z   Downloaded unicode-ident v1.0.24
+2026-10-29T18:49:12.8925770Z   Downloaded serde_derive v1.0.228
+2026-10-29T18:49:12.9248660Z   Downloaded smallvec v1.15.1
+2026-10-29T18:49:12.9286610Z   Downloaded getrandom v0.4.2
+2026-10-29T18:49:12.9362960Z   Downloaded wit-bindgen v0.51.0
+2026-10-29T18:49:12.9426600Z   Downloaded wit-bindgen-core v0.51.0
+2026-10-29T18:49:12.9451220Z   Downloaded cfg_aliases v0.2.1
+2026-10-29T18:49:12.9467600Z   Downloaded windows-numerics v0.2.0
+2026-10-29T18:49:12.9507600Z   Downloaded windows-strings v0.4.2
+2026-10-29T18:49:12.9540560Z   Downloaded windows-interface v0.59.3
+2026-10-29T18:49:12.9557010Z   Downloaded windows-collections v0.2.0
+2026-10-29T18:49:12.9577900Z   Downloaded getifaddrs v0.6.0
+2026-10-29T18:49:12.9605870Z   Downloaded proc-macro2 v1.0.106
+2026-10-29T18:49:12.9984800Z   Downloaded wasm-bindgen v0.2.114
+2026-10-29T18:49:13.0031730Z   Downloaded bumpalo v3.20.2
+2026-10-29T18:49:13.0076260Z   Downloaded futures v0.3.32
+2026-10-29T18:49:13.0196640Z   Downloaded wit-bindgen-rust v0.51.0
+2026-10-29T18:49:13.0229860Z   Downloaded log v0.4.29
+2026-10-29T18:49:13.0276030Z   Downloaded wasm-encoder v0.244.0
+2026-10-29T18:49:13.0347170Z   Downloaded memoffset v0.9.1
+2026-10-29T18:49:13.0369310Z   Downloaded flate2 v1.1.9
+2026-10-29T18:49:13.0793910Z   Downloaded async-compression v0.4.41
+2026-10-29T18:49:13.0956190Z   Downloaded memchr v2.8.0
+2026-10-29T18:49:13.1055430Z   Downloaded indexmap v2.13.0
+2026-10-29T18:49:13.1149090Z   Downloaded prettyplease v0.2.37
+2026-10-29T18:49:13.1756060Z   Downloaded wasip3 v0.4.0+wasi-0.3.0-rc-2026-01-06
+2026-10-29T18:49:13.1821760Z   Downloaded shlex v1.3.0
+2026-10-29T18:49:13.1847740Z   Downloaded rfc6979 v0.4.0
+2026-10-29T18:49:13.1868750Z   Downloaded aes-gcm v0.10.3
+2026-10-29T18:49:13.1909840Z   Downloaded hashbrown v0.15.5
+2026-10-29T18:49:13.1996330Z   Downloaded serde_json v1.0.149
+2026-10-29T18:49:13.2170830Z   Downloaded autocfg v1.5.0
+2026-10-29T18:49:13.2211590Z   Downloaded fs_extra v1.3.0
+2026-10-29T18:49:13.2549580Z   Downloaded futures-util v0.3.32
+2026-10-29T18:49:13.2868810Z   Downloaded wasip2 v1.0.2+wasi-0.2.9
+2026-10-29T18:49:13.2936860Z   Downloaded windows-implement v0.60.2
+2026-10-29T18:49:13.2958850Z   Downloaded windows-threading v0.1.0
+2026-10-29T18:49:13.2978110Z   Downloaded num-iter v0.1.45
+2026-10-29T18:49:13.2995360Z   Downloaded wit-parser v0.244.0
+2026-10-29T18:49:13.5397860Z   Downloaded chrono v0.4.44
+2026-10-29T18:49:13.5519500Z   Downloaded webpki-roots v1.0.6
+2026-10-29T18:49:13.5561310Z   Downloaded wit-component v0.244.0
+2026-10-29T18:49:13.7236860Z   Downloaded syn v2.0.117
+2026-10-29T18:49:13.7435200Z   Downloaded netlink-packet-core v0.8.1
+2026-10-29T18:49:13.7498880Z   Downloaded paste v1.0.15
+2026-10-29T18:49:13.7574760Z   Downloaded windows-link v0.1.3
+2026-10-29T18:49:13.7590460Z   Downloaded windows-future v0.2.1
+2026-10-29T18:49:13.7617490Z   Downloaded thiserror v2.0.18
+2026-10-29T18:49:13.7769200Z   Downloaded ipnet v2.12.0
+2026-10-29T18:49:13.7808820Z   Downloaded c2rust-bitfields v0.21.0
+2026-10-29T18:49:13.7845340Z   Downloaded c2rust-bitfields-derive v0.21.0
+2026-10-29T18:49:13.7858980Z   Downloaded blocking v1.6.2
+2026-10-29T18:49:13.7882840Z   Downloaded async-task v4.7.1
+2026-10-29T18:49:13.7933910Z   Downloaded pkg-config v0.3.32
+2026-10-29T18:49:13.7964970Z   Downloaded dunce v1.0.5
+2026-10-29T18:49:13.7982250Z   Downloaded siphasher v1.0.2
+2026-10-29T18:49:13.8010080Z   Downloaded sec1 v0.7.3
+2026-10-29T18:49:13.8039320Z   Downloaded base16ct v0.2.0
+2026-10-29T18:49:13.8067670Z   Downloaded num-integer v0.1.46
+2026-10-29T18:49:13.8098620Z   Downloaded lazy_static v1.5.0
+2026-10-29T18:49:13.8139350Z   Downloaded group v0.13.0
+2026-10-29T18:49:13.8188130Z   Downloaded ff v0.13.1
+2026-10-29T18:49:13.8215740Z   Downloaded ecdsa v0.16.9
+2026-10-29T18:49:13.8246550Z   Downloaded rand_core v0.10.0
+2026-10-29T18:49:13.8281760Z   Downloaded winreg v0.55.0
+2026-10-29T18:49:13.8342610Z   Downloaded tokio-macros v2.6.1
+2026-10-29T18:49:13.8361740Z   Downloaded signal-hook-registry v1.4.8
+2026-10-29T18:49:13.8383010Z   Downloaded netconfig-rs v0.1.6
+2026-10-29T18:49:13.8430330Z   Downloaded piper v0.2.5
+2026-10-29T18:49:13.8460070Z   Downloaded async-channel v2.5.0
+2026-10-29T18:49:13.8500540Z   Downloaded event-listener-strategy v0.5.4
+2026-10-29T18:49:13.8520740Z   Downloaded jobserver v0.1.34
+2026-10-29T18:49:13.8569790Z   Downloaded find-msvc-tools v0.1.9
+2026-10-29T18:49:13.8601670Z   Downloaded cmake v0.1.58
+2026-10-29T18:49:13.8626360Z   Downloaded web-sys v0.3.91
+2026-10-29T18:49:14.2800370Z   Downloaded libc v0.2.185
+2026-10-29T18:49:14.4321360Z   Downloaded libloading v0.9.0
+2026-10-29T18:49:14.4372660Z   Downloaded rustls-rustcrypto v0.0.2-alpha
+2026-10-29T18:49:14.4442810Z   Downloaded primeorder v0.13.6
+2026-10-29T18:49:14.4471300Z   Downloaded netlink-sys v0.8.8
+2026-10-29T18:49:14.4516940Z   Downloaded spin v0.9.8
+2026-10-29T18:49:14.4579090Z   Downloaded windows-core v0.61.2
+2026-10-29T18:49:14.4913490Z   Downloaded thiserror-impl v2.0.18
+2026-10-29T18:49:14.4944860Z   Downloaded elliptic-curve v0.13.8
+2026-10-29T18:49:14.5022440Z   Downloaded socket2 v0.6.3
+2026-10-29T18:49:14.5061550Z   Downloaded event-listener v5.4.1
+2026-10-29T18:49:14.5101810Z   Downloaded concurrent-queue v2.5.0
+2026-10-29T18:49:14.5132560Z   Downloaded crossbeam-utils v0.8.21
+2026-10-29T18:49:14.5208960Z   Downloaded tokio-rustls v0.26.4
+2026-10-29T18:49:14.5257130Z   Downloaded pkcs5 v0.7.1
+2026-10-29T18:49:14.5370290Z   Downloaded p256 v0.13.2
+2026-10-29T18:49:14.5738630Z   Downloaded netlink-packet-route v0.28.0
+2026-10-29T18:49:14.6486000Z   Downloaded flume v0.12.0
+2026-10-29T18:49:14.6573920Z   Downloaded openssl-sys v0.9.112
+2026-10-29T18:49:14.6727900Z   Downloaded zerocopy-derive v0.8.47
+2026-10-29T18:49:14.6992180Z   Downloaded crypto-bigint v0.5.5
+2026-10-29T18:49:14.7504430Z   Downloaded widestring v1.2.1
+2026-10-29T18:49:14.7587490Z   Downloaded mio v1.1.1
+2026-10-29T18:49:14.7743620Z   Downloaded bytes v1.11.1
+2026-10-29T18:49:14.7831380Z   Downloaded cc v1.2.57
+2026-10-29T18:49:14.7884200Z   Downloaded rand v0.8.5
+2026-10-29T18:49:14.7957000Z   Downloaded route_manager v0.2.11
+2026-10-29T18:49:14.8066190Z   Downloaded netlink-packet-route v0.25.1
+2026-10-29T18:49:14.8862750Z   Downloaded p384 v0.13.1
+2026-10-29T18:49:14.8943520Z   Downloaded tun-rs v2.8.1
+2026-10-29T18:49:14.9087710Z   Downloaded rustls-webpki v0.102.8
+2026-10-29T18:49:15.0181950Z   Downloaded zerocopy v0.8.47
+2026-10-29T18:49:15.0694330Z   Downloaded aws-lc-rs v1.18.2
+2026-10-29T18:49:15.0963410Z   Downloaded openssl v0.10.76
+2026-10-29T18:49:15.1202410Z   Downloaded nix v0.30.1
+2026-10-29T18:49:15.1455130Z   Downloaded nix v0.31.2
+2026-10-29T18:49:15.1803500Z   Downloaded tokio v1.50.0
+2026-10-29T18:49:15.3973740Z   Downloaded encoding_rs v0.8.35
+2026-10-29T18:49:15.4656110Z   Downloaded windows-sys v0.59.0
+2026-10-29T18:49:15.6037380Z   Downloaded windows v0.61.3
+2026-10-29T18:49:16.1876280Z   Downloaded aws-lc-sys v0.46.0
+2026-10-29T18:49:17.9137130Z info: component 'rust-std' for target 'aarch64-apple-darwin' is up to date
+2026-10-29T18:49:17.9480660Z info: downloading component 'rust-std' for 'x86_64-apple-darwin'
+2026-10-29T18:49:18.4026560Z info: installing component 'rust-std' for 'x86_64-apple-darwin'
+2026-10-29T18:49:23.3450520Z    Compiling libc v0.2.185
+2026-10-29T18:49:23.3455230Z    Compiling proc-macro2 v1.0.106
+2026-10-29T18:49:23.3456040Z    Compiling quote v1.0.45
+2026-10-29T18:49:24.2918510Z    Compiling unicode-ident v1.0.24
+2026-10-29T18:49:24.4002730Z    Compiling cfg-if v1.0.4
+2026-10-29T18:49:24.4422590Z    Compiling version_check v0.9.5
+2026-10-29T18:49:24.6210120Z    Compiling typenum v1.19.0
+2026-10-29T18:49:24.8825920Z    Compiling getrandom v0.2.17
+2026-10-29T18:49:24.9469290Z    Compiling generic-array v0.14.7
+2026-10-29T18:49:25.0122780Z    Compiling syn v2.0.117
+2026-10-29T18:49:25.1520770Z    Compiling rand_core v0.6.4
+2026-10-29T18:49:25.2825200Z    Compiling subtle v2.6.1
+2026-10-29T18:49:25.3712050Z    Compiling const-oid v0.9.6
+2026-10-29T18:49:25.7793530Z    Compiling crypto-common v0.1.7
+2026-10-29T18:49:25.8461530Z    Compiling block-buffer v0.10.4
+2026-10-29T18:49:25.9180920Z    Compiling autocfg v1.5.0
+2026-10-29T18:49:26.0106060Z    Compiling digest v0.10.7
+2026-10-29T18:49:26.1493830Z    Compiling pin-project-lite v0.2.17
+2026-10-29T18:49:26.1513770Z    Compiling libm v0.2.16
+2026-10-29T18:49:26.1996470Z    Compiling num-traits v0.2.19
+2026-10-29T18:49:26.3393030Z    Compiling find-msvc-tools v0.1.9
+2026-10-29T18:49:26.3467400Z    Compiling futures-core v0.3.32
+2026-10-29T18:49:26.4253380Z    Compiling shlex v1.3.0
+2026-10-29T18:49:26.4604470Z    Compiling serde_core v1.0.228
+2026-10-29T18:49:26.5104210Z    Compiling cc v1.2.57
+2026-10-29T18:49:27.6430410Z    Compiling zeroize_derive v1.4.3
+2026-10-29T18:49:27.7917450Z    Compiling ring v0.17.14
+2026-10-29T18:49:27.9484360Z    Compiling zeroize v1.8.2
+2026-10-29T18:49:28.0566180Z    Compiling memchr v2.8.0
+2026-10-29T18:49:28.0676150Z    Compiling base64ct v1.8.3
+2026-10-29T18:49:28.2408240Z    Compiling smallvec v1.15.1
+2026-10-29T18:49:28.3762500Z    Compiling crossbeam-utils v0.8.21
+2026-10-29T18:49:28.5317330Z    Compiling zerocopy v0.8.47
+2026-10-29T18:49:28.5522460Z    Compiling pem-rfc7468 v0.7.0
+2026-10-29T18:49:29.0487030Z    Compiling der_derive v0.7.3
+2026-10-29T18:49:29.2376580Z    Compiling block-padding v0.3.3
+2026-10-29T18:49:29.2998280Z    Compiling cpufeatures v0.2.17
+2026-10-29T18:49:29.3583590Z    Compiling futures-io v0.3.32
+2026-10-29T18:49:29.4636060Z    Compiling parking_lot_core v0.9.12
+2026-10-29T18:49:29.5292870Z    Compiling itoa v1.0.18
+2026-10-29T18:49:29.6023580Z    Compiling powerfmt v0.2.0
+2026-10-29T18:49:29.6758870Z    Compiling flagset v0.4.7
+2026-10-29T18:49:29.7355250Z    Compiling semver v1.0.27
+2026-10-29T18:49:29.7403940Z    Compiling der v0.7.10
+2026-10-29T18:49:29.8862090Z    Compiling rustc_version v0.4.1
+2026-10-29T18:49:30.0174190Z    Compiling deranged v0.5.8
+2026-10-29T18:49:30.6270040Z    Compiling inout v0.1.4
+2026-10-29T18:49:31.5804730Z    Compiling num-integer v0.1.46
+2026-10-29T18:49:31.6642060Z    Compiling time-core v0.1.8
+2026-10-29T18:49:31.7493330Z    Compiling scopeguard v1.2.0
+2026-10-29T18:49:31.8005420Z    Compiling untrusted v0.9.0
+2026-10-29T18:49:31.8655780Z    Compiling num-conv v0.2.1
+2026-10-29T18:49:31.9246050Z    Compiling serde v1.0.228
+2026-10-29T18:49:31.9469820Z    Compiling time v0.3.47
+2026-10-29T18:49:32.9920720Z    Compiling ppv-lite86 v0.2.21
+2026-10-29T18:49:33.1782200Z    Compiling lock_api v0.4.14
+2026-10-29T18:49:33.3307120Z    Compiling concurrent-queue v2.5.0
+2026-10-29T18:49:33.4606060Z    Compiling cipher v0.4.4
+2026-10-29T18:49:33.8672730Z    Compiling spki v0.7.3
+2026-10-29T18:49:34.0197680Z    Compiling curve25519-dalek v4.1.3
+2026-10-29T18:49:34.1471480Z    Compiling rustls-pki-types v1.14.0
+2026-10-29T18:49:34.3978520Z    Compiling serde_derive v1.0.228
+2026-10-29T18:49:34.6658270Z    Compiling signature v2.2.0
+2026-10-29T18:49:34.7388250Z    Compiling errno v0.3.14
+2026-10-29T18:49:34.8180380Z    Compiling getrandom v0.4.2
+2026-10-29T18:49:34.9554510Z    Compiling rand_core v0.10.0
+2026-10-29T18:49:35.0345000Z    Compiling parking v2.2.1
+2026-10-29T18:49:35.1338660Z    Compiling once_cell v1.21.4
+2026-10-29T18:49:35.1385760Z    Compiling futures-sink v0.3.32
+2026-10-29T18:49:35.1919250Z    Compiling spin v0.9.8
+2026-10-29T18:49:35.2531510Z    Compiling lazy_static v1.5.0
+2026-10-29T18:49:35.2538290Z    Compiling futures-channel v0.3.32
+2026-10-29T18:49:35.2967290Z    Compiling event-listener v5.4.1
+2026-10-29T18:49:35.3972910Z    Compiling signal-hook-registry v1.4.8
+2026-10-29T18:49:35.5127440Z    Compiling parking_lot v0.12.5
+2026-10-29T18:49:35.6466250Z    Compiling rand_chacha v0.3.1
+2026-10-29T18:49:36.0982220Z    Compiling futures-macro v0.3.32
+2026-10-29T18:49:36.2948440Z    Compiling tokio-macros v2.6.1
+2026-10-29T18:49:36.4693240Z    Compiling memoffset v0.9.1
+2026-10-29T18:49:36.6050970Z    Compiling socket2 v0.6.3
+2026-10-29T18:49:36.6588630Z    Compiling mio v1.1.1
+2026-10-29T18:49:37.0953270Z    Compiling num-bigint-dig v0.8.6
+2026-10-29T18:49:37.1368320Z    Compiling bytes v1.11.1
+2026-10-29T18:49:37.2165280Z    Compiling equivalent v1.0.2
+2026-10-29T18:49:37.2494550Z    Compiling rustls v0.23.46
+2026-10-29T18:49:37.2578940Z    Compiling slab v0.4.12
+2026-10-29T18:49:37.3608570Z    Compiling futures-task v0.3.32
+2026-10-29T18:49:37.3697810Z    Compiling cfg_aliases v0.2.1
+2026-10-29T18:49:37.4061450Z    Compiling hashbrown v0.16.1
+2026-10-29T18:49:37.4390700Z    Compiling zmij v1.0.21
+2026-10-29T18:49:37.6172380Z    Compiling tokio v1.50.0
+2026-10-29T18:49:37.6927620Z    Compiling futures-util v0.3.32
+2026-10-29T18:49:37.8326180Z    Compiling indexmap v2.13.0
+2026-10-29T18:49:38.3275380Z    Compiling nix v0.31.2
+2026-10-29T18:49:38.6035710Z    Compiling rand v0.8.5
+2026-10-29T18:49:39.2993090Z    Compiling event-listener-strategy v0.5.4
+2026-10-29T18:49:39.4607020Z    Compiling rustls-webpki v0.103.16
+2026-10-29T18:49:40.9681700Z    Compiling pkcs8 v0.10.2
+2026-10-29T18:49:41.3000220Z    Compiling num-iter v0.1.45
+2026-10-29T18:49:41.3836800Z    Compiling sha2 v0.10.9
+2026-10-29T18:49:41.4454390Z    Compiling quick-xml v0.38.4
+2026-10-29T18:49:42.4303280Z    Compiling universal-hash v0.5.1
+2026-10-29T18:49:42.5010570Z    Compiling opaque-debug v0.3.1
+2026-10-29T18:49:42.5470910Z    Compiling atomic-waker v1.1.2
+2026-10-29T18:49:42.6095950Z    Compiling core-foundation-sys v0.8.7
+2026-10-29T18:49:42.7314130Z    Compiling base64 v0.22.1
+2026-10-29T18:49:42.8429360Z    Compiling bitflags v2.11.0
+2026-10-29T18:49:43.0501650Z    Compiling route_manager v0.2.11
+2026-10-29T18:49:43.0586470Z    Compiling fastrand v2.3.0
+2026-10-29T18:49:43.1790550Z    Compiling thiserror v2.0.18
+2026-10-29T18:49:43.2199150Z    Compiling serde_json v1.0.149
+2026-10-29T18:49:43.3615970Z    Compiling piper v0.2.5
+2026-10-29T18:49:43.4170870Z    Compiling plist v1.8.0
+2026-10-29T18:49:43.5380750Z    Compiling iana-time-zone v0.1.65
+2026-10-29T18:49:43.6111430Z    Compiling poly1305 v0.8.0
+2026-10-29T18:49:44.6182420Z    Compiling pkcs1 v0.7.5
+2026-10-29T18:49:46.1101950Z    Compiling async-channel v2.5.0
+2026-10-29T18:49:46.2174100Z    Compiling futures-executor v0.3.32
+2026-10-29T18:49:46.7682430Z    Compiling tracing-core v0.1.36
+2026-10-29T18:49:47.3879710Z    Compiling chacha20 v0.10.0
+2026-10-29T18:49:47.5334480Z    Compiling ed25519 v2.2.3
+2026-10-29T18:49:47.6481840Z    Compiling chacha20 v0.9.1
+2026-10-29T18:49:47.7295110Z    Compiling num-bigint v0.4.6
+2026-10-29T18:49:47.7424220Z    Compiling sha1 v0.10.6
+2026-10-29T18:49:47.9935090Z    Compiling tracing-attributes v0.1.31
+2026-10-29T18:49:48.6489680Z    Compiling async-stream-impl v0.3.6
+2026-10-29T18:49:48.9336080Z    Compiling thiserror-impl v2.0.18
+2026-10-29T18:49:49.5806180Z    Compiling futures-lite v2.6.1
+2026-10-29T18:49:49.8281240Z    Compiling hmac v0.12.1
+2026-10-29T18:49:49.8957030Z    Compiling md-5 v0.10.6
+2026-10-29T18:49:49.9634690Z    Compiling aead v0.5.2
+2026-10-29T18:49:50.0416380Z    Compiling tun-rs v2.8.1
+2026-10-29T18:49:50.1681180Z    Compiling async-task v4.7.1
+2026-10-29T18:49:50.1817920Z    Compiling base64 v0.23.1
+2026-10-29T18:49:50.2825170Z    Compiling base64 v0.21.7
+2026-10-29T18:49:50.5161320Z    Compiling idevice-srp v0.6.0
+2026-10-29T18:49:50.5935450Z    Compiling pem v4.0.0
+2026-10-29T18:49:50.6925640Z    Compiling blocking v1.6.2
+2026-10-29T18:49:51.0036390Z    Compiling chacha20poly1305 v0.10.1
+2026-10-29T18:49:51.0074480Z    Compiling uuid v1.23.3
+2026-10-29T18:49:51.0691070Z    Compiling hkdf v0.12.4
+2026-10-29T18:49:51.1903320Z    Compiling async-stream v0.3.6
+2026-10-29T18:49:51.2510070Z    Compiling tracing v0.1.44
+2026-10-29T18:49:51.4403940Z    Compiling tokio-rustls v0.26.4
+2026-10-29T18:49:51.5501870Z    Compiling x509-cert v0.2.5
+2026-10-29T18:49:51.5853490Z    Compiling ed25519-dalek v2.2.0
+2026-10-29T18:49:51.8087590Z    Compiling rand v0.10.0
+2026-10-29T18:49:54.6877070Z    Compiling futures v0.3.32
+2026-10-29T18:49:54.7404740Z    Compiling rsa v0.9.10
+2026-10-29T18:49:55.5999010Z    Compiling plist-macro v0.1.6
+2026-10-29T18:49:56.2389740Z    Compiling chrono v0.4.44
+2026-10-29T18:49:57.3279010Z    Compiling getifaddrs v0.6.0
+2026-10-29T18:49:57.8684690Z    Compiling x25519-dalek v2.0.1
+2026-10-29T18:49:57.9355970Z    Compiling aes v0.8.4
+2026-10-29T18:49:58.4334970Z    Compiling cbc v0.1.2
+2026-10-29T18:49:58.4984630Z    Compiling yasna v0.6.0
+2026-10-29T18:49:58.5801710Z    Compiling log v0.4.29
+2026-10-29T18:49:58.6944430Z    Compiling byteorder v1.5.0
+2026-10-29T18:49:58.8236990Z    Compiling siphasher v1.0.2
+2026-10-29T18:49:58.9248280Z    Compiling web-time v1.1.0
+2026-10-29T18:49:58.9642090Z    Compiling ipnet v2.12.0
+2026-10-29T18:49:59.2929480Z    Compiling idevice v0.1.68 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/idevice/idevice-0.1.68)
+2026-10-29T18:49:59.4384250Z warning: unused import: `RsdProvider`
+2026-10-29T18:49:59.4485280Z   --> src/lib.rs:57:33
+2026-10-29T18:49:59.4606100Z    |
+2026-10-29T18:49:59.4656530Z 57 | use provider::{IdeviceProvider, RsdProvider};
+2026-10-29T18:49:59.4656990Z    |                                 ^^^^^^^^^^^
+2026-10-29T18:49:59.4657190Z    |
+2026-10-29T18:49:59.4657450Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+2026-10-29T18:49:59.4657730Z 
+2026-10-29T18:49:59.4962810Z    Compiling rcgen v0.14.10
+2026-10-29T18:50:03.5711740Z warning: `idevice` (lib) generated 1 warning (run `cargo fix --lib -p idevice` to apply 1 suggestion)
+2026-10-29T18:50:03.6739030Z warning: unused import: `PermissionsExt`
+2026-10-29T18:50:03.6739710Z   --> examples/app-installer-rp-bootstrap.rs:14:69
+2026-10-29T18:50:03.6739990Z    |
+2026-10-29T18:50:03.6740480Z 14 | use std::os::unix::fs::{DirBuilderExt, MetadataExt, OpenOptionsExt, PermissionsExt};
+2026-10-29T18:50:03.6741010Z    |                                                                     ^^^^^^^^^^^^^^
+2026-10-29T18:50:03.6741250Z    |
+2026-10-29T18:50:03.6741530Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+2026-10-29T18:50:03.6741800Z 
+2026-10-29T18:50:07.6886620Z warning: `idevice` (example "app-installer-rp-bootstrap") generated 1 warning
+2026-10-29T18:50:07.6887090Z     Finished `release` profile [optimized] target(s) in 45.24s
+2026-10-29T18:50:07.9761270Z    Compiling libc v0.2.185
+2026-10-29T18:50:07.9772780Z    Compiling cfg-if v1.0.4
+2026-10-29T18:50:07.9783160Z    Compiling typenum v1.19.0
+2026-10-29T18:50:08.0471930Z    Compiling generic-array v0.14.7
+2026-10-29T18:50:08.0833650Z    Compiling zeroize v1.8.2
+2026-10-29T18:50:08.3325490Z    Compiling subtle v2.6.1
+2026-10-29T18:50:08.4502180Z    Compiling const-oid v0.9.6
+2026-10-29T18:50:08.6077870Z    Compiling getrandom v0.2.17
+2026-10-29T18:50:08.7422830Z    Compiling rand_core v0.6.4
+2026-10-29T18:50:08.7682310Z    Compiling block-buffer v0.10.4
+2026-10-29T18:50:08.8360200Z    Compiling crypto-common v0.1.7
+2026-10-29T18:50:08.8734180Z    Compiling pin-project-lite v0.2.17
+2026-10-29T18:50:08.9029730Z    Compiling cpufeatures v0.2.17
+2026-10-29T18:50:08.9230740Z    Compiling libm v0.2.16
+2026-10-29T18:50:08.9325150Z    Compiling futures-core v0.3.32
+2026-10-29T18:50:08.9432150Z    Compiling serde_core v1.0.228
+2026-10-29T18:50:08.9790350Z    Compiling num-traits v0.2.19
+2026-10-29T18:50:09.0059920Z    Compiling digest v0.10.7
+2026-10-29T18:50:09.1440390Z    Compiling base64ct v1.8.3
+2026-10-29T18:50:09.3234120Z    Compiling smallvec v1.15.1
+2026-10-29T18:50:09.4585900Z    Compiling memchr v2.8.0
+2026-10-29T18:50:10.3787120Z    Compiling crossbeam-utils v0.8.21
+2026-10-29T18:50:10.3869460Z    Compiling pem-rfc7468 v0.7.0
+2026-10-29T18:50:10.4882450Z    Compiling zerocopy v0.8.47
+2026-10-29T18:50:10.5257590Z    Compiling ring v0.17.14
+2026-10-29T18:50:10.7517050Z    Compiling block-padding v0.3.3
+2026-10-29T18:50:10.8146610Z    Compiling itoa v1.0.18
+2026-10-29T18:50:10.8497140Z    Compiling powerfmt v0.2.0
+2026-10-29T18:50:10.9771640Z    Compiling flagset v0.4.7
+2026-10-29T18:50:11.0735430Z    Compiling futures-io v0.3.32
+2026-10-29T18:50:11.1149150Z    Compiling der v0.7.10
+2026-10-29T18:50:11.1756840Z    Compiling parking_lot_core v0.9.12
+2026-10-29T18:50:11.1851750Z    Compiling deranged v0.5.8
+2026-10-29T18:50:11.7977990Z    Compiling inout v0.1.4
+2026-10-29T18:50:11.9038290Z    Compiling num-integer v0.1.46
+2026-10-29T18:50:13.1560700Z    Compiling untrusted v0.9.0
+2026-10-29T18:50:13.2172160Z    Compiling time-core v0.1.8
+2026-10-29T18:50:13.2772160Z    Compiling num-conv v0.2.1
+2026-10-29T18:50:13.2972420Z    Compiling scopeguard v1.2.0
+2026-10-29T18:50:13.3426220Z    Compiling lock_api v0.4.14
+2026-10-29T18:50:13.3501790Z    Compiling time v0.3.47
+2026-10-29T18:50:13.4728650Z    Compiling serde v1.0.228
+2026-10-29T18:50:14.5445010Z    Compiling ppv-lite86 v0.2.21
+2026-10-29T18:50:14.7764810Z    Compiling concurrent-queue v2.5.0
+2026-10-29T18:50:14.8879650Z    Compiling cipher v0.4.4
+2026-10-29T18:50:15.0560200Z    Compiling spki v0.7.3
+2026-10-29T18:50:15.4562600Z    Compiling signature v2.2.0
+2026-10-29T18:50:15.5641680Z    Compiling errno v0.3.14
+2026-10-29T18:50:15.6170110Z    Compiling rustls-pki-types v1.14.0
+2026-10-29T18:50:15.6710600Z    Compiling once_cell v1.21.4
+2026-10-29T18:50:15.8324160Z    Compiling rand_core v0.10.0
+2026-10-29T18:50:15.9227240Z    Compiling futures-sink v0.3.32
+2026-10-29T18:50:15.9818710Z    Compiling spin v0.9.8
+2026-10-29T18:50:16.0530850Z    Compiling parking v2.2.1
+2026-10-29T18:50:16.1719550Z    Compiling event-listener v5.4.1
+2026-10-29T18:50:16.2468360Z    Compiling lazy_static v1.5.0
+2026-10-29T18:50:16.2903170Z    Compiling futures-channel v0.3.32
+2026-10-29T18:50:16.3266080Z    Compiling getrandom v0.4.2
+2026-10-29T18:50:16.4254060Z    Compiling signal-hook-registry v1.4.8
+2026-10-29T18:50:16.6870360Z    Compiling parking_lot v0.12.5
+2026-10-29T18:50:16.7337550Z    Compiling curve25519-dalek v4.1.3
+2026-10-29T18:50:16.7776560Z    Compiling rand_chacha v0.3.1
+2026-10-29T18:50:16.8076860Z    Compiling mio v1.1.1
+2026-10-29T18:50:17.1136690Z    Compiling socket2 v0.6.3
+2026-10-29T18:50:17.4938080Z    Compiling curve25519-dalek-derive v0.1.1
+2026-10-29T18:50:17.5058530Z    Compiling equivalent v1.0.2
+2026-10-29T18:50:17.5563010Z    Compiling slab v0.4.12
+2026-10-29T18:50:17.6944290Z    Compiling futures-task v0.3.32
+2026-10-29T18:50:17.7845290Z    Compiling bytes v1.11.1
+2026-10-29T18:50:17.7928800Z    Compiling hashbrown v0.16.1
+2026-10-29T18:50:18.2001060Z    Compiling indexmap v2.13.0
+2026-10-29T18:50:18.3144450Z    Compiling tokio v1.50.0
+2026-10-29T18:50:18.6943910Z    Compiling num-bigint-dig v0.8.6
+2026-10-29T18:50:18.7006720Z    Compiling zmij v1.0.21
+2026-10-29T18:50:18.7384440Z    Compiling futures-util v0.3.32
+2026-10-29T18:50:20.1362310Z    Compiling rustls v0.23.46
+2026-10-29T18:50:20.1420340Z    Compiling rand v0.8.5
+2026-10-29T18:50:20.4572630Z    Compiling memoffset v0.9.1
+2026-10-29T18:50:20.5288730Z    Compiling event-listener-strategy v0.5.4
+2026-10-29T18:50:20.5740150Z    Compiling rustls-webpki v0.103.16
+2026-10-29T18:50:20.5916710Z    Compiling pkcs8 v0.10.2
+2026-10-29T18:50:21.0687760Z    Compiling num-iter v0.1.45
+2026-10-29T18:50:21.1240930Z    Compiling quick-xml v0.38.4
+2026-10-29T18:50:22.3310100Z    Compiling sha2 v0.10.9
+2026-10-29T18:50:22.3679410Z    Compiling universal-hash v0.5.1
+2026-10-29T18:50:22.4632190Z    Compiling cpufeatures v0.3.0
+2026-10-29T18:50:22.5112520Z    Compiling core-foundation-sys v0.8.7
+2026-10-29T18:50:22.6543490Z    Compiling bitflags v2.11.0
+2026-10-29T18:50:22.8826250Z    Compiling base64 v0.22.1
+2026-10-29T18:50:23.2342230Z    Compiling fastrand v2.3.0
+2026-10-29T18:50:23.4232610Z    Compiling opaque-debug v0.3.1
+2026-10-29T18:50:23.4896860Z    Compiling atomic-waker v1.1.2
+2026-10-29T18:50:23.5589640Z    Compiling piper v0.2.5
+2026-10-29T18:50:23.7729830Z    Compiling poly1305 v0.8.0
+2026-10-29T18:50:23.8905260Z    Compiling serde_json v1.0.149
+2026-10-29T18:50:23.9013450Z    Compiling route_manager v0.2.11
+2026-10-29T18:50:23.9013790Z    Compiling thiserror v2.0.18
+2026-10-29T18:50:23.9856870Z    Compiling plist v1.8.0
+2026-10-29T18:50:24.2902030Z    Compiling iana-time-zone v0.1.65
+2026-10-29T18:50:24.3989630Z    Compiling chacha20 v0.10.0
+2026-10-29T18:50:27.2942420Z    Compiling pkcs1 v0.7.5
+2026-10-29T18:50:28.7411260Z    Compiling async-channel v2.5.0
+2026-10-29T18:50:28.8756350Z    Compiling futures-executor v0.3.32
+2026-10-29T18:50:29.1572150Z    Compiling nix v0.31.2
+2026-10-29T18:50:29.1678390Z    Compiling tracing-core v0.1.36
+2026-10-29T18:50:29.1954230Z    Compiling ed25519 v2.2.3
+2026-10-29T18:50:29.3291920Z    Compiling chacha20 v0.9.1
+2026-10-29T18:50:29.4547120Z    Compiling num-bigint v0.4.6
+2026-10-29T18:50:29.8762630Z    Compiling md-5 v0.10.6
+2026-10-29T18:50:29.9783220Z    Compiling hmac v0.12.1
+2026-10-29T18:50:30.0684350Z    Compiling sha1 v0.10.6
+2026-10-29T18:50:30.4377200Z    Compiling futures-lite v2.6.1
+2026-10-29T18:50:30.7469860Z    Compiling aead v0.5.2
+2026-10-29T18:50:30.8411160Z    Compiling base64 v0.21.7
+2026-10-29T18:50:31.1969830Z    Compiling async-task v4.7.1
+2026-10-29T18:50:31.3340130Z    Compiling base64 v0.23.1
+2026-10-29T18:50:31.6582550Z    Compiling pem v4.0.0
+2026-10-29T18:50:32.0459420Z    Compiling tun-rs v2.8.1
+2026-10-29T18:50:32.0528040Z    Compiling blocking v1.6.2
+2026-10-29T18:50:32.1295340Z    Compiling idevice-srp v0.6.0
+2026-10-29T18:50:32.2949880Z    Compiling async-stream v0.3.6
+2026-10-29T18:50:32.3350470Z    Compiling tracing v0.1.44
+2026-10-29T18:50:32.4103500Z    Compiling chacha20poly1305 v0.10.1
+2026-10-29T18:50:32.4794120Z    Compiling x509-cert v0.2.5
+2026-10-29T18:50:32.5408410Z    Compiling hkdf v0.12.4
+2026-10-29T18:50:32.6088680Z    Compiling uuid v1.23.3
+2026-10-29T18:50:33.0586200Z    Compiling ed25519-dalek v2.2.0
+2026-10-29T18:50:35.6188540Z    Compiling futures v0.3.32
+2026-10-29T18:50:35.6631630Z    Compiling tokio-rustls v0.26.4
+2026-10-29T18:50:35.8120630Z    Compiling rsa v0.9.10
+2026-10-29T18:50:36.2413590Z    Compiling rand v0.10.0
+2026-10-29T18:50:36.6440070Z    Compiling plist-macro v0.1.6
+2026-10-29T18:50:37.2976810Z    Compiling chrono v0.4.44
+2026-10-29T18:50:38.4063990Z    Compiling getifaddrs v0.6.0
+2026-10-29T18:50:39.0141920Z    Compiling x25519-dalek v2.0.1
+2026-10-29T18:50:39.0970180Z    Compiling aes v0.8.4
+2026-10-29T18:50:39.9245930Z    Compiling cbc v0.1.2
+2026-10-29T18:50:40.0061150Z    Compiling yasna v0.6.0
+2026-10-29T18:50:40.0178900Z    Compiling web-time v1.1.0
+2026-10-29T18:50:40.0709670Z    Compiling ipnet v2.12.0
+2026-10-29T18:50:40.1884000Z    Compiling log v0.4.29
+2026-10-29T18:50:40.3081530Z    Compiling byteorder v1.5.0
+2026-10-29T18:50:40.4392070Z    Compiling siphasher v1.0.2
+2026-10-29T18:50:40.5631560Z    Compiling idevice v0.1.68 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/idevice/idevice-0.1.68)
+2026-10-29T18:50:40.7238880Z warning: unused import: `RsdProvider`
+2026-10-29T18:50:40.7340020Z   --> src/lib.rs:57:33
+2026-10-29T18:50:40.7440360Z    |
+2026-10-29T18:50:40.7541630Z 57 | use provider::{IdeviceProvider, RsdProvider};
+2026-10-29T18:50:40.7642910Z    |                                 ^^^^^^^^^^^
+2026-10-29T18:50:40.7747450Z    |
+2026-10-29T18:50:40.7854370Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+2026-10-29T18:50:40.7955070Z 
+2026-10-29T18:50:40.9973050Z    Compiling rcgen v0.14.10
+2026-10-29T18:50:44.8876130Z warning: `idevice` (lib) generated 1 warning (run `cargo fix --lib -p idevice` to apply 1 suggestion)
+2026-10-29T18:50:45.0647940Z warning: unused import: `PermissionsExt`
+2026-10-29T18:50:45.0648470Z   --> examples/app-installer-rp-bootstrap.rs:14:69
+2026-10-29T18:50:45.0648770Z    |
+2026-10-29T18:50:45.0649180Z 14 | use std::os::unix::fs::{DirBuilderExt, MetadataExt, OpenOptionsExt, PermissionsExt};
+2026-10-29T18:50:45.0649620Z    |                                                                     ^^^^^^^^^^^^^^
+2026-10-29T18:50:45.0649920Z    |
+2026-10-29T18:50:45.0650190Z    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+2026-10-29T18:50:45.0650840Z 
+2026-10-29T18:50:48.3138680Z warning: `idevice` (example "app-installer-rp-bootstrap") generated 1 warning
+2026-10-29T18:50:48.3139270Z     Finished `release` profile [optimized] target(s) in 40.56s
+2026-10-29T18:50:49.1726290Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/public-rp-helper/app-installer-rp-bootstrap: replacing existing signature
+2026-10-29T18:50:52.3731040Z {"file": "app-installer-rp-bootstrap", "bytes": 7805024, "sha256": "0d882d3c1fcd0eb524d10a74df51e2aac185a80fe390fe06cfb6a9986362b1a1", "source_tree_sha256": "81ae60bfb915c777847e3e6d7e3ca65ae4733f0d701049fbfd062b0635d7b039", "distribution_ready": false}
+2026-10-29T18:50:53.7616540Z info: downloading component 'rust-std' for 'aarch64-apple-ios'
+2026-10-29T18:50:54.1124950Z info: installing component 'rust-std' for 'aarch64-apple-ios'
+2026-10-29T18:50:56.2768380Z    Compiling proc-macro2 v1.0.107
+2026-10-29T18:50:56.2771130Z    Compiling quote v1.0.47
+2026-10-29T18:50:56.2771470Z    Compiling unicode-ident v1.0.27
+2026-10-29T18:50:56.4115510Z    Compiling libc v0.2.191
+2026-10-29T18:50:56.6308300Z    Compiling cfg-if v1.0.5
+2026-10-29T18:50:56.6867410Z    Compiling typenum v1.20.1
+2026-10-29T18:50:57.1995310Z    Compiling getrandom v0.2.17
+2026-10-29T18:50:57.2165310Z    Compiling version_check v0.9.5
+2026-10-29T18:50:57.2829120Z    Compiling syn v2.0.119
+2026-10-29T18:50:57.3021990Z    Compiling syn v3.0.9
+2026-10-29T18:50:57.3722860Z    Compiling generic-array v0.14.7
+2026-10-29T18:50:57.9132770Z    Compiling rand_core v0.6.4
+2026-10-29T18:50:58.0412310Z    Compiling subtle v2.6.1
+2026-10-29T18:50:58.1248640Z    Compiling getrandom v0.4.3
+2026-10-29T18:50:58.3105380Z    Compiling rand_core v0.10.1
+2026-10-29T18:50:58.4193690Z    Compiling crypto-common v0.1.7
+2026-10-29T18:50:58.6238150Z    Compiling memchr v2.8.3
+2026-10-29T18:50:59.1872050Z    Compiling hybrid-array v0.4.15
+2026-10-29T18:50:59.7169490Z    Compiling const-oid v0.9.6
+2026-10-29T18:51:00.6214310Z    Compiling zeroize_derive v1.5.0
+2026-10-29T18:51:00.8012260Z    Compiling find-msvc-tools v0.1.15
+2026-10-29T18:51:00.9147840Z    Compiling pin-project-lite v0.2.17
+2026-10-29T18:51:00.9670180Z    Compiling shlex v2.0.1
+2026-10-29T18:51:00.9673060Z    Compiling crypto-common v0.2.2
+2026-10-29T18:51:01.1004810Z    Compiling cc v1.10.0
+2026-10-29T18:51:01.1443410Z    Compiling zeroize v1.9.1
+2026-10-29T18:51:01.2549420Z    Compiling block-buffer v0.10.4
+2026-10-29T18:51:01.3415490Z    Compiling futures-core v0.3.34
+2026-10-29T18:51:01.4318540Z    Compiling bytes v1.12.1
+2026-10-29T18:51:01.8239080Z    Compiling digest v0.10.7
+2026-10-29T18:51:01.9640160Z    Compiling autocfg v1.5.1
+2026-10-29T18:51:01.9717300Z    Compiling libm v0.2.16
+2026-10-29T18:51:02.1886040Z    Compiling block-buffer v0.12.1
+2026-10-29T18:51:02.2390920Z    Compiling num-traits v0.2.19
+2026-10-29T18:51:02.2597880Z    Compiling synstructure v0.14.0
+2026-10-29T18:51:02.2960810Z    Compiling serde_core v1.0.229
+2026-10-29T18:51:02.3970440Z    Compiling base64ct v1.8.3
+2026-10-29T18:51:02.6326610Z    Compiling displaydoc v0.2.7
+2026-10-29T18:51:02.6526090Z    Compiling futures-io v0.3.34
+2026-10-29T18:51:02.7668830Z    Compiling zerofrom-derive v0.1.8
+2026-10-29T18:51:03.6468500Z    Compiling tokio-macros v2.7.2
+2026-10-29T18:51:03.8472890Z    Compiling mio v1.2.4
+2026-10-29T18:51:03.9892350Z    Compiling socket2 v0.6.5
+2026-10-29T18:51:04.2759190Z    Compiling flagset v0.4.7
+2026-10-29T18:51:04.3518830Z    Compiling futures-sink v0.3.34
+2026-10-29T18:51:04.3633940Z    Compiling cmov v0.5.4
+2026-10-29T18:51:04.4015330Z    Compiling tokio v1.54.1
+2026-10-29T18:51:04.4122770Z    Compiling zerofrom v0.1.8
+2026-10-29T18:51:04.4770460Z    Compiling yoke-derive v0.8.4
+2026-10-29T18:51:04.4860760Z    Compiling ctutils v0.4.6
+2026-10-29T18:51:04.6265040Z    Compiling stable_deref_trait v1.2.1
+2026-10-29T18:51:04.6699680Z    Compiling const-oid v0.10.2
+2026-10-29T18:51:05.0548890Z    Compiling yoke v0.8.4
+2026-10-29T18:51:05.1533320Z    Compiling zerocopy v0.8.63
+2026-10-29T18:51:05.3610330Z    Compiling smallvec v1.16.4
+2026-10-29T18:51:05.4851490Z    Compiling once_cell v1.21.4
+2026-10-29T18:51:05.6262380Z    Compiling ring v0.17.14
+2026-10-29T18:51:05.8743940Z    Compiling zerovec-derive v0.11.7
+2026-10-29T18:51:06.1685490Z    Compiling itoa v1.0.18
+2026-10-29T18:51:06.2957060Z    Compiling slab v0.4.12
+2026-10-29T18:51:06.4303300Z    Compiling zerovec v0.11.9
+2026-10-29T18:51:08.8220220Z    Compiling futures-channel v0.3.34
+2026-10-29T18:51:08.9977860Z    Compiling rustls-pki-types v1.15.1
+2026-10-29T18:51:09.1267630Z    Compiling block-padding v0.4.2
+2026-10-29T18:51:09.2009120Z    Compiling cpufeatures v0.2.17
+2026-10-29T18:51:09.2655650Z    Compiling time-core v0.1.9
+2026-10-29T18:51:09.3692650Z    Compiling num-conv v0.2.2
+2026-10-29T18:51:09.4472710Z    Compiling hashbrown v0.17.1
+2026-10-29T18:51:09.4962630Z    Compiling equivalent v1.0.3
+2026-10-29T18:51:09.5393000Z    Compiling thiserror v2.0.21
+2026-10-29T18:51:09.7909240Z    Compiling time-macros v0.2.32
+2026-10-29T18:51:09.8880040Z    Compiling indexmap v2.14.2
+2026-10-29T18:51:10.1093150Z    Compiling inout v0.2.5
+2026-10-29T18:51:10.1798660Z    Compiling ppv-lite86 v0.2.21
+2026-10-29T18:51:10.3165960Z    Compiling thiserror-impl v2.0.21
+2026-10-29T18:51:10.3945580Z    Compiling futures-macro v0.3.34
+2026-10-29T18:51:10.5752600Z    Compiling crc32fast v1.5.3
+2026-10-29T18:51:10.7367610Z    Compiling deranged v0.5.9
+2026-10-29T18:51:10.9469170Z    Compiling futures-task v0.3.34
+2026-10-29T18:51:11.0495610Z    Compiling powerfmt v0.2.1
+2026-10-29T18:51:11.0523930Z    Compiling untrusted v0.9.0
+2026-10-29T18:51:11.2127370Z    Compiling futures-util v0.3.34
+2026-10-29T18:51:11.4912950Z    Compiling time v0.3.55
+2026-10-29T18:51:13.4857240Z    Compiling http v1.5.0
+2026-10-29T18:51:13.6915320Z    Compiling num-integer v0.1.47
+2026-10-29T18:51:13.9032670Z    Compiling simd-adler32 v0.3.10
+2026-10-29T18:51:14.1215050Z    Compiling cipher v0.5.2
+2026-10-29T18:51:14.2745240Z    Compiling tinystr v0.8.5
+2026-10-29T18:51:14.4093720Z    Compiling digest v0.11.3
+2026-10-29T18:51:14.4134670Z    Compiling cpufeatures v0.3.1
+2026-10-29T18:51:14.4691780Z    Compiling adler2 v2.0.1
+2026-10-29T18:51:14.5135490Z    Compiling writeable v0.6.4
+2026-10-29T18:51:14.5162110Z    Compiling rustls v0.23.46
+2026-10-29T18:51:14.5442310Z    Compiling litemap v0.8.3
+2026-10-29T18:51:14.6480750Z    Compiling base64 v0.23.1
+2026-10-29T18:51:14.6660450Z    Compiling icu_locale_core v2.4.0
+2026-10-29T18:51:14.6907740Z    Compiling miniz_oxide v0.9.1
+2026-10-29T18:51:15.0338840Z    Compiling rustls-webpki v0.103.16
+2026-10-29T18:51:15.6157190Z    Compiling tokio-util v0.7.20
+2026-10-29T18:51:16.1726030Z    Compiling potential_utf v0.1.6
+2026-10-29T18:51:16.2220220Z    Compiling tracing-core v0.1.36
+2026-10-29T18:51:16.2557720Z    Compiling zerotrie v0.2.5
+2026-10-29T18:51:16.4893350Z    Compiling pem-rfc7468 v0.7.0
+2026-10-29T18:51:16.5151520Z    Compiling tracing-attributes v0.1.31
+2026-10-29T18:51:16.9314830Z    Compiling der_derive v0.7.3
+2026-10-29T18:51:17.1593480Z    Compiling block-padding v0.3.3
+2026-10-29T18:51:17.2692790Z    Compiling icu_properties_data v2.4.0
+2026-10-29T18:51:17.4948050Z    Compiling utf8_iter v1.0.4
+2026-10-29T18:51:17.5245510Z    Compiling spin v0.9.9
+2026-10-29T18:51:17.5712360Z    Compiling zlib-rs v0.6.8
+2026-10-29T18:51:17.5913630Z    Compiling httparse v1.10.1
+2026-10-29T18:51:17.6964140Z    Compiling serde v1.0.229
+2026-10-29T18:51:17.7922600Z    Compiling icu_normalizer_data v2.4.0
+2026-10-29T18:51:17.8720590Z    Compiling getrandom v0.3.4
+2026-10-29T18:51:18.0091920Z    Compiling der v0.7.10
+2026-10-29T18:51:18.0593980Z    Compiling lazy_static v1.5.1
+2026-10-29T18:51:18.1196710Z    Compiling icu_collections v2.4.0
+2026-10-29T18:51:18.4885580Z    Compiling tracing v0.1.44
+2026-10-29T18:51:18.6656570Z    Compiling inout v0.1.4
+2026-10-29T18:51:18.7337170Z    Compiling icu_provider v2.4.0
+2026-10-29T18:51:19.4499060Z    Compiling flate2 v1.1.10
+2026-10-29T18:51:19.7606310Z    Compiling pem-rfc7468 v1.0.0
+2026-10-29T18:51:20.1511450Z    Compiling serde_derive v1.0.229
+2026-10-29T18:51:20.3991070Z    Compiling der_derive v0.8.0
+2026-10-29T18:51:20.9991920Z    Compiling cpubits v0.1.1
+2026-10-29T18:51:21.0405780Z    Compiling der v0.8.3
+2026-10-29T18:51:22.2675300Z    Compiling cipher v0.4.4
+2026-10-29T18:51:22.6229770Z    Compiling spki v0.7.3
+2026-10-29T18:51:23.0289650Z    Compiling http-body v1.1.0
+2026-10-29T18:51:23.0994460Z    Compiling signature v2.2.0
+2026-10-29T18:51:23.1445570Z    Compiling rustversion v1.0.23
+2026-10-29T18:51:23.1949000Z    Compiling compression-core v0.4.34
+2026-10-29T18:51:23.2726160Z    Compiling crossbeam-utils v0.8.23
+2026-10-29T18:51:23.3896470Z    Compiling bitflags v2.13.2
+2026-10-29T18:51:23.5227170Z    Compiling log v0.4.34
+2026-10-29T18:51:23.6081150Z    Compiling percent-encoding v2.3.2
+2026-10-29T18:51:23.6519710Z    Compiling semver v1.0.28
+2026-10-29T18:51:23.7812970Z    Compiling minimal-lexical v0.2.1
+2026-10-29T18:51:23.8380000Z    Compiling rustc_version v0.4.1
+2026-10-29T18:51:23.9693300Z    Compiling nom v7.1.3
+2026-10-29T18:51:24.0443630Z    Compiling compression-codecs v0.4.46
+2026-10-29T18:51:24.3058190Z    Compiling icu_normalizer v2.4.0
+2026-10-29T18:51:25.0218840Z    Compiling rand_core v0.9.5
+2026-10-29T18:51:25.1353090Z    Compiling icu_properties v2.4.0
+2026-10-29T18:51:25.2179230Z    Compiling spki v0.8.1
+2026-10-29T18:51:25.3717420Z    Compiling rand_chacha v0.3.1
+2026-10-29T18:51:26.1625570Z    Compiling sha1 v0.10.7
+2026-10-29T18:51:26.4503120Z    Compiling openssl-src v300.6.1+3.6.3
+2026-10-29T18:51:26.5691010Z    Compiling synstructure v0.13.2
+2026-10-29T18:51:26.5841230Z    Compiling pkg-config v0.3.34
+2026-10-29T18:51:26.8381020Z    Compiling crossbeam-epoch v0.9.21
+2026-10-29T18:51:26.8969710Z    Compiling num-bigint-dig v0.8.6
+2026-10-29T18:51:26.9968450Z    Compiling core-foundation-sys v0.8.7
+2026-10-29T18:51:27.0407660Z    Compiling zmij v1.0.23
+2026-10-29T18:51:27.0969380Z    Compiling tower-service v0.3.3
+2026-10-29T18:51:27.1496800Z    Compiling fnv v1.0.7
+2026-10-29T18:51:27.1902390Z    Compiling try-lock v0.2.5
+2026-10-29T18:51:27.1998170Z    Compiling atomic-waker v1.1.2
+2026-10-29T18:51:27.2406560Z    Compiling vcpkg v0.2.15
+2026-10-29T18:51:27.2554720Z    Compiling h2 v0.4.20
+2026-10-29T18:51:27.6065720Z    Compiling openssl-sys v0.9.117
+2026-10-29T18:51:27.9935210Z    Compiling want v0.3.2
+2026-10-29T18:51:28.1211330Z    Compiling asn1-rs-derive v0.6.0
+2026-10-29T18:51:28.5250980Z    Compiling idna_adapter v1.2.2
+2026-10-29T18:51:28.6172920Z    Compiling rand v0.8.8
+2026-10-29T18:51:29.3253770Z    Compiling rand_chacha v0.9.0
+2026-10-29T18:51:29.3554120Z    Compiling rusticata-macros v4.1.0
+2026-10-29T18:51:29.5165020Z    Compiling async-compression v0.4.51
+2026-10-29T18:51:30.4806260Z    Compiling curve25519-dalek v4.1.3
+2026-10-29T18:51:30.5529460Z    Compiling pkcs8 v0.10.2
+2026-10-29T18:51:30.6595830Z    Compiling tokio-rustls v0.26.6
+2026-10-29T18:51:30.8305670Z    Compiling num-bigint v0.4.8
+2026-10-29T18:51:30.8981030Z    Compiling num-iter v0.1.46
+2026-10-29T18:51:30.9701110Z    Compiling sha2 v0.10.9
+2026-10-29T18:51:31.1456980Z    Compiling universal-hash v0.6.1
+2026-10-29T18:51:31.2394330Z    Compiling asn1-rs-impl v0.2.0
+2026-10-29T18:51:31.4296420Z    Compiling crossbeam-deque v0.8.8
+2026-10-29T18:51:31.5806600Z    Compiling serde_json v1.0.154
+2026-10-29T18:51:31.7314560Z    Compiling asn1-rs v0.7.2
+2026-10-29T18:51:31.9482640Z    Compiling polyval v0.7.3
+2026-10-29T18:51:32.9997890Z    Compiling pkcs1 v0.7.5
+2026-10-29T18:51:33.7098640Z    Compiling encoding_rs v0.8.42
+2026-10-29T18:51:33.8608050Z    Compiling rand v0.9.5
+2026-10-29T18:51:34.0944460Z    Compiling hyper v1.12.0
+2026-10-29T18:51:34.2823240Z    Compiling idna v1.1.0
+2026-10-29T18:51:36.1339890Z    Compiling security-framework-sys v2.17.0
+2026-10-29T18:51:36.2241830Z    Compiling core-foundation v0.10.1
+2026-10-29T18:51:36.4125750Z    Compiling form_urlencoded v1.2.2
+2026-10-29T18:51:36.4871680Z    Compiling hmac v0.13.0
+2026-10-29T18:51:36.5389360Z    Compiling sha2 v0.11.1
+2026-10-29T18:51:36.5814030Z    Compiling sync_wrapper v1.0.2
+2026-10-29T18:51:36.6359610Z    Compiling quick-xml v0.42.0
+2026-10-29T18:51:37.4434900Z    Compiling rayon-core v1.13.0
+2026-10-29T18:51:37.6245640Z    Compiling oid-registry v0.8.1
+2026-10-29T18:51:37.8543130Z    Compiling tower-layer v0.3.3
+2026-10-29T18:51:37.9849170Z    Compiling data-encoding v2.11.1
+2026-10-29T18:51:38.1173960Z    Compiling ipnet v2.12.2
+2026-10-29T18:51:38.7702410Z    Compiling hyper-util v0.1.21
+2026-10-29T18:51:39.5865170Z    Compiling tower v0.5.3
+2026-10-29T18:51:39.9297620Z    Compiling plist v1.10.3
+2026-10-29T18:51:39.9771110Z    Compiling pbkdf2 v0.13.0
+2026-10-29T18:51:40.0369940Z    Compiling url v2.5.8
+2026-10-29T18:51:40.7580980Z    Compiling security-framework v3.7.0
+2026-10-29T18:51:42.8704710Z    Compiling rsa v0.9.10
+2026-10-29T18:51:43.9119020Z    Compiling ghash v0.6.0
+2026-10-29T18:51:43.9849940Z    Compiling x509-cert v0.3.0
+2026-10-29T18:51:44.0154130Z    Compiling http-body-util v0.1.5
+2026-10-29T18:51:44.2223080Z    Compiling aes v0.8.4
+2026-10-29T18:51:44.7075560Z    Compiling cbc v0.1.2
+2026-10-29T18:51:44.8183850Z    Compiling aes v0.9.3
+2026-10-29T18:51:45.1910200Z    Compiling ctr v0.10.1
+2026-10-29T18:51:45.3405010Z    Compiling salsa20 v0.11.0
+2026-10-29T18:51:45.4546020Z    Compiling futures-executor v0.3.34
+2026-10-29T18:51:45.7129490Z    Compiling aead v0.6.1
+2026-10-29T18:51:45.8426150Z    Compiling keccak v0.1.6
+2026-10-29T18:51:46.7680570Z    Compiling pin-project-internal v1.1.13
+2026-10-29T18:51:47.4535040Z    Compiling universal-hash v0.5.1
+2026-10-29T18:51:47.5190510Z    Compiling chacha20 v0.10.2
+2026-10-29T18:51:47.6833640Z    Compiling opaque-debug v0.3.1
+2026-10-29T18:51:47.7409110Z    Compiling simdutf8 v0.1.5
+2026-10-29T18:51:47.9139220Z    Compiling scopeguard v1.2.0
+2026-10-29T18:51:47.9759100Z    Compiling parking v2.2.1
+2026-10-29T18:51:48.0806920Z    Compiling anyhow v1.0.104
+2026-10-29T18:51:48.2854950Z    Compiling multiversion_no_op v1.0.0
+2026-10-29T18:51:48.4570270Z    Compiling fastrand v2.5.0
+2026-10-29T18:51:48.6334260Z    Compiling futures-lite v2.6.1
+2026-10-29T18:51:49.5061230Z    Compiling poly1305 v0.8.0
+2026-10-29T18:51:49.6191080Z    Compiling rand v0.10.3
+2026-10-29T18:51:50.0210450Z    Compiling pin-project v1.1.13
+2026-10-29T18:51:50.0672210Z    Compiling cms v0.3.0-pre.1
+2026-10-29T18:51:52.0489240Z    Compiling sha3 v0.10.9
+2026-10-29T18:51:52.3020670Z    Compiling aes-gcm v0.11.1
+2026-10-29T18:51:52.3923560Z    Compiling futures v0.3.34
+2026-10-29T18:51:52.4360800Z    Compiling scrypt v0.12.0
+2026-10-29T18:51:52.6400850Z    Compiling tower-http v0.6.11
+2026-10-29T18:51:53.0905260Z    Compiling rustls-platform-verifier v0.7.1
+2026-10-29T18:51:53.3997230Z    Compiling hyper-rustls v0.27.10
+2026-10-29T18:51:53.5602790Z    Compiling der-parser v10.0.0
+2026-10-29T18:51:53.6602580Z    Compiling x509-cert v0.2.5
+2026-10-29T18:51:54.2434910Z    Compiling ed25519 v2.2.3
+2026-10-29T18:51:54.3645080Z    Compiling chacha20 v0.9.1
+2026-10-29T18:51:54.4437710Z    Compiling sha1 v0.11.0
+2026-10-29T18:51:54.5770470Z    Compiling cbc v0.2.1
+2026-10-29T18:51:54.6436230Z    Compiling webpki-roots v1.0.11
+2026-10-29T18:51:54.7062510Z    Compiling hmac v0.12.1
+2026-10-29T18:51:54.7744030Z    Compiling md-5 v0.10.6
+2026-10-29T18:51:54.8449730Z    Compiling async-stream-impl v0.3.6
+2026-10-29T18:51:55.1350280Z    Compiling aead v0.5.2
+2026-10-29T18:51:55.2192300Z    Compiling either v1.19.0
+2026-10-29T18:51:55.3395470Z    Compiling foreign-types-shared v0.1.1
+2026-10-29T18:51:55.3857920Z    Compiling bumpalo v3.20.3
+2026-10-29T18:51:55.5516720Z    Compiling mime v0.3.17
+2026-10-29T18:51:55.8322070Z    Compiling triomphe v0.1.17
+2026-10-29T18:51:56.0120170Z    Compiling base64 v0.21.7
+2026-10-29T18:51:56.3004280Z    Compiling openssl v0.10.81
+2026-10-29T18:51:56.4611110Z    Compiling idevice-srp v0.6.0
+2026-10-29T18:51:56.6119390Z    Compiling rootcause-internals v0.12.1
+2026-10-29T18:51:56.6921490Z    Compiling reqwest v0.13.5
+2026-10-29T18:51:57.7550590Z    Compiling zopfli v0.8.4
+2026-10-29T18:51:58.8063530Z    Compiling foreign-types v0.3.2
+2026-10-29T18:51:58.8448190Z    Compiling rayon v1.12.0
+2026-10-29T18:52:00.2940050Z    Compiling chacha20poly1305 v0.10.1
+2026-10-29T18:52:00.3600570Z    Compiling async-stream v0.3.6
+2026-10-29T18:52:00.4332070Z    Compiling uuid v1.29.0
+2026-10-29T18:52:00.8336700Z    Compiling hkdf v0.12.4
+2026-10-29T18:52:00.9051880Z    Compiling webpki-roots v0.26.11
+2026-10-29T18:52:00.9462270Z    Compiling pkcs5 v0.8.1
+2026-10-29T18:52:02.1885810Z    Compiling cms v0.2.3
+2026-10-29T18:52:05.0988350Z    Compiling ed25519-dalek v2.2.0
+2026-10-29T18:52:05.2662690Z    Compiling x509-parser v0.18.1
+2026-10-29T18:52:05.3245030Z    Compiling jktcp v0.1.8
+2026-10-29T18:52:07.3141140Z    Compiling pkcs12 v0.2.0-pre.0
+2026-10-29T18:52:07.7189810Z    Compiling async_zip v0.0.18
+2026-10-29T18:52:08.6125400Z    Compiling x25519-dalek v2.0.1
+2026-10-29T18:52:08.6968450Z    Compiling plist-macro v0.1.6
+2026-10-29T18:52:09.2989450Z    Compiling tungstenite v0.29.0
+2026-10-29T18:52:09.7337640Z    Compiling pkcs8 v0.11.0
+2026-10-29T18:52:09.8367960Z    Compiling chrono v0.4.45
+2026-10-29T18:52:11.1048710Z    Compiling crypto-bigint v0.7.10
+2026-10-29T18:52:12.1239980Z    Compiling pem v4.0.0
+2026-10-29T18:52:12.4483730Z    Compiling rc2 v0.9.0
+2026-10-29T18:52:12.5379960Z    Compiling des v0.9.0
+2026-10-29T18:52:12.6635560Z    Compiling yasna v0.6.0
+2026-10-29T18:52:13.5571960Z    Compiling async-trait v0.1.92
+2026-10-29T18:52:14.1459180Z    Compiling openssl-macros v0.1.1
+2026-10-29T18:52:14.3662110Z    Compiling memmap2 v0.9.12
+2026-10-29T18:52:14.5125590Z    Compiling tokio-openssl v0.6.5
+2026-10-29T18:52:14.6661500Z    Compiling hex v0.4.3
+2026-10-29T18:52:14.8366170Z    Compiling byteorder v1.5.0
+2026-10-29T18:52:14.9777030Z    Compiling siphasher v1.0.4
+2026-10-29T18:52:15.0835100Z    Compiling typed-path v0.12.4
+2026-10-29T18:52:16.0364710Z    Compiling hashbrown v0.16.1
+2026-10-29T18:52:16.4576670Z    Compiling base64 v0.22.1
+2026-10-29T18:52:16.6650390Z    Compiling rustc-hash v2.1.3
+2026-10-29T18:52:16.7218190Z    Compiling rootcause v0.12.1
+2026-10-29T18:52:16.7576150Z    Compiling idevice v0.1.68 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/idevice/idevice-0.1.68)
+2026-10-29T18:52:17.6912510Z    Compiling zip v8.3.0
+2026-10-29T18:52:19.0641040Z    Compiling apple-codesign-quick v0.1.0
+2026-10-29T18:52:23.1880990Z    Compiling isideload-p12-keystore v0.3.0-rc4
+2026-10-29T18:52:28.5418410Z    Compiling reqwest-middleware v0.5.2
+2026-10-29T18:52:29.1830130Z    Compiling rcgen v0.14.10
+2026-10-29T18:52:30.0610270Z    Compiling srp v0.7.0-rc.3
+2026-10-29T18:52:30.8805490Z    Compiling tokio-tungstenite v0.29.0
+2026-10-29T18:52:30.9901350Z    Compiling isideload-vfs v0.0.1
+2026-10-29T18:52:31.0788010Z    Compiling web-time v1.1.0
+2026-10-29T18:52:31.1274620Z    Compiling urlencoding v2.1.3
+2026-10-29T18:52:31.2388610Z    Compiling tinyvec v1.13.3
+2026-10-29T18:52:31.4939510Z    Compiling unicode-normalization v0.1.26
+2026-10-29T18:52:31.7794710Z    Compiling isideload v0.5.0 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/isideload/isideload-0.5.0)
+2026-10-29T18:52:31.8716340Z    Compiling unicode-casefold v0.2.0
+2026-10-29T18:53:10.6665460Z    Compiling app-installer-core v0.1.0 (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/core)
+2026-10-29T18:53:12.5028260Z warning: type `TunnelShutdown` is more private than the item `DeviceTransport::Remote::_shutdown`
+2026-10-29T18:53:12.5030600Z    --> src/transport.rs:115:14
+2026-10-29T18:53:12.5032200Z     |
+2026-10-29T18:53:12.5041070Z 115 | ...te { _shutdown:TunnelShutdown, handle:AdapterHandle, handshake:RsdHandshake, _control:RemotePairingClient<RpPairingSocket<tokio:...
+2026-10-29T18:53:12.5046970Z     |         ^^^^^^^^^^^^^^^^^^^^^^^^ field `DeviceTransport::Remote::_shutdown` is reachable at visibility `pub(in crate::engine)`
+2026-10-29T18:53:12.5048790Z     |
+2026-10-29T18:53:12.5051050Z note: but type `TunnelShutdown` is only usable at visibility `pub(self)`
+2026-10-29T18:53:12.5051790Z    --> src/transport.rs:71:1
+2026-10-29T18:53:12.5053280Z     |
+2026-10-29T18:53:12.5053550Z  71 | struct TunnelShutdown(std::net::TcpStream);
+2026-10-29T18:53:12.5055930Z     | ^^^^^^^^^^^^^^^^^^^^^
+2026-10-29T18:53:12.5056560Z     = note: `#[warn(private_interfaces)]` on by default
+2026-10-29T18:53:12.5057610Z 
+2026-10-29T18:54:02.4025150Z warning: `app-installer-core` (lib) generated 1 warning
+2026-10-29T18:54:02.4029630Z     Finished `release` profile [optimized] target(s) in 3m 06s
+2026-10-29T18:54:12.7710910Z Collected notices for 408 Cargo packages; 0 unresolved license obligations; 1 source/relink delivery conditions.
+2026-10-29T18:56:47.7222130Z ld: warning: ignoring duplicate libraries: '-lSystem', '-lobjc'
+2026-10-29T18:56:49.8773900Z ld: warning: ignoring duplicate libraries: '-lSystem', '-lobjc'
+2026-10-29T18:57:21.2374790Z iphone artifact checks passed. Device install, rail layout, folding and OS compatibility remain UNVERIFIED.
+2026-10-29T18:57:21.2375930Z duo artifact checks passed. Device install, rail layout, folding and OS compatibility remain UNVERIFIED.
+2026-10-29T18:57:21.2376790Z iphone artifact checks passed. Device install, rail layout, folding and OS compatibility remain UNVERIFIED.
+2026-10-29T18:57:21.2377720Z duo artifact checks passed. Device install, rail layout, folding and OS compatibility remain UNVERIFIED.
+2026-10-29T18:57:21.2378310Z {
+2026-10-29T18:57:21.2378590Z   "schema_version": 1,
+2026-10-29T18:57:21.2378860Z   "classification": "unsigned-candidate",
+2026-10-29T18:57:21.2379300Z   "release_ready": false,
+2026-10-29T18:57:21.2379700Z   "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+2026-10-29T18:57:21.2380610Z   "source_tree_sha256": "81ae60bfb915c777847e3e6d7e3ca65ae4733f0d701049fbfd062b0635d7b039",
+2026-10-29T18:57:21.2381360Z   "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
+2026-10-29T18:57:21.2383630Z   "genuine_toolchain": {
+2026-10-29T18:57:21.2384340Z     "sdk_version": "27.1",
+2026-10-29T18:57:21.2385770Z     "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+2026-10-29T18:57:21.2387610Z     "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+2026-10-29T18:57:21.2388870Z     "xcode": "Xcode 27.1\nBuild version 27A9275",
+2026-10-29T18:57:21.2389720Z     "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+2026-10-29T18:57:21.2390670Z     "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+2026-10-29T18:57:21.2391410Z   },
+2026-10-29T18:57:21.2392050Z   "ipa_artifacts": [
+2026-10-29T18:57:21.2392570Z     {
+2026-10-29T18:57:21.2410890Z       "variant": "iphone",
+2026-10-29T18:57:21.2411830Z       "file": "AppInstaller-iphone-candidate.ipa",
+2026-10-29T18:57:21.2412670Z       "bytes": 8439335,
+2026-10-29T18:57:21.2413760Z       "sha256": "cbc36b6671ca72e0ef718902954b78c46adafcd43f959e7c331e192b5fac3be9"
+2026-10-29T18:57:21.2414880Z     },
+2026-10-29T18:57:21.2415610Z     {
+2026-10-29T18:57:21.2416200Z       "variant": "duo",
+2026-10-29T18:57:21.2416950Z       "file": "AppInstaller-duo-candidate.ipa",
+2026-10-29T18:57:21.2417660Z       "bytes": 8439339,
+2026-10-29T18:57:21.2418820Z       "sha256": "5d6374d86050b3791e6360d1922fb3aa9d9275cc1c2507953588d7ba773cdfd6"
+2026-10-29T18:57:21.2424550Z     }
+2026-10-29T18:57:21.2424840Z   ],
+2026-10-29T18:57:21.2430650Z   "source_bundle": {
+2026-10-29T18:57:21.2431000Z     "file": "AppInstaller-corresponding-source.tar.xz",
+2026-10-29T18:57:21.2431500Z     "sha256": "23582b0f7538bc2ec8194f20e40c94aa324ede56533e2af70eb10cc9c1201911",
+2026-10-29T18:57:21.2431900Z     "bytes": 154020324,
+2026-10-29T18:57:21.2432290Z     "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+2026-10-29T18:57:21.2433970Z     "source_tree_sha256": "81ae60bfb915c777847e3e6d7e3ca65ae4733f0d701049fbfd062b0635d7b039",
+2026-10-29T18:57:21.2434680Z     "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
+2026-10-29T18:57:21.2435190Z     "corresponding_source_verified": true,
+2026-10-29T18:57:21.2435490Z     "relink_instructions_verified": true
+2026-10-29T18:57:21.2435840Z   },
+2026-10-29T18:57:21.2436020Z   "licensing": {
+2026-10-29T18:57:21.2436340Z     "notices_verified": true,
+2026-10-29T18:57:21.2436600Z     "unresolved_notice_cases": 0,
+2026-10-29T18:57:21.2436920Z     "corresponding_source_verified": true,
+2026-10-29T18:57:21.2437210Z     "relink_instructions_verified": true
+2026-10-29T18:57:21.2437540Z   },
+2026-10-29T18:57:21.2437800Z   "unverified_release_requirements": [
+2026-10-29T18:57:21.2438320Z     "native simulator functionality is verified separately from candidate integrity",
+2026-10-29T18:57:21.2438960Z     "live Apple authentication/profile/signature/install/launch/refresh",
+2026-10-29T18:57:21.2439470Z     "physical Duo outer/inner/native-resolution/safe-area/touch/fold/state/crash checks"
+2026-10-29T18:57:21.2439930Z   ]
+2026-10-29T18:57:21.2440160Z }
+2026-10-29T18:57:40.6458220Z Generated native bootstrap .xcodeproj compiled with genuine iPhoneOS SDK; signing/accounts/device installation stayed disabled.
+2026-10-29T18:57:46.0682660Z {
+2026-10-29T18:57:46.0685610Z   "schema_version": 1,
+2026-10-29T18:57:46.0686460Z   "file": "AppInstaller-native-bootstrap-kit.zip",
+2026-10-29T18:57:46.0688080Z   "bytes": 44120569,
+2026-10-29T18:57:46.0688820Z   "sha256": "4b8edb314c20b44789edb16c0b37b6c86e5c42ee677853883425ff2c8afc81a7",
+2026-10-29T18:57:46.0690720Z   "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+2026-10-29T18:57:46.0691350Z   "bootstrap_tool_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+2026-10-29T18:57:46.0693420Z   "source_tree_sha256": "81ae60bfb915c777847e3e6d7e3ca65ae4733f0d701049fbfd062b0635d7b039",
+2026-10-29T18:57:46.0698420Z   "variant": "duo",
+2026-10-29T18:57:46.0709560Z   "corresponding_source": {
+2026-10-29T18:57:46.0710870Z     "file": "AppInstaller-corresponding-source.tar.xz",
+2026-10-29T18:57:46.0713380Z     "sha256": "23582b0f7538bc2ec8194f20e40c94aa324ede56533e2af70eb10cc9c1201911",
+2026-10-29T18:57:46.0713920Z     "bytes": 154020324,
+2026-10-29T18:57:46.0714580Z     "delivery": "separate-cloud-companion-artifact",
+2026-10-29T18:57:46.0750780Z     "artifact": "app-installer-cloud-ui-latest",
+2026-10-29T18:57:46.0759350Z     "path": "candidates/AppInstaller-corresponding-source.tar.xz"
+2026-10-29T18:57:46.0774710Z   },
+2026-10-29T18:57:46.0861780Z   "minimal_bootstrap_kit": true,
+2026-10-29T18:57:46.0863100Z   "personal_resources_used": false,
+2026-10-29T18:57:46.0891250Z   "device_install_attempted": false
+2026-10-29T18:57:46.0891800Z }
+2026-10-29T18:57:46.1344630Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-29T18:57:46.1345430Z with:
+2026-10-29T18:57:46.1345800Z   name: app-installer-pairing-public-proof
+2026-10-29T18:57:46.1346260Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/pairing-proof/
+2026-10-29T18:57:46.1346830Z   retention-days: 7
+2026-10-29T18:57:46.1347250Z   if-no-files-found: ignore
+2026-10-29T18:57:46.1347540Z   compression-level: 6
+2026-10-29T18:57:46.1347950Z   overwrite: false
+2026-10-29T18:57:46.1348210Z   include-hidden-files: false
+2026-10-29T18:57:46.1348590Z ##[endgroup]
+2026-10-29T18:57:47.3340440Z (node:46851) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:57:47.3433700Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:57:47.3439130Z No files were found with the provided path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/pairing-proof/. No artifacts will be uploaded.
+2026-10-29T18:57:47.3554030Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-29T18:57:47.3554470Z with:
+2026-10-29T18:57:47.3554670Z   name: app-installer-cloud-ui-latest
+2026-10-29T18:57:47.3555770Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.*
+!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/libapp_installer_core.a
+
+2026-10-29T18:57:47.3556790Z   retention-days: 7
+2026-10-29T18:57:47.3556950Z   if-no-files-found: error
+2026-10-29T18:57:47.3557140Z   compression-level: 6
+2026-10-29T18:57:47.3557370Z   overwrite: false
+2026-10-29T18:57:47.3557680Z   include-hidden-files: false
+2026-10-29T18:57:47.3557880Z ##[endgroup]
+2026-10-29T18:57:47.4905360Z (node:47094) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:57:47.4906270Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:57:47.4991430Z With the provided path, there will be 24 files uploaded
+2026-10-29T18:57:47.4992030Z Artifact name is valid!
+2026-10-29T18:57:47.4992410Z Root directory input is valid!
+2026-10-29T18:57:47.8516350Z Beginning upload of artifact content to blob storage
+2026-10-29T18:57:48.0870710Z (node:47094) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T18:57:48.6165480Z Uploaded bytes 8388608
+2026-10-29T18:57:48.9526770Z Uploaded bytes 16777216
+2026-10-29T18:57:48.9764050Z Uploaded bytes 25165824
+2026-10-29T18:57:49.0981800Z Uploaded bytes 33554432
+2026-10-29T18:57:49.1914890Z Uploaded bytes 41943040
+2026-10-29T18:57:49.4660850Z Uploaded bytes 50331648
+2026-10-29T18:57:49.7079550Z Uploaded bytes 58720256
+2026-10-29T18:57:49.9388680Z Uploaded bytes 67108864
+2026-10-29T18:57:50.2033900Z Uploaded bytes 75497472
+2026-10-29T18:57:50.4575940Z Uploaded bytes 83886080
+2026-10-29T18:57:50.7138610Z Uploaded bytes 92274688
+2026-10-29T18:57:50.9674680Z Uploaded bytes 100663296
+2026-10-29T18:57:51.2478910Z Uploaded bytes 109051904
+2026-10-29T18:57:51.5627470Z Uploaded bytes 117440512
+2026-10-29T18:57:51.7159670Z Uploaded bytes 125829120
+2026-10-29T18:57:52.0032300Z Uploaded bytes 134217728
+2026-10-29T18:57:52.4218070Z Uploaded bytes 142606336
+2026-10-29T18:57:52.5000570Z Uploaded bytes 150994944
+2026-10-29T18:57:52.7921300Z Uploaded bytes 159383552
+2026-10-29T18:57:53.0809900Z Uploaded bytes 167772160
+2026-10-29T18:57:53.2003390Z Uploaded bytes 170905335
+2026-10-29T18:57:53.2585250Z Finished uploading artifact content to blob storage!
+2026-10-29T18:57:53.2601380Z SHA256 digest of uploaded artifact zip is f0544f916f158e084c820adc3e8112ce493df4c8253e6617480072124e5f2241
+2026-10-29T18:57:53.2634530Z Finalizing artifact upload
+2026-10-29T18:57:53.8844090Z Artifact app-installer-cloud-ui-latest.zip successfully finalized. Artifact ID 12923688740
+2026-10-29T18:57:53.8847700Z Artifact app-installer-cloud-ui-latest has been successfully uploaded! Final size is 170905335 bytes. Artifact ID is 12923688740
+2026-10-29T18:57:53.8854060Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40934237282/artifacts/12923688740
+2026-10-29T18:57:53.9047690Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-29T18:57:53.9048160Z with:
+2026-10-29T18:57:53.9048430Z   name: app-installer-native-kit-latest
+2026-10-29T18:57:53.9049400Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.zip
+AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/AppInstaller-native-bootstrap-kit.json
+
+2026-10-29T18:57:53.9050450Z   retention-days: 7
+2026-10-29T18:57:53.9050690Z   if-no-files-found: error
+2026-10-29T18:57:53.9050870Z   compression-level: 6
+2026-10-29T18:57:53.9051160Z   overwrite: false
+2026-10-29T18:57:53.9051380Z   include-hidden-files: false
+2026-10-29T18:57:53.9051640Z ##[endgroup]
+2026-10-29T18:57:54.0783590Z (node:47107) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:57:54.0784470Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:57:54.0818570Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-29T18:57:54.0820630Z The least common ancestor is /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates. This will be the root directory of the artifact
+2026-10-29T18:57:54.0821690Z With the provided path, there will be 2 files uploaded
+2026-10-29T18:57:54.0823200Z Artifact name is valid!
+2026-10-29T18:57:54.0823900Z Root directory input is valid!
+2026-10-29T18:57:54.3638020Z Beginning upload of artifact content to blob storage
+2026-10-29T18:57:54.5925970Z (node:47107) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T18:57:55.1209170Z Uploaded bytes 8388608
+2026-10-29T18:57:55.3835770Z Uploaded bytes 16777216
+2026-10-29T18:57:55.5507670Z Uploaded bytes 25165824
+2026-10-29T18:57:55.6459300Z Uploaded bytes 33554432
+2026-10-29T18:57:55.8708430Z Uploaded bytes 41943040
+2026-10-29T18:57:55.9802270Z Uploaded bytes 43758787
+2026-10-29T18:57:56.0296460Z Finished uploading artifact content to blob storage!
+2026-10-29T18:57:56.0297040Z SHA256 digest of uploaded artifact zip is d6b3ae6d235bb779a282412756954b1957d38bc9aa128c6756b9795e52e76173
+2026-10-29T18:57:56.0297620Z Finalizing artifact upload
+2026-10-29T18:57:56.5119820Z Artifact app-installer-native-kit-latest.zip successfully finalized. Artifact ID 12924382450
+2026-10-29T18:57:56.5120780Z Artifact app-installer-native-kit-latest has been successfully uploaded! Final size is 43758787 bytes. Artifact ID is 12924382450
+2026-10-29T18:57:56.5127340Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40934237282/artifacts/12924382450
+2026-10-29T18:57:56.5245110Z ##[group]Run python3 app-installer/cloud-ui/prune-artifacts.py --pair
+2026-10-29T18:57:56.5245560Z [36;1mpython3 app-installer/cloud-ui/prune-artifacts.py --pair[0m
+2026-10-29T18:57:56.6791200Z shell: /bin/bash -e {0}
+2026-10-29T18:57:56.6791490Z env:
+2026-10-29T18:57:56.6793950Z   GH_TOKEN: ***
+2026-10-29T18:57:56.6794140Z   CANDIDATE_ARTIFACT_ID: 12923688740
+2026-10-29T18:57:56.6794380Z   KIT_ARTIFACT_ID: 12924382450
+2026-10-29T18:57:56.6794580Z ##[endgroup]
+2026-10-29T18:57:57.9188390Z Artifact retention completed; removed 0 owned artifacts.
+2026-10-29T18:57:57.9387430Z Post job cleanup.
+2026-10-29T18:57:58.0335450Z [command]/opt/homebrew/bin/git version
+2026-10-29T18:57:58.0565500Z git version 2.56.0
+2026-10-29T18:57:58.0586410Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/eceb92cc-7a11-4d86-8dca-00a3416d2657/.gitconfig'
+2026-10-29T18:57:58.0594440Z Temporarily overriding HOME='/Users/runner/work/_temp/eceb92cc-7a11-4d86-8dca-00a3416d2657' before making global git config changes
+2026-10-29T18:57:58.0595370Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-29T18:57:58.0598050Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+2026-10-29T18:57:58.0707900Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T18:57:58.0781860Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T18:57:58.2069380Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T18:57:58.2129170Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T18:57:58.3188130Z Cleaning up orphan processes
+2026-10-29T18:57:59.9546230Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

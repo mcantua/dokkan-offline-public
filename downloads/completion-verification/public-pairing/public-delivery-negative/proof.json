@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "scope": "Two pure negative public-publisher groups: reviewed pins/destination, missing helper/invalidMachO, archive paths/bounds, resource-only IPA, component-flag-only omittedsource. No API/token/build/download/helper/device/Mac execution.",
+  "started_at_utc": "2026-10-29T17:37:42.561525+00:00",
+  "finished_at_utc": "2026-10-29T17:37:42.686009+00:00",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "app-installer/cloud-ui/test_public_delivery.py",
+    "-v"
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "os": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "exit_code": 0,
+  "passed": 2,
+  "failed": 0,
+  "source_before": {
+    "app-installer/cloud-ui/public-delivery.py": "7b3b8a1032c3417b8bd9c063a227de1b14b416f4998e5b6add97c5e84af11256",
+    "app-installer/cloud-ui/test_public_delivery.py": "70c107e36de6c5d8b75f31214273478aa663e362564c8c48650e15372217eb83",
+    "app-installer/build/verify-candidate.py": "9a02145b167615754df555d8e3ee5c5da5a36f6ce79b472436a1b699c60f53f9",
+    "app-installer/build/source-bundle.py": "d7d8eceb45daa9cb6f7bc635f7dfa934c2141343de76258adb39d5b28581ab25",
+    "app-installer/build/check-artifact.py": "265081703b718fd45c4ef1205e2115579007507c07168cd956e2043740f81e8b",
+    "app-installer/build/licensing.py": "95a47b83fd226f412935591ae19a1114441cadb223983f48755960d1e40f23a4",
+    "app-installer/build/source-fingerprint.py": "a1e72983c20b86c115ea26af4efa1da51d094521e5c48a4e23ce318fe910a57c",
+    "app-installer/device/device-workflow.py": "a6a10b03377d03d65ebc86aba570dbb172066edb9bf0fe17b8312f8312c75536"
+  },
+  "source_after": {
+    "app-installer/cloud-ui/public-delivery.py": "7b3b8a1032c3417b8bd9c063a227de1b14b416f4998e5b6add97c5e84af11256",
+    "app-installer/cloud-ui/test_public_delivery.py": "70c107e36de6c5d8b75f31214273478aa663e362564c8c48650e15372217eb83",
+    "app-installer/build/verify-candidate.py": "9a02145b167615754df555d8e3ee5c5da5a36f6ce79b472436a1b699c60f53f9",
+    "app-installer/build/source-bundle.py": "d7d8eceb45daa9cb6f7bc635f7dfa934c2141343de76258adb39d5b28581ab25",
+    "app-installer/build/check-artifact.py": "265081703b718fd45c4ef1205e2115579007507c07168cd956e2043740f81e8b",
+    "app-installer/build/licensing.py": "95a47b83fd226f412935591ae19a1114441cadb223983f48755960d1e40f23a4",
+    "app-installer/build/source-fingerprint.py": "a1e72983c20b86c115ea26af4efa1da51d094521e5c48a4e23ce318fe910a57c",
+    "app-installer/device/device-workflow.py": "a6a10b03377d03d65ebc86aba570dbb172066edb9bf0fe17b8312f8312c75536"
+  },
+  "inputs_unchanged": true,
+  "raw_log": {
+    "path": "tests.log",
+    "sha256": "ac335d8d6710526e928c953b3243ff358ba91094364d466f6a5d52b10193c38a"
+  },
+  "limits": "Negative synthetic files only; does not claim a genuineMac codesign check or successful full seven-file candidate. Actual reviewed package must pass verify_local on hostedMac before any draft mutation."
+}

@@ -38,7 +38,22 @@ rustdoc-args = [
     "docsrs",
 ]
 
+[[example]]
+name = "app-installer-rp-bootstrap"
+path = "examples/app-installer-rp-bootstrap.rs"
+required-features = ["app-installer-rp-bootstrap"]
+
+[package.metadata.app-installer-rp-bootstrap]
+license = "AGPL-3.0-only"
+protocol-record-version = 2
+
 [features]
+# Only the explicit exporter build enables this privacy/runtime bundle.
+app-installer-rp-bootstrap = [
+    "ring", "tcp", "usbmuxd", "pair", "remote_pairing",
+    "tokio/rt-multi-thread", "tokio/macros",
+    "tracing/max_level_off", "tracing/release_max_level_off",
+]
 _http = [
     "tokio/net",
     "dep:webpki-roots",

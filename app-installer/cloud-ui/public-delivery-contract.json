@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "reviewed": true,
+  "repository": "mcantua/dokkan-offline-public",
+  "branch": "chatgpt/app-installer-pairing-repair",
+  "source_run_id": 41322933617,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "artifacts": {
+    "candidate": {
+      "id": 13089864046,
+      "name": "app-installer-cloud-ui-latest",
+      "bytes": 170998136,
+      "sha256": "3c896596d0bca7a2074c8177cbc8730955ede7715e808bb132bfa9305a3aeda8"
+    },
+    "kit": {
+      "id": 13089864052,
+      "name": "app-installer-native-kit-latest",
+      "bytes": 43869532,
+      "sha256": "3025694c3ffaa185fbef72902f9f31abc879fff19be38577ae51fac370ee184c"
+    }
+  },
+  "files": {
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 154038676,
+      "sha256": "79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4"
+    },
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2207,
+      "sha256": "69145e698ad3bb3a118325edf89facee99e4663c1f5a698ee82973dcc56b7e38"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 8480400,
+      "sha256": "c489d6657a8489a3f390312d84fb30fd6b859fc5ccb9feb501ae98286f4169c9"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 8480396,
+      "sha256": "d7c09818ff6bd17f8f62e0199eba794c491ef8498e5f16ea43dbb142a62155d8"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1334,
+      "sha256": "bb43d500694ef3a890c348f8823f6c1489103b0907d97b07554733de50f35d19"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 44231197,
+      "sha256": "895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 893,
+      "sha256": "ca79236970577d3d744543c13929c2b39cb8e867f728aa23fba9fb173b2f1c35"
+    }
+  }
+}

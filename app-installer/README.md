@@ -1,5 +1,8 @@
 # App Installer
 
+**Current public-source continuation (October 29):** App Installer is resumed on `chatgpt/app-installer-pairing-repair` in `mcantua/dokkan-offline-public`. The private backup stays untouched. Tin has explicitly authorized App Installer cloud builds and focused checks with "make the builds". Read [device/PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md): this clean copy predates the installed app's newer helper/RP transport; old download pins and private-release commands below are historical and must not be used for the current repair.
+
+
 A separate iPhone app using Objective-C/UIKit and a Rust signing/device core. Source is AGPL-3.0-only. Both build variants keep the same stable app identity; the approved native bootstrap uses a deterministic developer-team-qualified identity when needed.
 
 **Not a verified final release yet.** Live Apple sign-in, signing, installation, refresh and physical Duo behavior require actual device verification. A build or simulator pass cannot establish them. Tin’s latest instruction allows first-install work once specific Mac/network/device access is approved; Monday review is not a development stop.

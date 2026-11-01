@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "review_kind": "independent_actual_kit_static_and_binding_review",
+  "reviewed_at_utc": "2026-11-01T03:55:07.344919+00:00",
+  "repository": "mcantua/dokkan-offline-public",
+  "source_run_id": 41270305394,
+  "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
+  "actual_kit": {
+    "file": "AppInstaller-native-bootstrap-kit.zip",
+    "bytes": 44149993,
+    "sha256": "b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661"
+  },
+  "validators": {
+    "app-installer/device/update-public-kit.py": {
+      "sha256": "48b878b87b90e6d3a4977c73418e703bbc3715293c1cbfbd8f0e3782c2a0e913"
+    },
+    "app-installer/device/device-workflow.py": {
+      "sha256": "a6a10b03377d03d65ebc86aba570dbb172066edb9bf0fe17b8312f8312c75536"
+    },
+    "app-installer/cloud-ui/public-delivery.py": {
+      "sha256": "7b3b8a1032c3417b8bd9c063a227de1b14b416f4998e5b6add97c5e84af11256"
+    }
+  },
+  "validator_functions_called": [
+    "update-public-kit.read_archive",
+    "device-workflow.validate_remote_pairing_tool",
+    "device-workflow.load_handoff(private_only=False)",
+    "public-delivery.verify_helper_macho"
+  ],
+  "checks": {
+    "zip_members": 39,
+    "manifest_files": 38,
+    "source_files_matched_to_verified_source_manifest": 28,
+    "repository_README_matched_to_source_git_object": true,
+    "native_compilation_sources": 11,
+    "all_manifest_bytes_and_hashes": true,
+    "all_zip_modes_match_maker": true,
+    "helper_mode": "0o755",
+    "helper_architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "helper_minimum_macos": "12.0",
+    "helper_sdk": "27.0",
+    "helper_compiler_sdk_loadcommands_verified": true,
+    "typed_helper_receipt_and_private_payload_closure_verified": true,
+    "matching_library_handoff_verified": true,
+    "notice_gap_count": 0,
+    "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
+    "helper_graph_hashes": {
+      "aarch64-apple-darwin": "4d5171e067680f9c3acc2722de98ca4cde25be5e6c942b3b8ed17216f0332622",
+      "x86_64-apple-darwin": "107e024c6f2d38e4a8ec8bb73c6960eda393818b7a4f832f1b845e63b7ae6867"
+    },
+    "corresponding_source_and_relink_receipts_match": true,
+    "verified_source_manifest_sha256": "ac67a43a85e1e391059cc71fb9fe778ebfc5d048e1ac9f050dd5aeac39456180",
+    "native_status8_and_connection_metadata_guard_present": true,
+    "setup_wizard_pairing_only_source_bound": true
+  },
+  "status": "all_requested_portable_kit_checks_passed_actual_codesign_pending_hosted_delivery",
+  "actual_signature_verification_performed": false,
+  "signature_verification_pending": "Hosted macOS delivery workflow must run genuine /usr/bin/codesign for both helper slices. No signature bypass or simulated success used here.",
+  "full_source_archive_rescanned": false,
+  "source_archive_scope": "Kit files/graphs/notices cross-bound to already-verified SourceBundleManifest supplied by source-review agent; no full-source tar rescan. Corresponding-source/relink receipt pins also checked.",
+  "README_binding_exception": "Source TAR README.md is generated relink guide; kit repository README.md matches git object at actual sourcef941208.",
+  "tests_builds_helper_or_device_execution": false,
+  "personal_resources_used": false,
+  "blockers_found": []
+}

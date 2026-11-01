@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "run_id": 41271986054,
+  "source_run_id": 41270305394,
+  "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "delivery_tool_commit": "452e2e925f95b2954113ccee081233195370a4f5",
+  "receipt_artifact": {
+    "id": 13069482268,
+    "bytes": 1145,
+    "sha256": "b831127a428e25db0d879367c78c0cd602e02e098bab4ce9a79dd3b43f6a47a4"
+  },
+  "sole_review_draft": 430349496,
+  "all_seven_server_pins_match": true,
+  "all_seven_asset_ids_reused": true,
+  "no_third_release_created": true,
+  "actual_hosted_macos_helper_signature_gate_passed": true,
+  "helper_notarized": false,
+  "application_builds_or_tests_repeated": false,
+  "release_ready": false,
+  "personal_resources_used": false,
+  "previous_failed_probe": {
+    "run": 41271403913,
+    "exact_cause": "unproven; generic exception after124seconds",
+    "unchanged_seven_server_assets_read_back": true,
+    "subsequent_instrumented_run": "passed all phases"
+  }
+}

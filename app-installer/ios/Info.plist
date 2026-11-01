@@ -40,6 +40,10 @@
 	<string>Unlock your Apple account session and signing keys.</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Connect securely to this iPhone to install and refresh your apps.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_remotepairing._tcp.</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

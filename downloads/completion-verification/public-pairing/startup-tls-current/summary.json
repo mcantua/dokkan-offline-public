@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "receipts": [
+    {
+      "stage": "first-account-transport",
+      "proof": "first-account-transport-proof.json",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "stage": "legacy-pinned-tls",
+      "proof": "legacy-pinned-tls-proof.json",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0
+    }
+  ]
+}

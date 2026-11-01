@@ -1,0 +1,181 @@
+[
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIApplication.h",
+    "sha256": "8e666ad2c62a2b970e00ad65a1ab8e9c596ebffa2fb11d8509f374b2b0745d8d",
+    "excerpts": [
+      {
+        "line": 166,
+        "tokens": [
+          "preferredContentSizeCategory"
+        ],
+        "declaration": "// Return the size category\n@property(nonatomic,readonly) UIContentSizeCategory preferredContentSizeCategory API_AVAILABLE(ios(7.0));\n\n/// A Boolean value that indicates whether the system prefers that the app reduce its resource usage.\n///"
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIButton.h",
+    "sha256": "5a73838312c4b387723f03bcff039077211e0e790d459986d3e4ce0851e77e97",
+    "excerpts": [
+      {
+        "line": 132,
+        "tokens": [
+          "preferredSymbolConfigurationForImage"
+        ],
+        "declaration": "- (nullable UIImage *)backgroundImageForState:(UIControlState)state;\n- (nullable UIImageSymbolConfiguration *)preferredSymbolConfigurationForImageInState:(UIControlState)state API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);\n- (nullable NSAttributedString *)attributedTitleForState:(UIControlState)state API_AVAILABLE(ios(6.0));\n\n// these are the values that will be used for the current state. you can also use these for overrides. a heuristic will be used to"
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIButtonConfiguration.h",
+    "sha256": "7c9dc1a3f6d6677a0ff7cf4b597f823953e3e8f4ea77e60fca9742115b79bf8a",
+    "excerpts": [
+      {
+        "line": 124,
+        "tokens": [
+          "preferredSymbolConfigurationForImage"
+        ],
+        "declaration": "@property (nonatomic, readwrite, copy, nullable) UIConfigurationColorTransformer imageColorTransformer;\n@property (nonatomic, readwrite, copy, nullable) UIImageSymbolConfiguration *preferredSymbolConfigurationForImage;\n\n/// The symbol content transition to use when transitioning across symbol images.\n/// Defaults to `nil`, meaning no symbol content transition should occur."
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIContentSizeCategory.h",
+    "sha256": "e60fb19a1b225e1bf3decafe4fbe264c0cf0bce1ef32880da58c0fa45850e6bc",
+    "excerpts": [
+      {
+        "line": 34,
+        "tokens": [
+          "preferredContentSizeCategory"
+        ],
+        "declaration": "\n// Notification is emitted when the user has changed the preferredContentSizeCategory for the system\nUIKIT_EXTERN NSNotificationName const UIContentSizeCategoryDidChangeNotification API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(watchos) NS_SWIFT_NONISOLATED; // userInfo dictionary will contain new value for UIContentSizeCategoryNewValueKey\nUIKIT_EXTERN NSString *const UIContentSizeCategoryNewValueKey API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(watchos) NS_SWIFT_NONISOLATED; // NSString instance with new content size category in userInfo\n"
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIPresentationController.h",
+    "sha256": "0cd5f2b1a5b2dfe0adb81e339ca17112c50f37ae46a5d32581558889d1fb0cf6",
+    "excerpts": [
+      {
+        "line": 115,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "// Modifies the trait collection for the presentation controller.\n@property(nullable, nonatomic, copy) UITraitCollection *overrideTraitCollection API_DEPRECATED(\"Use the traitOverrides property instead\", ios(8.0, 17.0), visionos(1.0, 1.0)) API_UNAVAILABLE(watchos);\n\n// Set the background effect for this presentation. Set to nil to use default background. Default is nil. Custom presentations are responsible for implementing the background effect if set.\n@property (nonatomic, strong, nullable) UIVisualEffect *backgroundEffect  API_AVAILABLE(ios(26.1)) API_UNAVAILABLE(macCatalyst, watchos, tvos, visionos);"
+      },
+      {
+        "line": 124,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "@interface UIPresentationController () <UITraitChangeObservable>\n@property (nonatomic, readonly) id<UITraitOverrides> traitOverrides API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);\n@end\n\nNS_HEADER_AUDIT_END(nullability, sendability)"
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UITrait.h",
+    "sha256": "1325acccf9a0530579309112eda5c3af16d0f878fc6750fc305e90c41424a830",
+    "excerpts": [
+      {
+        "line": 87,
+        "tokens": [
+          "UITraitPreferredContentSizeCategory"
+        ],
+        "declaration": "UIKIT_EXTERN API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos)\n@interface UITraitPreferredContentSizeCategory : NSObject <UIObjectTraitDefinition> // UIContentSizeCategory (NSString *)\n@end\n\nUIKIT_EXTERN API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos)"
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UITraitCollection.h",
+    "sha256": "aa366f7f4e325e89802d54351768af5a4264b402562a6df3aaa2d8a8c78b495b",
+    "excerpts": [
+      {
+        "line": 59,
+        "tokens": [
+          "preferredContentSizeCategory"
+        ],
+        "declaration": "\n+ (UITraitCollection *)traitCollectionWithPreferredContentSizeCategory:(UIContentSizeCategory)preferredContentSizeCategory API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos);\n@property (nonatomic, copy, readonly) UIContentSizeCategory preferredContentSizeCategory API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos); // unspecified: UIContentSizeCategoryUnspecified\n\n+ (UITraitCollection *)traitCollectionWithDisplayGamut:(UIDisplayGamut)displayGamut API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos);"
+      },
+      {
+        "line": 60,
+        "tokens": [
+          "preferredContentSizeCategory"
+        ],
+        "declaration": "+ (UITraitCollection *)traitCollectionWithPreferredContentSizeCategory:(UIContentSizeCategory)preferredContentSizeCategory API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos);\n@property (nonatomic, copy, readonly) UIContentSizeCategory preferredContentSizeCategory API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos); // unspecified: UIContentSizeCategoryUnspecified\n\n+ (UITraitCollection *)traitCollectionWithDisplayGamut:(UIDisplayGamut)displayGamut API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos);\n@property (nonatomic, readonly) UIDisplayGamut displayGamut API_AVAILABLE(ios(10.0)) API_UNAVAILABLE(watchos); // unspecified: UIDisplayGamutUnspecified"
+      },
+      {
+        "line": 170,
+        "tokens": [
+          "preferredContentSizeCategory"
+        ],
+        "declaration": "@property (nonatomic) UIForceTouchCapability forceTouchCapability;\n@property (nonatomic, copy) UIContentSizeCategory preferredContentSizeCategory;\n@property (nonatomic) UIDisplayGamut displayGamut;\n@property (nonatomic) UIAccessibilityContrast accessibilityContrast API_UNAVAILABLE(watchos);\n@property (nonatomic) UIUserInterfaceLevel userInterfaceLevel API_UNAVAILABLE(tvos, watchos);"
+      },
+      {
+        "line": 235,
+        "tokens": [
+          "containsTrait:"
+        ],
+        "declaration": "\n- (BOOL)containsTrait:(UITrait)trait;\n- (void)removeTrait:(UITrait)trait;\n\n@end"
+      },
+      {
+        "line": 236,
+        "tokens": [
+          "removeTrait:"
+        ],
+        "declaration": "- (BOOL)containsTrait:(UITrait)trait;\n- (void)removeTrait:(UITrait)trait;\n\n@end\n"
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIView.h",
+    "sha256": "e8853b344147a112ed78473c726cfb570bd9eea046e89e2a301b94eb338a5fe5",
+    "excerpts": [
+      {
+        "line": 740,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "\n@property (nonatomic, readonly) id<UITraitOverrides> traitOverrides API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);\n\n/// Forces an immediate trait update for this view (and its view controller, if applicable) and any subviews,\n/// including any view controllers or views in its subtree. Any trait change callbacks are sent synchronously."
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIViewController.h",
+    "sha256": "b03c4d56730c344850623c2c5a541a80b2728b209a90676bdf91c5c743e954c8",
+    "excerpts": [
+      {
+        "line": 487,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "// Call to modify the trait collection for child view controllers.\n- (void)setOverrideTraitCollection:(nullable UITraitCollection *)collection forChildViewController:(UIViewController *)childViewController API_DEPRECATED(\"Use the traitOverrides property on the child view controller instead\", ios(8.0, 17.0), visionos(1.0, 1.0)) API_UNAVAILABLE(watchos);\n- (nullable UITraitCollection *)overrideTraitCollectionForChildViewController:(UIViewController *)childViewController API_DEPRECATED(\"Use the traitOverrides property on the child view controller instead\", ios(8.0, 17.0), visionos(1.0, 1.0)) API_UNAVAILABLE(watchos);\n\n// Override to return a child view controller or nil. If non-nil, that view controller's preferred user interface style will be used. If nil, self is used. Whenever the preferredUserInterfaceStyle for a view controller has changed setNeedsUserInterfaceAppearanceUpdate should be called."
+      },
+      {
+        "line": 488,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "- (void)setOverrideTraitCollection:(nullable UITraitCollection *)collection forChildViewController:(UIViewController *)childViewController API_DEPRECATED(\"Use the traitOverrides property on the child view controller instead\", ios(8.0, 17.0), visionos(1.0, 1.0)) API_UNAVAILABLE(watchos);\n- (nullable UITraitCollection *)overrideTraitCollectionForChildViewController:(UIViewController *)childViewController API_DEPRECATED(\"Use the traitOverrides property on the child view controller instead\", ios(8.0, 17.0), visionos(1.0, 1.0)) API_UNAVAILABLE(watchos);\n\n// Override to return a child view controller or nil. If non-nil, that view controller's preferred user interface style will be used. If nil, self is used. Whenever the preferredUserInterfaceStyle for a view controller has changed setNeedsUserInterfaceAppearanceUpdate should be called.\n@property (nonatomic, readonly, nullable) UIViewController *childViewControllerForUserInterfaceStyle API_AVAILABLE(tvos(11.0)) API_UNAVAILABLE(ios, watchos, visionos);"
+      },
+      {
+        "line": 773,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "\n@property (nonatomic, readonly) id<UITraitOverrides> traitOverrides API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);\n\n/// Forces an immediate trait update for this view controller and its view, including any view\n/// controllers and views in this subtree. Any trait change callbacks are sent synchronously."
+      }
+    ]
+  },
+  {
+    "header": "System/Library/Frameworks/UIKit.framework/Headers/UIWindowScene.h",
+    "sha256": "6263fddf692ff8ff3ae3bdfb5da376bfe929dce1ba98618b845af6e6027ab506",
+    "excerpts": [
+      {
+        "line": 78,
+        "tokens": [
+          "traitOverrides"
+        ],
+        "declaration": "@interface UIWindowScene () <UITraitEnvironment, UITraitChangeObservable>\n@property (nonatomic, readonly) id<UITraitOverrides> traitOverrides API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);\n@end\n\n#pragma mark - UIWindowSceneDelegate"
+      }
+    ]
+  }
+]

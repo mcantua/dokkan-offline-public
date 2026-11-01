@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "run_id": 40936908790,
+  "source_run_id": 40934237282,
+  "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+  "delivery_source_commit": "466fc80842271cce0548741ec8f04e9654fd4f45",
+  "receipt_artifact": {
+    "id": 12925377150,
+    "bytes": 1147,
+    "sha256": "72c6b1455d467e51ec7ed2c2bc83bcfd23e490ba2805697c247cdf6d90c24f40"
+  },
+  "receipt_sha256": "adf06602608e94e326a8b864767ffd567bcc20559b609f96915658fc9962d114",
+  "server_readback_sha256": "3989b2a7f597ccfe82be3348d2931a04b4907d2670380028a4dc9c05a559c454",
+  "all_seven_server_bytes_and_digests_match": true,
+  "hosted_macos_helper_signature_gate_passed": true,
+  "helper_notarized": false,
+  "draft": true,
+  "release_ready": false,
+  "personal_resources_used": false,
+  "tests_repeated": false
+}

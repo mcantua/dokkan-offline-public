@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "agent-observed-execution-with-transcribed-tool-output",
+  "saved_at_utc": "2026-10-29T17:49:55.316774+00:00",
+  "repository": "mcantua/dokkan-offline-public",
+  "branch": "chatgpt/app-installer-pairing-repair",
+  "head_commit_at_receipt_creation": "2f13bda789f1c8bf1b90edbe02a0ad1bb7f6d7ba",
+  "source_had_uncommitted_changes_at_execution": true,
+  "total_test_invocations": 2,
+  "runs": [
+    {
+      "invocation": 1,
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s app-installer/device/tests -p test_public_kit_update.py -v",
+      "working_directory": "/workspace/AI-Workspace/dokkan-offline-public",
+      "exit_code_observed": 0,
+      "tests_observed": 2,
+      "failures_observed": 0,
+      "unittest_elapsed_seconds_displayed": "0.146",
+      "tool_output_transcription_file": "invocation-1.tool-output-transcription.txt",
+      "tool_output_transcription_sha256": "0db9fd2833f4b42b7cb92284a210be56d5f682adec6f8e1e546e8e36acd8b5bb",
+      "raw_log_captured_as_file_at_execution": false,
+      "transcription_source": "Exact merged tool output visible in agent conversation; saved after execution without rerun.",
+      "source_binding": "No pre-run hash captured. First run preceded the two documented audit fixes."
+    },
+    {
+      "invocation": 2,
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s app-installer/device/tests -p test_public_kit_update.py -v",
+      "working_directory": "/workspace/AI-Workspace/dokkan-offline-public",
+      "exit_code_observed": 0,
+      "tests_observed": 2,
+      "failures_observed": 0,
+      "unittest_elapsed_seconds_displayed": "0.248",
+      "tool_output_transcription_file": "invocation-2.tool-output-transcription.txt",
+      "tool_output_transcription_sha256": "b654f7007d36fabec632efcc575b83d0ab479156e3d2b5da749ca4fb95d122d8",
+      "raw_log_captured_as_file_at_execution": false,
+      "transcription_source": "Exact merged tool output visible in agent conversation; saved after execution without rerun.",
+      "source_binding": "No pre-run hash captured. Post-run final source hashes recorded below; agent made no source edits after this run."
+    }
+  ],
+  "post_second_run_files": {
+    "app-installer/device/update-public-kit.py": {
+      "bytes": 29186,
+      "sha256": "48b878b87b90e6d3a4977c73418e703bbc3715293c1cbfbd8f0e3782c2a0e913"
+    },
+    "app-installer/device/tests/test_public_kit_update.py": {
+      "bytes": 16810,
+      "sha256": "12c7d906d341516e39b4a3ca06eac494880839cfdfba3072ebeddf39917332fc"
+    },
+    "app-installer/device/PUBLIC-QUICK-START.md": {
+      "bytes": 8614,
+      "sha256": "a5b49687fd4ac922fa91c728c3cf529dceb00ac74bf96e3e3303013ba2b7854a"
+    },
+    "app-installer/device/USER-ACTIONS.md": {
+      "bytes": 3514,
+      "sha256": "52994a2481299f30e2f942275dc909c32404e1cd76445a4788e4a4102388e229"
+    },
+    "app-installer/device/UPDATE-EXISTING-KIT.md": {
+      "bytes": 6276,
+      "sha256": "1f3f510e5c16233f33cfa76a6fa83f6c732b9dea1112a4946259166bb1017728"
+    }
+  },
+  "audit_fixes_between_runs": [
+    "Normalize/casefold frozen-folder path components before any filesystem opening.",
+    "fsync staged file data/modes and managed directory entries before and after manifest-last publication; assert actual syscall order."
+  ],
+  "limitations": [
+    "Synthetic filesystem/Mach-O inputs only.",
+    "Internal Python test seam bypassed actual codesign solely for synthetic fixtures; production CLI has no such switch.",
+    "Actual macOS codesign, actual delivery ZIP and physical update were not executed.",
+    "No raw stdout/stderr log file was captured during execution; these text files are explicitly later transcriptions of observed tool output.",
+    "No exact pre-run source fingerprint exists for either invocation; current file hashes do not retroactively create one."
+  ],
+  "new_execution_for_logging": false
+}

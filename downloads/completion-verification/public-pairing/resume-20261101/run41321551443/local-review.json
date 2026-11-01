@@ -1,0 +1,22 @@
+{
+  "root_verified_232_before_after_inputs": true,
+  "source_commit": "da1a36ab2ecf4b3cb9f85ed9ad2723fbba61cd60",
+  "native_passed": 1,
+  "native_failed": 0,
+  "native_seconds": 12.518,
+  "original_maximum_text_and_compact_images_visually_reviewed": true,
+  "full_details_image_identical_to_already_reviewed_original_sha256": "c63201a124bd7ccdb714cd1458001f60250cc7133a3be2ac8fe4d829ef72198e",
+  "removed_obsolete_diagnostic_zips": [
+    {
+      "file": "downloads/completion-verification/public-pairing/resume-20261101/run41310143960/native-artifact.zip",
+      "bytes": 8911819
+    },
+    {
+      "file": "downloads/completion-verification/public-pairing/resume-20261101/run41320431373/native-artifact.zip",
+      "bytes": 39961128
+    }
+  ],
+  "failure_logs_original_pngs_and_source_proof_preserved": true,
+  "application_distribution_replaced": false,
+  "physical_hardware_verified": false
+}

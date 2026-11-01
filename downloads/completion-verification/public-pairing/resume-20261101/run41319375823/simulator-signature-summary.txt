@@ -1,0 +1,2 @@
+Executable=/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/DerivedData/Build/Products/Debug-iphonesimulator/AppInstaller.app/AppInstaller
+warning: Specifying ':' in the path is deprecated and will not work in a future release

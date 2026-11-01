@@ -1,0 +1,252 @@
+simulator	Set up job	﻿2026-10-29T17:15:24.2270590Z Current runner version: '2.338.0'
+simulator	Set up job	2026-10-29T17:15:24.2341490Z ##[group]Runner Image Provisioner
+simulator	Set up job	2026-10-29T17:15:24.2342420Z Hosted Compute Agent
+simulator	Set up job	2026-10-29T17:15:24.2342810Z Version: 20261021.618
+simulator	Set up job	2026-10-29T17:15:24.2343330Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+simulator	Set up job	2026-10-29T17:15:24.2343930Z Build Date: 2026-10-21T00:45:21Z
+simulator	Set up job	2026-10-29T17:15:24.2344490Z Worker ID: {bc1b576b-9347-44aa-98d8-a5e8ef846345}
+simulator	Set up job	2026-10-29T17:15:24.2345060Z Region: westus
+simulator	Set up job	2026-10-29T17:15:24.2345540Z Cloud: MacCloud
+simulator	Set up job	2026-10-29T17:15:24.2345990Z ##[endgroup]
+simulator	Set up job	2026-10-29T17:15:24.2351250Z ##[group]Operating System
+simulator	Set up job	2026-10-29T17:15:24.2351770Z macOS
+simulator	Set up job	2026-10-29T17:15:24.2352110Z 27.0.1
+simulator	Set up job	2026-10-29T17:15:24.2352440Z 26A434
+simulator	Set up job	2026-10-29T17:15:24.2352780Z ##[endgroup]
+simulator	Set up job	2026-10-29T17:15:24.2353200Z ##[group]Runner Image
+simulator	Set up job	2026-10-29T17:15:24.2353660Z Image: xcode-27-arm64
+simulator	Set up job	2026-10-29T17:15:24.2354870Z Version: 20261026.0314.1
+simulator	Set up job	2026-10-29T17:15:24.2357440Z Included Software: https://github.com/actions/runner-images/blob/xcode-27-arm64/20261026.0314/images/macos/xcode-27-arm64-Readme.md
+simulator	Set up job	2026-10-29T17:15:24.2360990Z Image Release: https://github.com/actions/runner-images/releases/tag/xcode-27-arm64%2F20261026.0314
+simulator	Set up job	2026-10-29T17:15:24.2362450Z ##[endgroup]
+simulator	Set up job	2026-10-29T17:15:24.2363500Z ##[group]GITHUB_TOKEN Permissions
+simulator	Set up job	2026-10-29T17:15:24.2368270Z Actions: write
+simulator	Set up job	2026-10-29T17:15:24.2368740Z Contents: read
+simulator	Set up job	2026-10-29T17:15:24.2369120Z Metadata: read
+simulator	Set up job	2026-10-29T17:15:24.2369510Z ##[endgroup]
+simulator	Set up job	2026-10-29T17:15:24.2374170Z Secret source: Actions
+simulator	Set up job	2026-10-29T17:15:24.2374900Z Cache mode: write
+simulator	Set up job	2026-10-29T17:15:24.2375520Z Prepare workflow directory
+simulator	Set up job	2026-10-29T17:15:24.4442390Z Prepare all required actions
+simulator	Set up job	2026-10-29T17:15:24.4611290Z Getting action download info
+simulator	Set up job	2026-10-29T17:15:24.8437160Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+simulator	Set up job	2026-10-29T17:15:25.5697170Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+simulator	Set up job	2026-10-29T17:15:25.9345880Z Complete job name: simulator
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-10-29T17:15:26.0997720Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.0998890Z with:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.0999330Z   persist-credentials: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1000280Z   path: AI-Workspace/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1001030Z   repository: mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1006400Z   token: ***
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1006760Z   ssh-strict: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1007090Z   ssh-user: git
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1007960Z   clean: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1008900Z   sparse-checkout-cone-mode: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1009320Z   fetch-depth: 1
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1009660Z   fetch-tags: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1009980Z   show-progress: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1010370Z   lfs: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1010700Z   submodules: false
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1011030Z   set-safe-directory: true
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.1011860Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.6919870Z Syncing repository: mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.6922250Z ##[group]Getting Git version info
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.6923640Z Working directory is '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public'
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.6925000Z [command]/opt/homebrew/bin/git version
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8367910Z git version 2.56.0
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8388350Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8539600Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/fa3e6f71-aa1e-461d-b594-a990725cf071/.gitconfig'
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8542000Z Temporarily overriding HOME='/Users/runner/work/_temp/fa3e6f71-aa1e-461d-b594-a990725cf071' before making global git config changes
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8543390Z Adding repository directory to the temporary git global config as a safe directory
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8545470Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8609270Z ##[group]Initializing the repository
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:26.8617850Z [command]/opt/homebrew/bin/git init /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0579230Z hint: Using 'master' as the name for the initial branch. This default branch name
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0688210Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0791600Z hint: to use in all of your new repositories, which will suppress this warning,
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0872840Z hint: call:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0877970Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0879080Z hint: 	git config --global init.defaultBranch <name>
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0879670Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0880200Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0882090Z hint: 'development'. The just-created branch can be renamed via this command:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0882680Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0883070Z hint: 	git branch -m <name>
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0883430Z hint:
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0883950Z hint: Disable this message with "git config set advice.defaultBranchName false"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0884990Z Initialized empty Git repository in /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/.git/
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0886780Z [command]/opt/homebrew/bin/git remote add origin https://github.com/mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0889570Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0890180Z ##[group]Disabling automatic garbage collection
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.0894320Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.1874070Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.2105060Z ##[group]Setting up auth
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.2399200Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.2646910Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.5678640Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:27.5926000Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:28.0605340Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:28.0976400Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:28.1143990Z ##[group]Fetching the repository
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:28.1489770Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8446a7ac1e81956952c2eea27c22ec26cbab5f45:refs/remotes/origin/chatgpt/app-installer-pairing-repair
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2509260Z From https://github.com/mcantua/dokkan-offline-public
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2513340Z  * [new ref]         8446a7ac1e81956952c2eea27c22ec26cbab5f45 -> origin/chatgpt/app-installer-pairing-repair
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2540100Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2541440Z ##[group]Determining the checkout info
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2551010Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2568870Z [command]/opt/homebrew/bin/git sparse-checkout disable
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2697740Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2860000Z ##[group]Checking out the ref
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.2866510Z [command]/opt/homebrew/bin/git checkout --progress --force -B chatgpt/app-installer-pairing-repair refs/remotes/origin/chatgpt/app-installer-pairing-repair
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9246470Z Switched to a new branch 'chatgpt/app-installer-pairing-repair'
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9273530Z branch 'chatgpt/app-installer-pairing-repair' set up to track 'origin/chatgpt/app-installer-pairing-repair'.
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9294530Z ##[endgroup]
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9487690Z [command]/opt/homebrew/bin/git log -1 --format=%H
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9646440Z 8446a7ac1e81956952c2eea27c22ec26cbab5f45
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9817000Z ##[group]Removing auth
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9817980Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:32.9878510Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:33.1550330Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:33.1659800Z http.https://github.com/.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:33.1963990Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:33.2281140Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+simulator	Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:15:33.4038000Z ##[endgroup]
+simulator	Build and run hosted UIKit and secure-storage checks	﻿2026-10-29T17:15:33.4341670Z ##[group]Run bash app-installer/cloud-ui/run.sh
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4342150Z [36;1mbash app-installer/cloud-ui/run.sh[0m
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4445720Z shell: /bin/bash -e {0}
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4446180Z env:
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4446500Z   AI_PACKAGE_DEVICE_CANDIDATES: 0
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4446710Z   AI_RUN_NATIVE_CHECKS: 1
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4446910Z   AI_NATIVE_TEST_SCOPE: pairing-public
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4447150Z   AI_RUST_TEST_SCOPE: pairing-public
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4447420Z   AI_REUSE_PAIRING_VENDOR_RUN: 40916969403
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4447680Z   AI_REUSE_PAIRING_HELPER_RUN: 40916969403
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4447930Z   AI_REUSE_PAIRING_TRANSPORT_RUN: 40916969403
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4448210Z   AI_REUSE_PAIRING_NATIVE_RUN: 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4450990Z   GH_TOKEN: ***
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:33.4451290Z ##[endgroup]
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:55.9898310Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/rustup-init: OK
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0117000Z warn: It looks like you have an existing installation of Rust at:
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0118080Z warn: /opt/homebrew/opt/rustup/bin
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0119130Z warn: It is recommended that rustup be the primary Rust installation.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0120680Z warn: Otherwise you may have confusion unless you are careful with your PATH.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0122180Z warn: If you are sure that you want both rustup and your already installed Rust
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0122980Z warn: then please reply `y' or `yes' or set RUSTUP_INIT_SKIP_PATH_CHECK to yes
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0123630Z warn: or pass `-y' to ignore all ignorable checks.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0124100Z error: cannot install while Rust is installed
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0125640Z warn: continuing (because the -y flag is set and the error is ignorable)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0272840Z info: profile set to 'minimal'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0284830Z info: default host triple is aarch64-apple-darwin
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.0285560Z info: syncing channel updates for '1.99.1-aarch64-apple-darwin'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.1735710Z info: latest update on 2026-10-15, rust version 1.99.1 (58cf8f9c3 2026-10-13)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.1736530Z info: downloading component 'cargo'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.3864350Z info: downloading component 'rust-std'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:56.7344670Z info: downloading component 'rustc'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:57.3647590Z info: installing component 'cargo'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:15:58.1051900Z info: installing component 'rust-std'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:00.5766300Z info: installing component 'rustc'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:04.9363810Z info: default toolchain set to '1.99.1-aarch64-apple-darwin'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:04.9364770Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0051020Z   1.99.1-aarch64-apple-darwin installed - rustc 1.99.1 (58cf8f9c3 2026-10-13)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0083450Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0083880Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0086440Z Rust is installed now. Great!
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0086880Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0087220Z To get started you need Cargo's bin directory 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0088040Z (/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/bin)
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0089120Z in your PATH
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0089670Z environment variable. This has not been done automatically.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0090060Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0090380Z To configure your current shell, you need to source
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0090790Z the corresponding env file under 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0091470Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0092210Z 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0092460Z This is usually done by running one of the following (note the leading DOT):
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0093040Z . 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0097310Z "/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env"
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0098030Z # For sh/bash/zsh/ash/dash/pdksh
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0098470Z source 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0099690Z "/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env.fish"
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0100640Z # For fish
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0100990Z source 
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0101710Z $"/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/downloads/cloud-ui-tools/cargo/env.nu"
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0102750Z # For nushell
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.0761580Z info: auto-self-update mode set to 'disable'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.2172550Z info: downloading component 'rust-std' for 'aarch64-apple-ios-sim'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:05.7334460Z info: installing component 'rust-std' for 'aarch64-apple-ios-sim'
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:12.8707570Z Reused vendor: 8 actual public checks; matching input bytes/context, no new test execution.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:14.3255420Z Reused helper: 2 actual public checks; matching input bytes/context, no new test execution.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:16:15.8767910Z Reused transport: 2 actual public checks; matching input bytes/context, no new test execution.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:20:52.4214900Z The selected supported pre-app simulator OS baseline(s) failed; see preapp evidence.
+simulator	Build and run hosted UIKit and secure-storage checks	2026-10-29T17:20:52.4648030Z ##[error]Process completed with exit code 1.
+simulator	Keep only the new public source-bound test proof	﻿2026-10-29T17:20:52.8269120Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8270230Z with:
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8270860Z   name: app-installer-pairing-public-proof
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8272380Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/pairing-proof/
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8273630Z   retention-days: 7
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8274450Z   if-no-files-found: ignore
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8275690Z   compression-level: 6
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8276310Z   overwrite: false
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8277310Z   include-hidden-files: false
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:20:52.8279580Z ##[endgroup]
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:25.4052910Z (node:10002) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:25.4109420Z (Use `node --trace-deprecation ...` to show where the warning was created)
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:25.6972950Z With the provided path, there will be 1 file uploaded
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:25.6974900Z Artifact name is valid!
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:25.6981000Z Root directory input is valid!
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:28.7699310Z Beginning upload of artifact content to blob storage
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:29.1111500Z (node:10002) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:29.9624200Z Uploaded bytes 10898
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:30.2283970Z Finished uploading artifact content to blob storage!
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:30.2407020Z SHA256 digest of uploaded artifact zip is 94bf0eb99fa8fd2d31805f42bb83c6c2ac01473948c6317005e462b6d1918d05
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:30.2554890Z Finalizing artifact upload
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:32.0397230Z Artifact app-installer-pairing-public-proof.zip successfully finalized. Artifact ID 12918366390
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:32.0795000Z Artifact app-installer-pairing-public-proof has been successfully uploaded! Final size is 10898 bytes. Artifact ID is 12918366390
+simulator	Keep only the new public source-bound test proof	2026-10-29T17:21:32.1054300Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40919528305/artifacts/12918366390
+simulator	Keep failed or standalone test diagnostics	﻿2026-10-29T17:21:33.7723390Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7724140Z with:
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7724460Z   name: app-installer-cloud-tests-latest
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7726420Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+simulator	Keep failed or standalone test diagnostics	!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/**
+simulator	Keep failed or standalone test diagnostics	
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7727820Z   retention-days: 7
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7728090Z   if-no-files-found: error
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7728290Z   compression-level: 6
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7728480Z   overwrite: false
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7728670Z   include-hidden-files: false
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:33.7728880Z ##[endgroup]
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.0637870Z (node:10887) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.0638840Z (Use `node --trace-deprecation ...` to show where the warning was created)
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.0862080Z With the provided path, there will be 21 files uploaded
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.0863570Z Artifact name is valid!
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.0870250Z Root directory input is valid!
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.4207610Z Beginning upload of artifact content to blob storage
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.6962320Z (node:10887) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.8813790Z Uploaded bytes 56459
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.9266600Z Finished uploading artifact content to blob storage!
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.9268810Z SHA256 digest of uploaded artifact zip is c4f7cdb093c90bb030571cf302a58c786844ac9745dd2afea713106514023a7b
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:36.9270720Z Finalizing artifact upload
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:37.4111170Z Artifact app-installer-cloud-tests-latest.zip successfully finalized. Artifact ID 12918316546
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:37.4113320Z Artifact app-installer-cloud-tests-latest has been successfully uploaded! Final size is 56459 bytes. Artifact ID is 12918316546
+simulator	Keep failed or standalone test diagnostics	2026-10-29T17:21:37.4129810Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40919528305/artifacts/12918316546
+simulator	Keep only current standalone test diagnostics	﻿2026-10-29T17:21:37.4424290Z ##[group]Run python3 app-installer/cloud-ui/prune-artifacts.py
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:37.4425900Z [36;1mpython3 app-installer/cloud-ui/prune-artifacts.py[0m
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:37.7360270Z shell: /bin/bash -e {0}
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:37.7360770Z env:
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:37.7363450Z   GH_TOKEN: ***
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:37.7364460Z   DIAGNOSTIC_ARTIFACT_ID: 12918316546
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:37.7364880Z ##[endgroup]
+simulator	Keep only current standalone test diagnostics	2026-10-29T17:21:40.2443770Z Artifact retention completed; removed 1 owned artifacts.
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	﻿2026-10-29T17:21:40.2721310Z Post job cleanup.
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.4964030Z [command]/opt/homebrew/bin/git version
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5301930Z git version 2.56.0
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5322190Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/93f29e1b-78ac-47a1-9984-689ebc69d1ce/.gitconfig'
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5331380Z Temporarily overriding HOME='/Users/runner/work/_temp/93f29e1b-78ac-47a1-9984-689ebc69d1ce' before making global git config changes
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5332570Z Adding repository directory to the temporary git global config as a safe directory
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5335940Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5484680Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.5625990Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.7558590Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+simulator	Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683	2026-10-29T17:21:40.7679610Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+simulator	Complete job	﻿2026-10-29T17:21:40.9636780Z Cleaning up orphan processes
+simulator	Complete job	2026-10-29T17:21:42.2810490Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

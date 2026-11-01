@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 41322933617,
+  "job_id": 124896801222,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "conclusion": "success",
+  "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "fresh_test_methods_executed": 0,
+  "source_bound_passes_reused": 15,
+  "reused_scopes": {
+    "vendor": {
+      "original_run_id": 40916969403,
+      "original_source_commit": "24f2809c3001c474d0ea885afc1aef00aa388fd0",
+      "passed": 8,
+      "failed": 0,
+      "new_test_execution": false,
+      "input_bytes_match_current": false,
+      "production_input_bytes_match_current": true,
+      "reviewed_harness_changes": [
+        {
+          "path": ".github/workflows/app-installer-cloud-ui.yml",
+          "original_sha256": "b4550a331b4e6e44fcb519039dba26405327361390bc497c60242d5e2bef2360",
+          "current_sha256": "8b5610da19549367d1f8c95ffdd24349778b902d8547c8c10c36568f00ceabb2"
+        },
+        {
+          "path": "app-installer/cloud-ui/pairing-public-proof.py",
+          "original_sha256": "1bc9ddee4fa4fa087e2b000e201fe144141c33e43f8e255939f713623851d011",
+          "current_sha256": "0a6eed4f9a4a58dd1605f225aec5b435e225fffe4289eb536b45bf27e85304f2"
+        },
+        {
+          "path": "app-installer/cloud-ui/run.sh",
+          "original_sha256": "1efc3b83c4f50a6f73b33216fa9516558eb90686159181ba1c9fd56915f75393",
+          "current_sha256": "29a2582635c3e7918286878f2aaff9cc6dc619493fe02419a3fc01b67de74f5b"
+        }
+      ],
+      "scope": "Only eight new vendor cryptographic/record/TLV methods; standalone ring,remote_pairing feature graph."
+    },
+    "helper": {
+      "original_run_id": 40916969403,
+      "original_source_commit": "24f2809c3001c474d0ea885afc1aef00aa388fd0",
+      "passed": 2,
+      "failed": 0,
+      "new_test_execution": false,
+      "input_bytes_match_current": false,
+      "production_input_bytes_match_current": true,
+      "reviewed_harness_changes": [
+        {
+          "path": ".github/workflows/app-installer-cloud-ui.yml",
+          "original_sha256": "b4550a331b4e6e44fcb519039dba26405327361390bc497c60242d5e2bef2360",
+          "current_sha256": "8b5610da19549367d1f8c95ffdd24349778b902d8547c8c10c36568f00ceabb2"
+        },
+        {
+          "path": "app-installer/cloud-ui/pairing-public-proof.py",
+          "original_sha256": "1bc9ddee4fa4fa087e2b000e201fe144141c33e43f8e255939f713623851d011",
+          "current_sha256": "0a6eed4f9a4a58dd1605f225aec5b435e225fffe4289eb536b45bf27e85304f2"
+        },
+        {
+          "path": "app-installer/cloud-ui/run.sh",
+          "original_sha256": "1efc3b83c4f50a6f73b33216fa9516558eb90686159181ba1c9fd56915f75393",
+          "current_sha256": "29a2582635c3e7918286878f2aaff9cc6dc619493fe02419a3fc01b67de74f5b"
+        }
+      ],
+      "scope": "Only two explicit helper argument/private-file methods; no USB or account action."
+    },
+    "transport": {
+      "original_run_id": 41310143960,
+      "original_source_commit": "8e9b43ce29aeff18e2dbb21792f09e8b0b262dac",
+      "passed": 2,
+      "failed": 0,
+      "new_test_execution": false,
+      "input_bytes_match_current": false,
+      "production_input_bytes_match_current": true,
+      "reviewed_harness_changes": [
+        {
+          "path": "app-installer/cloud-ui/pairing-public-proof.py",
+          "original_sha256": "acf6c90cd9c494b8623c1bd35704c61a2b212e19e640c8103d5abc198528943e",
+          "current_sha256": "0a6eed4f9a4a58dd1605f225aec5b435e225fffe4289eb536b45bf27e85304f2"
+        },
+        {
+          "path": "app-installer/cloud-ui/run.sh",
+          "original_sha256": "e145218f12e0a30b5dc3a01d91f740a25ba11ab4cabbd11d4f9319e6900029e6",
+          "current_sha256": "29a2582635c3e7918286878f2aaff9cc6dc619493fe02419a3fc01b67de74f5b"
+        }
+      ],
+      "scope": "Only two production PSK/tunnel/teardown methods with synthetic peers and cloud loopback; no external service or phone."
+    },
+    "recovery": {
+      "original_run_id": 41310143960,
+      "original_source_commit": "8e9b43ce29aeff18e2dbb21792f09e8b0b262dac",
+      "passed": 2,
+      "failed": 0,
+      "new_test_execution": false,
+      "input_bytes_match_current": false,
+      "production_input_bytes_match_current": true,
+      "reviewed_harness_changes": [
+        {
+          "path": "app-installer/cloud-ui/pairing-public-proof.py",
+          "original_sha256": "acf6c90cd9c494b8623c1bd35704c61a2b212e19e640c8103d5abc198528943e",
+          "current_sha256": "0a6eed4f9a4a58dd1605f225aec5b435e225fffe4289eb536b45bf27e85304f2"
+        },
+        {
+          "path": "app-installer/cloud-ui/run.sh",
+          "original_sha256": "e145218f12e0a30b5dc3a01d91f740a25ba11ab4cabbd11d4f9319e6900029e6",
+          "current_sha256": "29a2582635c3e7918286878f2aaff9cc6dc619493fe02419a3fc01b67de74f5b"
+        }
+      ],
+      "scope": "Only two production install-source/refresh recovery methods; synthetic service boundaries, no account or phone."
+    },
+    "native": {
+      "original_run_id": 41321551443,
+      "original_source_commit": "da1a36ab2ecf4b3cb9f85ed9ad2723fbba61cd60",
+      "passed": 1,
+      "failed": 0,
+      "new_test_execution": false,
+      "input_bytes_match_current": true,
+      "production_input_bytes_match_current": true,
+      "reviewed_harness_changes": [],
+      "scope": "Only selected nonsecret Files/schema, labelled responsive/status-details geometry or explicit expired-authorization/cancellation fixtures; no actual five-minute lease, successful authentication, real provider, Keychain account, phone pairing or physical Duo proof."
+    }
+  },
+  "native_checks_requested": false,
+  "toolchain": {
+    "sdk_version": "27.1",
+    "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+    "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "classification": "unsigned-candidate",
+  "release_ready": false,
+  "receipt_declared_unresolved_notice_cases": 0,
+  "outer_pins_verified": true,
+  "outer_artifacts": [
+    {
+      "id": 13089864052,
+      "name": "app-installer-native-kit-latest",
+      "size_in_bytes": 43869532,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089864052",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089864052/zip",
+      "expired": false,
+      "created_at": "2026-11-01T15:58:26Z",
+      "expires_at": "2026-11-08T15:58:23Z",
+      "updated_at": "2026-11-01T15:58:26Z",
+      "digest": "sha256:3025694c3ffaa185fbef72902f9f31abc879fff19be38577ae51fac370ee184c",
+      "workflow_run": {
+        "id": 41322933617,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "ed931b9cff9c047e5de6a21d8d25db3a3154f471"
+      }
+    },
+    {
+      "id": 13089864046,
+      "name": "app-installer-cloud-ui-latest",
+      "size_in_bytes": 170998136,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089864046",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089864046/zip",
+      "expired": false,
+      "created_at": "2026-11-01T15:58:23Z",
+      "expires_at": "2026-11-08T15:58:17Z",
+      "updated_at": "2026-11-01T15:58:23Z",
+      "digest": "sha256:3c896596d0bca7a2074c8177cbc8730955ede7715e808bb132bfa9305a3aeda8",
+      "workflow_run": {
+        "id": 41322933617,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "ed931b9cff9c047e5de6a21d8d25db3a3154f471"
+      }
+    }
+  ],
+  "staged_exact_canonical_file_count": 7,
+  "stage": "app-installer/build/work/review-41322933617/stage/current",
+  "files": {
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 154038676,
+      "sha256": "79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4"
+    },
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2207,
+      "sha256": "69145e698ad3bb3a118325edf89facee99e4663c1f5a698ee82973dcc56b7e38"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 8480400,
+      "sha256": "c489d6657a8489a3f390312d84fb30fd6b859fc5ccb9feb501ae98286f4169c9"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 8480396,
+      "sha256": "d7c09818ff6bd17f8f62e0199eba794c491ef8498e5f16ea43dbb142a62155d8"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1334,
+      "sha256": "bb43d500694ef3a890c348f8823f6c1489103b0907d97b07554733de50f35d19"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 44231197,
+      "sha256": "895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 893,
+      "sha256": "ca79236970577d3d744543c13929c2b39cb8e867f728aa23fba9fb173b2f1c35"
+    }
+  },
+  "library_receipt": {
+    "schema_version": 1,
+    "target": "aarch64-apple-ios",
+    "file": "libapp_installer_core.a",
+    "bytes": 112274928,
+    "sha256": "84af85cf1131a2bc93741d4803d8b597c26f6920a1b6f9f39f34c7322e3e8d2e",
+    "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+    "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+    "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+    "source_bundle_sha256": "79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4",
+    "source_bundle_file": "AppInstaller-corresponding-source.tar.xz",
+    "source_bundle_bytes": 154038676,
+    "source_bundle_location": "same-artifact/candidates/AppInstaller-corresponding-source.tar.xz",
+    "source_bundle": {
+      "file": "AppInstaller-corresponding-source.tar.xz",
+      "sha256": "79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4",
+      "bytes": 154038676,
+      "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+      "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+      "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+      "corresponding_source_verified": true,
+      "relink_instructions_verified": true
+    },
+    "compilation_sdk": "27.1",
+    "unsigned": true
+  },
+  "stock_full_source_ipa_verifier_executed_by_this_agent": false,
+  "source_archive_unpacked": false,
+  "helper_executed_locally": false,
+  "mac_signature_verification_performed": false,
+  "delivery_contract_or_release_modified": false,
+  "old_distribution_touched": false,
+  "outer_zips_retained": true,
+  "raw_job_log_sha256": "3b707156d1969904fe2d2fe540ef7759d36ffe1146b75d459f8848dbe52d1d1d"
+}

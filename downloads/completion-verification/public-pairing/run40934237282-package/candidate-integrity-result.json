@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "result": {
+    "classification": "unsigned-candidate",
+    "candidate_integrity_verified": true,
+    "notices_verified": true,
+    "corresponding_source_verified": true,
+    "relink_instructions_verified": true,
+    "unresolved_notice_cases": 0,
+    "release_ready": false,
+    "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+    "source_bundle_sha256": "23582b0f7538bc2ec8194f20e40c94aa324ede56533e2af70eb10cc9c1201911",
+    "source_tree_sha256": "81ae60bfb915c777847e3e6d7e3ca65ae4733f0d701049fbfd062b0635d7b039",
+    "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74"
+  },
+  "schema_version": 1,
+  "scope": "Independent integrity review of actual downloaded CI6 candidate bytes using trusted current-checkout validators; no compilation/test suite/network/API/device/signature execution.",
+  "run_id": 40934237282,
+  "validator_checkout_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+  "elapsed_seconds": 10.032,
+  "raw_log": {
+    "path": "downloads/completion-verification/public-pairing/run40934237282-package/candidate-integrity.log",
+    "bytes": 816,
+    "sha256": "10f703c331f6514cdf96bafff3da8eb109078e79db9494d83f7b43597fcfe275"
+  },
+  "validator_sha256": {
+    "verify-candidate.py": "9a02145b167615754df555d8e3ee5c5da5a36f6ce79b472436a1b699c60f53f9",
+    "check-artifact.py": "265081703b718fd45c4ef1205e2115579007507c07168cd956e2043740f81e8b",
+    "source-bundle.py": "514f5c24bfc74c7382a36fa8c0722daa85cf39570310ec5bf87e0c999f3d8e79",
+    "source-fingerprint.py": "a1e72983c20b86c115ea26af4efa1da51d094521e5c48a4e23ce318fe910a57c",
+    "licensing.py": "95a47b83fd226f412935591ae19a1114441cadb223983f48755960d1e40f23a4"
+  },
+  "mac_helper_signature_check_performed": false,
+  "release_ready": false
+}

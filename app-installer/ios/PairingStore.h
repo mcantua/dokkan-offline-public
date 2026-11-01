@@ -1,5 +1,8 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSInteger, AIPairingStoreErrorCode) {
+    AIPairingStoreMissingDiscoveryKey = 8,
+};
 /// Primary record: engine.pairing in Keychain. Exactly one encrypted backup file.
 /// Requires an authorized AISecureStore session. Caller must validate with Rust first.
 @interface AIPairingStore : NSObject

@@ -1,5 +1,7 @@
 # Hosted native UIKit and Keychain checks
 
+**Current public takeover:** [CLAUDE-HANDOFF.md](../CLAUDE-HANDOFF.md) is authoritative for current repo paths, scopes and commands. The body below retains historical private-path and simulator descriptions; do not run legacy private upload/refresh/promotion scripts. Current delivery uses public-delivery.py, and current UI proof is compilerSDK27.1/regular runtime27.0 component scope. ChatGPT development is paused for the Claude transfer.
+
 Manual GitHub Actions workflow: **App Installer cloud verification and candidates**. Root dispatches a necessary run after source review. The official `xcode-27` hosted image is selected, with explicit discovery of a genuine installed iOS27.1+ SDK and actual iPhone Duo simulator type/runtime. Older SDKs fail prerequisites. The Duo OS is tried first. Only a bare-OS startup failure before app installation may use one supported regular iPhone on the same27.1 runtime; its actual model/fallback and unverified Duo status are explicit in evidence. An app/test failure never triggers device substitution. Source/tool/output paths live under the checkout `AI-Workspace/claude-chatg`.
 
 The job compiles the actual Rust library for the runner's simulator architecture and links every production Objective-C file. Simulator tests use standard Xcode ad-hoc signing without an Apple account or Team identity; built entitlements/signature summary are saved, not invented. Device candidates stay unsigned and simulator results cannot satisfy the physical-device release gate.

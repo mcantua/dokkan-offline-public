@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 41321551443,
+  "job_id": 124892685933,
+  "source_commit": "da1a36ab2ecf4b3cb9f85ed9ad2723fbba61cd60",
+  "conclusion": "success",
+  "test_build_succeeded": true,
+  "selected_native_method": "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+  "native_methods_executed": 1,
+  "native_methods_passed": 1,
+  "native_failure_count": 0,
+  "native_unexpected_exception_count": 0,
+  "native_test_seconds": 12.518,
+  "actual_failure": null,
+  "failure_scope": null,
+  "native_success_receipt_present": true,
+  "reused_checks": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "recovery": 2
+  },
+  "compiler_sdk": "27.1",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "actual_runtime": "27.0",
+  "actual_simulator": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+  "physical_hardware_verified": false,
+  "artifacts": [
+    {
+      "id": 13089861689,
+      "name": "app-installer-cloud-tests-latest",
+      "bytes": 9864608,
+      "sha256": "9465243b0cbbbf0df4cb5c2c4d1323d8ade3336c0f5a14a8355813393194fafd"
+    },
+    {
+      "id": 13090040992,
+      "name": "app-installer-pairing-public-proof",
+      "bytes": 24577,
+      "sha256": "a3674c802c02531e461d979c3cd24d62912cbebb675f6319139298e1cc9b1bb8"
+    }
+  ],
+  "outer_pins_verified": true,
+  "native_artifact_retained": "native-artifact.zip",
+  "full_xcresult_extracted": false,
+  "png_attachment_count": 10,
+  "all_reached_original_png_payloads_bound": true,
+  "attachments": [
+    {
+      "attachment_name": "TEST-ONLY resize/camera  390x844",
+      "payload_ref": "0~W93kuevnha4Q7M9iqu9lr5NAQ08IorfFpd0crjasoAIpFuJcyJiniKn3DW-dCmnY0U1hTBE4GT08aVaKrBIQZw==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~W93kuevnha4Q7M9iqu9lr5NAQ08IorfFpd0crjasoAIpFuJcyJiniKn3DW-dCmnY0U1hTBE4GT08aVaKrBIQZw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1204778,
+      "sha256": "4dd3c71433c59d0b5cb428a3d768f6955eab1ac7f99db20fd4cf5b1756181194",
+      "dimensions": [
+        1170,
+        2532
+      ],
+      "extracted_file": "screenshots/01-TEST-ONLY-resize-camera-390x844-4dd3c71433c5.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 466x678",
+      "payload_ref": "0~bP_cR75ALjeaYfu0h7dMbtYfSH9sX9qua7Rz6ogvjLv84p3SouMKJuafJXLAmug4TrR1Q5jSH-mUJrUmRX-CDw==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~bP_cR75ALjeaYfu0h7dMbtYfSH9sX9qua7Rz6ogvjLv84p3SouMKJuafJXLAmug4TrR1Q5jSH-mUJrUmRX-CDw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1205693,
+      "sha256": "35f090b126cbdd92ac3cf976d4cc72b5decbe85007e0b47fecdc9182d4ed8cac",
+      "dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/02-TEST-ONLY-resize-camera-right-466x678-35f090b126cb.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 669x951",
+      "payload_ref": "0~xEW5fNmBPhf-pEipwlpdmMe6ScIFoCmp2xgnOOnV4Xfyy1SQ37dXED5Tx2dh_AuCbFethD6DvSXcKoDaNpHfFQ==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~xEW5fNmBPhf-pEipwlpdmMe6ScIFoCmp2xgnOOnV4Xfyy1SQ37dXED5Tx2dh_AuCbFethD6DvSXcKoDaNpHfFQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1337332,
+      "sha256": "6482edbd928b0a5031ffa62c893eacd8a375417f6cdbf8779522a3250cba532a",
+      "dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/03-TEST-ONLY-resize-camera-right-669x951-6482edbd928b.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~_OiFHZSQj12EgeEvOmClYkY5L4yFGFau-jnFNEkyd2mVUyKL2qrpy1oN_ttLtjoUu-g92eV_fWP2bePgTnkzWQ==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~_OiFHZSQj12EgeEvOmClYkY5L4yFGFau-jnFNEkyd2mVUyKL2qrpy1oN_ttLtjoUu-g92eV_fWP2bePgTnkzWQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1440270,
+      "sha256": "358451739f5b6124c70d8ac424166d02cb3d3d262de5fac1218252d85551a240",
+      "dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/04-TEST-ONLY-resize-camera-669x951-358451739f5b.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  951x669",
+      "payload_ref": "0~vYy66RLxTNMlhDRKSBOjkSrM-m_T-0qik1ZsBGHSwg4jLe8McR8zaxMWZ-vlpe0kc_i5sf1d0zr-FG0XI0WCWw==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~vYy66RLxTNMlhDRKSBOjkSrM-m_T-0qik1ZsBGHSwg4jLe8McR8zaxMWZ-vlpe0kc_i5sf1d0zr-FG0XI0WCWw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1608657,
+      "sha256": "ad47d75fb0c9ecde405e71578ec908261171db0135d195580a3e122db18ddd92",
+      "dimensions": [
+        2853,
+        2007
+      ],
+      "extracted_file": "screenshots/05-TEST-ONLY-resize-camera-951x669-ad47d75fb0c9.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera left 466x678",
+      "payload_ref": "0~55COY99Mvs3mLhnoP49g8m-5xTgBmSGuCNlT_vI-TMPEQlXqM2mrR85uA-ibtDI9cldGK9zm4hAhAPfaEhOT6w==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~55COY99Mvs3mLhnoP49g8m-5xTgBmSGuCNlT_vI-TMPEQlXqM2mrR85uA-ibtDI9cldGK9zm4hAhAPfaEhOT6w==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1121874,
+      "sha256": "e1737ae8260475c86190228d3b626548bbb77bb23b1ce4c28f24310c7f6db4a1",
+      "dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/06-TEST-ONLY-resize-camera-left-466x678-e1737ae82604.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~2AuAPfXrqp1HPTFH5ucHLftf8R76BZ8Ok8XsBCzXrXmu04Zh6MIbjqvTSNfFQBJrkBZ_ra9zWCe_2Ut0V8qrig==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~2AuAPfXrqp1HPTFH5ucHLftf8R76BZ8Ok8XsBCzXrXmu04Zh6MIbjqvTSNfFQBJrkBZ_ra9zWCe_2Ut0V8qrig==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1440185,
+      "sha256": "7c74d9a7bb9c3f27b09c043c918fa17f00ee6b8e590e1d4ba36d7a1733d5bf40",
+      "dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/07-TEST-ONLY-resize-camera-669x951-7c74d9a7bb9c.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY maximum accessibility text \u2014 pinned native task controls",
+      "payload_ref": "0~zjhljH9UiJfoY6l3fl8DYABLo-xdw8Y7uoaecFGEyaAKwpqeHzOiH9shlzvKhLouCA56x1IFNlpd_WzD1oe2sg==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~zjhljH9UiJfoY6l3fl8DYABLo-xdw8Y7uoaecFGEyaAKwpqeHzOiH9shlzvKhLouCA56x1IFNlpd_WzD1oe2sg==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 1150614,
+      "sha256": "93140bf980a9bf0aa3a9413ba693383f5bae67d3cff5b400caf0984792095e97",
+      "dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/08-TEST-ONLY-maximum-accessibility-text-pinned-native-task-controls-93140bf980a9.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY maximum accessibility text \u2014 full task details final sentence",
+      "payload_ref": "0~BnZZSI9mxFCF1UYKLF1yC0B5nMaRR2KkFNbV841S_JlQw7zjJw9ZYE-EXyJ_1lK-xh0jT8pPTPTejmcFPF0Gvw==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~BnZZSI9mxFCF1UYKLF1yC0B5nMaRR2KkFNbV841S_JlQw7zjJw9ZYE-EXyJ_1lK-xh0jT8pPTPTejmcFPF0Gvw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 393370,
+      "sha256": "c63201a124bd7ccdb714cd1458001f60250cc7133a3be2ac8fe4d829ef72198e",
+      "dimensions": [
+        1320,
+        2682
+      ],
+      "extracted_file": "screenshots/09-TEST-ONLY-maximum-accessibility-text-full-task-details-final-sentence-c63201a124bd.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY compact maximum accessibility \u2014 indeterminate native task activity",
+      "payload_ref": "0~0lRqbnLcZx4XvsD9KPk2sopGivQYGSMit5DYvfUyuSRXsndkAxv9L4mSVAAqX2WBfIRisicE9pQhP6oczoV9NQ==",
+      "zip_member": "CloudUISmoke.xcresult/Data/data.0~0lRqbnLcZx4XvsD9KPk2sopGivQYGSMit5DYvfUyuSRXsndkAxv9L4mSVAAqX2WBfIRisicE9pQhP6oczoV9NQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~SE39VOcMuSOjowj3e6HJSvyEtGwa84U4iDuSfEmc9vvXAlpdmiWl1Nsh07Kuh8rTzr_NYHlCxwpvLADm1rtm7g==",
+      "metadata_sha256": "d62abe38e155fc65bfc0bc2afd93f7229d50e26341e17054922b5484f7be4fd8",
+      "bytes": 565673,
+      "sha256": "480d87423884cbac455efb6e453f926ed6e7642919779cf6b54763c1733b1618",
+      "dimensions": [
+        1398,
+        1200
+      ],
+      "extracted_file": "screenshots/10-TEST-ONLY-compact-maximum-accessibility-indeterminate-native-task-activity-480d87423884.png",
+      "original_bytes_unmodified": true
+    }
+  ],
+  "bounded_zstd_members_skipped": [],
+  "image_scope": "Original actual regular iOS27.0 UIKit screenshots with labelled synthetic geometry/safe-area/maximum-text task state fixtures. No physical Duo or authenticated task proof.",
+  "raw_job_log": {
+    "file": "hosted-job.log",
+    "bytes": 417547,
+    "sha256": "950a664074effe99864f5568a5816a05dcd0eac1264e646a70515d7557f07d42"
+  },
+  "local_tests_builds_or_native_execution": false,
+  "source_edits_or_redispatch": false,
+  "old_artifacts_or_distribution_deleted": false,
+  "native_before_after_inputs_equal": true,
+  "native_source_input_count": 232,
+  "native_log_sha256": "7f191c2818dc4d9e565820eb77ee6b64672dd9651f1fed6fcdf51bb927f9e4ad"
+}

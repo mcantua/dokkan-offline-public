@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "workflow_id": 400819284,
+  "run_id": 41269237340,
+  "source_commit": "06486120c736ea6efcb246424894a85a07e1fb36",
+  "workflow_run_url": "https://github.com/mcantua/dokkan-offline-public/actions/runs/41269237340",
+  "job": {
+    "id": 124738381813,
+    "name": "simulator (single)",
+    "status": "completed",
+    "conclusion": "success",
+    "run_id": 41269237340,
+    "logs_url": null,
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1
+      },
+      {
+        "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2
+      },
+      {
+        "name": "Build and run hosted UIKit and secure-storage checks",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3
+      },
+      {
+        "name": "Keep only the new public source-bound test proof",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4
+      },
+      {
+        "name": "Keep integrity-checked unsigned candidates with their source",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 5
+      },
+      {
+        "name": "Keep the minimal native setup kit",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 6
+      },
+      {
+        "name": "Keep failed or standalone test diagnostics",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7
+      },
+      {
+        "name": "Retain a complete kit and source pair",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 8
+      },
+      {
+        "name": "Keep only current standalone test diagnostics",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 9
+      },
+      {
+        "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 18
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 19
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 13069021928,
+      "name": "app-installer-pairing-public-proof",
+      "size_in_bytes": 68658,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13069021928",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13069021928/zip",
+      "expired": false,
+      "created_at": "2026-11-01T03:42:15Z",
+      "expires_at": "2026-11-08T03:42:14Z",
+      "updated_at": "2026-11-01T03:42:15Z",
+      "digest": "sha256:9754b51cad486419060ae5c8739ee8498ac5098e6cb4b49ddd8c5340db7ed4c2",
+      "workflow_run": {
+        "id": 41269237340,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "06486120c736ea6efcb246424894a85a07e1fb36"
+      }
+    },
+    {
+      "id": 13068548678,
+      "name": "app-installer-cloud-tests-latest",
+      "size_in_bytes": 8828304,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13068548678",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13068548678/zip",
+      "expired": false,
+      "created_at": "2026-11-01T03:42:17Z",
+      "expires_at": "2026-11-08T03:42:15Z",
+      "updated_at": "2026-11-01T03:42:17Z",
+      "digest": "sha256:10157d5103bdcba04c9cc3766e2b1368f27bb27e50d821974c7acb8ba8f60637",
+      "workflow_run": {
+        "id": 41269237340,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "06486120c736ea6efcb246424894a85a07e1fb36"
+      }
+    }
+  ],
+  "fresh_checks": {
+    "transport": {
+      "passed": 2,
+      "failed": 0,
+      "seconds": 0.27,
+      "methods": [
+        "engine::transport::tests::public_remote_transport_psk_requires_matching_secret_and_real_tls_finished",
+        "engine::transport::tests::public_remote_transport_tunnel_frames_are_bounded_and_preserve_following_ip_bytes"
+      ]
+    },
+    "recovery": {
+      "passed": 2,
+      "failed": 0,
+      "seconds": 0.04,
+      "methods": [
+        "engine::tests::recovery_refresh_continues_local_failures_but_stops_auth_cancel_or_uncertain_install",
+        "engine::tests::recovery_failed_first_install_keeps_latest_input_after_empty_lookup_and_restart"
+      ]
+    },
+    "native": {
+      "passed": 3,
+      "failed": 0,
+      "seconds": 8.869,
+      "methods": [
+        "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+        "PairingConnectionGuardTests/testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs",
+        "PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads"
+      ]
+    }
+  },
+  "reused_checks": {
+    "vendor": {
+      "passed": 8,
+      "run_id": 40916969403
+    },
+    "helper": {
+      "passed": 2,
+      "run_id": 40916969403
+    }
+  },
+  "context_observed": {
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "architecture": "aarch64-apple-darwin",
+    "xcode_path": "/Applications/Xcode_27.1.app/Contents/Developer",
+    "simulator_sdk": "27.1",
+    "simulator_sdk_build": "24A94232",
+    "simulator_runtime": "27.0 (24A434)",
+    "simulator_device": "regular-iphone-component-fallback",
+    "native_full_Duo_hardware_verification": false
+  },
+  "evidence_scope": "Actual completed hosted job log and API artifact metadata. No artifact ZIP downloaded by this agent, no local test/build, no package build in this checks-only run. Native synthetic fixtures verify components; no real pairing/account/device proof.",
+  "local_tests_executed": 0,
+  "local_builds_executed": 0,
+  "bulk_artifacts_downloaded": false,
+  "captured_at": "2026-11-01T03:43:30.851377+00:00",
+  "log_file": "hosted-job.log",
+  "log_bytes": 321395,
+  "log_sha256": "de4f8aee49cc617b73a503b0dd9a2afa7945cff9d6cfe6fc9cb909894dba4eeb",
+  "log_encoding": "UTF-8 text decoded by GitHub connector"
+}

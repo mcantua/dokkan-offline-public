@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "source_head_at_run": "9946635e9bb89586a3c4dd3cfe273588f284b83a",
+  "source_status_at_run": "Three owned files modified and uncommitted; hashes identify exact tested inputs.",
+  "before_hash_observation_utc": "2026-11-01T03:20:56Z",
+  "before_hash_provenance": "Recorded sha256sum tool output before edits; the original pre-edit raw tool output was not separately captured in a file. Independently checked against the recorded HEAD now.",
+  "test_command": "python3 app-installer/device/tests/test_public_pairing_workflow.py",
+  "started_utc": "2026-11-01T03:21:42Z",
+  "finished_utc": "2026-11-01T03:21:42Z",
+  "test_invocations": 1,
+  "test_methods": [
+    "PublicPairingWorkflow.test_helper_seal_source_hash_graph_and_mode_are_required",
+    "PublicPairingWorkflow.test_pair_only_skips_accounts_and_owned_capture_never_forwards_private_text"
+  ],
+  "test_result": {
+    "exit_code": 0,
+    "tests": 2,
+    "reported_seconds": 0.054,
+    "status": "OK"
+  },
+  "raw_output": {
+    "file": "setup-mode-tests.log",
+    "bytes": 506,
+    "sha256": "32045896d96e35c7fdc1f0282baaf81969dddf10637e5053c26a4467d78367d4",
+    "capture": "Actual combined stdout/stderr captured with tee during the run, including timestamps and tested input SHA-256 values; not a reconstructed transcription."
+  },
+  "files": [
+    {
+      "path": "app-installer/device/Run-App-Installer-Setup.command",
+      "before_sha256": "5ceeebe416fb3d1e12598152089e05218d9007dac3e13073ebcae1ae71e881d5",
+      "tested_after_sha256": "a80c88ab0fd2cc1214134e9a576406ce4401b997bcc274d10fe844f2dfa07e92",
+      "after_bytes": 1749
+    },
+    {
+      "path": "app-installer/device/setup-wizard.py",
+      "before_sha256": "675e8e7db4e0c193eb293dae2cd420686974a8a0d900e1f121aaa98eb0b6371b",
+      "tested_after_sha256": "8f20f96a374046daca7098eb79a280270ecc954067c8e022ce709567415bd798",
+      "after_bytes": 12868
+    },
+    {
+      "path": "app-installer/device/tests/test_public_pairing_workflow.py",
+      "before_sha256": "c20f1f8d8d52c878a97dce44a1c4adb8c0aba834a7566382c343d0f55540eb62",
+      "tested_after_sha256": "842805ed4c4f4173cd1a29893c7fdf115980ac1d99a8600703186b8ba38e80c6",
+      "after_bytes": 12986
+    }
+  ],
+  "limitations": [
+    "No Mac/device/account/network/build execution.",
+    "Launcher branch checks used inert TEST-ONLY tool substitutions; real AppleScript UI was not executed.",
+    "No tests rerun while preserving evidence."
+  ]
+}

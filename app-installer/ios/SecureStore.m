@@ -1,15 +1,32 @@
 #import "SecureStore.h"
 #import "../core/secure_storage.h"
 #import <string.h>
+#import <math.h>
+#import <mach/mach_time.h>
 
+NSNotificationName const AISecureStoreSessionExpiredNotification = @"org.tin.appinstaller.secure-session-expired";
 static NSString *const AISecretService = @"org.tin.appinstaller.secure";
 static NSString *const AISettingService = @"org.tin.appinstaller.settings";
 static LAContext *AISession;
-static NSDate *AISessionExpires;
+static NSTimeInterval AISessionDeadline;
 static BOOL AIMigrating = NO;
 static NSUInteger AIAuthenticationGeneration = 0;
+static NSUInteger AIExpiredSessionGeneration = 0;
 static const NSUInteger AIMaxSecretSize = 4 * 1024 * 1024;
 
+// Continuous monotonic time includes sleep and cannot be extended by wall-clock
+// changes. Device lock separately invalidates the authenticated context.
+static NSTimeInterval AISessionTime(void) {
+    static mach_timebase_info_data_t timebase;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{ mach_timebase_info(&timebase); });
+    if (!timebase.numer || !timebase.denom) return INFINITY;
+    return (double)mach_continuous_time() * timebase.numer / timebase.denom / 1e9;
+}
+@interface AISecureStore ()
++ (BOOL)leaseExpiredAtTime:(NSTimeInterval)now deadline:(NSTimeInterval)deadline;
++ (void)scheduleExpirationForGeneration:(NSUInteger)generation;
+@end
 @implementation AISecureStore
 + (NSMutableDictionary *)query:(NSString *)key {
     return [@{(__bridge id)kSecClass:(__bridge id)kSecClassGenericPassword,
@@ -85,11 +102,35 @@ static const NSUInteger AIMaxSecretSize = 4 * 1024 * 1024;
 }
 + (BOOL)sessionAuthorized {
     @synchronized(self) {
-        if (AISession && (!AISessionExpires || [AISessionExpires timeIntervalSinceNow] <= 0)) {
-            [AISession invalidate]; AISession = nil; AISessionExpires = nil;
-            ++AIAuthenticationGeneration;
+        if (AISession && [self leaseExpiredAtTime:AISessionTime() deadline:AISessionDeadline]) {
+            [AISession invalidate]; AISession = nil; AISessionDeadline = 0;
+            AIExpiredSessionGeneration = ++AIAuthenticationGeneration;
+            // Never enter Rust/control locks while holding the secure-store lock.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [NSNotificationCenter.defaultCenter postNotificationName:AISecureStoreSessionExpiredNotification object:nil];
+            });
         }
         return !AIMigrating && AISession != nil;
+    }
+}
++ (BOOL)leaseExpiredAtTime:(NSTimeInterval)now deadline:(NSTimeInterval)deadline {
+    return !isfinite(now) || !isfinite(deadline) || deadline <= 0 || now >= deadline;
+}
++ (void)scheduleExpirationForGeneration:(NSUInteger)generation {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 300 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        @synchronized(self) {
+            if (generation != AIAuthenticationGeneration || !AISession) return;
+            (void)[self sessionAuthorized];
+        }
+    });
+}
++ (BOOL)consumeSessionExpiration {
+    if (!NSThread.isMainThread) return NO;
+    @synchronized(self) {
+        (void)[self sessionAuthorized];
+        NSUInteger expired = AIExpiredSessionGeneration;
+        AIExpiredSessionGeneration = 0;
+        return expired != 0 && expired == AIAuthenticationGeneration && AISession == nil;
     }
 }
 + (LAContext *)authorizedContext {
@@ -97,8 +138,12 @@ static const NSUInteger AIMaxSecretSize = 4 * 1024 * 1024;
 }
 + (void)endSession {
     @synchronized(self) {
-        [AISession invalidate]; AISession = nil; AISessionExpires = nil;
+        BOOL expiryAwaitingRevocation = AIExpiredSessionGeneration != 0;
+        [AISession invalidate]; AISession = nil; AISessionDeadline = 0;
         ++AIAuthenticationGeneration; // Invalidates any pending LocalAuthentication reply.
+        // Explicit cancellation must not erase a queued expiry before the
+        // coordinator has cleared the old engine's in-memory authentication.
+        AIExpiredSessionGeneration = expiryAwaitingRevocation ? AIAuthenticationGeneration : 0;
     }
 }
 + (void)authenticateSessionWithReason:(NSString *)reason completion:(void (^)(BOOL))completion {
@@ -106,6 +151,12 @@ static const NSUInteger AIMaxSecretSize = 4 * 1024 * 1024;
     __block BOOL bootstrap;
     @synchronized(self) {
         if ([self sessionAuthorized]) { dispatch_async(dispatch_get_main_queue(), ^{ completion(YES); }); return; }
+        // Do not let a merely pending/failed new authentication generation
+        // supersede revocation of an expired engine session. The main-queue
+        // coordinator must consume that expiry before another attempt begins.
+        if (AIExpiredSessionGeneration != 0 && AIExpiredSessionGeneration == AIAuthenticationGeneration) {
+            dispatch_async(dispatch_get_main_queue(), ^{ completion(NO); }); return;
+        }
         bootstrap = [self initialSetupRequired];
         generation = ++AIAuthenticationGeneration;
     }
@@ -127,7 +178,9 @@ static const NSUInteger AIMaxSecretSize = 4 * 1024 * 1024;
                     [AISession invalidate]; AISession = context;
                     // Never let Rust background calls trigger authentication UI.
                     AISession.interactionNotAllowed = YES;
-                    AISessionExpires = [NSDate dateWithTimeIntervalSinceNow:300];
+                    AISessionDeadline = AISessionTime() + 300;
+                    AIExpiredSessionGeneration = 0;
+                    [self scheduleExpirationForGeneration:generation];
                 } else { [context invalidate]; success = NO; }
             }
             dispatch_async(dispatch_get_main_queue(), ^{ completion(success); });
@@ -277,7 +330,9 @@ static const NSUInteger AIMaxSecretSize = 4 * 1024 * 1024;
                             for (NSString *key in updated) [self saveDirect:values[key] key:key biometric:oldSetting context:newContext];
                         } else {
                             [AISession invalidate]; AISession = newContext; AISession.interactionNotAllowed = YES;
-                            AISessionExpires = [NSDate dateWithTimeIntervalSinceNow:300]; changed = YES;
+                            AISessionDeadline = AISessionTime() + 300;
+                            AIExpiredSessionGeneration = 0;
+                            [self scheduleExpirationForGeneration:++AIAuthenticationGeneration]; changed = YES;
                         }
                         for (NSMutableData *value in values.allValues) [value resetBytesInRange:NSMakeRange(0, value.length)];
                         AIMigrating = NO;
@@ -305,6 +360,9 @@ static int32_t AIStoreStatus(OSStatus status) {
     if (status == errSecItemNotFound) return AI_STORE_MISSING;
     if (status == errSecInteractionNotAllowed || status == errSecAuthFailed || status == errSecUserCanceled) return AI_STORE_LOCKED;
     return AI_STORE_ERROR;
+}
+int32_t ai_secure_session_authorized(void) {
+    @autoreleasepool { return [AISecureStore sessionAuthorized] ? 1 : 0; }
 }
 int32_t ai_secure_read(const char *key, uint8_t *buffer, size_t capacity, size_t *length) {
     @autoreleasepool {

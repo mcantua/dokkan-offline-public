@@ -1,0 +1,9 @@
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:05:22.9523750Z error: cannot install while Rust is installed
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:09:09.4289990Z ** TEST BUILD SUCCEEDED **
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:11:10.8213000Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:11:13.7889820Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:323: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : Can't return value for trait PreferredContentSizeCategory that has no override (NSInternalInconsistencyException)
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:11:13.9549730Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' failed (5.102 seconds).
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:11:14.2032890Z 	 Executed 1 test, with 1 failure (1 unexpected) in 5.102 (5.104) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:11:14.5558350Z 	 Executed 1 test, with 1 failure (1 unexpected) in 5.102 (5.105) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:11:15.1480330Z 	 Executed 1 test, with 1 failure (1 unexpected) in 5.102 (5.106) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:14:04.9355520Z ** TEST EXECUTE FAILED **

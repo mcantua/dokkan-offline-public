@@ -1,0 +1,24 @@
+{
+  "source_commit": "4c09a35bd30e5b39c229e3f9f401ffdc5cd143a8",
+  "architecture": "arm64",
+  "rust_target": "aarch64-apple-ios",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "simulator_sdk": "27.1",
+  "scope": "Genuine SDK27.1+. Actual simulator selection and pre-app health are recorded separately. No Apple login or phone use; geometry fixtures do not verify hardware folds.",
+  "pairing_public_new_test_counts": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "recovery": 2,
+    "native": 3
+  },
+  "native_checks_requested": false,
+  "native_test_scope": "pairing-public",
+  "display_inventory_preflight_executed": false,
+  "rust_test_scope": "pairing-public",
+  "workflow_role": "single",
+  "native_gate_requires_same_run_sibling": false,
+  "native_pass_claimed_by_package_job": false,
+  "physical_hardware_verified": false,
+  "pose_automation": "No undocumented fold CLI invoked; optional simctl metadata intentionally not queried for component checks."
+}

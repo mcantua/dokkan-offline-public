@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_head_at_test": "711679fb813bc0ca553070b6d1098cf7081fddd0",
+  "source_status_at_test": "Two owned files modified and uncommitted; exact tested hashes below.",
+  "before_hash_observation_utc": "2026-11-01T03:58:13Z",
+  "before_hash_provenance": "Recorded pre-edit sha256sum tool result; independently checked against source HEAD. Original pre-edit raw tool output was not separately logged.",
+  "test_command": "python3 app-installer/cloud-ui/test_public_delivery.py",
+  "started_utc": "2026-11-01T03:58:56Z",
+  "finished_utc": "2026-11-01T03:58:57Z",
+  "test_invocations": 1,
+  "test_result": {
+    "exit_code": 0,
+    "tests": 2,
+    "reported_seconds": 0.035,
+    "status": "OK"
+  },
+  "methods": [
+    "PublicDeliveryGuards.test_contract_rejects_wrong_destination_and_incomplete_review_pins",
+    "PublicDeliveryGuards.test_archive_guards_reject_escape_links_aliases_and_expansion"
+  ],
+  "raw_output": {
+    "file": "draft-discovery-tests.log",
+    "bytes": 421,
+    "sha256": "42f0b3c00ee81d79ec78e3d129b34950e0438cea041acaead353c523f26dc0b3",
+    "capture": "Actual combined stdout/stderr captured by tee during execution, with timestamps and input hashes."
+  },
+  "files": [
+    {
+      "path": "app-installer/cloud-ui/public-delivery.py",
+      "before_sha256": "7b3b8a1032c3417b8bd9c063a227de1b14b416f4998e5b6add97c5e84af11256",
+      "tested_after_sha256": "1e466fbb8a4a64ea42b40e0068c89287d49c33c3740d1010027951381df92ff1",
+      "after_bytes": 46880
+    },
+    {
+      "path": "app-installer/cloud-ui/test_public_delivery.py",
+      "before_sha256": "70c107e36de6c5d8b75f31214273478aa663e362564c8c48650e15372217eb83",
+      "tested_after_sha256": "b8fcd708176245f70ccecbecd2390c5c203ea2ca0c65452138f2d8044428c0d0",
+      "after_bytes": 9484
+    }
+  ],
+  "limitations": [
+    "Fake read-only API only; no live GitHub request, release mutation, app build or device action.",
+    "No automatic deletion of ambiguous drafts.",
+    "Actual hosted reuse remains for root-controlled delivery run."
+  ]
+}

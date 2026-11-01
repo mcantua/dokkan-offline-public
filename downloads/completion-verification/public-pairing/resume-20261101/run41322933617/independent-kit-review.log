@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "run_id": 41322933617,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "kit_files_verified": 38,
+  "required_source_files_verified": 24,
+  "additional_or_required_source_rows_bound": 28,
+  "rust_library_bytes": 112274928,
+  "rust_library_sha256": "84af85cf1131a2bc93741d4803d8b597c26f6920a1b6f9f39f34c7322e3e8d2e",
+  "helper": {
+    "version": "0.1.68",
+    "binary": {
+      "file": "app-installer-rp-bootstrap",
+      "bytes": 7805024,
+      "sha256": "0d882d3c1fcd0eb524d10a74df51e2aac185a80fe390fe06cfb6a9986362b1a1",
+      "mode": 493
+    },
+    "targets": [
+      "aarch64-apple-darwin",
+      "x86_64-apple-darwin"
+    ],
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "minimum_macos": "12.0",
+    "notarized": false
+  },
+  "notice_gap_count": 0,
+  "contract": {
+    "file": "app-installer/build/work/review-41322933617/review-contract.json",
+    "bytes": 1992,
+    "sha256": "3b27cc177ea589115770e58ea3a3d132e8c7d0b4240424c4b381ab885ac24086"
+  },
+  "original_root_review": {
+    "file": "downloads/completion-verification/public-pairing/resume-20261101/run41322933617/independent-candidate-review.json",
+    "bytes": 1103,
+    "sha256": "ebc87f0b437b67f99dbbefe0b98977c33e3b942b22e2fbeca1c3a55d02c3e4ea"
+  },
+  "source_manifest_capture": {
+    "file": "app-installer/build/work/review-41322933617/verified-source-manifest.json",
+    "bytes": 7018460,
+    "sha256": "7459dac3c5dc6bbd87393734e3553487daea77fb43f72d917c1d187d7aab9fb4"
+  },
+  "elapsed_seconds": 0.967,
+  "full_source_archive_rescanned": false,
+  "mac_signature_verification_performed": false,
+  "helper_executed": false,
+  "release_ready": false,
+  "scope": "Portable exact-byte/source/kit/IPA/graph/notice/Mach-O subset; genuine helper signature verification remains the required independent hosted Mac delivery gate.",
+  "reviewer_sha256": "3498bfd1a79bcf03540d48afb531fd6a1b1689f792447f9c163c8aea0ef1183a",
+  "validator_sha256": {
+    "app-installer/cloud-ui/public-delivery.py": "e5656ac9ced24be073fc5aacc7e13584c98d0788556d9ef5936502ecd7ca0d73",
+    "app-installer/build/verify-candidate.py": "9a02145b167615754df555d8e3ee5c5da5a36f6ce79b472436a1b699c60f53f9",
+    "app-installer/build/check-artifact.py": "265081703b718fd45c4ef1205e2115579007507c07168cd956e2043740f81e8b",
+    "app-installer/device/update-public-kit.py": "48b878b87b90e6d3a4977c73418e703bbc3715293c1cbfbd8f0e3782c2a0e913"
+  }
+}

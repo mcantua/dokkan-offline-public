@@ -1,0 +1,9 @@
+{
+  "obsolete_local_native_zip_removed": true,
+  "replacement_run": 41320431373,
+  "replacement_bytes": 39961128,
+  "replacement_sha256": "0dd4a21e62d424ac6f2a447543bbde4b603aa2ce8452c73a8fdcc9eea17f880d",
+  "raw_logs_source_pins_and_all_reached_pngs_preserved": true,
+  "prior_provenance_is_historical": true,
+  "application_distribution_changed": false
+}

@@ -1,0 +1,10 @@
+started=2026-11-01T03:21:42Z
+a80c88ab0fd2cc1214134e9a576406ce4401b997bcc274d10fe844f2dfa07e92  app-installer/device/Run-App-Installer-Setup.command
+8f20f96a374046daca7098eb79a280270ecc954067c8e022ce709567415bd798  app-installer/device/setup-wizard.py
+842805ed4c4f4173cd1a29893c7fdf115980ac1d99a8600703186b8ba38e80c6  app-installer/device/tests/test_public_pairing_workflow.py
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.054s
+
+OK
+finished=2026-11-01T03:21:42Z

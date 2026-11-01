@@ -1,0 +1,54 @@
+Command line invocation:
+    /Applications/Xcode_27.1.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/AppInstallerCloudSmoke.xcodeproj -scheme AppInstallerCloudSmoke -destination "platform=iOS Simulator,id=0F6BC973-0BD6-4F64-A8DF-2B18E9ADBC31" -parallel-testing-enabled NO -derivedDataPath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/DerivedData -resultBundlePath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture"
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+    CODE_SIGNING_ALLOWED = YES
+
+Writing result bundle at path:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+2026-11-01 14:34:57.811 xcodebuild[76197:155816] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 14:37:05.297894+0000 AppInstaller[77153:160178] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+Test Suite 'Selected tests' started at 2026-11-01 14:37:09.229.
+Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-11-01 14:37:09.230.
+Test Suite 'AppInstallerCloudUITests' started at 2026-11-01 14:37:09.230.
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+2026-11-01 14:37:09.758138+0000 AppInstaller[77153:160178] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 14:37:16.933474+0000 AppInstaller[77153:160178] Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x108a49800>.
+2026-11-01 14:37:16.946123+0000 AppInstaller[77153:160178] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 14:37:17.945231+0000 AppInstaller[77153:160178] [API] cannot add handler to 0 from 0 - dropping
+/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:359: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((full.font.pointSize) greater than (17.0)) failed: ("17") is not greater than ("17") - Full details must keep the actual enlarged Dynamic Type font.
+/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:360: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((full.contentSize.height) greater than (full.bounds.size.height)) failed: ("216") is not greater than ("786") - The long safe fixture must exercise native details scrolling.
+/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:363: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((full.contentOffset.y) greater than (0.0)) failed: ("0") is not greater than ("0")
+/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:395: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((activity.hidden) is false) failed
+2026-11-01 14:37:48.953640+0000 AppInstaller[77153:160178] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 14:37:49.271608+0000 AppInstaller[77153:160178] [API] cannot add handler to 0 from 0 - dropping
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' failed (40.539 seconds).
+Test Suite 'AppInstallerCloudUITests' failed at 2026-11-01 14:37:49.773.
+	 Executed 1 test, with 4 failures (0 unexpected) in 40.539 (40.543) seconds
+Test Suite 'AppInstallerCloudUITests.xctest' failed at 2026-11-01 14:37:49.777.
+	 Executed 1 test, with 4 failures (0 unexpected) in 40.539 (40.547) seconds
+Test Suite 'Selected tests' failed at 2026-11-01 14:37:51.265.
+	 Executed 1 test, with 4 failures (0 unexpected) in 40.539 (42.036) seconds
+2026-11-01 14:37:51.662118+0000 AppInstaller[77153:160178] Unbalanced calls to begin/end appearance transitions for <AICloudUITestGeometryHome: 0x108a49200>.
+2026-11-01 14:38:05.596207+0000 AppInstaller[77153:162523] [Default] Xcode took 13.91 seconds to acknowledge that testing finished.
+2026-11-01 14:38:17.978 xcodebuild[76197:155816] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 14:38:20.885 xcodebuild[76197:155816] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 14:38:32.750 xcodebuild[76197:155816] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 14:42:19.139 xcodebuild[76197:155816] [MT] IDETestOperationsObserverDebug: 532.680 elapsed -- Testing started completed.
+2026-11-01 14:42:19.139 xcodebuild[76197:155816] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-01 14:42:19.139 xcodebuild[76197:155816] [MT] IDETestOperationsObserverDebug: 532.680 sec, +532.680 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+Failing tests:
+	-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]
+	-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]
+	-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]
+	-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]
+
+** TEST EXECUTE FAILED **
+
+Testing started

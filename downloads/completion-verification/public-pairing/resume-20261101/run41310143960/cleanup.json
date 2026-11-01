@@ -1,0 +1,7 @@
+{
+  "retained_current_compressed_native": "native-artifact.zip",
+  "removed_superseded_owned_native_archives": [
+    "downloads/completion-verification/public-pairing/resume-20261101/run41269237340/native-artifact.zip"
+  ],
+  "other_historical_compact_proof_preserved": true
+}

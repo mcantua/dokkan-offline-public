@@ -1,0 +1,189 @@
+﻿2026-10-29T19:05:41.8858320Z Current runner version: '2.338.0'
+2026-10-29T19:05:41.8905900Z ##[group]Runner Image Provisioner
+2026-10-29T19:05:41.8907510Z Hosted Compute Agent
+2026-10-29T19:05:41.8908560Z Version: 20261021.618
+2026-10-29T19:05:41.8909640Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-29T19:05:41.8910970Z Build Date: 2026-10-21T00:45:21Z
+2026-10-29T19:05:41.8912330Z Worker ID: {702a1629-9e44-41cf-9e46-ea521a5bd436}
+2026-10-29T19:05:41.8914070Z Region: westus
+2026-10-29T19:05:41.8914540Z Cloud: MacCloud
+2026-10-29T19:05:41.8914950Z ##[endgroup]
+2026-10-29T19:05:41.8916540Z ##[group]Operating System
+2026-10-29T19:05:41.8917070Z macOS
+2026-10-29T19:05:41.8917510Z 26.6.2
+2026-10-29T19:05:41.8917850Z 25G83
+2026-10-29T19:05:41.8918230Z ##[endgroup]
+2026-10-29T19:05:41.8918640Z ##[group]Runner Image
+2026-10-29T19:05:41.8919180Z Image: macos-26-arm64
+2026-10-29T19:05:41.8919690Z Version: 20261021.0445.8
+2026-10-29T19:05:41.8920800Z Included Software: https://github.com/actions/runner-images/blob/macos-26-arm64/20261021.0445/images/macos/macos-26-arm64-Readme.md
+2026-10-29T19:05:41.8921970Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-26-arm64%2F20261021.0445
+2026-10-29T19:05:41.8922650Z ##[endgroup]
+2026-10-29T19:05:41.8923680Z ##[group]GITHUB_TOKEN Permissions
+2026-10-29T19:05:41.8925910Z Actions: read
+2026-10-29T19:05:41.8926310Z Contents: write
+2026-10-29T19:05:41.8926760Z Metadata: read
+2026-10-29T19:05:41.8927160Z ##[endgroup]
+2026-10-29T19:05:41.8929260Z Secret source: Actions
+2026-10-29T19:05:41.8929880Z Cache mode: write
+2026-10-29T19:05:41.8930360Z Prepare workflow directory
+2026-10-29T19:05:41.9390890Z Prepare all required actions
+2026-10-29T19:05:41.9456340Z Getting action download info
+2026-10-29T19:05:42.1015390Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2026-10-29T19:05:42.5011430Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-29T19:05:42.6050140Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-29T19:05:42.8833680Z Complete job name: deliver
+2026-10-29T19:05:42.9616940Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+2026-10-29T19:05:42.9618150Z with:
+2026-10-29T19:05:42.9618530Z   persist-credentials: false
+2026-10-29T19:05:42.9618980Z   path: AI-Workspace/dokkan-offline-public
+2026-10-29T19:05:42.9619540Z   repository: mcantua/dokkan-offline-public
+2026-10-29T19:05:42.9622600Z   token: ***
+2026-10-29T19:05:42.9622990Z   ssh-strict: true
+2026-10-29T19:05:42.9623390Z   ssh-user: git
+2026-10-29T19:05:42.9623730Z   clean: true
+2026-10-29T19:05:42.9624100Z   sparse-checkout-cone-mode: true
+2026-10-29T19:05:42.9624520Z   fetch-depth: 1
+2026-10-29T19:05:42.9624930Z   fetch-tags: false
+2026-10-29T19:05:42.9625360Z   show-progress: true
+2026-10-29T19:05:42.9625720Z   lfs: false
+2026-10-29T19:05:42.9626210Z   submodules: false
+2026-10-29T19:05:42.9626670Z   set-safe-directory: true
+2026-10-29T19:05:42.9627380Z ##[endgroup]
+2026-10-29T19:05:43.5930190Z Syncing repository: mcantua/dokkan-offline-public
+2026-10-29T19:05:43.5936550Z ##[group]Getting Git version info
+2026-10-29T19:05:43.5939790Z Working directory is '/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public'
+2026-10-29T19:05:43.5944580Z [command]/opt/homebrew/bin/git version
+2026-10-29T19:05:43.6276080Z git version 2.56.0
+2026-10-29T19:05:43.6313540Z ##[endgroup]
+2026-10-29T19:05:43.6326010Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/c6e3de67-6357-44d2-b387-d18d30d26506/.gitconfig'
+2026-10-29T19:05:43.6336670Z Temporarily overriding HOME='/Users/runner/work/_temp/c6e3de67-6357-44d2-b387-d18d30d26506' before making global git config changes
+2026-10-29T19:05:43.6341970Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-29T19:05:43.6350570Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+2026-10-29T19:05:43.6474280Z ##[group]Initializing the repository
+2026-10-29T19:05:43.6480180Z [command]/opt/homebrew/bin/git init /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+2026-10-29T19:05:43.6725930Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-29T19:05:43.6728270Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-29T19:05:43.6730570Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-29T19:05:43.6733170Z hint: call:
+2026-10-29T19:05:43.6734250Z hint:
+2026-10-29T19:05:43.6735280Z hint: 	git config --global init.defaultBranch <name>
+2026-10-29T19:05:43.6737020Z hint:
+2026-10-29T19:05:43.6738300Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-29T19:05:43.6740610Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-29T19:05:43.6742230Z hint:
+2026-10-29T19:05:43.6743120Z hint: 	git branch -m <name>
+2026-10-29T19:05:43.6744270Z hint:
+2026-10-29T19:05:43.6745870Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-29T19:05:43.6749140Z Initialized empty Git repository in /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/.git/
+2026-10-29T19:05:43.6755420Z [command]/opt/homebrew/bin/git remote add origin https://github.com/mcantua/dokkan-offline-public
+2026-10-29T19:05:43.6861710Z ##[endgroup]
+2026-10-29T19:05:43.6863610Z ##[group]Disabling automatic garbage collection
+2026-10-29T19:05:43.6865140Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-29T19:05:43.7024030Z ##[endgroup]
+2026-10-29T19:05:43.7028830Z ##[group]Setting up auth
+2026-10-29T19:05:43.7032230Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T19:05:43.7115920Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T19:05:43.8381150Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T19:05:43.8458420Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T19:05:43.9620240Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-29T19:05:43.9697410Z ##[endgroup]
+2026-10-29T19:05:43.9698900Z ##[group]Fetching the repository
+2026-10-29T19:05:43.9707890Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +466fc80842271cce0548741ec8f04e9654fd4f45:refs/remotes/origin/chatgpt/app-installer-pairing-repair
+2026-10-29T19:05:47.1600060Z From https://github.com/mcantua/dokkan-offline-public
+2026-10-29T19:05:47.1603500Z  * [new ref]         466fc80842271cce0548741ec8f04e9654fd4f45 -> origin/chatgpt/app-installer-pairing-repair
+2026-10-29T19:05:47.1740740Z ##[endgroup]
+2026-10-29T19:05:47.1741670Z ##[group]Determining the checkout info
+2026-10-29T19:05:47.1747950Z ##[endgroup]
+2026-10-29T19:05:47.1771660Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-29T19:05:47.1914140Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-29T19:05:47.1996470Z ##[group]Checking out the ref
+2026-10-29T19:05:47.1999270Z [command]/opt/homebrew/bin/git checkout --progress --force -B chatgpt/app-installer-pairing-repair refs/remotes/origin/chatgpt/app-installer-pairing-repair
+2026-10-29T19:05:48.0840940Z Switched to a new branch 'chatgpt/app-installer-pairing-repair'
+2026-10-29T19:05:48.0872420Z branch 'chatgpt/app-installer-pairing-repair' set up to track 'origin/chatgpt/app-installer-pairing-repair'.
+2026-10-29T19:05:48.0928350Z ##[endgroup]
+2026-10-29T19:05:48.1103980Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-29T19:05:48.1263230Z 466fc80842271cce0548741ec8f04e9654fd4f45
+2026-10-29T19:05:48.1279790Z ##[group]Removing auth
+2026-10-29T19:05:48.1283940Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T19:05:48.1374490Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T19:05:48.2940200Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T19:05:48.3005950Z http.https://github.com/.extraheader
+2026-10-29T19:05:48.3013090Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-29T19:05:48.3103200Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T19:05:48.4493950Z ##[endgroup]
+2026-10-29T19:05:48.5085150Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-29T19:05:48.5085590Z with:
+2026-10-29T19:05:48.5085890Z   python-version: 3.12
+2026-10-29T19:05:48.5086160Z   check-latest: false
+2026-10-29T19:05:48.5088420Z   token: ***
+2026-10-29T19:05:48.5088700Z   update-environment: true
+2026-10-29T19:05:48.5088950Z   allow-prereleases: false
+2026-10-29T19:05:48.5089180Z   freethreaded: false
+2026-10-29T19:05:48.5089390Z ##[endgroup]
+2026-10-29T19:05:48.7558740Z ##[group]Installed versions
+2026-10-29T19:05:48.7680200Z (node:1203) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T19:05:48.7681160Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T19:05:48.7681690Z Successfully set up CPython (3.12.10)
+2026-10-29T19:05:48.7682670Z ##[endgroup]
+2026-10-29T19:05:48.7835100Z ##[group]Run python3 app-installer/cloud-ui/public-delivery.py --contract "$DELIVERY_CONTRACT" --execute
+2026-10-29T19:05:48.7835890Z [36;1mpython3 app-installer/cloud-ui/public-delivery.py --contract "$DELIVERY_CONTRACT" --execute[0m
+2026-10-29T19:05:48.7930030Z shell: /bin/bash -e {0}
+2026-10-29T19:05:48.7930760Z env:
+2026-10-29T19:05:48.7931460Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:05:48.7932570Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+2026-10-29T19:05:48.7933690Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:05:48.7934670Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:05:48.7935670Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:05:48.7939140Z   GH_TOKEN: ***
+2026-10-29T19:05:48.7939540Z   DELIVERY_CONTRACT: app-installer/cloud-ui/public-delivery-contract.json
+2026-10-29T19:05:48.7940000Z   PYTHONDONTWRITEBYTECODE: 1
+2026-10-29T19:05:48.7940220Z ##[endgroup]
+2026-10-29T19:07:20.5906510Z Verified seven public review draft assets; unpublished and unsigned, release_ready=false.
+2026-10-29T19:07:20.6229050Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-29T19:07:20.6229370Z with:
+2026-10-29T19:07:20.6229540Z   name: app-installer-public-delivery-receipt
+2026-10-29T19:07:20.6229950Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/public-delivery-receipt.json
+2026-10-29T19:07:20.6230320Z   if-no-files-found: error
+2026-10-29T19:07:20.6230500Z   retention-days: 7
+2026-10-29T19:07:20.6230660Z   compression-level: 6
+2026-10-29T19:07:20.6251660Z   overwrite: false
+2026-10-29T19:07:20.6251870Z   include-hidden-files: false
+2026-10-29T19:07:20.6255350Z env:
+2026-10-29T19:07:20.6255700Z   pythonLocation: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:07:20.6256180Z   PKG_CONFIG_PATH: /Users/runner/hostedtoolcache/Python/3.12.10/arm64/lib/pkgconfig
+2026-10-29T19:07:20.6256720Z   Python_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:07:20.6257260Z   Python2_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:07:20.6257680Z   Python3_ROOT_DIR: /Users/runner/hostedtoolcache/Python/3.12.10/arm64
+2026-10-29T19:07:20.6257940Z ##[endgroup]
+2026-10-29T19:07:20.9950610Z (node:2271) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T19:07:20.9951440Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T19:07:21.0019370Z With the provided path, there will be 1 file uploaded
+2026-10-29T19:07:21.0022170Z Artifact name is valid!
+2026-10-29T19:07:21.0022580Z Root directory input is valid!
+2026-10-29T19:07:21.2091400Z Beginning upload of artifact content to blob storage
+2026-10-29T19:07:21.2218990Z (node:2271) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T19:07:21.2774980Z Uploaded bytes 1147
+2026-10-29T19:07:21.3012960Z Finished uploading artifact content to blob storage!
+2026-10-29T19:07:21.3013840Z SHA256 digest of uploaded artifact zip is 72c6b1455d467e51ec7ed2c2bc83bcfd23e490ba2805697c247cdf6d90c24f40
+2026-10-29T19:07:21.3015760Z Finalizing artifact upload
+2026-10-29T19:07:21.8029600Z Artifact app-installer-public-delivery-receipt.zip successfully finalized. Artifact ID 12925377150
+2026-10-29T19:07:21.8030660Z Artifact app-installer-public-delivery-receipt has been successfully uploaded! Final size is 1147 bytes. Artifact ID is 12925377150
+2026-10-29T19:07:21.8035330Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/40936908790/artifacts/12925377150
+2026-10-29T19:07:21.8170570Z Post job cleanup.
+2026-10-29T19:07:21.9166010Z (node:2424) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T19:07:21.9166640Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T19:07:21.9268020Z Post job cleanup.
+2026-10-29T19:07:22.0099310Z [command]/opt/homebrew/bin/git version
+2026-10-29T19:07:22.0268090Z git version 2.56.0
+2026-10-29T19:07:22.0285830Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/3b7ce4ad-dfe3-414c-a0c2-43b8fdb1af27/.gitconfig'
+2026-10-29T19:07:22.0292060Z Temporarily overriding HOME='/Users/runner/work/_temp/3b7ce4ad-dfe3-414c-a0c2-43b8fdb1af27' before making global git config changes
+2026-10-29T19:07:22.0292790Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-29T19:07:22.0296050Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public
+2026-10-29T19:07:22.0397700Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T19:07:22.0459710Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T19:07:22.1346040Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T19:07:22.1407230Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T19:07:22.2395090Z Cleaning up orphan processes
+2026-10-29T19:07:23.5631720Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

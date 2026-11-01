@@ -21,24 +21,71 @@ ORDER = ['0BSD','Apache-2.0','ISC','MIT','BSD-2-Clause','BSD-3-Clause','Zlib','U
 def sha(data): return hashlib.sha256(data).hexdigest()
 
 
+CORE_MANIFEST='app-installer/core/Cargo.toml'
+HELPER_MANIFEST='downloads/idevice/idevice-0.1.68/Cargo.toml'
+HELPER_SOURCE='downloads/idevice/idevice-0.1.68/examples/app-installer-rp-bootstrap.rs'
+HELPER_FEATURE='app-installer-rp-bootstrap'
+
+
+def distribution_graph_specs(target='aarch64-apple-ios'):
+    return [
+        {'manifest':CORE_MANIFEST,'target':target,'no_default_features':False,'features':[]},
+        *[{'manifest':HELPER_MANIFEST,'target':platform,'no_default_features':True,'features':[HELPER_FEATURE]}
+          for platform in ('aarch64-apple-darwin','x86_64-apple-darwin')],
+    ]
+
+
+def helper_component():
+    manifest=tomllib.loads((ROOT/HELPER_MANIFEST).read_text())
+    component=manifest['package']['metadata'][HELPER_FEATURE]
+    source=(ROOT/HELPER_SOURCE).read_bytes()
+    if component.get('license')!='AGPL-3.0-only' or not source.startswith(b'// SPDX-License-Identifier: AGPL-3.0-only'):
+        raise ValueError('Project helper source/license origin is not explicit')
+    if manifest['package'].get('license')!='MIT':
+        raise ValueError('Upstream idevice license identity changed; review required')
+    return {'name':HELPER_FEATURE,'source':HELPER_SOURCE,'license':'AGPL-3.0-only',
+            'license_path':'app-installer/LICENSE','source_origin':'project-written local example',
+            'containing_package':'idevice','containing_package_license':'MIT'}
+
+
 def load_graph(target='aarch64-apple-ios'):
+    """Union actual device-core and universal-Mac-helper feature closures."""
     cargo=Path(os.environ.get('CARGO_HOME',str(ROOT/'downloads/rust-toolchain/cargo')))/'bin/cargo'
-    graph=json.loads(subprocess.check_output([str(cargo),'metadata','--manifest-path',str(ROOT/'app-installer/core/Cargo.toml'),
-        '--format-version','1','--locked','--offline','--filter-platform',target],cwd=ROOT))
-    packages={p['id']:p for p in graph['packages']};nodes={n['id']:n for n in graph['resolve']['nodes']}
-    required=set();queue=[graph['resolve']['root']]
-    while queue:
-        item=queue.pop()
-        if item in required:continue
-        required.add(item);queue.extend(d['pkg'] for d in nodes[item]['deps'])
-    selected=[packages[i] for i in sorted(required)]
-    lock=tomllib.loads((ROOT/'app-installer/core/Cargo.lock').read_text())
-    checksums={(p['name'],p['version']):p.get('checksum') for p in lock['package']}
-    identities=[{'name':p['name'],'version':p['version'],'source':p.get('source'),
-                 'checksum':checksums.get((p['name'],p['version']))} for p in selected]
-    graph_hash=sha(json.dumps(sorted(identities,key=lambda x:(x['name'],x['version'],x['source'] or '')),
-                              sort_keys=True,separators=(',',':')).encode())
-    return graph,selected,checksums,graph_hash
+    selected={};checksums={};closures=[];primary=None
+    for spec in distribution_graph_specs(target):
+        command=[str(cargo),'metadata','--manifest-path',str(ROOT/spec['manifest']),
+            '--format-version','1','--locked','--offline','--filter-platform',spec['target']]
+        if spec['no_default_features']:command.append('--no-default-features')
+        if spec['features']:command.extend(['--features',','.join(spec['features'])])
+        graph=json.loads(subprocess.check_output(command,cwd=ROOT))
+        if primary is None:primary=graph
+        packages={p['id']:p for p in graph['packages']};nodes={n['id']:n for n in graph['resolve']['nodes']}
+        required=set();queue=[graph['resolve']['root']]
+        while queue:
+            item=queue.pop()
+            if item in required:continue
+            required.add(item);queue.extend(d['pkg'] for d in nodes[item]['deps'])
+        lock_path=str(Path(spec['manifest']).with_name('Cargo.lock'))
+        lock_bytes=(ROOT/lock_path).read_bytes();lock=tomllib.loads(lock_bytes.decode())
+        for package in lock['package']:
+            identity=(package['name'],package['version']);checksum=package.get('checksum')
+            if identity in checksums and checksums[identity]!=checksum:
+                raise ValueError('Conflicting publication checksums across distribution lockfiles')
+            checksums[identity]=checksum
+        identities=[]
+        for identity in sorted(required):
+            package=packages[identity];selected[identity]=package
+            identities.append({'name':package['name'],'version':package['version'],'source':package.get('source'),
+                'checksum':checksums.get((package['name'],package['version'])),
+                'features':sorted(nodes[identity].get('features',[]))})
+        closures.append(dict(spec,lock_path=lock_path,lock_sha256=sha(lock_bytes),
+            packages=sorted(identities,key=lambda x:(x['name'],x['version'],x['source'] or ''))))
+    # Only relative manifest/lock paths and package identities enter the hash, so
+    # hosted Linux/macOS checkouts bind the same source without machine paths.
+    graph_hash=sha(json.dumps(closures,sort_keys=True,separators=(',',':')).encode())
+    primary['distribution_graphs']=closures
+    primary['distribution_components']=[helper_component()]
+    return primary,[selected[i] for i in sorted(selected)],checksums,graph_hash
 
 
 def clauses(expression):
@@ -132,6 +179,13 @@ def assess(package,texts,checksum):
         candidates=[c for c in allowed_clauses if c<=ALLOWED and all(covered(i,full) for i in c)]
         if candidates:selected=min(candidates,key=lambda c:(sum(ORDER.index(i) for i in c),len(c)))
     if not selected:gaps.append('No authorized compatible branch has complete required license text');selected=set()
+    if package['name']=='openssl-src':
+        # The Rust build wrapper's alternative grant does not replace the
+        # independently bundled OpenSSL 3 source's Apache-2.0 obligations.
+        selected=set(selected)|{'Apache-2.0'}
+        upstream='\n'.join(text for name,text in texts if name.startswith('openssl/'))
+        if not covered('Apache-2.0',upstream):
+            gaps.append('Bundled OpenSSL Apache-2.0 license/notice text missing')
     for identifier in selected:
         if identifier not in ALLOWED:gaps.append('Unreviewed license identifier: '+identifier)
         elif not covered(identifier,full):gaps.append('Required license terms missing: '+identifier)

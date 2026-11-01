@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "production_source_commit": "3cf4a4613d5d03391bbea09e0cf9970f4e2bdc92",
+  "production_script_sha256": "1e466fbb8a4a64ea42b40e0068c89287d49c33c3740d1010027951381df92ff1",
+  "release_id": 430349496,
+  "tag_name": "app-installer-public-review",
+  "target_commitish": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "requests": [
+    "/releases?per_page=100&page=1"
+  ],
+  "actual_server_data": true,
+  "adapter": "Read-only gh API adapter; does not construct execution-scoped mutation client",
+  "mutations": false,
+  "application_tests_or_builds": false,
+  "scope": "Live release-list discovery only, not a full hosted delivery success"
+}

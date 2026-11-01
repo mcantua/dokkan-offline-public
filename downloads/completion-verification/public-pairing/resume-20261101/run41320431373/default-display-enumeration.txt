@@ -1,0 +1,1 @@
+Not queried: display enumeration is not required by the selected component/labelled geometry-fixture checks. No default display or Duo physical claim.

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "observed_utc": "2026-11-01T18:23:45.940617+00:00",
+  "handoff_pre_source_head": "5756b237a5e6cbeacd5986b7fee6bcee06352c1b",
+  "repository": "mcantua/dokkan-offline-public",
+  "release_id": 430349496,
+  "draft": true,
+  "published_at": null,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "package_run_id": 41322933617,
+  "seven_current_server_pins_match": true,
+  "kit_browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-native-bootstrap-kit.zip",
+  "handoff_sha256": "2be21ee083327a3a0f39d6da81452d2110d1b1149e7f3b26c5e9fcb0f3f0299f",
+  "development_test_or_build_executed": false,
+  "release_mutated": false,
+  "personal_resource_use": false
+}

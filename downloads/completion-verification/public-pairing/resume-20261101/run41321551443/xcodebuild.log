@@ -1,0 +1,41 @@
+Command line invocation:
+    /Applications/Xcode_27.1.app/Contents/Developer/usr/bin/xcodebuild test-without-building -project /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/AppInstallerCloudSmoke.xcodeproj -scheme AppInstallerCloudSmoke -destination "platform=iOS Simulator,id=B93E1EC1-AA7F-4135-B8DA-E36F4782FD12" -parallel-testing-enabled NO -derivedDataPath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/DerivedData -resultBundlePath /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture"
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+    CODE_SIGNING_ALLOWED = YES
+
+Writing result bundle at path:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+2026-11-01 15:38:45.144 xcodebuild[62377:125924] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 15:42:33.044107+0000 AppInstaller[64637:133895] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+Test Suite 'Selected tests' started at 2026-11-01 15:42:35.228.
+Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-11-01 15:42:35.229.
+Test Suite 'AppInstallerCloudUITests' started at 2026-11-01 15:42:35.229.
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+2026-11-01 15:42:35.529384+0000 AppInstaller[64637:133895] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 15:42:41.602050+0000 AppInstaller[64637:133895] Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x103eb1200>.
+2026-11-01 15:42:41.618980+0000 AppInstaller[64637:133895] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 15:42:42.579335+0000 AppInstaller[64637:133895] [API] cannot add handler to 0 from 0 - dropping
+2026-11-01 15:42:47.529107+0000 AppInstaller[64637:133895] [API] cannot add handler to 0 from 0 - dropping
+Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' passed (12.518 seconds).
+Test Suite 'AppInstallerCloudUITests' passed at 2026-11-01 15:42:47.752.
+	 Executed 1 test, with 0 failures (0 unexpected) in 12.518 (12.523) seconds
+Test Suite 'AppInstallerCloudUITests.xctest' passed at 2026-11-01 15:42:47.753.
+	 Executed 1 test, with 0 failures (0 unexpected) in 12.518 (12.524) seconds
+Test Suite 'Selected tests' passed at 2026-11-01 15:42:47.754.
+	 Executed 1 test, with 0 failures (0 unexpected) in 12.518 (12.526) seconds
+2026-11-01 15:42:48.119 xcodebuild[62377:125924] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 15:42:48.144 xcodebuild[62377:125924] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 15:42:48.186 xcodebuild[62377:125924] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-01 15:42:48.770 xcodebuild[62377:125924] [MT] IDETestOperationsObserverDebug: 316.597 elapsed -- Testing started completed.
+2026-11-01 15:42:48.771 xcodebuild[62377:125924] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-01 15:42:48.771 xcodebuild[62377:125924] [MT] IDETestOperationsObserverDebug: 316.597 sec, +316.597 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/CloudUISmoke.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

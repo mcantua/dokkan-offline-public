@@ -1,0 +1,4 @@
+COMMAND xcrun simctl bootstatus 2FE0A948-4E98-4C3A-9DFB-A9AB5E23F1E9 -b
+Monitoring boot status for App Installer Preapp 40926780346 regular-iphone-component-fallback (2FE0A948-4E98-4C3A-9DFB-A9AB5E23F1E9).
+Device already booted, nothing to do.
+

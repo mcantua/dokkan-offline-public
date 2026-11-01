@@ -1,0 +1,7 @@
+test_bad_archives_and_symlinks_are_rejected_before_project_writes (test_public_kit_update.PublicKitUpdateTests.test_bad_archives_and_symlinks_are_rejected_before_project_writes) ... ok
+test_update_preserves_unlisted_private_and_rejects_changed_managed (test_public_kit_update.PublicKitUpdateTests.test_update_preserves_unlisted_private_and_rejects_changed_managed) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.146s
+
+OK

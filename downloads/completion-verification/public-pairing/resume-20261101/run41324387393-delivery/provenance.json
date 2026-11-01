@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "delivery_run_id": 41324387393,
+  "delivery_job_id": 124901157359,
+  "delivery_source_commit": "489af38257d94ea6f325a77de572838a661e287e",
+  "conclusion": "success",
+  "source_run_id": 41322933617,
+  "source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471",
+  "source_tree_sha256": "f62721b5b9bbdcee73b127ce8b6189d4c2e041f30c3876d7b22753b1a3e8199c",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "receipt_artifact": {
+    "id": 13090324078,
+    "bytes": 1149,
+    "sha256": "ca22656e21a3d4f50cec2a0ea0c94ca1d68607c6739f578cf55264251437fffc"
+  },
+  "receipt_json_sha256": "367dc0293388e5353a7527bc02f9434f4526b17bbff86f563da5b4b5873da7a3",
+  "contract_sha256_matches_receipt": true,
+  "independent_get_seven_server_asset_pins_match_receipt_and_contract": true,
+  "sole_release_count": 1,
+  "draft_release_count": 1,
+  "release": {
+    "id": 430349496,
+    "tag_name": "app-installer-public-review",
+    "draft": true,
+    "published_at": null,
+    "html_url": "https://github.com/mcantua/dokkan-offline-public/releases/tag/untagged-adbb5d3025308a87b412",
+    "created_at": "2026-11-01T03:56:49Z",
+    "updated_at": "2026-11-01T16:05:57Z"
+  },
+  "actual_observed_kit_browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-native-bootstrap-kit.zip",
+  "tests_or_compilation_by_this_agent": false,
+  "signature_verification_scope": "Actual hosted Mac delivery workflow completed its stock validator; this Linux readback does not simulate codesign.",
+  "release_mutation_by_this_agent": false,
+  "local_distribution_changes_by_this_agent": false,
+  "raw_job_log_sha256": "fd1da70e3c3424a8cb09071175e27b9e5175a33297f9cc0a20014c4ec603ce53"
+}

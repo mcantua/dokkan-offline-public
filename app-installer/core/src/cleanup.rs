@@ -131,6 +131,22 @@ pub async fn retry(work: &Path, provider: &TcpProvider) -> Result<(), Report> {
     };
     retry_paths(work, paths, &mut client).await
 }
+/// Identical owned-path intent policy over an authenticated Remote Pairing/RSD
+/// connection. A failed service connection never authorizes broad cleanup.
+pub async fn retry_rsd(
+    work: &Path,
+    provider: &mut impl idevice::provider::RsdProvider,
+    handshake: &mut idevice::rsd::RsdHandshake,
+) -> Result<(), Report> {
+    use idevice::RsdService;
+    let paths = load(work)?;
+    if paths.is_empty() { return Ok(()); }
+    let mut client = match AfcClient::connect_rsd(provider, handshake).await {
+        Ok(client) => client,
+        Err(_) => return Ok(()),
+    };
+    retry_paths(work, paths, &mut client).await
+}
 pub fn unique_basename(sequence: u64) -> String {
     let time = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

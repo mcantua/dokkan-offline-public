@@ -1,0 +1,19 @@
+{
+  "classification": "unsigned-candidate",
+  "candidate_integrity_verified": true,
+  "notices_verified": true,
+  "corresponding_source_verified": true,
+  "relink_instructions_verified": true,
+  "unresolved_notice_cases": 0,
+  "release_ready": false,
+  "source_commit": "b45c705e5fde11a5c07bed590cc4a4643a24f1e4",
+  "source_bundle_sha256": "fcf0cdca31efc7a1c0f09c8d021b122a9d5380027cec6af8c1f23d78b0b4c75e",
+  "source_tree_sha256": "f66a5e7923e4501e8ced127e8aa580b9cca16b2ed1d536ab64994ec12e46e918",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "seconds": 10.152013360999263,
+  "source_manifest_sha256": "96f8964c6005d215de99bd9c47f57c7d881eae278b2f0e401f79bba02a8472b0",
+  "source_manifest_bytes": 7018086,
+  "source_manifest_capture": "Original full verifier returned unmodified; observed return saved only to avoid a second full archive scan. No signature/execution gate replaced.",
+  "physical_device_verified": false,
+  "mac_helper_signature": "Actual independent hostedMac delivery gate still required; portable candidate verifier does not execute helper."
+}

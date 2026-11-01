@@ -52,10 +52,12 @@ pub enum VerificationError {
     Entitlements,
     Resource,
     Unsupported,
+    Cancelled,
 }
 impl fmt::Display for VerificationError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
+            Self::Cancelled => "Signed app verification was cancelled or its authorization expired.",
             Self::Io => "Signed app data could not be read.",
             Self::Structure => "The signed app structure is invalid.",
             Self::HashMismatch => "The signed app failed an integrity check.",
@@ -97,6 +99,22 @@ pub fn verify_signed_bundle(
     signing_cert_der: &[u8],
     now: SystemTime,
 ) -> Result<VerificationReport> {
+    verify_signed_bundle_controlled(bundle, team, bundle_id, device, server_profile, signing_cert_der, now, &|| false)
+}
+
+/// Checks the shared cancellation/authorization/deadline predicate at bounded resource
+/// reads, executable pages and bundle boundaries. No verification worker is detached.
+pub fn verify_signed_bundle_controlled(
+    bundle: &Path,
+    team: &str,
+    bundle_id: &str,
+    device: &str,
+    server_profile: &[u8],
+    signing_cert_der: &[u8],
+    now: SystemTime,
+    should_stop: &(dyn Fn() -> bool + Send + Sync),
+) -> Result<VerificationReport> {
+    checkpoint(should_stop)?;
     let anchors: &[(&[u8], &str)] = &[
         (
             isideload::sideload::cert_identity::APPLE_ROOT,
@@ -122,7 +140,7 @@ pub fn verify_signed_bundle(
         }
         roots.push(Certificate::from_der(bytes).map_err(|_| VerificationError::Certificate)?);
     }
-    verify_with_roots(
+    verify_with_roots_controlled(
         bundle,
         team,
         bundle_id,
@@ -131,8 +149,10 @@ pub fn verify_signed_bundle(
         signing_cert_der,
         now,
         &roots,
+        should_stop,
     )
 }
+#[cfg(test)]
 fn verify_with_roots(
     bundle: &Path,
     team: &str,
@@ -143,6 +163,25 @@ fn verify_with_roots(
     now: SystemTime,
     roots: &[Certificate],
 ) -> Result<VerificationReport> {
+    verify_with_roots_controlled(bundle, team, bundle_id, device, server_profile, signing_cert_der, now, roots, &|| false)
+}
+
+fn checkpoint(should_stop: &(dyn Fn() -> bool + Send + Sync)) -> Result<()> {
+    if should_stop() { Err(VerificationError::Cancelled) } else { Ok(()) }
+}
+
+fn verify_with_roots_controlled(
+    bundle: &Path,
+    team: &str,
+    bundle_id: &str,
+    device: &str,
+    server_profile: &[u8],
+    signing_cert_der: &[u8],
+    now: SystemTime,
+    roots: &[Certificate],
+    should_stop: &(dyn Fn() -> bool + Send + Sync),
+) -> Result<VerificationReport> {
+    checkpoint(should_stop)?;
     if team.is_empty()
         || bundle_id.is_empty()
         || device.is_empty()
@@ -155,6 +194,7 @@ fn verify_with_roots(
     if embedded != server_profile {
         return Err(VerificationError::Profile);
     }
+    checkpoint(should_stop)?;
     let profile_cms = verify_cms(&embedded, None, roots, now, None)?;
     let profile: Dictionary =
         plist::from_bytes(&profile_cms.content).map_err(|_| VerificationError::Profile)?;
@@ -231,10 +271,12 @@ fn verify_with_roots(
     if !crate::entitlement_policy::grants_allow(&actual, grants) {
         return Err(VerificationError::Entitlements);
     }
+    checkpoint(should_stop)?;
     let expected =
         Certificate::from_der(signing_cert_der).map_err(|_| VerificationError::Certificate)?;
     let (slices, resources) =
-        verify_code_bundle(bundle, team, bundle_id, &expected, roots, now, true)?;
+        verify_code_bundle(bundle, team, bundle_id, &expected, roots, now, true, should_stop)?;
+    checkpoint(should_stop)?;
     Ok(VerificationReport {
         executable_slices: slices,
         resource_files: resources,
@@ -749,7 +791,9 @@ fn verify_code_bundle(
     roots: &[Certificate],
     now: SystemTime,
     application: bool,
+    should_stop: &(dyn Fn() -> bool + Send + Sync),
 ) -> Result<(usize, usize)> {
+    checkpoint(should_stop)?;
     let info_bytes = read_bounded(&bundle.join("Info.plist"), MAX_META)?;
     let info: Dictionary =
         plist::from_bytes(&info_bytes).map_err(|_| VerificationError::Structure)?;
@@ -764,7 +808,7 @@ fn verify_code_bundle(
         return Err(VerificationError::Structure);
     }
     let resource_bytes = read_bounded(&bundle.join("_CodeSignature/CodeResources"), MAX_META)?;
-    let resource_count = verify_resources(bundle, exe, &resource_bytes)?;
+    let resource_count = verify_resources(bundle, exe, &resource_bytes, should_stop)?;
     let mut slices = verify_macho(
         &bundle.join(exe),
         team,
@@ -775,11 +819,14 @@ fn verify_code_bundle(
         Some(&info_bytes),
         Some(&resource_bytes),
         application,
+        should_stop,
     )?;
     let mut resources = resource_count;
     let mut stack = vec![bundle.to_path_buf()];
     while let Some(dir) = stack.pop() {
+        checkpoint(should_stop)?;
         for entry in fs::read_dir(&dir).map_err(|_| VerificationError::Io)? {
+            checkpoint(should_stop)?;
             let entry = entry.map_err(|_| VerificationError::Io)?;
             let path = entry.path();
             let kind = entry.file_type().map_err(|_| VerificationError::Io)?;
@@ -801,6 +848,7 @@ fn verify_code_bundle(
                         roots,
                         now,
                         extension == "appex",
+                        should_stop,
                     )?;
                     slices += child_slices;
                     resources += child_resources;
@@ -815,7 +863,7 @@ fn verify_code_bundle(
                     .file_name()
                     .and_then(|n| n.to_str())
                     .ok_or(VerificationError::Identity)?;
-                slices += verify_macho(&path, team, name, expected, roots, now, None, None, false)?;
+                slices += verify_macho(&path, team, name, expected, roots, now, None, None, false, should_stop)?;
             } else if !kind.is_file() {
                 return Err(VerificationError::Structure);
             }
@@ -831,7 +879,8 @@ fn safe_relative(name: &str) -> bool {
             .components()
             .all(|c| matches!(c, Component::Normal(_)))
 }
-fn verify_resources(bundle: &Path, exe: &str, bytes: &[u8]) -> Result<usize> {
+fn verify_resources(bundle: &Path, exe: &str, bytes: &[u8], should_stop: &(dyn Fn() -> bool + Send + Sync)) -> Result<usize> {
+    checkpoint(should_stop)?;
     let resource: Dictionary = plist::from_bytes(bytes).map_err(|_| VerificationError::Resource)?;
     let files = resource
         .get("files")
@@ -847,6 +896,7 @@ fn verify_resources(bundle: &Path, exe: &str, bytes: &[u8]) -> Result<usize> {
             return Err(VerificationError::Resource);
         }
         for (name, entry) in table {
+            checkpoint(should_stop)?;
             if !safe_relative(name) {
                 return Err(VerificationError::Resource);
             }
@@ -871,7 +921,7 @@ fn verify_resources(bundle: &Path, exe: &str, bytes: &[u8]) -> Result<usize> {
             if sha1.is_none() || (second && sha256.is_none()) {
                 return Err(VerificationError::Resource);
             }
-            let (first, second_hash) = hash_file(&bundle.join(name))?;
+            let (first, second_hash) = hash_file(&bundle.join(name), should_stop)?;
             if sha1.is_some_and(|expected| expected != first)
                 || (sha256.is_some_and(|expected| expected != second_hash))
             {
@@ -883,7 +933,9 @@ fn verify_resources(bundle: &Path, exe: &str, bytes: &[u8]) -> Result<usize> {
     let mut stack = vec![bundle.to_path_buf()];
     let mut count = 0;
     while let Some(dir) = stack.pop() {
+        checkpoint(should_stop)?;
         for entry in fs::read_dir(dir).map_err(|_| VerificationError::Io)? {
+            checkpoint(should_stop)?;
             let entry = entry.map_err(|_| VerificationError::Io)?;
             let p = entry.path();
             let ft = entry.file_type().map_err(|_| VerificationError::Io)?;
@@ -916,7 +968,8 @@ fn verify_resources(bundle: &Path, exe: &str, bytes: &[u8]) -> Result<usize> {
     }
     Ok(count)
 }
-fn hash_file(path: &Path) -> Result<(Vec<u8>, Vec<u8>)> {
+fn hash_file(path: &Path, should_stop: &(dyn Fn() -> bool + Send + Sync)) -> Result<(Vec<u8>, Vec<u8>)> {
+    checkpoint(should_stop)?;
     let meta = fs::symlink_metadata(path).map_err(|_| VerificationError::Resource)?;
     if !meta.file_type().is_file() || meta.len() > 4 * 1024 * 1024 * 1024 {
         return Err(VerificationError::Resource);
@@ -926,6 +979,7 @@ fn hash_file(path: &Path) -> Result<(Vec<u8>, Vec<u8>)> {
     let mut second = Sha256::new();
     let mut buffer = [0u8; 64 * 1024];
     loop {
+        checkpoint(should_stop)?;
         let n = f.read(&mut buffer).map_err(|_| VerificationError::Io)?;
         if n == 0 {
             break;
@@ -933,6 +987,7 @@ fn hash_file(path: &Path) -> Result<(Vec<u8>, Vec<u8>)> {
         first.update(&buffer[..n]);
         second.update(&buffer[..n]);
     }
+    checkpoint(should_stop)?;
     Ok((first.finalize().to_vec(), second.finalize().to_vec()))
 }
 struct Slice {
@@ -1021,11 +1076,14 @@ fn verify_macho(
     info: Option<&[u8]>,
     resources: Option<&[u8]>,
     application: bool,
+    should_stop: &(dyn Fn() -> bool + Send + Sync),
 ) -> Result<usize> {
+    checkpoint(should_stop)?;
     crate::archive::inspect_macho(path, application).map_err(|_| VerificationError::Structure)?;
     let mut file = File::open(path).map_err(|_| VerificationError::Io)?;
     let slices = macho_slices(&mut file)?;
     for slice in &slices {
+        checkpoint(should_stop)?;
         let h = read_at(&mut file, slice.base, 32)?;
         let is64 = word(&h, 0, false)? == 0xfeed_facf;
         let header = if is64 { 32 } else { 28 };
@@ -1090,6 +1148,7 @@ fn verify_macho(
                     info,
                     resources,
                     application,
+                    should_stop,
                 )?;
                 if !algorithms.insert(algorithm.code_directory_hash_type()) {
                     return Err(VerificationError::Signature);
@@ -1105,6 +1164,7 @@ fn verify_macho(
         if word(cms, 0, true)? != 0xfade_0b01 {
             return Err(VerificationError::Signature);
         }
+        checkpoint(should_stop)?;
         let evidence = verify_cms(&cms[8..], Some(primary), roots, now, Some(&cds))?;
         if evidence.leaf != *expected {
             return Err(VerificationError::Certificate);
@@ -1123,6 +1183,7 @@ fn verify_macho(
             return Err(VerificationError::Certificate);
         }
     }
+    checkpoint(should_stop)?;
     Ok(slices.len())
 }
 fn signature_slots(sig: &[u8]) -> Result<BTreeMap<u32, &[u8]>> {
@@ -1178,6 +1239,7 @@ fn verify_directory(
     info: Option<&[u8]>,
     resources: Option<&[u8]>,
     application: bool,
+    should_stop: &(dyn Fn() -> bool + Send + Sync),
 ) -> Result<HashAlgorithm> {
     if word(cd, 0, true)? != 0xfade_0c02
         || word(cd, 4, true)? as usize != cd.len()
@@ -1256,6 +1318,7 @@ fn verify_directory(
         }
     }
     for slot in 0..code_slots {
+        checkpoint(should_stop)?;
         let offset = slot as u64 * (1u64 << page);
         let size = (limit - offset).min(1u64 << page) as usize;
         let bytes = read_at(file, slice.base + offset, size)?;

@@ -1,7 +1,7 @@
 use std::collections::BTreeMap;
 
 use apple_codesign_quick::{
-    BundleSigningSettings, ProvisioningProfile, RustCryptoCmsSigner, sign_bundle,
+    BundleSigningSettings, ProvisioningProfile, RustCryptoCmsSigner, sign_bundle, sign_bundle_controlled,
 };
 
 use plist::Dictionary;
@@ -111,22 +111,59 @@ where
     F: Fn(f32) -> Fut,
     Fut: Future<Output = ()>,
 {
+    sign_with_entitlements_controlled(
+        app, cert_identity, main_provisioning_profile, main_entitlements,
+        all_profiles, team, progress_callback, &|| false,
+    ).await
+}
+
+/// Caller-controlled variant. The shared predicate may combine cancellation and
+/// a deadline; the synchronous signer observes it during bounded resource reads
+/// and executable code pages/crypto phases. Individual OS/crypto operations stay
+/// synchronous, and this function never detaches a worker or its staged files.
+pub async fn sign_with_entitlements_controlled<F, Fut>(
+    app: &mut Application,
+    cert_identity: &CertificateIdentity,
+    main_provisioning_profile: &Profile,
+    main_entitlements: &Dictionary,
+    all_profiles: &[(String, Profile, Dictionary)],
+    team: &DeveloperTeam,
+    progress_callback: Option<F>,
+    should_stop: &(dyn Fn() -> bool + Send + Sync),
+) -> Result<(), Report>
+where
+    F: Fn(f32) -> Fut,
+    Fut: Future<Output = ()>,
+{
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
     let profile = ProvisioningProfile::parse(main_provisioning_profile.encoded_profile.as_ref())?;
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
     let certificate_chain = cert_identity.profile_to_certificate_chain(&profile)?;
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
     let signer = RustCryptoCmsSigner::new(
         cert_identity.private_key.clone(),
         cert_identity.certificate.clone(),
         certificate_chain,
     );
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
     if let Some(callback) = &progress_callback { callback(0.4).await; }
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
     let mut settings = BundleSigningSettings::new(&team.team_id, main_entitlements.clone(), Some(&signer));
     settings.embedded_mobileprovision = Some(main_provisioning_profile.encoded_profile.as_ref());
     settings.embedded_mobileprovisions_by_bundle_id = all_profiles.iter()
-        .map(|(bundle_id, data, _)| (bundle_id.clone(), data.encoded_profile.as_ref()))
-        .collect();
+        .map(|(bundle_id, data, _)| {
+            if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled); }
+            Ok((bundle_id.clone(), data.encoded_profile.as_ref()))
+        })
+        .collect::<std::result::Result<_, apple_codesign_quick::CodeSignError>>()?;
     settings.entitlements_by_bundle_id = all_profiles.iter()
-        .map(|(bundle_id, _, entitlements)| (bundle_id.clone(), entitlements.clone()))
-        .collect();
+        .map(|(bundle_id, _, entitlements)| {
+            if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled); }
+            Ok((bundle_id.clone(), entitlements.clone()))
+        })
+        .collect::<std::result::Result<_, apple_codesign_quick::CodeSignError>>()?;
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
     if let Some(callback) = &progress_callback { callback(0.5).await; }
-    Ok(sign_bundle(&app.bundle.bundle_dir, &settings)?)
+    if should_stop() { return Err(apple_codesign_quick::CodeSignError::Cancelled.into()); }
+    Ok(sign_bundle_controlled(&app.bundle.bundle_dir, &settings, should_stop)?)
 }

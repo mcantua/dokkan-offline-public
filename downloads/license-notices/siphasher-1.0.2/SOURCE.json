@@ -1,0 +1,111 @@
+{
+  "schema_version": 2,
+  "crate": "siphasher",
+  "version": "1.0.2",
+  "declared_license": "MIT/Apache-2.0",
+  "selected_license": "Apache-2.0",
+  "package_checksum": "b2aa850e253778c88a04c3d7323b043aeda9d3e30d5971937c1855769763678e",
+  "upstream_repository": "https://github.com/jedisct1/rust-siphash",
+  "upstream_commit": "db8172048a1c9bdef0dcec782d965c236161af13",
+  "complete_upstream_notice": true,
+  "gap_reason": "",
+  "notice_files": [
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#Cargo.toml",
+      "sha256": "3a2533d229481b57cab0e16b3b8ce32fb0f0212842438f0f47d40dade278aa73"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#Cargo.toml.orig",
+      "sha256": "ceec825424bd52d44fadd389b69006495659d6aa75581184d4fa499eeee66295"
+    },
+    {
+      "path": "PUBLISHED-COPYING",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#COPYING",
+      "sha256": "c962ee4d1d05ddc138b202b2540219ebc57893fcf97b364852094a9a94ce1365"
+    },
+    {
+      "path": "PUBLISHED-cargo_vcs_info.json",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#.cargo_vcs_info.json",
+      "sha256": "f0dca5ec37ad33a5d0705ed33ec30672947e6942c0beac3e9575152559a72176"
+    },
+    {
+      "path": "LICENSE-APACHE-2.0.txt",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "derivation": "Exact official Apache-2.0 terms expressly referenced by the immutable published COPYING grant; supplements its absent standalone LICENSE-APACHE file without replacing any supplied notice."
+    },
+    {
+      "path": "ATTRIBUTION.txt",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#COPYING",
+      "sha256": "1e68ae314abdd29e0e44c58708515c80db453fe21fe3d866c31340654c328824"
+    }
+  ],
+  "release_requirements_satisfied": true,
+  "source_audit": "SOURCE-AUDIT.json",
+  "published_evidence": [
+    {
+      "path": "PUBLISHED-Cargo.toml",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#Cargo.toml",
+      "sha256": "3a2533d229481b57cab0e16b3b8ce32fb0f0212842438f0f47d40dade278aa73",
+      "archive_path": "Cargo.toml"
+    },
+    {
+      "path": "PUBLISHED-Cargo.toml.orig",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#Cargo.toml.orig",
+      "sha256": "ceec825424bd52d44fadd389b69006495659d6aa75581184d4fa499eeee66295",
+      "archive_path": "Cargo.toml.orig"
+    },
+    {
+      "path": "PUBLISHED-COPYING",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#COPYING",
+      "sha256": "c962ee4d1d05ddc138b202b2540219ebc57893fcf97b364852094a9a94ce1365",
+      "archive_path": "COPYING"
+    },
+    {
+      "path": "PUBLISHED-cargo_vcs_info.json",
+      "url": "https://static.crates.io/crates/siphasher/siphasher-1.0.2.crate#.cargo_vcs_info.json",
+      "sha256": "f0dca5ec37ad33a5d0705ed33ec30672947e6942c0beac3e9575152559a72176",
+      "archive_path": ".cargo_vcs_info.json"
+    }
+  ],
+  "required_distribution_artifacts": [],
+  "obligations": [
+    {
+      "id": "published-license-grant",
+      "status": "satisfied",
+      "evidence": [
+        "PUBLISHED-Cargo.toml",
+        "PUBLISHED-Cargo.toml.orig",
+        "PUBLISHED-COPYING",
+        "PUBLISHED-cargo_vcs_info.json"
+      ]
+    },
+    {
+      "id": "selected-license-text",
+      "status": "satisfied",
+      "evidence": [
+        "LICENSE-APACHE-2.0.txt",
+        "PUBLISHED-COPYING"
+      ]
+    },
+    {
+      "id": "preserve-provided-attribution-and-notices",
+      "status": "satisfied",
+      "evidence": [
+        "PUBLISHED-COPYING",
+        "ATTRIBUTION.txt",
+        "SOURCE-AUDIT.json"
+      ]
+    },
+    {
+      "id": "published-source-integrity",
+      "status": "satisfied",
+      "evidence": [
+        "SOURCE-AUDIT.json"
+      ]
+    }
+  ],
+  "resolution_basis": "The checksum-matched published COPYING expressly grants Apache-2.0 or MIT and supplies actual copyright notices. Its exact bytes match the published VCS commit. The selected Apache terms come from the official source linked by that grant; all supplied attribution remains verbatim. No generic text substitutes for an absent grant and no notice is invented."
+}

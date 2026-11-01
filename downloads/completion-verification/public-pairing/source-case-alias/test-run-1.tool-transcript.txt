@@ -1,0 +1,9 @@
+TOOL-OUTPUT TRANSCRIPTION — original process output was not separately saved to a raw log.
+Command: python3 app-installer/build/tests/test_source_delivery.py
+Execution output chunk: e716f5
+
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.089s
+
+OK

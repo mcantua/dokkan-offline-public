@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "incident": "Read-only agent used frozen checkout instead of active public checkout for two supplementary reviews.",
+  "agent": "refresh",
+  "access_authorized": false,
+  "discovered_utc": "2026-11-01T13:31:00Z",
+  "reported_actions": [
+    "source/documentation reads and filename searches",
+    "git file-history query"
+  ],
+  "reported_no_writes_builds_tests_config_keys_pairing_or_save_access": true,
+  "independent_backup_audit_performed": false,
+  "reason_no_backup_audit": "Would repeat forbidden access. Inventory came from agent existing turn history only.",
+  "findings_excluded": true,
+  "application_changes_or_builds_derived_from_these_reads": false,
+  "public_source_recheck": {
+    "repository": "mcantua/dokkan-offline-public",
+    "head": "b45c705e5fde11a5c07bed590cc4a4643a24f1e4",
+    "checks": [
+      "Known UnitCreator public build source:0 explicit entitlements flags/extension references",
+      "Public Host.m:0 explicit shared Keychain query group references",
+      "Public AppIds API adapter exists; no credentials executed",
+      "Actual public device-workflow.py uses whitelisted RP_EXPORT_STAGE live queue/thread capture, not excluded selector implementation"
+    ]
+  },
+  "corrective_action": "Stop agent access, exclude wrong-source findings, pin every subsequent App Installer tool workdir to the active public path before any read. Do not reopen frozen checkout.",
+  "documentation_erratum": "b45c705 embedded continuation was written before discovery and incorrectly states no frozen-source read occurred. Current STATUS/continuation/delivery notes correct this read-only-access claim; app/source/build byte bindings are unaffected."
+}

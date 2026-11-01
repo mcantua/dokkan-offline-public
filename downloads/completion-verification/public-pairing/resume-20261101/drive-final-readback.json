@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "id": "1DGvilOgQ8P5exf_q8Ccj-_KNde02XZze",
+      "modified_utc": "2026-11-01T16:14:59.962Z",
+      "exact_readback": true
+    },
+    {
+      "id": "1QhqGf0XueByisrD6T4kzq_3mXPcWg8dS",
+      "modified_utc": "2026-11-01T16:11:36.307Z",
+      "exact_readback": true
+    }
+  ],
+  "scope": "Verified UI-matched package41322933617/sourceed93, actual Mac signature/draft delivery41324387393/seven server pins; other project sections preserved. Explicit writes/readback, no automatic synchronization.",
+  "personal_resource_use": false
+}

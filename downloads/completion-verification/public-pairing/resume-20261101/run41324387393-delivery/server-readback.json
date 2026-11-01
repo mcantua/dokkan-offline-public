@@ -1,0 +1,91 @@
+{
+  "observed_at": "2026-11-01T16:07:09.970334+00:00",
+  "repository": "mcantua/dokkan-offline-public",
+  "release": {
+    "id": 430349496,
+    "tag_name": "app-installer-public-review",
+    "draft": true,
+    "published_at": null,
+    "html_url": "https://github.com/mcantua/dokkan-offline-public/releases/tag/untagged-adbb5d3025308a87b412",
+    "created_at": "2026-11-01T03:56:49Z",
+    "updated_at": "2026-11-01T16:05:57Z"
+  },
+  "release_list_count": 1,
+  "draft_release_count": 1,
+  "exact_seven_server_asset_pins_match_contract": true,
+  "assets": [
+    {
+      "id": 698798506,
+      "name": "AppInstaller-candidate-manifest.json",
+      "size": 2207,
+      "digest": "sha256:69145e698ad3bb3a118325edf89facee99e4663c1f5a698ee82973dcc56b7e38",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-candidate-manifest.json",
+      "created_at": "2026-11-01T16:05:24Z",
+      "updated_at": "2026-11-01T16:05:47Z"
+    },
+    {
+      "id": 698798569,
+      "name": "AppInstaller-corresponding-source.tar.xz",
+      "size": 154038676,
+      "digest": "sha256:79b559810f28fc05383659b143313ef42253527e4b6027085081e13ff06cc8a4",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-corresponding-source.tar.xz",
+      "created_at": "2026-11-01T16:05:26Z",
+      "updated_at": "2026-11-01T16:05:48Z"
+    },
+    {
+      "id": 698799009,
+      "name": "AppInstaller-duo-candidate.ipa",
+      "size": 8480400,
+      "digest": "sha256:c489d6657a8489a3f390312d84fb30fd6b859fc5ccb9feb501ae98286f4169c9",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-duo-candidate.ipa",
+      "created_at": "2026-11-01T16:05:37Z",
+      "updated_at": "2026-11-01T16:05:50Z"
+    },
+    {
+      "id": 698799081,
+      "name": "AppInstaller-iphone-candidate.ipa",
+      "size": 8480396,
+      "digest": "sha256:d7c09818ff6bd17f8f62e0199eba794c491ef8498e5f16ea43dbb142a62155d8",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-iphone-candidate.ipa",
+      "created_at": "2026-11-01T16:05:38Z",
+      "updated_at": "2026-11-01T16:05:52Z"
+    },
+    {
+      "id": 698799140,
+      "name": "AppInstaller-native-bootstrap-kit.json",
+      "size": 893,
+      "digest": "sha256:ca79236970577d3d744543c13929c2b39cb8e867f728aa23fba9fb173b2f1c35",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-native-bootstrap-kit.json",
+      "created_at": "2026-11-01T16:05:40Z",
+      "updated_at": "2026-11-01T16:05:53Z"
+    },
+    {
+      "id": 698799187,
+      "name": "AppInstaller-native-bootstrap-kit.zip",
+      "size": 44231197,
+      "digest": "sha256:895f0017ae526a63cb1144499a61c190b2142d3800e2f78baa97ad6b8bc96c3b",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-native-bootstrap-kit.zip",
+      "created_at": "2026-11-01T16:05:41Z",
+      "updated_at": "2026-11-01T16:05:55Z"
+    },
+    {
+      "id": 698799282,
+      "name": "cloud-device-library-manifest.json",
+      "size": 1334,
+      "digest": "sha256:bb43d500694ef3a890c348f8823f6c1489103b0907d97b07554733de50f35d19",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/cloud-device-library-manifest.json",
+      "created_at": "2026-11-01T16:05:43Z",
+      "updated_at": "2026-11-01T16:05:57Z"
+    }
+  ],
+  "actual_observed_kit_browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-adbb5d3025308a87b412/AppInstaller-native-bootstrap-kit.zip",
+  "contract_source_run_id": 41322933617,
+  "contract_source_commit": "ed931b9cff9c047e5de6a21d8d25db3a3154f471"
+}

@@ -1,5 +1,9 @@
 # Claude ↔ ChatGPT shared folder
 
+**Latest — November 1, 2026: Tin is moving App Installer to Claude. Claude is the next owner; ChatGPT development is paused. Read [the complete App Installer handoff](app-installer/CLAUDE-HANDOFF.md). This supersedes earlier App Installer ownership/resume notes only; other projects and the frozen-backup boundary remain unchanged.**
+
+**Latest App Installer instruction:** Tin explicitly resumed App Installer in this new public repository. Source work is isolated on `chatgpt/app-installer-pairing-repair`; see [its current source/verification record](app-installer/device/PUBLIC-CONTINUATION.md). The private backup is frozen: do not open, modify, audit or merge it. A disclosed supplementary read-only review crossed that boundary; no writes were reported, and its findings were excluded. See the [incident record](downloads/completion-verification/public-pairing/resume-20261101/review-boundary-incident.json); no new backup audit was performed. Tin has explicitly authorized App Installer cloud builds with "make the builds". The Offline Dokkan/Unit Creator takeover notes below retain their own scope; this instruction does not resume those projects.
+
 **October 29: ChatGPT development is paused at Tin's request for a Grok Bot takeover. Read [GROK-TAKEOVER.md](GROK-TAKEOVER.md) for the saved source, tools/data links, exact failed native check and uncompiled WIP. Do not auto-resume ChatGPT development from older continuous-work instructions.**
 
 This folder is how Claude (Anthropic) and ChatGPT (OpenAI) work together on Tin's projects. Tin is the owner. Both AIs read and write here. Tin can read everything.

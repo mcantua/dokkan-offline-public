@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "workflow_id": 400819284,
+  "run_id": 41270305394,
+  "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+  "captured_at": "2026-11-01T03:53:07.674631+00:00",
+  "jobs": [
+    {
+      "id": 124741546899,
+      "name": "simulator (single)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 41270305394,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Build and run hosted UIKit and secure-storage checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Keep only the new public source-bound test proof",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Keep integrity-checked unsigned candidates with their source",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Keep the minimal native setup kit",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Keep failed or standalone test diagnostics",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7
+        },
+        {
+          "name": "Retain a complete kit and source pair",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Keep only current standalone test diagnostics",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13069430881,
+      "name": "app-installer-native-kit-latest",
+      "size_in_bytes": 43790028,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13069430881",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13069430881/zip",
+      "expired": false,
+      "created_at": "2026-11-01T03:51:28Z",
+      "expires_at": "2026-11-08T03:51:26Z",
+      "updated_at": "2026-11-01T03:51:28Z",
+      "digest": "sha256:b42fbc9fa90d60134c518c65b98160d7422512179f60778a74726e9ec1fec2e5",
+      "workflow_run": {
+        "id": 41270305394,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "f941208e77ed37405cd9fbb109e87ed56f81fb45"
+      }
+    },
+    {
+      "id": 13069385967,
+      "name": "app-installer-cloud-ui-latest",
+      "size_in_bytes": 170920657,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13069385967",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13069385967/zip",
+      "expired": false,
+      "created_at": "2026-11-01T03:51:26Z",
+      "expires_at": "2026-11-08T03:51:19Z",
+      "updated_at": "2026-11-01T03:51:26Z",
+      "digest": "sha256:80f5a4192ad86e16f26b2b4285d118c951e36135bca5da1003107f14ae3c1c22",
+      "workflow_run": {
+        "id": 41270305394,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "f941208e77ed37405cd9fbb109e87ed56f81fb45"
+      }
+    }
+  ],
+  "log_file": "package-job.log",
+  "log_bytes": 108327,
+  "log_sha256": "871a52f3cb38783fd02d5e80bda330069669a92f1822e0496d919fd4ededf0da",
+  "log_encoding": "UTF-8 decoded by GitHub connector",
+  "scope": "Actual package producer receipts and API metadata; root independently downloads/verifies exact seven asset bytes. No actual artifact ZIP downloaded by this agent.",
+  "reused_checks": {
+    "vendor": {
+      "passed": 8,
+      "run_id": 40916969403
+    },
+    "helper": {
+      "passed": 2,
+      "run_id": 40916969403
+    },
+    "transport": {
+      "passed": 2,
+      "run_id": 41269237340
+    },
+    "recovery": {
+      "passed": 2,
+      "run_id": 41269237340
+    },
+    "native": {
+      "passed": 3,
+      "run_id": 41269237340
+    }
+  },
+  "fresh_tests_executed": 0,
+  "genuine_toolchain": {
+    "sdk_version": "27.1",
+    "sdk_path": "/Applications/Xcode_27.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.1.sdk",
+    "sdk_settings_sha256": "5c4ce658a6f35b9c152fe88d1e81d636d0e4e1b3c0238cc0b58ebca58d05b932",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
+  "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
+  "source_bundle": {
+    "file": "AppInstaller-corresponding-source.tar.xz",
+    "sha256": "20f37f3d71672cfe4a0dba21ab41222534f9c26b4df3d5bf3e1b8bed556ab35a",
+    "bytes": 154032876,
+    "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+    "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
+    "locked_dependency_graph_hash": "50a0a20c8c43a751c6656fdd00d6e1728611c88a28e71cf19371d2f4c6c37a74",
+    "corresponding_source_verified": true,
+    "relink_instructions_verified": true
+  },
+  "ipa_artifacts": [
+    {
+      "variant": "iphone",
+      "file": "AppInstaller-iphone-candidate.ipa",
+      "bytes": 8442555,
+      "sha256": "20315792575f7c45b3024ceb9aac6f2c71bbc69d0d29e925a946b3047e91a4d0"
+    },
+    {
+      "variant": "duo",
+      "file": "AppInstaller-duo-candidate.ipa",
+      "bytes": 8442558,
+      "sha256": "ebadfbe5f5615b772f1908953f95ad718f5c7b5f69f8cc6b50174260eb9938ae"
+    }
+  ],
+  "kit": {
+    "schema_version": 1,
+    "file": "AppInstaller-native-bootstrap-kit.zip",
+    "bytes": 44149993,
+    "sha256": "b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661",
+    "source_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+    "bootstrap_tool_commit": "f941208e77ed37405cd9fbb109e87ed56f81fb45",
+    "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
+    "variant": "duo",
+    "corresponding_source": {
+      "file": "AppInstaller-corresponding-source.tar.xz",
+      "sha256": "20f37f3d71672cfe4a0dba21ab41222534f9c26b4df3d5bf3e1b8bed556ab35a",
+      "bytes": 154032876,
+      "delivery": "separate-cloud-companion-artifact",
+      "artifact": "app-installer-cloud-ui-latest",
+      "path": "candidates/AppInstaller-corresponding-source.tar.xz"
+    },
+    "minimal_bootstrap_kit": true,
+    "personal_resources_used": false,
+    "device_install_attempted": false
+  },
+  "helper_pre_seal_build_summary": {
+    "file": "app-installer-rp-bootstrap",
+    "bytes": 7805024,
+    "sha256": "0d882d3c1fcd0eb524d10a74df51e2aac185a80fe390fe06cfb6a9986362b1a1",
+    "source_tree_sha256": "6d6651b8bf5f45712b6230f4ec48863ce982d893acd0eaedb5ef8ded4143c7c1",
+    "distribution_ready": false
+  },
+  "release_ready": false,
+  "local_tests_executed": 0,
+  "local_builds_executed": 0,
+  "bulk_artifacts_downloaded": false
+}

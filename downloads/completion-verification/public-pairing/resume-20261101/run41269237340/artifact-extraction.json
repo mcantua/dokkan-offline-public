@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 41269237340,
+  "source_commit": "06486120c736ea6efcb246424894a85a07e1fb36",
+  "outer_pins_verified": {
+    "proof-artifact.zip": {
+      "bytes": 68658,
+      "sha256": "9754b51cad486419060ae5c8739ee8498ac5098e6cb4b49ddd8c5340db7ed4c2"
+    },
+    "native-artifact.zip": {
+      "bytes": 8828304,
+      "sha256": "10157d5103bdcba04c9cc3766e2b1368f27bb27e50d821974c7acb8ba8f60637"
+    }
+  },
+  "source_bound_proofs_verified": {
+    "transport": {
+      "passed": 2,
+      "failed": 0
+    },
+    "recovery": {
+      "passed": 2,
+      "failed": 0
+    },
+    "native": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "original_provenance_preserved": {
+    "file": "provenance.json",
+    "sha256": "be2bade54b1132f474f353cda9fe890a33ee3a3d93f60e0a9dc38dff861bca71"
+  },
+  "actual_runtime": "27.0",
+  "simulator_device_type": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+  "compiler_sdk": "27.1",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "physical_hardware_verified": false,
+  "duo_runtime_or_display_verified": false,
+  "image_scope": "Original XCTest UIGraphics-rendered production views under labelled test-only geometry/rail/task-state fixtures on regular iPhone simulator iOS27.0. Not physical Duo screenshots or production account/connection/install proof. PNG payloads copied byte-for-byte; bounded zstd metadata decoding only, no image editing/generation or native execution.",
+  "attachments": [
+    {
+      "attachment_name": "TEST-ONLY resize/camera  390x844",
+      "payload_ref": "0~OhbNpc2MWh5_RHj3YRy6V-3Cz9cT2Ya4TA-XeJs0ygDh1eLrW3wiMeXjW-aCSqLQFb9WjG1mnKkJjyrOgyCGqw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~OhbNpc2MWh5_RHj3YRy6V-3Cz9cT2Ya4TA-XeJs0ygDh1eLrW3wiMeXjW-aCSqLQFb9WjG1mnKkJjyrOgyCGqw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1178990,
+      "sha256": "d4512cd4613928d687dd450f308cfa879ec542da86094a4c17c85929da5cd754",
+      "pixel_dimensions": [
+        1170,
+        2532
+      ]
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 466x678",
+      "payload_ref": "0~xrMIpXkhGv842UMlmDowUbgiddFd7ciWBPhW83BohF5FYUYcWGxlp-CbXdnK1hAih2ZDB0ECWuqYyGaXEI3hSw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~xrMIpXkhGv842UMlmDowUbgiddFd7ciWBPhW83BohF5FYUYcWGxlp-CbXdnK1hAih2ZDB0ECWuqYyGaXEI3hSw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1169875,
+      "sha256": "b01e403cae5ae4882d101180af692ce298d87648c34e61b9025b4acde76a0978",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/fixture-outer-right-466x678.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 669x951",
+      "payload_ref": "0~iSxjXlDAE1Nd1JiVrNwW-M-CHebGoh3_NRkeZOhuLNZ5tTF0HQrdfUWB58_T2hoGgUw0X4YvYvx3h1hYHEY5Ig==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~iSxjXlDAE1Nd1JiVrNwW-M-CHebGoh3_NRkeZOhuLNZ5tTF0HQrdfUWB58_T2hoGgUw0X4YvYvx3h1hYHEY5Ig==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1308553,
+      "sha256": "45acc953b9de773327949f4cb089864dd0c11f59552f5bc5cf0232e6dd8cf2d6",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/fixture-inner-right-669x951.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~cHX6nn7vNey4DgUdjcoaOqQ0SO__phstfILU8IUohfu4Y4KPQGIVTtkegprz2jIxQZ_00qyEdIiCr8xjGFVlLg==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~cHX6nn7vNey4DgUdjcoaOqQ0SO__phstfILU8IUohfu4Y4KPQGIVTtkegprz2jIxQZ_00qyEdIiCr8xjGFVlLg==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1418677,
+      "sha256": "e0e3b06ce5861bc5052672f94dcf6e27b14878479492db795d61a41ed8821dac",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ]
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  951x669",
+      "payload_ref": "0~rZ2LPoJpdznXfnkd0LxZf7y2_7Vx81ga1gtWpmwR2CdEHTjTpn1munU2shSi17vogyeTJK1gdBoF-FHbmRyDYQ==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~rZ2LPoJpdznXfnkd0LxZf7y2_7Vx81ga1gtWpmwR2CdEHTjTpn1munU2shSi17vogyeTJK1gdBoF-FHbmRyDYQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1587384,
+      "sha256": "f377dcc1f2f8e478ce13cf923fa9e2a14477253d0d2d7a148772e1ceafa3e81f",
+      "pixel_dimensions": [
+        2853,
+        2007
+      ]
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera left 466x678",
+      "payload_ref": "0~hWfw_svK9im4yNjXjaHE2Vn7izM_eZsSH_HcMqWM0g5nBRwOMnW7KT8xP5hC6A7xwgSESX0XOhflOdtkC5BFqA==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~hWfw_svK9im4yNjXjaHE2Vn7izM_eZsSH_HcMqWM0g5nBRwOMnW7KT8xP5hC6A7xwgSESX0XOhflOdtkC5BFqA==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1098049,
+      "sha256": "9ce9e9ae3e8a49f6db5bde738d14c10edb4d7460ce42b905fa0ceda350b54ae4",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ]
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~3DC5sCgS47KGWXIOFEjSkLFfzeRJgCzePPZ20afPN9x8bSlR-6rK7SOy23gRCW2LFpYC_Et7_8jBVwMfli4Obg==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~3DC5sCgS47KGWXIOFEjSkLFfzeRJgCzePPZ20afPN9x8bSlR-6rK7SOy23gRCW2LFpYC_Et7_8jBVwMfli4Obg==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1375642,
+      "sha256": "04aa72170a470d32845659ce170dedb452da6a9c82c8653fb71a2fc996851ddd",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ]
+    },
+    {
+      "attachment_name": "TEST-ONLY maximum accessibility text \u2014 pinned native task controls",
+      "payload_ref": "0~r3I_S9f7my2KWO9leOytIVadkrF9WQjj2iyHWxk_53zJfmhgnHC73FVHoHxAI0vGxCc38JkRU7W1S794y9DbHA==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~r3I_S9f7my2KWO9leOytIVadkrF9WQjj2iyHWxk_53zJfmhgnHC73FVHoHxAI0vGxCc38JkRU7W1S794y9DbHA==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~xNES8gCyTSBBiYaPVjJoqGGWhA7fPmiYs_DqLgiV4GLhNXJHec_SWr4b42GbehjjBMRAWS5hAKhSrf5nZwn4cg==",
+      "metadata_member_sha256": "874675fef8a727481849147a58c9d568ac728f3a2d5afe42047c0436850660c7",
+      "bytes": 1182803,
+      "sha256": "86d1c5c4a729f6a6d2b012a02937e9a72501a320333c37971745351f6cf1f158",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/fixture-maximum-accessibility-pinned-controls.png",
+      "original_bytes_unmodified": true
+    }
+  ],
+  "full_xcresult_extracted": false,
+  "local_tests_or_builds_executed": false,
+  "native_archive_retention": "One verified original native-artifact.zip retained here for remaining original payload references; proof ZIP removed after complete compact extraction."
+}

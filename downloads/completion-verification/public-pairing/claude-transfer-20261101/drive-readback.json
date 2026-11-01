@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "owner": "Claude",
+  "chatgpt_development_paused": true,
+  "readbacks": [
+    {
+      "id": "1DGvilOgQ8P5exf_q8Ccj-_KNde02XZze",
+      "title": "STATUS.md",
+      "modified_utc": "2026-11-01T18:24:50.480Z",
+      "exact_readback": true,
+      "url": "https://drive.google.com/file/d/1DGvilOgQ8P5exf_q8Ccj-_KNde02XZze/view"
+    },
+    {
+      "id": "1QhqGf0XueByisrD6T4kzq_3mXPcWg8dS",
+      "title": "AppInstaller-PUBLIC-CONTINUATION.md",
+      "modified_utc": "2026-11-01T18:25:50.982Z",
+      "exact_readback": true,
+      "url": "https://drive.google.com/file/d/1QhqGf0XueByisrD6T4kzq_3mXPcWg8dS/view"
+    }
+  ],
+  "other_project_status_preserved": true,
+  "automatic_synchronization_claimed": false
+}

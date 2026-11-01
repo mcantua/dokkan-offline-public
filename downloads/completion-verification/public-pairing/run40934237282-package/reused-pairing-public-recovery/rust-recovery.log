@@ -1,0 +1,23 @@
+warning: type `transport::TunnelShutdown` is more private than the item `DeviceTransport::Remote::_shutdown`
+   --> src/transport.rs:115:14
+    |
+115 | ...te { _shutdown:TunnelShutdown, handle:AdapterHandle, handshake:RsdHandshake, _control:RemotePairingClient<RpPairingSocket<tokio:...
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^ field `DeviceTransport::Remote::_shutdown` is reachable at visibility `pub(in crate::engine)`
+    |
+note: but type `transport::TunnelShutdown` is only usable at visibility `pub(self)`
+   --> src/transport.rs:71:1
+    |
+ 71 | struct TunnelShutdown(std::net::TcpStream);
+    | ^^^^^^^^^^^^^^^^^^^^^
+    = note: `#[warn(private_interfaces)]` on by default
+
+warning: `app-installer-core` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.05s
+     Running unittests src/lib.rs (app-installer/core/target/debug/deps/app_installer_core-3b306707f9bdc45d)
+
+running 2 tests
+test engine::tests::recovery_refresh_continues_local_failures_but_stops_auth_cancel_or_uncertain_install ... ok
+test engine::tests::recovery_failed_first_install_keeps_latest_input_after_empty_lookup_and_restart ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 21 filtered out; finished in 0.06s
+
