@@ -201,6 +201,41 @@ pub fn verified_candidate<R>(work: &Path, pending: &Pending<R>) -> io::Result<Pa
     }
     Ok(path)
 }
+/// Promote only the retained, hash-verified input after device confirmation.
+/// The directory entry must be durable before callers commit installed metadata
+/// or clear recovery intent; a failed sync deliberately retains that intent.
+pub fn promote_candidate<R>(work: &Path, pending: &Pending<R>, source: &Path) -> io::Result<()> {
+    promote_candidate_using(work, pending, source, sync_parent)
+}
+fn promote_candidate_using<R>(
+    work: &Path,
+    pending: &Pending<R>,
+    source: &Path,
+    sync_directory: impl FnOnce(&Path) -> io::Result<()>,
+) -> io::Result<()> {
+    if source.parent() != Some(work.join("sources").as_path()) {
+        return Err(invalid());
+    }
+    let retained = verified_candidate(work, pending)?;
+    let temp = source.with_extension("ipa.pending");
+    fs::copy(retained, &temp)?;
+    if hash_file(&temp)? != pending.source_sha256 {
+        return Err(invalid());
+    }
+    File::open(&temp)?.sync_all()?;
+    fs::rename(&temp, source)?;
+    sync_directory(source)
+}
+/// Fault seam for the exact production promotion path, compiled only in tests.
+#[cfg(test)]
+pub fn promote_candidate_with_directory_sync<R>(
+    work: &Path,
+    pending: &Pending<R>,
+    source: &Path,
+    sync_directory: impl FnOnce(&Path) -> io::Result<()>,
+) -> io::Result<()> {
+    promote_candidate_using(work, pending, source, sync_directory)
+}
 pub fn clear<R>(work: &Path, pending: &Pending<R>) -> io::Result<()> {
     match fs::remove_file(work.join(NAME)) {
         Ok(()) => {}

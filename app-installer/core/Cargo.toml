@@ -40,6 +40,7 @@ tokio-openssl = "=0.6.5"
 
 [patch.crates-io]
 idevice = { path = "../../downloads/idevice/idevice-0.1.68" }
+apple-codesign-quick = { path = "../../downloads/apple-codesign-quick/apple-codesign-quick-0.1.0" }
 
 [profile.release]
 panic = "abort"

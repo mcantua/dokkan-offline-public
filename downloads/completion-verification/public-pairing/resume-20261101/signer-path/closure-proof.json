@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "operation": "offline Cargo path resolution and notice/source-closure verification; no test/build",
+  "device_package_count": 319,
+  "all_locked_dependency_versions_features_edges_preserved": true,
+  "lock_delta": "Only apple-codesign-quick registry source/checksum removed; path package version0.1.0 unchanged",
+  "direct_and_transitive_consumers": [
+    "app-installer-core",
+    "isideload"
+  ],
+  "codesign_manifest": "downloads/apple-codesign-quick/apple-codesign-quick-0.1.0/Cargo.toml",
+  "union_notice_package_count": 408,
+  "notice_gap_count": 0,
+  "codesign_selected_license": "LGPL-3.0-or-later",
+  "recipient_modified_local_source": true,
+  "distribution_requirements": [
+    "corresponding-source/relink-bundle"
+  ],
+  "source_fingerprint_includes_modified_library": true,
+  "corresponding_source_mechanism": "source-bundle.create copies each source=None package root and lists path_sources; verify requires lock path package identities. Original immutable upstream archive/source supplement stays underlicense-notices. Full sourcebundle assembly not executed here.",
+  "locked_dependency_graph_hash": "073cbb40839821536762df4491e1a5807a290c9fd9f8fce0776f579a40777fd7",
+  "graphs": [
+    {
+      "target": "aarch64-apple-ios",
+      "manifest": "app-installer/core/Cargo.toml",
+      "package_count": 319
+    },
+    {
+      "target": "aarch64-apple-darwin",
+      "manifest": "downloads/idevice/idevice-0.1.68/Cargo.toml",
+      "package_count": 180
+    },
+    {
+      "target": "x86_64-apple-darwin",
+      "manifest": "downloads/idevice/idevice-0.1.68/Cargo.toml",
+      "package_count": 182
+    }
+  ],
+  "generated_notice_artifacts": {
+    "ThirdPartyNotices.txt": {
+      "bytes": 4380832,
+      "sha256": "3148b7ae600e0cde3980637837b01c806e225c5ee9192d743d4fcbcf009a6c6b",
+      "retention": "Disposable generated verification copy removed; full legal notices remain in original verified notice collection and are regenerated/included in each matching distribution."
+    },
+    "ThirdPartyNoticeReport.json": {
+      "bytes": 416721,
+      "sha256": "121f7aec4cfaa22ecdc759c421f725a4d5777191a50b0265dbe1428003b2ecce",
+      "retention": "Disposable generated verification copy removed; full legal notices remain in original verified notice collection and are regenerated/included in each matching distribution."
+    }
+  }
+}

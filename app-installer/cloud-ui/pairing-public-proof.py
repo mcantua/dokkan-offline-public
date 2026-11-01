@@ -26,11 +26,11 @@ PREFIXES = {
     'vendor': ('downloads/idevice/idevice-0.1.68/',),
     'helper': ('downloads/idevice/idevice-0.1.68/',),
     'transport': ('app-installer/core/', 'downloads/idevice/idevice-0.1.68/',
-                  'downloads/isideload/isideload-0.5.0/', 'downloads/apple-trust/'),
+                  'downloads/isideload/isideload-0.5.0/', 'downloads/apple-codesign-quick/', 'downloads/apple-trust/'),
     'recovery': ('app-installer/core/', 'downloads/idevice/idevice-0.1.68/',
-                 'downloads/isideload/isideload-0.5.0/', 'downloads/apple-trust/'),
+                 'downloads/isideload/isideload-0.5.0/', 'downloads/apple-codesign-quick/', 'downloads/apple-trust/'),
     'native': ('app-installer/ios/', 'app-installer/core/', 'downloads/isideload/isideload-0.5.0/',
-               'downloads/idevice/idevice-0.1.68/', 'downloads/apple-trust/',
+               'downloads/idevice/idevice-0.1.68/', 'downloads/apple-codesign-quick/', 'downloads/apple-trust/',
                'app-installer/cloud-ui/Tests/', 'app-installer/cloud-ui/project.yml',
                'app-installer/cloud-ui/select-xcode.py', 'app-installer/cloud-ui/prepare-hosted-simulator.py'),
 }
@@ -60,6 +60,7 @@ NATIVE = ['PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMateria
 if os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public':
     NATIVE.append('PairingConnectionGuardTests testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs')
     NATIVE.append('AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture')
+    NATIVE.append('SecureStoreBootstrapTests testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess')
 FEATURES = {'vendor': ['--no-default-features', '--features', 'ring,remote_pairing'],
             'helper': ['--no-default-features', '--features', 'app-installer-rp-bootstrap'],
             'transport': ['production core Cargo.toml default features'],
@@ -151,7 +152,7 @@ def finish(group):
                          'helper': 'Only two explicit helper argument/private-file methods; no USB or account action.',
                          'transport': 'Only two production PSK/tunnel/teardown methods with synthetic peers and cloud loopback; no external service or phone.',
                          'recovery': 'Only two production install-source/refresh recovery methods; synthetic service boundaries, no account or phone.',
-                         'native': 'Only selected nonsecret Files/schema and labelled responsive geometry fixtures; no real provider, Keychain account, phone pairing or physical Duo proof.'}[group])
+                         'native': 'Only selected nonsecret Files/schema, labelled responsive geometry and explicit expired-authorization/cancellation fixtures; no actual five-minute lease, successful authentication, real provider, Keychain account, phone pairing or physical Duo proof.'}[group])
     (PROOF / (group + '.json')).write_text(json.dumps(record, indent=2) + '\n')
     print(f'Recorded {group}: {count} new public checks passed; exact pre/post source and raw logs saved.')
 

@@ -80,6 +80,8 @@ extern void ai_free_string(char *value);
 - (NSString *)pairingNotReadyMessage;
 - (NSMutableData *)coordinatedPairingBytesFromURL:(NSURL *)url coordinator:(NSFileCoordinator *)coordinator cancellation:(NSProgress *)cancellation;
 - (void)cancelPairingDocumentRead;
+- (BOOL)handleSessionExpiration;
+- (void)revokeExpiredAuthorization;
 @end
 
 @implementation AIInstallerService
@@ -105,6 +107,9 @@ extern void ai_free_string(char *value);
             _pairingStore = [[AIPairingStore alloc] initWithDirectory:_workDirectory];
         } else { _localMessage = @"App Installer could not open its protected workspace."; }
         __weak typeof(self) weakSelf = self;
+        [NSNotificationCenter.defaultCenter addObserverForName:AISecureStoreSessionExpiredNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
+            [weakSelf handleSessionExpiration];
+        }];
         [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationProtectedDataWillBecomeUnavailable object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
             [AISecureStore endSession];
             weakSelf.pairingVerified = NO; weakSelf.pairingCheckRequested = YES;
@@ -255,6 +260,8 @@ extern void ai_free_string(char *value);
     [self maybeStartForegroundDueRefresh]; [self maybeCheckPairing];
 }
 - (void)poll {
+    if (!NSThread.isMainThread) { dispatch_async(dispatch_get_main_queue(), ^{ [self poll]; }); return; }
+    if ([self handleSessionExpiration]) return;
     for (NSUInteger i=0; i<32; ++i) {
         NSDictionary *event = [self objectFromJSON:ai_poll_event_json()];
         if (!event) break;
@@ -281,6 +288,12 @@ extern void ai_free_string(char *value);
             self.pairingVerified = NO; self.pairingCheckRequested = NO;
         }
         if ([type isEqual:@"signed"] && matchesPending && self.signingForInstall && !self.cancelling) {
+            // The lease may expire between this poll's first check and a queued
+            // signed event. Never start installation from that stale approval.
+            if ([self handleSessionExpiration]) return;
+            if (![AISecureStore sessionAuthorized] || !UIApplication.sharedApplication.protectedDataAvailable) {
+                [self revokeExpiredAuthorization]; return;
+            }
             self.signingForInstall = NO;
             if (ai_install_ipa(self.pendingIPA.path.fileSystemRepresentation) != AI_OK) {
                 [self releasePendingIPA];
@@ -339,6 +352,25 @@ extern void ai_free_string(char *value);
     [self endBackgroundExecutionIfIdle];
     [self maybeStartForegroundDueRefresh]; [self maybeCheckPairing];
 }
+- (BOOL)handleSessionExpiration {
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{ [self handleSessionExpiration]; }); return NO;
+    }
+    if (![AISecureStore consumeSessionExpiration]) return NO;
+    [self revokeExpiredAuthorization];
+    return YES;
+}
+- (void)revokeExpiredAuthorization {
+    // Invalidate delayed auth replies first, then abort core work and native
+    // continuations. cancel releases only its import copy; the independently
+    // retained install journal/candidate remains available for recovery.
+    // The signed-event fallback can observe expiry after this poll already
+    // checked it. Consume that newly queued marker before ending the session.
+    (void)[AISecureStore consumeSessionExpiration];
+    [AISecureStore endSession];
+    ai_lock(); [self cancel];
+    [self emit:@"error" message:@"Your five-minute unlock expired. Unlock again to continue. Any unconfirmed install must be checked; its recovery input was kept."];
+}
 - (void)updateReminders {
     // Temporary session lock/expiry keeps warnings. An explicitly approved sign-out does not.
     if (self.notificationsSuppressedForExplicitSignOut) return;
@@ -353,6 +385,7 @@ extern void ai_free_string(char *value);
     if (completion) completion(success);
 }
 - (void)authorize:(NSString *)reason action:(void (^)(void))action {
+    [self handleSessionExpiration];
     if (!self.initialized || !ai_backend_ready()) { [self emit:@"error" message:@"The signing engine is unavailable in this build."]; return; }
     if ([self.snapshot[@"busy"] boolValue]) { [self emit:@"error" message:@"Please wait for the current task to finish."]; return; }
     if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive) { [self emit:@"error" message:@"Open and unlock App Installer to continue."]; return; }

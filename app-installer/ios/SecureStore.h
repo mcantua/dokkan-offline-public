@@ -3,6 +3,7 @@
 #import <Security/Security.h>
 
 NS_ASSUME_NONNULL_BEGIN
+FOUNDATION_EXPORT NSNotificationName const AISecureStoreSessionExpiredNotification;
 /// Only Keychain stores account/session/signing secrets. No method logs values.
 @interface AISecureStore : NSObject
 /// TRUE only for genuinely missing configuration and an empty engine Keychain service.
@@ -10,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)initialSetupRequired;
 + (BOOL)biometricsEnabled;
 + (BOOL)sessionAuthorized;
+/// Main-queue coordinator consumes each actual current lease expiry at most once.
+/// A delayed expiry cannot revoke a newer authentication generation.
++ (BOOL)consumeSessionExpiration;
 /// For protected native operations only; returns nil outside the authorized session.
 + (nullable LAContext *)authorizedContext;
 + (void)authenticateSessionWithReason:(NSString *)reason completion:(void (^)(BOOL success))completion;

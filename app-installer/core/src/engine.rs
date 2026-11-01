@@ -33,7 +33,7 @@ use std::{
         atomic::{AtomicBool, AtomicU64, Ordering},
         Mutex, OnceLock,
     },
-    time::{Duration, SystemTime, UNIX_EPOCH},
+    time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 use tokio::{
     runtime::Runtime,
@@ -49,7 +49,7 @@ use transport::DeviceTransport;
 const ANISETTE_URL: &str = "https://ani.jkcoxson.com";
 const PAIRING_KEY: &str = "engine.pairing";
 static REMOTE_PAIRING_PORT: AtomicU64 = AtomicU64::new(0);
-tokio::task_local! { static OPERATION_SCOPE:(u64, &'static str); }
+tokio::task_local! { static OPERATION_SCOPE:(u64, &'static str, Instant); }
 static RUNTIME: OnceLock<Runtime> = OnceLock::new();
 static ENGINE: OnceLock<AsyncMutex<Engine>> = OnceLock::new();
 static EVENTS: Mutex<VecDeque<Value>> = Mutex::new(VecDeque::new());
@@ -145,7 +145,7 @@ fn snapshot() -> &'static Mutex<Value> {
 }
 fn publish(kind: &str, message: &str, mut extra: Value) {
     let (operation_id, operation) = OPERATION_SCOPE
-        .try_with(|scope| *scope)
+        .try_with(|scope| (scope.0, scope.1))
         .unwrap_or_else(|_| ACTIVE_OPERATION.lock().map(|v| *v).unwrap_or((0, "state")));
     if OPERATION_SCOPE
         .try_with(|scope| scope.0 != GENERATION.load(Ordering::Acquire))
@@ -256,7 +256,7 @@ where
         *active = (generation, operation);
     }
     publish("progress", "Working…", json!({}));
-    let task = runtime().spawn(OPERATION_SCOPE.scope((generation, operation), async move {
+    let task = runtime().spawn(OPERATION_SCOPE.scope((generation, operation, Instant::now() + Duration::from_secs(600)), async move {
         let result = tokio::time::timeout(Duration::from_secs(600), future).await;
         let Ok(_control) = CONTROL.lock() else { return };
         if GENERATION.load(Ordering::Acquire) != generation {
@@ -895,6 +895,12 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     }
     e.staged = None;
     let operation_cancel_generation = CANCEL_GENERATION.load(Ordering::Acquire);
+    let authorization_generation = AUTH_GENERATION.load(Ordering::Acquire);
+    let deadline = OPERATION_SCOPE.try_with(|scope| scope.2)
+        .unwrap_or_else(|_| Instant::now() + Duration::from_secs(600));
+    let should_stop = || operation_cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire)
+        || authorization_generation != AUTH_GENERATION.load(Ordering::Acquire)
+        || !SIGNED_IN.load(Ordering::Acquire) || Instant::now() >= deadline;
     checked_source(e, &path).map_err(|_|independent_app_failure("This app's retained IPA is missing or could not be read safely. Import its latest IPA again."))?;
     let mut provider = provider(e).await?;
     let apps = device_apps(&mut provider, &e.work).await?;
@@ -1177,7 +1183,7 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
     };
     let main_entitlements =
         main_entitlements.ok_or_else(|| failure("Main app entitlements missing"))?;
-    sign::sign_with_entitlements(
+    sign::sign_with_entitlements_controlled(
         &mut application,
         &cert,
         &profile,
@@ -1185,13 +1191,14 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         &profiles,
         &team,
         Some(callback),
+        &should_stop,
     )
-    .await?;
+    .await.map_err(|error| if should_stop() { failure("Signing was cancelled or authorization expired. Unlock and try again.") } else { error })?;
     let signing_cert_der = cert.certificate.to_der()?;
-    let verified=crate::signed_verification::verify_signed_bundle(
+    let verified=crate::signed_verification::verify_signed_bundle_controlled(
         &application.bundle.bundle_dir,&team.team_id,&bundle_id,&info.udid,
-        profile.encoded_profile.as_ref(),&signing_cert_der,SystemTime::now(),
-    ).map_err(|_|failure("The signed app failed independent profile, entitlement, certificate or resource verification. It was not sent to the iPhone."))?;
+        profile.encoded_profile.as_ref(),&signing_cert_der,SystemTime::now(),&should_stop,
+    ).map_err(|error| if error == crate::signed_verification::VerificationError::Cancelled { failure("Signing was cancelled or authorization expired. Unlock and try again.") } else { failure("The signed app failed independent profile, entitlement, certificate or resource verification. It was not sent to the iPhone.") })?;
     for extension in application.bundle.app_extensions() {
         let id = extension
             .bundle_identifier()
@@ -1200,10 +1207,10 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
             .iter()
             .find(|(bundle_id, _, _)| bundle_id == id)
             .ok_or_else(|| failure("Signed extension profile evidence missing"))?;
-        let extension_verified=crate::signed_verification::verify_signed_bundle(
+        let extension_verified=crate::signed_verification::verify_signed_bundle_controlled(
             &extension.bundle_dir,&team.team_id,id,&info.udid,
-            profile.encoded_profile.as_ref(),&signing_cert_der,SystemTime::now(),
-        ).map_err(|_|failure("A signed extension failed independent profile, entitlement, certificate or resource verification. It was not sent to the iPhone."))?;
+            profile.encoded_profile.as_ref(),&signing_cert_der,SystemTime::now(),&should_stop,
+        ).map_err(|error| if error == crate::signed_verification::VerificationError::Cancelled { failure("Signing was cancelled or authorization expired. Unlock and try again.") } else { failure("A signed extension failed independent profile, entitlement, certificate or resource verification. It was not sent to the iPhone.") })?;
         verified_expiries.push(extension_verified.profile_expiry);
     }
     publish(
@@ -1231,8 +1238,8 @@ async fn sign_path(e: &mut Engine, path: PathBuf, require_installed: bool) -> Re
         bundle_version: Some(bundle_version),
         short_version,
     };
-    if operation_cancel_generation != CANCEL_GENERATION.load(Ordering::Acquire) {
-        return Err(failure("Task cancelled"));
+    if should_stop() {
+        return Err(failure("Signing was cancelled or authorization expired. Unlock and try again."));
     }
     e.staged = Some(Staged {
         validated,
@@ -1288,15 +1295,9 @@ async fn install_staged(e: &mut Engine) -> Result<(), Report> {
     {
         return Err(failure("Approved install identity changed"));
     }
-    let candidate = crate::install_journal::verified_candidate(&e.work, &pending)?;
     let record = pending.record.clone();
-    let temp = source.with_extension("ipa.pending");
-    std::fs::copy(&candidate, &temp)?;
-    if crate::install_journal::hash_file(&temp)? != pending.source_sha256 {
-        return Err(failure("Retained app source did not verify"));
-    }
-    std::fs::File::open(&temp)?.sync_all()?;
-    std::fs::rename(&temp, &source)?;
+    crate::install_journal::promote_candidate(&e.work, &pending, &source)
+        .map_err(|_| failure("The installed source could not be committed durably. Its latest recovery input was kept; unlock and check recovery before refreshing."))?;
     let old_sources = e
         .records
         .iter()
@@ -2186,6 +2187,35 @@ mod tests {
         changed_profile.insert("application-identifier".into(),plist::Value::String("NEW.org.example.signed".into()));
         let signed=crate::entitlement_policy::reconcile(&third_party,"org.example.source","org.example.signed","TEAM",&changed_profile).unwrap();
         assert_eq!(signed.get("keychain-access-groups"),Some(&plist::Value::Array(vec![plist::Value::String("NEW.org.example.signed".into())])));
+
+        // Exercise the actual production promotion path at its directory-sync
+        // boundary. A failed sync must not consume recovery intent or permit
+        // callers to commit new installed metadata over the old durable state.
+        let mut promotion=LifecycleFixture::new("promotion-durability");
+        let old=promotion.record("org.example.promotion",b"old confirmed source");
+        promotion.engine.records.push(old.clone());persist_records(&promotion.engine).unwrap();
+        let old_metadata=std::fs::read(promotion.engine.work.join("installed.json")).unwrap();
+        let latest=promotion.engine.work.join("imports/latest.ipa");
+        std::fs::write(&latest,b"latest confirmed device input").unwrap();
+        let mut intended=old.clone();intended.expiry=999;
+        crate::install_journal::prepare(&promotion.engine.work,&old.bundle_id,&intended,&latest).unwrap();
+        let pending=pending_install(&promotion.engine.work).unwrap().unwrap();
+        let failure=crate::install_journal::promote_candidate_with_directory_sync(
+            &promotion.engine.work,&pending,Path::new(&old.source),|path|{
+                assert_eq!(std::fs::read(path).unwrap(),b"latest confirmed device input");
+                assert_eq!(std::fs::read(promotion.engine.work.join("installed.json")).unwrap(),old_metadata);
+                assert!(pending_install(&promotion.engine.work).unwrap().is_some());
+                Err(std::io::Error::other("synthetic source-directory sync failure"))
+            });
+        assert!(failure.is_err());
+        assert_eq!(promotion.engine.records,vec![old.clone()]);
+        assert_eq!(std::fs::read(promotion.engine.work.join("installed.json")).unwrap(),old_metadata);
+        assert_eq!(std::fs::read(crate::install_journal::verified_candidate(&promotion.engine.work,&pending).unwrap()).unwrap(),b"latest confirmed device input");
+        crate::install_journal::promote_candidate(&promotion.engine.work,&pending,Path::new(&old.source)).unwrap();
+        assert_eq!(std::fs::read(&old.source).unwrap(),b"latest confirmed device input");
+        assert!(pending_install(&promotion.engine.work).unwrap().is_some());
+        assert_eq!(promotion.engine.records,vec![old]);
+        assert_eq!(std::fs::read(promotion.engine.work.join("installed.json")).unwrap(),old_metadata);
     }
     #[tokio::test]
     async fn recovery_refresh_continues_local_failures_but_stops_auth_cancel_or_uncertain_install() {

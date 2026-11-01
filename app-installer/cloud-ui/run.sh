@@ -46,7 +46,7 @@ report={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=
  'xcode':subprocess.check_output(['xcodebuild','-version'],text=True).strip(),
  'simulator_sdk':subprocess.check_output(['xcrun','--sdk','iphonesimulator','--show-sdk-version'],text=True).strip(),
  'scope':'Genuine SDK27.1+. Actual simulator selection and pre-app health are recorded separately. No Apple login or phone use; geometry fixtures do not verify hardware folds.',
- 'pairing_public_new_test_counts':{'vendor':8,'helper':2,'transport':2,'recovery':2,'native':3 if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 1},
+ 'pairing_public_new_test_counts':{'vendor':8,'helper':2,'transport':2,'recovery':2,'native':4 if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 1},
  'native_checks_requested':__import__('os').environ.get('AI_RUN_NATIVE_CHECKS','1')=='1',
  'native_test_scope':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE','all'),
  'display_inventory_preflight_executed':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE')!='pairing-public',
@@ -235,7 +235,7 @@ native_test_args=()
 case "${AI_NATIVE_TEST_SCOPE:-all}" in
   all) ;;
   pairing-document) native_test_args+=("-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads") ;;
-  pairing-public) native_test_args+=("-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads" "-only-testing:AppInstallerCloudUITests/PairingConnectionGuardTests/testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs" "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture") ;;
+  pairing-public) native_test_args+=("-only-testing:AppInstallerCloudUITests/PairingDocumentReadTests/testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads" "-only-testing:AppInstallerCloudUITests/PairingConnectionGuardTests/testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs" "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture" "-only-testing:AppInstallerCloudUITests/SecureStoreBootstrapTests/testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess") ;;
   responsive) native_test_args+=("-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture") ;;
   accessibility) native_test_args+=("-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test03AccessibilityTextKeepsControlsReadable" "-only-testing:AppInstallerCloudUITests/AppInstallerCloudUITests/test04KeyboardKeepsFocusedFieldsReachable") ;;
   authorization-cancel) native_test_args+=("-only-testing:AppInstallerCloudUITests/SecureStoreBootstrapTests/testCancellingOrdinaryPendingAuthenticationRejectsDelayedSyntheticSuccess") ;;
@@ -252,7 +252,7 @@ if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SC
   python3 - "$work/evidence/source-report.json" <<'PYRESULT'
 import json,pathlib,sys
 p=pathlib.Path(sys.argv[1]);r=json.loads(p.read_text())
-r.update(native_component_tests_passed=3 if r['native_test_scope']=='pairing-public' else 1,
+r.update(native_component_tests_passed=4 if r['native_test_scope']=='pairing-public' else 1,
          native_component_tests_failed=0,native_component_success_basis='Actual selected XCTest results, after Xcode-managed or recorded explicit test-host launch; no physical/Duo display proof.')
 p.write_text(json.dumps(r,indent=2)+'\n')
 PYRESULT

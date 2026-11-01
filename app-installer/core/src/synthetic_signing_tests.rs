@@ -441,6 +441,30 @@ fn actual_isideload_signing_round_trip_and_tamper_detection() {
     assert!(report.resource_files >= 2);
     assert!(!report.live_installation_verified);
     assert!(!report.revocation_checked);
+    // Cancel the real verifier before accepting a profile and during resource I/O.
+    // The verifier is read-only, so both cancellation paths must preserve input.
+    let m = material();
+    assert!(matches!(verify_with_roots_controlled(
+        &app, TEAM, ID, DEVICE, &m.profile, &m.leaf.to_der().unwrap(), m.now,
+        std::slice::from_ref(&m.root), &|| true,
+    ), Err(VerificationError::Cancelled)));
+    let cancel_resource = f.0.join("cancel-resource");
+    let content = vec![0x5a; 256 * 1024];
+    fs::write(&cancel_resource, &content).unwrap();
+    let reads = std::sync::atomic::AtomicUsize::new(0);
+    assert!(matches!(hash_file(&cancel_resource, &|| {
+        reads.fetch_add(1, std::sync::atomic::Ordering::Relaxed) >= 3
+    }), Err(VerificationError::Cancelled)));
+    assert_eq!(fs::read(&cancel_resource).unwrap(), content);
+    fs::remove_file(cancel_resource).unwrap();
+    let stop_at_page = std::sync::atomic::AtomicUsize::new(0);
+    assert!(matches!(verify_macho(
+        &app.join("Test"), TEAM, ID, &m.leaf, std::slice::from_ref(&m.root), m.now,
+        Some(&fs::read(app.join("Info.plist")).unwrap()),
+        Some(&fs::read(app.join("_CodeSignature/CodeResources")).unwrap()), true,
+        &|| stop_at_page.fetch_add(1, std::sync::atomic::Ordering::Relaxed) >= 2,
+    ), Err(VerificationError::Cancelled)));
+    verify(&app).unwrap();
     // Package the actual signed output, validate/extract it, and verify its signatures again.
     let ipa = f.0.join("synthetic.ipa");
     let file = File::create(&ipa).unwrap();
@@ -544,7 +568,8 @@ fn actual_isideload_signing_round_trip_and_tamper_detection() {
             m.now,
             None,
             None,
-            false
+            false,
+            &|| false,
         )
         .unwrap(),
         1
@@ -572,7 +597,8 @@ fn actual_isideload_signing_round_trip_and_tamper_detection() {
             m.now,
             None,
             None,
-            false
+            false,
+            &|| false,
         ),
         Err(VerificationError::Entitlements)
     ));
