@@ -1,5 +1,9 @@
 # Tin's standing rules (his own words in quotes)
 
+## Latest App Installer ownership — November 1, 2026
+
+Tin transferred App Installer to Claude. ChatGPT development is paused after preservation; resume only if Tin explicitly asks. The complete transfer is [app-installer/CLAUDE-HANDOFF.md](../app-installer/CLAUDE-HANDOFF.md). Existing cloud-first, privacy, minimal-testing, build/resource approval and protected-base rules continue. No other project ownership changes.
+
 ## Latest stop / takeover instruction (October 29)
 - Tin asked ChatGPT to stop development to conserve usage and save/upload everything Grok Bot needs. All development agents stopped; perform only preservation/documentation/uploads for the handoff. Do not automatically resume ChatGPT development based on older sustained-work directions. Grok takeover state and exact WIP/blockers: [../GROK-TAKEOVER.md](../GROK-TAKEOVER.md). Duo-only and all privacy/storage/testing/platform gates remain in force.
 

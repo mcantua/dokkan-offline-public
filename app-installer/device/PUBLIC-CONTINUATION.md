@@ -1,5 +1,7 @@
 # App Installer public-source continuation
 
+**Latest owner: Claude, at Tin's November1 request. ChatGPT development is paused. Read [the complete takeover](../CLAUDE-HANDOFF.md) before acting on the technical chronology below.**
+
 Updated: November 1, 2026, US Central. Active repository `mcantua/dokkan-offline-public`, branch `chatgpt/app-installer-pairing-repair`, draft PR #7. Tin resumed App Installer and authorized necessary cloud builds. Do not merge the base/main branch or publish a release without Tin's approval. The private backup is frozen: never open, modify, audit or merge it. A supplementary read-only review crossed that boundary; no writes were reported and its findings were excluded. The [incident record](../../downloads/completion-verification/public-pairing/resume-20261101/review-boundary-incident.json) records the disclosure without a new backup audit. This chat owns App Installer only.
 
 ## Current source and behavior

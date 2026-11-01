@@ -1,10 +1,14 @@
 # Status
 
+## App Installer transfer to Claude — November 1, 2026
+
+Tin requested a complete handoff and moved App Installer to Claude. ChatGPT development is paused; all development agents have finished. No new app build/development test or personal-device operation was performed for the transfer. Canonical full handoff: [app-installer/CLAUDE-HANDOFF.md](app-installer/CLAUDE-HANDOFF.md). Verified distribution remains sourceed931b9/package41322933617/delivery41324387393; no rebuild, merge or publication. Live phone/account/Duo and final release acceptance remain0%. Read the new owner instruction before earlier continuous-development notes.
+
 > **Scrubbed copy, prepared Thursday, October 29, 2026, 10:44 AM CT.** This is a single-commit snapshot with personal details removed, for `mcantua/dokkan-offline-public`. `mcantua/claude-chatg` stays the private backup. Nothing secret, no signing material, no `save/` data, no Sparking keys, and no personal details may be committed. The device UDID and private network address come from `config/private.local` or the `DUO_UDID` and `OFFLINE_DEVICE_HOST` environment variables. As of Thursday, October 29, 2026, 11:11 AM CT, https://github.com/mcantua/dokkan-offline-public is public and is the active repo for Offline Dokkan work. `mcantua/claude-chatg` is the frozen private backup. No personal data may be committed. Personal details include the real name, a personal email, the device UDID, and private network addresses.
 
 **Hayate handoff:** [HAYATE-HANDOFF.md](HAYATE-HANDOFF.md). Keep that file current.
 
-_Last updated: November 1, 2026 (ChatGPT; cloud UI/source/kit/delivery verified; physical acceptance pending)_
+_Last updated: November 1, 2026 (Claude takeover requested; ChatGPT development paused; verified cloud distribution preserved)_
 
 ## App Installer active batch — November 1, 2026
 
@@ -35,7 +39,7 @@ One review agent used the wrong inherited frozen checkout for supplementary capa
 ## Right now
 | Project | Who | State |
 |---|---|---|
-| App Installer | **ChatGPT + scoped cloud agents, draft PR #7** | Five backend repairs and corrected accessible native HUD verified. Responsive41321551443 passed1/0 in12.518s; matching package41322933617 reused15passes/0fresh tests. Full source/IPA and kit reviews passed,408packages/0notice gaps. Actual Mac signature/delivery41324387393 and all7server pins passed. Sole44,231,197-byte kit/current distribution replaced b45; no backup. Mac unavailable; live phone/account and physical Duo acceptance remain0%, release_ready=false. |
+| App Installer | **Claude — takeover requested by Tin; ChatGPT paused** | Complete takeover saved in app-installer/CLAUDE-HANDOFF.md. Current sourceed93/package41322933617 and actual Mac signature/delivery41324387393 remain verified; seven current assets/no backup. No rebuild/test/merge/publication for transfer. Mac unavailable; live phone/security/Duo/final-release acceptance0%. |
 | Dokkan Unit Creator | **Grok, on draft PR #1** | Source branch `chatgpt/ios-eclipse-database-reuse`. Hosted Finish saved exact growth thousandths on run 40891656259. Full validation, auth, fresh state, engine master attachment, and late service binding remain open. No release builds until Tin says "make the builds". |
 | Offline Dokkan Battle | Separate ChatGPT conversation, open PR#1 | Tin clarified our own original offline game; Eclipse/Sparking are research/data/asset sources, not game modes or live-server requirements. Shared scope corrected; actual UI/gameplay implementation remains tracked in PR#1. |
 
@@ -46,6 +50,8 @@ One review agent used the wrong inherited frozen checkout for supplementary capa
 
 
 ## Log (newest first)
+- 2026-11-01 12:12 PM US Central — Tin transferred App Installer to Claude. ChatGPT prepared the complete source/build/proof/limits/authorization/continuation handoff, stopped development and preserved the existing verified distribution. No application code, development test, build, Mac/phone action, merge or publication for this transfer. All agents finished; no hidden application-code WIP.
+
 - 2026-10-31 11:14 PM US Central — ChatGPT: completed replacement package41270305394/sourcef941208 and genuine hosted Mac signature/delivery; final instrumented reuse41271986054 passed, same sole release430349496 and all7 asset IDs/pins unchanged. Four app/setup repairs have focused setup2/uploader2 plus hosted core4/native3 passing proof; unchanged vendor8/helper2 reused. Found/fixed a fifth delivery defect: tag lookup omitted unpublished drafts, so initial41271081854 created a second draft. Verified both exact7asset sets before deleting only obsolete managed428285659; bounded list-based discovery now refuses duplicates/published matches. Publisher2 passed, diagnostic2 passed; one opaque reuse probe41271403913 failed after124s, exactcause unproven, server unchanged; subsequent instrumented run passed all phases. Current kit44149993bytes/SHAb3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661. One current local distribution retained; old baseline/outerZIP duplicates removed only after full replacement verification. PUBLIC-DELIVERY.md has current exact owner-draft URL/pins and safe local overlay. Physical/account/USB/install/refresh/Duo acceptance remains unverified; cloud-only tools cannot perform it. No personal machine/network, secret/private config/save/signing-key/frozen backup access or base merge.
 - 2026-10-31 10:43 PM US Central — ChatGPT: affected hosted run41269237340/source0648612 completed SUCCESS. Current core transport2/recovery2 and native3 verified; unchanged vendor8/helper2 reused. Earlier focused setup2 and bounded-uploader2 passed. Four repair defects now have targeted proof; no live Apple/phone/Duo result inferred. Next matching package uses the exact passing proofs, no app-test repeats. Cloud-only; existing4c09 draft retained until complete verified replacement.
 - 2026-10-31 10:26 PM US Central — ChatGPT: resumed App Installer only at9946635; public PR #7/head unchanged, no attached personal-device capability. Reviewed actual setup/import/upload paths with3 scoped agents. Fixed launcher missing Pair only option and delayed variant mismatch; one Python invocation2/0. Fixed whole-file AFC allocation for accepted resources up to4GiB with reusable bounded-buffer/backpressure/EOF/cancel handling, used by legacy+RP; one actual Rust invocation2/0 in0.22s (earlier Cargo selection stopped before tests, retained). Added app-specific missingaltIRK rejection before primary/backup mutation with precise re-export message, preserving generic vendor schema/legacy support; affected core/native checks next. No unrelated tests/builds repeated; no phone/sign-in success, old backup/key/save/personal network access or base merge.
