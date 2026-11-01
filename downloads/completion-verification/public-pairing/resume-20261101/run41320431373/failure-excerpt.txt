@@ -1,0 +1,45 @@
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:38.1110310Z Test Suite 'AppInstallerCloudUITests.xctest' started at 2026-11-01 15:22:35.470.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:38.1129710Z Test Suite 'AppInstallerCloudUITests' started at 2026-11-01 15:22:35.470.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:38.3708360Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' started.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:41.1535390Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:356: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((detailsImage.bounds.size.width) less than or equal to (28.0)) failed: ("32.6666666667") is greater than ("28")
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:41.1539300Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:356: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((detailsImage.bounds.size.height) less than or equal to (28.0)) failed: ("32.6666666667") is greater than ("28") - The explicit 22-point symbol must not grow with the accessibility text font.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:43.7395540Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:428: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((compactDetailsImage.bounds.size.width) less than or equal to (28.0)) failed: ("32.6666666667") is greater than ("28")
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:43.8216450Z /Users/runner/work/dokkan-offline-public/dokkan-offline-public/AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/Tests/AppInstallerCloudUITests.m:428: error: -[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture] : ((compactDetailsImage.bounds.size.height) less than or equal to (28.0)) failed: ("32.6666666667") is greater than ("28")
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.3114450Z Test Case '-[AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture]' failed (8.713 seconds).
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.3938360Z Test Suite 'AppInstallerCloudUITests' failed at 2026-11-01 15:22:44.185.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.3942830Z 	 Executed 1 test, with 4 failures (0 unexpected) in 8.713 (8.715) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.4759040Z Test Suite 'AppInstallerCloudUITests.xctest' failed at 2026-11-01 15:22:44.185.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.6377820Z 	 Executed 1 test, with 4 failures (0 unexpected) in 8.713 (8.715) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.7196980Z Test Suite 'Selected tests' failed at 2026-11-01 15:22:44.186.
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:22:44.8021170Z 	 Executed 1 test, with 4 failures (0 unexpected) in 8.713 (8.716) seconds
+simulator (single)	Build and run hosted UIKit and secure-storage checks	2026-11-01T15:24:56.1502290Z ** TEST EXECUTE FAILED **
+simulator (single)	Keep failed or standalone test diagnostics	﻿2026-11-01T15:25:09.5280180Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5280510Z with:
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5280660Z   name: app-installer-cloud-tests-latest
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5281270Z   path: AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/
+simulator (single)	Keep failed or standalone test diagnostics	!AI-Workspace/dokkan-offline-public/app-installer/cloud-ui/work/evidence/candidates/**
+simulator (single)	Keep failed or standalone test diagnostics	
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5281860Z   retention-days: 7
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5282030Z   if-no-files-found: error
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5282220Z   compression-level: 6
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5282380Z   overwrite: false
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5282550Z   include-hidden-files: false
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.5282750Z ##[endgroup]
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.6509010Z (node:77612) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.6510020Z (Use `node --trace-deprecation ...` to show where the warning was created)
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.7347910Z With the provided path, there will be 1258 files uploaded
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.7351160Z Artifact name is valid!
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:09.7351470Z Root directory input is valid!
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:10.0411130Z Beginning upload of artifact content to blob storage
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:10.2831170Z (node:77612) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:10.7974600Z Uploaded bytes 8388608
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.0387930Z Uploaded bytes 16777216
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.0586880Z Uploaded bytes 25165824
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.4220080Z Uploaded bytes 33554432
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.8835450Z Uploaded bytes 39961128
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.9205700Z Finished uploading artifact content to blob storage!
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.9207800Z SHA256 digest of uploaded artifact zip is 0dd4a21e62d424ac6f2a447543bbde4b603aa2ce8452c73a8fdcc9eea17f880d
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:11.9208370Z Finalizing artifact upload
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:12.3711050Z Artifact app-installer-cloud-tests-latest.zip successfully finalized. Artifact ID 13089432369
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:12.3713570Z Artifact app-installer-cloud-tests-latest has been successfully uploaded! Final size is 39961128 bytes. Artifact ID is 13089432369
+simulator (single)	Keep failed or standalone test diagnostics	2026-11-01T15:25:12.3714320Z Artifact download URL: https://github.com/mcantua/dokkan-offline-public/actions/runs/41320431373/artifacts/13089432369

@@ -1,0 +1,42 @@
+{
+  "artifacts": [
+    {
+      "id": 13089432369,
+      "name": "app-installer-cloud-tests-latest",
+      "size_in_bytes": 39961128,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089432369",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089432369/zip",
+      "expired": false,
+      "created_at": "2026-11-01T15:25:12Z",
+      "expires_at": "2026-11-08T15:25:09Z",
+      "updated_at": "2026-11-01T15:25:12Z",
+      "digest": "sha256:0dd4a21e62d424ac6f2a447543bbde4b603aa2ce8452c73a8fdcc9eea17f880d",
+      "workflow_run": {
+        "id": 41320431373,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "ac87396bb97b9394fb34999555b67e4be293d3f8"
+      }
+    },
+    {
+      "id": 13089108537,
+      "name": "app-installer-pairing-public-proof",
+      "size_in_bytes": 11507,
+      "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089108537",
+      "archive_download_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/artifacts/13089108537/zip",
+      "expired": false,
+      "created_at": "2026-11-01T15:25:09Z",
+      "expires_at": "2026-11-08T15:25:08Z",
+      "updated_at": "2026-11-01T15:25:09Z",
+      "digest": "sha256:b71e763dc4d809585102379705a9d111e9634ded625f5d948fba6d9ea8f2dbd9",
+      "workflow_run": {
+        "id": 41320431373,
+        "repository_id": 1438621462,
+        "head_repository_id": 1438621462,
+        "head_branch": "chatgpt/app-installer-pairing-repair",
+        "head_sha": "ac87396bb97b9394fb34999555b67e4be293d3f8"
+      }
+    }
+  ]
+}

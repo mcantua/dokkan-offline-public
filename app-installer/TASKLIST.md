@@ -1,6 +1,6 @@
 # App Installer completion task list
 
-Current: November 1, 2026, US Central. Backend signing/cancellation/authorization/recovery repairs passed scoped checks; package41311226478/sourceb45c705 and sole-draft delivery41313262648 passed independent seven-asset/source/kit verification. The b45 backend assets remain held. Responsive run41316177182/source99368915 built and launched, but exactly one method failed four assertions in 40.539 seconds, with zero passes. Window-level accessibility trait inheritance/restoration, explicit spinner visibility, a 22-point details symbol and bounded scrolling are source-ready; the genuine SDK API check and ONE targeted retry are pending. Tin's Mac is unavailable; continue cloud work without requesting routine approval again. Exact scopes in [PUBLIC-CONTINUATION.md](device/PUBLIC-CONTINUATION.md); older results keep their original source scope. No physical/Apple completion is inferred.
+Current: November 1, 2026. Backend b45package/delivery verified and held. UI source fixes are implemented; actual sourceac87396 images show readable full details, visible spinner and intact32.667pt icon inside44pt target. A test-only unscaled28pt cap was removed while actual containment/hit assertions remain. Exactly one responsive method41321551443/sourceda1a36a is running; no new UI pass is claimed. Unchanged backend checks are reused. Mac unavailable; physical acceptance remains0%. See [exact evidence](device/PUBLIC-CONTINUATION.md).
 
 | Requirement | Current verified state | Remaining acceptance |
 |---|---|---|

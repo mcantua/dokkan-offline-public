@@ -1,0 +1,8 @@
+{
+  "obsolete_local_native_zip_removed": true,
+  "replacement_run": 41319375823,
+  "replacement_bytes": 41453049,
+  "replacement_sha256": "33e8c6c9592d369714bffe30b61290dfbeb752691731d11d27c05fbc0d0d0019",
+  "preserved": "Exact raw failure logs, source/proof records, all10 original reached PNGs and their payload refs/hash pins. GitHub diagnostic artifact13088121235 remains governed by its own retention. No app distribution/source/tool deleted.",
+  "prior_provenance_is_historical": true
+}
