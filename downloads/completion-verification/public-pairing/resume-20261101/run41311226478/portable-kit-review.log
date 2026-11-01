@@ -1,0 +1,3 @@
+All 38 listed kit payloads match exact bytes/hash and executable/private modes.
+24 required source files match captured b45 source manifest; README matches b45 public Git object, not current edited files.
+Helper sealed receipt, target graphs, zero-gap notices, source delivery, actual arm64+x86_64 Mach-O/macOS12 minimum/SDK/signature-command bounds verified portably. No codesign or binary execution.

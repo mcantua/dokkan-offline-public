@@ -1,0 +1,116 @@
+{
+  "id": 124858608481,
+  "run_id": 41310143960,
+  "workflow_name": "App Installer cloud verification and candidates",
+  "head_branch": "chatgpt/app-installer-pairing-repair",
+  "run_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/runs/41310143960",
+  "run_attempt": 1,
+  "node_id": "CR_kwDOVb-fFs8AAAAdEicrYQ",
+  "head_sha": "8e9b43ce29aeff18e2dbb21792f09e8b0b262dac",
+  "url": "https://api.github.com/repos/mcantua/dokkan-offline-public/actions/jobs/124858608481",
+  "html_url": "https://github.com/mcantua/dokkan-offline-public/actions/runs/41310143960/job/124858608481",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-11-01T13:12:34Z",
+  "started_at": "2026-11-01T13:12:36Z",
+  "completed_at": "2026-11-01T13:21:28Z",
+  "name": "simulator (single)",
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-11-01T13:12:37Z",
+      "completed_at": "2026-11-01T13:12:37Z"
+    },
+    {
+      "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-11-01T13:12:37Z",
+      "completed_at": "2026-11-01T13:12:42Z"
+    },
+    {
+      "name": "Build and run hosted UIKit and secure-storage checks",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-11-01T13:12:42Z",
+      "completed_at": "2026-11-01T13:21:16Z"
+    },
+    {
+      "name": "Keep only the new public source-bound test proof",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-11-01T13:21:16Z",
+      "completed_at": "2026-11-01T13:21:18Z"
+    },
+    {
+      "name": "Keep integrity-checked unsigned candidates with their source",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 5,
+      "started_at": "2026-11-01T13:21:18Z",
+      "completed_at": "2026-11-01T13:21:18Z"
+    },
+    {
+      "name": "Keep the minimal native setup kit",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 6,
+      "started_at": "2026-11-01T13:21:18Z",
+      "completed_at": "2026-11-01T13:21:18Z"
+    },
+    {
+      "name": "Keep failed or standalone test diagnostics",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 7,
+      "started_at": "2026-11-01T13:21:18Z",
+      "completed_at": "2026-11-01T13:21:20Z"
+    },
+    {
+      "name": "Retain a complete kit and source pair",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 8,
+      "started_at": "2026-11-01T13:21:20Z",
+      "completed_at": "2026-11-01T13:21:20Z"
+    },
+    {
+      "name": "Keep only current standalone test diagnostics",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 9,
+      "started_at": "2026-11-01T13:21:20Z",
+      "completed_at": "2026-11-01T13:21:22Z"
+    },
+    {
+      "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 18,
+      "started_at": "2026-11-01T13:21:22Z",
+      "completed_at": "2026-11-01T13:21:23Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 19,
+      "started_at": "2026-11-01T13:21:23Z",
+      "completed_at": "2026-11-01T13:21:26Z"
+    }
+  ],
+  "check_run_url": "https://api.github.com/repos/mcantua/dokkan-offline-public/check-runs/124858608481",
+  "labels": [
+    "xcode-27"
+  ],
+  "runner_id": 1000000244,
+  "runner_name": "GitHub Actions 1000000244",
+  "runner_group_id": 0,
+  "runner_group_name": "GitHub Actions"
+}
