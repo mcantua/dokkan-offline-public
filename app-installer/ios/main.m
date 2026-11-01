@@ -108,6 +108,55 @@ static UIStackView *AIStack(CGFloat spacing) {
     return stack;
 }
 
+// Displays only the same sanitized native status already shown in the task HUD.
+@interface AITaskDetails : UIViewController
+@property (nonatomic, copy) NSString *statusText;
+@property (nonatomic, strong) UITextView *statusView;
+- (void)updateStatus:(NSString *)status;
+@end
+@implementation AITaskDetails
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"Task details";
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)];
+    self.navigationItem.rightBarButtonItem.accessibilityLabel = @"Done";
+    self.statusView = [UITextView new];
+    self.statusView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.statusView.editable = NO;
+    self.statusView.selectable = YES;
+    self.statusView.scrollEnabled = YES;
+    self.statusView.alwaysBounceVertical = YES;
+    self.statusView.adjustsFontForContentSizeCategory = YES;
+    self.statusView.textColor = UIColor.labelColor;
+    self.statusView.backgroundColor = UIColor.systemBackgroundColor;
+    self.statusView.accessibilityIdentifier = @"Full task status";
+    self.statusView.accessibilityLabel = @"Task status details";
+    self.statusView.textContainerInset = UIEdgeInsetsMake(16, 12, 24, 12);
+    self.statusView.text = self.statusText;
+    [self.view addSubview:self.statusView];
+    UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.statusView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+        [self.statusView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+        [self.statusView.topAnchor constraintEqualToAnchor:safe.topAnchor],
+        [self.statusView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor]
+    ]];
+    [self updateFont];
+}
+- (void)updateFont {
+    self.statusView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody compatibleWithTraitCollection:self.traitCollection];
+}
+- (void)viewWillAppear:(BOOL)animated { [super viewWillAppear:animated]; [self updateFont]; }
+- (void)traitCollectionDidChange:(UITraitCollection *)previous { [super traitCollectionDidChange:previous]; [self updateFont]; }
+- (void)updateStatus:(NSString *)status {
+    if ([self.statusText isEqualToString:status]) return;
+    self.statusText = status;
+    self.statusView.text = status;
+}
+- (void)close { [self dismissViewControllerAnimated:YES completion:nil]; }
+@end
+
 @class AIHome;
 @interface AISettings : UITableViewController
 @property (nonatomic, weak) AIHome *home;
@@ -125,10 +174,15 @@ static UIStackView *AIStack(CGFloat spacing) {
 @property (nonatomic, strong) NSLayoutConstraint *taskHUDBottom;
 @property (nonatomic, strong) UIVisualEffectView *taskHUD;
 @property (nonatomic, strong) UILabel *taskHUDStatus;
+@property (nonatomic, strong) UIStackView *taskHUDStatusRow;
+@property (nonatomic, strong) NSLayoutConstraint *taskHUDDetailsWidth;
 @property (nonatomic, strong) UIActivityIndicatorView *taskHUDSpinner;
+@property (nonatomic, strong) UIActivityIndicatorView *taskHUDCompactSpinner;
 @property (nonatomic, strong) UIProgressView *taskHUDProgress;
 @property (nonatomic, strong) UILabel *taskHUDPercent;
 @property (nonatomic, strong) UIButton *taskHUDCancel;
+@property (nonatomic, strong) UIButton *taskHUDDetails;
+@property (nonatomic, weak) AITaskDetails *taskDetails;
 @property (nonatomic, strong) UIStackView *content;
 @property (nonatomic, strong) UIStackView *mainColumns;
 @property (nonatomic, strong) UIStackView *rail;
@@ -244,26 +298,52 @@ static UIStackView *AIStack(CGFloat spacing) {
     [self.view addSubview:self.taskHUD];
     self.taskHUDStatus = AILabel(@"", UIFontTextStyleSubheadline, UIColor.secondaryLabelColor);
     self.taskHUDStatus.accessibilityTraits |= UIAccessibilityTraitUpdatesFrequently;
+    self.taskHUDStatus.numberOfLines = 2;
+    self.taskHUDStatus.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.taskHUDStatus setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     self.taskHUDSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     UIStackView *status = [[UIStackView alloc] initWithArrangedSubviews:@[self.taskHUDSpinner, self.taskHUDStatus]];
     status.axis = UILayoutConstraintAxisHorizontal; status.spacing = 10; status.alignment = UIStackViewAlignmentCenter;
-    status.translatesAutoresizingMaskIntoConstraints = NO;
-    // Only lengthy status text scrolls; numeric progress and Cancel stay visible.
-    UIScrollView *statusScroll = [UIScrollView new];
-    statusScroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    [statusScroll addSubview:status];
+    self.taskHUDStatusRow = status;
+    // A deliberate two-line preview avoids sliced glyphs. Full text has an
+    // explicit native details action, while progress and Cancel stay pinned.
+    self.taskHUDDetails = [[AIDynamicButton alloc] initWithFrame:CGRectZero];
+    UIButtonConfiguration *detailsConfiguration = [UIButtonConfiguration plainButtonConfiguration];
+    detailsConfiguration.title = @"Task details";
+    detailsConfiguration.image = [UIImage systemImageNamed:@"info.circle"];
+    detailsConfiguration.imagePadding = 8;
+    detailsConfiguration.contentInsets = NSDirectionalEdgeInsetsMake(4, 0, 4, 0);
+    __weak UIButton *detailsButton = self.taskHUDDetails;
+    detailsConfiguration.titleTextAttributesTransformer = ^NSDictionary<NSAttributedStringKey,id> *(NSDictionary<NSAttributedStringKey,id> *attributes) {
+        NSMutableDictionary *result = attributes.mutableCopy;
+        result[NSFontAttributeName] = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote compatibleWithTraitCollection:detailsButton.traitCollection];
+        return result;
+    };
+    self.taskHUDDetails.configuration = detailsConfiguration;
+    self.taskHUDDetails.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeading;
+    self.taskHUDDetails.titleLabel.adjustsFontForContentSizeCategory = YES;
+    self.taskHUDDetails.accessibilityLabel = @"Task details";
+    self.taskHUDDetails.accessibilityHint = @"Opens the full task status.";
+    [self.taskHUDDetails.heightAnchor constraintGreaterThanOrEqualToConstant:44].active = YES;
+    self.taskHUDDetailsWidth = [self.taskHUDDetails.widthAnchor constraintEqualToConstant:44];
+    [self.taskHUDDetails setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.taskHUDDetails addTarget:self action:@selector(showTaskDetails) forControlEvents:UIControlEventTouchUpInside];
     self.taskHUDProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.taskHUDProgress.accessibilityLabel = @"Task progress";
     self.taskHUDPercent = AILabel(@"", UIFontTextStyleCaption1, UIColor.secondaryLabelColor);
-    UIStackView *fraction = [[UIStackView alloc] initWithArrangedSubviews:@[self.taskHUDProgress, self.taskHUDPercent]];
+    self.taskHUDCompactSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+    self.taskHUDCompactSpinner.hidesWhenStopped = YES;
+    self.taskHUDCompactSpinner.hidden = YES;
+    self.taskHUDCompactSpinner.accessibilityIdentifier = @"Compact task activity";
+    self.taskHUDCompactSpinner.accessibilityLabel = @"Task in progress";
+    UIStackView *fraction = [[UIStackView alloc] initWithArrangedSubviews:@[self.taskHUDCompactSpinner, self.taskHUDProgress, self.taskHUDPercent]];
     fraction.axis = UILayoutConstraintAxisHorizontal; fraction.spacing = 12; fraction.alignment = UIStackViewAlignmentCenter;
     self.taskHUDCancel = AIButton(@"Cancel", NO, self, @selector(cancel));
-    UIStackView *body = [[UIStackView alloc] initWithArrangedSubviews:@[statusScroll, fraction, self.taskHUDCancel]];
+    UIStackView *controls = [[UIStackView alloc] initWithArrangedSubviews:@[self.taskHUDDetails, self.taskHUDCancel]];
+    controls.axis = UILayoutConstraintAxisHorizontal; controls.spacing = 12; controls.alignment = UIStackViewAlignmentCenter;
+    UIStackView *body = [[UIStackView alloc] initWithArrangedSubviews:@[status, fraction, controls]];
     body.axis = UILayoutConstraintAxisVertical; body.spacing = 12; body.translatesAutoresizingMaskIntoConstraints = NO;
     [self.taskHUD.contentView addSubview:body];
-    NSLayoutConstraint *statusHeight = [statusScroll.heightAnchor constraintEqualToAnchor:status.heightAnchor];
-    statusHeight.priority = UILayoutPriorityDefaultHigh - 1;
     self.taskHUDBottom = [self.taskHUD.bottomAnchor constraintEqualToAnchor:self.view.keyboardLayoutGuide.topAnchor constant:-12];
     self.scrollAboveTaskHUD = [self.scroll.bottomAnchor constraintEqualToAnchor:self.taskHUD.topAnchor constant:-12];
     [NSLayoutConstraint activateConstraints:@[
@@ -274,18 +354,48 @@ static UIStackView *AIStack(CGFloat spacing) {
         [body.leadingAnchor constraintEqualToAnchor:self.taskHUD.contentView.leadingAnchor constant:16],
         [body.trailingAnchor constraintEqualToAnchor:self.taskHUD.contentView.trailingAnchor constant:-16],
         [body.topAnchor constraintEqualToAnchor:self.taskHUD.contentView.topAnchor constant:16],
-        [body.bottomAnchor constraintEqualToAnchor:self.taskHUD.contentView.bottomAnchor constant:-16],
-        [status.leadingAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.leadingAnchor],
-        [status.trailingAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.trailingAnchor],
-        [status.topAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.topAnchor],
-        [status.bottomAnchor constraintEqualToAnchor:statusScroll.contentLayoutGuide.bottomAnchor],
-        [status.widthAnchor constraintEqualToAnchor:statusScroll.frameLayoutGuide.widthAnchor],
-        statusHeight,
-        [statusScroll.heightAnchor constraintLessThanOrEqualToAnchor:self.view.heightAnchor multiplier:0.22],
-        [statusScroll.heightAnchor constraintGreaterThanOrEqualToConstant:0]
+        [body.bottomAnchor constraintEqualToAnchor:self.taskHUD.contentView.bottomAnchor constant:-16]
     ]];
     [self updateTaskHUDMaterial];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(updateTaskHUDMaterial) name:UIAccessibilityReduceTransparencyStatusDidChangeNotification object:nil];
+}
+- (void)layoutTaskHUD {
+    BOOL accessibility = UIContentSizeCategoryIsAccessibilityCategory(self.traitCollection.preferredContentSizeCategory);
+    // The standard info button keeps its full accessible name at large text
+    // sizes, allowing Cancel to retain its actual Dynamic Type font alongside it.
+    NSString *title = accessibility ? nil : @"Task details";
+    if (![self.taskHUDDetails.configuration.title isEqualToString:title] && (self.taskHUDDetails.configuration.title || title)) {
+        UIButtonConfiguration *configuration = self.taskHUDDetails.configuration;
+        configuration.title = title;
+        self.taskHUDDetails.configuration = configuration;
+    }
+    self.taskHUDDetailsWidth.active = accessibility;
+    CGFloat available = CGRectGetMinY(self.view.keyboardLayoutGuide.layoutFrame) - self.view.safeAreaInsets.top - 24;
+    CGFloat controls = MAX(44, self.taskHUDCancel.intrinsicContentSize.height);
+    CGFloat fullHeight = 32 + 24 + 2 * ceil(self.taskHUDStatus.font.lineHeight) + ceil(self.taskHUDPercent.font.lineHeight) + controls;
+    CGFloat readingSpace = self.focusedField ? MAX(80, self.focusedField.intrinsicContentSize.height + 24) : 80;
+    BOOL compact = available > 0 && available < fullHeight + readingSpace;
+    // In a short/keyboard-constrained viewport, full status remains one tap away.
+    // Never squeeze glyphs or shrink text to preserve the pinned task controls.
+    self.taskHUDStatusRow.hidden = compact;
+    BOOL numeric = !self.taskHUD.hidden && self.displayProgress != nil;
+    BOOL compactActivity = !self.taskHUD.hidden && compact && !numeric;
+    if (compactActivity) [self.taskHUDCompactSpinner startAnimating];
+    else [self.taskHUDCompactSpinner stopAnimating];
+    self.taskHUDProgress.hidden = !numeric;
+    self.taskHUDPercent.hidden = compact || !numeric;
+    self.taskHUDProgress.superview.hidden = !numeric && !compactActivity;
+}
+- (void)showTaskDetails {
+    if (self.presentedViewController || self.navigationController.presentedViewController) return;
+    [self.view endEditing:YES];
+    AITaskDetails *details = [AITaskDetails new];
+    [details updateStatus:self.taskHUDStatus.text ?: @"Working…"];
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:details];
+    navigation.modalPresentationStyle = UIModalPresentationPageSheet;
+    navigation.sheetPresentationController.detents = @[[UISheetPresentationControllerDetent largeDetent]];
+    self.taskDetails = details;
+    [self presentViewController:navigation animated:YES completion:nil];
 }
 - (void)handleEvent:(NSDictionary *)event {
     NSString *type = AIText(event[@"type"], @"");
@@ -381,6 +491,8 @@ static UIStackView *AIStack(CGFloat spacing) {
     BOOL numericProgress = busy && self.displayProgress != nil;
     self.taskHUD.hidden = !busy;
     self.taskHUDStatus.text = message.length ? message : @"Working…";
+    [self.taskDetails updateStatus:self.taskHUDStatus.text];
+    self.taskHUDDetails.accessibilityValue = self.taskHUDStatus.text;
     self.taskHUDProgress.superview.hidden = !numericProgress;
     if (busy) [self.taskHUDSpinner startAnimating]; else [self.taskHUDSpinner stopAnimating];
     // Switch constraints without imposing both bottom anchors during keyboard changes.
@@ -678,6 +790,7 @@ static UIStackView *AIStack(CGFloat spacing) {
     self.mainColumns.axis = wide ? UILayoutConstraintAxisHorizontal : UILayoutConstraintAxisVertical;
     self.mainColumns.distribution = wide ? UIStackViewDistributionFillEqually : UIStackViewDistributionFill;
     [self layoutRail];
+    [self layoutTaskHUD];
     CGSize viewport = self.scroll.bounds.size;
     if (!CGSizeEqualToSize(viewport, self.lastFocusViewportSize)) {
         self.lastFocusViewportSize = viewport;

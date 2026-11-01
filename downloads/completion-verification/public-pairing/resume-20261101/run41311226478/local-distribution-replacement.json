@@ -1,0 +1,42 @@
+{
+  "source_commit": "b45c705e5fde11a5c07bed590cc4a4643a24f1e4",
+  "package_run": 41311226478,
+  "sole_distribution": "app-installer/build/work/latest-reviewed",
+  "files": {
+    "AppInstaller-candidate-manifest.json": {
+      "bytes": 2207,
+      "sha256": "81056b0ced4c564e29b2055a19ee75c8f46f5cbedef21a1e947aa4f4c4d616f6"
+    },
+    "cloud-device-library-manifest.json": {
+      "bytes": 1334,
+      "sha256": "2e98bd10ce64e7a494165412a18a59a90a01cd4e592632b245d5336d2695b03a"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "bytes": 8474200,
+      "sha256": "5d323fba2a6758e30bde93dcf203a6ff76170556aeae39b64e8b469bd11ded39"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "bytes": 154027172,
+      "sha256": "fcf0cdca31efc7a1c0f09c8d021b122a9d5380027cec6af8c1f23d78b0b4c75e"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "bytes": 8474204,
+      "sha256": "c21a388362cc02328cef0fc03a1608596326f1d6a30327080e80fe8649582f52"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "bytes": 44228257,
+      "sha256": "88e1aab0ca98a5e2187471d42dba7d047c2438703588898d201e01dd62483391"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "bytes": 893,
+      "sha256": "a1f4b3d5a0036dd026f81f33ceb993bab02369050556d509ff70f8c4caa169a1"
+    }
+  },
+  "old_distribution_verified_before_retirement": true,
+  "new_distribution_verified_before_and_after_move": true,
+  "old_files_and_duplicate_outer_archives_removed": true,
+  "backup_retained": false,
+  "review_milestone_only": true,
+  "user_download_recommended": false,
+  "pending": "Accessibility HUD overflow correction; physical/account acceptance"
+}

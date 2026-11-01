@@ -70,12 +70,13 @@ devices = supported_devices(runtime)
 duo = next((d for d in devices if d.get('name') == 'iPhone Duo'), None)
 selections = [('duo', duo, runtime), ('regular-iphone-fallback', regular_phone(runtime), runtime)]
 # This exact hosted runtime failed migration before any app in run40916969403.
-# Only the selected Files/schema and labelled geometry-fixture checks may use regular27.0
-# runtime. Compilation still uses genuine SDK27.1+; this is never Duo/UI proof.
+# Only selected Files/schema or labelled responsive/status-detail component checks may use regular27.0
+# runtime. Compilation still uses genuine SDK27.1+; this is regular UIKit component
+# evidence, never physical Duo/display/fold proof.
 component_runtime = next((r for r in items['runtimes'] if r.get('isAvailable')
                           and r.get('name', '').startswith('iOS')
                           and version(r['version']) == (27, 0) and regular_phone(r)), None)
-if (os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public'
+if (os.environ.get('AI_NATIVE_TEST_SCOPE') in ('pairing-public','responsive')
         and runtime.get('buildversion') == '24A94425' and version(runtime['version']) == (27, 1)
         and component_runtime):
     selections = [('regular-iphone-component-fallback', regular_phone(component_runtime), component_runtime)]
@@ -83,8 +84,10 @@ if (os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public'
         'prior_run_id': 40916969403, 'prior_runtime_build': '24A94425',
         'reason': 'Duo27.1 terminal data migration failure and unavailable shell before any app. '
                   'Its supported-device list excludes regular iPhones.',
-        'checks': ['coordinated Files reads', 'pinned record/discovery metadata guards',
-                   'responsive UIKit geometry fixtures (not physical Duo geometry)'],
+        'checks': (['responsive UIKit/status-details fixtures (not physical Duo geometry)']
+                   if os.environ.get('AI_NATIVE_TEST_SCOPE') == 'responsive' else
+                   ['coordinated Files reads', 'pinned record/discovery metadata guards',
+                    'responsive UIKit geometry fixtures', 'expired-authorization/cancellation fixtures']),
         'runtime_version': '27.0', 'duo_runtime_verified': False,
         'os27_1_runtime_verified': False, 'sdk_minimum_unchanged': '27.1',
         'scope': 'Generic component checks only; no Duo display/fold/physical-device claim.'}
@@ -105,7 +108,7 @@ for label, device, runtime in selections:
             owned = None
             raise RuntimeError('Creation did not return a valid owned simulator UUID.')
         entry['simulator_id'] = owned
-        managed_components = (os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public'
+        managed_components = (os.environ.get('AI_NATIVE_TEST_SCOPE') in ('pairing-public','responsive')
                               and label == 'regular-iphone-component-fallback')
         if managed_components:
             for name in ('boot.log', 'bootstatus.log', 'frontend.log', 'shell-appearance.log'):

@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "delivery_run_id": 41313262648,
+  "delivery_job_id": 124867896958,
+  "delivery_workflow_source_commit": "7416eee939a5507006b183014389789a77032871",
+  "conclusion": "success",
+  "review_milestone_only": true,
+  "download_recommended": false,
+  "reason": "Backend review delivery; known maximum-accessibility task-HUD clipping is being repaired in the next UI cohort. Not final user handoff.",
+  "source_run_id": 41311226478,
+  "source_commit": "b45c705e5fde11a5c07bed590cc4a4643a24f1e4",
+  "source_tree_sha256": "f66a5e7923e4501e8ced127e8aa580b9cca16b2ed1d536ab64994ec12e46e918",
+  "release_id": 430349496,
+  "tag_name": "app-installer-public-review",
+  "draft": true,
+  "published_at": null,
+  "matching_review_release_count": 1,
+  "release_list_count": 1,
+  "assets_verified": {
+    "AppInstaller-candidate-manifest.json": {
+      "id": 698483557,
+      "bytes": 2207,
+      "sha256": "81056b0ced4c564e29b2055a19ee75c8f46f5cbedef21a1e947aa4f4c4d616f6",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-candidate-manifest.json"
+    },
+    "AppInstaller-corresponding-source.tar.xz": {
+      "id": 698483611,
+      "bytes": 154027172,
+      "sha256": "fcf0cdca31efc7a1c0f09c8d021b122a9d5380027cec6af8c1f23d78b0b4c75e",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-corresponding-source.tar.xz"
+    },
+    "AppInstaller-duo-candidate.ipa": {
+      "id": 698483811,
+      "bytes": 8474204,
+      "sha256": "c21a388362cc02328cef0fc03a1608596326f1d6a30327080e80fe8649582f52",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-duo-candidate.ipa"
+    },
+    "AppInstaller-iphone-candidate.ipa": {
+      "id": 698483871,
+      "bytes": 8474200,
+      "sha256": "5d323fba2a6758e30bde93dcf203a6ff76170556aeae39b64e8b469bd11ded39",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-iphone-candidate.ipa"
+    },
+    "AppInstaller-native-bootstrap-kit.json": {
+      "id": 698483924,
+      "bytes": 893,
+      "sha256": "a1f4b3d5a0036dd026f81f33ceb993bab02369050556d509ff70f8c4caa169a1",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-native-bootstrap-kit.json"
+    },
+    "AppInstaller-native-bootstrap-kit.zip": {
+      "id": 698483963,
+      "bytes": 44228257,
+      "sha256": "88e1aab0ca98a5e2187471d42dba7d047c2438703588898d201e01dd62483391",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-native-bootstrap-kit.zip"
+    },
+    "cloud-device-library-manifest.json": {
+      "id": 698484062,
+      "bytes": 1334,
+      "sha256": "2e98bd10ce64e7a494165412a18a59a90a01cd4e592632b245d5336d2695b03a",
+      "browser_download_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/cloud-device-library-manifest.json"
+    }
+  },
+  "observed_kit_browser_url": "https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-native-bootstrap-kit.zip",
+  "receipt_artifact": {
+    "id": 13086063611,
+    "bytes": 1141,
+    "sha256": "0641dcc7474d5c8d05a1a6d82e21cf5bf29e61798995f7be3a0ec878a69bffcd"
+  },
+  "contract_sha256": "7386faad9ce3d28037772a571cdbdb60ad106b1070c289a8f13e5257bd3bba96",
+  "raw_log": {
+    "file": "hosted-job.log",
+    "bytes": 30409,
+    "sha256": "0d163e57ebde2b0a767411ad3349600ee55f4038dba7358b71dc94f000e61698"
+  },
+  "verification_scope": "Actual successful supported Mac delivery workflow and independent read-only GitHub release/list metadata GET. Exact seven current server asset sizes/digests match reviewed contract. No new tests/builds, release mutations, local distribution moves or helper execution by this capture. Physical/Apple-account/install acceptance remains unverified.",
+  "release_ready": false,
+  "delivery_receipt_cross_bound_to_contract_and_server": true,
+  "actual_mac_signature_gate": "Mandatory supported Mac helper code-signature verification completed in successful delivery workflow; no signature execution or simulation by this read-only capture."
+}

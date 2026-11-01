@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "scope": "Two proof-selection integrity methods, actual retained public run data/Git object bytes; no Apple/phone/native/installation execution.",
+  "command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "app-installer/cloud-ui/tests",
+    "-p",
+    "test_pairing_proof_migration.py",
+    "-v"
+  ],
+  "passed": 2,
+  "failed": 0,
+  "test_seconds": 0.028,
+  "log_origin": "Copied verbatim from completed exec output chunk b9ecbd; no repeat invocation to capture the log.",
+  "log_sha256": "e23fc9c0a72d00564f8c317b049b92896ee834065c7840975174b058bc8767cd",
+  "source_hashes_at_recording": {
+    "app-installer/cloud-ui/pairing-public-proof.py": "0a6eed4f9a4a58dd1605f225aec5b435e225fffe4289eb536b45bf27e85304f2",
+    "app-installer/cloud-ui/run.sh": "29a2582635c3e7918286878f2aaff9cc6dc619493fe02419a3fc01b67de74f5b",
+    "app-installer/cloud-ui/prepare-hosted-simulator.py": "a95b30402e5f1e86aaec19067628b85325d6fea56a861c52644a3a738df1a222",
+    "app-installer/cloud-ui/tests/test_pairing_proof_migration.py": "3ee0d0b58a6e95c22a82f4d2d91f977c737c6fedb69af994a745abf80bdb91af"
+  },
+  "prepost_input_hash_claimed": false,
+  "original_actual_public_rust_proof_run": 41310143960,
+  "original_source_commit": "8e9b43ce29aeff18e2dbb21792f09e8b0b262dac",
+  "cases": [
+    "Only reviewed COMMON recipe drift accepts original actual Git blob bytes",
+    "Production core byte drift/missing inventory rejects",
+    "Wrong run/original recipe bytes rejects",
+    "Actual four-method native log cannot be relabelled as responsive-only one method"
+  ]
+}

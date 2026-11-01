@@ -309,6 +309,10 @@ static UIWindow *AIWaitForAppWindow(void) {
             XCTAssertEqual(navigation.viewControllers.count,1u);
             [self attachView:home.view name:[NSString stringWithFormat:@"TEST-ONLY resize/camera %@ %.0fx%.0f",home.fixtureRailSide,size.width,size.height]];
         }
+        NSString *fullTaskStatus=@"TEST-ONLY status for accessibility verification. No account, device connection, signing or installation is active. This intentionally long, nonsecret task description checks that every sentence remains readable at the largest system text size. The native details view must keep all of this text, rather than cutting off an unknown ending. Scroll to reach this final sentence: all task details are available.";
+        NSMutableDictionary *largeState=[fixture.stateOverrides mutableCopy];
+        largeState[@"statusMessage"]=fullTaskStatus;fixture.stateOverrides=largeState;
+        ((void (*)(id,SEL))objc_msgSend)(home,NSSelectorFromString(@"render"));
         [host setOverrideTraitCollection:[UITraitCollection traitCollectionWithPreferredContentSizeCategory:UIContentSizeCategoryAccessibilityExtraExtraExtraLarge] forChildViewController:navigation];
         navigation.view.frame=CGRectMake(0,0,466,678);home.fixtureRailSide=@"right";
         for(NSInteger pass=0;pass<3;++pass){[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];[home.view setNeedsLayout];[home.view layoutIfNeeded];AITick();}
@@ -318,7 +322,91 @@ static UIWindow *AIWaitForAppWindow(void) {
         UIScrollView *largeScroll=[home valueForKey:@"scroll"];
         XCTAssertGreaterThan(largeScroll.contentSize.height,largeScroll.bounds.size.height,@"Large-text fixture must exercise actual list scrolling.");
         assertPinnedCancel();
+        UILabel *preview=[home valueForKey:@"taskHUDStatus"];
+        XCTAssertEqualObjects(preview.text,fullTaskStatus,@"The preview retains the complete safe status for its explicit details action.");
+        XCTAssertEqual(preview.numberOfLines,2);
+        XCTAssertEqual(preview.lineBreakMode,NSLineBreakByTruncatingTail);
+        XCTAssertGreaterThan(preview.font.pointSize,15.0);
+        XCTAssertFalse(preview.superview.hidden,@"The outer-display maximum-text fixture must show the deliberate two-line preview.");
+        CGSize previewText=[preview sizeThatFits:CGSizeMake(preview.bounds.size.width,CGFLOAT_MAX)];
+        XCTAssertGreaterThanOrEqual(preview.bounds.size.height+1,previewText.height,@"The bounded preview must fit its laid-out lines instead of slicing glyphs.");
+        XCTAssertLessThanOrEqual(preview.bounds.size.height,ceil(preview.font.lineHeight)*2+2);
+        UIButton *detailsButton=[home valueForKey:@"taskHUDDetails"];
+        XCTAssertEqualObjects(detailsButton.accessibilityLabel,@"Task details");
+        CGRect detailsFrame=[detailsButton convertRect:detailsButton.bounds toView:home.view];
+        XCTAssertGreaterThanOrEqual(detailsFrame.size.width,44.0);XCTAssertGreaterThanOrEqual(detailsFrame.size.height,44.0);
+        CGPoint detailsPoint=CGPointMake(CGRectGetMidX(detailsFrame),CGRectGetMidY(detailsFrame));
+        UIView *detailsHit=[home.view hitTest:detailsPoint withEvent:nil];
+        XCTAssertTrue(detailsHit==detailsButton || [detailsHit isDescendantOfView:detailsButton]);
         [self attachView:home.view name:@"TEST-ONLY maximum accessibility text — pinned native task controls"];
+        [detailsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        NSDate *detailsDeadline=[NSDate dateWithTimeIntervalSinceNow:3];
+        UIViewController *presented=nil;
+        do {
+            AITick();
+            presented=home.presentedViewController ?: navigation.presentedViewController ?: host.presentedViewController;
+        } while ((!presented || presented.transitionCoordinator) && detailsDeadline.timeIntervalSinceNow>0);
+        XCTAssertTrue([presented isKindOfClass:UINavigationController.class],@"Task details must open the actual native presentation without invoking an account operation.");
+        if([presented isKindOfClass:UINavigationController.class]) {
+            UINavigationController *detailsNavigation=(id)presented;
+            UIViewController *details=detailsNavigation.topViewController;
+            [details.view layoutIfNeeded];AITick();
+            UITextView *full=(id)AIFindView(details.view,^BOOL(UIView *view){return[view isKindOfClass:UITextView.class]&&[view.accessibilityIdentifier isEqual:@"Full task status"];});
+            XCTAssertNotNil(full);
+            if(full) {
+                XCTAssertEqualObjects(full.text,fullTaskStatus);
+                XCTAssertFalse(full.editable);XCTAssertTrue(full.scrollEnabled);
+                XCTAssertGreaterThan(full.font.pointSize,17.0,@"Full details must keep the actual enlarged Dynamic Type font.");
+                XCTAssertGreaterThan(full.contentSize.height,full.bounds.size.height,@"The long safe fixture must exercise native details scrolling.");
+                [full scrollRangeToVisible:NSMakeRange(full.text.length-1,1)];
+                [full layoutIfNeeded];AITick();
+                XCTAssertGreaterThan(full.contentOffset.y,0.0);
+                UITextPosition *end=full.endOfDocument;
+                UITextRange *lastRange=[full textRangeFromPosition:[full positionFromPosition:end offset:-1] toPosition:end];
+                CGRect last=[full firstRectForRange:lastRange];
+                XCTAssertTrue(CGRectIntersectsRect(last,full.bounds),@"The last sentence must be reachable in the actual text viewport.");
+                XCTAssertTrue([full.text hasSuffix:@"all task details are available."]);
+                [self attachView:detailsNavigation.view name:@"TEST-ONLY maximum accessibility text — full task details final sentence"];
+            }
+            UIBarButtonItem *done=details.navigationItem.rightBarButtonItem;
+            XCTAssertNotNil(done);XCTAssertEqualObjects(done.accessibilityLabel,@"Done");
+            XCTAssertTrue([UIApplication.sharedApplication sendAction:done.action to:done.target from:done forEvent:nil]);
+            detailsDeadline=[NSDate dateWithTimeIntervalSinceNow:3];
+            do{AITick();}while((home.presentedViewController || navigation.presentedViewController || host.presentedViewController) && detailsDeadline.timeIntervalSinceNow>0);
+            XCTAssertNil(home.presentedViewController);XCTAssertNil(navigation.presentedViewController);XCTAssertNil(host.presentedViewController);
+        }
+        assertPinnedCancel();
+        XCTAssertEqual(navigation.viewControllers.count,1u,@"Reading task details must preserve the underlying navigation and task.");
+        XCTAssertEqualWithAccuracy([[home valueForKey:@"displayProgress"]doubleValue],0.42,0.001);
+        // A genuinely laid-out short, large-text viewport must still show native
+        // activity when the current task has no numeric progress or text preview.
+        NSDictionary *numericState=fixture.stateOverrides;
+        NSMutableDictionary *indeterminate=[numericState mutableCopy];
+        indeterminate[@"activeOperationId"]=@43;
+        indeterminate[@"statusMessage"]=@"TEST-ONLY waiting for progress; no account operation is active.";
+        fixture.stateOverrides=indeterminate;
+        navigation.view.frame=CGRectMake(0,0,466,400);
+        ((void (*)(id,SEL,id))objc_msgSend)(home,NSSelectorFromString(@"handleEvent:"),@{@"type":@"preparing",@"operationId":@43});
+        for(NSInteger pass=0;pass<3;++pass){[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];[home.view setNeedsLayout];[home.view layoutIfNeeded];AITick();}
+        XCTAssertNil([home valueForKey:@"displayProgress"]);
+        XCTAssertTrue(((UIView *)[home valueForKey:@"taskHUDStatusRow"]).hidden);
+        UIActivityIndicatorView *activity=[home valueForKey:@"taskHUDCompactSpinner"];
+        UIView *compactHUD=[home valueForKey:@"taskHUD"];
+        XCTAssertTrue(activity.isAnimating);XCTAssertFalse(activity.hidden);XCTAssertFalse(activity.superview.hidden);XCTAssertFalse(compactHUD.hidden);
+        XCTAssertGreaterThan(activity.bounds.size.height,0.0);
+        CGRect activityFrame=[activity convertRect:activity.bounds toView:compactHUD];
+        XCTAssertTrue(CGRectContainsRect(CGRectInset(compactHUD.bounds,-1,-1),activityFrame),@"The compact indeterminate spinner must actually be visible inside the pinned HUD.");
+        UIButton *compactCancel=[home valueForKey:@"taskHUDCancel"];
+        CGRect cancelFrame=[compactCancel convertRect:compactCancel.bounds toView:home.view];
+        XCTAssertGreaterThanOrEqual(cancelFrame.size.width,44.0);XCTAssertGreaterThanOrEqual(cancelFrame.size.height,44.0);
+        CGPoint cancelPoint=CGPointMake(CGRectGetMidX(cancelFrame),CGRectGetMidY(cancelFrame));
+        UIView *cancelHit=[home.view hitTest:cancelPoint withEvent:nil];
+        XCTAssertTrue(cancelHit==compactCancel || [cancelHit isDescendantOfView:compactCancel]);
+        [self attachView:home.view name:@"TEST-ONLY compact maximum accessibility — indeterminate native task activity"];
+        fixture.stateOverrides=numericState;navigation.view.frame=CGRectMake(0,0,466,678);
+        ((void (*)(id,SEL,id))objc_msgSend)(home,NSSelectorFromString(@"handleEvent:"),@{@"type":@"progress",@"operationId":@42,@"progress":@0.42});
+        for(NSInteger pass=0;pass<3;++pass){[navigation.view setNeedsLayout];[navigation.view layoutIfNeeded];[home.view setNeedsLayout];[home.view layoutIfNeeded];AITick();}
+        assertPinnedCancel();
         [host setOverrideTraitCollection:nil forChildViewController:navigation];
         UIBarButtonItem *settings=home.navigationItem.rightBarButtonItem;
         [UIApplication.sharedApplication sendAction:settings.action to:settings.target from:settings forEvent:nil];

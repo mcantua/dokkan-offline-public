@@ -1,20 +1,20 @@
 # Verified public App Installer delivery
 
-October 31, 2026, 11:15 PM US Central. Source **f941208e77ed37405cd9fbb109e87ed56f81fb45**. Cloud build41270305394 and hosted Mac verification/delivery41271081854 succeeded. Corrected draft reuse then passed41271986054 with the same release430349496 and all seven asset IDs unchanged; only one review draft remains. All seven final server sizes/SHA-256 values match the reviewed contract. This is an unsigned review candidate, **release_ready=false**; real Apple/phone/Duo acceptance is pending.
+November 1, 2026. **Backend review milestone verified; download recommendation is on hold while the accessibility HUD correction is completed.** Current sourceb45c705e5fde11a5c07bed590cc4a4643a24f1e4/package41311226478 and actual Mac signature/delivery41313262648 passed. The sole unpublished draft remains430349496 with exactly7verified assets. This is unsigned/release_ready=false, and physical/account acceptance is unverified. Do not download another intermediate kit merely to follow this milestone; the next UI-matched receipt will replace these pins.
 
-Download only [AppInstaller-native-bootstrap-kit.zip](https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-c42bba3ea7070303b8ec/AppInstaller-native-bootstrap-kit.zip) for the next Mac step. Sign into GitHub as the repository owner to access the unpublished draft; if the direct link is unavailable, open the repository's Releases page and its **App Installer — unsigned public review** draft. Do not publish it or use an old kit as a workaround.
+The current held review asset is [AppInstaller-native-bootstrap-kit.zip](https://github.com/mcantua/dokkan-offline-public/releases/download/untagged-f4b1f7a670a05abfa6b5/AppInstaller-native-bootstrap-kit.zip) ; wait for the UI-matched update before the next Mac step. Sign into GitHub as the repository owner to access the unpublished draft; if the direct link is unavailable, open the repository's Releases page and its **App Installer — unsigned public review** draft. Do not publish it or use an old kit as a workaround.
 
-- Exact ZIP bytes: **44149993** (44.1 MB decimal).
-- SHA-256: `b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661`.
-- Source revision: `f941208e77ed37405cd9fbb109e87ed56f81fb45`.
+- Exact ZIP bytes: **44228257** (44.2 MB decimal).
+- SHA-256: `88e1aab0ca98a5e2187471d42dba7d047c2438703588898d201e01dd62483391`.
+- Source revision: `b45c705e5fde11a5c07bed590cc4a4643a24f1e4`.
 - Native static library and universal arm64/x86_64 pairing helper are already built in the cloud; no Mac Rust build or full repository/source download is needed.
 - All seven source/IPA/kit/receipt pins: `app-installer/cloud-ui/public-delivery-contract.json`.
-- Actual hosted receipt and independent final server readback: `downloads/completion-verification/public-pairing/resume-20261101/run41271986054-delivery/`.
+- Actual hosted receipt and independent final server readback: `downloads/completion-verification/public-pairing/resume-20261101/run41313262648-delivery/`.
 - Sole current cloud-local distribution: `app-installer/build/work/latest-reviewed/` (ignored). Outer artifact ZIP duplicates were removed after delivery verification.
 
 ## Advance notice before personal use
 
-The download uses44.1MB plus ordinary HTTPS overhead through the Mac's selected connection. This chat cannot see whether that connection is Wi-Fi or a cellular hotspot. Use the intended connection before downloading. Downloading/overlaying the kit alone does not sign in to Apple or install to the phone. No personal Mac/network operation was performed by the cloud session.
+The download uses44.2MB plus ordinary HTTPS overhead through the Mac's selected connection. This chat cannot see whether that connection is Wi-Fi or a cellular hotspot. Use the intended connection before downloading. Downloading/overlaying the kit alone does not sign in to Apple or install to the phone. No personal Mac/network operation was performed by the cloud session.
 
 The local overlay below uses only the selected ZIP, the new `AI-Workspace/dokkan-offline-public` folder and macOS signature verification. It initiates no dependency download, Apple account operation or phone install; OS background traffic is not controlled. Earlier scoped setup approval persists. Large Xcode installation or account/certificate changes retain separate approval.
 
@@ -26,9 +26,9 @@ Keep the ZIP unopened until this verification. Paste the following into Terminal
 /usr/bin/python3 - <<'UPDATE_PUBLIC_KIT'
 from pathlib import Path
 import hashlib, io, subprocess, unicodedata, zipfile
-size = 44149993
-sha = 'b3c190cdb04e7ae73a4b67ec6e5b8c7c0b0bdb4e83be1150389eb5ca39a27661'
-source = 'f941208e77ed37405cd9fbb109e87ed56f81fb45'
+size = 44228257
+sha = '88e1aab0ca98a5e2187471d42dba7d047c2438703588898d201e01dd62483391'
+source = 'b45c705e5fde11a5c07bed590cc4a4643a24f1e4'
 try:
     selected = subprocess.check_output(['/usr/bin/osascript', '-e', 'POSIX path of (choose file with prompt "Choose the NEW public AppInstaller native kit ZIP")'], text=True).strip()
 except subprocess.CalledProcessError:
@@ -36,7 +36,9 @@ except subprocess.CalledProcessError:
 kit = Path(selected)
 if any(unicodedata.normalize('NFC', p).casefold() in {'claude-chatg', 'claude-chatgpt'} for p in kit.parts):
     raise SystemExit('Choose the new download outside the frozen backup; no update performed.')
-if kit.is_symlink() or kit.stat().st_size != size:
+if not kit.is_absolute() or '..' in kit.parts or any(part.is_symlink() for part in (kit, *kit.parents)):
+    raise SystemExit('Choose a regular ZIP outside linked/frozen folders; no update performed.')
+if not kit.is_file() or kit.stat().st_size != size:
     raise SystemExit('This is not the reviewed ZIP; no update performed.')
 blob = kit.read_bytes()
 if len(blob) != size or hashlib.sha256(blob).hexdigest() != sha:
@@ -56,7 +58,11 @@ The printed result is enough; never paste pairing records, passwords, codes, raw
 
 ## Included fixes
 
-This revision adds the actual **Pair only** launcher choice, stops incompatible kit/device variants before account discovery, rejects missing discovery metadata before replacing saved pairing, and streams large AFC uploads through a bounded buffer. Targeted setup2/uploader2 and hosted core4/native3 passed. Unchanged vendor8/helper2 were reused. The native component run used SDK27.1 with regular simulator iOS27.0; no physical Duo result is claimed.
+This backend revision adds bounded resource signing, cooperative resource/executable/verifier cancellation, a declared128MiB executable/4MiB signature budget, durable source-directory promotion and direct native five-minute lease checks/installation monitoring. Hosted41310143960 passed core4/native4, with only affected methods selected; signer regressions and independently bound source/licence/kit checks also passed. Package41311226478 reused matching checks and ran0fresh tests. The native component run used SDK27.1 with regular simulator iOS27.0, not physical Duo.
+
+**Known UI correction in progress:** maximum text exposed a sliced HUD status line. The next revision uses a bounded explicit preview plus native scrolling Task details, retaining progress/Cancel. Do not treat this held backend candidate as the completed UI update.
+
+**Documentation correction:** the b45embedded continuation predates discovery of one supplementary reviewer's wrong inherited path. It incorrectly states that no frozen-checkout read occurred. Read-only source/documentation/file-history access was disclosed; no writes were reported, those findings were excluded and actual public-source evidence was rechecked. App changes/builds derive only from public source. Current STATUS/continuation and `review-boundary-incident.json` are the erratum; the frozen checkout was not reopened for an audit.
 
 ## Then update and pair
 

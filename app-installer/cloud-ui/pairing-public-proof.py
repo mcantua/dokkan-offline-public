@@ -56,7 +56,9 @@ RUST = {
         'engine::tests::recovery_failed_first_install_keeps_latest_input_after_empty_lookup_and_restart',
         'engine::tests::recovery_refresh_continues_local_failures_but_stops_auth_cancel_or_uncertain_install']},
 }
-NATIVE = ['PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads']
+NATIVE = (['AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture']
+          if os.environ.get('AI_NATIVE_TEST_SCOPE') == 'responsive' else
+          ['PairingDocumentReadTests testCoordinatedPairingDocumentAcceptsMaterializedBytesAndRejectsUnsafeReads'])
 if os.environ.get('AI_NATIVE_TEST_SCOPE') == 'pairing-public':
     NATIVE.append('PairingConnectionGuardTests testPinnedFormatAndDiscoveryMetadataRejectMixedOrUnpinnedInputs')
     NATIVE.append('AppInstallerCloudUITests test02ResponsiveMainUsesLabelledTestOnlyFixture')
@@ -152,7 +154,7 @@ def finish(group):
                          'helper': 'Only two explicit helper argument/private-file methods; no USB or account action.',
                          'transport': 'Only two production PSK/tunnel/teardown methods with synthetic peers and cloud loopback; no external service or phone.',
                          'recovery': 'Only two production install-source/refresh recovery methods; synthetic service boundaries, no account or phone.',
-                         'native': 'Only selected nonsecret Files/schema, labelled responsive geometry and explicit expired-authorization/cancellation fixtures; no actual five-minute lease, successful authentication, real provider, Keychain account, phone pairing or physical Duo proof.'}[group])
+                         'native': 'Only selected nonsecret Files/schema, labelled responsive/status-details geometry or explicit expired-authorization/cancellation fixtures; no actual five-minute lease, successful authentication, real provider, Keychain account, phone pairing or physical Duo proof.'}[group])
     (PROOF / (group + '.json')).write_text(json.dumps(record, indent=2) + '\n')
     print(f'Recorded {group}: {count} new public checks passed; exact pre/post source and raw logs saved.')
 
@@ -167,10 +169,12 @@ def compare_inputs(record, group, current):
     if previous == current: return []
     # Reviewed harness-only migrations. Every production input still has to
     # match exactly; native results never inherit these Rust exceptions.
+    #41310143960 is the last affected Rust run; subsequent responsive-only
+    # recipe selection changes must not repeat its unchanged core checks.
     approved = {'vendor': (40916969403, '24f2809c3001c474d0ea885afc1aef00aa388fd0'),
                 'helper': (40916969403, '24f2809c3001c474d0ea885afc1aef00aa388fd0'),
-                'transport': (40926780346, '80f5e35efbefc7299fe1fd20b4e00b7a86a968ca'),
-                'recovery': (40926780346, '80f5e35efbefc7299fe1fd20b4e00b7a86a968ca')}
+                'transport': (41310143960, '8e9b43ce29aeff18e2dbb21792f09e8b0b262dac'),
+                'recovery': (41310143960, '8e9b43ce29aeff18e2dbb21792f09e8b0b262dac')}
     require(group in approved and (record.get('run_id'), record.get('source_commit')) == approved[group],
             'Source changes require new affected checks')
     require(isinstance(previous, dict) and set(previous) == set(current), 'Proof input inventory changed')

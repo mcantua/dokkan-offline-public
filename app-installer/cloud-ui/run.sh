@@ -49,13 +49,13 @@ report={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=
  'pairing_public_new_test_counts':{'vendor':8,'helper':2,'transport':2,'recovery':2,'native':4 if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 1},
  'native_checks_requested':__import__('os').environ.get('AI_RUN_NATIVE_CHECKS','1')=='1',
  'native_test_scope':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE','all'),
- 'display_inventory_preflight_executed':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE')!='pairing-public',
+ 'display_inventory_preflight_executed':__import__('os').environ.get('AI_NATIVE_TEST_SCOPE') not in ('pairing-public','responsive'),
  'rust_test_scope':__import__('os').environ.get('AI_RUST_TEST_SCOPE','all'),
  'workflow_role':__import__('os').environ.get('AI_WORKFLOW_ROLE','single'),
  'native_gate_requires_same_run_sibling':__import__('os').environ.get('AI_PARALLEL_NATIVE_WORKFLOW')=='1',
  'native_pass_claimed_by_package_job':False,
  'physical_hardware_verified':False,
- 'pose_automation':('No undocumented fold CLI invoked; optional simctl metadata intentionally not queried for component checks.' if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE')=='pairing-public' else 'No undocumented fold CLI invoked; bounded installed simctl help captured for supported-control discovery.')}
+ 'pose_automation':('No undocumented fold CLI invoked; optional simctl metadata intentionally not queried for component checks.' if __import__('os').environ.get('AI_NATIVE_TEST_SCOPE') in ('pairing-public','responsive') else 'No undocumented fold CLI invoked; bounded installed simctl help captured for supported-control discovery.')}
 (out/'source-report.json').write_text(json.dumps(report,indent=2)+'\n')
 PY
 # Create and own exactly one disposable simulator; never boot/delete a pre-existing device.
@@ -156,7 +156,7 @@ if [[ "${AI_PACKAGE_DEVICE_CANDIDATES:-0}" == 1 ]]; then
 fi
 }
 if [[ -n "${AI_REUSE_PAIRING_NATIVE_RUN:-}" ]]; then
-  [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]] || { echo 'Native public proof requires its exact scope.' >&2; exit 2; }
+  [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public || "${AI_NATIVE_TEST_SCOPE:-all}" == responsive ]] || { echo 'Native public proof requires its exact scope.' >&2; exit 2; }
   python3 "$cloud/pairing-public-proof.py" reuse --group native --run-id "$AI_REUSE_PAIRING_NATIVE_RUN"
   native_reused=1
 fi
@@ -167,13 +167,13 @@ if [[ "${AI_RUN_NATIVE_CHECKS:-1}" != 1 || "$native_reused" == 1 ]]; then
   package_candidates
   exit "$package_failed"
 fi
-if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public || "${AI_NATIVE_TEST_SCOPE:-all}" == responsive ]]; then
   python3 "$cloud/pairing-public-proof.py" snapshot --group native
 fi
 # Any simulator fallback happens before our application is built or installed.
 owned_simulator="$(python3 "$cloud/prepare-hosted-simulator.py" --evidence "$work/evidence")"
 [[ "$owned_simulator" =~ ^[0-9A-Fa-f-]{36}$ ]] || { echo 'No valid owned simulator UUID' >&2; exit 1; }
-if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public || "${AI_NATIVE_TEST_SCOPE:-all}" == responsive ]]; then
   printf '%s\n' 'Not queried: optional simctl help metadata is not required by the selected checks; Xcode manages test-host startup.' > "$work/evidence/simctl-help.txt"
   printf '%s\n' 'Not queried: optional simctl io-help metadata is not required by the selected checks.' > "$work/evidence/simctl-io-help.txt"
   printf '%s\n' 'Not queried: display enumeration is not required by the selected component/labelled geometry-fixture checks. No default display or Duo physical claim.' > "$work/evidence/default-display-enumeration.txt"
@@ -217,7 +217,7 @@ xcodebuild build-for-testing -project "$work/AppInstallerCloudSmoke.xcodeproj" -
   2>&1 | tee "$work/evidence/xcodebuild-build.log"
 # Component scope lets supported Xcode testing install/launch its test host.
 # The selected actual XCTest passes, not a pre-app shell heuristic, establish success.
-if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public || "${AI_NATIVE_TEST_SCOPE:-all}" == responsive ]]; then
   printf '%s\n' 'No manual production launch/screenshot: Xcode-managed component test host only.' > "$work/evidence/production-launch.txt"
 else
   python3 - "$owned_simulator" "$work" <<'PYLAUNCH'
@@ -246,7 +246,7 @@ xcodebuild test-without-building -project "$work/AppInstallerCloudSmoke.xcodepro
   -derivedDataPath "$work/DerivedData" -resultBundlePath "$work/evidence/CloudUISmoke.xcresult" \
   CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- "${native_test_args[@]}" 2>&1 | tee "$work/evidence/xcodebuild.log"
 
-if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public ]]; then
+if [[ "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-document || "${AI_NATIVE_TEST_SCOPE:-all}" == pairing-public || "${AI_NATIVE_TEST_SCOPE:-all}" == responsive ]]; then
   cp "$work/evidence/xcodebuild.log" "$work/evidence/pairing-proof/native.log"
   python3 "$cloud/pairing-public-proof.py" finish --group native
   python3 - "$work/evidence/source-report.json" <<'PYRESULT'
