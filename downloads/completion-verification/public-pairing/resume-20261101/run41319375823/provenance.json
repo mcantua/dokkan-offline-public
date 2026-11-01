@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "repository": "mcantua/dokkan-offline-public",
+  "run_id": 41319375823,
+  "job_id": 124886140053,
+  "source_commit": "f26de5bc6551e4f9a4a7e8dcec091d40d44a9f3d",
+  "conclusion": "failure",
+  "test_build_succeeded": true,
+  "selected_native_method": "AppInstallerCloudUITests/test02ResponsiveMainUsesLabelledTestOnlyFixture",
+  "native_methods_executed": 1,
+  "native_methods_passed": 0,
+  "native_failure_count": 1,
+  "native_unexpected_exception_count": 1,
+  "native_test_seconds": 5.102,
+  "actual_failure": {
+    "line": 323,
+    "exception": "NSInternalInconsistencyException",
+    "message": "Can't return value for trait PreferredContentSizeCategory that has no override"
+  },
+  "failure_scope": "Test harness unconditionally read an unset window.traitOverrides preferredContentSizeCategory. Later maximum-text modal and compact-spinner checks were not reached; this is not a startup/compiler failure or a passing UI result.",
+  "native_success_receipt_present": false,
+  "reused_checks": {
+    "vendor": 8,
+    "helper": 2,
+    "transport": 2,
+    "recovery": 2
+  },
+  "compiler_sdk": "27.1",
+  "xcode": "Xcode 27.1\nBuild version 27A9275",
+  "actual_runtime": "27.0",
+  "actual_simulator": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro-Max",
+  "physical_hardware_verified": false,
+  "artifacts": [
+    {
+      "kind": "compact-proof",
+      "id": 13089445599,
+      "bytes": 11503,
+      "sha256": "e048f489ab1902e8a726b9fd2f0e19d7a42c751731f05bce9e42333c9ff631e6"
+    },
+    {
+      "kind": "native-diagnostics",
+      "id": 13089455670,
+      "bytes": 41453049,
+      "sha256": "33e8c6c9592d369714bffe30b61290dfbeb752691731d11d27c05fbc0d0d0019"
+    }
+  ],
+  "outer_pins_verified": true,
+  "native_artifact_retained": "native-artifact.zip",
+  "full_xcresult_extracted": false,
+  "png_attachment_count": 7,
+  "all_reached_original_png_payloads_bound": true,
+  "attachments": [
+    {
+      "attachment_name": "TEST-ONLY resize/camera  390x844",
+      "payload_ref": "0~CgySK-i2qkCddAbVVwIF9tpZHjwhzPdNnoAiZiVN8sfTXROqKSjWk2HIklPI6nm6Ufuq8iZZqQy8WjpdT7K9Lw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~CgySK-i2qkCddAbVVwIF9tpZHjwhzPdNnoAiZiVN8sfTXROqKSjWk2HIklPI6nm6Ufuq8iZZqQy8WjpdT7K9Lw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1204617,
+      "sha256": "5d8acc696307d423c386dc4d106955909ad9849d3b545aece10d607632a2fcac",
+      "pixel_dimensions": [
+        1170,
+        2532
+      ],
+      "extracted_file": "screenshots/01-TEST-ONLY-resize-camera-390x844-5d8acc696307.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 466x678",
+      "payload_ref": "0~XiQSlFpQHzAiC-lPXHrMBnSnTeiuwcVKyqe-8pyXJ3jOoKKyD0P6TJCOzyJCu-x-cOewe8_7NeTBae8z5BHd3Q==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~XiQSlFpQHzAiC-lPXHrMBnSnTeiuwcVKyqe-8pyXJ3jOoKKyD0P6TJCOzyJCu-x-cOewe8_7NeTBae8z5BHd3Q==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1205473,
+      "sha256": "3d062437d112e2254cc9e04b5b54143a6d04f5ec227a2e6cc754bcc37c681726",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/02-TEST-ONLY-resize-camera-right-466x678-3d062437d112.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera right 669x951",
+      "payload_ref": "0~IjaMxRhedUmVh177cxyJ6xshuyiz428IWbFJrXK9tcQDbvvmnjHp-2XxbHZjE9TIYi5qzNawJDlDMinemwBxEQ==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~IjaMxRhedUmVh177cxyJ6xshuyiz428IWbFJrXK9tcQDbvvmnjHp-2XxbHZjE9TIYi5qzNawJDlDMinemwBxEQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1337886,
+      "sha256": "971059b58f9c74b69f619db7b16f3d1afbb45f48952c174c8654eb71b5bce5c3",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/03-TEST-ONLY-resize-camera-right-669x951-971059b58f9c.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~XDXxYJu740P_i8DRyx2TQo0NQFYmciYS876jYK-CjdbNiwzMfm92KWnY1cdiyvSy-2OGioTFXTY6fw2L3P-jYg==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~XDXxYJu740P_i8DRyx2TQo0NQFYmciYS876jYK-CjdbNiwzMfm92KWnY1cdiyvSy-2OGioTFXTY6fw2L3P-jYg==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1440156,
+      "sha256": "894c4cc50e64b16d8a46cbbb8cdb647e90533a09fab549ec29409d79e8a98e4a",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/04-TEST-ONLY-resize-camera-669x951-894c4cc50e64.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  951x669",
+      "payload_ref": "0~cNOqUbMVi3innRPeWA7TBi6sCLB_7D7HnV0BxLDWj50yWQAYjUhltcCeSqLQp8lBQIcpgvS3vIeBR6nlA-Jnmw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~cNOqUbMVi3innRPeWA7TBi6sCLB_7D7HnV0BxLDWj50yWQAYjUhltcCeSqLQp8lBQIcpgvS3vIeBR6nlA-Jnmw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1608569,
+      "sha256": "d69ae5c1b0d62210244981d2685e13cf754a86f9ade5f858ba2a81a47f658ddc",
+      "pixel_dimensions": [
+        2853,
+        2007
+      ],
+      "extracted_file": "screenshots/05-TEST-ONLY-resize-camera-951x669-d69ae5c1b0d6.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera left 466x678",
+      "payload_ref": "0~bZQpWEDD1T__PIZ95eiVroWtg-dWJ96PuDlzXVikLlgsgIN--Nc3bAA8HrJxHJEL6Ajx4xxh1bc6_mvrnt2oQQ==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~bZQpWEDD1T__PIZ95eiVroWtg-dWJ96PuDlzXVikLlgsgIN--Nc3bAA8HrJxHJEL6Ajx4xxh1bc6_mvrnt2oQQ==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1122225,
+      "sha256": "a3911a4d212459a51c64d394df1b40b1b8daf06f0b9682804e9240aa133a91ce",
+      "pixel_dimensions": [
+        1398,
+        2034
+      ],
+      "extracted_file": "screenshots/06-TEST-ONLY-resize-camera-left-466x678-a3911a4d2124.png",
+      "original_bytes_unmodified": true
+    },
+    {
+      "attachment_name": "TEST-ONLY resize/camera  669x951",
+      "payload_ref": "0~wZvVDGbRp7UVnK5EtnxwQ-9SjoFRIL5cKiz1hJzvfpoJ9EFMbpYZeOCCi0Jocy8qwJ7jgdkI5q_n1gZ4WQA-kw==",
+      "native_zip_member": "CloudUISmoke.xcresult/Data/data.0~wZvVDGbRp7UVnK5EtnxwQ-9SjoFRIL5cKiz1hJzvfpoJ9EFMbpYZeOCCi0Jocy8qwJ7jgdkI5q_n1gZ4WQA-kw==",
+      "metadata_zip_member": "CloudUISmoke.xcresult/Data/data.0~HEyzWXv2U5ea2HSOVj0ABRYN_TaXmY2MI3R1uVKN9UTAW71fYl-vfBy4YTza01sg8sFV1ebFQ2_RDJkrTGVpUA==",
+      "metadata_member_sha256": "6f83c20b50702044fbb083d84d5b8dc0c23e1ddc0491f08668c7221519b0276d",
+      "bytes": 1440302,
+      "sha256": "a184b74fe9c56cf275f69f842a5c014bfa17da49e5421271719890972784d150",
+      "pixel_dimensions": [
+        2007,
+        2853
+      ],
+      "extracted_file": "screenshots/07-TEST-ONLY-resize-camera-669x951-a184b74fe9c5.png",
+      "original_bytes_unmodified": true
+    }
+  ],
+  "bounded_zstd_members_skipped": [
+    "CloudUISmoke.xcresult/Data/data.0~5RI04w2uWepsq6D0LhQg9zj0sipgcD8Bj8_IxQDjLtr5I2g4Yr2EiPbtQPMxOFLkXI0qairDxjxgNZGOyWXsuQ=="
+  ],
+  "image_scope": "Reached original UIKit fixture attachments only, copied byte-for-byte. Failed harness run, no maximum-text/TaskDetails/compact proof or physical-Duo claims.",
+  "raw_job_log": {
+    "file": "hosted-job.log",
+    "bytes": 417547,
+    "sha256": "950a664074effe99864f5568a5816a05dcd0eac1264e646a70515d7557f07d42"
+  },
+  "local_tests_builds_or_native_execution": false,
+  "source_edits_or_redispatch": false,
+  "old_artifacts_or_distribution_deleted": false
+}

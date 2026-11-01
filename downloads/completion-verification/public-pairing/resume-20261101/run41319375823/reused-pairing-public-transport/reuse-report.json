@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "reused": true,
+  "new_test_execution": false,
+  "repository": "mcantua/dokkan-offline-public",
+  "original_run_id": 41310143960,
+  "original_source_commit": "8e9b43ce29aeff18e2dbb21792f09e8b0b262dac",
+  "current_source_commit": "f26de5bc6551e4f9a4a7e8dcec091d40d44a9f3d",
+  "group": "transport",
+  "passed": 2,
+  "failed": 0,
+  "input_bytes_match_current": false,
+  "production_input_bytes_match_current": true,
+  "reviewed_harness_changes": [
+    {
+      "path": "app-installer/cloud-ui/pairing-public-proof.py",
+      "original_sha256": "acf6c90cd9c494b8623c1bd35704c61a2b212e19e640c8103d5abc198528943e",
+      "current_sha256": "0a6eed4f9a4a58dd1605f225aec5b435e225fffe4289eb536b45bf27e85304f2"
+    },
+    {
+      "path": "app-installer/cloud-ui/run.sh",
+      "original_sha256": "e145218f12e0a30b5dc3a01d91f740a25ba11ab4cabbd11d4f9319e6900029e6",
+      "current_sha256": "29a2582635c3e7918286878f2aaff9cc6dc619493fe02419a3fc01b67de74f5b"
+    }
+  ],
+  "original_context": {
+    "os": "darwin",
+    "architecture": "arm64",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "xcode": "Xcode 27.1\nBuild version 27A9275",
+    "macos_sdk": "27.0",
+    "simulator_sdk": "27.1"
+  },
+  "scope": "Only two production PSK/tunnel/teardown methods with synthetic peers and cloud loopback; no external service or phone."
+}
