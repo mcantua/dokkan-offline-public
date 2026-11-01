@@ -1,6 +1,6 @@
 # IPA capability support and actual limits
 
-This matrix describes implemented signing/provisioning logic, not a claim that an arbitrary re-signed commercial app works. No Apple account or phone operation has been run. A supported entitlement must be present with compatible values in the **actual profile returned by the selected team's authenticated Apple session**, and the signed output must pass the independent verifier. Free/paid availability is decided by Apple, never inferred from an allowlist or bypassed.
+This matrix describes implemented signing/provisioning logic, not a claim that an arbitrary re-signed commercial app works. Cloud checks do not establish a real Apple-account or phone result for this revision. A supported entitlement must be present with compatible values in the **actual profile returned by the selected team's authenticated Apple session**, and the signed output must pass the independent verifier. Free/paid availability is decided by Apple, never inferred from an allowlist or bypassed.
 
 The signer emits required, reconciled grants only; it does not copy every profile privilege or silently remove unavailable features. Unknown entitlement keys with legal bounded plist structures are eligible when the real profile explicitly grants them. Missing/mismatched grants stop signing with a fixed explanation.
 
